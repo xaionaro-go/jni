@@ -1,4 +1,4 @@
-.PHONY: generate specs jni java clean lint test test-tools build prove examples
+.PHONY: generate specs jni java clean lint test test-tools build prove examples aar-resolve
 
 # JDK detection for host tests (jni.h and libjvm.so).
 JDK_HOME ?= $(shell readlink -f $$(which javac) 2>/dev/null | sed 's|/bin/javac$$||')
@@ -47,6 +47,20 @@ test:
 # Run only tool tests (no JDK needed)
 test-tools:
 	go test ./tools/...
+
+# Resolve the Material 3 AAR/JAR closure (Cycle 2 of material3-widget-bindings).
+# Top-level coordinates: appcompat 1.7.0 + material 1.12.0 + recyclerview 1.3.2
+# + constraintlayout 2.1.4. Output: .aar-cache/lock.json plus a SHA-256 verified
+# cache under .aar-cache/.
+aar-resolve:
+	go run ./tools/cmd/aar-resolve \
+		--top androidx.appcompat:appcompat:1.7.0 \
+		--top com.google.android.material:material:1.12.0 \
+		--top androidx.recyclerview:recyclerview:1.3.2 \
+		--top androidx.constraintlayout:constraintlayout:2.1.4 \
+		--cache .aar-cache \
+		--lock .aar-cache/lock.json \
+		--max-concurrency 8
 
 # Verify Lean proofs (requires elan/lake)
 prove:
