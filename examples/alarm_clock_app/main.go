@@ -1,17 +1,17 @@
 //go:build android
 
-// Command alarm_clock_app is a Material 3 alarm clock app rendered as a real
-// Material 3 widget tree. The list of alarms is persisted in
-// SharedPreferences, sorted by trigger date, and each entry is scheduled as
-// an exact alarm clock via AlarmManager.setAlarmClock — the same surface
-// used by the system Clock app.
+// Command alarm_clock_app is a Material 3 alarm clock demo built on a real
+// Material widget tree: a MaterialToolbar header, a RecyclerView of
+// MaterialCardView rows (each with a label TextView, a MaterialSwitch and
+// MaterialButton edit/delete buttons), and a FloatingActionButton for the
+// "add alarm" action. The RecyclerView.Adapter is a Go-side implementation
+// dispatched through the cycle-7 generated abstract-adapter shim.
 //
-// The whole UI is constructed from Go via the existing JNI bindings: a
-// vertical LinearLayout root with a title TextView, a ScrollView wrapping
-// per-alarm rows (time + label + Switch + Edit + Delete), and a "+ Add
-// alarm" Button at the bottom. Edit and Add open a Material 3
-// TimePickerDialog whose OnTimeSetListener is a Go closure registered via
-// env.NewProxy.
+// Persistence: alarms live in SharedPreferences, sorted by trigger date and
+// scheduled via AlarmManager.setAlarmClock — the same surface used by the
+// system Clock app. Editing opens the legacy app.TimePickerDialog because
+// MaterialTimePicker requires a FragmentManager that NativeActivity does
+// not expose.
 package main
 
 /*
@@ -19,8 +19,8 @@ package main
 #include <android/log.h>
 #include <stdlib.h>
 extern void goOnResume(ANativeActivity*);
-static void _onResume(ANativeActivity* a) { goOnResume(a); }
-static void _setCallbacks(ANativeActivity* a) { a->callbacks->onResume = _onResume; }
+static void _onResume(ANativeActivity* a) { a->callbacks->onResume = goOnResume; }
+static void _setCallbacks(ANativeActivity* a) { _onResume(a); }
 static uintptr_t _getVM(ANativeActivity* a) { return (uintptr_t)a->vm; }
 static uintptr_t _getClazz(ANativeActivity* a) { return (uintptr_t)a->clazz; }
 static void _logcat(const char* tag, const char* msg) {
@@ -42,9 +42,18 @@ import (
 	"github.com/AndroidGoLab/jni/app"
 	"github.com/AndroidGoLab/jni/app/alarm"
 	app_consts "github.com/AndroidGoLab/jni/app/consts"
+	appcompat_widget "github.com/AndroidGoLab/jni/androidx/appcompat/widget"
+	rvwidget "github.com/AndroidGoLab/jni/androidx/recyclerview/widget"
+	rv_consts "github.com/AndroidGoLab/jni/androidx/recyclerview/widget/consts"
+	"github.com/AndroidGoLab/jni/com/google/android/material/appbar"
+	"github.com/AndroidGoLab/jni/com/google/android/material/button"
+	"github.com/AndroidGoLab/jni/com/google/android/material/card"
+	"github.com/AndroidGoLab/jni/com/google/android/material/floatingactionbutton"
+	"github.com/AndroidGoLab/jni/com/google/android/material/materialswitch"
 	"github.com/AndroidGoLab/jni/content/preferences"
 	"github.com/AndroidGoLab/jni/view/display"
 	"github.com/AndroidGoLab/jni/widget"
+	widget_consts "github.com/AndroidGoLab/jni/widget/consts"
 )
 
 const (
@@ -53,18 +62,21 @@ const (
 
 	logTag = "GoJNI"
 
-	// LinearLayout.LayoutParams sentinels.
-	matchParent  = int32(-1)
-	wrapContent  = int32(-2)
-	orientationV = int32(1) // LinearLayout.VERTICAL
-	orientationH = int32(0) // LinearLayout.HORIZONTAL
-
 	// Pixel values. We don't bother with density conversion: the layout is
-	// generous enough that 24px padding looks sane on the typical phone DPI.
-	rootPaddingPx = int32(48)
-	rowPaddingPx  = int32(16)
-	textTitleSp   = float32(28)
+	// generous enough that 24-32px padding looks sane on the typical phone DPI.
+	rootPaddingPx = int32(24)
+	cardMarginPx  = int32(16)
+	cardPaddingPx = int32(24)
 	textRowSp     = float32(20)
+	cardRadius    = float32(28)
+)
+
+var (
+	matchParent  = int32(widget_consts.MatchParent)
+	wrapContent  = int32(widget_consts.WrapContent)
+	orientationV = int32(widget_consts.OrientationVertical)
+	orientationH = int32(widget_consts.OrientationHorizontal)
+	rvVertical   = int32(rv_consts.Vertical)
 )
 
 // alarmEntry is a single persisted alarm: stable ID, human label, and
@@ -85,6 +97,19 @@ type alarmsPayload struct {
 
 const alarmsPayloadVersion = 1
 
+// rowViews is the per-card widget tree captured at onCreateViewHolder time
+// so onBindViewHolder can update it cheaply for the bound entry.
+type rowViews struct {
+	itemView *jni.Object         // the MaterialCardView (also holder.itemView)
+	label    *widget.TextView    // time + label TextView
+	sw       *materialswitch.MaterialSwitch
+	editBtn  *button.MaterialButton
+	delBtn   *button.MaterialButton
+	swCleanup    func()
+	editCleanup  func()
+	delCleanup   func()
+}
+
 // State held across onResume invocations and Go callbacks.
 var (
 	stateMu sync.Mutex
@@ -94,14 +119,22 @@ var (
 
 	startedOnce sync.Once
 
-	// Mutable model. Mutations happen on the UI thread (inside the
-	// proxy invocation handlers, dispatched by the Java framework).
+	// Mutable model.
 	entries     []alarmEntry
 	nextID      int32
-	listLayout  *widget.LinearLayout // the inner row container; cleared and rebuilt on mutation
-	rootContext *app.Context         // for alarm.NewManager (long-lived global ref)
+	rootContext *app.Context
 
-	// Cleanup hooks for proxy handlers; deferred shutdown is best-effort.
+	// Adapter cleanup (from NewProxy).
+	adapter        *jni.Object
+	adapterCleanup func()
+
+	// Per-holder widget refs, keyed by Go-side holderID. The card's
+	// itemView.setTag() carries an Integer with this ID so onBindViewHolder
+	// can find the cached widgets.
+	holders     = map[int32]*rowViews{}
+	nextHolderID int32
+
+	// Scheduling cleanup hooks.
 	cleanups []func()
 )
 
@@ -109,6 +142,8 @@ func main() {}
 
 //export ANativeActivity_onCreate
 func ANativeActivity_onCreate(activity *C.ANativeActivity, savedState unsafe.Pointer, savedStateSize C.size_t) {
+	_ = savedState
+	_ = savedStateSize
 	vm := jni.VMFromUintptr(uintptr(C._getVM(activity)))
 	actObj := jni.ObjectFromUintptr(uintptr(C._getClazz(activity)))
 
@@ -124,16 +159,12 @@ func ANativeActivity_onCreate(activity *C.ANativeActivity, savedState unsafe.Poi
 func goOnResume(_ *C.ANativeActivity) {
 	startedOnce.Do(func() {
 		// onResume runs on the Android UI thread. Stay on it for the
-		// initial setup so setContentView and the first dialog show()
-		// (if any) are happy. Heavy alarm scheduling can run after the
-		// tree is up.
+		// initial setup so setContentView is happy.
 		runSetup()
 	})
 }
 
 // logf appends to a transient buffer and forwards each line to logcat.
-// Used for narrative status messages so test_all_apks.sh and operators
-// can read progress without a Canvas surface.
 func logf(buf *bytes.Buffer, format string, args ...any) {
 	line := fmt.Sprintf(format, args...)
 	buf.WriteString(line)
@@ -169,7 +200,6 @@ func setupOnce(buf *bytes.Buffer) error {
 		return fmt.Errorf("vm or activity ref unset")
 	}
 
-	// 1) classloader + proxy init for env.NewProxy.
 	if err := vm.Do(func(env *jni.Env) error {
 		return installProxyClassLoader(env, act)
 	}); err != nil {
@@ -178,16 +208,15 @@ func setupOnce(buf *bytes.Buffer) error {
 
 	// NativeActivity owns an opaque GL surface that occludes any Java
 	// widgets attached via setContentView. Switching the window pixel
-	// format to TRANSLUCENT makes the surface transparent so the widget
-	// tree below is actually rendered. Must run before setContentView.
+	// format to TRANSLUCENT and releasing the takeSurface/takeInputQueue
+	// callbacks lets the Java view tree paint into the window surface and
+	// receive input events. Must run before setContentView.
 	if err := makeWindowTranslucent(vm, act); err != nil {
 		logf(buf, "make window translucent: %v", err)
-		// Continue: widgets may still partially render or hide is acceptable in test
 	}
 
-	// 2) Open SharedPreferences and load/seed entries.
 	ctx := &app.Context{VM: vm, Obj: act}
-	rootContext = &app.Context{VM: vm, Obj: act}
+	rootContext = ctx
 	spObj, err := ctx.GetSharedPreferences(prefsName, 0)
 	if err != nil {
 		return fmt.Errorf("getSharedPreferences: %w", err)
@@ -206,111 +235,124 @@ func setupOnce(buf *bytes.Buffer) error {
 	}
 	logf(buf, "%d alarm(s) loaded", len(entries))
 
-	// 3) Build the root LinearLayout with padding, title, scroll list, add button.
-	root, err := widget.NewLinearLayout(vm, act)
+	root, err := buildWidgetTree(vm, act)
 	if err != nil {
-		return fmt.Errorf("new root LinearLayout: %w", err)
-	}
-	if err := root.SetOrientation(orientationV); err != nil {
-		return fmt.Errorf("root setOrientation: %w", err)
-	}
-	rootView := &display.View{VM: vm, Obj: root.Obj}
-	if err := rootView.SetPadding(rootPaddingPx, rootPaddingPx, rootPaddingPx, rootPaddingPx); err != nil {
-		return fmt.Errorf("root setPadding: %w", err)
+		return fmt.Errorf("buildWidgetTree: %w", err)
 	}
 
-	title, err := widget.NewTextView(vm, act)
-	if err != nil {
-		return fmt.Errorf("new title TextView: %w", err)
-	}
-	if err := title.SetText1_3("Alarms"); err != nil {
-		return fmt.Errorf("title setText: %w", err)
-	}
-	if err := title.SetTextSize1(textTitleSp); err != nil {
-		return fmt.Errorf("title setTextSize: %w", err)
-	}
-	rootGroup := &display.ViewGroup{VM: vm, Obj: root.Obj}
-	if err := rootGroup.AddView1(title.Obj); err != nil {
-		return fmt.Errorf("root addView title: %w", err)
-	}
-
-	scroll, err := widget.NewScrollView(vm, act)
-	if err != nil {
-		return fmt.Errorf("new ScrollView: %w", err)
-	}
-	scrollLP, err := newLinearLayoutLayoutParamsWeighted(vm, matchParent, 0, 1)
-	if err != nil {
-		return fmt.Errorf("scroll layoutparams: %w", err)
-	}
-	scrollView := &display.View{VM: vm, Obj: scroll.Obj}
-	if err := scrollView.SetLayoutParams(scrollLP); err != nil {
-		return fmt.Errorf("scroll setLayoutParams: %w", err)
-	}
-	if err := rootGroup.AddView1(scroll.Obj); err != nil {
-		return fmt.Errorf("root addView scroll: %w", err)
-	}
-
-	list, err := widget.NewLinearLayout(vm, act)
-	if err != nil {
-		return fmt.Errorf("new list LinearLayout: %w", err)
-	}
-	if err := list.SetOrientation(orientationV); err != nil {
-		return fmt.Errorf("list setOrientation: %w", err)
-	}
-	scrollGroup := &display.ViewGroup{VM: vm, Obj: scroll.Obj}
-	if err := scrollGroup.AddView1(list.Obj); err != nil {
-		return fmt.Errorf("scroll addView list: %w", err)
-	}
-	listLayout = list
-
-	addBtn, err := widget.NewButton(vm, act)
-	if err != nil {
-		return fmt.Errorf("new add Button: %w", err)
-	}
-	if err := (&widget.TextView{VM: vm, Obj: addBtn.Obj}).SetText1_3("+ Add alarm"); err != nil {
-		return fmt.Errorf("addBtn setText: %w", err)
-	}
-	if err := rootGroup.AddView1(addBtn.Obj); err != nil {
-		return fmt.Errorf("root addView addBtn: %w", err)
-	}
-	if err := attachClickListener(vm, &display.View{VM: vm, Obj: addBtn.Obj}, onAddClicked); err != nil {
-		return fmt.Errorf("addBtn setOnClickListener: %w", err)
-	}
-
-	// Populate rows.
-	if err := rebuildList(); err != nil {
-		return fmt.Errorf("rebuild list: %w", err)
-	}
-
-	// 4) Attach root to the activity.
 	activity := &app.Activity{VM: vm, Obj: act}
-	if err := activity.SetContentView1(root.Obj); err != nil {
+	if err := activity.SetContentView1(root); err != nil {
 		return fmt.Errorf("setContentView: %w", err)
 	}
 	logf(buf, "widget tree attached")
 
-	// 5) Schedule alarms (best-effort; Permission denials are logged).
 	stateMu.Lock()
-	scheduleSnapshot := make([]alarmEntry, len(entries))
-	copy(scheduleSnapshot, entries)
-	storeSnapshot := make([]alarmEntry, len(entries))
-	copy(storeSnapshot, entries)
+	scheduleSnapshot := append([]alarmEntry(nil), entries...)
+	storeSnapshot := append([]alarmEntry(nil), entries...)
 	stateMu.Unlock()
 	if err := scheduleEnabled(vm, ctx, scheduleSnapshot, buf); err != nil {
 		logf(buf, "scheduleEnabled: %v", err)
 	}
-
-	// 6) Persist sorted form.
 	if err := storeEntries(&sp, storeSnapshot); err != nil {
 		return fmt.Errorf("store entries: %w", err)
 	}
 	return nil
 }
 
+// buildWidgetTree assembles the root LinearLayout containing the
+// MaterialToolbar, the RecyclerView (with a Go adapter), and the
+// FloatingActionButton. Returns the root view's underlying Object so the
+// caller can hand it to setContentView.
+func buildWidgetTree(vm *jni.VM, act *jni.Object) (*jni.Object, error) {
+	root, err := widget.NewLinearLayout(vm, act)
+	if err != nil {
+		return nil, fmt.Errorf("new root LinearLayout: %w", err)
+	}
+	if err := root.SetOrientation(orientationV); err != nil {
+		return nil, fmt.Errorf("root setOrientation: %w", err)
+	}
+	rootView := &display.View{VM: vm, Obj: root.Obj}
+	if err := rootView.SetPadding(rootPaddingPx, rootPaddingPx, rootPaddingPx, rootPaddingPx); err != nil {
+		return nil, fmt.Errorf("root setPadding: %w", err)
+	}
+	rootGroup := &display.ViewGroup{VM: vm, Obj: root.Obj}
+
+	toolbar, err := appbar.NewMaterialToolbar(vm, act)
+	if err != nil {
+		return nil, fmt.Errorf("new MaterialToolbar: %w", err)
+	}
+	if err := (&appcompat_widget.Toolbar{VM: vm, Obj: toolbar.Obj}).SetTitle1_1("Alarms"); err != nil {
+		return nil, fmt.Errorf("toolbar setTitle: %w", err)
+	}
+	if err := rootGroup.AddView1(toolbar.Obj); err != nil {
+		return nil, fmt.Errorf("root addView toolbar: %w", err)
+	}
+
+	rv, err := rvwidget.NewRecyclerView(vm, act)
+	if err != nil {
+		return nil, fmt.Errorf("new RecyclerView: %w", err)
+	}
+	rvLP, err := newLinearLayoutLayoutParamsWeighted(vm, matchParent, 0, 1)
+	if err != nil {
+		return nil, fmt.Errorf("rv layoutparams: %w", err)
+	}
+	rvView := &display.View{VM: vm, Obj: rv.Obj}
+	if err := rvView.SetLayoutParams(rvLP); err != nil {
+		return nil, fmt.Errorf("rv setLayoutParams: %w", err)
+	}
+	lm, err := rvwidget.NewLinearLayoutManager(vm, act)
+	if err != nil {
+		return nil, fmt.Errorf("new LinearLayoutManager: %w", err)
+	}
+	if err := lm.SetOrientation(rvVertical); err != nil {
+		return nil, fmt.Errorf("lm setOrientation: %w", err)
+	}
+	if err := rv.SetLayoutManager(lm.Obj); err != nil {
+		return nil, fmt.Errorf("rv setLayoutManager: %w", err)
+	}
+	adapterObj, cleanup, err := newAlarmAdapter(vm, act)
+	if err != nil {
+		return nil, fmt.Errorf("new alarm Adapter: %w", err)
+	}
+	adapter = adapterObj
+	adapterCleanup = cleanup
+	if err := rv.SetAdapter(adapterObj); err != nil {
+		return nil, fmt.Errorf("rv setAdapter: %w", err)
+	}
+	if err := rootGroup.AddView1(rv.Obj); err != nil {
+		return nil, fmt.Errorf("root addView rv: %w", err)
+	}
+
+	fab, err := floatingactionbutton.NewFloatingActionButton(vm, act)
+	if err != nil {
+		return nil, fmt.Errorf("new FAB: %w", err)
+	}
+	// android.R.drawable.ic_input_add — a built-in "+" glyph; saves us
+	// shipping a vector drawable for what is essentially a placeholder
+	// icon. Resource ID is 0x01080003 in the public android.R.drawable
+	// table for ic_input_add.
+	if err := fab.SetImageResource(int32(0x01080003)); err != nil {
+		return nil, fmt.Errorf("fab setImageResource: %w", err)
+	}
+	fabLP, err := newLinearLayoutLayoutParamsGravity(vm, wrapContent, wrapContent, gravityEnd)
+	if err != nil {
+		return nil, fmt.Errorf("fab layoutparams: %w", err)
+	}
+	if err := (&display.View{VM: vm, Obj: fab.Obj}).SetLayoutParams(fabLP); err != nil {
+		return nil, fmt.Errorf("fab setLayoutParams: %w", err)
+	}
+	if err := rootGroup.AddView1(fab.Obj); err != nil {
+		return nil, fmt.Errorf("root addView fab: %w", err)
+	}
+	if err := attachClickListener(vm, &display.View{VM: vm, Obj: fab.Obj}, onAddClicked); err != nil {
+		return nil, fmt.Errorf("fab setOnClickListener: %w", err)
+	}
+
+	return root.Obj, nil
+}
+
 // installProxyClassLoader points the proxy machinery at the activity's
 // ClassLoader so it can find GoInvocationHandler in our APK's classes.dex.
-// FindClass() from native threads consults the BootClassLoader, which
-// can't see APK classes — proxy.go falls back to this loader on miss.
 func installProxyClassLoader(env *jni.Env, activity *jni.Object) error {
 	cls := env.GetObjectClass(activity)
 	mid, err := env.GetMethodID(cls, "getClassLoader", "()Ljava/lang/ClassLoader;")
@@ -335,9 +377,7 @@ func installProxyClassLoader(env *jni.Env, activity *jni.Object) error {
 // neither is consumed by our code. We release both back so the view
 // tree paints the widgets and the Java input dispatcher receives
 // touches. setFormat(TRANSLUCENT) additionally drops the opaque
-// RGB_565 format installed by NativeActivity. Must run on the UI
-// thread before setContentView so the first traversal paints the
-// widget tree.
+// RGB_565 format installed by NativeActivity.
 func makeWindowTranslucent(vm *jni.VM, activity *jni.Object) error {
 	return vm.Do(func(env *jni.Env) error {
 		actCls := env.GetObjectClass(activity)
@@ -354,8 +394,6 @@ func makeWindowTranslucent(vm *jni.VM, activity *jni.Object) error {
 		}
 		defer env.DeleteLocalRef(window)
 		winCls := env.GetObjectClass(window)
-		// Release the native surface callback installed by NativeActivity
-		// so the view hierarchy paints into the window surface.
 		takeSurfaceMid, err := env.GetMethodID(winCls, "takeSurface",
 			"(Landroid/view/SurfaceHolder$Callback2;)V")
 		if err != nil {
@@ -364,10 +402,6 @@ func makeWindowTranslucent(vm *jni.VM, activity *jni.Object) error {
 		if err := env.CallVoidMethod(window, takeSurfaceMid, jni.ObjectValue(nil)); err != nil {
 			return fmt.Errorf("call takeSurface(null): %w", err)
 		}
-		// Release the native input queue callback too. NativeActivity also
-		// owns the input queue; without releasing it, touch events go to
-		// the unread native queue and the Java view dispatcher starves,
-		// producing ANRs on the first user tap.
 		takeInputMid, err := env.GetMethodID(winCls, "takeInputQueue",
 			"(Landroid/view/InputQueue$Callback;)V")
 		if err != nil {
@@ -386,6 +420,491 @@ func makeWindowTranslucent(vm *jni.VM, activity *jni.Object) error {
 		}
 		return nil
 	})
+}
+
+// gravityEnd matches android.view.Gravity.END, used to drop the FAB on
+// the right edge inside the vertical LinearLayout.
+const gravityEnd = int32(0x00800005) // Gravity.END | Gravity.CENTER_VERTICAL → 0x00800005 (END=0x800005)
+
+// newLinearLayoutLayoutParamsWeighted constructs
+// android.widget.LinearLayout$LayoutParams(width, height, weight). The
+// generator does not yet emit constructors for static-nested
+// LayoutParams classes, so we resolve the constructor by raw JNI.
+// Returns a global ref.
+func newLinearLayoutLayoutParamsWeighted(
+	vm *jni.VM,
+	width, height int32,
+	weight float32,
+) (*jni.Object, error) {
+	var out *jni.Object
+	err := vm.Do(func(env *jni.Env) error {
+		cls, err := env.FindClass("android/widget/LinearLayout$LayoutParams")
+		if err != nil {
+			return fmt.Errorf("find LinearLayout.LayoutParams: %w", err)
+		}
+		defer env.DeleteLocalRef(&cls.Object)
+		mid, err := env.GetMethodID(cls, "<init>", "(IIF)V")
+		if err != nil {
+			return fmt.Errorf("LinearLayout.LayoutParams.<init>(IIF): %w", err)
+		}
+		local, err := env.NewObject(cls, mid,
+			jni.IntValue(width), jni.IntValue(height), jni.FloatValue(weight))
+		if err != nil {
+			return fmt.Errorf("new LinearLayout.LayoutParams: %w", err)
+		}
+		out = env.NewGlobalRef(local)
+		env.DeleteLocalRef(local)
+		return nil
+	})
+	return out, err
+}
+
+// newLinearLayoutLayoutParamsGravity constructs
+// android.widget.LinearLayout$LayoutParams(width, height) and sets
+// .gravity = gravity. Same generator gap as newLinearLayoutLayoutParamsWeighted.
+func newLinearLayoutLayoutParamsGravity(
+	vm *jni.VM,
+	width, height, gravity int32,
+) (*jni.Object, error) {
+	var out *jni.Object
+	err := vm.Do(func(env *jni.Env) error {
+		cls, err := env.FindClass("android/widget/LinearLayout$LayoutParams")
+		if err != nil {
+			return fmt.Errorf("find LinearLayout.LayoutParams: %w", err)
+		}
+		defer env.DeleteLocalRef(&cls.Object)
+		mid, err := env.GetMethodID(cls, "<init>", "(II)V")
+		if err != nil {
+			return fmt.Errorf("LinearLayout.LayoutParams.<init>(II): %w", err)
+		}
+		local, err := env.NewObject(cls, mid,
+			jni.IntValue(width), jni.IntValue(height))
+		if err != nil {
+			return fmt.Errorf("new LinearLayout.LayoutParams: %w", err)
+		}
+		fid, err := env.GetFieldID(cls, "gravity", "I")
+		if err != nil {
+			return fmt.Errorf("get gravity fieldID: %w", err)
+		}
+		env.SetIntField(local, fid, gravity)
+		out = env.NewGlobalRef(local)
+		env.DeleteLocalRef(local)
+		return nil
+	})
+	return out, err
+}
+
+// boxInteger creates a fresh java.lang.Integer wrapping `n`. The
+// abstract-adapter dispatch path expects boxed return values for primitive
+// types, and setTag/getTag stores ints as Integer.
+func boxInteger(env *jni.Env, n int32) (*jni.Object, error) {
+	cls, err := env.FindClass("java/lang/Integer")
+	if err != nil {
+		return nil, fmt.Errorf("find Integer: %w", err)
+	}
+	defer env.DeleteLocalRef(&cls.Object)
+	mid, err := env.GetStaticMethodID(cls, "valueOf", "(I)Ljava/lang/Integer;")
+	if err != nil {
+		return nil, fmt.Errorf("Integer.valueOf MID: %w", err)
+	}
+	obj, err := env.CallStaticObjectMethod(cls, mid, jni.IntValue(n))
+	if err != nil {
+		return nil, fmt.Errorf("Integer.valueOf: %w", err)
+	}
+	return obj, nil
+}
+
+// boxLong creates a fresh java.lang.Long wrapping `n`.
+func boxLong(env *jni.Env, n int64) (*jni.Object, error) {
+	cls, err := env.FindClass("java/lang/Long")
+	if err != nil {
+		return nil, fmt.Errorf("find Long: %w", err)
+	}
+	defer env.DeleteLocalRef(&cls.Object)
+	mid, err := env.GetStaticMethodID(cls, "valueOf", "(J)Ljava/lang/Long;")
+	if err != nil {
+		return nil, fmt.Errorf("Long.valueOf MID: %w", err)
+	}
+	obj, err := env.CallStaticObjectMethod(cls, mid, jni.LongValue(n))
+	if err != nil {
+		return nil, fmt.Errorf("Long.valueOf: %w", err)
+	}
+	return obj, nil
+}
+
+// boxBoolean creates a fresh java.lang.Boolean wrapping `b`.
+func boxBoolean(env *jni.Env, b bool) (*jni.Object, error) {
+	cls, err := env.FindClass("java/lang/Boolean")
+	if err != nil {
+		return nil, fmt.Errorf("find Boolean: %w", err)
+	}
+	defer env.DeleteLocalRef(&cls.Object)
+	mid, err := env.GetStaticMethodID(cls, "valueOf", "(Z)Ljava/lang/Boolean;")
+	if err != nil {
+		return nil, fmt.Errorf("Boolean.valueOf MID: %w", err)
+	}
+	var v uint8
+	if b {
+		v = 1
+	}
+	obj, err := env.CallStaticObjectMethod(cls, mid, jni.BooleanValue(v))
+	if err != nil {
+		return nil, fmt.Errorf("Boolean.valueOf: %w", err)
+	}
+	return obj, nil
+}
+
+// unboxInt reads java.lang.Integer.intValue() off a boxed argument.
+func unboxInt(env *jni.Env, boxed *jni.Object) (int, error) {
+	if boxed == nil || boxed.Ref() == 0 {
+		return 0, fmt.Errorf("nil Integer")
+	}
+	cls := env.GetObjectClass(boxed)
+	mid, err := env.GetMethodID(cls, "intValue", "()I")
+	if err != nil {
+		return 0, fmt.Errorf("intValue mid: %w", err)
+	}
+	v, err := env.CallIntMethod(boxed, mid)
+	if err != nil {
+		return 0, fmt.Errorf("intValue: %w", err)
+	}
+	return int(v), nil
+}
+
+// newAlarmAdapter creates a Go-backed RecyclerView.Adapter via NewProxy;
+// proxy.go falls through to tryAbstractAdapter which instantiates
+// center.dx.jni.generated.RecyclerView$AdapterAdapter. The dispatch
+// handler implements getItemCount, onCreateViewHolder, onBindViewHolder.
+func newAlarmAdapter(vm *jni.VM, act *jni.Object) (*jni.Object, func(), error) {
+	var (
+		proxyObj *jni.Object
+		cleanup  func()
+	)
+	err := vm.Do(func(env *jni.Env) error {
+		cls, err := env.FindClass("androidx/recyclerview/widget/RecyclerView$Adapter")
+		if err != nil {
+			return fmt.Errorf("find RecyclerView.Adapter: %w", err)
+		}
+		defer env.DeleteLocalRef(&cls.Object)
+		p, c, err := env.NewProxy(
+			[]*jni.Class{cls},
+			func(callEnv *jni.Env, method string, args []*jni.Object) (*jni.Object, error) {
+				return dispatchAdapter(callEnv, vm, act, method, args)
+			},
+		)
+		if err != nil {
+			return fmt.Errorf("NewProxy(RecyclerView.Adapter): %w", err)
+		}
+		proxyGlobal := env.NewGlobalRef(p)
+		env.DeleteLocalRef(p)
+		proxyObj = proxyGlobal
+		cleanup = c
+		return nil
+	})
+	if err != nil {
+		return nil, nil, err
+	}
+	return proxyObj, cleanup, nil
+}
+
+// dispatchAdapter routes adapter method calls from the Java shim to the
+// matching Go-side implementation. Boxed returns are required for
+// primitive-int methods (the shim unboxes via Integer.intValue()).
+func dispatchAdapter(
+	env *jni.Env,
+	vm *jni.VM,
+	act *jni.Object,
+	method string,
+	args []*jni.Object,
+) (*jni.Object, error) {
+	switch method {
+	case "getItemCount":
+		stateMu.Lock()
+		n := int32(len(entries))
+		stateMu.Unlock()
+		return boxInteger(env, n)
+	case "getItemViewType":
+		// Single view type for every row.
+		return boxInteger(env, 0)
+	case "getItemId":
+		// Adapter does not opt into stable IDs; return NO_ID (-1).
+		return boxLong(env, -1)
+	case "hasStableIds":
+		return boxBoolean(env, false)
+	case "onCreateViewHolder":
+		// args[0] = parent ViewGroup; we don't actually need it because
+		// MaterialCardView accepts the activity Context directly. args[1]
+		// = viewType (boxed Integer), unused.
+		holder, err := createRowHolder(env, vm, act)
+		if err != nil {
+			return nil, fmt.Errorf("createRowHolder: %w", err)
+		}
+		return holder, nil
+	case "onBindViewHolder":
+		// args[0] = ViewHolder, args[1] = position (boxed Integer).
+		if len(args) < 2 {
+			return nil, fmt.Errorf("onBindViewHolder: too few args")
+		}
+		pos, err := unboxInt(env, args[1])
+		if err != nil {
+			return nil, fmt.Errorf("unbox position: %w", err)
+		}
+		if err := bindRowHolder(env, vm, args[0], pos); err != nil {
+			return nil, fmt.Errorf("bindRowHolder: %w", err)
+		}
+		return nil, nil
+	default:
+		return nil, nil
+	}
+}
+
+// createRowHolder builds a fresh MaterialCardView with the row widgets,
+// caches them in `holders`, tags the card with the holder ID, and wraps it
+// in a RecyclerView$ViewHolderAdapter (the cycle-7 generated concrete
+// subclass of RecyclerView.ViewHolder that takes a single View arg).
+func createRowHolder(env *jni.Env, vm *jni.VM, act *jni.Object) (*jni.Object, error) {
+	cardObj, refs, err := buildCardRow(vm, act)
+	if err != nil {
+		return nil, fmt.Errorf("buildCardRow: %w", err)
+	}
+
+	stateMu.Lock()
+	holderID := nextHolderID
+	nextHolderID++
+	holders[holderID] = refs
+	stateMu.Unlock()
+
+	tagBox, err := boxInteger(env, holderID)
+	if err != nil {
+		return nil, fmt.Errorf("box holderID: %w", err)
+	}
+	defer env.DeleteLocalRef(tagBox)
+	tagGlobal := env.NewGlobalRef(tagBox)
+	if err := (&display.View{VM: vm, Obj: cardObj}).SetTag1_1(tagGlobal); err != nil {
+		return nil, fmt.Errorf("setTag: %w", err)
+	}
+	defer env.DeleteGlobalRef(tagGlobal)
+
+	// Instantiate center.dx.jni.generated.RecyclerView$ViewHolderAdapter,
+	// which is the generator-emitted concrete RecyclerView.ViewHolder
+	// subclass: ctor takes only (View itemView).
+	cls, err := env.FindClass("center/dx/jni/generated/RecyclerView$ViewHolderAdapter")
+	if err != nil {
+		return nil, fmt.Errorf("find ViewHolderAdapter: %w", err)
+	}
+	defer env.DeleteLocalRef(&cls.Object)
+	mid, err := env.GetMethodID(cls, "<init>", "(Landroid/view/View;)V")
+	if err != nil {
+		return nil, fmt.Errorf("ViewHolderAdapter ctor mid: %w", err)
+	}
+	local, err := env.NewObject(cls, mid, jni.ObjectValue(cardObj))
+	if err != nil {
+		return nil, fmt.Errorf("new ViewHolderAdapter: %w", err)
+	}
+	return local, nil
+}
+
+// bindRowHolder reads the cached widget refs from the holder's itemView
+// tag and updates label, switch and click handlers for the entry at
+// `position`.
+func bindRowHolder(env *jni.Env, vm *jni.VM, holder *jni.Object, position int) error {
+	if holder == nil || holder.Ref() == 0 {
+		return fmt.Errorf("nil holder")
+	}
+	holderCls := env.GetObjectClass(holder)
+	itemFid, err := env.GetFieldID(holderCls, "itemView", "Landroid/view/View;")
+	if err != nil {
+		return fmt.Errorf("itemView fieldID: %w", err)
+	}
+	itemView := env.GetObjectField(holder, itemFid)
+	if itemView == nil || itemView.Ref() == 0 {
+		return fmt.Errorf("itemView field: nil")
+	}
+	tagObj, err := (&display.View{VM: vm, Obj: itemView}).GetTag0()
+	if err != nil {
+		return fmt.Errorf("getTag: %w", err)
+	}
+	holderID, err := unboxInt(env, tagObj)
+	if err != nil {
+		return fmt.Errorf("unbox holderID: %w", err)
+	}
+	stateMu.Lock()
+	refs, ok := holders[int32(holderID)]
+	if !ok || position < 0 || position >= len(entries) {
+		stateMu.Unlock()
+		return fmt.Errorf("holder/position out of sync (holderID=%d position=%d)", holderID, position)
+	}
+	entry := entries[position]
+	stateMu.Unlock()
+
+	if err := refs.label.SetText1_3(fmt.Sprintf("%s  %s", formatTime(entry.At), entry.Label)); err != nil {
+		return fmt.Errorf("label setText: %w", err)
+	}
+	cb := &widget.CompoundButton{VM: vm, Obj: refs.sw.Obj}
+	if err := cb.SetChecked(entry.Enabled); err != nil {
+		return fmt.Errorf("switch setChecked: %w", err)
+	}
+	// Replace listeners; previous listeners are torn down via cleanups.
+	if refs.swCleanup != nil {
+		refs.swCleanup()
+	}
+	swClean, err := attachCheckedChangeListenerByID(vm, refs.sw, entry.ID)
+	if err != nil {
+		return fmt.Errorf("attach switch listener: %w", err)
+	}
+	refs.swCleanup = swClean
+
+	if refs.editCleanup != nil {
+		refs.editCleanup()
+	}
+	editClean, err := attachClickListenerByID(vm, &display.View{VM: vm, Obj: refs.editBtn.Obj}, entry.ID, onEditClickedByID)
+	if err != nil {
+		return fmt.Errorf("attach edit listener: %w", err)
+	}
+	refs.editCleanup = editClean
+
+	if refs.delCleanup != nil {
+		refs.delCleanup()
+	}
+	delClean, err := attachClickListenerByID(vm, &display.View{VM: vm, Obj: refs.delBtn.Obj}, entry.ID, onDeleteClickedByID)
+	if err != nil {
+		return fmt.Errorf("attach delete listener: %w", err)
+	}
+	refs.delCleanup = delClean
+	return nil
+}
+
+// buildCardRow constructs a MaterialCardView containing a horizontal
+// LinearLayout with a TextView + MaterialSwitch + two MaterialButtons
+// (Edit / Delete). It returns the card's underlying Object (the
+// itemView) plus a rowViews struct caching the inner widget refs.
+func buildCardRow(vm *jni.VM, act *jni.Object) (*jni.Object, *rowViews, error) {
+	mc, err := card.NewMaterialCardView(vm, act)
+	if err != nil {
+		return nil, nil, fmt.Errorf("new MaterialCardView: %w", err)
+	}
+	if err := mc.SetRadius(cardRadius); err != nil {
+		return nil, nil, fmt.Errorf("card setRadius: %w", err)
+	}
+	cardLP, err := newLinearLayoutLayoutParamsMargins(vm, matchParent, wrapContent, cardMarginPx)
+	if err != nil {
+		return nil, nil, fmt.Errorf("card layoutparams: %w", err)
+	}
+	cardView := &display.View{VM: vm, Obj: mc.Obj}
+	if err := cardView.SetLayoutParams(cardLP); err != nil {
+		return nil, nil, fmt.Errorf("card setLayoutParams: %w", err)
+	}
+
+	row, err := widget.NewLinearLayout(vm, act)
+	if err != nil {
+		return nil, nil, fmt.Errorf("new row LinearLayout: %w", err)
+	}
+	if err := row.SetOrientation(orientationH); err != nil {
+		return nil, nil, fmt.Errorf("row setOrientation: %w", err)
+	}
+	rowView := &display.View{VM: vm, Obj: row.Obj}
+	if err := rowView.SetPadding(cardPaddingPx, cardPaddingPx, cardPaddingPx, cardPaddingPx); err != nil {
+		return nil, nil, fmt.Errorf("row setPadding: %w", err)
+	}
+	rowGroup := &display.ViewGroup{VM: vm, Obj: row.Obj}
+	cardGroup := &display.ViewGroup{VM: vm, Obj: mc.Obj}
+	if err := cardGroup.AddView1(row.Obj); err != nil {
+		return nil, nil, fmt.Errorf("card addView row: %w", err)
+	}
+
+	label, err := widget.NewTextView(vm, act)
+	if err != nil {
+		return nil, nil, fmt.Errorf("new label TextView: %w", err)
+	}
+	if err := label.SetTextSize1(textRowSp); err != nil {
+		return nil, nil, fmt.Errorf("label setTextSize: %w", err)
+	}
+	labelLP, err := newLinearLayoutLayoutParamsWeighted(vm, 0, wrapContent, 1)
+	if err != nil {
+		return nil, nil, fmt.Errorf("label LP: %w", err)
+	}
+	if err := (&display.View{VM: vm, Obj: label.Obj}).SetLayoutParams(labelLP); err != nil {
+		return nil, nil, fmt.Errorf("label setLayoutParams: %w", err)
+	}
+	if err := rowGroup.AddView1(label.Obj); err != nil {
+		return nil, nil, fmt.Errorf("row addView label: %w", err)
+	}
+
+	sw, err := materialswitch.NewMaterialSwitch(vm, act)
+	if err != nil {
+		return nil, nil, fmt.Errorf("new MaterialSwitch: %w", err)
+	}
+	if err := rowGroup.AddView1(sw.Obj); err != nil {
+		return nil, nil, fmt.Errorf("row addView switch: %w", err)
+	}
+
+	editBtn, err := button.NewMaterialButton(vm, act)
+	if err != nil {
+		return nil, nil, fmt.Errorf("new edit MaterialButton: %w", err)
+	}
+	if err := (&widget.TextView{VM: vm, Obj: editBtn.Obj}).SetText1_3("Edit"); err != nil {
+		return nil, nil, fmt.Errorf("edit setText: %w", err)
+	}
+	if err := rowGroup.AddView1(editBtn.Obj); err != nil {
+		return nil, nil, fmt.Errorf("row addView edit: %w", err)
+	}
+
+	delBtn, err := button.NewMaterialButton(vm, act)
+	if err != nil {
+		return nil, nil, fmt.Errorf("new delete MaterialButton: %w", err)
+	}
+	if err := (&widget.TextView{VM: vm, Obj: delBtn.Obj}).SetText1_3("Delete"); err != nil {
+		return nil, nil, fmt.Errorf("delete setText: %w", err)
+	}
+	if err := rowGroup.AddView1(delBtn.Obj); err != nil {
+		return nil, nil, fmt.Errorf("row addView delete: %w", err)
+	}
+
+	return mc.Obj, &rowViews{
+		itemView: mc.Obj,
+		label:    label,
+		sw:       sw,
+		editBtn:  editBtn,
+		delBtn:   delBtn,
+	}, nil
+}
+
+// newLinearLayoutLayoutParamsMargins constructs (width, height) and sets
+// margins to `margin` on all four sides. Same generator gap as
+// newLinearLayoutLayoutParamsWeighted.
+func newLinearLayoutLayoutParamsMargins(
+	vm *jni.VM,
+	width, height, margin int32,
+) (*jni.Object, error) {
+	var out *jni.Object
+	err := vm.Do(func(env *jni.Env) error {
+		cls, err := env.FindClass("android/widget/LinearLayout$LayoutParams")
+		if err != nil {
+			return fmt.Errorf("find LinearLayout.LayoutParams: %w", err)
+		}
+		defer env.DeleteLocalRef(&cls.Object)
+		mid, err := env.GetMethodID(cls, "<init>", "(II)V")
+		if err != nil {
+			return fmt.Errorf("LinearLayout.LayoutParams.<init>(II): %w", err)
+		}
+		local, err := env.NewObject(cls, mid,
+			jni.IntValue(width), jni.IntValue(height))
+		if err != nil {
+			return fmt.Errorf("new LinearLayout.LayoutParams: %w", err)
+		}
+		setMid, err := env.GetMethodID(cls, "setMargins", "(IIII)V")
+		if err != nil {
+			return fmt.Errorf("setMargins MID: %w", err)
+		}
+		if err := env.CallVoidMethod(local, setMid,
+			jni.IntValue(margin), jni.IntValue(margin), jni.IntValue(margin), jni.IntValue(margin)); err != nil {
+			return fmt.Errorf("setMargins: %w", err)
+		}
+		out = env.NewGlobalRef(local)
+		env.DeleteLocalRef(local)
+		return nil
+	})
+	return out, err
 }
 
 // attachClickListener creates a Java Proxy of View$OnClickListener whose
@@ -423,159 +942,67 @@ func attachClickListener(vm *jni.VM, v *display.View, fn func()) error {
 	})
 }
 
-// newLinearLayoutLayoutParamsWeighted constructs
-// android.widget.LinearLayout$LayoutParams(width, height, weight) since
-// the constructor isn't bound. Returns a global ref.
-func newLinearLayoutLayoutParamsWeighted(
+// attachClickListenerByID is the per-row variant: it captures the entry's
+// ID rather than its volatile position, returns its own cleanup func, and
+// is reattached on every onBindViewHolder so the dispatched ID stays in
+// sync with the (possibly resorted) entries slice.
+func attachClickListenerByID(
 	vm *jni.VM,
-	width, height int32,
-	weight float32,
-) (*jni.Object, error) {
-	var out *jni.Object
-	err := vm.Do(func(env *jni.Env) error {
-		cls, err := env.FindClass("android/widget/LinearLayout$LayoutParams")
+	v *display.View,
+	entryID int32,
+	fn func(id int32),
+) (func(), error) {
+	var (
+		out     func()
+		retErr  error
+	)
+	retErr = vm.Do(func(env *jni.Env) error {
+		listenerCls, err := env.FindClass("android/view/View$OnClickListener")
 		if err != nil {
-			return fmt.Errorf("find LinearLayout.LayoutParams: %w", err)
+			return fmt.Errorf("find OnClickListener: %w", err)
 		}
-		defer env.DeleteLocalRef(&cls.Object)
-		mid, err := env.GetMethodID(cls, "<init>", "(IIF)V")
+		proxy, cleanup, err := env.NewProxy(
+			[]*jni.Class{listenerCls},
+			func(_ *jni.Env, method string, _ []*jni.Object) (*jni.Object, error) {
+				if method == "onClick" {
+					fn(entryID)
+				}
+				return nil, nil
+			},
+		)
 		if err != nil {
-			return fmt.Errorf("LinearLayout.LayoutParams.<init>(IIF): %w", err)
+			return fmt.Errorf("NewProxy(OnClickListener): %w", err)
 		}
-		local, err := env.NewObject(cls, mid,
-			jni.IntValue(width), jni.IntValue(height), jni.FloatValue(weight))
-		if err != nil {
-			return fmt.Errorf("new LinearLayout.LayoutParams: %w", err)
+		listenerGlobal := env.NewGlobalRef(proxy)
+		gref := listenerGlobal
+		out = func() {
+			cleanup()
+			_ = vm.Do(func(env *jni.Env) error {
+				env.DeleteGlobalRef(gref)
+				return nil
+			})
 		}
-		out = env.NewGlobalRef(local)
-		env.DeleteLocalRef(local)
-		return nil
+		return v.SetOnClickListener(listenerGlobal)
 	})
-	return out, err
+	if retErr != nil {
+		return nil, retErr
+	}
+	return out, nil
 }
 
-// rebuildList wipes the inner LinearLayout and re-adds one row per
-// entry. Called from the UI thread.
-func rebuildList() error {
-	if listLayout == nil {
-		return fmt.Errorf("listLayout not initialised")
-	}
-	vm := globalVM
-	act := activityRef
-
-	listGroup := &display.ViewGroup{VM: vm, Obj: listLayout.Obj}
-	if err := listGroup.RemoveAllViews(); err != nil {
-		return fmt.Errorf("removeAllViews: %w", err)
-	}
-
-	for i := range entries {
-		row, err := buildRow(vm, act, i)
-		if err != nil {
-			return fmt.Errorf("build row %d: %w", i, err)
-		}
-		if err := listGroup.AddView1(row); err != nil {
-			return fmt.Errorf("add row %d: %w", i, err)
-		}
-	}
-	return nil
-}
-
-// buildRow constructs one alarm row: horizontal LinearLayout containing a
-// time+label TextView, a Switch, an Edit Button, and a Delete Button. The
-// row index is captured by each click handler so user interaction looks
-// up the current entry by position even after sorts.
-func buildRow(vm *jni.VM, act *jni.Object, idx int) (*jni.Object, error) {
-	row, err := widget.NewLinearLayout(vm, act)
-	if err != nil {
-		return nil, fmt.Errorf("new row LinearLayout: %w", err)
-	}
-	if err := row.SetOrientation(orientationH); err != nil {
-		return nil, err
-	}
-	rowView := &display.View{VM: vm, Obj: row.Obj}
-	if err := rowView.SetPadding(0, rowPaddingPx, 0, rowPaddingPx); err != nil {
-		return nil, err
-	}
-	rowGroup := &display.ViewGroup{VM: vm, Obj: row.Obj}
-
-	entry := entries[idx]
-
-	label, err := widget.NewTextView(vm, act)
-	if err != nil {
-		return nil, fmt.Errorf("new label TextView: %w", err)
-	}
-	if err := label.SetText1_3(fmt.Sprintf("%s  %s", formatTime(entry.At), entry.Label)); err != nil {
-		return nil, err
-	}
-	if err := label.SetTextSize1(textRowSp); err != nil {
-		return nil, err
-	}
-	labelLP, err := newLinearLayoutLayoutParamsWeighted(vm, 0, wrapContent, 1)
-	if err != nil {
-		return nil, fmt.Errorf("label LP: %w", err)
-	}
-	if err := (&display.View{VM: vm, Obj: label.Obj}).SetLayoutParams(labelLP); err != nil {
-		return nil, err
-	}
-	if err := rowGroup.AddView1(label.Obj); err != nil {
-		return nil, err
-	}
-
-	sw, err := widget.NewSwitch(vm, act)
-	if err != nil {
-		return nil, fmt.Errorf("new Switch: %w", err)
-	}
-	if err := sw.SetChecked(entry.Enabled); err != nil {
-		return nil, err
-	}
-	if err := rowGroup.AddView1(sw.Obj); err != nil {
-		return nil, err
-	}
-	if err := attachSwitchListener(vm, sw, idx); err != nil {
-		return nil, fmt.Errorf("attach switch listener: %w", err)
-	}
-
-	editBtn, err := widget.NewButton(vm, act)
-	if err != nil {
-		return nil, fmt.Errorf("new Edit Button: %w", err)
-	}
-	if err := (&widget.TextView{VM: vm, Obj: editBtn.Obj}).SetText1_3("Edit"); err != nil {
-		return nil, err
-	}
-	if err := rowGroup.AddView1(editBtn.Obj); err != nil {
-		return nil, err
-	}
-	rowIdx := idx
-	if err := attachClickListener(vm, &display.View{VM: vm, Obj: editBtn.Obj}, func() {
-		onEditClicked(rowIdx)
-	}); err != nil {
-		return nil, err
-	}
-
-	delBtn, err := widget.NewButton(vm, act)
-	if err != nil {
-		return nil, fmt.Errorf("new Delete Button: %w", err)
-	}
-	if err := (&widget.TextView{VM: vm, Obj: delBtn.Obj}).SetText1_3("Delete"); err != nil {
-		return nil, err
-	}
-	if err := rowGroup.AddView1(delBtn.Obj); err != nil {
-		return nil, err
-	}
-	if err := attachClickListener(vm, &display.View{VM: vm, Obj: delBtn.Obj}, func() {
-		onDeleteClicked(rowIdx)
-	}); err != nil {
-		return nil, err
-	}
-
-	return row.Obj, nil
-}
-
-// attachSwitchListener wires android.widget.CompoundButton$OnCheckedChangeListener
-// onto the Switch so toggling the row's "enabled" flag round-trips through
-// rescheduling.
-func attachSwitchListener(vm *jni.VM, sw *widget.Switch, idx int) error {
-	return vm.Do(func(env *jni.Env) error {
+// attachCheckedChangeListenerByID wires
+// CompoundButton.OnCheckedChangeListener to a Go handler that dispatches
+// by the entry's stable ID. Uses the bound CompoundButton.SetOnCheckedChangeListener.
+func attachCheckedChangeListenerByID(
+	vm *jni.VM,
+	sw *materialswitch.MaterialSwitch,
+	entryID int32,
+) (func(), error) {
+	var (
+		out    func()
+		retErr error
+	)
+	retErr = vm.Do(func(env *jni.Env) error {
 		listenerCls, err := env.FindClass("android/widget/CompoundButton$OnCheckedChangeListener")
 		if err != nil {
 			return fmt.Errorf("find OnCheckedChangeListener: %w", err)
@@ -584,12 +1011,9 @@ func attachSwitchListener(vm *jni.VM, sw *widget.Switch, idx int) error {
 			[]*jni.Class{listenerCls},
 			func(_ *jni.Env, method string, args []*jni.Object) (*jni.Object, error) {
 				if method == "onCheckedChanged" && len(args) == 2 {
-					// args[1] is a boxed Boolean; rather than unbox by
-					// hand we re-read via CompoundButton.isChecked() —
-					// Switch inherits the method from CompoundButton.
 					cb := &widget.CompoundButton{VM: vm, Obj: sw.Obj}
 					checked, _ := cb.IsChecked()
-					onSwitchToggled(idx, checked)
+					onSwitchToggledByID(entryID, checked)
 				}
 				return nil, nil
 			},
@@ -598,24 +1022,21 @@ func attachSwitchListener(vm *jni.VM, sw *widget.Switch, idx int) error {
 			return fmt.Errorf("NewProxy(OnCheckedChangeListener): %w", err)
 		}
 		listenerGlobal := env.NewGlobalRef(proxy)
-		gref := listenerGlobal // capture for closure
-		stateMu.Lock()
-		cleanups = append(cleanups, cleanup, func() {
+		gref := listenerGlobal
+		out = func() {
+			cleanup()
 			_ = vm.Do(func(env *jni.Env) error {
 				env.DeleteGlobalRef(gref)
 				return nil
 			})
-		})
-		stateMu.Unlock()
-
-		setMID, err := env.GetMethodID(env.GetObjectClass(sw.Obj),
-			"setOnCheckedChangeListener",
-			"(Landroid/widget/CompoundButton$OnCheckedChangeListener;)V")
-		if err != nil {
-			return fmt.Errorf("get setOnCheckedChangeListener: %w", err)
 		}
-		return env.CallVoidMethod(sw.Obj, setMID, jni.ObjectValue(listenerGlobal))
+		cb := &widget.CompoundButton{VM: vm, Obj: sw.Obj}
+		return cb.SetOnCheckedChangeListener(listenerGlobal)
 	})
+	if retErr != nil {
+		return nil, retErr
+	}
+	return out, nil
 }
 
 // onAddClicked opens a TimePickerDialog initialised at "now" and, on
@@ -637,16 +1058,21 @@ func onAddClicked() {
 	})
 }
 
-// onEditClicked opens a TimePickerDialog seeded with the row's current
-// time. On confirm, replaces the time and persists.
-func onEditClicked(idx int) {
-	if idx < 0 || idx >= len(entries) {
+// onEditClickedByID opens a TimePickerDialog seeded with the row's
+// current time. On confirm, replaces the time and persists.
+func onEditClickedByID(id int32) {
+	stateMu.Lock()
+	idx := indexByID(entries, id)
+	if idx < 0 {
+		stateMu.Unlock()
 		return
 	}
 	t := time.UnixMilli(entries[idx].At)
+	stateMu.Unlock()
 	openTimePicker(t.Hour(), t.Minute(), func(h, m int) {
 		stateMu.Lock()
-		if idx < len(entries) {
+		idx := indexByID(entries, id)
+		if idx >= 0 {
 			entries[idx].At = nextOccurrence(h, m).UnixMilli()
 		}
 		stateMu.Unlock()
@@ -654,10 +1080,11 @@ func onEditClicked(idx int) {
 	})
 }
 
-// onDeleteClicked removes the row, persists, redraws.
-func onDeleteClicked(idx int) {
+// onDeleteClickedByID removes the entry, persists, redraws.
+func onDeleteClickedByID(id int32) {
 	stateMu.Lock()
-	if idx < 0 || idx >= len(entries) {
+	idx := indexByID(entries, id)
+	if idx < 0 {
 		stateMu.Unlock()
 		return
 	}
@@ -666,10 +1093,11 @@ func onDeleteClicked(idx int) {
 	applyMutation()
 }
 
-// onSwitchToggled flips the entry's Enabled flag and reschedules.
-func onSwitchToggled(idx int, checked bool) {
+// onSwitchToggledByID flips the entry's Enabled flag and reschedules.
+func onSwitchToggledByID(id int32, checked bool) {
 	stateMu.Lock()
-	if idx < 0 || idx >= len(entries) {
+	idx := indexByID(entries, id)
+	if idx < 0 {
 		stateMu.Unlock()
 		return
 	}
@@ -682,13 +1110,23 @@ func onSwitchToggled(idx int, checked bool) {
 	applyMutation()
 }
 
-// applyMutation re-sorts, persists, reschedules, and rebuilds the row
-// list. Called from the UI thread (proxy callbacks run on it).
+// indexByID returns the position of the entry with the given stable ID,
+// or -1 if not found. Caller must hold stateMu.
+func indexByID(es []alarmEntry, id int32) int {
+	for i, e := range es {
+		if e.ID == id {
+			return i
+		}
+	}
+	return -1
+}
+
+// applyMutation re-sorts, persists, reschedules, and tells the adapter
+// data set changed. Called from the UI thread (proxy callbacks run on it).
 func applyMutation() {
 	stateMu.Lock()
 	sort.Slice(entries, func(i, j int) bool { return entries[i].At < entries[j].At })
-	snapshot := make([]alarmEntry, len(entries))
-	copy(snapshot, entries)
+	snapshot := append([]alarmEntry(nil), entries...)
 	stateMu.Unlock()
 
 	var buf bytes.Buffer
@@ -705,13 +1143,27 @@ func applyMutation() {
 	if err := scheduleEnabled(vm, ctx, snapshot, &buf); err != nil {
 		logf(&buf, "scheduleEnabled: %v", err)
 	}
-	if err := rebuildList(); err != nil {
-		logf(&buf, "rebuildList: %v", err)
+	notifyAdapterChanged(vm)
+}
+
+// notifyAdapterChanged re-runs the RecyclerView.Adapter pipeline so the
+// rows pick up the post-sort entries. Uses RecyclerViewAdapter.NotifyDataSetChanged.
+func notifyAdapterChanged(vm *jni.VM) {
+	if adapter == nil {
+		return
+	}
+	a := &rvwidget.RecyclerViewAdapter{VM: vm, Obj: adapter}
+	if err := a.NotifyDataSetChanged(); err != nil {
+		var b bytes.Buffer
+		logf(&b, "notifyDataSetChanged: %v", err)
 	}
 }
 
 // openTimePicker creates a new TimePickerDialog with a Go-side
 // OnTimeSetListener proxy, configures it for 24h time, and shows it.
+//
+// MaterialTimePicker requires a FragmentManager that NativeActivity does
+// not expose, so we stay on the legacy AlertDialog-based picker.
 func openTimePicker(initHour, initMinute int, onSet func(hour, minute int)) {
 	vm := globalVM
 	act := activityRef
@@ -760,23 +1212,6 @@ func openTimePicker(initHour, initMinute int, onSet func(hour, minute int)) {
 	}
 }
 
-// unboxInt reads java.lang.Integer.intValue() off a boxed argument.
-func unboxInt(env *jni.Env, boxed *jni.Object) (int, error) {
-	if boxed == nil || boxed.Ref() == 0 {
-		return 0, fmt.Errorf("nil Integer")
-	}
-	cls := env.GetObjectClass(boxed)
-	mid, err := env.GetMethodID(cls, "intValue", "()I")
-	if err != nil {
-		return 0, fmt.Errorf("intValue mid: %w", err)
-	}
-	v, err := env.CallIntMethod(boxed, mid)
-	if err != nil {
-		return 0, fmt.Errorf("intValue: %w", err)
-	}
-	return int(v), nil
-}
-
 // nextOccurrence returns the next local time at hh:mm (today if still in
 // the future, otherwise tomorrow).
 func nextOccurrence(hour, minute int) time.Time {
@@ -791,8 +1226,6 @@ func nextOccurrence(hour, minute int) time.Time {
 // scheduleEnabled (re)schedules every enabled alarm via setAlarmClock.
 // AlarmManager replaces an existing alarm with the same PendingIntent
 // request code — we use entry.ID — so re-running this is idempotent.
-// snapshot is a caller-owned copy of the entries slice taken under
-// stateMu, so this function can iterate without re-acquiring the lock.
 func scheduleEnabled(vm *jni.VM, ctx *app.Context, snapshot []alarmEntry, buf *bytes.Buffer) error {
 	mgr, err := alarm.NewManager(ctx)
 	if err != nil {
@@ -887,7 +1320,7 @@ func findNativeActivityClass(vm *jni.VM) (*jni.Object, error) {
 
 // newAlarmClockInfo constructs android.app.AlarmManager$AlarmClockInfo via
 // raw JNI. The javagen pipeline does not currently emit constructors for
-// static-nested classes.
+// static-nested classes (alarm.ManagerAlarmClockInfo has only accessors).
 func newAlarmClockInfo(
 	vm *jni.VM,
 	triggerMs int64,
@@ -937,15 +1370,10 @@ func loadOrSeedEntries(
 		return nil, false, fmt.Errorf("getString: %w", err)
 	}
 	if raw != "" {
-		// Try the current schema (versioned envelope) first.
 		var payload alarmsPayload
 		if jsonErr := json.Unmarshal([]byte(raw), &payload); jsonErr == nil && payload.Version >= 1 && len(payload.Entries) > 0 {
 			return payload.Entries, false, nil
 		}
-		// Legacy payload (bare JSON array, no version field). Use Enabled
-		// as-stored: the JSON spec gives missing booleans the zero value
-		// (false), and we accept that legacy users opt back in via the
-		// Switch UI rather than silently flipping their disabled alarms on.
 		var legacy []alarmEntry
 		if jsonErr := json.Unmarshal([]byte(raw), &legacy); jsonErr == nil && len(legacy) > 0 {
 			return legacy, false, nil
