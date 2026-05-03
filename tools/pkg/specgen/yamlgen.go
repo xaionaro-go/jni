@@ -4,8 +4,10 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"runtime"
 	"strconv"
 	"strings"
+	"sync"
 
 	"gopkg.in/yaml.v3"
 )
@@ -83,11 +85,28 @@ func GenerateSpec(
 	return spec, nil
 }
 
-// GenerateFromRefDir scans ref/ for .class files and generates one YAML
-// spec per top-level class (inner classes are grouped with their parent).
-// extraClassPath is appended to the javap -cp argument.
+// GenerateFromRefDir is a backward-compatible wrapper around
+// GenerateFromSources that only walks refDir for .class files.
+//
+// Deprecated: use GenerateFromSources, which can additionally enumerate
+// classes from JARs under jarsDir (e.g. AAR-extracted classes.jar trees).
 func GenerateFromRefDir(
 	refDir string,
+	extraClassPath string,
+	outputDir string,
+	goModule string,
+) error {
+	return GenerateFromSources(refDir, "", extraClassPath, outputDir, goModule)
+}
+
+// GenerateFromSources scans refDir for .class files and (optionally) jarsDir
+// for classes.jar files, then generates one YAML spec per top-level class
+// (inner classes are grouped with their parent). extraClassPath is appended
+// to the javap -cp argument so referenced types resolve. jarsDir may be ""
+// to preserve the legacy ref-only behavior.
+func GenerateFromSources(
+	refDir string,
+	jarsDir string,
 	extraClassPath string,
 	outputDir string,
 	goModule string,
@@ -119,26 +138,54 @@ func GenerateFromRefDir(
 	// Separate top-level classes from inner classes.
 	type classEntry struct {
 		className string
-		filePath  string
 	}
 	topLevel := make(map[string]classEntry)       // parent class → entry
 	innerClasses := make(map[string][]classEntry) // parent class → inner entries
 
+	addClass := func(className string) {
+		entry := classEntry{className: className}
+		if idx := strings.LastIndex(className, "$"); idx >= 0 {
+			parent := className[:idx]
+			innerClasses[parent] = append(innerClasses[parent], entry)
+			return
+		}
+		topLevel[className] = entry
+	}
+
+	refCount := 0
 	for _, cf := range classFiles {
 		rel, _ := filepath.Rel(refDir, cf)
 		className := strings.TrimSuffix(rel, ".class")
 		className = strings.ReplaceAll(className, "/", ".")
+		addClass(className)
+		refCount++
+	}
 
-		entry := classEntry{className: className, filePath: cf}
-
-		if strings.Contains(filepath.Base(cf), "$") {
-			// Inner class — group with parent.
-			parent := className[:strings.LastIndex(className, "$")]
-			innerClasses[parent] = append(innerClasses[parent], entry)
-		} else {
-			topLevel[className] = entry
+	// Pull in classes from JAR files (e.g. AAR-extracted classes.jar) when
+	// requested. Each JAR is also added to the javap classpath below.
+	var jarPaths []string
+	jarCount := 0
+	if jarsDir != "" {
+		jars, jerr := FindClassesJars(jarsDir)
+		if jerr != nil {
+			return fmt.Errorf("find classes.jar under %s: %w", jarsDir, jerr)
+		}
+		jarPaths = jars
+		for _, jar := range jars {
+			names, nerr := EnumerateClassesInJar(jar)
+			if nerr != nil {
+				return fmt.Errorf("enumerate %s: %w", jar, nerr)
+			}
+			for _, name := range names {
+				addClass(name)
+				jarCount++
+			}
 		}
 	}
+
+	fmt.Fprintf(os.Stderr,
+		"specgen: %d classes from refDir (%s), %d classes from %d jars under %q\n",
+		refCount, refDir, jarCount, len(jarPaths), jarsDir)
 
 	if err := os.MkdirAll(outputDir, dirPerm); err != nil {
 		return fmt.Errorf("mkdir %s: %w", outputDir, err)
@@ -151,20 +198,44 @@ func GenerateFromRefDir(
 		return fmt.Errorf("load existing specs: %w", err)
 	}
 
-	cp := refDir
+	cpParts := []string{refDir}
+	cpParts = append(cpParts, jarPaths...)
 	if extraClassPath != "" {
-		cp = refDir + ":" + extraClassPath
+		cpParts = append(cpParts, extraClassPath)
 	}
+	cp := strings.Join(cpParts, ":")
 
 	// Accumulate specs per Go import path so that classes from different
 	// Java packages that share the same Go package name (e.g.,
 	// "android.credentials.*" and "android.service.credentials.*") end up
 	// in separate spec files and Go packages.
 	specs := make(map[string]*SpecFile) // key: GoImport path
+	var specsMu sync.Mutex
 
-	for parentName, entry := range topLevel {
+	// Bound concurrency to GOMAXPROCS — javap is CPU-bound (each invocation
+	// forks an OpenJDK process). The work for a top-level class is independent
+	// of every other class, so the loop parallelises naturally.
+	workers := runtime.GOMAXPROCS(0)
+	if workers < 2 {
+		workers = 2
+	}
+	type job struct{ parentName string }
+	jobs := make(chan job, workers*2)
+	var wg sync.WaitGroup
+
+	processOne := func(parentName string) {
 		mapping := inferClassMapping(parentName, goModule, existingMappings)
 
+		// Parse the top-level class. Skip non-public classes (annotations,
+		// package-private types) that cannot be used via JNI.
+		jc, err := RunJavap(cp, parentName)
+		if err != nil {
+			return
+		}
+		cls := classFromJavap(jc, mapping.Package)
+		acb := abstractCallbackFromJavap(jc, mapping.Package)
+
+		specsMu.Lock()
 		spec, ok := specs[mapping.GoImport]
 		if !ok {
 			spec = &SpecFile{
@@ -173,34 +244,54 @@ func GenerateFromRefDir(
 			}
 			specs[mapping.GoImport] = spec
 		}
-
-		// Parse the top-level class. Skip non-public classes (annotations,
-		// package-private types) that cannot be used via JNI.
-		jc, err := RunJavap(cp, entry.className)
-		if err != nil {
-			continue
-		}
-		cls := classFromJavap(jc, mapping.Package)
 		spec.Classes = append(spec.Classes, cls)
 		addConstants(spec, jc)
-		if acb := abstractCallbackFromJavap(jc, mapping.Package); acb != nil {
+		if acb != nil {
 			spec.AbstractCallbacks = append(spec.AbstractCallbacks, *acb)
 		}
+		specsMu.Unlock()
 
-		// Parse inner classes.
+		// Parse inner classes (also potentially expensive — same parallelism).
 		for _, inner := range innerClasses[parentName] {
 			ijc, err := RunJavap(cp, inner.className)
 			if err != nil {
 				continue
 			}
 			icls := classFromJavap(ijc, mapping.Package)
+			iacb := abstractCallbackFromJavap(ijc, mapping.Package)
+
+			specsMu.Lock()
 			spec.Classes = append(spec.Classes, icls)
 			addConstants(spec, ijc)
-			if acb := abstractCallbackFromJavap(ijc, mapping.Package); acb != nil {
-				spec.AbstractCallbacks = append(spec.AbstractCallbacks, *acb)
+			if iacb != nil {
+				spec.AbstractCallbacks = append(spec.AbstractCallbacks, *iacb)
 			}
+			specsMu.Unlock()
 		}
 	}
+
+	for w := 0; w < workers; w++ {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			for j := range jobs {
+				processOne(j.parentName)
+			}
+		}()
+	}
+
+	progress := 0
+	total := len(topLevel)
+	fmt.Fprintf(os.Stderr, "specgen: processing %d top-level classes with %d workers\n", total, workers)
+	for parentName := range topLevel {
+		jobs <- job{parentName: parentName}
+		progress++
+		if progress%500 == 0 {
+			fmt.Fprintf(os.Stderr, "specgen: queued %d/%d\n", progress, total)
+		}
+	}
+	close(jobs)
+	wg.Wait()
 
 	// Build a map from package name to list of GoImport paths so we can
 	// detect when multiple Go import paths share the same package name
@@ -210,6 +301,7 @@ func GenerateFromRefDir(
 		pkgImports[spec.Package] = append(pkgImports[spec.Package], goImport)
 	}
 
+	fmt.Fprintf(os.Stderr, "specgen: writing %d spec files to %s\n", len(specs), outputDir)
 	for _, spec := range specs {
 		spec.Classes = deduplicateGoTypes(spec.Classes)
 		spec.Constants = deduplicateConstants(spec.Constants)
@@ -223,6 +315,7 @@ func GenerateFromRefDir(
 			specName = strings.ReplaceAll(relPath, "/", "_")
 		}
 		outPath := filepath.Join(outputDir, specName+".yaml")
+		fmt.Fprintf(os.Stderr, "  -> %s (classes=%d)\n", outPath, len(spec.Classes))
 		if err := writeSpecFile(spec, outPath); err != nil {
 			return fmt.Errorf("write %s: %w", outPath, err)
 		}

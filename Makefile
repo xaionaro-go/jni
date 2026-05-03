@@ -1,4 +1,4 @@
-.PHONY: generate specs jni java clean lint test test-tools build prove examples aar-resolve
+.PHONY: generate specs aar-specs jni java clean lint test test-tools build prove examples aar-resolve
 
 # JDK detection for host tests (jni.h and libjvm.so).
 JDK_HOME ?= $(shell readlink -f $$(which javac) 2>/dev/null | sed 's|/bin/javac$$||')
@@ -14,6 +14,20 @@ generate: specs jni java
 # Run specgen — generates YAML specs from ref/ .class files
 specs:
 	go run ./tools/cmd/specgen/ -ref ref -classpath $(ANDROID_JAR) -output spec/java/ -go-module github.com/AndroidGoLab/jni
+
+# Generate YAML specs for AndroidX/Material classes from the cycle 2 AAR
+# closure produced by `make aar-resolve` and extracted by lock-paths.
+# Requires .aar-cache/lock.json plus the .aar-cache/extracted/ tree.
+# Tradeoff: `make specs` does not pass -jars-dir, so re-running it after
+# `make aar-specs` may regenerate without the AAR-sourced classes; treat
+# `make aar-specs` as the superset target until the two are unified.
+aar-specs:
+	go run ./tools/cmd/specgen/ \
+		-ref ref \
+		-jars-dir .aar-cache/extracted \
+		-classpath $(ANDROID_JAR) \
+		-output spec/java/ \
+		-go-module github.com/AndroidGoLab/jni
 
 # Run jnigen only — generates capi/ and root package idiomatic files
 jni:
