@@ -58,6 +58,7 @@ aar-resolve:
 		--top com.google.android.material:material:1.12.0 \
 		--top androidx.recyclerview:recyclerview:1.3.2 \
 		--top androidx.constraintlayout:constraintlayout:2.1.4 \
+		--top androidx.drawerlayout:drawerlayout:1.1.1 \
 		--cache .aar-cache \
 		--lock .aar-cache/lock.json \
 		--max-concurrency 8

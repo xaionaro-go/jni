@@ -38,7 +38,9 @@ $(BUILD)/AndroidManifest.xml:
 	@printf '    package="%s">\n' '$(PACKAGE_NAME)' >> $@
 	@$(foreach perm,$(EXAMPLE_PERMISSIONS), \
 		printf '    <uses-permission android:name="%s" />\n' '$(perm)' >> $@;)
-	@printf '    <application android:label="%s" android:hasCode="%s" android:debuggable="true">\n' '$(EXAMPLE_NAME)' '$(if $(filter true,$(EXAMPLE_NEEDS_PROXY)),true,false)' >> $@
+	@printf '    <application android:label="%s" android:hasCode="%s" android:debuggable="true"' '$(EXAMPLE_NAME)' '$(if $(filter true,$(EXAMPLE_NEEDS_PROXY)),true,false)' >> $@
+	@if [ -n '$(EXAMPLE_THEME_REF)' ]; then printf ' android:theme="%s"' '$(EXAMPLE_THEME_REF)' >> $@; fi
+	@printf '>\n' >> $@
 	@PERM_CSV="$(subst $(space),$(comma),$(EXAMPLE_PERMISSIONS))"; \
 		if [ -n "$$PERM_CSV" ]; then \
 			printf '        <meta-data android:name="example.permissions" android:value="%s" />\n' "$$PERM_CSV" >> $@; \
@@ -59,6 +61,7 @@ $(BUILD)/AndroidManifest.xml:
 HANDLER_JAVA  := $(HANDLER_DIR)/center/dx/jni/internal/GoInvocationHandler.java
 DISPATCH_JAVA := $(HANDLER_DIR)/center/dx/jni/internal/GoAbstractDispatch.java
 ifeq ($(EXAMPLE_NEEDS_PROXY),true)
+ifneq ($(EXAMPLE_USES_MATERIAL),true)
 $(BUILD)/classes.dex: $(HANDLER_JAVA) $(DISPATCH_JAVA) $(EXAMPLE_EXTRA_JAVA)
 	@mkdir -p $(BUILD)/java
 	javac --release 17 -classpath $(PLATFORM)/android.jar \
@@ -67,6 +70,8 @@ $(BUILD)/classes.dex: $(HANDLER_JAVA) $(DISPATCH_JAVA) $(EXAMPLE_EXTRA_JAVA)
 		$$(find $(BUILD)/java -name '*.class')
 APK_DEPS += $(BUILD)/classes.dex
 endif
+endif
+
 $(BUILD)/lib/arm64-v8a/libexample.so: main.go
 	@mkdir -p $(dir $@)
 	cd ../.. && CGO_ENABLED=1 GOOS=android GOARCH=arm64 CC=$(CC_ARM64) \
@@ -104,3 +109,9 @@ run: install
 	$(ADB) shell am start -n $(PACKAGE_NAME)/android.app.NativeActivity
 clean:
 	rm -rf $(BUILD)
+
+# Material 3 pipeline. Included at the end so its target overrides for
+# classes.dex and the final APK win over the bare-NativeActivity rules above.
+ifeq ($(EXAMPLE_USES_MATERIAL),true)
+include $(dir $(lastword $(MAKEFILE_LIST)))material.mk
+endif

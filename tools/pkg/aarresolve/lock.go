@@ -30,6 +30,20 @@ type ArtifactEntry struct {
 	Dependencies []string `json:"dependencies"`
 }
 
+// ReadLockFile loads and parses the lock file at path. The Artifacts slice is
+// returned in the order it was written, which Write sorts by coordinate.
+func ReadLockFile(path string) (*LockFile, error) {
+	data, err := os.ReadFile(path)
+	if err != nil {
+		return nil, fmt.Errorf("read %s: %w", path, err)
+	}
+	lock := &LockFile{}
+	if err := json.Unmarshal(data, lock); err != nil {
+		return nil, fmt.Errorf("parse %s: %w", path, err)
+	}
+	return lock, nil
+}
+
 // Write sorts Artifacts by group:artifact, marshals the LockFile as indented
 // JSON with a trailing newline, and atomically writes it to path.
 func (l *LockFile) Write(path string) error {

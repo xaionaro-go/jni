@@ -6,3 +6,14 @@ cover.out
 examples/test_results/
 /jnigen
 examples/*/build/
+
+# AAR cache: artifacts and aapt2 byproducts are downloaded/derived; the lock
+# file is the deterministic input that must be committed.
+.aar-cache/files/
+.aar-cache/extracted/
+.aar-cache/compiled/
+.aar-cache/androidx/
+.aar-cache/com/
+.aar-cache/org/
+.aar-cache/io/
+!.aar-cache/lock.json
