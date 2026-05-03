@@ -5,147 +5,8 @@
 package: lang
 go_import: github.com/AndroidGoLab/jni/icu/lang
 classes:
-    - java_class: android.icu.lang.UCharacterEnums
-      go_type: UCharacterEnums
-    - java_class: android.icu.lang.UCharacterEnums$ECharacterCategory
-      go_type: UCharacterEnumsECharacterCategory
-    - java_class: android.icu.lang.UCharacterEnums$ECharacterDirection
-      go_type: UCharacterEnumsECharacterDirection
     - java_class: android.icu.lang.UCharacterCategory
       go_type: UCharacterCategory
-      static_methods:
-        - java_method: toString
-          go_name: ToString
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: String
-          error: true
-    - java_class: android.icu.lang.UScript
-      go_type: UScript
-      static_methods:
-        - java_method: breaksBetweenLetters
-          go_name: BreaksBetweenLetters
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getCode
-          go_name: GetCode1
-          params:
-            - java_type: android.icu.util.ULocale
-              go_name: arg0
-          returns: '[I'
-          error: true
-        - java_method: getCode
-          go_name: GetCode1_1
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: '[I'
-          error: true
-        - java_method: getCode
-          go_name: GetCode1_2
-          params:
-            - java_type: java.util.Locale
-              go_name: arg0
-          returns: '[I'
-          error: true
-        - java_method: getCodeFromName
-          go_name: GetCodeFromName
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getName
-          go_name: GetName
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: String
-          error: true
-        - java_method: getSampleString
-          go_name: GetSampleString
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: String
-          error: true
-        - java_method: getScript
-          go_name: GetScript
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getScriptExtensions
-          go_name: GetScriptExtensions
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: java.util.BitSet
-              go_name: arg1
-          returns: int
-          error: true
-        - java_method: getShortName
-          go_name: GetShortName
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: String
-          error: true
-        - java_method: getUsage
-          go_name: GetUsage
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.icu.lang.UScript$ScriptUsage
-          error: true
-        - java_method: hasScript
-          go_name: HasScript
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: isCased
-          go_name: IsCased
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: isRightToLeft
-          go_name: IsRightToLeft
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-    - java_class: android.icu.lang.UScript$ScriptUsage
-      go_type: UScriptScriptUsage
-      static_methods:
-        - java_method: values
-          go_name: Values
-          returns: android.icu.lang.UScript$ScriptUsage[]
-          error: true
-        - java_method: valueOf
-          go_name: ValueOf
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.icu.lang.UScript$ScriptUsage
-          error: true
-    - java_class: android.icu.lang.UProperty
-      go_type: UProperty
-    - java_class: android.icu.lang.UProperty$NameChoice
-      go_type: UPropertyNameChoice
-    - java_class: android.icu.lang.UCharacterDirection
-      go_type: UCharacterDirection
       static_methods:
         - java_method: toString
           go_name: ToString
@@ -1005,8 +866,129 @@ classes:
       go_type: UCharacterLineBreak
     - java_class: android.icu.lang.UCharacter$NumericType
       go_type: UCharacterNumericType
+    - java_class: android.icu.lang.UScript
+      go_type: UScript
+      static_methods:
+        - java_method: breaksBetweenLetters
+          go_name: BreaksBetweenLetters
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getCode
+          go_name: GetCode1
+          params:
+            - java_type: android.icu.util.ULocale
+              go_name: arg0
+          returns: '[I'
+          error: true
+        - java_method: getCode
+          go_name: GetCode1_1
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: '[I'
+          error: true
+        - java_method: getCode
+          go_name: GetCode1_2
+          params:
+            - java_type: java.util.Locale
+              go_name: arg0
+          returns: '[I'
+          error: true
+        - java_method: getCodeFromName
+          go_name: GetCodeFromName
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getName
+          go_name: GetName
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: String
+          error: true
+        - java_method: getSampleString
+          go_name: GetSampleString
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: String
+          error: true
+        - java_method: getScript
+          go_name: GetScript
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getScriptExtensions
+          go_name: GetScriptExtensions
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: java.util.BitSet
+              go_name: arg1
+          returns: int
+          error: true
+        - java_method: getShortName
+          go_name: GetShortName
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: String
+          error: true
+        - java_method: getUsage
+          go_name: GetUsage
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.icu.lang.UScript$ScriptUsage
+          error: true
+        - java_method: hasScript
+          go_name: HasScript
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: isCased
+          go_name: IsCased
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: isRightToLeft
+          go_name: IsRightToLeft
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+    - java_class: android.icu.lang.UScript$ScriptUsage
+      go_type: UScriptScriptUsage
+      static_methods:
+        - java_method: values
+          go_name: Values
+          returns: android.icu.lang.UScript$ScriptUsage[]
+          error: true
+        - java_method: valueOf
+          go_name: ValueOf
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.icu.lang.UScript$ScriptUsage
+          error: true
     - java_class: android.icu.lang.UCharacter$SentenceBreak
       go_type: UCharacterSentenceBreak
+    - java_class: android.icu.lang.UCharacterEnums
+      go_type: UCharacterEnums
     - java_class: android.icu.lang.UCharacter$UnicodeBlock
       go_type: UCharacterUnicodeBlock
       methods:
@@ -1036,238 +1018,859 @@ classes:
               go_name: arg0
           returns: android.icu.lang.UCharacter$UnicodeBlock
           error: true
+    - java_class: android.icu.lang.UCharacterEnums$ECharacterCategory
+      go_type: UCharacterEnumsECharacterCategory
     - java_class: android.icu.lang.UCharacter$VerticalOrientation
       go_type: UCharacterVerticalOrientation
+    - java_class: android.icu.lang.UCharacterEnums$ECharacterDirection
+      go_type: UCharacterEnumsECharacterDirection
     - java_class: android.icu.lang.UCharacter$WordBreak
       go_type: UCharacterWordBreak
+    - java_class: android.icu.lang.UProperty
+      go_type: UProperty
+    - java_class: android.icu.lang.UProperty$NameChoice
+      go_type: UPropertyNameChoice
+    - java_class: android.icu.lang.UCharacterDirection
+      go_type: UCharacterDirection
+      static_methods:
+        - java_method: toString
+          go_name: ToString
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: String
+          error: true
 constants:
-    - go_name: CombiningSpacingMark
+    - go_name: FoldCaseDefault
+      value: "0"
+      go_type: int
+    - go_name: FoldCaseExcludeSpecialI
+      value: "1"
+      go_type: int
+    - go_name: MaxCodePoint
+      value: "1114111"
+      go_type: int
+    - go_name: MaxHighSurrogate
+      value: "56319"
+      go_type: int
+    - go_name: MaxLowSurrogate
+      value: "57343"
+      go_type: int
+    - go_name: MaxRadix
+      value: "36"
+      go_type: int
+    - go_name: MaxSurrogate
+      value: "57343"
+      go_type: int
+    - go_name: MaxValue
+      value: "1114111"
+      go_type: int
+    - go_name: MinCodePoint
+      value: "0"
+      go_type: int
+    - go_name: MinHighSurrogate
+      value: "55296"
+      go_type: int
+    - go_name: MinLowSurrogate
+      value: "56320"
+      go_type: int
+    - go_name: MinRadix
+      value: "2"
+      go_type: int
+    - go_name: MinSupplementaryCodePoint
+      value: "65536"
+      go_type: int
+    - go_name: MinSurrogate
+      value: "55296"
+      go_type: int
+    - go_name: MinValue
+      value: "0"
+      go_type: int
+    - go_name: NoNumericValue
+      value: -1.23456789E8d
+      go_type: float64
+    - go_name: ReplacementChar
+      value: "65533"
+      go_type: int
+    - go_name: SupplementaryMinValue
+      value: "65536"
+      go_type: int
+    - go_name: TitlecaseNoBreakAdjustment
+      value: "512"
+      go_type: int
+    - go_name: TitlecaseNoLowercase
+      value: "256"
+      go_type: int
+    - go_name: Close
+      value: "2"
+      go_type: int
+    - go_name: None
+      value: "0"
+      go_type: int
+    - go_name: Open
+      value: "1"
+      go_type: int
+    - go_name: Canonical
+      value: "1"
+      go_type: int
+    - go_name: Circle
+      value: "3"
+      go_type: int
+    - go_name: Compat
+      value: "2"
+      go_type: int
+    - go_name: Final
+      value: "4"
+      go_type: int
+    - go_name: Font
+      value: "5"
+      go_type: int
+    - go_name: Fraction
+      value: "6"
+      go_type: int
+    - go_name: Initial
+      value: "7"
+      go_type: int
+    - go_name: Isolated
       value: "8"
       go_type: int
-    - go_name: ConnectorPunctuation
-      value: "22"
+    - go_name: Medial
+      value: "9"
+      go_type: int
+    - go_name: Narrow
+      value: "10"
+      go_type: int
+    - go_name: Nobreak
+      value: "11"
+      go_type: int
+    - go_name: Small
+      value: "12"
+      go_type: int
+    - go_name: Square
+      value: "13"
+      go_type: int
+    - go_name: Sub
+      value: "14"
+      go_type: int
+    - go_name: Super
+      value: "15"
+      go_type: int
+    - go_name: Vertical
+      value: "16"
+      go_type: int
+    - go_name: Wide
+      value: "17"
+      go_type: int
+    - go_name: Ambiguous
+      value: "1"
+      go_type: int
+    - go_name: Fullwidth
+      value: "3"
+      go_type: int
+    - go_name: Halfwidth
+      value: "2"
+      go_type: int
+    - go_name: Neutral
+      value: "0"
       go_type: int
     - go_name: Control
-      value: "15"
-      go_type: int
-    - go_name: CurrencySymbol
-      value: "25"
-      go_type: int
-    - go_name: DashPunctuation
-      value: "19"
-      go_type: int
-    - go_name: DecimalDigitNumber
-      value: "9"
-      go_type: int
-    - go_name: EnclosingMark
-      value: "7"
-      go_type: int
-    - go_name: EndPunctuation
-      value: "21"
-      go_type: int
-    - go_name: FinalPunctuation
-      value: "29"
-      go_type: int
-    - go_name: FinalQuotePunctuation
-      value: "29"
-      go_type: int
-    - go_name: Format
-      value: "16"
-      go_type: int
-    - go_name: GeneralOtherTypes
-      value: "0"
-      go_type: int
-    - go_name: InitialPunctuation
-      value: "28"
-      go_type: int
-    - go_name: InitialQuotePunctuation
-      value: "28"
-      go_type: int
-    - go_name: LetterNumber
-      value: "10"
-      go_type: int
-    - go_name: LineSeparator
-      value: "13"
-      go_type: int
-    - go_name: LowercaseLetter
-      value: "2"
-      go_type: int
-    - go_name: MathSymbol
-      value: "24"
-      go_type: int
-    - go_name: ModifierLetter
-      value: "4"
-      go_type: int
-    - go_name: ModifierSymbol
-      value: "26"
-      go_type: int
-    - go_name: NonSpacingMark
-      value: "6"
-      go_type: int
-    - go_name: OtherLetter
-      value: "5"
-      go_type: int
-    - go_name: OtherNumber
-      value: "11"
-      go_type: int
-    - go_name: OtherPunctuation
-      value: "23"
-      go_type: int
-    - go_name: OtherSymbol
-      value: "27"
-      go_type: int
-    - go_name: ParagraphSeparator
-      value: "14"
-      go_type: int
-    - go_name: PrivateUse
-      value: "17"
-      go_type: int
-    - go_name: SpaceSeparator
-      value: "12"
-      go_type: int
-    - go_name: StartPunctuation
-      value: "20"
-      go_type: int
-    - go_name: Surrogate
-      value: "18"
-      go_type: int
-    - go_name: TitlecaseLetter
-      value: "3"
-      go_type: int
-    - go_name: Unassigned
-      value: "0"
-      go_type: int
-    - go_name: UppercaseLetter
       value: "1"
       go_type: int
-    - go_name: ArabicNumber
-      value: "5"
-      go_type: int
-    - go_name: BlockSeparator
-      value: "7"
-      go_type: int
-    - go_name: BoundaryNeutral
-      value: "18"
-      go_type: int
-    - go_name: CommonNumberSeparator
-      value: "6"
-      go_type: int
-    - go_name: DirectionalityArabicNumber
-      value: "5"
-      go_type: int
-    - go_name: DirectionalityBoundaryNeutral
-      value: "18"
-      go_type: int
-    - go_name: DirectionalityCommonNumberSeparator
-      value: "6"
-      go_type: int
-    - go_name: DirectionalityEuropeanNumber
+    - go_name: Cr
       value: "2"
       go_type: int
-    - go_name: DirectionalityEuropeanNumberSeparator
+    - go_name: Extend
       value: "3"
       go_type: int
-    - go_name: DirectionalityEuropeanNumberTerminator
-      value: "4"
-      go_type: int
-    - go_name: DirectionalityLeftToRight
-      value: "0"
-      go_type: int
-    - go_name: DirectionalityLeftToRightEmbedding
-      value: "11"
-      go_type: int
-    - go_name: DirectionalityLeftToRightOverride
-      value: "12"
-      go_type: int
-    - go_name: DirectionalityNonspacingMark
-      value: "17"
-      go_type: int
-    - go_name: DirectionalityOtherNeutrals
-      value: "10"
-      go_type: int
-    - go_name: DirectionalityParagraphSeparator
-      value: "7"
-      go_type: int
-    - go_name: DirectionalityPopDirectionalFormat
-      value: "16"
-      go_type: int
-    - go_name: DirectionalityRightToLeft
-      value: "1"
-      go_type: int
-    - go_name: DirectionalityRightToLeftArabic
+    - go_name: EBase
       value: "13"
       go_type: int
-    - go_name: DirectionalityRightToLeftEmbedding
+    - go_name: EBaseGaz
       value: "14"
       go_type: int
-    - go_name: DirectionalityRightToLeftOverride
+    - go_name: EModifier
       value: "15"
       go_type: int
-    - go_name: DirectionalitySegmentSeparator
+    - go_name: GlueAfterZwj
+      value: "16"
+      go_type: int
+    - go_name: L
+      value: "4"
+      go_type: int
+    - go_name: Lf
+      value: "5"
+      go_type: int
+    - go_name: Lv
+      value: "6"
+      go_type: int
+    - go_name: Lvt
+      value: "7"
+      go_type: int
+    - go_name: Other
+      value: "0"
+      go_type: int
+    - go_name: Prepend
+      value: "11"
+      go_type: int
+    - go_name: RegionalIndicator
+      value: "12"
+      go_type: int
+    - go_name: SpacingMark
+      value: "10"
+      go_type: int
+    - go_name: T
       value: "8"
       go_type: int
-    - go_name: DirectionalityUndefined
-      value: "-1"
-      go_type: int
-    - go_name: DirectionalityWhitespace
+    - go_name: V
       value: "9"
       go_type: int
-    - go_name: DirNonSpacingMark
+    - go_name: Zwj
       value: "17"
       go_type: int
-    - go_name: EuropeanNumber
-      value: "2"
+    - go_name: LeadingJamo
+      value: "1"
       go_type: int
-    - go_name: EuropeanNumberSeparator
-      value: "3"
+    - go_name: LvtSyllable
+      value: "5"
       go_type: int
-    - go_name: EuropeanNumberTerminator
+    - go_name: LvSyllable
       value: "4"
       go_type: int
-    - go_name: FirstStrongIsolate
-      value: "19"
-      go_type: int
-    - go_name: LeftToRight
+    - go_name: NotApplicable
       value: "0"
       go_type: int
-    - go_name: LeftToRightEmbedding
-      value: "11"
+    - go_name: TrailingJamo
+      value: "3"
       go_type: int
-    - go_name: LeftToRightIsolate
-      value: "20"
+    - go_name: VowelJamo
+      value: "2"
       go_type: int
-    - go_name: LeftToRightOverride
-      value: "12"
+    - go_name: Bottom
+      value: "1"
       go_type: int
-    - go_name: OtherNeutral
+    - go_name: BottomAndLeft
+      value: "2"
+      go_type: int
+    - go_name: BottomAndRight
+      value: "3"
+      go_type: int
+    - go_name: Left
+      value: "4"
+      go_type: int
+    - go_name: LeftAndRight
+      value: "5"
+      go_type: int
+    - go_name: Na
+      value: "0"
+      go_type: int
+    - go_name: Overstruck
+      value: "6"
+      go_type: int
+    - go_name: Right
+      value: "7"
+      go_type: int
+    - go_name: Top
+      value: "8"
+      go_type: int
+    - go_name: TopAndBottom
+      value: "9"
+      go_type: int
+    - go_name: TopAndBottomAndLeft
+      value: "15"
+      go_type: int
+    - go_name: TopAndBottomAndRight
       value: "10"
       go_type: int
-    - go_name: PopDirectionalFormat
+    - go_name: TopAndLeft
+      value: "11"
+      go_type: int
+    - go_name: TopAndLeftAndRight
+      value: "12"
+      go_type: int
+    - go_name: TopAndRight
+      value: "13"
+      go_type: int
+    - go_name: VisualOrderLeft
+      value: "14"
+      go_type: int
+    - go_name: Avagraha
+      value: "1"
+      go_type: int
+    - go_name: Bindu
+      value: "2"
+      go_type: int
+    - go_name: BrahmiJoiningNumber
+      value: "3"
+      go_type: int
+    - go_name: CantillationMark
+      value: "4"
+      go_type: int
+    - go_name: Consonant
+      value: "5"
+      go_type: int
+    - go_name: ConsonantDead
+      value: "6"
+      go_type: int
+    - go_name: ConsonantFinal
+      value: "7"
+      go_type: int
+    - go_name: ConsonantHeadLetter
+      value: "8"
+      go_type: int
+    - go_name: ConsonantInitialPostfixed
+      value: "9"
+      go_type: int
+    - go_name: ConsonantKiller
+      value: "10"
+      go_type: int
+    - go_name: ConsonantMedial
+      value: "11"
+      go_type: int
+    - go_name: ConsonantPlaceholder
+      value: "12"
+      go_type: int
+    - go_name: ConsonantPrecedingRepha
+      value: "13"
+      go_type: int
+    - go_name: ConsonantPrefixed
+      value: "14"
+      go_type: int
+    - go_name: ConsonantSubjoined
+      value: "15"
+      go_type: int
+    - go_name: ConsonantSucceedingRepha
       value: "16"
       go_type: int
-    - go_name: PopDirectionalIsolate
+    - go_name: ConsonantWithStacker
+      value: "17"
+      go_type: int
+    - go_name: GeminationMark
+      value: "18"
+      go_type: int
+    - go_name: InvisibleStacker
+      value: "19"
+      go_type: int
+    - go_name: Joiner
+      value: "20"
+      go_type: int
+    - go_name: ModifyingLetter
+      value: "21"
+      go_type: int
+    - go_name: NonJoiner
       value: "22"
       go_type: int
-    - go_name: RightToLeft
+    - go_name: Nukta
+      value: "23"
+      go_type: int
+    - go_name: Number
+      value: "24"
+      go_type: int
+    - go_name: NumberJoiner
+      value: "25"
+      go_type: int
+    - go_name: PureKiller
+      value: "26"
+      go_type: int
+    - go_name: RegisterShifter
+      value: "27"
+      go_type: int
+    - go_name: ReorderingKiller
+      value: "36"
+      go_type: int
+    - go_name: SyllableModifier
+      value: "28"
+      go_type: int
+    - go_name: ToneLetter
+      value: "29"
+      go_type: int
+    - go_name: ToneMark
+      value: "30"
+      go_type: int
+    - go_name: Virama
+      value: "31"
+      go_type: int
+    - go_name: Visarga
+      value: "32"
+      go_type: int
+    - go_name: Vowel
+      value: "33"
+      go_type: int
+    - go_name: VowelDependent
+      value: "34"
+      go_type: int
+    - go_name: VowelIndependent
+      value: "35"
+      go_type: int
+    - go_name: AfricanFeh
+      value: "86"
+      go_type: int
+    - go_name: AfricanNoon
+      value: "87"
+      go_type: int
+    - go_name: AfricanQaf
+      value: "88"
+      go_type: int
+    - go_name: Ain
       value: "1"
       go_type: int
-    - go_name: RightToLeftArabic
-      value: "13"
+    - go_name: Alaph
+      value: "2"
       go_type: int
-    - go_name: RightToLeftEmbedding
-      value: "14"
+    - go_name: Alef
+      value: "3"
       go_type: int
-    - go_name: RightToLeftIsolate
-      value: "21"
+    - go_name: Beh
+      value: "4"
       go_type: int
-    - go_name: RightToLeftOverride
-      value: "15"
+    - go_name: Beth
+      value: "5"
       go_type: int
-    - go_name: SegmentSeparator
+    - go_name: BurushaskiYehBarree
+      value: "54"
+      go_type: int
+    - go_name: Dal
+      value: "6"
+      go_type: int
+    - go_name: DalathRish
+      value: "7"
+      go_type: int
+    - go_name: E
       value: "8"
       go_type: int
-    - go_name: WhiteSpaceNeutral
+    - go_name: FarsiYeh
+      value: "55"
+      go_type: int
+    - go_name: Fe
+      value: "51"
+      go_type: int
+    - go_name: Feh
       value: "9"
+      go_type: int
+    - go_name: FinalSemkath
+      value: "10"
+      go_type: int
+    - go_name: Gaf
+      value: "11"
+      go_type: int
+    - go_name: Gamal
+      value: "12"
+      go_type: int
+    - go_name: Hah
+      value: "13"
+      go_type: int
+    - go_name: HamzaOnHehGoal
+      value: "14"
+      go_type: int
+    - go_name: HanifiRohingyaKinnaYa
+      value: "100"
+      go_type: int
+    - go_name: HanifiRohingyaPa
+      value: "101"
+      go_type: int
+    - go_name: He
+      value: "15"
+      go_type: int
+    - go_name: Heh
+      value: "16"
+      go_type: int
+    - go_name: HehGoal
+      value: "17"
+      go_type: int
+    - go_name: Heth
+      value: "18"
+      go_type: int
+    - go_name: Kaf
+      value: "19"
+      go_type: int
+    - go_name: Kaph
+      value: "20"
+      go_type: int
+    - go_name: KashmiriYeh
+      value: "104"
+      go_type: int
+    - go_name: Khaph
+      value: "52"
+      go_type: int
+    - go_name: KnottedHeh
+      value: "21"
+      go_type: int
+    - go_name: Lam
+      value: "22"
+      go_type: int
+    - go_name: Lamadh
+      value: "23"
+      go_type: int
+    - go_name: MalayalamBha
+      value: "89"
+      go_type: int
+    - go_name: MalayalamJa
+      value: "90"
+      go_type: int
+    - go_name: MalayalamLla
+      value: "91"
+      go_type: int
+    - go_name: MalayalamLlla
+      value: "92"
+      go_type: int
+    - go_name: MalayalamNga
+      value: "93"
+      go_type: int
+    - go_name: MalayalamNna
+      value: "94"
+      go_type: int
+    - go_name: MalayalamNnna
+      value: "95"
+      go_type: int
+    - go_name: MalayalamNya
+      value: "96"
+      go_type: int
+    - go_name: MalayalamRa
+      value: "97"
+      go_type: int
+    - go_name: MalayalamSsa
+      value: "98"
+      go_type: int
+    - go_name: MalayalamTta
+      value: "99"
+      go_type: int
+    - go_name: ManichaeanAleph
+      value: "58"
+      go_type: int
+    - go_name: ManichaeanAyin
+      value: "59"
+      go_type: int
+    - go_name: ManichaeanBeth
+      value: "60"
+      go_type: int
+    - go_name: ManichaeanDaleth
+      value: "61"
+      go_type: int
+    - go_name: ManichaeanDhamedh
+      value: "62"
+      go_type: int
+    - go_name: ManichaeanFive
+      value: "63"
+      go_type: int
+    - go_name: ManichaeanGimel
+      value: "64"
+      go_type: int
+    - go_name: ManichaeanHeth
+      value: "65"
+      go_type: int
+    - go_name: ManichaeanHundred
+      value: "66"
+      go_type: int
+    - go_name: ManichaeanKaph
+      value: "67"
+      go_type: int
+    - go_name: ManichaeanLamedh
+      value: "68"
+      go_type: int
+    - go_name: ManichaeanMem
+      value: "69"
+      go_type: int
+    - go_name: ManichaeanNun
+      value: "70"
+      go_type: int
+    - go_name: ManichaeanOne
+      value: "71"
+      go_type: int
+    - go_name: ManichaeanPe
+      value: "72"
+      go_type: int
+    - go_name: ManichaeanQoph
+      value: "73"
+      go_type: int
+    - go_name: ManichaeanResh
+      value: "74"
+      go_type: int
+    - go_name: ManichaeanSadhe
+      value: "75"
+      go_type: int
+    - go_name: ManichaeanSamekh
+      value: "76"
+      go_type: int
+    - go_name: ManichaeanTaw
+      value: "77"
+      go_type: int
+    - go_name: ManichaeanTen
+      value: "78"
+      go_type: int
+    - go_name: ManichaeanTeth
+      value: "79"
+      go_type: int
+    - go_name: ManichaeanThamedh
+      value: "80"
+      go_type: int
+    - go_name: ManichaeanTwenty
+      value: "81"
+      go_type: int
+    - go_name: ManichaeanWaw
+      value: "82"
+      go_type: int
+    - go_name: ManichaeanYodh
+      value: "83"
+      go_type: int
+    - go_name: ManichaeanZayin
+      value: "84"
+      go_type: int
+    - go_name: Meem
+      value: "24"
+      go_type: int
+    - go_name: Mim
+      value: "25"
+      go_type: int
+    - go_name: Noon
+      value: "26"
+      go_type: int
+    - go_name: NoJoiningGroup
+      value: "0"
+      go_type: int
+    - go_name: Nun
+      value: "27"
+      go_type: int
+    - go_name: Nya
+      value: "56"
+      go_type: int
+    - go_name: Pe
+      value: "28"
+      go_type: int
+    - go_name: Qaf
+      value: "29"
+      go_type: int
+    - go_name: Qaph
+      value: "30"
+      go_type: int
+    - go_name: Reh
+      value: "31"
+      go_type: int
+    - go_name: ReversedPe
+      value: "32"
+      go_type: int
+    - go_name: RohingyaYeh
+      value: "57"
+      go_type: int
+    - go_name: Sad
+      value: "33"
+      go_type: int
+    - go_name: Sadhe
+      value: "34"
+      go_type: int
+    - go_name: Seen
+      value: "35"
+      go_type: int
+    - go_name: Semkath
+      value: "36"
+      go_type: int
+    - go_name: Shin
+      value: "37"
+      go_type: int
+    - go_name: StraightWaw
+      value: "85"
+      go_type: int
+    - go_name: SwashKaf
+      value: "38"
+      go_type: int
+    - go_name: SyriacWaw
+      value: "39"
+      go_type: int
+    - go_name: Tah
+      value: "40"
+      go_type: int
+    - go_name: Taw
+      value: "41"
+      go_type: int
+    - go_name: TehMarbuta
+      value: "42"
+      go_type: int
+    - go_name: TehMarbutaGoal
+      value: "14"
+      go_type: int
+    - go_name: Teth
+      value: "43"
+      go_type: int
+    - go_name: ThinYeh
+      value: "102"
+      go_type: int
+    - go_name: VerticalTail
+      value: "103"
+      go_type: int
+    - go_name: Waw
+      value: "44"
+      go_type: int
+    - go_name: Yeh
+      value: "45"
+      go_type: int
+    - go_name: YehBarree
+      value: "46"
+      go_type: int
+    - go_name: YehWithTail
+      value: "47"
+      go_type: int
+    - go_name: Yudh
+      value: "48"
+      go_type: int
+    - go_name: YudhHe
+      value: "49"
+      go_type: int
+    - go_name: Zain
+      value: "50"
+      go_type: int
+    - go_name: Zhain
+      value: "53"
+      go_type: int
+    - go_name: DualJoining
+      value: "2"
+      go_type: int
+    - go_name: JoinCausing
+      value: "1"
+      go_type: int
+    - go_name: LeftJoining
+      value: "3"
+      go_type: int
+    - go_name: NonJoining
+      value: "0"
+      go_type: int
+    - go_name: RightJoining
+      value: "4"
+      go_type: int
+    - go_name: Transparent
+      value: "5"
+      go_type: int
+    - go_name: Aksara
+      value: "43"
+      go_type: int
+    - go_name: AksaraPrebase
+      value: "44"
+      go_type: int
+    - go_name: AksaraStart
+      value: "45"
+      go_type: int
+    - go_name: Alphabetic
+      value: "2"
+      go_type: int
+    - go_name: BreakAfter
+      value: "4"
+      go_type: int
+    - go_name: BreakBefore
+      value: "5"
+      go_type: int
+    - go_name: BreakBoth
+      value: "3"
+      go_type: int
+    - go_name: BreakSymbols
+      value: "27"
+      go_type: int
+    - go_name: CarriageReturn
+      value: "10"
+      go_type: int
+    - go_name: CloseParenthesis
+      value: "36"
+      go_type: int
+    - go_name: ClosePunctuation
+      value: "8"
+      go_type: int
+    - go_name: CombiningMark
+      value: "9"
+      go_type: int
+    - go_name: ComplexContext
+      value: "24"
+      go_type: int
+    - go_name: ConditionalJapaneseStarter
+      value: "37"
+      go_type: int
+    - go_name: ContingentBreak
+      value: "7"
+      go_type: int
+    - go_name: Exclamation
+      value: "11"
+      go_type: int
+    - go_name: Glue
+      value: "12"
+      go_type: int
+    - go_name: H2
+      value: "31"
+      go_type: int
+    - go_name: H3
+      value: "32"
+      go_type: int
+    - go_name: HebrewLetter
+      value: "38"
+      go_type: int
+    - go_name: Hyphen
+      value: "13"
+      go_type: int
+    - go_name: Ideographic
+      value: "14"
+      go_type: int
+    - go_name: InfixNumeric
+      value: "16"
+      go_type: int
+    - go_name: Inseparable
+      value: "15"
+      go_type: int
+    - go_name: Inseperable
+      value: "15"
+      go_type: int
+    - go_name: Jl
+      value: "33"
+      go_type: int
+    - go_name: Jt
+      value: "34"
+      go_type: int
+    - go_name: Jv
+      value: "35"
+      go_type: int
+    - go_name: LineFeed
+      value: "17"
+      go_type: int
+    - go_name: MandatoryBreak
+      value: "6"
+      go_type: int
+    - go_name: NextLine
+      value: "29"
+      go_type: int
+    - go_name: Nonstarter
+      value: "18"
+      go_type: int
+    - go_name: Numeric
+      value: "19"
+      go_type: int
+    - go_name: OpenPunctuation
+      value: "20"
+      go_type: int
+    - go_name: PostfixNumeric
+      value: "21"
+      go_type: int
+    - go_name: PrefixNumeric
+      value: "22"
+      go_type: int
+    - go_name: Quotation
+      value: "23"
+      go_type: int
+    - go_name: Space
+      value: "26"
+      go_type: int
+    - go_name: Surrogate
+      value: "25"
+      go_type: int
+    - go_name: Unknown
+      value: "0"
+      go_type: int
+    - go_name: ViramaFinal
+      value: "46"
+      go_type: int
+    - go_name: WordJoiner
+      value: "30"
+      go_type: int
+    - go_name: Zwspace
+      value: "28"
+      go_type: int
+    - go_name: Decimal
+      value: "1"
+      go_type: int
+    - go_name: Digit
+      value: "2"
       go_type: int
     - go_name: Adlam
       value: "167"
@@ -1875,9 +2478,6 @@ constants:
     - go_name: Ugaritic
       value: "53"
       go_type: int
-    - go_name: Unknown
-      value: "103"
-      go_type: int
     - go_name: UnwrittenLanguages
       value: "102"
       go_type: int
@@ -1926,1187 +2526,11 @@ constants:
     - go_name: Recommended
       value: "0"
       go_type: int
-    - go_name: Age
-      value: "16384"
-      go_type: int
-    - go_name: Alphabetic
-      value: "0"
-      go_type: int
-    - go_name: AsciiHexDigit
-      value: "1"
-      go_type: int
-    - go_name: BasicEmoji
-      value: "65"
-      go_type: int
-    - go_name: BidiClass
-      value: "4096"
-      go_type: int
-    - go_name: BidiControl
-      value: "2"
-      go_type: int
-    - go_name: BidiMirrored
-      value: "3"
-      go_type: int
-    - go_name: BidiMirroringGlyph
-      value: "16385"
-      go_type: int
-    - go_name: BidiPairedBracket
-      value: "16397"
-      go_type: int
-    - go_name: BidiPairedBracketType
-      value: "4117"
-      go_type: int
-    - go_name: BinaryStart
-      value: "0"
-      go_type: int
-    - go_name: Block
-      value: "4097"
-      go_type: int
-    - go_name: CanonicalCombiningClass
-      value: "4098"
-      go_type: int
-    - go_name: Cased
-      value: "49"
-      go_type: int
-    - go_name: CaseFolding
-      value: "16386"
-      go_type: int
-    - go_name: CaseIgnorable
-      value: "50"
-      go_type: int
-    - go_name: CaseSensitive
-      value: "34"
-      go_type: int
-    - go_name: ChangesWhenCasefolded
-      value: "54"
-      go_type: int
-    - go_name: ChangesWhenCasemapped
-      value: "55"
-      go_type: int
-    - go_name: ChangesWhenLowercased
-      value: "51"
-      go_type: int
-    - go_name: ChangesWhenNfkcCasefolded
-      value: "56"
-      go_type: int
-    - go_name: ChangesWhenTitlecased
-      value: "53"
-      go_type: int
-    - go_name: ChangesWhenUppercased
-      value: "52"
-      go_type: int
-    - go_name: Dash
-      value: "4"
-      go_type: int
-    - go_name: DecompositionType
-      value: "4099"
-      go_type: int
-    - go_name: DefaultIgnorableCodePoint
-      value: "5"
-      go_type: int
-    - go_name: Deprecated
-      value: "6"
-      go_type: int
-    - go_name: Diacritic
-      value: "7"
-      go_type: int
-    - go_name: DoubleStart
-      value: "12288"
-      go_type: int
-    - go_name: EastAsianWidth
-      value: "4100"
-      go_type: int
-    - go_name: Emoji
-      value: "57"
-      go_type: int
-    - go_name: EmojiComponent
-      value: "61"
-      go_type: int
-    - go_name: EmojiKeycapSequence
-      value: "66"
-      go_type: int
-    - go_name: EmojiModifier
-      value: "59"
-      go_type: int
-    - go_name: EmojiModifierBase
-      value: "60"
-      go_type: int
-    - go_name: EmojiPresentation
-      value: "58"
-      go_type: int
-    - go_name: ExtendedPictographic
-      value: "64"
-      go_type: int
-    - go_name: Extender
-      value: "8"
-      go_type: int
-    - go_name: FullCompositionExclusion
-      value: "9"
-      go_type: int
-    - go_name: GeneralCategory
-      value: "4101"
-      go_type: int
-    - go_name: GeneralCategoryMask
-      value: "8192"
-      go_type: int
-    - go_name: GraphemeBase
-      value: "10"
-      go_type: int
-    - go_name: GraphemeClusterBreak
-      value: "4114"
-      go_type: int
-    - go_name: GraphemeExtend
-      value: "11"
-      go_type: int
-    - go_name: GraphemeLink
-      value: "12"
-      go_type: int
-    - go_name: HangulSyllableType
-      value: "4107"
-      go_type: int
-    - go_name: HexDigit
-      value: "13"
-      go_type: int
-    - go_name: Hyphen
-      value: "14"
-      go_type: int
-    - go_name: Ideographic
-      value: "17"
-      go_type: int
-    - go_name: IdsBinaryOperator
-      value: "18"
-      go_type: int
-    - go_name: IdsTrinaryOperator
-      value: "19"
-      go_type: int
-    - go_name: IdsUnaryOperator
-      value: "72"
-      go_type: int
-    - go_name: IdCompatMathContinue
-      value: "74"
-      go_type: int
-    - go_name: IdCompatMathStart
-      value: "73"
-      go_type: int
-    - go_name: IdContinue
-      value: "15"
-      go_type: int
-    - go_name: IdStart
-      value: "16"
-      go_type: int
-    - go_name: IndicPositionalCategory
-      value: "4118"
-      go_type: int
-    - go_name: IndicSyllabicCategory
-      value: "4119"
-      go_type: int
-    - go_name: IntStart
-      value: "4096"
-      go_type: int
-    - go_name: JoiningGroup
-      value: "4102"
-      go_type: int
-    - go_name: JoiningType
-      value: "4103"
-      go_type: int
-    - go_name: JoinControl
-      value: "20"
-      go_type: int
-    - go_name: LeadCanonicalCombiningClass
-      value: "4112"
-      go_type: int
-    - go_name: LineBreak
-      value: "4104"
-      go_type: int
-    - go_name: LogicalOrderException
-      value: "21"
-      go_type: int
-    - go_name: Lowercase
-      value: "22"
-      go_type: int
-    - go_name: LowercaseMapping
-      value: "16388"
-      go_type: int
-    - go_name: MaskStart
-      value: "8192"
-      go_type: int
-    - go_name: Math
-      value: "23"
-      go_type: int
-    - go_name: Name
-      value: "16389"
-      go_type: int
-    - go_name: NfcInert
-      value: "39"
-      go_type: int
-    - go_name: NfcQuickCheck
-      value: "4110"
-      go_type: int
-    - go_name: NfdInert
-      value: "37"
-      go_type: int
-    - go_name: NfdQuickCheck
-      value: "4108"
-      go_type: int
-    - go_name: NfkcInert
-      value: "40"
-      go_type: int
-    - go_name: NfkcQuickCheck
-      value: "4111"
-      go_type: int
-    - go_name: NfkdInert
-      value: "38"
-      go_type: int
-    - go_name: NfkdQuickCheck
-      value: "4109"
-      go_type: int
-    - go_name: NoncharacterCodePoint
-      value: "24"
-      go_type: int
-    - go_name: NumericType
-      value: "4105"
-      go_type: int
-    - go_name: NumericValue
-      value: "12288"
-      go_type: int
-    - go_name: OtherPropertyStart
-      value: "28672"
-      go_type: int
-    - go_name: PatternSyntax
-      value: "42"
-      go_type: int
-    - go_name: PatternWhiteSpace
-      value: "43"
-      go_type: int
-    - go_name: PosixAlnum
-      value: "44"
-      go_type: int
-    - go_name: PosixBlank
-      value: "45"
-      go_type: int
-    - go_name: PosixGraph
-      value: "46"
-      go_type: int
-    - go_name: PosixPrint
-      value: "47"
-      go_type: int
-    - go_name: PosixXdigit
-      value: "48"
-      go_type: int
-    - go_name: PrependedConcatenationMark
-      value: "63"
-      go_type: int
-    - go_name: QuotationMark
-      value: "25"
-      go_type: int
-    - go_name: Radical
-      value: "26"
-      go_type: int
-    - go_name: RegionalIndicator
-      value: "62"
-      go_type: int
-    - go_name: RgiEmoji
-      value: "71"
-      go_type: int
-    - go_name: RgiEmojiFlagSequence
-      value: "68"
-      go_type: int
-    - go_name: RgiEmojiModifierSequence
-      value: "67"
-      go_type: int
-    - go_name: RgiEmojiTagSequence
-      value: "69"
-      go_type: int
-    - go_name: RgiEmojiZwjSequence
-      value: "70"
-      go_type: int
-    - go_name: Script
-      value: "4106"
-      go_type: int
-    - go_name: ScriptExtensions
-      value: "28672"
-      go_type: int
-    - go_name: SegmentStarter
-      value: "41"
-      go_type: int
-    - go_name: SentenceBreak
-      value: "4115"
-      go_type: int
-    - go_name: SimpleCaseFolding
-      value: "16390"
-      go_type: int
-    - go_name: SimpleLowercaseMapping
-      value: "16391"
-      go_type: int
-    - go_name: SimpleTitlecaseMapping
-      value: "16392"
-      go_type: int
-    - go_name: SimpleUppercaseMapping
-      value: "16393"
-      go_type: int
-    - go_name: SoftDotted
-      value: "27"
-      go_type: int
-    - go_name: StringStart
-      value: "16384"
-      go_type: int
-    - go_name: STerm
-      value: "35"
-      go_type: int
-    - go_name: TerminalPunctuation
-      value: "28"
-      go_type: int
-    - go_name: TitlecaseMapping
-      value: "16394"
-      go_type: int
-    - go_name: TrailCanonicalCombiningClass
-      value: "4113"
-      go_type: int
-    - go_name: UnifiedIdeograph
-      value: "29"
-      go_type: int
-    - go_name: Uppercase
-      value: "30"
-      go_type: int
-    - go_name: UppercaseMapping
-      value: "16396"
-      go_type: int
-    - go_name: VariationSelector
-      value: "36"
-      go_type: int
-    - go_name: VerticalOrientation
-      value: "4120"
-      go_type: int
-    - go_name: WhiteSpace
-      value: "31"
-      go_type: int
-    - go_name: WordBreak
-      value: "4116"
-      go_type: int
-    - go_name: XidContinue
-      value: "32"
-      go_type: int
-    - go_name: XidStart
-      value: "33"
-      go_type: int
-    - go_name: Long
-      value: "1"
-      go_type: int
-    - go_name: Short
-      value: "0"
-      go_type: int
-    - go_name: FoldCaseDefault
-      value: "0"
-      go_type: int
-    - go_name: FoldCaseExcludeSpecialI
-      value: "1"
-      go_type: int
-    - go_name: MaxCodePoint
-      value: "1114111"
-      go_type: int
-    - go_name: MaxHighSurrogate
-      value: "56319"
-      go_type: int
-    - go_name: MaxLowSurrogate
-      value: "57343"
-      go_type: int
-    - go_name: MaxRadix
-      value: "36"
-      go_type: int
-    - go_name: MaxSurrogate
-      value: "57343"
-      go_type: int
-    - go_name: MaxValue
-      value: "1114111"
-      go_type: int
-    - go_name: MinCodePoint
-      value: "0"
-      go_type: int
-    - go_name: MinHighSurrogate
-      value: "55296"
-      go_type: int
-    - go_name: MinLowSurrogate
-      value: "56320"
-      go_type: int
-    - go_name: MinRadix
-      value: "2"
-      go_type: int
-    - go_name: MinSupplementaryCodePoint
-      value: "65536"
-      go_type: int
-    - go_name: MinSurrogate
-      value: "55296"
-      go_type: int
-    - go_name: MinValue
-      value: "0"
-      go_type: int
-    - go_name: NoNumericValue
-      value: -1.23456789E8d
-      go_type: float64
-    - go_name: ReplacementChar
-      value: "65533"
-      go_type: int
-    - go_name: SupplementaryMinValue
-      value: "65536"
-      go_type: int
-    - go_name: TitlecaseNoBreakAdjustment
-      value: "512"
-      go_type: int
-    - go_name: TitlecaseNoLowercase
-      value: "256"
-      go_type: int
-    - go_name: Close
-      value: "2"
-      go_type: int
-    - go_name: None
-      value: "0"
-      go_type: int
-    - go_name: Open
-      value: "1"
-      go_type: int
-    - go_name: Canonical
-      value: "1"
-      go_type: int
-    - go_name: Circle
-      value: "3"
-      go_type: int
-    - go_name: Compat
-      value: "2"
-      go_type: int
-    - go_name: Final
-      value: "4"
-      go_type: int
-    - go_name: Font
-      value: "5"
-      go_type: int
-    - go_name: Fraction
-      value: "6"
-      go_type: int
-    - go_name: Initial
-      value: "7"
-      go_type: int
-    - go_name: Isolated
-      value: "8"
-      go_type: int
-    - go_name: Medial
-      value: "9"
-      go_type: int
-    - go_name: Narrow
-      value: "10"
-      go_type: int
-    - go_name: Nobreak
-      value: "11"
-      go_type: int
-    - go_name: Small
-      value: "12"
-      go_type: int
-    - go_name: Square
-      value: "13"
-      go_type: int
-    - go_name: Sub
-      value: "14"
-      go_type: int
-    - go_name: Super
-      value: "15"
-      go_type: int
-    - go_name: Vertical
-      value: "16"
-      go_type: int
-    - go_name: Wide
-      value: "17"
-      go_type: int
-    - go_name: Ambiguous
-      value: "1"
-      go_type: int
-    - go_name: Fullwidth
-      value: "3"
-      go_type: int
-    - go_name: Halfwidth
-      value: "2"
-      go_type: int
-    - go_name: Neutral
-      value: "0"
-      go_type: int
-    - go_name: Cr
-      value: "2"
-      go_type: int
-    - go_name: Extend
-      value: "3"
-      go_type: int
-    - go_name: EBase
-      value: "13"
-      go_type: int
-    - go_name: EBaseGaz
-      value: "14"
-      go_type: int
-    - go_name: EModifier
-      value: "15"
-      go_type: int
-    - go_name: GlueAfterZwj
-      value: "16"
-      go_type: int
-    - go_name: L
-      value: "4"
-      go_type: int
-    - go_name: Lf
-      value: "5"
-      go_type: int
-    - go_name: Lv
-      value: "6"
-      go_type: int
-    - go_name: Lvt
-      value: "7"
-      go_type: int
-    - go_name: Other
-      value: "0"
-      go_type: int
-    - go_name: Prepend
-      value: "11"
-      go_type: int
-    - go_name: SpacingMark
-      value: "10"
-      go_type: int
-    - go_name: T
-      value: "8"
-      go_type: int
-    - go_name: V
-      value: "9"
-      go_type: int
-    - go_name: Zwj
-      value: "17"
-      go_type: int
-    - go_name: LeadingJamo
-      value: "1"
-      go_type: int
-    - go_name: LvtSyllable
-      value: "5"
-      go_type: int
-    - go_name: LvSyllable
-      value: "4"
-      go_type: int
-    - go_name: NotApplicable
-      value: "0"
-      go_type: int
-    - go_name: TrailingJamo
-      value: "3"
-      go_type: int
-    - go_name: VowelJamo
-      value: "2"
-      go_type: int
-    - go_name: Bottom
-      value: "1"
-      go_type: int
-    - go_name: BottomAndLeft
-      value: "2"
-      go_type: int
-    - go_name: BottomAndRight
-      value: "3"
-      go_type: int
-    - go_name: Left
-      value: "4"
-      go_type: int
-    - go_name: LeftAndRight
-      value: "5"
-      go_type: int
-    - go_name: Na
-      value: "0"
-      go_type: int
-    - go_name: Overstruck
-      value: "6"
-      go_type: int
-    - go_name: Right
-      value: "7"
-      go_type: int
-    - go_name: Top
-      value: "8"
-      go_type: int
-    - go_name: TopAndBottom
-      value: "9"
-      go_type: int
-    - go_name: TopAndBottomAndLeft
-      value: "15"
-      go_type: int
-    - go_name: TopAndBottomAndRight
-      value: "10"
-      go_type: int
-    - go_name: TopAndLeft
-      value: "11"
-      go_type: int
-    - go_name: TopAndLeftAndRight
-      value: "12"
-      go_type: int
-    - go_name: TopAndRight
-      value: "13"
-      go_type: int
-    - go_name: VisualOrderLeft
-      value: "14"
-      go_type: int
-    - go_name: Avagraha
-      value: "1"
-      go_type: int
-    - go_name: Bindu
-      value: "2"
-      go_type: int
-    - go_name: BrahmiJoiningNumber
-      value: "3"
-      go_type: int
-    - go_name: CantillationMark
-      value: "4"
-      go_type: int
-    - go_name: Consonant
-      value: "5"
-      go_type: int
-    - go_name: ConsonantDead
-      value: "6"
-      go_type: int
-    - go_name: ConsonantFinal
-      value: "7"
-      go_type: int
-    - go_name: ConsonantHeadLetter
-      value: "8"
-      go_type: int
-    - go_name: ConsonantInitialPostfixed
-      value: "9"
-      go_type: int
-    - go_name: ConsonantKiller
-      value: "10"
-      go_type: int
-    - go_name: ConsonantMedial
-      value: "11"
-      go_type: int
-    - go_name: ConsonantPlaceholder
-      value: "12"
-      go_type: int
-    - go_name: ConsonantPrecedingRepha
-      value: "13"
-      go_type: int
-    - go_name: ConsonantPrefixed
-      value: "14"
-      go_type: int
-    - go_name: ConsonantSubjoined
-      value: "15"
-      go_type: int
-    - go_name: ConsonantSucceedingRepha
-      value: "16"
-      go_type: int
-    - go_name: ConsonantWithStacker
-      value: "17"
-      go_type: int
-    - go_name: GeminationMark
-      value: "18"
-      go_type: int
-    - go_name: InvisibleStacker
-      value: "19"
-      go_type: int
-    - go_name: Joiner
-      value: "20"
-      go_type: int
-    - go_name: ModifyingLetter
-      value: "21"
-      go_type: int
-    - go_name: NonJoiner
-      value: "22"
-      go_type: int
-    - go_name: Nukta
-      value: "23"
-      go_type: int
-    - go_name: Number
-      value: "24"
-      go_type: int
-    - go_name: NumberJoiner
-      value: "25"
-      go_type: int
-    - go_name: PureKiller
-      value: "26"
-      go_type: int
-    - go_name: RegisterShifter
-      value: "27"
-      go_type: int
-    - go_name: ReorderingKiller
-      value: "36"
-      go_type: int
-    - go_name: SyllableModifier
-      value: "28"
-      go_type: int
-    - go_name: ToneLetter
-      value: "29"
-      go_type: int
-    - go_name: ToneMark
-      value: "30"
-      go_type: int
-    - go_name: Virama
-      value: "31"
-      go_type: int
-    - go_name: Visarga
-      value: "32"
-      go_type: int
-    - go_name: Vowel
-      value: "33"
-      go_type: int
-    - go_name: VowelDependent
-      value: "34"
-      go_type: int
-    - go_name: VowelIndependent
-      value: "35"
-      go_type: int
-    - go_name: AfricanFeh
-      value: "86"
-      go_type: int
-    - go_name: AfricanNoon
-      value: "87"
-      go_type: int
-    - go_name: AfricanQaf
-      value: "88"
-      go_type: int
-    - go_name: Ain
-      value: "1"
-      go_type: int
-    - go_name: Alaph
-      value: "2"
-      go_type: int
-    - go_name: Alef
-      value: "3"
-      go_type: int
-    - go_name: Beh
-      value: "4"
-      go_type: int
-    - go_name: Beth
-      value: "5"
-      go_type: int
-    - go_name: BurushaskiYehBarree
-      value: "54"
-      go_type: int
-    - go_name: Dal
-      value: "6"
-      go_type: int
-    - go_name: DalathRish
-      value: "7"
-      go_type: int
-    - go_name: E
-      value: "8"
-      go_type: int
-    - go_name: FarsiYeh
-      value: "55"
-      go_type: int
-    - go_name: Fe
-      value: "51"
-      go_type: int
-    - go_name: Feh
-      value: "9"
-      go_type: int
-    - go_name: FinalSemkath
-      value: "10"
-      go_type: int
-    - go_name: Gaf
-      value: "11"
-      go_type: int
-    - go_name: Gamal
-      value: "12"
-      go_type: int
-    - go_name: Hah
-      value: "13"
-      go_type: int
-    - go_name: HamzaOnHehGoal
-      value: "14"
-      go_type: int
-    - go_name: HanifiRohingyaKinnaYa
-      value: "100"
-      go_type: int
-    - go_name: HanifiRohingyaPa
-      value: "101"
-      go_type: int
-    - go_name: He
-      value: "15"
-      go_type: int
-    - go_name: Heh
-      value: "16"
-      go_type: int
-    - go_name: HehGoal
-      value: "17"
-      go_type: int
-    - go_name: Heth
-      value: "18"
-      go_type: int
-    - go_name: Kaf
-      value: "19"
-      go_type: int
-    - go_name: Kaph
-      value: "20"
-      go_type: int
-    - go_name: KashmiriYeh
-      value: "104"
-      go_type: int
-    - go_name: Khaph
-      value: "52"
-      go_type: int
-    - go_name: KnottedHeh
-      value: "21"
-      go_type: int
-    - go_name: Lam
-      value: "22"
-      go_type: int
-    - go_name: Lamadh
-      value: "23"
-      go_type: int
-    - go_name: MalayalamBha
-      value: "89"
-      go_type: int
-    - go_name: MalayalamJa
-      value: "90"
-      go_type: int
-    - go_name: MalayalamLla
-      value: "91"
-      go_type: int
-    - go_name: MalayalamLlla
-      value: "92"
-      go_type: int
-    - go_name: MalayalamNga
-      value: "93"
-      go_type: int
-    - go_name: MalayalamNna
-      value: "94"
-      go_type: int
-    - go_name: MalayalamNnna
-      value: "95"
-      go_type: int
-    - go_name: MalayalamNya
-      value: "96"
-      go_type: int
-    - go_name: MalayalamRa
-      value: "97"
-      go_type: int
-    - go_name: MalayalamSsa
-      value: "98"
-      go_type: int
-    - go_name: MalayalamTta
-      value: "99"
-      go_type: int
-    - go_name: ManichaeanAleph
-      value: "58"
-      go_type: int
-    - go_name: ManichaeanAyin
-      value: "59"
-      go_type: int
-    - go_name: ManichaeanBeth
-      value: "60"
-      go_type: int
-    - go_name: ManichaeanDaleth
-      value: "61"
-      go_type: int
-    - go_name: ManichaeanDhamedh
-      value: "62"
-      go_type: int
-    - go_name: ManichaeanFive
-      value: "63"
-      go_type: int
-    - go_name: ManichaeanGimel
-      value: "64"
-      go_type: int
-    - go_name: ManichaeanHeth
-      value: "65"
-      go_type: int
-    - go_name: ManichaeanHundred
-      value: "66"
-      go_type: int
-    - go_name: ManichaeanKaph
-      value: "67"
-      go_type: int
-    - go_name: ManichaeanLamedh
-      value: "68"
-      go_type: int
-    - go_name: ManichaeanMem
-      value: "69"
-      go_type: int
-    - go_name: ManichaeanNun
-      value: "70"
-      go_type: int
-    - go_name: ManichaeanOne
-      value: "71"
-      go_type: int
-    - go_name: ManichaeanPe
-      value: "72"
-      go_type: int
-    - go_name: ManichaeanQoph
-      value: "73"
-      go_type: int
-    - go_name: ManichaeanResh
-      value: "74"
-      go_type: int
-    - go_name: ManichaeanSadhe
-      value: "75"
-      go_type: int
-    - go_name: ManichaeanSamekh
-      value: "76"
-      go_type: int
-    - go_name: ManichaeanTaw
-      value: "77"
-      go_type: int
-    - go_name: ManichaeanTen
-      value: "78"
-      go_type: int
-    - go_name: ManichaeanTeth
-      value: "79"
-      go_type: int
-    - go_name: ManichaeanThamedh
-      value: "80"
-      go_type: int
-    - go_name: ManichaeanTwenty
-      value: "81"
-      go_type: int
-    - go_name: ManichaeanWaw
-      value: "82"
-      go_type: int
-    - go_name: ManichaeanYodh
-      value: "83"
-      go_type: int
-    - go_name: ManichaeanZayin
-      value: "84"
-      go_type: int
-    - go_name: Meem
-      value: "24"
-      go_type: int
-    - go_name: Mim
-      value: "25"
-      go_type: int
-    - go_name: Noon
-      value: "26"
-      go_type: int
-    - go_name: NoJoiningGroup
-      value: "0"
-      go_type: int
-    - go_name: Nun
-      value: "27"
-      go_type: int
-    - go_name: Nya
-      value: "56"
-      go_type: int
-    - go_name: Pe
-      value: "28"
-      go_type: int
-    - go_name: Qaf
-      value: "29"
-      go_type: int
-    - go_name: Qaph
-      value: "30"
-      go_type: int
-    - go_name: Reh
-      value: "31"
-      go_type: int
-    - go_name: ReversedPe
-      value: "32"
-      go_type: int
-    - go_name: RohingyaYeh
-      value: "57"
-      go_type: int
-    - go_name: Sad
-      value: "33"
-      go_type: int
-    - go_name: Sadhe
-      value: "34"
-      go_type: int
-    - go_name: Seen
-      value: "35"
-      go_type: int
-    - go_name: Semkath
-      value: "36"
-      go_type: int
-    - go_name: Shin
-      value: "37"
-      go_type: int
-    - go_name: StraightWaw
-      value: "85"
-      go_type: int
-    - go_name: SwashKaf
-      value: "38"
-      go_type: int
-    - go_name: SyriacWaw
-      value: "39"
-      go_type: int
-    - go_name: Tah
-      value: "40"
-      go_type: int
-    - go_name: Taw
-      value: "41"
-      go_type: int
-    - go_name: TehMarbuta
-      value: "42"
-      go_type: int
-    - go_name: TehMarbutaGoal
-      value: "14"
-      go_type: int
-    - go_name: Teth
-      value: "43"
-      go_type: int
-    - go_name: ThinYeh
-      value: "102"
-      go_type: int
-    - go_name: VerticalTail
-      value: "103"
-      go_type: int
-    - go_name: Waw
-      value: "44"
-      go_type: int
-    - go_name: Yeh
-      value: "45"
-      go_type: int
-    - go_name: YehBarree
-      value: "46"
-      go_type: int
-    - go_name: YehWithTail
-      value: "47"
-      go_type: int
-    - go_name: Yudh
-      value: "48"
-      go_type: int
-    - go_name: YudhHe
-      value: "49"
-      go_type: int
-    - go_name: Zain
-      value: "50"
-      go_type: int
-    - go_name: Zhain
-      value: "53"
-      go_type: int
-    - go_name: DualJoining
-      value: "2"
-      go_type: int
-    - go_name: JoinCausing
-      value: "1"
-      go_type: int
-    - go_name: LeftJoining
-      value: "3"
-      go_type: int
-    - go_name: NonJoining
-      value: "0"
-      go_type: int
-    - go_name: RightJoining
-      value: "4"
-      go_type: int
-    - go_name: Transparent
-      value: "5"
-      go_type: int
-    - go_name: Aksara
-      value: "43"
-      go_type: int
-    - go_name: AksaraPrebase
-      value: "44"
-      go_type: int
-    - go_name: AksaraStart
-      value: "45"
-      go_type: int
-    - go_name: BreakAfter
-      value: "4"
-      go_type: int
-    - go_name: BreakBefore
-      value: "5"
-      go_type: int
-    - go_name: BreakBoth
-      value: "3"
-      go_type: int
-    - go_name: BreakSymbols
-      value: "27"
-      go_type: int
-    - go_name: CarriageReturn
-      value: "10"
-      go_type: int
-    - go_name: CloseParenthesis
-      value: "36"
-      go_type: int
-    - go_name: ClosePunctuation
-      value: "8"
-      go_type: int
-    - go_name: CombiningMark
-      value: "9"
-      go_type: int
-    - go_name: ComplexContext
-      value: "24"
-      go_type: int
-    - go_name: ConditionalJapaneseStarter
-      value: "37"
-      go_type: int
-    - go_name: ContingentBreak
-      value: "7"
-      go_type: int
-    - go_name: Exclamation
-      value: "11"
-      go_type: int
-    - go_name: Glue
-      value: "12"
-      go_type: int
-    - go_name: H2
-      value: "31"
-      go_type: int
-    - go_name: H3
-      value: "32"
-      go_type: int
-    - go_name: HebrewLetter
-      value: "38"
-      go_type: int
-    - go_name: InfixNumeric
-      value: "16"
-      go_type: int
-    - go_name: Inseparable
-      value: "15"
-      go_type: int
-    - go_name: Inseperable
-      value: "15"
-      go_type: int
-    - go_name: Jl
-      value: "33"
-      go_type: int
-    - go_name: Jt
-      value: "34"
-      go_type: int
-    - go_name: Jv
-      value: "35"
-      go_type: int
-    - go_name: LineFeed
-      value: "17"
-      go_type: int
-    - go_name: MandatoryBreak
-      value: "6"
-      go_type: int
-    - go_name: NextLine
-      value: "29"
-      go_type: int
-    - go_name: Nonstarter
-      value: "18"
-      go_type: int
-    - go_name: Numeric
-      value: "19"
-      go_type: int
-    - go_name: OpenPunctuation
-      value: "20"
-      go_type: int
-    - go_name: PostfixNumeric
-      value: "21"
-      go_type: int
-    - go_name: PrefixNumeric
-      value: "22"
-      go_type: int
-    - go_name: Quotation
-      value: "23"
-      go_type: int
-    - go_name: Space
-      value: "26"
-      go_type: int
-    - go_name: ViramaFinal
-      value: "46"
-      go_type: int
-    - go_name: WordJoiner
-      value: "30"
-      go_type: int
-    - go_name: Zwspace
-      value: "28"
-      go_type: int
-    - go_name: Decimal
-      value: "1"
-      go_type: int
-    - go_name: Digit
-      value: "2"
-      go_type: int
     - go_name: Aterm
       value: "1"
+      go_type: int
+    - go_name: Format
+      value: "3"
       go_type: int
     - go_name: Lower
       value: "4"
@@ -4338,6 +3762,9 @@ constants:
     - go_name: PlayingCardsId
       value: "204"
       go_type: int
+    - go_name: PrivateUse
+      value: "0"
+      go_type: int
     - go_name: PrivateUseArea
       value: "0"
       go_type: int
@@ -4707,6 +4134,93 @@ constants:
     - go_name: ZnamennyMusicalNotationId
       value: "320"
       go_type: int
+    - go_name: CombiningSpacingMark
+      value: "8"
+      go_type: int
+    - go_name: ConnectorPunctuation
+      value: "22"
+      go_type: int
+    - go_name: CurrencySymbol
+      value: "25"
+      go_type: int
+    - go_name: DashPunctuation
+      value: "19"
+      go_type: int
+    - go_name: DecimalDigitNumber
+      value: "9"
+      go_type: int
+    - go_name: EnclosingMark
+      value: "7"
+      go_type: int
+    - go_name: EndPunctuation
+      value: "21"
+      go_type: int
+    - go_name: FinalPunctuation
+      value: "29"
+      go_type: int
+    - go_name: FinalQuotePunctuation
+      value: "29"
+      go_type: int
+    - go_name: GeneralOtherTypes
+      value: "0"
+      go_type: int
+    - go_name: InitialPunctuation
+      value: "28"
+      go_type: int
+    - go_name: InitialQuotePunctuation
+      value: "28"
+      go_type: int
+    - go_name: LetterNumber
+      value: "10"
+      go_type: int
+    - go_name: LineSeparator
+      value: "13"
+      go_type: int
+    - go_name: LowercaseLetter
+      value: "2"
+      go_type: int
+    - go_name: MathSymbol
+      value: "24"
+      go_type: int
+    - go_name: ModifierLetter
+      value: "4"
+      go_type: int
+    - go_name: ModifierSymbol
+      value: "26"
+      go_type: int
+    - go_name: NonSpacingMark
+      value: "6"
+      go_type: int
+    - go_name: OtherLetter
+      value: "5"
+      go_type: int
+    - go_name: OtherNumber
+      value: "11"
+      go_type: int
+    - go_name: OtherPunctuation
+      value: "23"
+      go_type: int
+    - go_name: OtherSymbol
+      value: "27"
+      go_type: int
+    - go_name: ParagraphSeparator
+      value: "14"
+      go_type: int
+    - go_name: SpaceSeparator
+      value: "12"
+      go_type: int
+    - go_name: StartPunctuation
+      value: "20"
+      go_type: int
+    - go_name: TitlecaseLetter
+      value: "3"
+      go_type: int
+    - go_name: Unassigned
+      value: "0"
+      go_type: int
+    - go_name: UppercaseLetter
+      value: "1"
+      go_type: int
     - go_name: Rotated
       value: "0"
       go_type: int
@@ -4718,6 +4232,135 @@ constants:
       go_type: int
     - go_name: Upright
       value: "3"
+      go_type: int
+    - go_name: ArabicNumber
+      value: "5"
+      go_type: int
+    - go_name: BlockSeparator
+      value: "7"
+      go_type: int
+    - go_name: BoundaryNeutral
+      value: "18"
+      go_type: int
+    - go_name: CommonNumberSeparator
+      value: "6"
+      go_type: int
+    - go_name: DirectionalityArabicNumber
+      value: "5"
+      go_type: int
+    - go_name: DirectionalityBoundaryNeutral
+      value: "18"
+      go_type: int
+    - go_name: DirectionalityCommonNumberSeparator
+      value: "6"
+      go_type: int
+    - go_name: DirectionalityEuropeanNumber
+      value: "2"
+      go_type: int
+    - go_name: DirectionalityEuropeanNumberSeparator
+      value: "3"
+      go_type: int
+    - go_name: DirectionalityEuropeanNumberTerminator
+      value: "4"
+      go_type: int
+    - go_name: DirectionalityLeftToRight
+      value: "0"
+      go_type: int
+    - go_name: DirectionalityLeftToRightEmbedding
+      value: "11"
+      go_type: int
+    - go_name: DirectionalityLeftToRightOverride
+      value: "12"
+      go_type: int
+    - go_name: DirectionalityNonspacingMark
+      value: "17"
+      go_type: int
+    - go_name: DirectionalityOtherNeutrals
+      value: "10"
+      go_type: int
+    - go_name: DirectionalityParagraphSeparator
+      value: "7"
+      go_type: int
+    - go_name: DirectionalityPopDirectionalFormat
+      value: "16"
+      go_type: int
+    - go_name: DirectionalityRightToLeft
+      value: "1"
+      go_type: int
+    - go_name: DirectionalityRightToLeftArabic
+      value: "13"
+      go_type: int
+    - go_name: DirectionalityRightToLeftEmbedding
+      value: "14"
+      go_type: int
+    - go_name: DirectionalityRightToLeftOverride
+      value: "15"
+      go_type: int
+    - go_name: DirectionalitySegmentSeparator
+      value: "8"
+      go_type: int
+    - go_name: DirectionalityUndefined
+      value: "-1"
+      go_type: int
+    - go_name: DirectionalityWhitespace
+      value: "9"
+      go_type: int
+    - go_name: DirNonSpacingMark
+      value: "17"
+      go_type: int
+    - go_name: EuropeanNumber
+      value: "2"
+      go_type: int
+    - go_name: EuropeanNumberSeparator
+      value: "3"
+      go_type: int
+    - go_name: EuropeanNumberTerminator
+      value: "4"
+      go_type: int
+    - go_name: FirstStrongIsolate
+      value: "19"
+      go_type: int
+    - go_name: LeftToRight
+      value: "0"
+      go_type: int
+    - go_name: LeftToRightEmbedding
+      value: "11"
+      go_type: int
+    - go_name: LeftToRightIsolate
+      value: "20"
+      go_type: int
+    - go_name: LeftToRightOverride
+      value: "12"
+      go_type: int
+    - go_name: OtherNeutral
+      value: "10"
+      go_type: int
+    - go_name: PopDirectionalFormat
+      value: "16"
+      go_type: int
+    - go_name: PopDirectionalIsolate
+      value: "22"
+      go_type: int
+    - go_name: RightToLeft
+      value: "1"
+      go_type: int
+    - go_name: RightToLeftArabic
+      value: "13"
+      go_type: int
+    - go_name: RightToLeftEmbedding
+      value: "14"
+      go_type: int
+    - go_name: RightToLeftIsolate
+      value: "21"
+      go_type: int
+    - go_name: RightToLeftOverride
+      value: "15"
+      go_type: int
+    - go_name: SegmentSeparator
+      value: "8"
+      go_type: int
+    - go_name: WhiteSpaceNeutral
+      value: "9"
       go_type: int
     - go_name: Aletter
       value: "1"
@@ -4745,4 +4388,361 @@ constants:
       go_type: int
     - go_name: Wsegspace
       value: "22"
+      go_type: int
+    - go_name: Age
+      value: "16384"
+      go_type: int
+    - go_name: AsciiHexDigit
+      value: "1"
+      go_type: int
+    - go_name: BasicEmoji
+      value: "65"
+      go_type: int
+    - go_name: BidiClass
+      value: "4096"
+      go_type: int
+    - go_name: BidiControl
+      value: "2"
+      go_type: int
+    - go_name: BidiMirrored
+      value: "3"
+      go_type: int
+    - go_name: BidiMirroringGlyph
+      value: "16385"
+      go_type: int
+    - go_name: BidiPairedBracket
+      value: "16397"
+      go_type: int
+    - go_name: BidiPairedBracketType
+      value: "4117"
+      go_type: int
+    - go_name: BinaryStart
+      value: "0"
+      go_type: int
+    - go_name: Block
+      value: "4097"
+      go_type: int
+    - go_name: CanonicalCombiningClass
+      value: "4098"
+      go_type: int
+    - go_name: Cased
+      value: "49"
+      go_type: int
+    - go_name: CaseFolding
+      value: "16386"
+      go_type: int
+    - go_name: CaseIgnorable
+      value: "50"
+      go_type: int
+    - go_name: CaseSensitive
+      value: "34"
+      go_type: int
+    - go_name: ChangesWhenCasefolded
+      value: "54"
+      go_type: int
+    - go_name: ChangesWhenCasemapped
+      value: "55"
+      go_type: int
+    - go_name: ChangesWhenLowercased
+      value: "51"
+      go_type: int
+    - go_name: ChangesWhenNfkcCasefolded
+      value: "56"
+      go_type: int
+    - go_name: ChangesWhenTitlecased
+      value: "53"
+      go_type: int
+    - go_name: ChangesWhenUppercased
+      value: "52"
+      go_type: int
+    - go_name: Dash
+      value: "4"
+      go_type: int
+    - go_name: DecompositionType
+      value: "4099"
+      go_type: int
+    - go_name: DefaultIgnorableCodePoint
+      value: "5"
+      go_type: int
+    - go_name: Deprecated
+      value: "6"
+      go_type: int
+    - go_name: Diacritic
+      value: "7"
+      go_type: int
+    - go_name: DoubleStart
+      value: "12288"
+      go_type: int
+    - go_name: EastAsianWidth
+      value: "4100"
+      go_type: int
+    - go_name: Emoji
+      value: "57"
+      go_type: int
+    - go_name: EmojiComponent
+      value: "61"
+      go_type: int
+    - go_name: EmojiKeycapSequence
+      value: "66"
+      go_type: int
+    - go_name: EmojiModifier
+      value: "59"
+      go_type: int
+    - go_name: EmojiModifierBase
+      value: "60"
+      go_type: int
+    - go_name: EmojiPresentation
+      value: "58"
+      go_type: int
+    - go_name: ExtendedPictographic
+      value: "64"
+      go_type: int
+    - go_name: Extender
+      value: "8"
+      go_type: int
+    - go_name: FullCompositionExclusion
+      value: "9"
+      go_type: int
+    - go_name: GeneralCategory
+      value: "4101"
+      go_type: int
+    - go_name: GeneralCategoryMask
+      value: "8192"
+      go_type: int
+    - go_name: GraphemeBase
+      value: "10"
+      go_type: int
+    - go_name: GraphemeClusterBreak
+      value: "4114"
+      go_type: int
+    - go_name: GraphemeExtend
+      value: "11"
+      go_type: int
+    - go_name: GraphemeLink
+      value: "12"
+      go_type: int
+    - go_name: HangulSyllableType
+      value: "4107"
+      go_type: int
+    - go_name: HexDigit
+      value: "13"
+      go_type: int
+    - go_name: IdsBinaryOperator
+      value: "18"
+      go_type: int
+    - go_name: IdsTrinaryOperator
+      value: "19"
+      go_type: int
+    - go_name: IdsUnaryOperator
+      value: "72"
+      go_type: int
+    - go_name: IdCompatMathContinue
+      value: "74"
+      go_type: int
+    - go_name: IdCompatMathStart
+      value: "73"
+      go_type: int
+    - go_name: IdContinue
+      value: "15"
+      go_type: int
+    - go_name: IdStart
+      value: "16"
+      go_type: int
+    - go_name: IndicPositionalCategory
+      value: "4118"
+      go_type: int
+    - go_name: IndicSyllabicCategory
+      value: "4119"
+      go_type: int
+    - go_name: IntStart
+      value: "4096"
+      go_type: int
+    - go_name: JoiningGroup
+      value: "4102"
+      go_type: int
+    - go_name: JoiningType
+      value: "4103"
+      go_type: int
+    - go_name: JoinControl
+      value: "20"
+      go_type: int
+    - go_name: LeadCanonicalCombiningClass
+      value: "4112"
+      go_type: int
+    - go_name: LineBreak
+      value: "4104"
+      go_type: int
+    - go_name: LogicalOrderException
+      value: "21"
+      go_type: int
+    - go_name: Lowercase
+      value: "22"
+      go_type: int
+    - go_name: LowercaseMapping
+      value: "16388"
+      go_type: int
+    - go_name: MaskStart
+      value: "8192"
+      go_type: int
+    - go_name: Math
+      value: "23"
+      go_type: int
+    - go_name: Name
+      value: "16389"
+      go_type: int
+    - go_name: NfcInert
+      value: "39"
+      go_type: int
+    - go_name: NfcQuickCheck
+      value: "4110"
+      go_type: int
+    - go_name: NfdInert
+      value: "37"
+      go_type: int
+    - go_name: NfdQuickCheck
+      value: "4108"
+      go_type: int
+    - go_name: NfkcInert
+      value: "40"
+      go_type: int
+    - go_name: NfkcQuickCheck
+      value: "4111"
+      go_type: int
+    - go_name: NfkdInert
+      value: "38"
+      go_type: int
+    - go_name: NfkdQuickCheck
+      value: "4109"
+      go_type: int
+    - go_name: NoncharacterCodePoint
+      value: "24"
+      go_type: int
+    - go_name: NumericType
+      value: "4105"
+      go_type: int
+    - go_name: NumericValue
+      value: "12288"
+      go_type: int
+    - go_name: OtherPropertyStart
+      value: "28672"
+      go_type: int
+    - go_name: PatternSyntax
+      value: "42"
+      go_type: int
+    - go_name: PatternWhiteSpace
+      value: "43"
+      go_type: int
+    - go_name: PosixAlnum
+      value: "44"
+      go_type: int
+    - go_name: PosixBlank
+      value: "45"
+      go_type: int
+    - go_name: PosixGraph
+      value: "46"
+      go_type: int
+    - go_name: PosixPrint
+      value: "47"
+      go_type: int
+    - go_name: PosixXdigit
+      value: "48"
+      go_type: int
+    - go_name: PrependedConcatenationMark
+      value: "63"
+      go_type: int
+    - go_name: QuotationMark
+      value: "25"
+      go_type: int
+    - go_name: Radical
+      value: "26"
+      go_type: int
+    - go_name: RgiEmoji
+      value: "71"
+      go_type: int
+    - go_name: RgiEmojiFlagSequence
+      value: "68"
+      go_type: int
+    - go_name: RgiEmojiModifierSequence
+      value: "67"
+      go_type: int
+    - go_name: RgiEmojiTagSequence
+      value: "69"
+      go_type: int
+    - go_name: RgiEmojiZwjSequence
+      value: "70"
+      go_type: int
+    - go_name: Script
+      value: "4106"
+      go_type: int
+    - go_name: ScriptExtensions
+      value: "28672"
+      go_type: int
+    - go_name: SegmentStarter
+      value: "41"
+      go_type: int
+    - go_name: SentenceBreak
+      value: "4115"
+      go_type: int
+    - go_name: SimpleCaseFolding
+      value: "16390"
+      go_type: int
+    - go_name: SimpleLowercaseMapping
+      value: "16391"
+      go_type: int
+    - go_name: SimpleTitlecaseMapping
+      value: "16392"
+      go_type: int
+    - go_name: SimpleUppercaseMapping
+      value: "16393"
+      go_type: int
+    - go_name: SoftDotted
+      value: "27"
+      go_type: int
+    - go_name: StringStart
+      value: "16384"
+      go_type: int
+    - go_name: STerm
+      value: "35"
+      go_type: int
+    - go_name: TerminalPunctuation
+      value: "28"
+      go_type: int
+    - go_name: TitlecaseMapping
+      value: "16394"
+      go_type: int
+    - go_name: TrailCanonicalCombiningClass
+      value: "4113"
+      go_type: int
+    - go_name: UnifiedIdeograph
+      value: "29"
+      go_type: int
+    - go_name: Uppercase
+      value: "30"
+      go_type: int
+    - go_name: UppercaseMapping
+      value: "16396"
+      go_type: int
+    - go_name: VariationSelector
+      value: "36"
+      go_type: int
+    - go_name: VerticalOrientation
+      value: "4120"
+      go_type: int
+    - go_name: WhiteSpace
+      value: "31"
+      go_type: int
+    - go_name: WordBreak
+      value: "4116"
+      go_type: int
+    - go_name: XidContinue
+      value: "32"
+      go_type: int
+    - go_name: XidStart
+      value: "33"
+      go_type: int
+    - go_name: Long
+      value: "1"
+      go_type: int
+    - go_name: Short
+      value: "0"
       go_type: int

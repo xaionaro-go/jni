@@ -5,97 +5,6 @@
 package: pps
 go_import: github.com/AndroidGoLab/jni/net/wifi/hotspot2/pps
 classes:
-    - java_class: android.net.wifi.hotspot2.pps.HomeSp
-      go_type: HomeSp
-      obtain: constructor
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getFqdn
-          go_name: GetFqdn
-          returns: String
-          error: true
-        - java_method: getFriendlyName
-          go_name: GetFriendlyName
-          returns: String
-          error: true
-        - java_method: getMatchAllOis
-          go_name: GetMatchAllOis
-          returns: '[J'
-          error: true
-        - java_method: getMatchAnyOis
-          go_name: GetMatchAnyOis
-          returns: '[J'
-          error: true
-        - java_method: getOtherHomePartnersList
-          go_name: GetOtherHomePartnersList
-          returns: java.util.Collection<java.lang.String>
-          error: true
-        - java_method: getRoamingConsortiumOis
-          go_name: GetRoamingConsortiumOis
-          returns: '[J'
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: setFqdn
-          go_name: SetFqdn
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setFriendlyName
-          go_name: SetFriendlyName
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setMatchAllOis
-          go_name: SetMatchAllOis
-          params:
-            - java_type: '[J'
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setMatchAnyOis
-          go_name: SetMatchAnyOis
-          params:
-            - java_type: '[J'
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setRoamingConsortiumOis
-          go_name: SetRoamingConsortiumOis
-          params:
-            - java_type: '[J'
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
     - java_class: android.net.wifi.hotspot2.pps.Credential
       go_type: Credential
       obtain: constructor
@@ -381,6 +290,97 @@ classes:
           go_name: SetUsername
           params:
             - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.net.wifi.hotspot2.pps.HomeSp
+      go_type: HomeSp
+      obtain: constructor
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getFqdn
+          go_name: GetFqdn
+          returns: String
+          error: true
+        - java_method: getFriendlyName
+          go_name: GetFriendlyName
+          returns: String
+          error: true
+        - java_method: getMatchAllOis
+          go_name: GetMatchAllOis
+          returns: '[J'
+          error: true
+        - java_method: getMatchAnyOis
+          go_name: GetMatchAnyOis
+          returns: '[J'
+          error: true
+        - java_method: getOtherHomePartnersList
+          go_name: GetOtherHomePartnersList
+          returns: java.util.Collection<java.lang.String>
+          error: true
+        - java_method: getRoamingConsortiumOis
+          go_name: GetRoamingConsortiumOis
+          returns: '[J'
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: setFqdn
+          go_name: SetFqdn
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setFriendlyName
+          go_name: SetFriendlyName
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setMatchAllOis
+          go_name: SetMatchAllOis
+          params:
+            - java_type: '[J'
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setMatchAnyOis
+          go_name: SetMatchAnyOis
+          params:
+            - java_type: '[J'
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setRoamingConsortiumOis
+          go_name: SetRoamingConsortiumOis
+          params:
+            - java_type: '[J'
               go_name: arg0
           returns: void
           error: true

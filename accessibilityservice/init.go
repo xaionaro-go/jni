@@ -51,38 +51,24 @@ var (
 	midAccessibilityServiceInfoFeedbackTypeToString             jni.MethodID
 	midAccessibilityServiceInfoFlagToString                     jni.MethodID
 
-	clsAccessibilityButtonController                                      *jni.GlobalRef
-	midAccessibilityButtonControllerIsAccessibilityButtonAvailable        jni.MethodID
-	midAccessibilityButtonControllerRegisterAccessibilityButtonCallback   jni.MethodID
-	midAccessibilityButtonControllerUnregisterAccessibilityButtonCallback jni.MethodID
-	midAccessibilityButtonControllerToString                              jni.MethodID
+	clsMagnificationConfig                 *jni.GlobalRef
+	midMagnificationConfigDescribeContents jni.MethodID
+	midMagnificationConfigGetCenterX       jni.MethodID
+	midMagnificationConfigGetCenterY       jni.MethodID
+	midMagnificationConfigGetMode          jni.MethodID
+	midMagnificationConfigGetScale         jni.MethodID
+	midMagnificationConfigIsActivated      jni.MethodID
+	midMagnificationConfigToString         jni.MethodID
+	midMagnificationConfigWriteToParcel    jni.MethodID
 
-	clsAccessibilityButtonControllerAccessibilityButtonCallback                      *jni.GlobalRef
-	midAccessibilityButtonControllerAccessibilityButtonCallbackOnAvailabilityChanged jni.MethodID
-	midAccessibilityButtonControllerAccessibilityButtonCallbackOnClicked             jni.MethodID
-	midAccessibilityButtonControllerAccessibilityButtonCallbackToString              jni.MethodID
-
-	clsInputMethod                          *jni.GlobalRef
-	midInputMethodCtor                      jni.MethodID
-	midInputMethodGetCurrentInputConnection jni.MethodID
-	midInputMethodGetCurrentInputEditorInfo jni.MethodID
-	midInputMethodGetCurrentInputStarted    jni.MethodID
-	midInputMethodOnFinishInput             jni.MethodID
-	midInputMethodOnStartInput              jni.MethodID
-	midInputMethodOnUpdateSelection         jni.MethodID
-	midInputMethodToString                  jni.MethodID
-
-	clsInputMethodAccessibilityInputConnection                         *jni.GlobalRef
-	midInputMethodAccessibilityInputConnectionClearMetaKeyStates       jni.MethodID
-	midInputMethodAccessibilityInputConnectionCommitText               jni.MethodID
-	midInputMethodAccessibilityInputConnectionDeleteSurroundingText    jni.MethodID
-	midInputMethodAccessibilityInputConnectionGetCursorCapsMode        jni.MethodID
-	midInputMethodAccessibilityInputConnectionGetSurroundingText       jni.MethodID
-	midInputMethodAccessibilityInputConnectionPerformContextMenuAction jni.MethodID
-	midInputMethodAccessibilityInputConnectionPerformEditorAction      jni.MethodID
-	midInputMethodAccessibilityInputConnectionSendKeyEvent             jni.MethodID
-	midInputMethodAccessibilityInputConnectionSetSelection             jni.MethodID
-	midInputMethodAccessibilityInputConnectionToString                 jni.MethodID
+	clsMagnificationConfigBuilder             *jni.GlobalRef
+	midMagnificationConfigBuilderBuild        jni.MethodID
+	midMagnificationConfigBuilderSetActivated jni.MethodID
+	midMagnificationConfigBuilderSetCenterX   jni.MethodID
+	midMagnificationConfigBuilderSetCenterY   jni.MethodID
+	midMagnificationConfigBuilderSetMode      jni.MethodID
+	midMagnificationConfigBuilderSetScale     jni.MethodID
+	midMagnificationConfigBuilderToString     jni.MethodID
 
 	clsAccessibilityService                                     *jni.GlobalRef
 	midAccessibilityServiceAttachAccessibilityOverlayToDisplay  jni.MethodID
@@ -170,34 +156,95 @@ var (
 	midAccessibilityServiceTakeScreenshotCallbackOnSuccess jni.MethodID
 	midAccessibilityServiceTakeScreenshotCallbackToString  jni.MethodID
 
+	clsAccessibilityGestureEvent                  *jni.GlobalRef
+	midAccessibilityGestureEventCtor              jni.MethodID
+	midAccessibilityGestureEventDescribeContents  jni.MethodID
+	midAccessibilityGestureEventGetDisplayId      jni.MethodID
+	midAccessibilityGestureEventGetGestureId      jni.MethodID
+	midAccessibilityGestureEventGetMotionEvents   jni.MethodID
+	midAccessibilityGestureEventToString          jni.MethodID
+	midAccessibilityGestureEventWriteToParcel     jni.MethodID
+	midAccessibilityGestureEventGestureIdToString jni.MethodID
+
+	clsTouchInteractionController                             *jni.GlobalRef
+	midTouchInteractionControllerGetDisplayId                 jni.MethodID
+	midTouchInteractionControllerGetMaxPointerCount           jni.MethodID
+	midTouchInteractionControllerGetState                     jni.MethodID
+	midTouchInteractionControllerPerformClick                 jni.MethodID
+	midTouchInteractionControllerPerformLongClickAndStartDrag jni.MethodID
+	midTouchInteractionControllerRegisterCallback             jni.MethodID
+	midTouchInteractionControllerRequestDelegating            jni.MethodID
+	midTouchInteractionControllerRequestDragging              jni.MethodID
+	midTouchInteractionControllerRequestTouchExploration      jni.MethodID
+	midTouchInteractionControllerUnregisterAllCallbacks       jni.MethodID
+	midTouchInteractionControllerUnregisterCallback           jni.MethodID
+	midTouchInteractionControllerToString                     jni.MethodID
+	midTouchInteractionControllerStateToString                jni.MethodID
+
+	clsTouchInteractionControllerCallback               *jni.GlobalRef
+	midTouchInteractionControllerCallbackOnMotionEvent  jni.MethodID
+	midTouchInteractionControllerCallbackOnStateChanged jni.MethodID
+	midTouchInteractionControllerCallbackToString       jni.MethodID
+
+	clsBrailleDisplayController            *jni.GlobalRef
+	midBrailleDisplayControllerConnect2    jni.MethodID
+	midBrailleDisplayControllerConnect3_1  jni.MethodID
+	midBrailleDisplayControllerConnect2_2  jni.MethodID
+	midBrailleDisplayControllerConnect3_3  jni.MethodID
+	midBrailleDisplayControllerDisconnect  jni.MethodID
+	midBrailleDisplayControllerIsConnected jni.MethodID
+	midBrailleDisplayControllerWrite       jni.MethodID
+	midBrailleDisplayControllerToString    jni.MethodID
+
+	clsBrailleDisplayControllerBrailleDisplayCallback                   *jni.GlobalRef
+	midBrailleDisplayControllerBrailleDisplayCallbackOnConnected        jni.MethodID
+	midBrailleDisplayControllerBrailleDisplayCallbackOnConnectionFailed jni.MethodID
+	midBrailleDisplayControllerBrailleDisplayCallbackOnDisconnected     jni.MethodID
+	midBrailleDisplayControllerBrailleDisplayCallbackOnInput            jni.MethodID
+	midBrailleDisplayControllerBrailleDisplayCallbackToString           jni.MethodID
+
+	clsInputMethod                          *jni.GlobalRef
+	midInputMethodCtor                      jni.MethodID
+	midInputMethodGetCurrentInputConnection jni.MethodID
+	midInputMethodGetCurrentInputEditorInfo jni.MethodID
+	midInputMethodGetCurrentInputStarted    jni.MethodID
+	midInputMethodOnFinishInput             jni.MethodID
+	midInputMethodOnStartInput              jni.MethodID
+	midInputMethodOnUpdateSelection         jni.MethodID
+	midInputMethodToString                  jni.MethodID
+
 	clsFingerprintGestureController                                     *jni.GlobalRef
 	midFingerprintGestureControllerIsGestureDetectionAvailable          jni.MethodID
 	midFingerprintGestureControllerUnregisterFingerprintGestureCallback jni.MethodID
 	midFingerprintGestureControllerToString                             jni.MethodID
+
+	clsInputMethodAccessibilityInputConnection                         *jni.GlobalRef
+	midInputMethodAccessibilityInputConnectionClearMetaKeyStates       jni.MethodID
+	midInputMethodAccessibilityInputConnectionCommitText               jni.MethodID
+	midInputMethodAccessibilityInputConnectionDeleteSurroundingText    jni.MethodID
+	midInputMethodAccessibilityInputConnectionGetCursorCapsMode        jni.MethodID
+	midInputMethodAccessibilityInputConnectionGetSurroundingText       jni.MethodID
+	midInputMethodAccessibilityInputConnectionPerformContextMenuAction jni.MethodID
+	midInputMethodAccessibilityInputConnectionPerformEditorAction      jni.MethodID
+	midInputMethodAccessibilityInputConnectionSendKeyEvent             jni.MethodID
+	midInputMethodAccessibilityInputConnectionSetSelection             jni.MethodID
+	midInputMethodAccessibilityInputConnectionToString                 jni.MethodID
 
 	clsFingerprintGestureControllerFingerprintGestureCallback                                      *jni.GlobalRef
 	midFingerprintGestureControllerFingerprintGestureCallbackOnGestureDetected                     jni.MethodID
 	midFingerprintGestureControllerFingerprintGestureCallbackOnGestureDetectionAvailabilityChanged jni.MethodID
 	midFingerprintGestureControllerFingerprintGestureCallbackToString                              jni.MethodID
 
-	clsMagnificationConfig                 *jni.GlobalRef
-	midMagnificationConfigDescribeContents jni.MethodID
-	midMagnificationConfigGetCenterX       jni.MethodID
-	midMagnificationConfigGetCenterY       jni.MethodID
-	midMagnificationConfigGetMode          jni.MethodID
-	midMagnificationConfigGetScale         jni.MethodID
-	midMagnificationConfigIsActivated      jni.MethodID
-	midMagnificationConfigToString         jni.MethodID
-	midMagnificationConfigWriteToParcel    jni.MethodID
+	clsAccessibilityButtonController                                      *jni.GlobalRef
+	midAccessibilityButtonControllerIsAccessibilityButtonAvailable        jni.MethodID
+	midAccessibilityButtonControllerRegisterAccessibilityButtonCallback   jni.MethodID
+	midAccessibilityButtonControllerUnregisterAccessibilityButtonCallback jni.MethodID
+	midAccessibilityButtonControllerToString                              jni.MethodID
 
-	clsMagnificationConfigBuilder             *jni.GlobalRef
-	midMagnificationConfigBuilderBuild        jni.MethodID
-	midMagnificationConfigBuilderSetActivated jni.MethodID
-	midMagnificationConfigBuilderSetCenterX   jni.MethodID
-	midMagnificationConfigBuilderSetCenterY   jni.MethodID
-	midMagnificationConfigBuilderSetMode      jni.MethodID
-	midMagnificationConfigBuilderSetScale     jni.MethodID
-	midMagnificationConfigBuilderToString     jni.MethodID
+	clsAccessibilityButtonControllerAccessibilityButtonCallback                      *jni.GlobalRef
+	midAccessibilityButtonControllerAccessibilityButtonCallbackOnAvailabilityChanged jni.MethodID
+	midAccessibilityButtonControllerAccessibilityButtonCallbackOnClicked             jni.MethodID
+	midAccessibilityButtonControllerAccessibilityButtonCallbackToString              jni.MethodID
 
 	clsGestureDescription                      *jni.GlobalRef
 	midGestureDescriptionGetDisplayId          jni.MethodID
@@ -220,53 +267,6 @@ var (
 	midGestureDescriptionStrokeDescriptionGetStartTime   jni.MethodID
 	midGestureDescriptionStrokeDescriptionWillContinue   jni.MethodID
 	midGestureDescriptionStrokeDescriptionToString       jni.MethodID
-
-	clsAccessibilityGestureEvent                  *jni.GlobalRef
-	midAccessibilityGestureEventCtor              jni.MethodID
-	midAccessibilityGestureEventDescribeContents  jni.MethodID
-	midAccessibilityGestureEventGetDisplayId      jni.MethodID
-	midAccessibilityGestureEventGetGestureId      jni.MethodID
-	midAccessibilityGestureEventGetMotionEvents   jni.MethodID
-	midAccessibilityGestureEventToString          jni.MethodID
-	midAccessibilityGestureEventWriteToParcel     jni.MethodID
-	midAccessibilityGestureEventGestureIdToString jni.MethodID
-
-	clsBrailleDisplayController            *jni.GlobalRef
-	midBrailleDisplayControllerConnect2    jni.MethodID
-	midBrailleDisplayControllerConnect3_1  jni.MethodID
-	midBrailleDisplayControllerConnect2_2  jni.MethodID
-	midBrailleDisplayControllerConnect3_3  jni.MethodID
-	midBrailleDisplayControllerDisconnect  jni.MethodID
-	midBrailleDisplayControllerIsConnected jni.MethodID
-	midBrailleDisplayControllerWrite       jni.MethodID
-	midBrailleDisplayControllerToString    jni.MethodID
-
-	clsBrailleDisplayControllerBrailleDisplayCallback                   *jni.GlobalRef
-	midBrailleDisplayControllerBrailleDisplayCallbackOnConnected        jni.MethodID
-	midBrailleDisplayControllerBrailleDisplayCallbackOnConnectionFailed jni.MethodID
-	midBrailleDisplayControllerBrailleDisplayCallbackOnDisconnected     jni.MethodID
-	midBrailleDisplayControllerBrailleDisplayCallbackOnInput            jni.MethodID
-	midBrailleDisplayControllerBrailleDisplayCallbackToString           jni.MethodID
-
-	clsTouchInteractionController                             *jni.GlobalRef
-	midTouchInteractionControllerGetDisplayId                 jni.MethodID
-	midTouchInteractionControllerGetMaxPointerCount           jni.MethodID
-	midTouchInteractionControllerGetState                     jni.MethodID
-	midTouchInteractionControllerPerformClick                 jni.MethodID
-	midTouchInteractionControllerPerformLongClickAndStartDrag jni.MethodID
-	midTouchInteractionControllerRegisterCallback             jni.MethodID
-	midTouchInteractionControllerRequestDelegating            jni.MethodID
-	midTouchInteractionControllerRequestDragging              jni.MethodID
-	midTouchInteractionControllerRequestTouchExploration      jni.MethodID
-	midTouchInteractionControllerUnregisterAllCallbacks       jni.MethodID
-	midTouchInteractionControllerUnregisterCallback           jni.MethodID
-	midTouchInteractionControllerToString                     jni.MethodID
-	midTouchInteractionControllerStateToString                jni.MethodID
-
-	clsTouchInteractionControllerCallback               *jni.GlobalRef
-	midTouchInteractionControllerCallbackOnMotionEvent  jni.MethodID
-	midTouchInteractionControllerCallbackOnStateChanged jni.MethodID
-	midTouchInteractionControllerCallbackToString       jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -476,36 +476,64 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/accessibilityservice/AccessibilityButtonController")
+	c, err = env.FindClass("android/accessibilityservice/MagnificationConfig")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsAccessibilityButtonController = env.NewGlobalRef(&c.Object)
+		clsMagnificationConfig = env.NewGlobalRef(&c.Object)
 
-		midAccessibilityButtonControllerIsAccessibilityButtonAvailable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAccessibilityButtonController)), "isAccessibilityButtonAvailable", "()Z")
+		midMagnificationConfigDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMagnificationConfig)), "describeContents", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAccessibilityButtonControllerRegisterAccessibilityButtonCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAccessibilityButtonController)), "registerAccessibilityButtonCallback", "(Landroid/accessibilityservice/AccessibilityButtonController$AccessibilityButtonCallback;)V")
+		midMagnificationConfigGetCenterX, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMagnificationConfig)), "getCenterX", "()F")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAccessibilityButtonControllerUnregisterAccessibilityButtonCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAccessibilityButtonController)), "unregisterAccessibilityButtonCallback", "(Landroid/accessibilityservice/AccessibilityButtonController$AccessibilityButtonCallback;)V")
+		midMagnificationConfigGetCenterY, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMagnificationConfig)), "getCenterY", "()F")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAccessibilityButtonControllerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAccessibilityButtonController)), "toString", "()Ljava/lang/String;")
+		midMagnificationConfigGetMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMagnificationConfig)), "getMode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMagnificationConfigGetScale, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMagnificationConfig)), "getScale", "()F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMagnificationConfigIsActivated, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMagnificationConfig)), "isActivated", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMagnificationConfigToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMagnificationConfig)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMagnificationConfigWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMagnificationConfig)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -514,172 +542,57 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/accessibilityservice/AccessibilityButtonController$AccessibilityButtonCallback")
+	c, err = env.FindClass("android/accessibilityservice/MagnificationConfig$Builder")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsAccessibilityButtonControllerAccessibilityButtonCallback = env.NewGlobalRef(&c.Object)
+		clsMagnificationConfigBuilder = env.NewGlobalRef(&c.Object)
 
-		midAccessibilityButtonControllerAccessibilityButtonCallbackOnAvailabilityChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAccessibilityButtonControllerAccessibilityButtonCallback)), "onAvailabilityChanged", "(Landroid/accessibilityservice/AccessibilityButtonController;Z)V")
+		midMagnificationConfigBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMagnificationConfigBuilder)), "build", "()Landroid/accessibilityservice/MagnificationConfig;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAccessibilityButtonControllerAccessibilityButtonCallbackOnClicked, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAccessibilityButtonControllerAccessibilityButtonCallback)), "onClicked", "(Landroid/accessibilityservice/AccessibilityButtonController;)V")
+		midMagnificationConfigBuilderSetActivated, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMagnificationConfigBuilder)), "setActivated", "(Z)Landroid/accessibilityservice/MagnificationConfig$Builder;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAccessibilityButtonControllerAccessibilityButtonCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAccessibilityButtonControllerAccessibilityButtonCallback)), "toString", "()Ljava/lang/String;")
+		midMagnificationConfigBuilderSetCenterX, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMagnificationConfigBuilder)), "setCenterX", "(F)Landroid/accessibilityservice/MagnificationConfig$Builder;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-	}
-
-	c, err = env.FindClass("android/accessibilityservice/InputMethod")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsInputMethod = env.NewGlobalRef(&c.Object)
-		midInputMethodCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputMethod)), "<init>", "(Landroid/accessibilityservice/AccessibilityService;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midInputMethodGetCurrentInputConnection, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputMethod)), "getCurrentInputConnection", "()Landroid/accessibilityservice/InputMethod$AccessibilityInputConnection;")
+		midMagnificationConfigBuilderSetCenterY, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMagnificationConfigBuilder)), "setCenterY", "(F)Landroid/accessibilityservice/MagnificationConfig$Builder;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midInputMethodGetCurrentInputEditorInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputMethod)), "getCurrentInputEditorInfo", "()Landroid/view/inputmethod/EditorInfo;")
+		midMagnificationConfigBuilderSetMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMagnificationConfigBuilder)), "setMode", "(I)Landroid/accessibilityservice/MagnificationConfig$Builder;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midInputMethodGetCurrentInputStarted, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputMethod)), "getCurrentInputStarted", "()Z")
+		midMagnificationConfigBuilderSetScale, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMagnificationConfigBuilder)), "setScale", "(F)Landroid/accessibilityservice/MagnificationConfig$Builder;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midInputMethodOnFinishInput, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputMethod)), "onFinishInput", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midInputMethodOnStartInput, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputMethod)), "onStartInput", "(Landroid/view/inputmethod/EditorInfo;Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midInputMethodOnUpdateSelection, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputMethod)), "onUpdateSelection", "(IIIIII)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midInputMethodToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputMethod)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/accessibilityservice/InputMethod$AccessibilityInputConnection")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsInputMethodAccessibilityInputConnection = env.NewGlobalRef(&c.Object)
-
-		midInputMethodAccessibilityInputConnectionClearMetaKeyStates, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputMethodAccessibilityInputConnection)), "clearMetaKeyStates", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midInputMethodAccessibilityInputConnectionCommitText, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputMethodAccessibilityInputConnection)), "commitText", "(Ljava/lang/CharSequence;ILandroid/view/inputmethod/TextAttribute;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midInputMethodAccessibilityInputConnectionDeleteSurroundingText, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputMethodAccessibilityInputConnection)), "deleteSurroundingText", "(II)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midInputMethodAccessibilityInputConnectionGetCursorCapsMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputMethodAccessibilityInputConnection)), "getCursorCapsMode", "(I)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midInputMethodAccessibilityInputConnectionGetSurroundingText, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputMethodAccessibilityInputConnection)), "getSurroundingText", "(III)Landroid/view/inputmethod/SurroundingText;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midInputMethodAccessibilityInputConnectionPerformContextMenuAction, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputMethodAccessibilityInputConnection)), "performContextMenuAction", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midInputMethodAccessibilityInputConnectionPerformEditorAction, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputMethodAccessibilityInputConnection)), "performEditorAction", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midInputMethodAccessibilityInputConnectionSendKeyEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputMethodAccessibilityInputConnection)), "sendKeyEvent", "(Landroid/view/KeyEvent;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midInputMethodAccessibilityInputConnectionSetSelection, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputMethodAccessibilityInputConnection)), "setSelection", "(II)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midInputMethodAccessibilityInputConnectionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputMethodAccessibilityInputConnection)), "toString", "()Ljava/lang/String;")
+		midMagnificationConfigBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMagnificationConfigBuilder)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1266,6 +1179,375 @@ func doInit(env *jni.Env) error {
 
 	}
 
+	c, err = env.FindClass("android/accessibilityservice/AccessibilityGestureEvent")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAccessibilityGestureEvent = env.NewGlobalRef(&c.Object)
+		midAccessibilityGestureEventCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAccessibilityGestureEvent)), "<init>", "(IILjava/util/List;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midAccessibilityGestureEventDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAccessibilityGestureEvent)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAccessibilityGestureEventGetDisplayId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAccessibilityGestureEvent)), "getDisplayId", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAccessibilityGestureEventGetGestureId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAccessibilityGestureEvent)), "getGestureId", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAccessibilityGestureEventGetMotionEvents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAccessibilityGestureEvent)), "getMotionEvents", "()Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAccessibilityGestureEventToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAccessibilityGestureEvent)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAccessibilityGestureEventWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAccessibilityGestureEvent)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAccessibilityGestureEventGestureIdToString, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsAccessibilityGestureEvent)), "gestureIdToString", "(I)Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/accessibilityservice/TouchInteractionController")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsTouchInteractionController = env.NewGlobalRef(&c.Object)
+
+		midTouchInteractionControllerGetDisplayId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTouchInteractionController)), "getDisplayId", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTouchInteractionControllerGetMaxPointerCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTouchInteractionController)), "getMaxPointerCount", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTouchInteractionControllerGetState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTouchInteractionController)), "getState", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTouchInteractionControllerPerformClick, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTouchInteractionController)), "performClick", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTouchInteractionControllerPerformLongClickAndStartDrag, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTouchInteractionController)), "performLongClickAndStartDrag", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTouchInteractionControllerRegisterCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTouchInteractionController)), "registerCallback", "(Ljava/util/concurrent/Executor;Landroid/accessibilityservice/TouchInteractionController$Callback;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTouchInteractionControllerRequestDelegating, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTouchInteractionController)), "requestDelegating", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTouchInteractionControllerRequestDragging, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTouchInteractionController)), "requestDragging", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTouchInteractionControllerRequestTouchExploration, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTouchInteractionController)), "requestTouchExploration", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTouchInteractionControllerUnregisterAllCallbacks, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTouchInteractionController)), "unregisterAllCallbacks", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTouchInteractionControllerUnregisterCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTouchInteractionController)), "unregisterCallback", "(Landroid/accessibilityservice/TouchInteractionController$Callback;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTouchInteractionControllerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTouchInteractionController)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTouchInteractionControllerStateToString, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTouchInteractionController)), "stateToString", "(I)Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/accessibilityservice/TouchInteractionController$Callback")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsTouchInteractionControllerCallback = env.NewGlobalRef(&c.Object)
+
+		midTouchInteractionControllerCallbackOnMotionEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTouchInteractionControllerCallback)), "onMotionEvent", "(Landroid/view/MotionEvent;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTouchInteractionControllerCallbackOnStateChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTouchInteractionControllerCallback)), "onStateChanged", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTouchInteractionControllerCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTouchInteractionControllerCallback)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/accessibilityservice/BrailleDisplayController")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsBrailleDisplayController = env.NewGlobalRef(&c.Object)
+
+		midBrailleDisplayControllerConnect2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBrailleDisplayController)), "connect", "(Landroid/bluetooth/BluetoothDevice;Landroid/accessibilityservice/BrailleDisplayController$BrailleDisplayCallback;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBrailleDisplayControllerConnect3_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBrailleDisplayController)), "connect", "(Landroid/bluetooth/BluetoothDevice;Ljava/util/concurrent/Executor;Landroid/accessibilityservice/BrailleDisplayController$BrailleDisplayCallback;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBrailleDisplayControllerConnect2_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBrailleDisplayController)), "connect", "(Landroid/hardware/usb/UsbDevice;Landroid/accessibilityservice/BrailleDisplayController$BrailleDisplayCallback;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBrailleDisplayControllerConnect3_3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBrailleDisplayController)), "connect", "(Landroid/hardware/usb/UsbDevice;Ljava/util/concurrent/Executor;Landroid/accessibilityservice/BrailleDisplayController$BrailleDisplayCallback;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBrailleDisplayControllerDisconnect, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBrailleDisplayController)), "disconnect", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBrailleDisplayControllerIsConnected, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBrailleDisplayController)), "isConnected", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBrailleDisplayControllerWrite, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBrailleDisplayController)), "write", "([B)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBrailleDisplayControllerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBrailleDisplayController)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/accessibilityservice/BrailleDisplayController$BrailleDisplayCallback")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsBrailleDisplayControllerBrailleDisplayCallback = env.NewGlobalRef(&c.Object)
+
+		midBrailleDisplayControllerBrailleDisplayCallbackOnConnected, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBrailleDisplayControllerBrailleDisplayCallback)), "onConnected", "([B)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBrailleDisplayControllerBrailleDisplayCallbackOnConnectionFailed, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBrailleDisplayControllerBrailleDisplayCallback)), "onConnectionFailed", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBrailleDisplayControllerBrailleDisplayCallbackOnDisconnected, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBrailleDisplayControllerBrailleDisplayCallback)), "onDisconnected", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBrailleDisplayControllerBrailleDisplayCallbackOnInput, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBrailleDisplayControllerBrailleDisplayCallback)), "onInput", "([B)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBrailleDisplayControllerBrailleDisplayCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBrailleDisplayControllerBrailleDisplayCallback)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/accessibilityservice/InputMethod")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsInputMethod = env.NewGlobalRef(&c.Object)
+		midInputMethodCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputMethod)), "<init>", "(Landroid/accessibilityservice/AccessibilityService;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midInputMethodGetCurrentInputConnection, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputMethod)), "getCurrentInputConnection", "()Landroid/accessibilityservice/InputMethod$AccessibilityInputConnection;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInputMethodGetCurrentInputEditorInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputMethod)), "getCurrentInputEditorInfo", "()Landroid/view/inputmethod/EditorInfo;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInputMethodGetCurrentInputStarted, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputMethod)), "getCurrentInputStarted", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInputMethodOnFinishInput, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputMethod)), "onFinishInput", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInputMethodOnStartInput, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputMethod)), "onStartInput", "(Landroid/view/inputmethod/EditorInfo;Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInputMethodOnUpdateSelection, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputMethod)), "onUpdateSelection", "(IIIIII)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInputMethodToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputMethod)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
 	c, err = env.FindClass("android/accessibilityservice/FingerprintGestureController")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -1289,6 +1571,86 @@ func doInit(env *jni.Env) error {
 		}
 
 		midFingerprintGestureControllerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFingerprintGestureController)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/accessibilityservice/InputMethod$AccessibilityInputConnection")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsInputMethodAccessibilityInputConnection = env.NewGlobalRef(&c.Object)
+
+		midInputMethodAccessibilityInputConnectionClearMetaKeyStates, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputMethodAccessibilityInputConnection)), "clearMetaKeyStates", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInputMethodAccessibilityInputConnectionCommitText, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputMethodAccessibilityInputConnection)), "commitText", "(Ljava/lang/CharSequence;ILandroid/view/inputmethod/TextAttribute;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInputMethodAccessibilityInputConnectionDeleteSurroundingText, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputMethodAccessibilityInputConnection)), "deleteSurroundingText", "(II)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInputMethodAccessibilityInputConnectionGetCursorCapsMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputMethodAccessibilityInputConnection)), "getCursorCapsMode", "(I)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInputMethodAccessibilityInputConnectionGetSurroundingText, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputMethodAccessibilityInputConnection)), "getSurroundingText", "(III)Landroid/view/inputmethod/SurroundingText;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInputMethodAccessibilityInputConnectionPerformContextMenuAction, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputMethodAccessibilityInputConnection)), "performContextMenuAction", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInputMethodAccessibilityInputConnectionPerformEditorAction, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputMethodAccessibilityInputConnection)), "performEditorAction", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInputMethodAccessibilityInputConnectionSendKeyEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputMethodAccessibilityInputConnection)), "sendKeyEvent", "(Landroid/view/KeyEvent;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInputMethodAccessibilityInputConnectionSetSelection, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputMethodAccessibilityInputConnection)), "setSelection", "(II)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInputMethodAccessibilityInputConnectionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInputMethodAccessibilityInputConnection)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1328,64 +1690,36 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/accessibilityservice/MagnificationConfig")
+	c, err = env.FindClass("android/accessibilityservice/AccessibilityButtonController")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsMagnificationConfig = env.NewGlobalRef(&c.Object)
+		clsAccessibilityButtonController = env.NewGlobalRef(&c.Object)
 
-		midMagnificationConfigDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMagnificationConfig)), "describeContents", "()I")
+		midAccessibilityButtonControllerIsAccessibilityButtonAvailable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAccessibilityButtonController)), "isAccessibilityButtonAvailable", "()Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMagnificationConfigGetCenterX, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMagnificationConfig)), "getCenterX", "()F")
+		midAccessibilityButtonControllerRegisterAccessibilityButtonCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAccessibilityButtonController)), "registerAccessibilityButtonCallback", "(Landroid/accessibilityservice/AccessibilityButtonController$AccessibilityButtonCallback;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMagnificationConfigGetCenterY, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMagnificationConfig)), "getCenterY", "()F")
+		midAccessibilityButtonControllerUnregisterAccessibilityButtonCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAccessibilityButtonController)), "unregisterAccessibilityButtonCallback", "(Landroid/accessibilityservice/AccessibilityButtonController$AccessibilityButtonCallback;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMagnificationConfigGetMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMagnificationConfig)), "getMode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMagnificationConfigGetScale, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMagnificationConfig)), "getScale", "()F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMagnificationConfigIsActivated, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMagnificationConfig)), "isActivated", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMagnificationConfigToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMagnificationConfig)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMagnificationConfigWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMagnificationConfig)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midAccessibilityButtonControllerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAccessibilityButtonController)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1394,57 +1728,29 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/accessibilityservice/MagnificationConfig$Builder")
+	c, err = env.FindClass("android/accessibilityservice/AccessibilityButtonController$AccessibilityButtonCallback")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsMagnificationConfigBuilder = env.NewGlobalRef(&c.Object)
+		clsAccessibilityButtonControllerAccessibilityButtonCallback = env.NewGlobalRef(&c.Object)
 
-		midMagnificationConfigBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMagnificationConfigBuilder)), "build", "()Landroid/accessibilityservice/MagnificationConfig;")
+		midAccessibilityButtonControllerAccessibilityButtonCallbackOnAvailabilityChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAccessibilityButtonControllerAccessibilityButtonCallback)), "onAvailabilityChanged", "(Landroid/accessibilityservice/AccessibilityButtonController;Z)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMagnificationConfigBuilderSetActivated, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMagnificationConfigBuilder)), "setActivated", "(Z)Landroid/accessibilityservice/MagnificationConfig$Builder;")
+		midAccessibilityButtonControllerAccessibilityButtonCallbackOnClicked, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAccessibilityButtonControllerAccessibilityButtonCallback)), "onClicked", "(Landroid/accessibilityservice/AccessibilityButtonController;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMagnificationConfigBuilderSetCenterX, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMagnificationConfigBuilder)), "setCenterX", "(F)Landroid/accessibilityservice/MagnificationConfig$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMagnificationConfigBuilderSetCenterY, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMagnificationConfigBuilder)), "setCenterY", "(F)Landroid/accessibilityservice/MagnificationConfig$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMagnificationConfigBuilderSetMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMagnificationConfigBuilder)), "setMode", "(I)Landroid/accessibilityservice/MagnificationConfig$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMagnificationConfigBuilderSetScale, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMagnificationConfigBuilder)), "setScale", "(F)Landroid/accessibilityservice/MagnificationConfig$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMagnificationConfigBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMagnificationConfigBuilder)), "toString", "()Ljava/lang/String;")
+		midAccessibilityButtonControllerAccessibilityButtonCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAccessibilityButtonControllerAccessibilityButtonCallback)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1587,312 +1893,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midGestureDescriptionStrokeDescriptionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGestureDescriptionStrokeDescription)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/accessibilityservice/AccessibilityGestureEvent")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsAccessibilityGestureEvent = env.NewGlobalRef(&c.Object)
-		midAccessibilityGestureEventCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAccessibilityGestureEvent)), "<init>", "(IILjava/util/List;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midAccessibilityGestureEventDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAccessibilityGestureEvent)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAccessibilityGestureEventGetDisplayId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAccessibilityGestureEvent)), "getDisplayId", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAccessibilityGestureEventGetGestureId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAccessibilityGestureEvent)), "getGestureId", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAccessibilityGestureEventGetMotionEvents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAccessibilityGestureEvent)), "getMotionEvents", "()Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAccessibilityGestureEventToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAccessibilityGestureEvent)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAccessibilityGestureEventWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAccessibilityGestureEvent)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAccessibilityGestureEventGestureIdToString, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsAccessibilityGestureEvent)), "gestureIdToString", "(I)Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/accessibilityservice/BrailleDisplayController")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsBrailleDisplayController = env.NewGlobalRef(&c.Object)
-
-		midBrailleDisplayControllerConnect2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBrailleDisplayController)), "connect", "(Landroid/bluetooth/BluetoothDevice;Landroid/accessibilityservice/BrailleDisplayController$BrailleDisplayCallback;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBrailleDisplayControllerConnect3_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBrailleDisplayController)), "connect", "(Landroid/bluetooth/BluetoothDevice;Ljava/util/concurrent/Executor;Landroid/accessibilityservice/BrailleDisplayController$BrailleDisplayCallback;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBrailleDisplayControllerConnect2_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBrailleDisplayController)), "connect", "(Landroid/hardware/usb/UsbDevice;Landroid/accessibilityservice/BrailleDisplayController$BrailleDisplayCallback;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBrailleDisplayControllerConnect3_3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBrailleDisplayController)), "connect", "(Landroid/hardware/usb/UsbDevice;Ljava/util/concurrent/Executor;Landroid/accessibilityservice/BrailleDisplayController$BrailleDisplayCallback;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBrailleDisplayControllerDisconnect, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBrailleDisplayController)), "disconnect", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBrailleDisplayControllerIsConnected, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBrailleDisplayController)), "isConnected", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBrailleDisplayControllerWrite, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBrailleDisplayController)), "write", "([B)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBrailleDisplayControllerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBrailleDisplayController)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/accessibilityservice/BrailleDisplayController$BrailleDisplayCallback")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsBrailleDisplayControllerBrailleDisplayCallback = env.NewGlobalRef(&c.Object)
-
-		midBrailleDisplayControllerBrailleDisplayCallbackOnConnected, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBrailleDisplayControllerBrailleDisplayCallback)), "onConnected", "([B)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBrailleDisplayControllerBrailleDisplayCallbackOnConnectionFailed, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBrailleDisplayControllerBrailleDisplayCallback)), "onConnectionFailed", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBrailleDisplayControllerBrailleDisplayCallbackOnDisconnected, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBrailleDisplayControllerBrailleDisplayCallback)), "onDisconnected", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBrailleDisplayControllerBrailleDisplayCallbackOnInput, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBrailleDisplayControllerBrailleDisplayCallback)), "onInput", "([B)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBrailleDisplayControllerBrailleDisplayCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBrailleDisplayControllerBrailleDisplayCallback)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/accessibilityservice/TouchInteractionController")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsTouchInteractionController = env.NewGlobalRef(&c.Object)
-
-		midTouchInteractionControllerGetDisplayId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTouchInteractionController)), "getDisplayId", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTouchInteractionControllerGetMaxPointerCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTouchInteractionController)), "getMaxPointerCount", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTouchInteractionControllerGetState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTouchInteractionController)), "getState", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTouchInteractionControllerPerformClick, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTouchInteractionController)), "performClick", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTouchInteractionControllerPerformLongClickAndStartDrag, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTouchInteractionController)), "performLongClickAndStartDrag", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTouchInteractionControllerRegisterCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTouchInteractionController)), "registerCallback", "(Ljava/util/concurrent/Executor;Landroid/accessibilityservice/TouchInteractionController$Callback;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTouchInteractionControllerRequestDelegating, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTouchInteractionController)), "requestDelegating", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTouchInteractionControllerRequestDragging, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTouchInteractionController)), "requestDragging", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTouchInteractionControllerRequestTouchExploration, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTouchInteractionController)), "requestTouchExploration", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTouchInteractionControllerUnregisterAllCallbacks, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTouchInteractionController)), "unregisterAllCallbacks", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTouchInteractionControllerUnregisterCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTouchInteractionController)), "unregisterCallback", "(Landroid/accessibilityservice/TouchInteractionController$Callback;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTouchInteractionControllerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTouchInteractionController)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTouchInteractionControllerStateToString, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsTouchInteractionController)), "stateToString", "(I)Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/accessibilityservice/TouchInteractionController$Callback")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsTouchInteractionControllerCallback = env.NewGlobalRef(&c.Object)
-
-		midTouchInteractionControllerCallbackOnMotionEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTouchInteractionControllerCallback)), "onMotionEvent", "(Landroid/view/MotionEvent;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTouchInteractionControllerCallbackOnStateChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTouchInteractionControllerCallback)), "onStateChanged", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTouchInteractionControllerCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTouchInteractionControllerCallback)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

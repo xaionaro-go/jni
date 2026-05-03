@@ -23,6 +23,16 @@ var (
 	initOnce sync.Once
 	initErr  error
 
+	clsDeviceManager                                *jni.GlobalRef
+	midDeviceManagerGetVirtualDevice                jni.MethodID
+	midDeviceManagerGetVirtualDevices               jni.MethodID
+	midDeviceManagerRegisterVirtualDeviceListener   jni.MethodID
+	midDeviceManagerUnregisterVirtualDeviceListener jni.MethodID
+	midDeviceManagerToString                        jni.MethodID
+
+	clsDeviceManagerVirtualDeviceListener         *jni.GlobalRef
+	midDeviceManagerVirtualDeviceListenerToString jni.MethodID
+
 	clsDevice                       *jni.GlobalRef
 	midDeviceDescribeContents       jni.MethodID
 	midDeviceGetDeviceId            jni.MethodID
@@ -33,16 +43,6 @@ var (
 	midDeviceHasCustomSensorSupport jni.MethodID
 	midDeviceToString               jni.MethodID
 	midDeviceWriteToParcel          jni.MethodID
-
-	clsDeviceManager                                *jni.GlobalRef
-	midDeviceManagerGetVirtualDevice                jni.MethodID
-	midDeviceManagerGetVirtualDevices               jni.MethodID
-	midDeviceManagerRegisterVirtualDeviceListener   jni.MethodID
-	midDeviceManagerUnregisterVirtualDeviceListener jni.MethodID
-	midDeviceManagerToString                        jni.MethodID
-
-	clsDeviceManagerVirtualDeviceListener         *jni.GlobalRef
-	midDeviceManagerVirtualDeviceListenerToString jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -62,6 +62,68 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
+
+	c, err = env.FindClass("android/companion/virtual/VirtualDeviceManager")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsDeviceManager = env.NewGlobalRef(&c.Object)
+
+		midDeviceManagerGetVirtualDevice, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDeviceManager)), "getVirtualDevice", "(I)Landroid/companion/virtual/VirtualDevice;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDeviceManagerGetVirtualDevices, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDeviceManager)), "getVirtualDevices", "()Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDeviceManagerRegisterVirtualDeviceListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDeviceManager)), "registerVirtualDeviceListener", "(Ljava/util/concurrent/Executor;Landroid/companion/virtual/VirtualDeviceManager$VirtualDeviceListener;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDeviceManagerUnregisterVirtualDeviceListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDeviceManager)), "unregisterVirtualDeviceListener", "(Landroid/companion/virtual/VirtualDeviceManager$VirtualDeviceListener;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDeviceManagerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDeviceManager)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/companion/virtual/VirtualDeviceManager$VirtualDeviceListener")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsDeviceManagerVirtualDeviceListener = env.NewGlobalRef(&c.Object)
+
+		midDeviceManagerVirtualDeviceListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDeviceManagerVirtualDeviceListener)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
 
 	c, err = env.FindClass("android/companion/virtual/VirtualDevice")
 	if err != nil {
@@ -128,68 +190,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midDeviceWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDevice)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/companion/virtual/VirtualDeviceManager")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsDeviceManager = env.NewGlobalRef(&c.Object)
-
-		midDeviceManagerGetVirtualDevice, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDeviceManager)), "getVirtualDevice", "(I)Landroid/companion/virtual/VirtualDevice;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDeviceManagerGetVirtualDevices, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDeviceManager)), "getVirtualDevices", "()Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDeviceManagerRegisterVirtualDeviceListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDeviceManager)), "registerVirtualDeviceListener", "(Ljava/util/concurrent/Executor;Landroid/companion/virtual/VirtualDeviceManager$VirtualDeviceListener;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDeviceManagerUnregisterVirtualDeviceListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDeviceManager)), "unregisterVirtualDeviceListener", "(Landroid/companion/virtual/VirtualDeviceManager$VirtualDeviceListener;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDeviceManagerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDeviceManager)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/companion/virtual/VirtualDeviceManager$VirtualDeviceListener")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsDeviceManagerVirtualDeviceListener = env.NewGlobalRef(&c.Object)
-
-		midDeviceManagerVirtualDeviceListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDeviceManagerVirtualDeviceListener)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

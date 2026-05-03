@@ -6,11 +6,11 @@ import "github.com/AndroidGoLab/jni/adservices/common/consts"
 
 const (
 	Creator               = consts.Creator
-	Empty                 = consts.Empty
 	AdEventTypeClick      = consts.AdEventTypeClick
 	AdEventTypeImpression = consts.AdEventTypeImpression
 	AdEventTypeView       = consts.AdEventTypeView
 	AdEventTypeWin        = consts.AdEventTypeWin
+	Empty                 = consts.Empty
 )
 
 const (

@@ -4,11 +4,11 @@ package consts
 
 const (
 	Creator               int = 0
-	Empty                 int = 0
 	AdEventTypeClick      int = 3
 	AdEventTypeImpression int = 1
 	AdEventTypeView       int = 2
 	AdEventTypeWin        int = 0
+	Empty                 int = 0
 )
 
 const (

@@ -5,6 +5,78 @@
 package: photopicker
 go_import: github.com/AndroidGoLab/jni/widget/photopicker
 classes:
+    - java_class: android.widget.photopicker.EmbeddedPhotoPickerClient
+      go_type: EmbeddedPhotoPickerClient
+      methods:
+        - java_method: onSelectionComplete
+          go_name: OnSelectionComplete
+          returns: void
+          error: true
+        - java_method: onSessionError
+          go_name: OnSessionError
+          params:
+            - java_type: java.lang.Throwable
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onSessionOpened
+          go_name: OnSessionOpened
+          params:
+            - java_type: android.widget.photopicker.EmbeddedPhotoPickerSession
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.widget.photopicker.EmbeddedPhotoPickerProviderFactory
+      go_type: EmbeddedPhotoPickerProviderFactory
+      static_methods:
+        - java_method: create
+          go_name: Create
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+          returns: android.widget.photopicker.EmbeddedPhotoPickerProvider
+          error: true
+    - java_class: android.widget.photopicker.EmbeddedPhotoPickerSession
+      go_type: EmbeddedPhotoPickerSession
+      methods:
+        - java_method: close
+          go_name: Close
+          returns: void
+          error: true
+        - java_method: getSurfacePackage
+          go_name: GetSurfacePackage
+          returns: android.view.SurfaceControlViewHost$SurfacePackage
+          error: true
+        - java_method: notifyConfigurationChanged
+          go_name: NotifyConfigurationChanged
+          params:
+            - java_type: android.content.res.Configuration
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: notifyPhotoPickerExpanded
+          go_name: NotifyPhotoPickerExpanded
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: notifyResized
+          go_name: NotifyResized
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: notifyVisibilityChanged
+          go_name: NotifyVisibilityChanged
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
     - java_class: android.widget.photopicker.EmbeddedPhotoPickerProvider
       go_type: EmbeddedPhotoPickerProvider
       methods:
@@ -105,78 +177,6 @@ classes:
             - java_type: int
               go_name: arg0
           returns: android.widget.photopicker.EmbeddedPhotoPickerFeatureInfo$Builder
-          error: true
-    - java_class: android.widget.photopicker.EmbeddedPhotoPickerSession
-      go_type: EmbeddedPhotoPickerSession
-      methods:
-        - java_method: close
-          go_name: Close
-          returns: void
-          error: true
-        - java_method: getSurfacePackage
-          go_name: GetSurfacePackage
-          returns: android.view.SurfaceControlViewHost$SurfacePackage
-          error: true
-        - java_method: notifyConfigurationChanged
-          go_name: NotifyConfigurationChanged
-          params:
-            - java_type: android.content.res.Configuration
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: notifyPhotoPickerExpanded
-          go_name: NotifyPhotoPickerExpanded
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: notifyResized
-          go_name: NotifyResized
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: notifyVisibilityChanged
-          go_name: NotifyVisibilityChanged
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.widget.photopicker.EmbeddedPhotoPickerProviderFactory
-      go_type: EmbeddedPhotoPickerProviderFactory
-      static_methods:
-        - java_method: create
-          go_name: Create
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-          returns: android.widget.photopicker.EmbeddedPhotoPickerProvider
-          error: true
-    - java_class: android.widget.photopicker.EmbeddedPhotoPickerClient
-      go_type: EmbeddedPhotoPickerClient
-      methods:
-        - java_method: onSelectionComplete
-          go_name: OnSelectionComplete
-          returns: void
-          error: true
-        - java_method: onSessionError
-          go_name: OnSessionError
-          params:
-            - java_type: java.lang.Throwable
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onSessionOpened
-          go_name: OnSessionOpened
-          params:
-            - java_type: android.widget.photopicker.EmbeddedPhotoPickerSession
-              go_name: arg0
-          returns: void
           error: true
 constants:
     - go_name: Creator

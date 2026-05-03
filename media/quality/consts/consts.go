@@ -4,12 +4,13 @@ package consts
 
 const (
 	Creator                                int = 0
-	SourceAudio                            int = 1
-	SourceAudioVideo                       int = 3
-	SourceNone                             int = 0
-	SourceVideo                            int = 2
 	AlgorithmNone                          int = 0
 	AlgorithmRle                           int = 1
+	TypeDouble                             int = 3
+	TypeInt                                int = 1
+	TypeLong                               int = 2
+	TypeNone                               int = 0
+	TypeString                             int = 4
 	ErrorDuplicate                         int = 2
 	ErrorInvalidArgument                   int = 3
 	ErrorNotAllowlisted                    int = 4
@@ -21,11 +22,10 @@ const (
 	AmbientBacklightEventEnabled           int = 1
 	AmbientBacklightEventInterrupted       int = 4
 	AmbientBacklightEventMetadataAvailable int = 3
-	TypeDouble                             int = 3
-	TypeInt                                int = 1
-	TypeLong                               int = 2
-	TypeNone                               int = 0
-	TypeString                             int = 4
+	SourceAudio                            int = 1
+	SourceAudioVideo                       int = 3
+	SourceNone                             int = 0
+	SourceVideo                            int = 2
 )
 
 const (

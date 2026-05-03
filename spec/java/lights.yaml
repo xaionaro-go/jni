@@ -175,6 +175,35 @@ classes:
               go_name: arg0
           returns: void
           error: true
+abstract_callbacks:
+    - java_class: android.hardware.lights.LightsManager
+      go_type: ManagerCallback
+      methods:
+        - java_method: getLightState
+          params:
+            - android.hardware.lights.Light
+          returns: android.hardware.lights.LightState
+          go_field: GetLightState
+        - java_method: getLights
+          params: []
+          returns: java.util.List<android.hardware.lights.Light>
+          go_field: GetLights
+        - java_method: openSession
+          params: []
+          returns: android.hardware.lights.LightsManager$LightsSession
+          go_field: OpenSession
+    - java_class: android.hardware.lights.LightsManager$LightsSession
+      go_type: ManagerLightsSessionCallback
+      methods:
+        - java_method: close
+          params: []
+          returns: void
+          go_field: Close
+        - java_method: requestLights
+          params:
+            - android.hardware.lights.LightsRequest
+          returns: void
+          go_field: RequestLights
 constants:
     - go_name: Creator
       value: "0"

@@ -5,13 +5,6 @@
 package: eap
 go_import: github.com/AndroidGoLab/jni/net/eap
 classes:
-    - java_class: android.net.eap.EapInfo
-      go_type: Info
-      methods:
-        - java_method: getEapMethodType
-          go_name: GetEapMethodType
-          returns: int
-          error: true
     - java_class: android.net.eap.EapAkaInfo
       go_type: AkaInfo
       methods:
@@ -295,6 +288,37 @@ classes:
           go_name: HashCode
           returns: int
           error: true
+    - java_class: android.net.eap.EapInfo
+      go_type: Info
+      methods:
+        - java_method: getEapMethodType
+          go_name: GetEapMethodType
+          returns: int
+          error: true
+abstract_callbacks:
+    - java_class: android.net.eap.EapSessionConfig$EapMethodConfig
+      go_type: SessionConfigEapMethodConfigCallback
+      methods:
+        - java_method: equals
+          params:
+            - java.lang.Object
+          returns: boolean
+          go_field: Equals
+        - java_method: getMethodType
+          params: []
+          returns: int
+          go_field: GetMethodType
+        - java_method: hashCode
+          params: []
+          returns: int
+          go_field: HashCode
+    - java_class: android.net.eap.EapInfo
+      go_type: InfoCallback
+      methods:
+        - java_method: getEapMethodType
+          params: []
+          returns: int
+          go_field: GetEapMethodType
 constants:
     - go_name: EapTypeAka
       value: "23"

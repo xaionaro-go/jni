@@ -9,6 +9,8 @@ const (
 	FlagHandlesTransportControls = consts.FlagHandlesTransportControls
 	Creator                      = consts.Creator
 	UnknownId                    = consts.UnknownId
+	PlaybackTypeLocal            = consts.PlaybackTypeLocal
+	PlaybackTypeRemote           = consts.PlaybackTypeRemote
 	StateBuffering               = consts.StateBuffering
 	StateConnecting              = consts.StateConnecting
 	StateError                   = consts.StateError
@@ -21,8 +23,6 @@ const (
 	StateSkippingToPrevious      = consts.StateSkippingToPrevious
 	StateSkippingToQueueItem     = consts.StateSkippingToQueueItem
 	StateStopped                 = consts.StateStopped
-	PlaybackTypeLocal            = consts.PlaybackTypeLocal
-	PlaybackTypeRemote           = consts.PlaybackTypeRemote
 )
 
 const (

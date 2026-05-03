@@ -5,23 +5,6 @@
 package: sdksandbox
 go_import: github.com/AndroidGoLab/jni/app/sdksandbox
 classes:
-    - java_class: android.app.sdksandbox.RequestSurfacePackageException
-      go_type: RequestSurfacePackageException
-      obtain: constructor
-      constructor_params:
-        - java_type: int
-          go_name: arg0
-        - java_type: String
-          go_name: arg1
-      methods:
-        - java_method: getExtraErrorInformation
-          go_name: GetExtraErrorInformation
-          returns: android.os.Bundle
-          error: true
-        - java_method: getRequestSurfacePackageErrorCode
-          go_name: GetRequestSurfacePackageErrorCode
-          returns: int
-          error: true
     - java_class: android.app.sdksandbox.SandboxedSdkProvider
       go_type: SandboxedSdkProvider
       methods:
@@ -59,6 +42,36 @@ classes:
             - java_type: android.os.Bundle
               go_name: arg0
           returns: android.app.sdksandbox.SandboxedSdk
+          error: true
+    - java_class: android.app.sdksandbox.LoadSdkException
+      go_type: LoadSdkException
+      obtain: constructor
+      constructor_params:
+        - java_type: java.lang.Throwable
+          go_name: arg0
+        - java_type: android.os.Bundle
+          go_name: arg1
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getExtraInformation
+          go_name: GetExtraInformation
+          returns: android.os.Bundle
+          error: true
+        - java_method: getLoadSdkErrorCode
+          go_name: GetLoadSdkErrorCode
+          returns: int
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
           error: true
     - java_class: android.app.sdksandbox.SdkSandboxManager
       go_type: SdkSandboxManager
@@ -161,6 +174,23 @@ classes:
               go_name: arg1
           returns: void
           error: true
+    - java_class: android.app.sdksandbox.RequestSurfacePackageException
+      go_type: RequestSurfacePackageException
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+        - java_type: String
+          go_name: arg1
+      methods:
+        - java_method: getExtraErrorInformation
+          go_name: GetExtraErrorInformation
+          returns: android.os.Bundle
+          error: true
+        - java_method: getRequestSurfacePackageErrorCode
+          go_name: GetRequestSurfacePackageErrorCode
+          returns: int
+          error: true
     - java_class: android.app.sdksandbox.AppOwnedSdkSandboxInterface
       go_type: AppOwnedSdkSandboxInterface
       obtain: constructor
@@ -197,37 +227,40 @@ classes:
               go_name: arg1
           returns: void
           error: true
-    - java_class: android.app.sdksandbox.LoadSdkException
-      go_type: LoadSdkException
-      obtain: constructor
-      constructor_params:
-        - java_type: java.lang.Throwable
-          go_name: arg0
-        - java_type: android.os.Bundle
-          go_name: arg1
+abstract_callbacks:
+    - java_class: android.app.sdksandbox.SandboxedSdkProvider
+      go_type: SandboxedSdkProviderCallback
       methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getExtraInformation
-          go_name: GetExtraInformation
-          returns: android.os.Bundle
-          error: true
-        - java_method: getLoadSdkErrorCode
-          go_name: GetLoadSdkErrorCode
-          returns: int
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
+        - java_method: attachContext
           params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
+            - android.content.Context
           returns: void
-          error: true
+          go_field: AttachContext
+        - java_method: beforeUnloadSdk
+          params: []
+          returns: void
+          go_field: BeforeUnloadSdk
+        - java_method: getContext
+          params: []
+          returns: android.content.Context
+          go_field: GetContext
+        - java_method: getView
+          params:
+            - android.content.Context
+            - android.os.Bundle
+            - int
+            - int
+          returns: android.view.View
+          go_field: GetView
+        - java_method: onLoadSdk
+          params:
+            - android.os.Bundle
+          returns: android.app.sdksandbox.SandboxedSdk
+          go_field: OnLoadSdk
 constants:
+    - go_name: Creator
+      value: "0"
+      go_type: int
     - go_name: ExtraDisplayId
       value: '"android.app.sdksandbox.extra.DISPLAY_ID"'
       go_type: string
@@ -275,7 +308,4 @@ constants:
       go_type: int
     - go_name: SdkSandboxStateEnabledProcessIsolation
       value: "2"
-      go_type: int
-    - go_name: Creator
-      value: "0"
       go_type: int

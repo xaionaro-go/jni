@@ -13,58 +13,6 @@ classes:
       go_type: AdditionalContentContractCursorExtraKeys
     - java_class: android.service.chooser.AdditionalContentContract$MethodNames
       go_type: AdditionalContentContractMethodNames
-    - java_class: android.service.chooser.ChooserTarget
-      go_type: Target
-      obtain: constructor
-      constructor_params:
-        - java_type: java.lang.CharSequence
-          go_name: arg0
-        - java_type: android.graphics.drawable.Icon
-          go_name: arg1
-        - java_type: float
-          go_name: arg2
-        - java_type: android.content.ComponentName
-          go_name: arg3
-        - java_type: android.os.Bundle
-          go_name: arg4
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getComponentName
-          go_name: GetComponentName
-          returns: android.content.ComponentName
-          error: true
-        - java_method: getIcon
-          go_name: GetIcon
-          returns: android.graphics.drawable.Icon
-          error: true
-        - java_method: getIntentExtras
-          go_name: GetIntentExtras
-          returns: android.os.Bundle
-          error: true
-        - java_method: getScore
-          go_name: GetScore
-          returns: float
-          error: true
-        - java_method: getTitle
-          go_name: GetTitle
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
     - java_class: android.service.chooser.ChooserAction
       go_type: Action
       methods:
@@ -123,6 +71,58 @@ classes:
               go_name: arg1
           returns: java.util.List<android.service.chooser.ChooserTarget>
           error: true
+    - java_class: android.service.chooser.ChooserTarget
+      go_type: Target
+      obtain: constructor
+      constructor_params:
+        - java_type: java.lang.CharSequence
+          go_name: arg0
+        - java_type: android.graphics.drawable.Icon
+          go_name: arg1
+        - java_type: float
+          go_name: arg2
+        - java_type: android.content.ComponentName
+          go_name: arg3
+        - java_type: android.os.Bundle
+          go_name: arg4
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getComponentName
+          go_name: GetComponentName
+          returns: android.content.ComponentName
+          error: true
+        - java_method: getIcon
+          go_name: GetIcon
+          returns: android.graphics.drawable.Icon
+          error: true
+        - java_method: getIntentExtras
+          go_name: GetIntentExtras
+          returns: android.os.Bundle
+          error: true
+        - java_method: getScore
+          go_name: GetScore
+          returns: float
+          error: true
+        - java_method: getTitle
+          go_name: GetTitle
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
     - java_class: android.service.chooser.ChooserResult
       go_type: Result
       methods:
@@ -162,6 +162,21 @@ classes:
               go_name: arg1
           returns: void
           error: true
+abstract_callbacks:
+    - java_class: android.service.chooser.ChooserTargetService
+      go_type: TargetServiceCallback
+      methods:
+        - java_method: onBind
+          params:
+            - android.content.Intent
+          returns: android.os.IBinder
+          go_field: OnBind
+        - java_method: onGetChooserTargets
+          params:
+            - android.content.ComponentName
+            - android.content.IntentFilter
+          returns: java.util.List<android.service.chooser.ChooserTarget>
+          go_field: OnGetChooserTargets
 constants:
     - go_name: Uri
       value: '"uri"'

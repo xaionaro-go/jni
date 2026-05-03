@@ -3,21 +3,30 @@
 package consts
 
 const (
-	Creator                    int = 0
-	RtdAlternativeCarrier      int = 0
-	RtdHandoverCarrier         int = 0
-	RtdHandoverRequest         int = 0
-	RtdHandoverSelect          int = 0
-	RtdSmartPoster             int = 0
-	RtdText                    int = 0
-	RtdUri                     int = 0
-	TnfAbsoluteUri             int = 3
-	TnfEmpty                   int = 0
-	TnfExternalType            int = 4
-	TnfMimeMedia               int = 2
-	TnfUnchanged               int = 6
-	TnfUnknown                 int = 5
-	TnfWellKnown               int = 1
+	ActionAdapterStateChanged          string = "android.nfc.action.ADAPTER_STATE_CHANGED"
+	ActionChangeTagIntentPreference    string = "android.nfc.action.CHANGE_TAG_INTENT_PREFERENCE"
+	ActionNdefDiscovered               string = "android.nfc.action.NDEF_DISCOVERED"
+	ActionPreferredPaymentChanged      string = "android.nfc.action.PREFERRED_PAYMENT_CHANGED"
+	ActionTagDiscovered                string = "android.nfc.action.TAG_DISCOVERED"
+	ActionTechDiscovered               string = "android.nfc.action.TECH_DISCOVERED"
+	ActionTransactionDetected          string = "android.nfc.action.TRANSACTION_DETECTED"
+	ExtraAdapterState                  string = "android.nfc.extra.ADAPTER_STATE"
+	ExtraAid                           string = "android.nfc.extra.AID"
+	ExtraData                          string = "android.nfc.extra.DATA"
+	ExtraId                            string = "android.nfc.extra.ID"
+	ExtraNdefMessages                  string = "android.nfc.extra.NDEF_MESSAGES"
+	ExtraPreferredPaymentChangedReason string = "android.nfc.extra.PREFERRED_PAYMENT_CHANGED_REASON"
+	ExtraReaderPresenceCheckDelay      string = "presence"
+	ExtraSecureElementName             string = "android.nfc.extra.SECURE_ELEMENT_NAME"
+	ExtraTag                           string = "android.nfc.extra.TAG"
+	MifareClassic                      string = "com.nxp.ndef.mifareclassic"
+	NfcForumType1                      string = "org.nfcforum.ndef.type1"
+	NfcForumType2                      string = "org.nfcforum.ndef.type2"
+	NfcForumType3                      string = "org.nfcforum.ndef.type3"
+	NfcForumType4                      string = "org.nfcforum.ndef.type4"
+)
+
+const (
 	FlagListenDisable          int = 0
 	FlagListenKeep             int = -2147483648
 	FlagListenNfcPassiveA      int = 1
@@ -39,28 +48,19 @@ const (
 	StateOn                    int = 3
 	StateTurningOff            int = 4
 	StateTurningOn             int = 2
-)
-
-const (
-	MifareClassic                      string = "com.nxp.ndef.mifareclassic"
-	NfcForumType1                      string = "org.nfcforum.ndef.type1"
-	NfcForumType2                      string = "org.nfcforum.ndef.type2"
-	NfcForumType3                      string = "org.nfcforum.ndef.type3"
-	NfcForumType4                      string = "org.nfcforum.ndef.type4"
-	ActionAdapterStateChanged          string = "android.nfc.action.ADAPTER_STATE_CHANGED"
-	ActionChangeTagIntentPreference    string = "android.nfc.action.CHANGE_TAG_INTENT_PREFERENCE"
-	ActionNdefDiscovered               string = "android.nfc.action.NDEF_DISCOVERED"
-	ActionPreferredPaymentChanged      string = "android.nfc.action.PREFERRED_PAYMENT_CHANGED"
-	ActionTagDiscovered                string = "android.nfc.action.TAG_DISCOVERED"
-	ActionTechDiscovered               string = "android.nfc.action.TECH_DISCOVERED"
-	ActionTransactionDetected          string = "android.nfc.action.TRANSACTION_DETECTED"
-	ExtraAdapterState                  string = "android.nfc.extra.ADAPTER_STATE"
-	ExtraAid                           string = "android.nfc.extra.AID"
-	ExtraData                          string = "android.nfc.extra.DATA"
-	ExtraId                            string = "android.nfc.extra.ID"
-	ExtraNdefMessages                  string = "android.nfc.extra.NDEF_MESSAGES"
-	ExtraPreferredPaymentChangedReason string = "android.nfc.extra.PREFERRED_PAYMENT_CHANGED_REASON"
-	ExtraReaderPresenceCheckDelay      string = "presence"
-	ExtraSecureElementName             string = "android.nfc.extra.SECURE_ELEMENT_NAME"
-	ExtraTag                           string = "android.nfc.extra.TAG"
+	Creator                    int = 0
+	RtdAlternativeCarrier      int = 0
+	RtdHandoverCarrier         int = 0
+	RtdHandoverRequest         int = 0
+	RtdHandoverSelect          int = 0
+	RtdSmartPoster             int = 0
+	RtdText                    int = 0
+	RtdUri                     int = 0
+	TnfAbsoluteUri             int = 3
+	TnfEmpty                   int = 0
+	TnfExternalType            int = 4
+	TnfMimeMedia               int = 2
+	TnfUnchanged               int = 6
+	TnfUnknown                 int = 5
+	TnfWellKnown               int = 1
 )

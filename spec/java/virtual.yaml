@@ -5,6 +5,41 @@
 package: virtual
 go_import: github.com/AndroidGoLab/jni/companion/virtual
 classes:
+    - java_class: android.companion.virtual.VirtualDeviceManager
+      go_type: DeviceManager
+      obtain: system_service
+      service_name: virtualdevice
+      close: true
+      methods:
+        - java_method: getVirtualDevice
+          go_name: GetVirtualDevice
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.companion.virtual.VirtualDevice
+          error: true
+        - java_method: getVirtualDevices
+          go_name: GetVirtualDevices
+          returns: java.util.List<android.companion.virtual.VirtualDevice>
+          error: true
+        - java_method: registerVirtualDeviceListener
+          go_name: RegisterVirtualDeviceListener
+          params:
+            - java_type: java.util.concurrent.Executor
+              go_name: arg0
+            - java_type: android.companion.virtual.VirtualDeviceManager$VirtualDeviceListener
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: unregisterVirtualDeviceListener
+          go_name: UnregisterVirtualDeviceListener
+          params:
+            - java_type: android.companion.virtual.VirtualDeviceManager$VirtualDeviceListener
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.companion.virtual.VirtualDeviceManager$VirtualDeviceListener
+      go_type: DeviceManagerVirtualDeviceListener
     - java_class: android.companion.virtual.VirtualDevice
       go_type: Device
       methods:
@@ -49,41 +84,6 @@ classes:
               go_name: arg1
           returns: void
           error: true
-    - java_class: android.companion.virtual.VirtualDeviceManager
-      go_type: DeviceManager
-      obtain: system_service
-      service_name: virtualdevice
-      close: true
-      methods:
-        - java_method: getVirtualDevice
-          go_name: GetVirtualDevice
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.companion.virtual.VirtualDevice
-          error: true
-        - java_method: getVirtualDevices
-          go_name: GetVirtualDevices
-          returns: java.util.List<android.companion.virtual.VirtualDevice>
-          error: true
-        - java_method: registerVirtualDeviceListener
-          go_name: RegisterVirtualDeviceListener
-          params:
-            - java_type: java.util.concurrent.Executor
-              go_name: arg0
-            - java_type: android.companion.virtual.VirtualDeviceManager$VirtualDeviceListener
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: unregisterVirtualDeviceListener
-          go_name: UnregisterVirtualDeviceListener
-          params:
-            - java_type: android.companion.virtual.VirtualDeviceManager$VirtualDeviceListener
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.companion.virtual.VirtualDeviceManager$VirtualDeviceListener
-      go_type: DeviceManagerVirtualDeviceListener
 constants:
     - go_name: Creator
       value: "0"

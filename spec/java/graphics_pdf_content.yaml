@@ -35,30 +35,6 @@ classes:
               go_name: arg1
           returns: void
           error: true
-    - java_class: android.graphics.pdf.content.PdfPageImageContent
-      go_type: PdfPageImageContent
-      obtain: constructor
-      constructor_params:
-        - java_type: String
-          go_name: arg0
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getAltText
-          go_name: GetAltText
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
     - java_class: android.graphics.pdf.content.PdfPageTextContent
       go_type: PdfPageTextContent
       obtain: constructor
@@ -107,6 +83,30 @@ classes:
         - java_method: getDestination
           go_name: GetDestination
           returns: android.graphics.pdf.content.PdfPageGotoLinkContent$Destination
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.graphics.pdf.content.PdfPageImageContent
+      go_type: PdfPageImageContent
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getAltText
+          go_name: GetAltText
+          returns: String
           error: true
         - java_method: writeToParcel
           go_name: WriteToParcel

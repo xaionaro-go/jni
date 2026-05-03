@@ -5,54 +5,6 @@
 package: slice
 go_import: github.com/AndroidGoLab/jni/app/slice
 classes:
-    - java_class: android.app.slice.SliceSpec
-      go_type: Spec
-      obtain: constructor
-      constructor_params:
-        - java_type: String
-          go_name: arg0
-        - java_type: int
-          go_name: arg1
-      methods:
-        - java_method: canRender
-          go_name: CanRender
-          params:
-            - java_type: android.app.slice.SliceSpec
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getRevision
-          go_name: GetRevision
-          returns: int
-          error: true
-        - java_method: getType
-          go_name: GetType
-          returns: String
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
     - java_class: android.app.slice.Slice
       go_type: Slice
       methods:
@@ -126,6 +78,211 @@ classes:
             - java_type: boolean
               go_name: arg0
           returns: android.app.slice.Slice$Builder
+          error: true
+    - java_class: android.app.slice.SliceManager
+      go_type: Manager
+      methods:
+        - java_method: checkSlicePermission
+          go_name: CheckSlicePermission
+          params:
+            - java_type: android.net.Uri
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: int
+          error: true
+        - java_method: getPinnedSlices
+          go_name: GetPinnedSlices
+          returns: java.util.List<android.net.Uri>
+          error: true
+        - java_method: getPinnedSpecs
+          go_name: GetPinnedSpecs
+          params:
+            - java_type: android.net.Uri
+              go_name: arg0
+          returns: java.util.Set<android.app.slice.SliceSpec>
+          error: true
+        - java_method: getSliceDescendants
+          go_name: GetSliceDescendants
+          params:
+            - java_type: android.net.Uri
+              go_name: arg0
+          returns: java.util.Collection<android.net.Uri>
+          error: true
+        - java_method: grantSlicePermission
+          go_name: GrantSlicePermission
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: android.net.Uri
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: mapIntentToUri
+          go_name: MapIntentToUri
+          params:
+            - java_type: android.content.Intent
+              go_name: arg0
+          returns: android.net.Uri
+          error: true
+        - java_method: revokeSlicePermission
+          go_name: RevokeSlicePermission
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: android.net.Uri
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: unpinSlice
+          go_name: UnpinSlice
+          params:
+            - java_type: android.net.Uri
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.app.slice.SliceMetrics
+      go_type: Metrics
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+        - java_type: android.net.Uri
+          go_name: arg1
+      methods:
+        - java_method: logHidden
+          go_name: LogHidden
+          returns: void
+          error: true
+        - java_method: logTouch
+          go_name: LogTouch
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: android.net.Uri
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: logVisible
+          go_name: LogVisible
+          returns: void
+          error: true
+    - java_class: android.app.slice.SliceSpec
+      go_type: Spec
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+        - java_type: int
+          go_name: arg1
+      methods:
+        - java_method: canRender
+          go_name: CanRender
+          params:
+            - java_type: android.app.slice.SliceSpec
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getRevision
+          go_name: GetRevision
+          returns: int
+          error: true
+        - java_method: getType
+          go_name: GetType
+          returns: String
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.app.slice.SliceItem
+      go_type: Item
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getAction
+          go_name: GetAction
+          returns: android.app.PendingIntent
+          error: true
+        - java_method: getBundle
+          go_name: GetBundle
+          returns: android.os.Bundle
+          error: true
+        - java_method: getFormat
+          go_name: GetFormat
+          returns: String
+          error: true
+        - java_method: getHints
+          go_name: GetHints
+          returns: java.util.List<java.lang.String>
+          error: true
+        - java_method: getIcon
+          go_name: GetIcon
+          returns: android.graphics.drawable.Icon
+          error: true
+        - java_method: getInt
+          go_name: GetInt
+          returns: int
+          error: true
+        - java_method: getLong
+          go_name: GetLong
+          returns: long
+          error: true
+        - java_method: getRemoteInput
+          go_name: GetRemoteInput
+          returns: android.app.RemoteInput
+          error: true
+        - java_method: getSlice
+          go_name: GetSlice
+          returns: android.app.slice.Slice
+          error: true
+        - java_method: getSubType
+          go_name: GetSubType
+          returns: String
+          error: true
+        - java_method: getText
+          go_name: GetText
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: hasHint
+          go_name: HasHint
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
           error: true
     - java_class: android.app.slice.SliceProvider
       go_type: Provider
@@ -270,163 +427,101 @@ classes:
               go_name: arg3
           returns: int
           error: true
-    - java_class: android.app.slice.SliceItem
-      go_type: Item
+abstract_callbacks:
+    - java_class: android.app.slice.SliceProvider
+      go_type: ProviderCallback
       methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getAction
-          go_name: GetAction
-          returns: android.app.PendingIntent
-          error: true
-        - java_method: getBundle
-          go_name: GetBundle
+        - java_method: attachInfo
+          params:
+            - android.content.Context
+            - android.content.pm.ProviderInfo
+          returns: void
+          go_field: AttachInfo
+        - java_method: call
+          params:
+            - String
+            - String
+            - android.os.Bundle
           returns: android.os.Bundle
-          error: true
-        - java_method: getFormat
-          go_name: GetFormat
-          returns: String
-          error: true
-        - java_method: getHints
-          go_name: GetHints
-          returns: java.util.List<java.lang.String>
-          error: true
-        - java_method: getIcon
-          go_name: GetIcon
-          returns: android.graphics.drawable.Icon
-          error: true
-        - java_method: getInt
-          go_name: GetInt
+          go_field: Call
+        - java_method: delete
+          params:
+            - android.net.Uri
+            - String
+            - java.lang.String[]
           returns: int
-          error: true
-        - java_method: getLong
-          go_name: GetLong
-          returns: long
-          error: true
-        - java_method: getRemoteInput
-          go_name: GetRemoteInput
-          returns: android.app.RemoteInput
-          error: true
-        - java_method: getSlice
-          go_name: GetSlice
-          returns: android.app.slice.Slice
-          error: true
-        - java_method: getSubType
-          go_name: GetSubType
+          go_field: Delete
+        - java_method: getType
+          params:
+            - android.net.Uri
           returns: String
-          error: true
-        - java_method: getText
-          go_name: GetText
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: hasHint
-          go_name: HasHint
+          go_field: GetType
+        - java_method: insert
           params:
-            - java_type: String
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.app.slice.SliceMetrics
-      go_type: Metrics
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-        - java_type: android.net.Uri
-          go_name: arg1
-      methods:
-        - java_method: logHidden
-          go_name: LogHidden
-          returns: void
-          error: true
-        - java_method: logTouch
-          go_name: LogTouch
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.net.Uri
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: logVisible
-          go_name: LogVisible
-          returns: void
-          error: true
-    - java_class: android.app.slice.SliceManager
-      go_type: Manager
-      methods:
-        - java_method: checkSlicePermission
-          go_name: CheckSlicePermission
-          params:
-            - java_type: android.net.Uri
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: int
-          error: true
-        - java_method: getPinnedSlices
-          go_name: GetPinnedSlices
-          returns: java.util.List<android.net.Uri>
-          error: true
-        - java_method: getPinnedSpecs
-          go_name: GetPinnedSpecs
-          params:
-            - java_type: android.net.Uri
-              go_name: arg0
-          returns: java.util.Set<android.app.slice.SliceSpec>
-          error: true
-        - java_method: getSliceDescendants
-          go_name: GetSliceDescendants
-          params:
-            - java_type: android.net.Uri
-              go_name: arg0
-          returns: java.util.Collection<android.net.Uri>
-          error: true
-        - java_method: grantSlicePermission
-          go_name: GrantSlicePermission
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: android.net.Uri
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: mapIntentToUri
-          go_name: MapIntentToUri
-          params:
-            - java_type: android.content.Intent
-              go_name: arg0
+            - android.net.Uri
+            - android.content.ContentValues
           returns: android.net.Uri
-          error: true
-        - java_method: revokeSlicePermission
-          go_name: RevokeSlicePermission
+          go_field: Insert
+        - java_method: onCreatePermissionRequest
           params:
-            - java_type: String
-              go_name: arg0
-            - java_type: android.net.Uri
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: unpinSlice
-          go_name: UnpinSlice
+            - android.net.Uri
+          returns: android.app.PendingIntent
+          go_field: OnCreatePermissionRequest
+        - java_method: onGetSliceDescendants
           params:
-            - java_type: android.net.Uri
-              go_name: arg0
+            - android.net.Uri
+          returns: java.util.Collection<android.net.Uri>
+          go_field: OnGetSliceDescendants
+        - java_method: onMapIntentToUri
+          params:
+            - android.content.Intent
+          returns: android.net.Uri
+          go_field: OnMapIntentToUri
+        - java_method: onSlicePinned
+          params:
+            - android.net.Uri
           returns: void
-          error: true
+          go_field: OnSlicePinned
+        - java_method: onSliceUnpinned
+          params:
+            - android.net.Uri
+          returns: void
+          go_field: OnSliceUnpinned
+        - java_method: query
+          params:
+            - android.net.Uri
+            - java.lang.String[]
+            - android.os.Bundle
+            - android.os.CancellationSignal
+          returns: android.database.Cursor
+          go_field: Query
+        - java_method: query
+          params:
+            - android.net.Uri
+            - java.lang.String[]
+            - String
+            - java.lang.String[]
+            - String
+          returns: android.database.Cursor
+          go_field: Query
+        - java_method: query
+          params:
+            - android.net.Uri
+            - java.lang.String[]
+            - String
+            - java.lang.String[]
+            - String
+            - android.os.CancellationSignal
+          returns: android.database.Cursor
+          go_field: Query
+        - java_method: update
+          params:
+            - android.net.Uri
+            - android.content.ContentValues
+            - String
+            - java.lang.String[]
+          returns: int
+          go_field: Update
 constants:
     - go_name: Creator
       value: "0"
@@ -521,8 +616,11 @@ constants:
     - go_name: SubtypeValue
       value: '"value"'
       go_type: string
-    - go_name: SliceType
-      value: '"vnd.android.slice"'
+    - go_name: CategorySlice
+      value: '"android.app.slice.category.SLICE"'
+      go_type: string
+    - go_name: SliceMetadataKey
+      value: '"android.metadata.SLICE_URI"'
       go_type: string
     - go_name: FormatAction
       value: '"action"'
@@ -548,9 +646,6 @@ constants:
     - go_name: FormatText
       value: '"text"'
       go_type: string
-    - go_name: CategorySlice
-      value: '"android.app.slice.category.SLICE"'
-      go_type: string
-    - go_name: SliceMetadataKey
-      value: '"android.metadata.SLICE_URI"'
+    - go_name: SliceType
+      value: '"vnd.android.slice"'
       go_type: string

@@ -5,6 +5,16 @@
 package: signals
 go_import: github.com/AndroidGoLab/jni/adservices/signals
 classes:
+    - java_class: android.adservices.signals.ProtectedSignalsManager
+      go_type: ProtectedSignalsManager
+      static_methods:
+        - java_method: get
+          go_name: Get
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+          returns: android.adservices.signals.ProtectedSignalsManager
+          error: true
     - java_class: android.adservices.signals.UpdateSignalsRequest
       go_type: UpdateSignalsRequest
       methods:
@@ -40,14 +50,4 @@ classes:
             - java_type: android.net.Uri
               go_name: arg0
           returns: android.adservices.signals.UpdateSignalsRequest$Builder
-          error: true
-    - java_class: android.adservices.signals.ProtectedSignalsManager
-      go_type: ProtectedSignalsManager
-      static_methods:
-        - java_method: get
-          go_name: Get
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-          returns: android.adservices.signals.ProtectedSignalsManager
           error: true

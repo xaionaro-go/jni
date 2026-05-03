@@ -5,65 +5,6 @@
 package: fonts
 go_import: github.com/AndroidGoLab/jni/graphics/fonts
 classes:
-    - java_class: android.graphics.fonts.FontFamily
-      go_type: FontFamily
-      methods:
-        - java_method: getFont
-          go_name: GetFont
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.graphics.fonts.Font
-          error: true
-        - java_method: getSize
-          go_name: GetSize
-          returns: int
-          error: true
-    - java_class: android.graphics.fonts.FontFamily$Builder
-      go_type: FontFamilyBuilder
-      methods:
-        - java_method: addFont
-          go_name: AddFont
-          params:
-            - java_type: android.graphics.fonts.Font
-              go_name: arg0
-          returns: android.graphics.fonts.FontFamily$Builder
-          error: true
-        - java_method: build
-          go_name: Build
-          returns: android.graphics.fonts.FontFamily
-          error: true
-        - java_method: buildVariableFamily
-          go_name: BuildVariableFamily
-          returns: android.graphics.fonts.FontFamily
-          error: true
-    - java_class: android.graphics.fonts.FontStyle
-      go_type: FontStyle
-      obtain: constructor
-      methods:
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getSlant
-          go_name: GetSlant
-          returns: int
-          error: true
-        - java_method: getWeight
-          go_name: GetWeight
-          returns: int
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
     - java_class: android.graphics.fonts.FontVariationAxis
       go_type: FontVariationAxis
       obtain: constructor
@@ -109,6 +50,33 @@ classes:
           params:
             - java_type: android.graphics.fonts.FontVariationAxis[]
               go_name: arg0
+          returns: String
+          error: true
+    - java_class: android.graphics.fonts.FontStyle
+      go_type: FontStyle
+      obtain: constructor
+      methods:
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getSlant
+          go_name: GetSlant
+          returns: int
+          error: true
+        - java_method: getWeight
+          go_name: GetWeight
+          returns: int
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
           returns: String
           error: true
     - java_class: android.graphics.fonts.Font
@@ -225,6 +193,38 @@ classes:
         - java_method: getAvailableFonts
           go_name: GetAvailableFonts
           returns: java.util.Set<android.graphics.fonts.Font>
+          error: true
+    - java_class: android.graphics.fonts.FontFamily
+      go_type: FontFamily
+      methods:
+        - java_method: getFont
+          go_name: GetFont
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.graphics.fonts.Font
+          error: true
+        - java_method: getSize
+          go_name: GetSize
+          returns: int
+          error: true
+    - java_class: android.graphics.fonts.FontFamily$Builder
+      go_type: FontFamilyBuilder
+      methods:
+        - java_method: addFont
+          go_name: AddFont
+          params:
+            - java_type: android.graphics.fonts.Font
+              go_name: arg0
+          returns: android.graphics.fonts.FontFamily$Builder
+          error: true
+        - java_method: build
+          go_name: Build
+          returns: android.graphics.fonts.FontFamily
+          error: true
+        - java_method: buildVariableFamily
+          go_name: BuildVariableFamily
+          returns: android.graphics.fonts.FontFamily
           error: true
 constants:
     - go_name: FontSlantItalic

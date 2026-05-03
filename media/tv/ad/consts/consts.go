@@ -3,21 +3,8 @@
 package consts
 
 const (
-	Creator                  int = 0
-	ErrorBlocked             int = 5
-	ErrorEncrypted           int = 6
-	ErrorNone                int = 0
-	ErrorNotSupported        int = 2
-	ErrorResourceUnavailable int = 4
-	ErrorUnknown             int = 1
-	ErrorUnknownChannel      int = 7
-	ErrorWeakSignal          int = 3
-	SessionStateError        int = 3
-	SessionStateRunning      int = 2
-	SessionStateStopped      int = 1
-)
-
-const (
+	ServiceInterface                          string = "android.media.tv.ad.TvAdService"
+	ServiceMetaData                           string = "android.media.tv.ad.service"
 	ErrorKeyErrorCode                         string = "error_code"
 	ErrorKeyMethodName                        string = "method_name"
 	ActionAppLinkCommand                      string = "android.media.tv.ad.action.APP_LINK_COMMAND"
@@ -38,6 +25,19 @@ const (
 	SessionDataTypeAdRequest                  string = "ad_request"
 	SessionDataTypeBroadcastInfoRequest       string = "broadcast_info_request"
 	SessionDataTypeRemoveBroadcastInfoRequest string = "remove_broadcast_info_request"
-	ServiceInterface                          string = "android.media.tv.ad.TvAdService"
-	ServiceMetaData                           string = "android.media.tv.ad.service"
+)
+
+const (
+	Creator                  int = 0
+	ErrorBlocked             int = 5
+	ErrorEncrypted           int = 6
+	ErrorNone                int = 0
+	ErrorNotSupported        int = 2
+	ErrorResourceUnavailable int = 4
+	ErrorUnknown             int = 1
+	ErrorUnknownChannel      int = 7
+	ErrorWeakSignal          int = 3
+	SessionStateError        int = 3
+	SessionStateRunning      int = 2
+	SessionStateStopped      int = 1
 )

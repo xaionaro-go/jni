@@ -5,93 +5,6 @@
 package: templates
 go_import: github.com/AndroidGoLab/jni/service/controls/templates
 classes:
-    - java_class: android.service.controls.templates.ThumbnailTemplate
-      go_type: ThumbnailTemplate
-      obtain: constructor
-      constructor_params:
-        - java_type: String
-          go_name: arg0
-        - java_type: boolean
-          go_name: arg1
-        - java_type: android.graphics.drawable.Icon
-          go_name: arg2
-        - java_type: java.lang.CharSequence
-          go_name: arg3
-      methods:
-        - java_method: getContentDescription
-          go_name: GetContentDescription
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: getTemplateType
-          go_name: GetTemplateType
-          returns: int
-          error: true
-        - java_method: getThumbnail
-          go_name: GetThumbnail
-          returns: android.graphics.drawable.Icon
-          error: true
-        - java_method: isActive
-          go_name: IsActive
-          returns: boolean
-          error: true
-    - java_class: android.service.controls.templates.ControlTemplate
-      go_type: ControlTemplate
-      methods:
-        - java_method: getTemplateId
-          go_name: GetTemplateId
-          returns: String
-          error: true
-        - java_method: getTemplateType
-          go_name: GetTemplateType
-          returns: int
-          error: true
-      static_methods:
-        - java_method: getErrorTemplate
-          go_name: GetErrorTemplate
-          returns: android.service.controls.templates.ControlTemplate
-          error: true
-        - java_method: getNoTemplateObject
-          go_name: GetNoTemplateObject
-          returns: android.service.controls.templates.ControlTemplate
-          error: true
-    - java_class: android.service.controls.templates.StatelessTemplate
-      go_type: StatelessTemplate
-      obtain: constructor
-      constructor_params:
-        - java_type: String
-          go_name: arg0
-      methods:
-        - java_method: getTemplateType
-          go_name: GetTemplateType
-          returns: int
-          error: true
-    - java_class: android.service.controls.templates.ToggleRangeTemplate
-      go_type: ToggleRangeTemplate
-      obtain: constructor
-      constructor_params:
-        - java_type: String
-          go_name: arg0
-        - java_type: android.service.controls.templates.ControlButton
-          go_name: arg1
-        - java_type: android.service.controls.templates.RangeTemplate
-          go_name: arg2
-      methods:
-        - java_method: getActionDescription
-          go_name: GetActionDescription
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: getRange
-          go_name: GetRange
-          returns: android.service.controls.templates.RangeTemplate
-          error: true
-        - java_method: getTemplateType
-          go_name: GetTemplateType
-          returns: int
-          error: true
-        - java_method: isChecked
-          go_name: IsChecked
-          returns: boolean
-          error: true
     - java_class: android.service.controls.templates.RangeTemplate
       go_type: RangeTemplate
       obtain: constructor
@@ -133,41 +46,6 @@ classes:
           go_name: GetTemplateType
           returns: int
           error: true
-    - java_class: android.service.controls.templates.TemperatureControlTemplate
-      go_type: TemperatureControlTemplate
-      obtain: constructor
-      constructor_params:
-        - java_type: String
-          go_name: arg0
-        - java_type: android.service.controls.templates.ControlTemplate
-          go_name: arg1
-        - java_type: int
-          go_name: arg2
-        - java_type: int
-          go_name: arg3
-        - java_type: int
-          go_name: arg4
-      methods:
-        - java_method: getCurrentActiveMode
-          go_name: GetCurrentActiveMode
-          returns: int
-          error: true
-        - java_method: getCurrentMode
-          go_name: GetCurrentMode
-          returns: int
-          error: true
-        - java_method: getModes
-          go_name: GetModes
-          returns: int
-          error: true
-        - java_method: getTemplate
-          go_name: GetTemplate
-          returns: android.service.controls.templates.ControlTemplate
-          error: true
-        - java_method: getTemplateType
-          go_name: GetTemplateType
-          returns: int
-          error: true
     - java_class: android.service.controls.templates.ToggleTemplate
       go_type: ToggleTemplate
       obtain: constructor
@@ -180,6 +58,53 @@ classes:
         - java_method: getContentDescription
           go_name: GetContentDescription
           returns: java.lang.CharSequence
+          error: true
+        - java_method: getTemplateType
+          go_name: GetTemplateType
+          returns: int
+          error: true
+        - java_method: isChecked
+          go_name: IsChecked
+          returns: boolean
+          error: true
+    - java_class: android.service.controls.templates.ControlTemplate
+      go_type: ControlTemplate
+      methods:
+        - java_method: getTemplateId
+          go_name: GetTemplateId
+          returns: String
+          error: true
+        - java_method: getTemplateType
+          go_name: GetTemplateType
+          returns: int
+          error: true
+      static_methods:
+        - java_method: getErrorTemplate
+          go_name: GetErrorTemplate
+          returns: android.service.controls.templates.ControlTemplate
+          error: true
+        - java_method: getNoTemplateObject
+          go_name: GetNoTemplateObject
+          returns: android.service.controls.templates.ControlTemplate
+          error: true
+    - java_class: android.service.controls.templates.ToggleRangeTemplate
+      go_type: ToggleRangeTemplate
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+        - java_type: android.service.controls.templates.ControlButton
+          go_name: arg1
+        - java_type: android.service.controls.templates.RangeTemplate
+          go_name: arg2
+      methods:
+        - java_method: getActionDescription
+          go_name: GetActionDescription
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: getRange
+          go_name: GetRange
+          returns: android.service.controls.templates.RangeTemplate
           error: true
         - java_method: getTemplateType
           go_name: GetTemplateType
@@ -219,6 +144,93 @@ classes:
               go_name: arg1
           returns: void
           error: true
+    - java_class: android.service.controls.templates.ThumbnailTemplate
+      go_type: ThumbnailTemplate
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+        - java_type: boolean
+          go_name: arg1
+        - java_type: android.graphics.drawable.Icon
+          go_name: arg2
+        - java_type: java.lang.CharSequence
+          go_name: arg3
+      methods:
+        - java_method: getContentDescription
+          go_name: GetContentDescription
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: getTemplateType
+          go_name: GetTemplateType
+          returns: int
+          error: true
+        - java_method: getThumbnail
+          go_name: GetThumbnail
+          returns: android.graphics.drawable.Icon
+          error: true
+        - java_method: isActive
+          go_name: IsActive
+          returns: boolean
+          error: true
+    - java_class: android.service.controls.templates.StatelessTemplate
+      go_type: StatelessTemplate
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+      methods:
+        - java_method: getTemplateType
+          go_name: GetTemplateType
+          returns: int
+          error: true
+    - java_class: android.service.controls.templates.TemperatureControlTemplate
+      go_type: TemperatureControlTemplate
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+        - java_type: android.service.controls.templates.ControlTemplate
+          go_name: arg1
+        - java_type: int
+          go_name: arg2
+        - java_type: int
+          go_name: arg3
+        - java_type: int
+          go_name: arg4
+      methods:
+        - java_method: getCurrentActiveMode
+          go_name: GetCurrentActiveMode
+          returns: int
+          error: true
+        - java_method: getCurrentMode
+          go_name: GetCurrentMode
+          returns: int
+          error: true
+        - java_method: getModes
+          go_name: GetModes
+          returns: int
+          error: true
+        - java_method: getTemplate
+          go_name: GetTemplate
+          returns: android.service.controls.templates.ControlTemplate
+          error: true
+        - java_method: getTemplateType
+          go_name: GetTemplateType
+          returns: int
+          error: true
+abstract_callbacks:
+    - java_class: android.service.controls.templates.ControlTemplate
+      go_type: ControlTemplateCallback
+      methods:
+        - java_method: getTemplateId
+          params: []
+          returns: String
+          go_field: GetTemplateId
+        - java_method: getTemplateType
+          params: []
+          returns: int
+          go_field: GetTemplateType
 constants:
     - go_name: TypeError
       value: "-1"
@@ -243,6 +255,9 @@ constants:
       go_type: int
     - go_name: TypeToggleRange
       value: "6"
+      go_type: int
+    - go_name: Creator
+      value: "0"
       go_type: int
     - go_name: FlagModeCool
       value: "8"
@@ -275,8 +290,5 @@ constants:
       value: "1"
       go_type: int
     - go_name: ModeUnknown
-      value: "0"
-      go_type: int
-    - go_name: Creator
       value: "0"
       go_type: int

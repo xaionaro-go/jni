@@ -5,16 +5,16 @@ package animation
 import "github.com/AndroidGoLab/jni/animation/consts"
 
 const (
-	Infinite           = consts.Infinite
-	Restart            = consts.Restart
-	Reverse            = consts.Reverse
+	DurationInfinite = consts.DurationInfinite
+)
+
+const (
 	Appearing          = consts.Appearing
 	ChangeAppearing    = consts.ChangeAppearing
 	ChangeDisappearing = consts.ChangeDisappearing
 	Changing           = consts.Changing
 	Disappearing       = consts.Disappearing
-)
-
-const (
-	DurationInfinite = consts.DurationInfinite
+	Infinite           = consts.Infinite
+	Restart            = consts.Restart
+	Reverse            = consts.Reverse
 )

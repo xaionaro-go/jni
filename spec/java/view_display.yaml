@@ -5,6 +5,390 @@
 package: display
 go_import: github.com/AndroidGoLab/jni/view/display
 classes:
+    - java_class: android.util.DisplayMetrics
+      go_type: Metrics
+      obtain: constructor
+      methods:
+        - java_method: equals
+          go_name: Equals1
+          params:
+            - java_type: android.util.DisplayMetrics
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: equals
+          go_name: Equals1_1
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: setTo
+          go_name: SetTo
+          params:
+            - java_type: android.util.DisplayMetrics
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setToDefaults
+          go_name: SetToDefaults
+          returns: void
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+    - java_class: android.view.SurfaceView
+      go_type: SurfaceView
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+      methods:
+        - java_method: applyTransactionToFrame
+          go_name: ApplyTransactionToFrame
+          params:
+            - java_type: android.view.SurfaceControl$Transaction
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: clearChildSurfacePackage
+          go_name: ClearChildSurfacePackage
+          returns: void
+          error: true
+        - java_method: draw
+          go_name: Draw
+          params:
+            - java_type: android.graphics.Canvas
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: gatherTransparentRegion
+          go_name: GatherTransparentRegion
+          params:
+            - java_type: android.graphics.Region
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getAccessibilityClassName
+          go_name: GetAccessibilityClassName
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: getChildSurfacePackage
+          go_name: GetChildSurfacePackage
+          returns: android.view.SurfaceControlViewHost$SurfacePackage
+          error: true
+        - java_method: getCompositionOrder
+          go_name: GetCompositionOrder
+          returns: int
+          error: true
+        - java_method: getHolder
+          go_name: GetHolder
+          returns: android.view.SurfaceHolder
+          error: true
+        - java_method: getHostToken
+          go_name: GetHostToken
+          returns: android.os.IBinder
+          error: true
+        - java_method: getImportantForAccessibility
+          go_name: GetImportantForAccessibility
+          returns: int
+          error: true
+        - java_method: getSurfaceControl
+          go_name: GetSurfaceControl
+          returns: android.view.SurfaceControl
+          error: true
+        - java_method: hasOverlappingRendering
+          go_name: HasOverlappingRendering
+          returns: boolean
+          error: true
+        - java_method: setAlpha
+          go_name: SetAlpha
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setChildSurfacePackage
+          go_name: SetChildSurfacePackage
+          params:
+            - java_type: android.view.SurfaceControlViewHost$SurfacePackage
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setClipBounds
+          go_name: SetClipBounds
+          params:
+            - java_type: android.graphics.Rect
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setCompositionOrder
+          go_name: SetCompositionOrder
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setDesiredHdrHeadroom
+          go_name: SetDesiredHdrHeadroom
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setSecure
+          go_name: SetSecure
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setSurfaceLifecycle
+          go_name: SetSurfaceLifecycle
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setVisibility
+          go_name: SetVisibility
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setZOrderMediaOverlay
+          go_name: SetZOrderMediaOverlay
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setZOrderOnTop
+          go_name: SetZOrderOnTop
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.view.Surface
+      go_type: Surface
+      obtain: constructor
+      constructor_params:
+        - java_type: android.graphics.SurfaceTexture
+          go_name: arg0
+      methods:
+        - java_method: clearFrameRate
+          go_name: ClearFrameRate
+          returns: void
+          error: true
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: isValid
+          go_name: IsValid
+          returns: boolean
+          error: true
+        - java_method: lockCanvas
+          go_name: LockCanvas
+          params:
+            - java_type: android.graphics.Rect
+              go_name: arg0
+          returns: android.graphics.Canvas
+          error: true
+        - java_method: lockHardwareCanvas
+          go_name: LockHardwareCanvas
+          returns: android.graphics.Canvas
+          error: true
+        - java_method: readFromParcel
+          go_name: ReadFromParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: release
+          go_name: Release
+          returns: void
+          error: true
+        - java_method: setFrameRate
+          go_name: SetFrameRate2
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: setFrameRate
+          go_name: SetFrameRate3_1
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: unlockCanvas
+          go_name: UnlockCanvas
+          params:
+            - java_type: android.graphics.Canvas
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: unlockCanvasAndPost
+          go_name: UnlockCanvasAndPost
+          params:
+            - java_type: android.graphics.Canvas
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.view.Surface$OutOfResourcesException
+      go_type: SurfaceOutOfResourcesException
+    - java_class: android.view.SurfaceHolder
+      go_type: SurfaceHolder
+      methods:
+        - java_method: addCallback
+          go_name: AddCallback
+          params:
+            - java_type: android.view.SurfaceHolder$Callback
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getSurface
+          go_name: GetSurface
+          returns: android.view.Surface
+          error: true
+        - java_method: getSurfaceFrame
+          go_name: GetSurfaceFrame
+          returns: android.graphics.Rect
+          error: true
+        - java_method: isCreating
+          go_name: IsCreating
+          returns: boolean
+          error: true
+        - java_method: lockCanvas
+          go_name: LockCanvas0
+          returns: android.graphics.Canvas
+          error: true
+        - java_method: lockCanvas
+          go_name: LockCanvas1_1
+          params:
+            - java_type: android.graphics.Rect
+              go_name: arg0
+          returns: android.graphics.Canvas
+          error: true
+        - java_method: removeCallback
+          go_name: RemoveCallback
+          params:
+            - java_type: android.view.SurfaceHolder$Callback
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setFixedSize
+          go_name: SetFixedSize
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: setFormat
+          go_name: SetFormat
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setKeepScreenOn
+          go_name: SetKeepScreenOn
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setSizeFromLayout
+          go_name: SetSizeFromLayout
+          returns: void
+          error: true
+        - java_method: setType
+          go_name: SetType
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: unlockCanvasAndPost
+          go_name: UnlockCanvasAndPost
+          params:
+            - java_type: android.graphics.Canvas
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.view.SurfaceHolder$BadSurfaceTypeException
+      go_type: SurfaceHolderBadSurfaceTypeException
+    - java_class: android.view.SurfaceHolder$Callback
+      go_type: SurfaceHolderCallback
+      methods:
+        - java_method: surfaceChanged
+          go_name: SurfaceChanged
+          params:
+            - java_type: android.view.SurfaceHolder
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: surfaceCreated
+          go_name: SurfaceCreated
+          params:
+            - java_type: android.view.SurfaceHolder
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: surfaceDestroyed
+          go_name: SurfaceDestroyed
+          params:
+            - java_type: android.view.SurfaceHolder
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.view.SurfaceHolder$Callback2
+      go_type: SurfaceHolderCallback2
+      methods:
+        - java_method: surfaceRedrawNeeded
+          go_name: SurfaceRedrawNeeded
+          params:
+            - java_type: android.view.SurfaceHolder
+              go_name: arg0
+          returns: void
+          error: true
     - java_class: android.view.Display
       go_type: Display
       methods:
@@ -288,28 +672,326 @@ classes:
               go_name: arg1
           returns: void
           error: true
-    - java_class: android.view.SurfaceView
-      go_type: SurfaceView
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
+    - java_class: android.view.ViewGroup
+      go_type: ViewGroup
       methods:
-        - java_method: applyTransactionToFrame
-          go_name: ApplyTransactionToFrame
+        - java_method: addExtraDataToAccessibilityNodeInfo
+          go_name: AddExtraDataToAccessibilityNodeInfo
           params:
-            - java_type: android.view.SurfaceControl$Transaction
+            - java_type: android.view.accessibility.AccessibilityNodeInfo
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+            - java_type: android.os.Bundle
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: addStatesFromChildren
+          go_name: AddStatesFromChildren
+          returns: boolean
+          error: true
+        - java_method: addView
+          go_name: AddView1
+          params:
+            - java_type: android.view.View
               go_name: arg0
           returns: void
           error: true
-        - java_method: clearChildSurfacePackage
-          go_name: ClearChildSurfacePackage
+        - java_method: addView
+          go_name: AddView2_1
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: android.view.ViewGroup$LayoutParams
+              go_name: arg1
           returns: void
           error: true
-        - java_method: draw
-          go_name: Draw
+        - java_method: addView
+          go_name: AddView2_2
           params:
-            - java_type: android.graphics.Canvas
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: addView
+          go_name: AddView3_3
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: android.view.ViewGroup$LayoutParams
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: addView
+          go_name: AddView3_4
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: bringChildToFront
+          go_name: BringChildToFront
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: childDrawableStateChanged
+          go_name: ChildDrawableStateChanged
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: childHasTransientStateChanged
+          go_name: ChildHasTransientStateChanged
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: boolean
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: clearChildFocus
+          go_name: ClearChildFocus
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: clearDisappearingChildren
+          go_name: ClearDisappearingChildren
+          returns: void
+          error: true
+        - java_method: clearFocus
+          go_name: ClearFocus
+          returns: void
+          error: true
+        - java_method: dispatchApplyWindowInsets
+          go_name: DispatchApplyWindowInsets
+          params:
+            - java_type: android.view.WindowInsets
+              go_name: arg0
+          returns: android.view.WindowInsets
+          error: true
+        - java_method: dispatchCapturedPointerEvent
+          go_name: DispatchCapturedPointerEvent
+          params:
+            - java_type: android.view.MotionEvent
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: dispatchConfigurationChanged
+          go_name: DispatchConfigurationChanged
+          params:
+            - java_type: android.content.res.Configuration
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: dispatchDisplayHint
+          go_name: DispatchDisplayHint
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: dispatchDragEvent
+          go_name: DispatchDragEvent
+          params:
+            - java_type: android.view.DragEvent
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: dispatchDrawableHotspotChanged
+          go_name: DispatchDrawableHotspotChanged
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: dispatchFinishTemporaryDetach
+          go_name: DispatchFinishTemporaryDetach
+          returns: void
+          error: true
+        - java_method: dispatchKeyEvent
+          go_name: DispatchKeyEvent
+          params:
+            - java_type: android.view.KeyEvent
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: dispatchKeyEventPreIme
+          go_name: DispatchKeyEventPreIme
+          params:
+            - java_type: android.view.KeyEvent
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: dispatchKeyShortcutEvent
+          go_name: DispatchKeyShortcutEvent
+          params:
+            - java_type: android.view.KeyEvent
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: dispatchPointerCaptureChanged
+          go_name: DispatchPointerCaptureChanged
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: dispatchProvideAutofillStructure
+          go_name: DispatchProvideAutofillStructure
+          params:
+            - java_type: android.view.ViewStructure
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: dispatchProvideStructure
+          go_name: DispatchProvideStructure
+          params:
+            - java_type: android.view.ViewStructure
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: dispatchSetActivated
+          go_name: DispatchSetActivated
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: dispatchSetSelected
+          go_name: DispatchSetSelected
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: dispatchStartTemporaryDetach
+          go_name: DispatchStartTemporaryDetach
+          returns: void
+          error: true
+        - java_method: dispatchSystemUiVisibilityChanged
+          go_name: DispatchSystemUiVisibilityChanged
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: dispatchTouchEvent
+          go_name: DispatchTouchEvent
+          params:
+            - java_type: android.view.MotionEvent
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: dispatchTrackballEvent
+          go_name: DispatchTrackballEvent
+          params:
+            - java_type: android.view.MotionEvent
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: dispatchUnhandledMove
+          go_name: DispatchUnhandledMove
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: dispatchWindowFocusChanged
+          go_name: DispatchWindowFocusChanged
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: dispatchWindowInsetsAnimationEnd
+          go_name: DispatchWindowInsetsAnimationEnd
+          params:
+            - java_type: android.view.WindowInsetsAnimation
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: dispatchWindowInsetsAnimationPrepare
+          go_name: DispatchWindowInsetsAnimationPrepare
+          params:
+            - java_type: android.view.WindowInsetsAnimation
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: dispatchWindowInsetsAnimationStart
+          go_name: DispatchWindowInsetsAnimationStart
+          params:
+            - java_type: android.view.WindowInsetsAnimation
+              go_name: arg0
+            - java_type: android.view.WindowInsetsAnimation$Bounds
+              go_name: arg1
+          returns: android.view.WindowInsetsAnimation$Bounds
+          error: true
+        - java_method: dispatchWindowSystemUiVisiblityChanged
+          go_name: DispatchWindowSystemUiVisiblityChanged
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: dispatchWindowVisibilityChanged
+          go_name: DispatchWindowVisibilityChanged
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: endViewTransition
+          go_name: EndViewTransition
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: findFocus
+          go_name: FindFocus
+          returns: android.view.View
+          error: true
+        - java_method: findOnBackInvokedDispatcherForChild
+          go_name: FindOnBackInvokedDispatcherForChild
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: android.view.View
+              go_name: arg1
+          returns: android.window.OnBackInvokedDispatcher
+          error: true
+        - java_method: focusSearch
+          go_name: FocusSearch
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: android.view.View
+          error: true
+        - java_method: focusableViewAvailable
+          go_name: FocusableViewAvailable
+          params:
+            - java_type: android.view.View
               go_name: arg0
           returns: void
           error: true
@@ -320,106 +1002,756 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
+        - java_method: generateLayoutParams
+          go_name: GenerateLayoutParams
+          params:
+            - java_type: android.util.AttributeSet
+              go_name: arg0
+          returns: android.view.ViewGroup$LayoutParams
+          error: true
         - java_method: getAccessibilityClassName
           go_name: GetAccessibilityClassName
           returns: java.lang.CharSequence
           error: true
-        - java_method: getChildSurfacePackage
-          go_name: GetChildSurfacePackage
-          returns: android.view.SurfaceControlViewHost$SurfacePackage
+        - java_method: getChildAt
+          go_name: GetChildAt
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.view.View
           error: true
-        - java_method: getCompositionOrder
-          go_name: GetCompositionOrder
+        - java_method: getChildCount
+          go_name: GetChildCount
           returns: int
           error: true
-        - java_method: getHolder
-          go_name: GetHolder
-          returns: android.view.SurfaceHolder
-          error: true
-        - java_method: getHostToken
-          go_name: GetHostToken
-          returns: android.os.IBinder
-          error: true
-        - java_method: getImportantForAccessibility
-          go_name: GetImportantForAccessibility
+        - java_method: getChildDrawingOrder
+          go_name: GetChildDrawingOrder
+          params:
+            - java_type: int
+              go_name: arg0
           returns: int
           error: true
-        - java_method: getSurfaceControl
-          go_name: GetSurfaceControl
-          returns: android.view.SurfaceControl
-          error: true
-        - java_method: hasOverlappingRendering
-          go_name: HasOverlappingRendering
+        - java_method: getChildVisibleRect
+          go_name: GetChildVisibleRect
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: android.graphics.Rect
+              go_name: arg1
+            - java_type: android.graphics.Point
+              go_name: arg2
           returns: boolean
           error: true
-        - java_method: setAlpha
-          go_name: SetAlpha
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
+        - java_method: getClipChildren
+          go_name: GetClipChildren
+          returns: boolean
           error: true
-        - java_method: setChildSurfacePackage
-          go_name: SetChildSurfacePackage
-          params:
-            - java_type: android.view.SurfaceControlViewHost$SurfacePackage
-              go_name: arg0
-          returns: void
+        - java_method: getClipToPadding
+          go_name: GetClipToPadding
+          returns: boolean
           error: true
-        - java_method: setClipBounds
-          go_name: SetClipBounds
+        - java_method: getDescendantFocusability
+          go_name: GetDescendantFocusability
+          returns: int
+          error: true
+        - java_method: getFocusedChild
+          go_name: GetFocusedChild
+          returns: android.view.View
+          error: true
+        - java_method: getLayoutAnimation
+          go_name: GetLayoutAnimation
+          returns: android.view.animation.LayoutAnimationController
+          error: true
+        - java_method: getLayoutAnimationListener
+          go_name: GetLayoutAnimationListener
+          returns: android.view.animation.Animation$AnimationListener
+          error: true
+        - java_method: getLayoutMode
+          go_name: GetLayoutMode
+          returns: int
+          error: true
+        - java_method: getLayoutTransition
+          go_name: GetLayoutTransition
+          returns: android.animation.LayoutTransition
+          error: true
+        - java_method: getNestedScrollAxes
+          go_name: GetNestedScrollAxes
+          returns: int
+          error: true
+        - java_method: getOverlay
+          go_name: GetOverlay0
+          returns: android.view.ViewGroupOverlay
+          error: true
+        - java_method: getPersistentDrawingCache
+          go_name: GetPersistentDrawingCache
+          returns: int
+          error: true
+        - java_method: getTouchscreenBlocksFocus
+          go_name: GetTouchscreenBlocksFocus
+          returns: boolean
+          error: true
+        - java_method: hasFocus
+          go_name: HasFocus
+          returns: boolean
+          error: true
+        - java_method: hasTransientState
+          go_name: HasTransientState
+          returns: boolean
+          error: true
+        - java_method: indexOfChild
+          go_name: IndexOfChild
           params:
+            - java_type: android.view.View
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: invalidateChild
+          go_name: InvalidateChild
+          params:
+            - java_type: android.view.View
+              go_name: arg0
             - java_type: android.graphics.Rect
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: invalidateChildInParent
+          go_name: InvalidateChildInParent
+          params:
+            - java_type: '[I'
+              go_name: arg0
+            - java_type: android.graphics.Rect
+              go_name: arg1
+          returns: android.view.ViewParent
+          error: true
+        - java_method: isAlwaysDrawnWithCacheEnabled
+          go_name: IsAlwaysDrawnWithCacheEnabled
+          returns: boolean
+          error: true
+        - java_method: isAnimationCacheEnabled
+          go_name: IsAnimationCacheEnabled
+          returns: boolean
+          error: true
+        - java_method: isLayoutSuppressed
+          go_name: IsLayoutSuppressed
+          returns: boolean
+          error: true
+        - java_method: isMotionEventSplittingEnabled
+          go_name: IsMotionEventSplittingEnabled
+          returns: boolean
+          error: true
+        - java_method: isTransitionGroup
+          go_name: IsTransitionGroup
+          returns: boolean
+          error: true
+        - java_method: jumpDrawablesToCurrentState
+          go_name: JumpDrawablesToCurrentState
+          returns: void
+          error: true
+        - java_method: layout
+          go_name: Layout
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: notifySubtreeAccessibilityStateChanged
+          go_name: NotifySubtreeAccessibilityStateChanged
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: android.view.View
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: offsetDescendantRectToMyCoords
+          go_name: OffsetDescendantRectToMyCoords
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: android.graphics.Rect
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: offsetRectIntoDescendantCoords
+          go_name: OffsetRectIntoDescendantCoords
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: android.graphics.Rect
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onDescendantInvalidated
+          go_name: OnDescendantInvalidated
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: android.view.View
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onInterceptHoverEvent
+          go_name: OnInterceptHoverEvent
+          params:
+            - java_type: android.view.MotionEvent
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: onInterceptTouchEvent
+          go_name: OnInterceptTouchEvent
+          params:
+            - java_type: android.view.MotionEvent
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: onNestedFling
+          go_name: OnNestedFling
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+            - java_type: float
+              go_name: arg2
+            - java_type: boolean
+              go_name: arg3
+          returns: boolean
+          error: true
+        - java_method: onNestedPreFling
+          go_name: OnNestedPreFling
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+            - java_type: float
+              go_name: arg2
+          returns: boolean
+          error: true
+        - java_method: onNestedPrePerformAccessibilityAction
+          go_name: OnNestedPrePerformAccessibilityAction
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: android.os.Bundle
+              go_name: arg2
+          returns: boolean
+          error: true
+        - java_method: onNestedPreScroll
+          go_name: OnNestedPreScroll
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: '[I'
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: onNestedScroll
+          go_name: OnNestedScroll
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+            - java_type: int
+              go_name: arg4
+          returns: void
+          error: true
+        - java_method: onNestedScrollAccepted
+          go_name: OnNestedScrollAccepted
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: android.view.View
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: onRequestSendAccessibilityEvent
+          go_name: OnRequestSendAccessibilityEvent
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: android.view.accessibility.AccessibilityEvent
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: onResolvePointerIcon
+          go_name: OnResolvePointerIcon
+          params:
+            - java_type: android.view.MotionEvent
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: android.view.PointerIcon
+          error: true
+        - java_method: onStartNestedScroll
+          go_name: OnStartNestedScroll
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: android.view.View
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: boolean
+          error: true
+        - java_method: onStopNestedScroll
+          go_name: OnStopNestedScroll
+          params:
+            - java_type: android.view.View
               go_name: arg0
           returns: void
           error: true
-        - java_method: setCompositionOrder
-          go_name: SetCompositionOrder
+        - java_method: onViewAdded
+          go_name: OnViewAdded
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onViewRemoved
+          go_name: OnViewRemoved
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: propagateRequestedFrameRate
+          go_name: PropagateRequestedFrameRate
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: boolean
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: recomputeViewAttributes
+          go_name: RecomputeViewAttributes
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: removeAllViews
+          go_name: RemoveAllViews
+          returns: void
+          error: true
+        - java_method: removeAllViewsInLayout
+          go_name: RemoveAllViewsInLayout
+          returns: void
+          error: true
+        - java_method: removeView
+          go_name: RemoveView
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: removeViewAt
+          go_name: RemoveViewAt
           params:
             - java_type: int
               go_name: arg0
           returns: void
           error: true
-        - java_method: setDesiredHdrHeadroom
-          go_name: SetDesiredHdrHeadroom
+        - java_method: removeViewInLayout
+          go_name: RemoveViewInLayout
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: removeViews
+          go_name: RemoveViews
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: removeViewsInLayout
+          go_name: RemoveViewsInLayout
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: requestChildFocus
+          go_name: RequestChildFocus
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: android.view.View
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: requestChildRectangleOnScreen
+          go_name: RequestChildRectangleOnScreen
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: android.graphics.Rect
+              go_name: arg1
+            - java_type: boolean
+              go_name: arg2
+          returns: boolean
+          error: true
+        - java_method: requestDisallowInterceptTouchEvent
+          go_name: RequestDisallowInterceptTouchEvent
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: requestFocus
+          go_name: RequestFocus
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: android.graphics.Rect
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: requestSendAccessibilityEvent
+          go_name: RequestSendAccessibilityEvent
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: android.view.accessibility.AccessibilityEvent
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: requestTransparentRegion
+          go_name: RequestTransparentRegion
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: restoreDefaultFocus
+          go_name: RestoreDefaultFocus
+          returns: boolean
+          error: true
+        - java_method: scheduleLayoutAnimation
+          go_name: ScheduleLayoutAnimation
+          returns: void
+          error: true
+        - java_method: setAddStatesFromChildren
+          go_name: SetAddStatesFromChildren
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setAlwaysDrawnWithCacheEnabled
+          go_name: SetAlwaysDrawnWithCacheEnabled
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setAnimationCacheEnabled
+          go_name: SetAnimationCacheEnabled
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setClipChildren
+          go_name: SetClipChildren
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setClipToPadding
+          go_name: SetClipToPadding
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setDescendantFocusability
+          go_name: SetDescendantFocusability
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setLayoutAnimation
+          go_name: SetLayoutAnimation
+          params:
+            - java_type: android.view.animation.LayoutAnimationController
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setLayoutAnimationListener
+          go_name: SetLayoutAnimationListener
+          params:
+            - java_type: android.view.animation.Animation$AnimationListener
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setLayoutMode
+          go_name: SetLayoutMode
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setLayoutTransition
+          go_name: SetLayoutTransition
+          params:
+            - java_type: android.animation.LayoutTransition
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setMotionEventSplittingEnabled
+          go_name: SetMotionEventSplittingEnabled
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setOnHierarchyChangeListener
+          go_name: SetOnHierarchyChangeListener
+          params:
+            - java_type: android.view.ViewGroup$OnHierarchyChangeListener
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setPersistentDrawingCache
+          go_name: SetPersistentDrawingCache
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setRequestedFrameRate
+          go_name: SetRequestedFrameRate
           params:
             - java_type: float
               go_name: arg0
           returns: void
           error: true
-        - java_method: setSecure
-          go_name: SetSecure
+        - java_method: setTouchscreenBlocksFocus
+          go_name: SetTouchscreenBlocksFocus
           params:
             - java_type: boolean
               go_name: arg0
           returns: void
           error: true
-        - java_method: setSurfaceLifecycle
-          go_name: SetSurfaceLifecycle
+        - java_method: setTransitionGroup
+          go_name: SetTransitionGroup
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setWindowInsetsAnimationCallback
+          go_name: SetWindowInsetsAnimationCallback
+          params:
+            - java_type: android.view.WindowInsetsAnimation$Callback
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: shouldDelayChildPressedState
+          go_name: ShouldDelayChildPressedState
+          returns: boolean
+          error: true
+        - java_method: showContextMenuForChild
+          go_name: ShowContextMenuForChild1
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: showContextMenuForChild
+          go_name: ShowContextMenuForChild3_1
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+            - java_type: float
+              go_name: arg2
+          returns: boolean
+          error: true
+        - java_method: startActionModeForChild
+          go_name: StartActionModeForChild2
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: android.view.ActionMode$Callback
+              go_name: arg1
+          returns: android.view.ActionMode
+          error: true
+        - java_method: startActionModeForChild
+          go_name: StartActionModeForChild3_1
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: android.view.ActionMode$Callback
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: android.view.ActionMode
+          error: true
+        - java_method: startLayoutAnimation
+          go_name: StartLayoutAnimation
+          returns: void
+          error: true
+        - java_method: startViewTransition
+          go_name: StartViewTransition
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: suppressLayout
+          go_name: SuppressLayout
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: updateViewLayout
+          go_name: UpdateViewLayout
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: android.view.ViewGroup$LayoutParams
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: getOverlay
+          go_name: GetOverlay0_1
+          returns: android.view.ViewOverlay
+          error: true
+      static_methods:
+        - java_method: getChildMeasureSpec
+          go_name: GetChildMeasureSpec
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: int
+          error: true
+    - java_class: android.view.ViewGroup$LayoutParams
+      go_type: ViewGroupLayoutParams
+      methods:
+        - java_method: resolveLayoutDirection
+          go_name: ResolveLayoutDirection
           params:
             - java_type: int
               go_name: arg0
           returns: void
           error: true
-        - java_method: setVisibility
-          go_name: SetVisibility
+    - java_class: android.view.ViewGroup$MarginLayoutParams
+      go_type: ViewGroupMarginLayoutParams
+      methods:
+        - java_method: getLayoutDirection
+          go_name: GetLayoutDirection
+          returns: int
+          error: true
+        - java_method: getMarginEnd
+          go_name: GetMarginEnd
+          returns: int
+          error: true
+        - java_method: getMarginStart
+          go_name: GetMarginStart
+          returns: int
+          error: true
+        - java_method: isMarginRelative
+          go_name: IsMarginRelative
+          returns: boolean
+          error: true
+        - java_method: resolveLayoutDirection
+          go_name: ResolveLayoutDirection
           params:
             - java_type: int
               go_name: arg0
           returns: void
           error: true
-        - java_method: setZOrderMediaOverlay
-          go_name: SetZOrderMediaOverlay
+        - java_method: setLayoutDirection
+          go_name: SetLayoutDirection
           params:
-            - java_type: boolean
+            - java_type: int
               go_name: arg0
           returns: void
           error: true
-        - java_method: setZOrderOnTop
-          go_name: SetZOrderOnTop
+        - java_method: setMarginEnd
+          go_name: SetMarginEnd
           params:
-            - java_type: boolean
+            - java_type: int
               go_name: arg0
+          returns: void
+          error: true
+        - java_method: setMarginStart
+          go_name: SetMarginStart
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setMargins
+          go_name: SetMargins
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+          returns: void
+          error: true
+    - java_class: android.view.ViewGroup$OnHierarchyChangeListener
+      go_type: ViewGroupOnHierarchyChangeListener
+      methods:
+        - java_method: onChildViewAdded
+          go_name: OnChildViewAdded
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: android.view.View
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onChildViewRemoved
+          go_name: OnChildViewRemoved
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: android.view.View
+              go_name: arg1
           returns: void
           error: true
     - java_class: android.view.View
@@ -4415,1338 +5747,6 @@ classes:
               go_name: arg1
           returns: boolean
           error: true
-    - java_class: android.view.Surface
-      go_type: Surface
-      obtain: constructor
-      constructor_params:
-        - java_type: android.graphics.SurfaceTexture
-          go_name: arg0
-      methods:
-        - java_method: clearFrameRate
-          go_name: ClearFrameRate
-          returns: void
-          error: true
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: isValid
-          go_name: IsValid
-          returns: boolean
-          error: true
-        - java_method: lockCanvas
-          go_name: LockCanvas
-          params:
-            - java_type: android.graphics.Rect
-              go_name: arg0
-          returns: android.graphics.Canvas
-          error: true
-        - java_method: lockHardwareCanvas
-          go_name: LockHardwareCanvas
-          returns: android.graphics.Canvas
-          error: true
-        - java_method: readFromParcel
-          go_name: ReadFromParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: release
-          go_name: Release
-          returns: void
-          error: true
-        - java_method: setFrameRate
-          go_name: SetFrameRate2
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: setFrameRate
-          go_name: SetFrameRate3_1
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: unlockCanvas
-          go_name: UnlockCanvas
-          params:
-            - java_type: android.graphics.Canvas
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: unlockCanvasAndPost
-          go_name: UnlockCanvasAndPost
-          params:
-            - java_type: android.graphics.Canvas
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.view.Surface$OutOfResourcesException
-      go_type: SurfaceOutOfResourcesException
-    - java_class: android.view.SurfaceHolder
-      go_type: SurfaceHolder
-      methods:
-        - java_method: addCallback
-          go_name: AddCallback
-          params:
-            - java_type: android.view.SurfaceHolder$Callback
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getSurface
-          go_name: GetSurface
-          returns: android.view.Surface
-          error: true
-        - java_method: getSurfaceFrame
-          go_name: GetSurfaceFrame
-          returns: android.graphics.Rect
-          error: true
-        - java_method: isCreating
-          go_name: IsCreating
-          returns: boolean
-          error: true
-        - java_method: lockCanvas
-          go_name: LockCanvas0
-          returns: android.graphics.Canvas
-          error: true
-        - java_method: lockCanvas
-          go_name: LockCanvas1_1
-          params:
-            - java_type: android.graphics.Rect
-              go_name: arg0
-          returns: android.graphics.Canvas
-          error: true
-        - java_method: removeCallback
-          go_name: RemoveCallback
-          params:
-            - java_type: android.view.SurfaceHolder$Callback
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setFixedSize
-          go_name: SetFixedSize
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: setFormat
-          go_name: SetFormat
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setKeepScreenOn
-          go_name: SetKeepScreenOn
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setSizeFromLayout
-          go_name: SetSizeFromLayout
-          returns: void
-          error: true
-        - java_method: setType
-          go_name: SetType
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: unlockCanvasAndPost
-          go_name: UnlockCanvasAndPost
-          params:
-            - java_type: android.graphics.Canvas
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.view.SurfaceHolder$BadSurfaceTypeException
-      go_type: SurfaceHolderBadSurfaceTypeException
-    - java_class: android.view.SurfaceHolder$Callback
-      go_type: SurfaceHolderCallback
-      methods:
-        - java_method: surfaceChanged
-          go_name: SurfaceChanged
-          params:
-            - java_type: android.view.SurfaceHolder
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: surfaceCreated
-          go_name: SurfaceCreated
-          params:
-            - java_type: android.view.SurfaceHolder
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: surfaceDestroyed
-          go_name: SurfaceDestroyed
-          params:
-            - java_type: android.view.SurfaceHolder
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.view.SurfaceHolder$Callback2
-      go_type: SurfaceHolderCallback2
-      methods:
-        - java_method: surfaceRedrawNeeded
-          go_name: SurfaceRedrawNeeded
-          params:
-            - java_type: android.view.SurfaceHolder
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.view.ViewGroup
-      go_type: ViewGroup
-      methods:
-        - java_method: addExtraDataToAccessibilityNodeInfo
-          go_name: AddExtraDataToAccessibilityNodeInfo
-          params:
-            - java_type: android.view.accessibility.AccessibilityNodeInfo
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-            - java_type: android.os.Bundle
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: addStatesFromChildren
-          go_name: AddStatesFromChildren
-          returns: boolean
-          error: true
-        - java_method: addView
-          go_name: AddView1
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: addView
-          go_name: AddView2_1
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: android.view.ViewGroup$LayoutParams
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: addView
-          go_name: AddView2_2
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: addView
-          go_name: AddView3_3
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: android.view.ViewGroup$LayoutParams
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: addView
-          go_name: AddView3_4
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: bringChildToFront
-          go_name: BringChildToFront
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: childDrawableStateChanged
-          go_name: ChildDrawableStateChanged
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: childHasTransientStateChanged
-          go_name: ChildHasTransientStateChanged
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: boolean
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: clearChildFocus
-          go_name: ClearChildFocus
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: clearDisappearingChildren
-          go_name: ClearDisappearingChildren
-          returns: void
-          error: true
-        - java_method: clearFocus
-          go_name: ClearFocus
-          returns: void
-          error: true
-        - java_method: dispatchApplyWindowInsets
-          go_name: DispatchApplyWindowInsets
-          params:
-            - java_type: android.view.WindowInsets
-              go_name: arg0
-          returns: android.view.WindowInsets
-          error: true
-        - java_method: dispatchCapturedPointerEvent
-          go_name: DispatchCapturedPointerEvent
-          params:
-            - java_type: android.view.MotionEvent
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: dispatchConfigurationChanged
-          go_name: DispatchConfigurationChanged
-          params:
-            - java_type: android.content.res.Configuration
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: dispatchDisplayHint
-          go_name: DispatchDisplayHint
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: dispatchDragEvent
-          go_name: DispatchDragEvent
-          params:
-            - java_type: android.view.DragEvent
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: dispatchDrawableHotspotChanged
-          go_name: DispatchDrawableHotspotChanged
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: dispatchFinishTemporaryDetach
-          go_name: DispatchFinishTemporaryDetach
-          returns: void
-          error: true
-        - java_method: dispatchKeyEvent
-          go_name: DispatchKeyEvent
-          params:
-            - java_type: android.view.KeyEvent
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: dispatchKeyEventPreIme
-          go_name: DispatchKeyEventPreIme
-          params:
-            - java_type: android.view.KeyEvent
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: dispatchKeyShortcutEvent
-          go_name: DispatchKeyShortcutEvent
-          params:
-            - java_type: android.view.KeyEvent
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: dispatchPointerCaptureChanged
-          go_name: DispatchPointerCaptureChanged
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: dispatchProvideAutofillStructure
-          go_name: DispatchProvideAutofillStructure
-          params:
-            - java_type: android.view.ViewStructure
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: dispatchProvideStructure
-          go_name: DispatchProvideStructure
-          params:
-            - java_type: android.view.ViewStructure
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: dispatchSetActivated
-          go_name: DispatchSetActivated
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: dispatchSetSelected
-          go_name: DispatchSetSelected
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: dispatchStartTemporaryDetach
-          go_name: DispatchStartTemporaryDetach
-          returns: void
-          error: true
-        - java_method: dispatchSystemUiVisibilityChanged
-          go_name: DispatchSystemUiVisibilityChanged
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: dispatchTouchEvent
-          go_name: DispatchTouchEvent
-          params:
-            - java_type: android.view.MotionEvent
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: dispatchTrackballEvent
-          go_name: DispatchTrackballEvent
-          params:
-            - java_type: android.view.MotionEvent
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: dispatchUnhandledMove
-          go_name: DispatchUnhandledMove
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: dispatchWindowFocusChanged
-          go_name: DispatchWindowFocusChanged
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: dispatchWindowInsetsAnimationEnd
-          go_name: DispatchWindowInsetsAnimationEnd
-          params:
-            - java_type: android.view.WindowInsetsAnimation
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: dispatchWindowInsetsAnimationPrepare
-          go_name: DispatchWindowInsetsAnimationPrepare
-          params:
-            - java_type: android.view.WindowInsetsAnimation
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: dispatchWindowInsetsAnimationStart
-          go_name: DispatchWindowInsetsAnimationStart
-          params:
-            - java_type: android.view.WindowInsetsAnimation
-              go_name: arg0
-            - java_type: android.view.WindowInsetsAnimation$Bounds
-              go_name: arg1
-          returns: android.view.WindowInsetsAnimation$Bounds
-          error: true
-        - java_method: dispatchWindowSystemUiVisiblityChanged
-          go_name: DispatchWindowSystemUiVisiblityChanged
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: dispatchWindowVisibilityChanged
-          go_name: DispatchWindowVisibilityChanged
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: endViewTransition
-          go_name: EndViewTransition
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: findFocus
-          go_name: FindFocus
-          returns: android.view.View
-          error: true
-        - java_method: findOnBackInvokedDispatcherForChild
-          go_name: FindOnBackInvokedDispatcherForChild
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: android.view.View
-              go_name: arg1
-          returns: android.window.OnBackInvokedDispatcher
-          error: true
-        - java_method: focusSearch
-          go_name: FocusSearch
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: android.view.View
-          error: true
-        - java_method: focusableViewAvailable
-          go_name: FocusableViewAvailable
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: gatherTransparentRegion
-          go_name: GatherTransparentRegion
-          params:
-            - java_type: android.graphics.Region
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: generateLayoutParams
-          go_name: GenerateLayoutParams
-          params:
-            - java_type: android.util.AttributeSet
-              go_name: arg0
-          returns: android.view.ViewGroup$LayoutParams
-          error: true
-        - java_method: getAccessibilityClassName
-          go_name: GetAccessibilityClassName
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: getChildAt
-          go_name: GetChildAt
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.view.View
-          error: true
-        - java_method: getChildCount
-          go_name: GetChildCount
-          returns: int
-          error: true
-        - java_method: getChildDrawingOrder
-          go_name: GetChildDrawingOrder
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getChildVisibleRect
-          go_name: GetChildVisibleRect
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: android.graphics.Rect
-              go_name: arg1
-            - java_type: android.graphics.Point
-              go_name: arg2
-          returns: boolean
-          error: true
-        - java_method: getClipChildren
-          go_name: GetClipChildren
-          returns: boolean
-          error: true
-        - java_method: getClipToPadding
-          go_name: GetClipToPadding
-          returns: boolean
-          error: true
-        - java_method: getDescendantFocusability
-          go_name: GetDescendantFocusability
-          returns: int
-          error: true
-        - java_method: getFocusedChild
-          go_name: GetFocusedChild
-          returns: android.view.View
-          error: true
-        - java_method: getLayoutAnimation
-          go_name: GetLayoutAnimation
-          returns: android.view.animation.LayoutAnimationController
-          error: true
-        - java_method: getLayoutAnimationListener
-          go_name: GetLayoutAnimationListener
-          returns: android.view.animation.Animation$AnimationListener
-          error: true
-        - java_method: getLayoutMode
-          go_name: GetLayoutMode
-          returns: int
-          error: true
-        - java_method: getLayoutTransition
-          go_name: GetLayoutTransition
-          returns: android.animation.LayoutTransition
-          error: true
-        - java_method: getNestedScrollAxes
-          go_name: GetNestedScrollAxes
-          returns: int
-          error: true
-        - java_method: getOverlay
-          go_name: GetOverlay0
-          returns: android.view.ViewGroupOverlay
-          error: true
-        - java_method: getPersistentDrawingCache
-          go_name: GetPersistentDrawingCache
-          returns: int
-          error: true
-        - java_method: getTouchscreenBlocksFocus
-          go_name: GetTouchscreenBlocksFocus
-          returns: boolean
-          error: true
-        - java_method: hasFocus
-          go_name: HasFocus
-          returns: boolean
-          error: true
-        - java_method: hasTransientState
-          go_name: HasTransientState
-          returns: boolean
-          error: true
-        - java_method: indexOfChild
-          go_name: IndexOfChild
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: invalidateChild
-          go_name: InvalidateChild
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: android.graphics.Rect
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: invalidateChildInParent
-          go_name: InvalidateChildInParent
-          params:
-            - java_type: '[I'
-              go_name: arg0
-            - java_type: android.graphics.Rect
-              go_name: arg1
-          returns: android.view.ViewParent
-          error: true
-        - java_method: isAlwaysDrawnWithCacheEnabled
-          go_name: IsAlwaysDrawnWithCacheEnabled
-          returns: boolean
-          error: true
-        - java_method: isAnimationCacheEnabled
-          go_name: IsAnimationCacheEnabled
-          returns: boolean
-          error: true
-        - java_method: isLayoutSuppressed
-          go_name: IsLayoutSuppressed
-          returns: boolean
-          error: true
-        - java_method: isMotionEventSplittingEnabled
-          go_name: IsMotionEventSplittingEnabled
-          returns: boolean
-          error: true
-        - java_method: isTransitionGroup
-          go_name: IsTransitionGroup
-          returns: boolean
-          error: true
-        - java_method: jumpDrawablesToCurrentState
-          go_name: JumpDrawablesToCurrentState
-          returns: void
-          error: true
-        - java_method: layout
-          go_name: Layout
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: notifySubtreeAccessibilityStateChanged
-          go_name: NotifySubtreeAccessibilityStateChanged
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: android.view.View
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: offsetDescendantRectToMyCoords
-          go_name: OffsetDescendantRectToMyCoords
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: android.graphics.Rect
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: offsetRectIntoDescendantCoords
-          go_name: OffsetRectIntoDescendantCoords
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: android.graphics.Rect
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onDescendantInvalidated
-          go_name: OnDescendantInvalidated
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: android.view.View
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onInterceptHoverEvent
-          go_name: OnInterceptHoverEvent
-          params:
-            - java_type: android.view.MotionEvent
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: onInterceptTouchEvent
-          go_name: OnInterceptTouchEvent
-          params:
-            - java_type: android.view.MotionEvent
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: onNestedFling
-          go_name: OnNestedFling
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-            - java_type: float
-              go_name: arg2
-            - java_type: boolean
-              go_name: arg3
-          returns: boolean
-          error: true
-        - java_method: onNestedPreFling
-          go_name: OnNestedPreFling
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-            - java_type: float
-              go_name: arg2
-          returns: boolean
-          error: true
-        - java_method: onNestedPrePerformAccessibilityAction
-          go_name: OnNestedPrePerformAccessibilityAction
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: android.os.Bundle
-              go_name: arg2
-          returns: boolean
-          error: true
-        - java_method: onNestedPreScroll
-          go_name: OnNestedPreScroll
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: '[I'
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: onNestedScroll
-          go_name: OnNestedScroll
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-            - java_type: int
-              go_name: arg4
-          returns: void
-          error: true
-        - java_method: onNestedScrollAccepted
-          go_name: OnNestedScrollAccepted
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: android.view.View
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: onRequestSendAccessibilityEvent
-          go_name: OnRequestSendAccessibilityEvent
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: android.view.accessibility.AccessibilityEvent
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: onResolvePointerIcon
-          go_name: OnResolvePointerIcon
-          params:
-            - java_type: android.view.MotionEvent
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: android.view.PointerIcon
-          error: true
-        - java_method: onStartNestedScroll
-          go_name: OnStartNestedScroll
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: android.view.View
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: boolean
-          error: true
-        - java_method: onStopNestedScroll
-          go_name: OnStopNestedScroll
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onViewAdded
-          go_name: OnViewAdded
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onViewRemoved
-          go_name: OnViewRemoved
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: propagateRequestedFrameRate
-          go_name: PropagateRequestedFrameRate
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: boolean
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: recomputeViewAttributes
-          go_name: RecomputeViewAttributes
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: removeAllViews
-          go_name: RemoveAllViews
-          returns: void
-          error: true
-        - java_method: removeAllViewsInLayout
-          go_name: RemoveAllViewsInLayout
-          returns: void
-          error: true
-        - java_method: removeView
-          go_name: RemoveView
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: removeViewAt
-          go_name: RemoveViewAt
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: removeViewInLayout
-          go_name: RemoveViewInLayout
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: removeViews
-          go_name: RemoveViews
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: removeViewsInLayout
-          go_name: RemoveViewsInLayout
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: requestChildFocus
-          go_name: RequestChildFocus
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: android.view.View
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: requestChildRectangleOnScreen
-          go_name: RequestChildRectangleOnScreen
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: android.graphics.Rect
-              go_name: arg1
-            - java_type: boolean
-              go_name: arg2
-          returns: boolean
-          error: true
-        - java_method: requestDisallowInterceptTouchEvent
-          go_name: RequestDisallowInterceptTouchEvent
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: requestFocus
-          go_name: RequestFocus
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.graphics.Rect
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: requestSendAccessibilityEvent
-          go_name: RequestSendAccessibilityEvent
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: android.view.accessibility.AccessibilityEvent
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: requestTransparentRegion
-          go_name: RequestTransparentRegion
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: restoreDefaultFocus
-          go_name: RestoreDefaultFocus
-          returns: boolean
-          error: true
-        - java_method: scheduleLayoutAnimation
-          go_name: ScheduleLayoutAnimation
-          returns: void
-          error: true
-        - java_method: setAddStatesFromChildren
-          go_name: SetAddStatesFromChildren
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setAlwaysDrawnWithCacheEnabled
-          go_name: SetAlwaysDrawnWithCacheEnabled
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setAnimationCacheEnabled
-          go_name: SetAnimationCacheEnabled
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setClipChildren
-          go_name: SetClipChildren
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setClipToPadding
-          go_name: SetClipToPadding
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setDescendantFocusability
-          go_name: SetDescendantFocusability
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setLayoutAnimation
-          go_name: SetLayoutAnimation
-          params:
-            - java_type: android.view.animation.LayoutAnimationController
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setLayoutAnimationListener
-          go_name: SetLayoutAnimationListener
-          params:
-            - java_type: android.view.animation.Animation$AnimationListener
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setLayoutMode
-          go_name: SetLayoutMode
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setLayoutTransition
-          go_name: SetLayoutTransition
-          params:
-            - java_type: android.animation.LayoutTransition
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setMotionEventSplittingEnabled
-          go_name: SetMotionEventSplittingEnabled
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setOnHierarchyChangeListener
-          go_name: SetOnHierarchyChangeListener
-          params:
-            - java_type: android.view.ViewGroup$OnHierarchyChangeListener
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setPersistentDrawingCache
-          go_name: SetPersistentDrawingCache
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setRequestedFrameRate
-          go_name: SetRequestedFrameRate
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setTouchscreenBlocksFocus
-          go_name: SetTouchscreenBlocksFocus
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setTransitionGroup
-          go_name: SetTransitionGroup
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setWindowInsetsAnimationCallback
-          go_name: SetWindowInsetsAnimationCallback
-          params:
-            - java_type: android.view.WindowInsetsAnimation$Callback
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: shouldDelayChildPressedState
-          go_name: ShouldDelayChildPressedState
-          returns: boolean
-          error: true
-        - java_method: showContextMenuForChild
-          go_name: ShowContextMenuForChild1
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: showContextMenuForChild
-          go_name: ShowContextMenuForChild3_1
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-            - java_type: float
-              go_name: arg2
-          returns: boolean
-          error: true
-        - java_method: startActionModeForChild
-          go_name: StartActionModeForChild2
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: android.view.ActionMode$Callback
-              go_name: arg1
-          returns: android.view.ActionMode
-          error: true
-        - java_method: startActionModeForChild
-          go_name: StartActionModeForChild3_1
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: android.view.ActionMode$Callback
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: android.view.ActionMode
-          error: true
-        - java_method: startLayoutAnimation
-          go_name: StartLayoutAnimation
-          returns: void
-          error: true
-        - java_method: startViewTransition
-          go_name: StartViewTransition
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: suppressLayout
-          go_name: SuppressLayout
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: updateViewLayout
-          go_name: UpdateViewLayout
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: android.view.ViewGroup$LayoutParams
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: getOverlay
-          go_name: GetOverlay0_1
-          returns: android.view.ViewOverlay
-          error: true
-      static_methods:
-        - java_method: getChildMeasureSpec
-          go_name: GetChildMeasureSpec
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: int
-          error: true
-    - java_class: android.view.ViewGroup$LayoutParams
-      go_type: ViewGroupLayoutParams
-      methods:
-        - java_method: resolveLayoutDirection
-          go_name: ResolveLayoutDirection
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.view.ViewGroup$MarginLayoutParams
-      go_type: ViewGroupMarginLayoutParams
-      methods:
-        - java_method: getLayoutDirection
-          go_name: GetLayoutDirection
-          returns: int
-          error: true
-        - java_method: getMarginEnd
-          go_name: GetMarginEnd
-          returns: int
-          error: true
-        - java_method: getMarginStart
-          go_name: GetMarginStart
-          returns: int
-          error: true
-        - java_method: isMarginRelative
-          go_name: IsMarginRelative
-          returns: boolean
-          error: true
-        - java_method: resolveLayoutDirection
-          go_name: ResolveLayoutDirection
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setLayoutDirection
-          go_name: SetLayoutDirection
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setMarginEnd
-          go_name: SetMarginEnd
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setMarginStart
-          go_name: SetMarginStart
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setMargins
-          go_name: SetMargins
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-          returns: void
-          error: true
-    - java_class: android.view.ViewGroup$OnHierarchyChangeListener
-      go_type: ViewGroupOnHierarchyChangeListener
-      methods:
-        - java_method: onChildViewAdded
-          go_name: OnChildViewAdded
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: android.view.View
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onChildViewRemoved
-          go_name: OnChildViewRemoved
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: android.view.View
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.util.DisplayMetrics
-      go_type: Metrics
-      obtain: constructor
-      methods:
-        - java_method: equals
-          go_name: Equals1
-          params:
-            - java_type: android.util.DisplayMetrics
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: equals
-          go_name: Equals1_1
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: setTo
-          go_name: SetTo
-          params:
-            - java_type: android.util.DisplayMetrics
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setToDefaults
-          go_name: SetToDefaults
-          returns: void
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
     - java_class: android.view.WindowManager
       go_type: WindowManager
       obtain: system_service
@@ -5942,7 +5942,851 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
+abstract_callbacks:
+    - java_class: android.view.ViewGroup
+      go_type: ViewGroupCallback
+      methods:
+        - java_method: addExtraDataToAccessibilityNodeInfo
+          params:
+            - android.view.accessibility.AccessibilityNodeInfo
+            - String
+            - android.os.Bundle
+          returns: void
+          go_field: AddExtraDataToAccessibilityNodeInfo
+        - java_method: addStatesFromChildren
+          params: []
+          returns: boolean
+          go_field: AddStatesFromChildren
+        - java_method: addView
+          params:
+            - android.view.View
+          returns: void
+          go_field: AddView
+        - java_method: addView
+          params:
+            - android.view.View
+            - android.view.ViewGroup$LayoutParams
+          returns: void
+          go_field: AddView
+        - java_method: addView
+          params:
+            - android.view.View
+            - int
+          returns: void
+          go_field: AddView
+        - java_method: addView
+          params:
+            - android.view.View
+            - int
+            - android.view.ViewGroup$LayoutParams
+          returns: void
+          go_field: AddView
+        - java_method: addView
+          params:
+            - android.view.View
+            - int
+            - int
+          returns: void
+          go_field: AddView
+        - java_method: bringChildToFront
+          params:
+            - android.view.View
+          returns: void
+          go_field: BringChildToFront
+        - java_method: childDrawableStateChanged
+          params:
+            - android.view.View
+          returns: void
+          go_field: ChildDrawableStateChanged
+        - java_method: childHasTransientStateChanged
+          params:
+            - android.view.View
+            - boolean
+          returns: void
+          go_field: ChildHasTransientStateChanged
+        - java_method: clearChildFocus
+          params:
+            - android.view.View
+          returns: void
+          go_field: ClearChildFocus
+        - java_method: clearDisappearingChildren
+          params: []
+          returns: void
+          go_field: ClearDisappearingChildren
+        - java_method: clearFocus
+          params: []
+          returns: void
+          go_field: ClearFocus
+        - java_method: dispatchApplyWindowInsets
+          params:
+            - android.view.WindowInsets
+          returns: android.view.WindowInsets
+          go_field: DispatchApplyWindowInsets
+        - java_method: dispatchCapturedPointerEvent
+          params:
+            - android.view.MotionEvent
+          returns: boolean
+          go_field: DispatchCapturedPointerEvent
+        - java_method: dispatchConfigurationChanged
+          params:
+            - android.content.res.Configuration
+          returns: void
+          go_field: DispatchConfigurationChanged
+        - java_method: dispatchDisplayHint
+          params:
+            - int
+          returns: void
+          go_field: DispatchDisplayHint
+        - java_method: dispatchDragEvent
+          params:
+            - android.view.DragEvent
+          returns: boolean
+          go_field: DispatchDragEvent
+        - java_method: dispatchDrawableHotspotChanged
+          params:
+            - float
+            - float
+          returns: void
+          go_field: DispatchDrawableHotspotChanged
+        - java_method: dispatchFinishTemporaryDetach
+          params: []
+          returns: void
+          go_field: DispatchFinishTemporaryDetach
+        - java_method: dispatchKeyEvent
+          params:
+            - android.view.KeyEvent
+          returns: boolean
+          go_field: DispatchKeyEvent
+        - java_method: dispatchKeyEventPreIme
+          params:
+            - android.view.KeyEvent
+          returns: boolean
+          go_field: DispatchKeyEventPreIme
+        - java_method: dispatchKeyShortcutEvent
+          params:
+            - android.view.KeyEvent
+          returns: boolean
+          go_field: DispatchKeyShortcutEvent
+        - java_method: dispatchPointerCaptureChanged
+          params:
+            - boolean
+          returns: void
+          go_field: DispatchPointerCaptureChanged
+        - java_method: dispatchProvideAutofillStructure
+          params:
+            - android.view.ViewStructure
+            - int
+          returns: void
+          go_field: DispatchProvideAutofillStructure
+        - java_method: dispatchProvideStructure
+          params:
+            - android.view.ViewStructure
+          returns: void
+          go_field: DispatchProvideStructure
+        - java_method: dispatchSetActivated
+          params:
+            - boolean
+          returns: void
+          go_field: DispatchSetActivated
+        - java_method: dispatchSetSelected
+          params:
+            - boolean
+          returns: void
+          go_field: DispatchSetSelected
+        - java_method: dispatchStartTemporaryDetach
+          params: []
+          returns: void
+          go_field: DispatchStartTemporaryDetach
+        - java_method: dispatchSystemUiVisibilityChanged
+          params:
+            - int
+          returns: void
+          go_field: DispatchSystemUiVisibilityChanged
+        - java_method: dispatchTouchEvent
+          params:
+            - android.view.MotionEvent
+          returns: boolean
+          go_field: DispatchTouchEvent
+        - java_method: dispatchTrackballEvent
+          params:
+            - android.view.MotionEvent
+          returns: boolean
+          go_field: DispatchTrackballEvent
+        - java_method: dispatchUnhandledMove
+          params:
+            - android.view.View
+            - int
+          returns: boolean
+          go_field: DispatchUnhandledMove
+        - java_method: dispatchWindowFocusChanged
+          params:
+            - boolean
+          returns: void
+          go_field: DispatchWindowFocusChanged
+        - java_method: dispatchWindowInsetsAnimationEnd
+          params:
+            - android.view.WindowInsetsAnimation
+          returns: void
+          go_field: DispatchWindowInsetsAnimationEnd
+        - java_method: dispatchWindowInsetsAnimationPrepare
+          params:
+            - android.view.WindowInsetsAnimation
+          returns: void
+          go_field: DispatchWindowInsetsAnimationPrepare
+        - java_method: dispatchWindowInsetsAnimationStart
+          params:
+            - android.view.WindowInsetsAnimation
+            - android.view.WindowInsetsAnimation$Bounds
+          returns: android.view.WindowInsetsAnimation$Bounds
+          go_field: DispatchWindowInsetsAnimationStart
+        - java_method: dispatchWindowSystemUiVisiblityChanged
+          params:
+            - int
+          returns: void
+          go_field: DispatchWindowSystemUiVisiblityChanged
+        - java_method: dispatchWindowVisibilityChanged
+          params:
+            - int
+          returns: void
+          go_field: DispatchWindowVisibilityChanged
+        - java_method: endViewTransition
+          params:
+            - android.view.View
+          returns: void
+          go_field: EndViewTransition
+        - java_method: findFocus
+          params: []
+          returns: android.view.View
+          go_field: FindFocus
+        - java_method: findOnBackInvokedDispatcherForChild
+          params:
+            - android.view.View
+            - android.view.View
+          returns: android.window.OnBackInvokedDispatcher
+          go_field: FindOnBackInvokedDispatcherForChild
+        - java_method: focusSearch
+          params:
+            - android.view.View
+            - int
+          returns: android.view.View
+          go_field: FocusSearch
+        - java_method: focusableViewAvailable
+          params:
+            - android.view.View
+          returns: void
+          go_field: FocusableViewAvailable
+        - java_method: gatherTransparentRegion
+          params:
+            - android.graphics.Region
+          returns: boolean
+          go_field: GatherTransparentRegion
+        - java_method: generateLayoutParams
+          params:
+            - android.util.AttributeSet
+          returns: android.view.ViewGroup$LayoutParams
+          go_field: GenerateLayoutParams
+        - java_method: getAccessibilityClassName
+          params: []
+          returns: java.lang.CharSequence
+          go_field: GetAccessibilityClassName
+        - java_method: getChildAt
+          params:
+            - int
+          returns: android.view.View
+          go_field: GetChildAt
+        - java_method: getChildCount
+          params: []
+          returns: int
+          go_field: GetChildCount
+        - java_method: getChildDrawingOrder
+          params:
+            - int
+          returns: int
+          go_field: GetChildDrawingOrder
+        - java_method: getChildVisibleRect
+          params:
+            - android.view.View
+            - android.graphics.Rect
+            - android.graphics.Point
+          returns: boolean
+          go_field: GetChildVisibleRect
+        - java_method: getClipChildren
+          params: []
+          returns: boolean
+          go_field: GetClipChildren
+        - java_method: getClipToPadding
+          params: []
+          returns: boolean
+          go_field: GetClipToPadding
+        - java_method: getDescendantFocusability
+          params: []
+          returns: int
+          go_field: GetDescendantFocusability
+        - java_method: getFocusedChild
+          params: []
+          returns: android.view.View
+          go_field: GetFocusedChild
+        - java_method: getLayoutAnimation
+          params: []
+          returns: android.view.animation.LayoutAnimationController
+          go_field: GetLayoutAnimation
+        - java_method: getLayoutAnimationListener
+          params: []
+          returns: android.view.animation.Animation$AnimationListener
+          go_field: GetLayoutAnimationListener
+        - java_method: getLayoutMode
+          params: []
+          returns: int
+          go_field: GetLayoutMode
+        - java_method: getLayoutTransition
+          params: []
+          returns: android.animation.LayoutTransition
+          go_field: GetLayoutTransition
+        - java_method: getNestedScrollAxes
+          params: []
+          returns: int
+          go_field: GetNestedScrollAxes
+        - java_method: getOverlay
+          params: []
+          returns: android.view.ViewGroupOverlay
+          go_field: GetOverlay
+        - java_method: getPersistentDrawingCache
+          params: []
+          returns: int
+          go_field: GetPersistentDrawingCache
+        - java_method: getTouchscreenBlocksFocus
+          params: []
+          returns: boolean
+          go_field: GetTouchscreenBlocksFocus
+        - java_method: hasFocus
+          params: []
+          returns: boolean
+          go_field: HasFocus
+        - java_method: hasTransientState
+          params: []
+          returns: boolean
+          go_field: HasTransientState
+        - java_method: indexOfChild
+          params:
+            - android.view.View
+          returns: int
+          go_field: IndexOfChild
+        - java_method: invalidateChild
+          params:
+            - android.view.View
+            - android.graphics.Rect
+          returns: void
+          go_field: InvalidateChild
+        - java_method: invalidateChildInParent
+          params:
+            - '[I'
+            - android.graphics.Rect
+          returns: android.view.ViewParent
+          go_field: InvalidateChildInParent
+        - java_method: isAlwaysDrawnWithCacheEnabled
+          params: []
+          returns: boolean
+          go_field: IsAlwaysDrawnWithCacheEnabled
+        - java_method: isAnimationCacheEnabled
+          params: []
+          returns: boolean
+          go_field: IsAnimationCacheEnabled
+        - java_method: isLayoutSuppressed
+          params: []
+          returns: boolean
+          go_field: IsLayoutSuppressed
+        - java_method: isMotionEventSplittingEnabled
+          params: []
+          returns: boolean
+          go_field: IsMotionEventSplittingEnabled
+        - java_method: isTransitionGroup
+          params: []
+          returns: boolean
+          go_field: IsTransitionGroup
+        - java_method: jumpDrawablesToCurrentState
+          params: []
+          returns: void
+          go_field: JumpDrawablesToCurrentState
+        - java_method: layout
+          params:
+            - int
+            - int
+            - int
+            - int
+          returns: void
+          go_field: Layout
+        - java_method: notifySubtreeAccessibilityStateChanged
+          params:
+            - android.view.View
+            - android.view.View
+            - int
+          returns: void
+          go_field: NotifySubtreeAccessibilityStateChanged
+        - java_method: offsetDescendantRectToMyCoords
+          params:
+            - android.view.View
+            - android.graphics.Rect
+          returns: void
+          go_field: OffsetDescendantRectToMyCoords
+        - java_method: offsetRectIntoDescendantCoords
+          params:
+            - android.view.View
+            - android.graphics.Rect
+          returns: void
+          go_field: OffsetRectIntoDescendantCoords
+        - java_method: onDescendantInvalidated
+          params:
+            - android.view.View
+            - android.view.View
+          returns: void
+          go_field: OnDescendantInvalidated
+        - java_method: onInterceptHoverEvent
+          params:
+            - android.view.MotionEvent
+          returns: boolean
+          go_field: OnInterceptHoverEvent
+        - java_method: onInterceptTouchEvent
+          params:
+            - android.view.MotionEvent
+          returns: boolean
+          go_field: OnInterceptTouchEvent
+        - java_method: onNestedFling
+          params:
+            - android.view.View
+            - float
+            - float
+            - boolean
+          returns: boolean
+          go_field: OnNestedFling
+        - java_method: onNestedPreFling
+          params:
+            - android.view.View
+            - float
+            - float
+          returns: boolean
+          go_field: OnNestedPreFling
+        - java_method: onNestedPrePerformAccessibilityAction
+          params:
+            - android.view.View
+            - int
+            - android.os.Bundle
+          returns: boolean
+          go_field: OnNestedPrePerformAccessibilityAction
+        - java_method: onNestedPreScroll
+          params:
+            - android.view.View
+            - int
+            - int
+            - '[I'
+          returns: void
+          go_field: OnNestedPreScroll
+        - java_method: onNestedScroll
+          params:
+            - android.view.View
+            - int
+            - int
+            - int
+            - int
+          returns: void
+          go_field: OnNestedScroll
+        - java_method: onNestedScrollAccepted
+          params:
+            - android.view.View
+            - android.view.View
+            - int
+          returns: void
+          go_field: OnNestedScrollAccepted
+        - java_method: onRequestSendAccessibilityEvent
+          params:
+            - android.view.View
+            - android.view.accessibility.AccessibilityEvent
+          returns: boolean
+          go_field: OnRequestSendAccessibilityEvent
+        - java_method: onResolvePointerIcon
+          params:
+            - android.view.MotionEvent
+            - int
+          returns: android.view.PointerIcon
+          go_field: OnResolvePointerIcon
+        - java_method: onStartNestedScroll
+          params:
+            - android.view.View
+            - android.view.View
+            - int
+          returns: boolean
+          go_field: OnStartNestedScroll
+        - java_method: onStopNestedScroll
+          params:
+            - android.view.View
+          returns: void
+          go_field: OnStopNestedScroll
+        - java_method: onViewAdded
+          params:
+            - android.view.View
+          returns: void
+          go_field: OnViewAdded
+        - java_method: onViewRemoved
+          params:
+            - android.view.View
+          returns: void
+          go_field: OnViewRemoved
+        - java_method: propagateRequestedFrameRate
+          params:
+            - float
+            - boolean
+          returns: void
+          go_field: PropagateRequestedFrameRate
+        - java_method: recomputeViewAttributes
+          params:
+            - android.view.View
+          returns: void
+          go_field: RecomputeViewAttributes
+        - java_method: removeAllViews
+          params: []
+          returns: void
+          go_field: RemoveAllViews
+        - java_method: removeAllViewsInLayout
+          params: []
+          returns: void
+          go_field: RemoveAllViewsInLayout
+        - java_method: removeView
+          params:
+            - android.view.View
+          returns: void
+          go_field: RemoveView
+        - java_method: removeViewAt
+          params:
+            - int
+          returns: void
+          go_field: RemoveViewAt
+        - java_method: removeViewInLayout
+          params:
+            - android.view.View
+          returns: void
+          go_field: RemoveViewInLayout
+        - java_method: removeViews
+          params:
+            - int
+            - int
+          returns: void
+          go_field: RemoveViews
+        - java_method: removeViewsInLayout
+          params:
+            - int
+            - int
+          returns: void
+          go_field: RemoveViewsInLayout
+        - java_method: requestChildFocus
+          params:
+            - android.view.View
+            - android.view.View
+          returns: void
+          go_field: RequestChildFocus
+        - java_method: requestChildRectangleOnScreen
+          params:
+            - android.view.View
+            - android.graphics.Rect
+            - boolean
+          returns: boolean
+          go_field: RequestChildRectangleOnScreen
+        - java_method: requestDisallowInterceptTouchEvent
+          params:
+            - boolean
+          returns: void
+          go_field: RequestDisallowInterceptTouchEvent
+        - java_method: requestFocus
+          params:
+            - int
+            - android.graphics.Rect
+          returns: boolean
+          go_field: RequestFocus
+        - java_method: requestSendAccessibilityEvent
+          params:
+            - android.view.View
+            - android.view.accessibility.AccessibilityEvent
+          returns: boolean
+          go_field: RequestSendAccessibilityEvent
+        - java_method: requestTransparentRegion
+          params:
+            - android.view.View
+          returns: void
+          go_field: RequestTransparentRegion
+        - java_method: restoreDefaultFocus
+          params: []
+          returns: boolean
+          go_field: RestoreDefaultFocus
+        - java_method: scheduleLayoutAnimation
+          params: []
+          returns: void
+          go_field: ScheduleLayoutAnimation
+        - java_method: setAddStatesFromChildren
+          params:
+            - boolean
+          returns: void
+          go_field: SetAddStatesFromChildren
+        - java_method: setAlwaysDrawnWithCacheEnabled
+          params:
+            - boolean
+          returns: void
+          go_field: SetAlwaysDrawnWithCacheEnabled
+        - java_method: setAnimationCacheEnabled
+          params:
+            - boolean
+          returns: void
+          go_field: SetAnimationCacheEnabled
+        - java_method: setClipChildren
+          params:
+            - boolean
+          returns: void
+          go_field: SetClipChildren
+        - java_method: setClipToPadding
+          params:
+            - boolean
+          returns: void
+          go_field: SetClipToPadding
+        - java_method: setDescendantFocusability
+          params:
+            - int
+          returns: void
+          go_field: SetDescendantFocusability
+        - java_method: setLayoutAnimation
+          params:
+            - android.view.animation.LayoutAnimationController
+          returns: void
+          go_field: SetLayoutAnimation
+        - java_method: setLayoutAnimationListener
+          params:
+            - android.view.animation.Animation$AnimationListener
+          returns: void
+          go_field: SetLayoutAnimationListener
+        - java_method: setLayoutMode
+          params:
+            - int
+          returns: void
+          go_field: SetLayoutMode
+        - java_method: setLayoutTransition
+          params:
+            - android.animation.LayoutTransition
+          returns: void
+          go_field: SetLayoutTransition
+        - java_method: setMotionEventSplittingEnabled
+          params:
+            - boolean
+          returns: void
+          go_field: SetMotionEventSplittingEnabled
+        - java_method: setOnHierarchyChangeListener
+          params:
+            - android.view.ViewGroup$OnHierarchyChangeListener
+          returns: void
+          go_field: SetOnHierarchyChangeListener
+        - java_method: setPersistentDrawingCache
+          params:
+            - int
+          returns: void
+          go_field: SetPersistentDrawingCache
+        - java_method: setRequestedFrameRate
+          params:
+            - float
+          returns: void
+          go_field: SetRequestedFrameRate
+        - java_method: setTouchscreenBlocksFocus
+          params:
+            - boolean
+          returns: void
+          go_field: SetTouchscreenBlocksFocus
+        - java_method: setTransitionGroup
+          params:
+            - boolean
+          returns: void
+          go_field: SetTransitionGroup
+        - java_method: setWindowInsetsAnimationCallback
+          params:
+            - android.view.WindowInsetsAnimation$Callback
+          returns: void
+          go_field: SetWindowInsetsAnimationCallback
+        - java_method: shouldDelayChildPressedState
+          params: []
+          returns: boolean
+          go_field: ShouldDelayChildPressedState
+        - java_method: showContextMenuForChild
+          params:
+            - android.view.View
+          returns: boolean
+          go_field: ShowContextMenuForChild
+        - java_method: showContextMenuForChild
+          params:
+            - android.view.View
+            - float
+            - float
+          returns: boolean
+          go_field: ShowContextMenuForChild
+        - java_method: startActionModeForChild
+          params:
+            - android.view.View
+            - android.view.ActionMode$Callback
+          returns: android.view.ActionMode
+          go_field: StartActionModeForChild
+        - java_method: startActionModeForChild
+          params:
+            - android.view.View
+            - android.view.ActionMode$Callback
+            - int
+          returns: android.view.ActionMode
+          go_field: StartActionModeForChild
+        - java_method: startLayoutAnimation
+          params: []
+          returns: void
+          go_field: StartLayoutAnimation
+        - java_method: startViewTransition
+          params:
+            - android.view.View
+          returns: void
+          go_field: StartViewTransition
+        - java_method: suppressLayout
+          params:
+            - boolean
+          returns: void
+          go_field: SuppressLayout
+        - java_method: updateViewLayout
+          params:
+            - android.view.View
+            - android.view.ViewGroup$LayoutParams
+          returns: void
+          go_field: UpdateViewLayout
+        - java_method: getOverlay
+          params: []
+          returns: android.view.ViewOverlay
+          go_field: GetOverlay
 constants:
+    - go_name: Density140
+      value: "140"
+      go_type: int
+    - go_name: Density180
+      value: "180"
+      go_type: int
+    - go_name: Density200
+      value: "200"
+      go_type: int
+    - go_name: Density220
+      value: "220"
+      go_type: int
+    - go_name: Density260
+      value: "260"
+      go_type: int
+    - go_name: Density280
+      value: "280"
+      go_type: int
+    - go_name: Density300
+      value: "300"
+      go_type: int
+    - go_name: Density340
+      value: "340"
+      go_type: int
+    - go_name: Density360
+      value: "360"
+      go_type: int
+    - go_name: Density390
+      value: "390"
+      go_type: int
+    - go_name: Density400
+      value: "400"
+      go_type: int
+    - go_name: Density420
+      value: "420"
+      go_type: int
+    - go_name: Density440
+      value: "440"
+      go_type: int
+    - go_name: Density450
+      value: "450"
+      go_type: int
+    - go_name: Density520
+      value: "520"
+      go_type: int
+    - go_name: Density560
+      value: "560"
+      go_type: int
+    - go_name: Density600
+      value: "600"
+      go_type: int
+    - go_name: DensityDefault
+      value: "160"
+      go_type: int
+    - go_name: DensityDeviceStable
+      value: "0"
+      go_type: int
+    - go_name: DensityHigh
+      value: "240"
+      go_type: int
+    - go_name: DensityLow
+      value: "120"
+      go_type: int
+    - go_name: DensityMedium
+      value: "160"
+      go_type: int
+    - go_name: DensityTv
+      value: "213"
+      go_type: int
+    - go_name: DensityXhigh
+      value: "320"
+      go_type: int
+    - go_name: DensityXxhigh
+      value: "480"
+      go_type: int
+    - go_name: DensityXxxhigh
+      value: "640"
+      go_type: int
+    - go_name: SurfaceLifecycleDefault
+      value: "0"
+      go_type: int
+    - go_name: SurfaceLifecycleFollowsAttachment
+      value: "2"
+      go_type: int
+    - go_name: SurfaceLifecycleFollowsVisibility
+      value: "1"
+      go_type: int
+    - go_name: ChangeFrameRateAlways
+      value: "1"
+      go_type: int
+    - go_name: ChangeFrameRateOnlyIfSeamless
+      value: "0"
+      go_type: int
+    - go_name: Creator
+      value: "0"
+      go_type: int
+    - go_name: FrameRateCompatibilityAtLeast
+      value: "2"
+      go_type: int
+    - go_name: FrameRateCompatibilityDefault
+      value: "0"
+      go_type: int
+    - go_name: FrameRateCompatibilityFixedSource
+      value: "1"
+      go_type: int
+    - go_name: Rotation0
+      value: "0"
+      go_type: int
+    - go_name: Rotation180
+      value: "2"
+      go_type: int
+    - go_name: Rotation270
+      value: "3"
+      go_type: int
+    - go_name: Rotation90
+      value: "1"
+      go_type: int
+    - go_name: SurfaceTypeGpu
+      value: "2"
+      go_type: int
+    - go_name: SurfaceTypeHardware
+      value: "1"
+      go_type: int
+    - go_name: SurfaceTypeNormal
+      value: "0"
+      go_type: int
+    - go_name: SurfaceTypePushBuffers
+      value: "3"
+      go_type: int
     - go_name: DefaultDisplay
       value: "0"
       go_type: int
@@ -5991,9 +6835,6 @@ constants:
     - go_name: StateVr
       value: "5"
       go_type: int
-    - go_name: Creator
-      value: "0"
-      go_type: int
     - go_name: HdrTypeDolbyVision
       value: "1"
       go_type: int
@@ -6012,14 +6853,41 @@ constants:
     - go_name: InvalidLuminance
       value: "-1.0"
       go_type: float32
-    - go_name: SurfaceLifecycleDefault
+    - go_name: FocusAfterDescendants
+      value: "262144"
+      go_type: int
+    - go_name: FocusBeforeDescendants
+      value: "131072"
+      go_type: int
+    - go_name: FocusBlockDescendants
+      value: "393216"
+      go_type: int
+    - go_name: LayoutModeClipBounds
       value: "0"
       go_type: int
-    - go_name: SurfaceLifecycleFollowsAttachment
+    - go_name: LayoutModeOpticalBounds
+      value: "1"
+      go_type: int
+    - go_name: PersistentAllCaches
+      value: "3"
+      go_type: int
+    - go_name: PersistentAnimationCache
+      value: "1"
+      go_type: int
+    - go_name: PersistentNoCache
+      value: "0"
+      go_type: int
+    - go_name: PersistentScrollingCache
       value: "2"
       go_type: int
-    - go_name: SurfaceLifecycleFollowsVisibility
-      value: "1"
+    - go_name: FillParent
+      value: "-1"
+      go_type: int
+    - go_name: MatchParent
+      value: "-1"
+      go_type: int
+    - go_name: WrapContent
+      value: "-2"
       go_type: int
     - go_name: AccessibilityDataSensitiveAuto
       value: "0"
@@ -6464,159 +7332,6 @@ constants:
       go_type: int
     - go_name: Unspecified
       value: "0"
-      go_type: int
-    - go_name: ChangeFrameRateAlways
-      value: "1"
-      go_type: int
-    - go_name: ChangeFrameRateOnlyIfSeamless
-      value: "0"
-      go_type: int
-    - go_name: FrameRateCompatibilityAtLeast
-      value: "2"
-      go_type: int
-    - go_name: FrameRateCompatibilityDefault
-      value: "0"
-      go_type: int
-    - go_name: FrameRateCompatibilityFixedSource
-      value: "1"
-      go_type: int
-    - go_name: Rotation0
-      value: "0"
-      go_type: int
-    - go_name: Rotation180
-      value: "2"
-      go_type: int
-    - go_name: Rotation270
-      value: "3"
-      go_type: int
-    - go_name: Rotation90
-      value: "1"
-      go_type: int
-    - go_name: SurfaceTypeGpu
-      value: "2"
-      go_type: int
-    - go_name: SurfaceTypeHardware
-      value: "1"
-      go_type: int
-    - go_name: SurfaceTypeNormal
-      value: "0"
-      go_type: int
-    - go_name: SurfaceTypePushBuffers
-      value: "3"
-      go_type: int
-    - go_name: FocusAfterDescendants
-      value: "262144"
-      go_type: int
-    - go_name: FocusBeforeDescendants
-      value: "131072"
-      go_type: int
-    - go_name: FocusBlockDescendants
-      value: "393216"
-      go_type: int
-    - go_name: LayoutModeClipBounds
-      value: "0"
-      go_type: int
-    - go_name: LayoutModeOpticalBounds
-      value: "1"
-      go_type: int
-    - go_name: PersistentAllCaches
-      value: "3"
-      go_type: int
-    - go_name: PersistentAnimationCache
-      value: "1"
-      go_type: int
-    - go_name: PersistentNoCache
-      value: "0"
-      go_type: int
-    - go_name: PersistentScrollingCache
-      value: "2"
-      go_type: int
-    - go_name: FillParent
-      value: "-1"
-      go_type: int
-    - go_name: MatchParent
-      value: "-1"
-      go_type: int
-    - go_name: WrapContent
-      value: "-2"
-      go_type: int
-    - go_name: Density140
-      value: "140"
-      go_type: int
-    - go_name: Density180
-      value: "180"
-      go_type: int
-    - go_name: Density200
-      value: "200"
-      go_type: int
-    - go_name: Density220
-      value: "220"
-      go_type: int
-    - go_name: Density260
-      value: "260"
-      go_type: int
-    - go_name: Density280
-      value: "280"
-      go_type: int
-    - go_name: Density300
-      value: "300"
-      go_type: int
-    - go_name: Density340
-      value: "340"
-      go_type: int
-    - go_name: Density360
-      value: "360"
-      go_type: int
-    - go_name: Density390
-      value: "390"
-      go_type: int
-    - go_name: Density400
-      value: "400"
-      go_type: int
-    - go_name: Density420
-      value: "420"
-      go_type: int
-    - go_name: Density440
-      value: "440"
-      go_type: int
-    - go_name: Density450
-      value: "450"
-      go_type: int
-    - go_name: Density520
-      value: "520"
-      go_type: int
-    - go_name: Density560
-      value: "560"
-      go_type: int
-    - go_name: Density600
-      value: "600"
-      go_type: int
-    - go_name: DensityDefault
-      value: "160"
-      go_type: int
-    - go_name: DensityDeviceStable
-      value: "0"
-      go_type: int
-    - go_name: DensityHigh
-      value: "240"
-      go_type: int
-    - go_name: DensityLow
-      value: "120"
-      go_type: int
-    - go_name: DensityMedium
-      value: "160"
-      go_type: int
-    - go_name: DensityTv
-      value: "213"
-      go_type: int
-    - go_name: DensityXhigh
-      value: "320"
-      go_type: int
-    - go_name: DensityXxhigh
-      value: "480"
-      go_type: int
-    - go_name: DensityXxxhigh
-      value: "640"
       go_type: int
     - go_name: CompatSmallCoverScreenOptIn
       value: "1"

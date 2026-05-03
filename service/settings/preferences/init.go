@@ -23,18 +23,6 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsSetValueRequest                   *jni.GlobalRef
-	midSetValueRequestDescribeContents   jni.MethodID
-	midSetValueRequestGetPreferenceKey   jni.MethodID
-	midSetValueRequestGetPreferenceValue jni.MethodID
-	midSetValueRequestGetScreenKey       jni.MethodID
-	midSetValueRequestWriteToParcel      jni.MethodID
-	midSetValueRequestToString           jni.MethodID
-
-	clsSetValueRequestBuilder         *jni.GlobalRef
-	midSetValueRequestBuilderBuild    jni.MethodID
-	midSetValueRequestBuilderToString jni.MethodID
-
 	clsGetValueRequest                 *jni.GlobalRef
 	midGetValueRequestDescribeContents jni.MethodID
 	midGetValueRequestGetPreferenceKey jni.MethodID
@@ -46,25 +34,20 @@ var (
 	midGetValueRequestBuilderBuild    jni.MethodID
 	midGetValueRequestBuilderToString jni.MethodID
 
-	clsSettingsPreferenceValue                 *jni.GlobalRef
-	midSettingsPreferenceValueDescribeContents jni.MethodID
-	midSettingsPreferenceValueGetBooleanValue  jni.MethodID
-	midSettingsPreferenceValueGetDoubleValue   jni.MethodID
-	midSettingsPreferenceValueGetIntValue      jni.MethodID
-	midSettingsPreferenceValueGetLongValue     jni.MethodID
-	midSettingsPreferenceValueGetStringValue   jni.MethodID
-	midSettingsPreferenceValueGetType          jni.MethodID
-	midSettingsPreferenceValueWriteToParcel    jni.MethodID
-	midSettingsPreferenceValueToString         jni.MethodID
+	clsSettingsPreferenceServiceClient         *jni.GlobalRef
+	midSettingsPreferenceServiceClientCtor     jni.MethodID
+	midSettingsPreferenceServiceClientClose    jni.MethodID
+	midSettingsPreferenceServiceClientToString jni.MethodID
 
-	clsSettingsPreferenceValueBuilder                *jni.GlobalRef
-	midSettingsPreferenceValueBuilderBuild           jni.MethodID
-	midSettingsPreferenceValueBuilderSetBooleanValue jni.MethodID
-	midSettingsPreferenceValueBuilderSetDoubleValue  jni.MethodID
-	midSettingsPreferenceValueBuilderSetIntValue     jni.MethodID
-	midSettingsPreferenceValueBuilderSetLongValue    jni.MethodID
-	midSettingsPreferenceValueBuilderSetStringValue  jni.MethodID
-	midSettingsPreferenceValueBuilderToString        jni.MethodID
+	clsSetValueResult                 *jni.GlobalRef
+	midSetValueResultDescribeContents jni.MethodID
+	midSetValueResultGetResultCode    jni.MethodID
+	midSetValueResultWriteToParcel    jni.MethodID
+	midSetValueResultToString         jni.MethodID
+
+	clsSetValueResultBuilder         *jni.GlobalRef
+	midSetValueResultBuilderBuild    jni.MethodID
+	midSetValueResultBuilderToString jni.MethodID
 
 	clsSettingsPreferenceMetadata                    *jni.GlobalRef
 	midSettingsPreferenceMetadataDescribeContents    jni.MethodID
@@ -97,6 +80,41 @@ var (
 	midSettingsPreferenceMetadataBuilderSetWriteSensitivity jni.MethodID
 	midSettingsPreferenceMetadataBuilderToString            jni.MethodID
 
+	clsMetadataResult                 *jni.GlobalRef
+	midMetadataResultDescribeContents jni.MethodID
+	midMetadataResultGetMetadataList  jni.MethodID
+	midMetadataResultGetResultCode    jni.MethodID
+	midMetadataResultWriteToParcel    jni.MethodID
+	midMetadataResultToString         jni.MethodID
+
+	clsMetadataResultBuilder         *jni.GlobalRef
+	midMetadataResultBuilderBuild    jni.MethodID
+	midMetadataResultBuilderToString jni.MethodID
+
+	clsSettingsPreferenceValue                 *jni.GlobalRef
+	midSettingsPreferenceValueDescribeContents jni.MethodID
+	midSettingsPreferenceValueGetBooleanValue  jni.MethodID
+	midSettingsPreferenceValueGetDoubleValue   jni.MethodID
+	midSettingsPreferenceValueGetIntValue      jni.MethodID
+	midSettingsPreferenceValueGetLongValue     jni.MethodID
+	midSettingsPreferenceValueGetStringValue   jni.MethodID
+	midSettingsPreferenceValueGetType          jni.MethodID
+	midSettingsPreferenceValueWriteToParcel    jni.MethodID
+	midSettingsPreferenceValueToString         jni.MethodID
+
+	clsSettingsPreferenceValueBuilder                *jni.GlobalRef
+	midSettingsPreferenceValueBuilderBuild           jni.MethodID
+	midSettingsPreferenceValueBuilderSetBooleanValue jni.MethodID
+	midSettingsPreferenceValueBuilderSetDoubleValue  jni.MethodID
+	midSettingsPreferenceValueBuilderSetIntValue     jni.MethodID
+	midSettingsPreferenceValueBuilderSetLongValue    jni.MethodID
+	midSettingsPreferenceValueBuilderSetStringValue  jni.MethodID
+	midSettingsPreferenceValueBuilderToString        jni.MethodID
+
+	clsSettingsPreferenceService         *jni.GlobalRef
+	midSettingsPreferenceServiceOnBind   jni.MethodID
+	midSettingsPreferenceServiceToString jni.MethodID
+
 	clsMetadataRequest                 *jni.GlobalRef
 	midMetadataRequestDescribeContents jni.MethodID
 	midMetadataRequestWriteToParcel    jni.MethodID
@@ -106,15 +124,17 @@ var (
 	midMetadataRequestBuilderBuild    jni.MethodID
 	midMetadataRequestBuilderToString jni.MethodID
 
-	clsSetValueResult                 *jni.GlobalRef
-	midSetValueResultDescribeContents jni.MethodID
-	midSetValueResultGetResultCode    jni.MethodID
-	midSetValueResultWriteToParcel    jni.MethodID
-	midSetValueResultToString         jni.MethodID
+	clsSetValueRequest                   *jni.GlobalRef
+	midSetValueRequestDescribeContents   jni.MethodID
+	midSetValueRequestGetPreferenceKey   jni.MethodID
+	midSetValueRequestGetPreferenceValue jni.MethodID
+	midSetValueRequestGetScreenKey       jni.MethodID
+	midSetValueRequestWriteToParcel      jni.MethodID
+	midSetValueRequestToString           jni.MethodID
 
-	clsSetValueResultBuilder         *jni.GlobalRef
-	midSetValueResultBuilderBuild    jni.MethodID
-	midSetValueResultBuilderToString jni.MethodID
+	clsSetValueRequestBuilder         *jni.GlobalRef
+	midSetValueRequestBuilderBuild    jni.MethodID
+	midSetValueRequestBuilderToString jni.MethodID
 
 	clsGetValueResult                 *jni.GlobalRef
 	midGetValueResultDescribeContents jni.MethodID
@@ -129,26 +149,6 @@ var (
 	midGetValueResultBuilderSetMetadata jni.MethodID
 	midGetValueResultBuilderSetValue    jni.MethodID
 	midGetValueResultBuilderToString    jni.MethodID
-
-	clsMetadataResult                 *jni.GlobalRef
-	midMetadataResultDescribeContents jni.MethodID
-	midMetadataResultGetMetadataList  jni.MethodID
-	midMetadataResultGetResultCode    jni.MethodID
-	midMetadataResultWriteToParcel    jni.MethodID
-	midMetadataResultToString         jni.MethodID
-
-	clsMetadataResultBuilder         *jni.GlobalRef
-	midMetadataResultBuilderBuild    jni.MethodID
-	midMetadataResultBuilderToString jni.MethodID
-
-	clsSettingsPreferenceServiceClient         *jni.GlobalRef
-	midSettingsPreferenceServiceClientCtor     jni.MethodID
-	midSettingsPreferenceServiceClientClose    jni.MethodID
-	midSettingsPreferenceServiceClientToString jni.MethodID
-
-	clsSettingsPreferenceService         *jni.GlobalRef
-	midSettingsPreferenceServiceOnBind   jni.MethodID
-	midSettingsPreferenceServiceToString jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -168,82 +168,6 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
-
-	c, err = env.FindClass("android/service/settings/preferences/SetValueRequest")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsSetValueRequest = env.NewGlobalRef(&c.Object)
-
-		midSetValueRequestDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetValueRequest)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetValueRequestGetPreferenceKey, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetValueRequest)), "getPreferenceKey", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetValueRequestGetPreferenceValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetValueRequest)), "getPreferenceValue", "()Landroid/service/settings/preferences/SettingsPreferenceValue;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetValueRequestGetScreenKey, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetValueRequest)), "getScreenKey", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetValueRequestWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetValueRequest)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetValueRequestToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetValueRequest)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/service/settings/preferences/SetValueRequest$Builder")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsSetValueRequestBuilder = env.NewGlobalRef(&c.Object)
-
-		midSetValueRequestBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetValueRequestBuilder)), "build", "()Landroid/service/settings/preferences/SetValueRequest;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetValueRequestBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetValueRequestBuilder)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
 
 	c, err = env.FindClass("android/service/settings/preferences/GetValueRequest")
 	if err != nil {
@@ -314,71 +238,26 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/service/settings/preferences/SettingsPreferenceValue")
+	c, err = env.FindClass("android/service/settings/preferences/SettingsPreferenceServiceClient")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsSettingsPreferenceValue = env.NewGlobalRef(&c.Object)
+		clsSettingsPreferenceServiceClient = env.NewGlobalRef(&c.Object)
+		midSettingsPreferenceServiceClientCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSettingsPreferenceServiceClient)), "<init>", "(Landroid/content/Context;Ljava/lang/String;Ljava/util/concurrent/Executor;Landroid/os/OutcomeReceiver;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midSettingsPreferenceValueDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSettingsPreferenceValue)), "describeContents", "()I")
+		midSettingsPreferenceServiceClientClose, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSettingsPreferenceServiceClient)), "close", "()V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSettingsPreferenceValueGetBooleanValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSettingsPreferenceValue)), "getBooleanValue", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSettingsPreferenceValueGetDoubleValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSettingsPreferenceValue)), "getDoubleValue", "()D")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSettingsPreferenceValueGetIntValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSettingsPreferenceValue)), "getIntValue", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSettingsPreferenceValueGetLongValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSettingsPreferenceValue)), "getLongValue", "()J")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSettingsPreferenceValueGetStringValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSettingsPreferenceValue)), "getStringValue", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSettingsPreferenceValueGetType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSettingsPreferenceValue)), "getType", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSettingsPreferenceValueWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSettingsPreferenceValue)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSettingsPreferenceValueToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSettingsPreferenceValue)), "toString", "()Ljava/lang/String;")
+		midSettingsPreferenceServiceClientToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSettingsPreferenceServiceClient)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -387,57 +266,60 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/service/settings/preferences/SettingsPreferenceValue$Builder")
+	c, err = env.FindClass("android/service/settings/preferences/SetValueResult")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsSettingsPreferenceValueBuilder = env.NewGlobalRef(&c.Object)
+		clsSetValueResult = env.NewGlobalRef(&c.Object)
 
-		midSettingsPreferenceValueBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSettingsPreferenceValueBuilder)), "build", "()Landroid/service/settings/preferences/SettingsPreferenceValue;")
+		midSetValueResultDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetValueResult)), "describeContents", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSettingsPreferenceValueBuilderSetBooleanValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSettingsPreferenceValueBuilder)), "setBooleanValue", "(Z)Landroid/service/settings/preferences/SettingsPreferenceValue$Builder;")
+		midSetValueResultGetResultCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetValueResult)), "getResultCode", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSettingsPreferenceValueBuilderSetDoubleValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSettingsPreferenceValueBuilder)), "setDoubleValue", "(D)Landroid/service/settings/preferences/SettingsPreferenceValue$Builder;")
+		midSetValueResultWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetValueResult)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSettingsPreferenceValueBuilderSetIntValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSettingsPreferenceValueBuilder)), "setIntValue", "(I)Landroid/service/settings/preferences/SettingsPreferenceValue$Builder;")
+		midSetValueResultToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetValueResult)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSettingsPreferenceValueBuilderSetLongValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSettingsPreferenceValueBuilder)), "setLongValue", "(J)Landroid/service/settings/preferences/SettingsPreferenceValue$Builder;")
+	}
+
+	c, err = env.FindClass("android/service/settings/preferences/SetValueResult$Builder")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSetValueResultBuilder = env.NewGlobalRef(&c.Object)
+
+		midSetValueResultBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetValueResultBuilder)), "build", "()Landroid/service/settings/preferences/SetValueResult;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSettingsPreferenceValueBuilderSetStringValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSettingsPreferenceValueBuilder)), "setStringValue", "(Ljava/lang/String;)Landroid/service/settings/preferences/SettingsPreferenceValue$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSettingsPreferenceValueBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSettingsPreferenceValueBuilder)), "toString", "()Ljava/lang/String;")
+		midSetValueResultBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetValueResultBuilder)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -655,6 +537,231 @@ func doInit(env *jni.Env) error {
 
 	}
 
+	c, err = env.FindClass("android/service/settings/preferences/MetadataResult")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsMetadataResult = env.NewGlobalRef(&c.Object)
+
+		midMetadataResultDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMetadataResult)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMetadataResultGetMetadataList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMetadataResult)), "getMetadataList", "()Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMetadataResultGetResultCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMetadataResult)), "getResultCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMetadataResultWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMetadataResult)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMetadataResultToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMetadataResult)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/service/settings/preferences/MetadataResult$Builder")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsMetadataResultBuilder = env.NewGlobalRef(&c.Object)
+
+		midMetadataResultBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMetadataResultBuilder)), "build", "()Landroid/service/settings/preferences/MetadataResult;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMetadataResultBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMetadataResultBuilder)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/service/settings/preferences/SettingsPreferenceValue")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSettingsPreferenceValue = env.NewGlobalRef(&c.Object)
+
+		midSettingsPreferenceValueDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSettingsPreferenceValue)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSettingsPreferenceValueGetBooleanValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSettingsPreferenceValue)), "getBooleanValue", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSettingsPreferenceValueGetDoubleValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSettingsPreferenceValue)), "getDoubleValue", "()D")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSettingsPreferenceValueGetIntValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSettingsPreferenceValue)), "getIntValue", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSettingsPreferenceValueGetLongValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSettingsPreferenceValue)), "getLongValue", "()J")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSettingsPreferenceValueGetStringValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSettingsPreferenceValue)), "getStringValue", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSettingsPreferenceValueGetType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSettingsPreferenceValue)), "getType", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSettingsPreferenceValueWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSettingsPreferenceValue)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSettingsPreferenceValueToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSettingsPreferenceValue)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/service/settings/preferences/SettingsPreferenceValue$Builder")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSettingsPreferenceValueBuilder = env.NewGlobalRef(&c.Object)
+
+		midSettingsPreferenceValueBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSettingsPreferenceValueBuilder)), "build", "()Landroid/service/settings/preferences/SettingsPreferenceValue;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSettingsPreferenceValueBuilderSetBooleanValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSettingsPreferenceValueBuilder)), "setBooleanValue", "(Z)Landroid/service/settings/preferences/SettingsPreferenceValue$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSettingsPreferenceValueBuilderSetDoubleValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSettingsPreferenceValueBuilder)), "setDoubleValue", "(D)Landroid/service/settings/preferences/SettingsPreferenceValue$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSettingsPreferenceValueBuilderSetIntValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSettingsPreferenceValueBuilder)), "setIntValue", "(I)Landroid/service/settings/preferences/SettingsPreferenceValue$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSettingsPreferenceValueBuilderSetLongValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSettingsPreferenceValueBuilder)), "setLongValue", "(J)Landroid/service/settings/preferences/SettingsPreferenceValue$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSettingsPreferenceValueBuilderSetStringValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSettingsPreferenceValueBuilder)), "setStringValue", "(Ljava/lang/String;)Landroid/service/settings/preferences/SettingsPreferenceValue$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSettingsPreferenceValueBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSettingsPreferenceValueBuilder)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/service/settings/preferences/SettingsPreferenceService")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSettingsPreferenceService = env.NewGlobalRef(&c.Object)
+
+		midSettingsPreferenceServiceOnBind, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSettingsPreferenceService)), "onBind", "(Landroid/content/Intent;)Landroid/os/IBinder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSettingsPreferenceServiceToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSettingsPreferenceService)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
 	c, err = env.FindClass("android/service/settings/preferences/MetadataRequest")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -710,36 +817,50 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/service/settings/preferences/SetValueResult")
+	c, err = env.FindClass("android/service/settings/preferences/SetValueRequest")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsSetValueResult = env.NewGlobalRef(&c.Object)
+		clsSetValueRequest = env.NewGlobalRef(&c.Object)
 
-		midSetValueResultDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetValueResult)), "describeContents", "()I")
+		midSetValueRequestDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetValueRequest)), "describeContents", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSetValueResultGetResultCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetValueResult)), "getResultCode", "()I")
+		midSetValueRequestGetPreferenceKey, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetValueRequest)), "getPreferenceKey", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSetValueResultWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetValueResult)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midSetValueRequestGetPreferenceValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetValueRequest)), "getPreferenceValue", "()Landroid/service/settings/preferences/SettingsPreferenceValue;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSetValueResultToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetValueResult)), "toString", "()Ljava/lang/String;")
+		midSetValueRequestGetScreenKey, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetValueRequest)), "getScreenKey", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSetValueRequestWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetValueRequest)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSetValueRequestToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetValueRequest)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -748,22 +869,22 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/service/settings/preferences/SetValueResult$Builder")
+	c, err = env.FindClass("android/service/settings/preferences/SetValueRequest$Builder")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsSetValueResultBuilder = env.NewGlobalRef(&c.Object)
+		clsSetValueRequestBuilder = env.NewGlobalRef(&c.Object)
 
-		midSetValueResultBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetValueResultBuilder)), "build", "()Landroid/service/settings/preferences/SetValueResult;")
+		midSetValueRequestBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetValueRequestBuilder)), "build", "()Landroid/service/settings/preferences/SetValueRequest;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSetValueResultBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetValueResultBuilder)), "toString", "()Ljava/lang/String;")
+		midSetValueRequestBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetValueRequestBuilder)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -854,127 +975,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midGetValueResultBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGetValueResultBuilder)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/service/settings/preferences/MetadataResult")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsMetadataResult = env.NewGlobalRef(&c.Object)
-
-		midMetadataResultDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMetadataResult)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMetadataResultGetMetadataList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMetadataResult)), "getMetadataList", "()Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMetadataResultGetResultCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMetadataResult)), "getResultCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMetadataResultWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMetadataResult)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMetadataResultToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMetadataResult)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/service/settings/preferences/MetadataResult$Builder")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsMetadataResultBuilder = env.NewGlobalRef(&c.Object)
-
-		midMetadataResultBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMetadataResultBuilder)), "build", "()Landroid/service/settings/preferences/MetadataResult;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMetadataResultBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMetadataResultBuilder)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/service/settings/preferences/SettingsPreferenceServiceClient")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsSettingsPreferenceServiceClient = env.NewGlobalRef(&c.Object)
-		midSettingsPreferenceServiceClientCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSettingsPreferenceServiceClient)), "<init>", "(Landroid/content/Context;Ljava/lang/String;Ljava/util/concurrent/Executor;Landroid/os/OutcomeReceiver;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midSettingsPreferenceServiceClientClose, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSettingsPreferenceServiceClient)), "close", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSettingsPreferenceServiceClientToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSettingsPreferenceServiceClient)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/service/settings/preferences/SettingsPreferenceService")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsSettingsPreferenceService = env.NewGlobalRef(&c.Object)
-
-		midSettingsPreferenceServiceOnBind, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSettingsPreferenceService)), "onBind", "(Landroid/content/Intent;)Landroid/os/IBinder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSettingsPreferenceServiceToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSettingsPreferenceService)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

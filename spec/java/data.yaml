@@ -5,49 +5,6 @@
 package: data
 go_import: github.com/AndroidGoLab/jni/telephony/data
 classes:
-    - java_class: android.telephony.data.UrspRule
-      go_type: UrspRule
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getPrecedence
-          go_name: GetPrecedence
-          returns: int
-          error: true
-        - java_method: getRouteSelectionDescriptor
-          go_name: GetRouteSelectionDescriptor
-          returns: java.util.List<android.telephony.data.RouteSelectionDescriptor>
-          error: true
-        - java_method: getTrafficDescriptors
-          go_name: GetTrafficDescriptors
-          returns: java.util.List<android.telephony.data.TrafficDescriptor>
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
     - java_class: android.telephony.data.ApnSetting
       go_type: ApnSetting
       methods:
@@ -416,66 +373,6 @@ classes:
               go_name: arg1
           returns: void
           error: true
-    - java_class: android.telephony.data.TrafficDescriptor
-      go_type: TrafficDescriptor
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getDataNetworkName
-          go_name: GetDataNetworkName
-          returns: String
-          error: true
-        - java_method: getOsAppId
-          go_name: GetOsAppId
-          returns: '[B'
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.telephony.data.TrafficDescriptor$Builder
-      go_type: TrafficDescriptorBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.telephony.data.TrafficDescriptor
-          error: true
-        - java_method: setDataNetworkName
-          go_name: SetDataNetworkName
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.telephony.data.TrafficDescriptor$Builder
-          error: true
-        - java_method: setOsAppId
-          go_name: SetOsAppId
-          params:
-            - java_type: '[B'
-              go_name: arg0
-          returns: android.telephony.data.TrafficDescriptor$Builder
-          error: true
     - java_class: android.telephony.data.NetworkSliceInfo
       go_type: NetworkSliceInfo
       methods:
@@ -569,6 +466,66 @@ classes:
               go_name: arg0
           returns: android.telephony.data.NetworkSliceInfo$Builder
           error: true
+    - java_class: android.telephony.data.TrafficDescriptor
+      go_type: TrafficDescriptor
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getDataNetworkName
+          go_name: GetDataNetworkName
+          returns: String
+          error: true
+        - java_method: getOsAppId
+          go_name: GetOsAppId
+          returns: '[B'
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.telephony.data.TrafficDescriptor$Builder
+      go_type: TrafficDescriptorBuilder
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.telephony.data.TrafficDescriptor
+          error: true
+        - java_method: setDataNetworkName
+          go_name: SetDataNetworkName
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.telephony.data.TrafficDescriptor$Builder
+          error: true
+        - java_method: setOsAppId
+          go_name: SetOsAppId
+          params:
+            - java_type: '[B'
+              go_name: arg0
+          returns: android.telephony.data.TrafficDescriptor$Builder
+          error: true
     - java_class: android.telephony.data.NetworkSlicingConfig
       go_type: NetworkSlicingConfig
       obtain: constructor
@@ -609,10 +566,50 @@ classes:
               go_name: arg1
           returns: void
           error: true
+    - java_class: android.telephony.data.UrspRule
+      go_type: UrspRule
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getPrecedence
+          go_name: GetPrecedence
+          returns: int
+          error: true
+        - java_method: getRouteSelectionDescriptor
+          go_name: GetRouteSelectionDescriptor
+          returns: java.util.List<android.telephony.data.RouteSelectionDescriptor>
+          error: true
+        - java_method: getTrafficDescriptors
+          go_name: GetTrafficDescriptors
+          returns: java.util.List<android.telephony.data.TrafficDescriptor>
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
 constants:
-    - go_name: Creator
-      value: "0"
-      go_type: int
     - go_name: AuthTypeChap
       value: "2"
       go_type: int
@@ -624,6 +621,9 @@ constants:
       go_type: int
     - go_name: AuthTypePapOrChap
       value: "3"
+      go_type: int
+    - go_name: Creator
+      value: "0"
       go_type: int
     - go_name: MvnoTypeGid
       value: "2"

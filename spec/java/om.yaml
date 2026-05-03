@@ -5,30 +5,43 @@
 package: om
 go_import: github.com/AndroidGoLab/jni/content/om
 classes:
-    - java_class: android.content.om.OverlayManagerTransaction
-      go_type: OverlayManagerTransaction
+    - java_class: android.content.om.OverlayInfo
+      go_type: OverlayInfo
       methods:
         - java_method: describeContents
           go_name: DescribeContents
           returns: int
           error: true
-        - java_method: registerFabricatedOverlay
-          go_name: RegisterFabricatedOverlay
+        - java_method: equals
+          go_name: Equals
           params:
-            - java_type: android.content.om.FabricatedOverlay
+            - java_type: java.lang.Object
               go_name: arg0
-          returns: void
+          returns: boolean
+          error: true
+        - java_method: getOverlayIdentifier
+          go_name: GetOverlayIdentifier
+          returns: android.content.om.OverlayIdentifier
+          error: true
+        - java_method: getOverlayName
+          go_name: GetOverlayName
+          returns: String
+          error: true
+        - java_method: getTargetOverlayableName
+          go_name: GetTargetOverlayableName
+          returns: String
+          error: true
+        - java_method: getTargetPackageName
+          go_name: GetTargetPackageName
+          returns: String
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
           error: true
         - java_method: toString
           go_name: ToString
           returns: String
-          error: true
-        - java_method: unregisterFabricatedOverlay
-          go_name: UnregisterFabricatedOverlay
-          params:
-            - java_type: android.content.om.OverlayIdentifier
-              go_name: arg0
-          returns: void
           error: true
         - java_method: writeToParcel
           go_name: WriteToParcel
@@ -39,10 +52,56 @@ classes:
               go_name: arg1
           returns: void
           error: true
-      static_methods:
-        - java_method: newInstance
-          go_name: NewInstance
-          returns: android.content.om.OverlayManagerTransaction
+    - java_class: android.content.om.OverlayManager
+      go_type: OverlayManager
+      obtain: system_service
+      service_name: overlay
+      close: true
+      methods:
+        - java_method: commit
+          go_name: Commit
+          params:
+            - java_type: android.content.om.OverlayManagerTransaction
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getOverlayInfosForTarget
+          go_name: GetOverlayInfosForTarget
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: java.util.List<android.content.om.OverlayInfo>
+          error: true
+    - java_class: android.content.om.OverlayIdentifier
+      go_type: OverlayIdentifier
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
           error: true
     - java_class: android.content.om.FabricatedOverlay
       go_type: FabricatedOverlay
@@ -123,27 +182,30 @@ classes:
               go_name: arg0
           returns: void
           error: true
-    - java_class: android.content.om.OverlayIdentifier
-      go_type: OverlayIdentifier
+    - java_class: android.content.om.OverlayManagerTransaction
+      go_type: OverlayManagerTransaction
       methods:
         - java_method: describeContents
           go_name: DescribeContents
           returns: int
           error: true
-        - java_method: equals
-          go_name: Equals
+        - java_method: registerFabricatedOverlay
+          go_name: RegisterFabricatedOverlay
           params:
-            - java_type: java.lang.Object
+            - java_type: android.content.om.FabricatedOverlay
               go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
+          returns: void
           error: true
         - java_method: toString
           go_name: ToString
           returns: String
+          error: true
+        - java_method: unregisterFabricatedOverlay
+          go_name: UnregisterFabricatedOverlay
+          params:
+            - java_type: android.content.om.OverlayIdentifier
+              go_name: arg0
+          returns: void
           error: true
         - java_method: writeToParcel
           go_name: WriteToParcel
@@ -154,72 +216,10 @@ classes:
               go_name: arg1
           returns: void
           error: true
-    - java_class: android.content.om.OverlayManager
-      go_type: OverlayManager
-      obtain: system_service
-      service_name: overlay
-      close: true
-      methods:
-        - java_method: commit
-          go_name: Commit
-          params:
-            - java_type: android.content.om.OverlayManagerTransaction
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getOverlayInfosForTarget
-          go_name: GetOverlayInfosForTarget
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: java.util.List<android.content.om.OverlayInfo>
-          error: true
-    - java_class: android.content.om.OverlayInfo
-      go_type: OverlayInfo
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getOverlayIdentifier
-          go_name: GetOverlayIdentifier
-          returns: android.content.om.OverlayIdentifier
-          error: true
-        - java_method: getOverlayName
-          go_name: GetOverlayName
-          returns: String
-          error: true
-        - java_method: getTargetOverlayableName
-          go_name: GetTargetOverlayableName
-          returns: String
-          error: true
-        - java_method: getTargetPackageName
-          go_name: GetTargetPackageName
-          returns: String
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
+      static_methods:
+        - java_method: newInstance
+          go_name: NewInstance
+          returns: android.content.om.OverlayManagerTransaction
           error: true
 constants:
     - go_name: Creator

@@ -5,6 +5,67 @@
 package: blob
 go_import: github.com/AndroidGoLab/jni/app/blob
 classes:
+    - java_class: android.app.blob.BlobHandle
+      go_type: Handle
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getExpiryTimeMillis
+          go_name: GetExpiryTimeMillis
+          returns: long
+          error: true
+        - java_method: getLabel
+          go_name: GetLabel
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: getSha256Digest
+          go_name: GetSha256Digest
+          returns: '[B'
+          error: true
+        - java_method: getTag
+          go_name: GetTag
+          returns: String
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+      static_methods:
+        - java_method: createWithSha256
+          go_name: CreateWithSha256
+          params:
+            - java_type: '[B'
+              go_name: arg0
+            - java_type: java.lang.CharSequence
+              go_name: arg1
+            - java_type: long
+              go_name: arg2
+            - java_type: String
+              go_name: arg3
+          returns: android.app.blob.BlobHandle
+          error: true
     - java_class: android.app.blob.BlobStoreManager
       go_type: StoreManager
       obtain: system_service
@@ -155,67 +216,6 @@ classes:
             - java_type: long
               go_name: arg1
           returns: android.os.ParcelFileDescriptor
-          error: true
-    - java_class: android.app.blob.BlobHandle
-      go_type: Handle
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getExpiryTimeMillis
-          go_name: GetExpiryTimeMillis
-          returns: long
-          error: true
-        - java_method: getLabel
-          go_name: GetLabel
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: getSha256Digest
-          go_name: GetSha256Digest
-          returns: '[B'
-          error: true
-        - java_method: getTag
-          go_name: GetTag
-          returns: String
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-      static_methods:
-        - java_method: createWithSha256
-          go_name: CreateWithSha256
-          params:
-            - java_type: '[B'
-              go_name: arg0
-            - java_type: java.lang.CharSequence
-              go_name: arg1
-            - java_type: long
-              go_name: arg2
-            - java_type: String
-              go_name: arg3
-          returns: android.app.blob.BlobHandle
           error: true
 constants:
     - go_name: Creator

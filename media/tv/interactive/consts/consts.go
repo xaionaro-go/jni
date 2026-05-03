@@ -3,35 +3,6 @@
 package consts
 
 const (
-	Creator                             int = 0
-	InteractiveAppTypeAtsc              int = 2
-	InteractiveAppTypeGinga             int = 4
-	InteractiveAppTypeHbbtv             int = 1
-	InteractiveAppTypeOther             int = -2147483648
-	InteractiveAppTypeTargetedAd        int = 8
-	ErrorBlocked                        int = 5
-	ErrorEncrypted                      int = 6
-	ErrorNone                           int = 0
-	ErrorNotSupported                   int = 2
-	ErrorResourceUnavailable            int = 4
-	ErrorUnknown                        int = 1
-	ErrorUnknownChannel                 int = 7
-	ErrorWeakSignal                     int = 3
-	InteractiveAppStateError            int = 3
-	InteractiveAppStateRunning          int = 2
-	InteractiveAppStateStopped          int = 1
-	ServiceStateError                   int = 4
-	ServiceStatePreparing               int = 2
-	ServiceStateReady                   int = 3
-	ServiceStateUnrealized              int = 1
-	TeletextAppStateError               int = 3
-	TeletextAppStateHide                int = 2
-	TeletextAppStateShow                int = 1
-	CommandParameterValueStopModeBlank  int = 1
-	CommandParameterValueStopModeFreeze int = 2
-)
-
-const (
 	BiInteractiveAppKeyAlias                 string = "alias"
 	BiInteractiveAppKeyCertificate           string = "certificate"
 	BiInteractiveAppKeyHttpAdditionalHeaders string = "http_additional_headers"
@@ -75,4 +46,33 @@ const (
 	TimeShiftCommandTypeSeekTo               string = "seek_to"
 	TimeShiftCommandTypeSetMode              string = "set_mode"
 	TimeShiftCommandTypeSetPlaybackParams    string = "set_playback_params"
+)
+
+const (
+	Creator                             int = 0
+	InteractiveAppTypeAtsc              int = 2
+	InteractiveAppTypeGinga             int = 4
+	InteractiveAppTypeHbbtv             int = 1
+	InteractiveAppTypeOther             int = -2147483648
+	InteractiveAppTypeTargetedAd        int = 8
+	ErrorBlocked                        int = 5
+	ErrorEncrypted                      int = 6
+	ErrorNone                           int = 0
+	ErrorNotSupported                   int = 2
+	ErrorResourceUnavailable            int = 4
+	ErrorUnknown                        int = 1
+	ErrorUnknownChannel                 int = 7
+	ErrorWeakSignal                     int = 3
+	InteractiveAppStateError            int = 3
+	InteractiveAppStateRunning          int = 2
+	InteractiveAppStateStopped          int = 1
+	ServiceStateError                   int = 4
+	ServiceStatePreparing               int = 2
+	ServiceStateReady                   int = 3
+	ServiceStateUnrealized              int = 1
+	TeletextAppStateError               int = 3
+	TeletextAppStateHide                int = 2
+	TeletextAppStateShow                int = 1
+	CommandParameterValueStopModeBlank  int = 1
+	CommandParameterValueStopModeFreeze int = 2
 )

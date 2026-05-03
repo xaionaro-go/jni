@@ -9,9 +9,9 @@ const (
 	GestureStrokeTypeSingle   = consts.GestureStrokeTypeSingle
 	OrientationHorizontal     = consts.OrientationHorizontal
 	OrientationVertical       = consts.OrientationVertical
+	Creator                   = consts.Creator
 	OrientationInvariant      = consts.OrientationInvariant
 	OrientationSensitive      = consts.OrientationSensitive
 	SequenceInvariant         = consts.SequenceInvariant
 	SequenceSensitive         = consts.SequenceSensitive
-	Creator                   = consts.Creator
 )

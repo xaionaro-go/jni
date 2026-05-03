@@ -23,57 +23,84 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsHidDeviceAppSdpSettings                 *jni.GlobalRef
-	midHidDeviceAppSdpSettingsCtor             jni.MethodID
-	midHidDeviceAppSdpSettingsDescribeContents jni.MethodID
-	midHidDeviceAppSdpSettingsGetDescription   jni.MethodID
-	midHidDeviceAppSdpSettingsGetDescriptors   jni.MethodID
-	midHidDeviceAppSdpSettingsGetName          jni.MethodID
-	midHidDeviceAppSdpSettingsGetProvider      jni.MethodID
-	midHidDeviceAppSdpSettingsGetSubclass      jni.MethodID
-	midHidDeviceAppSdpSettingsWriteToParcel    jni.MethodID
-	midHidDeviceAppSdpSettingsToString         jni.MethodID
+	clsProfile                                   *jni.GlobalRef
+	midProfileGetConnectedDevices                jni.MethodID
+	midProfileGetConnectionState                 jni.MethodID
+	midProfileGetDevicesMatchingConnectionStates jni.MethodID
+	midProfileToString                           jni.MethodID
 
-	clsCsipSetCoordinator                                   *jni.GlobalRef
-	midCsipSetCoordinatorClose                              jni.MethodID
-	midCsipSetCoordinatorGetConnectedDevices                jni.MethodID
-	midCsipSetCoordinatorGetConnectionState                 jni.MethodID
-	midCsipSetCoordinatorGetDevicesMatchingConnectionStates jni.MethodID
-	midCsipSetCoordinatorToString                           jni.MethodID
+	clsGattServer                                   *jni.GlobalRef
+	midGattServerAddService                         jni.MethodID
+	midGattServerCancelConnection                   jni.MethodID
+	midGattServerClearServices                      jni.MethodID
+	midGattServerClose                              jni.MethodID
+	midGattServerConnect                            jni.MethodID
+	midGattServerGetConnectedDevices                jni.MethodID
+	midGattServerGetConnectionState                 jni.MethodID
+	midGattServerGetDevicesMatchingConnectionStates jni.MethodID
+	midGattServerGetService                         jni.MethodID
+	midGattServerGetServices                        jni.MethodID
+	midGattServerNotifyCharacteristicChanged3       jni.MethodID
+	midGattServerNotifyCharacteristicChanged4_1     jni.MethodID
+	midGattServerReadPhy                            jni.MethodID
+	midGattServerRemoveService                      jni.MethodID
+	midGattServerSendResponse                       jni.MethodID
+	midGattServerSetPreferredPhy                    jni.MethodID
+	midGattServerToString                           jni.MethodID
 
-	clsA2dp                                   *jni.GlobalRef
-	midA2dpFinalize                           jni.MethodID
-	midA2dpGetConnectedDevices                jni.MethodID
-	midA2dpGetConnectionState                 jni.MethodID
-	midA2dpGetDevicesMatchingConnectionStates jni.MethodID
-	midA2dpGetSupportedCodecTypes             jni.MethodID
-	midA2dpIsA2dpPlaying                      jni.MethodID
-	midA2dpToString                           jni.MethodID
+	clsProfileServiceListener                      *jni.GlobalRef
+	midProfileServiceListenerOnServiceConnected    jni.MethodID
+	midProfileServiceListenerOnServiceDisconnected jni.MethodID
+	midProfileServiceListenerToString              jni.MethodID
 
-	clsHidDeviceAppQosSettings                   *jni.GlobalRef
-	midHidDeviceAppQosSettingsCtor               jni.MethodID
-	midHidDeviceAppQosSettingsDescribeContents   jni.MethodID
-	midHidDeviceAppQosSettingsGetDelayVariation  jni.MethodID
-	midHidDeviceAppQosSettingsGetLatency         jni.MethodID
-	midHidDeviceAppQosSettingsGetPeakBandwidth   jni.MethodID
-	midHidDeviceAppQosSettingsGetServiceType     jni.MethodID
-	midHidDeviceAppQosSettingsGetTokenBucketSize jni.MethodID
-	midHidDeviceAppQosSettingsGetTokenRate       jni.MethodID
-	midHidDeviceAppQosSettingsWriteToParcel      jni.MethodID
-	midHidDeviceAppQosSettingsToString           jni.MethodID
+	clsLeAudioCodecStatus                                     *jni.GlobalRef
+	midLeAudioCodecStatusCtor                                 jni.MethodID
+	midLeAudioCodecStatusDescribeContents                     jni.MethodID
+	midLeAudioCodecStatusEquals                               jni.MethodID
+	midLeAudioCodecStatusGetInputCodecConfig                  jni.MethodID
+	midLeAudioCodecStatusGetInputCodecLocalCapabilities       jni.MethodID
+	midLeAudioCodecStatusGetInputCodecSelectableCapabilities  jni.MethodID
+	midLeAudioCodecStatusGetOutputCodecConfig                 jni.MethodID
+	midLeAudioCodecStatusGetOutputCodecLocalCapabilities      jni.MethodID
+	midLeAudioCodecStatusGetOutputCodecSelectableCapabilities jni.MethodID
+	midLeAudioCodecStatusHashCode                             jni.MethodID
+	midLeAudioCodecStatusIsInputCodecConfigSelectable         jni.MethodID
+	midLeAudioCodecStatusIsOutputCodecConfigSelectable        jni.MethodID
+	midLeAudioCodecStatusToString                             jni.MethodID
+	midLeAudioCodecStatusWriteToParcel                        jni.MethodID
 
-	clsHealthCallback                                     *jni.GlobalRef
-	midHealthCallbackOnHealthAppConfigurationStatusChange jni.MethodID
-	midHealthCallbackOnHealthChannelStateChange           jni.MethodID
-	midHealthCallbackToString                             jni.MethodID
+	clsAssignedNumbers         *jni.GlobalRef
+	midAssignedNumbersToString jni.MethodID
 
-	clsManager                                   *jni.GlobalRef
-	midManagerGetAdapter                         jni.MethodID
-	midManagerGetConnectedDevices                jni.MethodID
-	midManagerGetConnectionState                 jni.MethodID
-	midManagerGetDevicesMatchingConnectionStates jni.MethodID
-	midManagerOpenGattServer                     jni.MethodID
-	midManagerToString                           jni.MethodID
+	clsLeAudioCodecConfig                     *jni.GlobalRef
+	midLeAudioCodecConfigDescribeContents     jni.MethodID
+	midLeAudioCodecConfigEquals               jni.MethodID
+	midLeAudioCodecConfigGetBitsPerSample     jni.MethodID
+	midLeAudioCodecConfigGetChannelCount      jni.MethodID
+	midLeAudioCodecConfigGetCodecName         jni.MethodID
+	midLeAudioCodecConfigGetCodecPriority     jni.MethodID
+	midLeAudioCodecConfigGetCodecType         jni.MethodID
+	midLeAudioCodecConfigGetFrameDuration     jni.MethodID
+	midLeAudioCodecConfigGetMaxOctetsPerFrame jni.MethodID
+	midLeAudioCodecConfigGetMinOctetsPerFrame jni.MethodID
+	midLeAudioCodecConfigGetOctetsPerFrame    jni.MethodID
+	midLeAudioCodecConfigGetSampleRate        jni.MethodID
+	midLeAudioCodecConfigHashCode             jni.MethodID
+	midLeAudioCodecConfigToString             jni.MethodID
+	midLeAudioCodecConfigWriteToParcel        jni.MethodID
+
+	clsLeAudioCodecConfigBuilder                     *jni.GlobalRef
+	midLeAudioCodecConfigBuilderBuild                jni.MethodID
+	midLeAudioCodecConfigBuilderSetBitsPerSample     jni.MethodID
+	midLeAudioCodecConfigBuilderSetChannelCount      jni.MethodID
+	midLeAudioCodecConfigBuilderSetCodecPriority     jni.MethodID
+	midLeAudioCodecConfigBuilderSetCodecType         jni.MethodID
+	midLeAudioCodecConfigBuilderSetFrameDuration     jni.MethodID
+	midLeAudioCodecConfigBuilderSetMaxOctetsPerFrame jni.MethodID
+	midLeAudioCodecConfigBuilderSetMinOctetsPerFrame jni.MethodID
+	midLeAudioCodecConfigBuilderSetOctetsPerFrame    jni.MethodID
+	midLeAudioCodecConfigBuilderSetSampleRate        jni.MethodID
+	midLeAudioCodecConfigBuilderToString             jni.MethodID
 
 	clsHidDevice                                   *jni.GlobalRef
 	midHidDeviceConnect                            jni.MethodID
@@ -98,40 +125,129 @@ var (
 	midHidDeviceCallbackOnVirtualCableUnplug     jni.MethodID
 	midHidDeviceCallbackToString                 jni.MethodID
 
-	clsServerSocket          *jni.GlobalRef
-	midServerSocketAccept0   jni.MethodID
-	midServerSocketAccept1_1 jni.MethodID
-	midServerSocketClose     jni.MethodID
-	midServerSocketGetPsm    jni.MethodID
-	midServerSocketToString  jni.MethodID
+	clsHidDeviceAppSdpSettings                 *jni.GlobalRef
+	midHidDeviceAppSdpSettingsCtor             jni.MethodID
+	midHidDeviceAppSdpSettingsDescribeContents jni.MethodID
+	midHidDeviceAppSdpSettingsGetDescription   jni.MethodID
+	midHidDeviceAppSdpSettingsGetDescriptors   jni.MethodID
+	midHidDeviceAppSdpSettingsGetName          jni.MethodID
+	midHidDeviceAppSdpSettingsGetProvider      jni.MethodID
+	midHidDeviceAppSdpSettingsGetSubclass      jni.MethodID
+	midHidDeviceAppSdpSettingsWriteToParcel    jni.MethodID
+	midHidDeviceAppSdpSettingsToString         jni.MethodID
 
-	clsSocket                         *jni.GlobalRef
-	midSocketClose                    jni.MethodID
-	midSocketConnect                  jni.MethodID
-	midSocketGetConnectionType        jni.MethodID
-	midSocketGetInputStream           jni.MethodID
-	midSocketGetMaxReceivePacketSize  jni.MethodID
-	midSocketGetMaxTransmitPacketSize jni.MethodID
-	midSocketGetOutputStream          jni.MethodID
-	midSocketGetRemoteDevice          jni.MethodID
-	midSocketIsConnected              jni.MethodID
-	midSocketToString                 jni.MethodID
+	clsClass                    *jni.GlobalRef
+	midClassDescribeContents    jni.MethodID
+	midClassDoesClassMatch      jni.MethodID
+	midClassEquals              jni.MethodID
+	midClassGetDeviceClass      jni.MethodID
+	midClassGetMajorDeviceClass jni.MethodID
+	midClassHasService          jni.MethodID
+	midClassHashCode            jni.MethodID
+	midClassToString            jni.MethodID
+	midClassWriteToParcel       jni.MethodID
 
-	clsLeAudioCodecStatus                                     *jni.GlobalRef
-	midLeAudioCodecStatusCtor                                 jni.MethodID
-	midLeAudioCodecStatusDescribeContents                     jni.MethodID
-	midLeAudioCodecStatusEquals                               jni.MethodID
-	midLeAudioCodecStatusGetInputCodecConfig                  jni.MethodID
-	midLeAudioCodecStatusGetInputCodecLocalCapabilities       jni.MethodID
-	midLeAudioCodecStatusGetInputCodecSelectableCapabilities  jni.MethodID
-	midLeAudioCodecStatusGetOutputCodecConfig                 jni.MethodID
-	midLeAudioCodecStatusGetOutputCodecLocalCapabilities      jni.MethodID
-	midLeAudioCodecStatusGetOutputCodecSelectableCapabilities jni.MethodID
-	midLeAudioCodecStatusHashCode                             jni.MethodID
-	midLeAudioCodecStatusIsInputCodecConfigSelectable         jni.MethodID
-	midLeAudioCodecStatusIsOutputCodecConfigSelectable        jni.MethodID
-	midLeAudioCodecStatusToString                             jni.MethodID
-	midLeAudioCodecStatusWriteToParcel                        jni.MethodID
+	clsClassDevice         *jni.GlobalRef
+	midClassDeviceToString jni.MethodID
+
+	clsClassService         *jni.GlobalRef
+	midClassServiceToString jni.MethodID
+
+	clsHidDeviceAppQosSettings                   *jni.GlobalRef
+	midHidDeviceAppQosSettingsCtor               jni.MethodID
+	midHidDeviceAppQosSettingsDescribeContents   jni.MethodID
+	midHidDeviceAppQosSettingsGetDelayVariation  jni.MethodID
+	midHidDeviceAppQosSettingsGetLatency         jni.MethodID
+	midHidDeviceAppQosSettingsGetPeakBandwidth   jni.MethodID
+	midHidDeviceAppQosSettingsGetServiceType     jni.MethodID
+	midHidDeviceAppQosSettingsGetTokenBucketSize jni.MethodID
+	midHidDeviceAppQosSettingsGetTokenRate       jni.MethodID
+	midHidDeviceAppQosSettingsWriteToParcel      jni.MethodID
+	midHidDeviceAppQosSettingsToString           jni.MethodID
+
+	clsA2dp                                   *jni.GlobalRef
+	midA2dpFinalize                           jni.MethodID
+	midA2dpGetConnectedDevices                jni.MethodID
+	midA2dpGetConnectionState                 jni.MethodID
+	midA2dpGetDevicesMatchingConnectionStates jni.MethodID
+	midA2dpGetSupportedCodecTypes             jni.MethodID
+	midA2dpIsA2dpPlaying                      jni.MethodID
+	midA2dpToString                           jni.MethodID
+
+	clsCodecStatus                                *jni.GlobalRef
+	midCodecStatusDescribeContents                jni.MethodID
+	midCodecStatusEquals                          jni.MethodID
+	midCodecStatusGetCodecConfig                  jni.MethodID
+	midCodecStatusGetCodecsLocalCapabilities      jni.MethodID
+	midCodecStatusGetCodecsSelectableCapabilities jni.MethodID
+	midCodecStatusHashCode                        jni.MethodID
+	midCodecStatusIsCodecConfigSelectable         jni.MethodID
+	midCodecStatusToString                        jni.MethodID
+	midCodecStatusWriteToParcel                   jni.MethodID
+
+	clsCodecStatusBuilder               *jni.GlobalRef
+	midCodecStatusBuilderBuild          jni.MethodID
+	midCodecStatusBuilderSetCodecConfig jni.MethodID
+	midCodecStatusBuilderToString       jni.MethodID
+
+	clsGattCallback                           *jni.GlobalRef
+	midGattCallbackOnCharacteristicChanged2   jni.MethodID
+	midGattCallbackOnCharacteristicChanged3_1 jni.MethodID
+	midGattCallbackOnCharacteristicRead4      jni.MethodID
+	midGattCallbackOnCharacteristicRead3_1    jni.MethodID
+	midGattCallbackOnCharacteristicWrite      jni.MethodID
+	midGattCallbackOnConnectionStateChange    jni.MethodID
+	midGattCallbackOnDescriptorRead3          jni.MethodID
+	midGattCallbackOnDescriptorRead4_1        jni.MethodID
+	midGattCallbackOnDescriptorWrite          jni.MethodID
+	midGattCallbackOnMtuChanged               jni.MethodID
+	midGattCallbackOnPhyRead                  jni.MethodID
+	midGattCallbackOnPhyUpdate                jni.MethodID
+	midGattCallbackOnReadRemoteRssi           jni.MethodID
+	midGattCallbackOnReliableWriteCompleted   jni.MethodID
+	midGattCallbackOnServiceChanged           jni.MethodID
+	midGattCallbackOnServicesDiscovered       jni.MethodID
+	midGattCallbackToString                   jni.MethodID
+
+	clsHealthCallback                                     *jni.GlobalRef
+	midHealthCallbackOnHealthAppConfigurationStatusChange jni.MethodID
+	midHealthCallbackOnHealthChannelStateChange           jni.MethodID
+	midHealthCallbackToString                             jni.MethodID
+
+	clsSocketSettings                         *jni.GlobalRef
+	midSocketSettingsGetL2capPsm              jni.MethodID
+	midSocketSettingsGetRfcommServiceName     jni.MethodID
+	midSocketSettingsGetRfcommUuid            jni.MethodID
+	midSocketSettingsGetSocketType            jni.MethodID
+	midSocketSettingsIsAuthenticationRequired jni.MethodID
+	midSocketSettingsIsEncryptionRequired     jni.MethodID
+	midSocketSettingsToString                 jni.MethodID
+
+	clsSocketSettingsBuilder                          *jni.GlobalRef
+	midSocketSettingsBuilderBuild                     jni.MethodID
+	midSocketSettingsBuilderSetAuthenticationRequired jni.MethodID
+	midSocketSettingsBuilderSetEncryptionRequired     jni.MethodID
+	midSocketSettingsBuilderSetL2capPsm               jni.MethodID
+	midSocketSettingsBuilderSetRfcommServiceName      jni.MethodID
+	midSocketSettingsBuilderSetRfcommUuid             jni.MethodID
+	midSocketSettingsBuilderSetSocketType             jni.MethodID
+	midSocketSettingsBuilderToString                  jni.MethodID
+
+	clsSocketException             *jni.GlobalRef
+	midSocketExceptionCtor         jni.MethodID
+	midSocketExceptionGetErrorCode jni.MethodID
+	midSocketExceptionToString     jni.MethodID
+
+	clsStatusCodes         *jni.GlobalRef
+	midStatusCodesToString jni.MethodID
+
+	clsManager                                   *jni.GlobalRef
+	midManagerGetAdapter                         jni.MethodID
+	midManagerGetConnectedDevices                jni.MethodID
+	midManagerGetConnectionState                 jni.MethodID
+	midManagerGetDevicesMatchingConnectionStates jni.MethodID
+	midManagerOpenGattServer                     jni.MethodID
+	midManagerToString                           jni.MethodID
 
 	clsGattCharacteristic                 *jni.GlobalRef
 	midGattCharacteristicCtor             jni.MethodID
@@ -157,13 +273,27 @@ var (
 	midGattCharacteristicWriteToParcel    jni.MethodID
 	midGattCharacteristicToString         jni.MethodID
 
-	clsHealthAppConfiguration                 *jni.GlobalRef
-	midHealthAppConfigurationDescribeContents jni.MethodID
-	midHealthAppConfigurationGetDataType      jni.MethodID
-	midHealthAppConfigurationGetName          jni.MethodID
-	midHealthAppConfigurationGetRole          jni.MethodID
-	midHealthAppConfigurationWriteToParcel    jni.MethodID
-	midHealthAppConfigurationToString         jni.MethodID
+	clsLeAudio                                   *jni.GlobalRef
+	midLeAudioClose                              jni.MethodID
+	midLeAudioGetConnectedDevices                jni.MethodID
+	midLeAudioGetConnectedGroupLeadDevice        jni.MethodID
+	midLeAudioGetConnectionState                 jni.MethodID
+	midLeAudioGetDevicesMatchingConnectionStates jni.MethodID
+	midLeAudioGetGroupId                         jni.MethodID
+	midLeAudioToString                           jni.MethodID
+
+	clsHearingAid                                   *jni.GlobalRef
+	midHearingAidGetConnectedDevices                jni.MethodID
+	midHearingAidGetConnectionState                 jni.MethodID
+	midHearingAidGetDevicesMatchingConnectionStates jni.MethodID
+	midHearingAidToString                           jni.MethodID
+
+	clsCsipSetCoordinator                                   *jni.GlobalRef
+	midCsipSetCoordinatorClose                              jni.MethodID
+	midCsipSetCoordinatorGetConnectedDevices                jni.MethodID
+	midCsipSetCoordinatorGetConnectionState                 jni.MethodID
+	midCsipSetCoordinatorGetDevicesMatchingConnectionStates jni.MethodID
+	midCsipSetCoordinatorToString                           jni.MethodID
 
 	clsAdapter                                           *jni.GlobalRef
 	midAdapterCancelDiscovery                            jni.MethodID
@@ -214,99 +344,6 @@ var (
 	midAdapterLeScanCallbackOnLeScan jni.MethodID
 	midAdapterLeScanCallbackToString jni.MethodID
 
-	clsAssignedNumbers         *jni.GlobalRef
-	midAssignedNumbersToString jni.MethodID
-
-	clsGattServer                                   *jni.GlobalRef
-	midGattServerAddService                         jni.MethodID
-	midGattServerCancelConnection                   jni.MethodID
-	midGattServerClearServices                      jni.MethodID
-	midGattServerClose                              jni.MethodID
-	midGattServerConnect                            jni.MethodID
-	midGattServerGetConnectedDevices                jni.MethodID
-	midGattServerGetConnectionState                 jni.MethodID
-	midGattServerGetDevicesMatchingConnectionStates jni.MethodID
-	midGattServerGetService                         jni.MethodID
-	midGattServerGetServices                        jni.MethodID
-	midGattServerNotifyCharacteristicChanged3       jni.MethodID
-	midGattServerNotifyCharacteristicChanged4_1     jni.MethodID
-	midGattServerReadPhy                            jni.MethodID
-	midGattServerRemoveService                      jni.MethodID
-	midGattServerSendResponse                       jni.MethodID
-	midGattServerSetPreferredPhy                    jni.MethodID
-	midGattServerToString                           jni.MethodID
-
-	clsLeAudio                                   *jni.GlobalRef
-	midLeAudioClose                              jni.MethodID
-	midLeAudioGetConnectedDevices                jni.MethodID
-	midLeAudioGetConnectedGroupLeadDevice        jni.MethodID
-	midLeAudioGetConnectionState                 jni.MethodID
-	midLeAudioGetDevicesMatchingConnectionStates jni.MethodID
-	midLeAudioGetGroupId                         jni.MethodID
-	midLeAudioToString                           jni.MethodID
-
-	clsLeAudioCodecConfig                     *jni.GlobalRef
-	midLeAudioCodecConfigDescribeContents     jni.MethodID
-	midLeAudioCodecConfigEquals               jni.MethodID
-	midLeAudioCodecConfigGetBitsPerSample     jni.MethodID
-	midLeAudioCodecConfigGetChannelCount      jni.MethodID
-	midLeAudioCodecConfigGetCodecName         jni.MethodID
-	midLeAudioCodecConfigGetCodecPriority     jni.MethodID
-	midLeAudioCodecConfigGetCodecType         jni.MethodID
-	midLeAudioCodecConfigGetFrameDuration     jni.MethodID
-	midLeAudioCodecConfigGetMaxOctetsPerFrame jni.MethodID
-	midLeAudioCodecConfigGetMinOctetsPerFrame jni.MethodID
-	midLeAudioCodecConfigGetOctetsPerFrame    jni.MethodID
-	midLeAudioCodecConfigGetSampleRate        jni.MethodID
-	midLeAudioCodecConfigHashCode             jni.MethodID
-	midLeAudioCodecConfigToString             jni.MethodID
-	midLeAudioCodecConfigWriteToParcel        jni.MethodID
-
-	clsLeAudioCodecConfigBuilder                     *jni.GlobalRef
-	midLeAudioCodecConfigBuilderBuild                jni.MethodID
-	midLeAudioCodecConfigBuilderSetBitsPerSample     jni.MethodID
-	midLeAudioCodecConfigBuilderSetChannelCount      jni.MethodID
-	midLeAudioCodecConfigBuilderSetCodecPriority     jni.MethodID
-	midLeAudioCodecConfigBuilderSetCodecType         jni.MethodID
-	midLeAudioCodecConfigBuilderSetFrameDuration     jni.MethodID
-	midLeAudioCodecConfigBuilderSetMaxOctetsPerFrame jni.MethodID
-	midLeAudioCodecConfigBuilderSetMinOctetsPerFrame jni.MethodID
-	midLeAudioCodecConfigBuilderSetOctetsPerFrame    jni.MethodID
-	midLeAudioCodecConfigBuilderSetSampleRate        jni.MethodID
-	midLeAudioCodecConfigBuilderToString             jni.MethodID
-
-	clsCodecConfig                     *jni.GlobalRef
-	midCodecConfigDescribeContents     jni.MethodID
-	midCodecConfigEquals               jni.MethodID
-	midCodecConfigGetBitsPerSample     jni.MethodID
-	midCodecConfigGetChannelMode       jni.MethodID
-	midCodecConfigGetCodecPriority     jni.MethodID
-	midCodecConfigGetCodecSpecific1    jni.MethodID
-	midCodecConfigGetCodecSpecific2    jni.MethodID
-	midCodecConfigGetCodecSpecific3    jni.MethodID
-	midCodecConfigGetCodecSpecific4    jni.MethodID
-	midCodecConfigGetCodecType         jni.MethodID
-	midCodecConfigGetExtendedCodecType jni.MethodID
-	midCodecConfigGetSampleRate        jni.MethodID
-	midCodecConfigHashCode             jni.MethodID
-	midCodecConfigIsMandatoryCodec     jni.MethodID
-	midCodecConfigToString             jni.MethodID
-	midCodecConfigWriteToParcel        jni.MethodID
-
-	clsCodecConfigBuilder                     *jni.GlobalRef
-	midCodecConfigBuilderBuild                jni.MethodID
-	midCodecConfigBuilderSetBitsPerSample     jni.MethodID
-	midCodecConfigBuilderSetChannelMode       jni.MethodID
-	midCodecConfigBuilderSetCodecPriority     jni.MethodID
-	midCodecConfigBuilderSetCodecSpecific1    jni.MethodID
-	midCodecConfigBuilderSetCodecSpecific2    jni.MethodID
-	midCodecConfigBuilderSetCodecSpecific3    jni.MethodID
-	midCodecConfigBuilderSetCodecSpecific4    jni.MethodID
-	midCodecConfigBuilderSetCodecType         jni.MethodID
-	midCodecConfigBuilderSetExtendedCodecType jni.MethodID
-	midCodecConfigBuilderSetSampleRate        jni.MethodID
-	midCodecConfigBuilderToString             jni.MethodID
-
 	clsGattServerCallback                             *jni.GlobalRef
 	midGattServerCallbackOnCharacteristicReadRequest  jni.MethodID
 	midGattServerCallbackOnCharacteristicWriteRequest jni.MethodID
@@ -320,18 +357,6 @@ var (
 	midGattServerCallbackOnPhyUpdate                  jni.MethodID
 	midGattServerCallbackOnServiceAdded               jni.MethodID
 	midGattServerCallbackToString                     jni.MethodID
-
-	clsHeadset                                   *jni.GlobalRef
-	midHeadsetGetConnectedDevices                jni.MethodID
-	midHeadsetGetConnectionState                 jni.MethodID
-	midHeadsetGetDevicesMatchingConnectionStates jni.MethodID
-	midHeadsetIsAudioConnected                   jni.MethodID
-	midHeadsetIsNoiseReductionSupported          jni.MethodID
-	midHeadsetIsVoiceRecognitionSupported        jni.MethodID
-	midHeadsetSendVendorSpecificResultCode       jni.MethodID
-	midHeadsetStartVoiceRecognition              jni.MethodID
-	midHeadsetStopVoiceRecognition               jni.MethodID
-	midHeadsetToString                           jni.MethodID
 
 	clsDevice                                          *jni.GlobalRef
 	midDeviceConnectGatt3                              jni.MethodID
@@ -369,6 +394,41 @@ var (
 	midDeviceBluetoothAddressWriteToParcel    jni.MethodID
 	midDeviceBluetoothAddressToString         jni.MethodID
 
+	clsGattService                    *jni.GlobalRef
+	midGattServiceCtor                jni.MethodID
+	midGattServiceAddCharacteristic   jni.MethodID
+	midGattServiceAddService          jni.MethodID
+	midGattServiceDescribeContents    jni.MethodID
+	midGattServiceGetCharacteristic   jni.MethodID
+	midGattServiceGetCharacteristics  jni.MethodID
+	midGattServiceGetIncludedServices jni.MethodID
+	midGattServiceGetInstanceId       jni.MethodID
+	midGattServiceGetType             jni.MethodID
+	midGattServiceGetUuid             jni.MethodID
+	midGattServiceWriteToParcel       jni.MethodID
+	midGattServiceToString            jni.MethodID
+
+	clsGattDescriptor                  *jni.GlobalRef
+	midGattDescriptorCtor              jni.MethodID
+	midGattDescriptorDescribeContents  jni.MethodID
+	midGattDescriptorGetCharacteristic jni.MethodID
+	midGattDescriptorGetPermissions    jni.MethodID
+	midGattDescriptorGetUuid           jni.MethodID
+	midGattDescriptorGetValue          jni.MethodID
+	midGattDescriptorSetValue          jni.MethodID
+	midGattDescriptorWriteToParcel     jni.MethodID
+	midGattDescriptorToString          jni.MethodID
+
+	clsCodecType                 *jni.GlobalRef
+	midCodecTypeDescribeContents jni.MethodID
+	midCodecTypeEquals           jni.MethodID
+	midCodecTypeGetCodecId       jni.MethodID
+	midCodecTypeGetCodecName     jni.MethodID
+	midCodecTypeHashCode         jni.MethodID
+	midCodecTypeIsMandatoryCodec jni.MethodID
+	midCodecTypeToString         jni.MethodID
+	midCodecTypeWriteToParcel    jni.MethodID
+
 	clsGatt                                   *jni.GlobalRef
 	midGattAbortReliableWrite0                jni.MethodID
 	midGattAbortReliableWrite1_1              jni.MethodID
@@ -398,74 +458,76 @@ var (
 	midGattWriteDescriptor2_1                 jni.MethodID
 	midGattToString                           jni.MethodID
 
-	clsStatusCodes         *jni.GlobalRef
-	midStatusCodesToString jni.MethodID
+	clsSocket                         *jni.GlobalRef
+	midSocketClose                    jni.MethodID
+	midSocketConnect                  jni.MethodID
+	midSocketGetConnectionType        jni.MethodID
+	midSocketGetInputStream           jni.MethodID
+	midSocketGetMaxReceivePacketSize  jni.MethodID
+	midSocketGetMaxTransmitPacketSize jni.MethodID
+	midSocketGetOutputStream          jni.MethodID
+	midSocketGetRemoteDevice          jni.MethodID
+	midSocketIsConnected              jni.MethodID
+	midSocketToString                 jni.MethodID
 
-	clsCodecStatus                                *jni.GlobalRef
-	midCodecStatusDescribeContents                jni.MethodID
-	midCodecStatusEquals                          jni.MethodID
-	midCodecStatusGetCodecConfig                  jni.MethodID
-	midCodecStatusGetCodecsLocalCapabilities      jni.MethodID
-	midCodecStatusGetCodecsSelectableCapabilities jni.MethodID
-	midCodecStatusHashCode                        jni.MethodID
-	midCodecStatusIsCodecConfigSelectable         jni.MethodID
-	midCodecStatusToString                        jni.MethodID
-	midCodecStatusWriteToParcel                   jni.MethodID
+	clsCodecConfig                     *jni.GlobalRef
+	midCodecConfigDescribeContents     jni.MethodID
+	midCodecConfigEquals               jni.MethodID
+	midCodecConfigGetBitsPerSample     jni.MethodID
+	midCodecConfigGetChannelMode       jni.MethodID
+	midCodecConfigGetCodecPriority     jni.MethodID
+	midCodecConfigGetCodecSpecific1    jni.MethodID
+	midCodecConfigGetCodecSpecific2    jni.MethodID
+	midCodecConfigGetCodecSpecific3    jni.MethodID
+	midCodecConfigGetCodecSpecific4    jni.MethodID
+	midCodecConfigGetCodecType         jni.MethodID
+	midCodecConfigGetExtendedCodecType jni.MethodID
+	midCodecConfigGetSampleRate        jni.MethodID
+	midCodecConfigHashCode             jni.MethodID
+	midCodecConfigIsMandatoryCodec     jni.MethodID
+	midCodecConfigToString             jni.MethodID
+	midCodecConfigWriteToParcel        jni.MethodID
 
-	clsCodecStatusBuilder               *jni.GlobalRef
-	midCodecStatusBuilderBuild          jni.MethodID
-	midCodecStatusBuilderSetCodecConfig jni.MethodID
-	midCodecStatusBuilderToString       jni.MethodID
+	clsCodecConfigBuilder                     *jni.GlobalRef
+	midCodecConfigBuilderBuild                jni.MethodID
+	midCodecConfigBuilderSetBitsPerSample     jni.MethodID
+	midCodecConfigBuilderSetChannelMode       jni.MethodID
+	midCodecConfigBuilderSetCodecPriority     jni.MethodID
+	midCodecConfigBuilderSetCodecSpecific1    jni.MethodID
+	midCodecConfigBuilderSetCodecSpecific2    jni.MethodID
+	midCodecConfigBuilderSetCodecSpecific3    jni.MethodID
+	midCodecConfigBuilderSetCodecSpecific4    jni.MethodID
+	midCodecConfigBuilderSetCodecType         jni.MethodID
+	midCodecConfigBuilderSetExtendedCodecType jni.MethodID
+	midCodecConfigBuilderSetSampleRate        jni.MethodID
+	midCodecConfigBuilderToString             jni.MethodID
 
-	clsSocketSettings                         *jni.GlobalRef
-	midSocketSettingsGetL2capPsm              jni.MethodID
-	midSocketSettingsGetRfcommServiceName     jni.MethodID
-	midSocketSettingsGetRfcommUuid            jni.MethodID
-	midSocketSettingsGetSocketType            jni.MethodID
-	midSocketSettingsIsAuthenticationRequired jni.MethodID
-	midSocketSettingsIsEncryptionRequired     jni.MethodID
-	midSocketSettingsToString                 jni.MethodID
+	clsHealthAppConfiguration                 *jni.GlobalRef
+	midHealthAppConfigurationDescribeContents jni.MethodID
+	midHealthAppConfigurationGetDataType      jni.MethodID
+	midHealthAppConfigurationGetName          jni.MethodID
+	midHealthAppConfigurationGetRole          jni.MethodID
+	midHealthAppConfigurationWriteToParcel    jni.MethodID
+	midHealthAppConfigurationToString         jni.MethodID
 
-	clsSocketSettingsBuilder                          *jni.GlobalRef
-	midSocketSettingsBuilderBuild                     jni.MethodID
-	midSocketSettingsBuilderSetAuthenticationRequired jni.MethodID
-	midSocketSettingsBuilderSetEncryptionRequired     jni.MethodID
-	midSocketSettingsBuilderSetL2capPsm               jni.MethodID
-	midSocketSettingsBuilderSetRfcommServiceName      jni.MethodID
-	midSocketSettingsBuilderSetRfcommUuid             jni.MethodID
-	midSocketSettingsBuilderSetSocketType             jni.MethodID
-	midSocketSettingsBuilderToString                  jni.MethodID
+	clsHeadset                                   *jni.GlobalRef
+	midHeadsetGetConnectedDevices                jni.MethodID
+	midHeadsetGetConnectionState                 jni.MethodID
+	midHeadsetGetDevicesMatchingConnectionStates jni.MethodID
+	midHeadsetIsAudioConnected                   jni.MethodID
+	midHeadsetIsNoiseReductionSupported          jni.MethodID
+	midHeadsetIsVoiceRecognitionSupported        jni.MethodID
+	midHeadsetSendVendorSpecificResultCode       jni.MethodID
+	midHeadsetStartVoiceRecognition              jni.MethodID
+	midHeadsetStopVoiceRecognition               jni.MethodID
+	midHeadsetToString                           jni.MethodID
 
-	clsGattService                    *jni.GlobalRef
-	midGattServiceCtor                jni.MethodID
-	midGattServiceAddCharacteristic   jni.MethodID
-	midGattServiceAddService          jni.MethodID
-	midGattServiceDescribeContents    jni.MethodID
-	midGattServiceGetCharacteristic   jni.MethodID
-	midGattServiceGetCharacteristics  jni.MethodID
-	midGattServiceGetIncludedServices jni.MethodID
-	midGattServiceGetInstanceId       jni.MethodID
-	midGattServiceGetType             jni.MethodID
-	midGattServiceGetUuid             jni.MethodID
-	midGattServiceWriteToParcel       jni.MethodID
-	midGattServiceToString            jni.MethodID
-
-	clsClass                    *jni.GlobalRef
-	midClassDescribeContents    jni.MethodID
-	midClassDoesClassMatch      jni.MethodID
-	midClassEquals              jni.MethodID
-	midClassGetDeviceClass      jni.MethodID
-	midClassGetMajorDeviceClass jni.MethodID
-	midClassHasService          jni.MethodID
-	midClassHashCode            jni.MethodID
-	midClassToString            jni.MethodID
-	midClassWriteToParcel       jni.MethodID
-
-	clsClassDevice         *jni.GlobalRef
-	midClassDeviceToString jni.MethodID
-
-	clsClassService         *jni.GlobalRef
-	midClassServiceToString jni.MethodID
+	clsServerSocket          *jni.GlobalRef
+	midServerSocketAccept0   jni.MethodID
+	midServerSocketAccept1_1 jni.MethodID
+	midServerSocketClose     jni.MethodID
+	midServerSocketGetPsm    jni.MethodID
+	midServerSocketToString  jni.MethodID
 
 	clsHealth                                   *jni.GlobalRef
 	midHealthConnectChannelToSource             jni.MethodID
@@ -477,68 +539,6 @@ var (
 	midHealthRegisterSinkAppConfiguration       jni.MethodID
 	midHealthUnregisterAppConfiguration         jni.MethodID
 	midHealthToString                           jni.MethodID
-
-	clsGattDescriptor                  *jni.GlobalRef
-	midGattDescriptorCtor              jni.MethodID
-	midGattDescriptorDescribeContents  jni.MethodID
-	midGattDescriptorGetCharacteristic jni.MethodID
-	midGattDescriptorGetPermissions    jni.MethodID
-	midGattDescriptorGetUuid           jni.MethodID
-	midGattDescriptorGetValue          jni.MethodID
-	midGattDescriptorSetValue          jni.MethodID
-	midGattDescriptorWriteToParcel     jni.MethodID
-	midGattDescriptorToString          jni.MethodID
-
-	clsProfile                                   *jni.GlobalRef
-	midProfileGetConnectedDevices                jni.MethodID
-	midProfileGetConnectionState                 jni.MethodID
-	midProfileGetDevicesMatchingConnectionStates jni.MethodID
-	midProfileToString                           jni.MethodID
-
-	clsProfileServiceListener                      *jni.GlobalRef
-	midProfileServiceListenerOnServiceConnected    jni.MethodID
-	midProfileServiceListenerOnServiceDisconnected jni.MethodID
-	midProfileServiceListenerToString              jni.MethodID
-
-	clsSocketException             *jni.GlobalRef
-	midSocketExceptionCtor         jni.MethodID
-	midSocketExceptionGetErrorCode jni.MethodID
-	midSocketExceptionToString     jni.MethodID
-
-	clsHearingAid                                   *jni.GlobalRef
-	midHearingAidGetConnectedDevices                jni.MethodID
-	midHearingAidGetConnectionState                 jni.MethodID
-	midHearingAidGetDevicesMatchingConnectionStates jni.MethodID
-	midHearingAidToString                           jni.MethodID
-
-	clsGattCallback                           *jni.GlobalRef
-	midGattCallbackOnCharacteristicChanged2   jni.MethodID
-	midGattCallbackOnCharacteristicChanged3_1 jni.MethodID
-	midGattCallbackOnCharacteristicRead4      jni.MethodID
-	midGattCallbackOnCharacteristicRead3_1    jni.MethodID
-	midGattCallbackOnCharacteristicWrite      jni.MethodID
-	midGattCallbackOnConnectionStateChange    jni.MethodID
-	midGattCallbackOnDescriptorRead3          jni.MethodID
-	midGattCallbackOnDescriptorRead4_1        jni.MethodID
-	midGattCallbackOnDescriptorWrite          jni.MethodID
-	midGattCallbackOnMtuChanged               jni.MethodID
-	midGattCallbackOnPhyRead                  jni.MethodID
-	midGattCallbackOnPhyUpdate                jni.MethodID
-	midGattCallbackOnReadRemoteRssi           jni.MethodID
-	midGattCallbackOnReliableWriteCompleted   jni.MethodID
-	midGattCallbackOnServiceChanged           jni.MethodID
-	midGattCallbackOnServicesDiscovered       jni.MethodID
-	midGattCallbackToString                   jni.MethodID
-
-	clsCodecType                 *jni.GlobalRef
-	midCodecTypeDescribeContents jni.MethodID
-	midCodecTypeEquals           jni.MethodID
-	midCodecTypeGetCodecId       jni.MethodID
-	midCodecTypeGetCodecName     jni.MethodID
-	midCodecTypeHashCode         jni.MethodID
-	midCodecTypeIsMandatoryCodec jni.MethodID
-	midCodecTypeToString         jni.MethodID
-	midCodecTypeWriteToParcel    jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -559,68 +559,36 @@ func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
 
-	c, err = env.FindClass("android/bluetooth/BluetoothHidDeviceAppSdpSettings")
+	c, err = env.FindClass("android/bluetooth/BluetoothProfile")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsHidDeviceAppSdpSettings = env.NewGlobalRef(&c.Object)
-		midHidDeviceAppSdpSettingsCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHidDeviceAppSdpSettings)), "<init>", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;B[B)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
+		clsProfile = env.NewGlobalRef(&c.Object)
 
-		midHidDeviceAppSdpSettingsDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHidDeviceAppSdpSettings)), "describeContents", "()I")
+		midProfileGetConnectedDevices, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfile)), "getConnectedDevices", "()Ljava/util/List;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midHidDeviceAppSdpSettingsGetDescription, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHidDeviceAppSdpSettings)), "getDescription", "()Ljava/lang/String;")
+		midProfileGetConnectionState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfile)), "getConnectionState", "(Landroid/bluetooth/BluetoothDevice;)I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midHidDeviceAppSdpSettingsGetDescriptors, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHidDeviceAppSdpSettings)), "getDescriptors", "()[B")
+		midProfileGetDevicesMatchingConnectionStates, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfile)), "getDevicesMatchingConnectionStates", "([I)Ljava/util/List;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midHidDeviceAppSdpSettingsGetName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHidDeviceAppSdpSettings)), "getName", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHidDeviceAppSdpSettingsGetProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHidDeviceAppSdpSettings)), "getProvider", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHidDeviceAppSdpSettingsGetSubclass, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHidDeviceAppSdpSettings)), "getSubclass", "()B")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHidDeviceAppSdpSettingsWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHidDeviceAppSdpSettings)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHidDeviceAppSdpSettingsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHidDeviceAppSdpSettings)), "toString", "()Ljava/lang/String;")
+		midProfileToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfile)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -629,43 +597,127 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/bluetooth/BluetoothCsipSetCoordinator")
+	c, err = env.FindClass("android/bluetooth/BluetoothGattServer")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsCsipSetCoordinator = env.NewGlobalRef(&c.Object)
+		clsGattServer = env.NewGlobalRef(&c.Object)
 
-		midCsipSetCoordinatorClose, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCsipSetCoordinator)), "close", "()V")
+		midGattServerAddService, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattServer)), "addService", "(Landroid/bluetooth/BluetoothGattService;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCsipSetCoordinatorGetConnectedDevices, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCsipSetCoordinator)), "getConnectedDevices", "()Ljava/util/List;")
+		midGattServerCancelConnection, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattServer)), "cancelConnection", "(Landroid/bluetooth/BluetoothDevice;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCsipSetCoordinatorGetConnectionState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCsipSetCoordinator)), "getConnectionState", "(Landroid/bluetooth/BluetoothDevice;)I")
+		midGattServerClearServices, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattServer)), "clearServices", "()V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCsipSetCoordinatorGetDevicesMatchingConnectionStates, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCsipSetCoordinator)), "getDevicesMatchingConnectionStates", "([I)Ljava/util/List;")
+		midGattServerClose, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattServer)), "close", "()V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCsipSetCoordinatorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCsipSetCoordinator)), "toString", "()Ljava/lang/String;")
+		midGattServerConnect, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattServer)), "connect", "(Landroid/bluetooth/BluetoothDevice;Z)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGattServerGetConnectedDevices, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattServer)), "getConnectedDevices", "()Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGattServerGetConnectionState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattServer)), "getConnectionState", "(Landroid/bluetooth/BluetoothDevice;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGattServerGetDevicesMatchingConnectionStates, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattServer)), "getDevicesMatchingConnectionStates", "([I)Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGattServerGetService, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattServer)), "getService", "(Ljava/util/UUID;)Landroid/bluetooth/BluetoothGattService;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGattServerGetServices, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattServer)), "getServices", "()Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGattServerNotifyCharacteristicChanged3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattServer)), "notifyCharacteristicChanged", "(Landroid/bluetooth/BluetoothDevice;Landroid/bluetooth/BluetoothGattCharacteristic;Z)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGattServerNotifyCharacteristicChanged4_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattServer)), "notifyCharacteristicChanged", "(Landroid/bluetooth/BluetoothDevice;Landroid/bluetooth/BluetoothGattCharacteristic;Z[B)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGattServerReadPhy, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattServer)), "readPhy", "(Landroid/bluetooth/BluetoothDevice;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGattServerRemoveService, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattServer)), "removeService", "(Landroid/bluetooth/BluetoothGattService;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGattServerSendResponse, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattServer)), "sendResponse", "(Landroid/bluetooth/BluetoothDevice;III[B)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGattServerSetPreferredPhy, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattServer)), "setPreferredPhy", "(Landroid/bluetooth/BluetoothDevice;III)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGattServerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattServer)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -674,57 +726,29 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/bluetooth/BluetoothA2dp")
+	c, err = env.FindClass("android/bluetooth/BluetoothProfile$ServiceListener")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsA2dp = env.NewGlobalRef(&c.Object)
+		clsProfileServiceListener = env.NewGlobalRef(&c.Object)
 
-		midA2dpFinalize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsA2dp)), "finalize", "()V")
+		midProfileServiceListenerOnServiceConnected, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfileServiceListener)), "onServiceConnected", "(ILandroid/bluetooth/BluetoothProfile;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midA2dpGetConnectedDevices, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsA2dp)), "getConnectedDevices", "()Ljava/util/List;")
+		midProfileServiceListenerOnServiceDisconnected, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfileServiceListener)), "onServiceDisconnected", "(I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midA2dpGetConnectionState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsA2dp)), "getConnectionState", "(Landroid/bluetooth/BluetoothDevice;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midA2dpGetDevicesMatchingConnectionStates, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsA2dp)), "getDevicesMatchingConnectionStates", "([I)Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midA2dpGetSupportedCodecTypes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsA2dp)), "getSupportedCodecTypes", "()Ljava/util/Collection;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midA2dpIsA2dpPlaying, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsA2dp)), "isA2dpPlaying", "(Landroid/bluetooth/BluetoothDevice;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midA2dpToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsA2dp)), "toString", "()Ljava/lang/String;")
+		midProfileServiceListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfileServiceListener)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -733,75 +757,103 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/bluetooth/BluetoothHidDeviceAppQosSettings")
+	c, err = env.FindClass("android/bluetooth/BluetoothLeAudioCodecStatus")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsHidDeviceAppQosSettings = env.NewGlobalRef(&c.Object)
-		midHidDeviceAppQosSettingsCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHidDeviceAppQosSettings)), "<init>", "(IIIIII)V")
+		clsLeAudioCodecStatus = env.NewGlobalRef(&c.Object)
+		midLeAudioCodecStatusCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecStatus)), "<init>", "(Landroid/bluetooth/BluetoothLeAudioCodecConfig;Landroid/bluetooth/BluetoothLeAudioCodecConfig;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;)V")
 		if err != nil {
 			env.ExceptionClear()
 		}
 
-		midHidDeviceAppQosSettingsDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHidDeviceAppQosSettings)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHidDeviceAppQosSettingsGetDelayVariation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHidDeviceAppQosSettings)), "getDelayVariation", "()I")
+		midLeAudioCodecStatusDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecStatus)), "describeContents", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midHidDeviceAppQosSettingsGetLatency, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHidDeviceAppQosSettings)), "getLatency", "()I")
+		midLeAudioCodecStatusEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecStatus)), "equals", "(Ljava/lang/Object;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midHidDeviceAppQosSettingsGetPeakBandwidth, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHidDeviceAppQosSettings)), "getPeakBandwidth", "()I")
+		midLeAudioCodecStatusGetInputCodecConfig, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecStatus)), "getInputCodecConfig", "()Landroid/bluetooth/BluetoothLeAudioCodecConfig;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midHidDeviceAppQosSettingsGetServiceType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHidDeviceAppQosSettings)), "getServiceType", "()I")
+		midLeAudioCodecStatusGetInputCodecLocalCapabilities, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecStatus)), "getInputCodecLocalCapabilities", "()Ljava/util/List;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midHidDeviceAppQosSettingsGetTokenBucketSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHidDeviceAppQosSettings)), "getTokenBucketSize", "()I")
+		midLeAudioCodecStatusGetInputCodecSelectableCapabilities, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecStatus)), "getInputCodecSelectableCapabilities", "()Ljava/util/List;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midHidDeviceAppQosSettingsGetTokenRate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHidDeviceAppQosSettings)), "getTokenRate", "()I")
+		midLeAudioCodecStatusGetOutputCodecConfig, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecStatus)), "getOutputCodecConfig", "()Landroid/bluetooth/BluetoothLeAudioCodecConfig;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midHidDeviceAppQosSettingsWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHidDeviceAppQosSettings)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midLeAudioCodecStatusGetOutputCodecLocalCapabilities, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecStatus)), "getOutputCodecLocalCapabilities", "()Ljava/util/List;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midHidDeviceAppQosSettingsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHidDeviceAppQosSettings)), "toString", "()Ljava/lang/String;")
+		midLeAudioCodecStatusGetOutputCodecSelectableCapabilities, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecStatus)), "getOutputCodecSelectableCapabilities", "()Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLeAudioCodecStatusHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecStatus)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLeAudioCodecStatusIsInputCodecConfigSelectable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecStatus)), "isInputCodecConfigSelectable", "(Landroid/bluetooth/BluetoothLeAudioCodecConfig;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLeAudioCodecStatusIsOutputCodecConfigSelectable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecStatus)), "isOutputCodecConfigSelectable", "(Landroid/bluetooth/BluetoothLeAudioCodecConfig;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLeAudioCodecStatusToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecStatus)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLeAudioCodecStatusWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecStatus)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -810,29 +862,15 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/bluetooth/BluetoothHealthCallback")
+	c, err = env.FindClass("android/bluetooth/BluetoothAssignedNumbers")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsHealthCallback = env.NewGlobalRef(&c.Object)
+		clsAssignedNumbers = env.NewGlobalRef(&c.Object)
 
-		midHealthCallbackOnHealthAppConfigurationStatusChange, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHealthCallback)), "onHealthAppConfigurationStatusChange", "(Landroid/bluetooth/BluetoothHealthAppConfiguration;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHealthCallbackOnHealthChannelStateChange, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHealthCallback)), "onHealthChannelStateChange", "(Landroid/bluetooth/BluetoothHealthAppConfiguration;Landroid/bluetooth/BluetoothDevice;IILandroid/os/ParcelFileDescriptor;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHealthCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHealthCallback)), "toString", "()Ljava/lang/String;")
+		midAssignedNumbersToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAssignedNumbers)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -841,50 +879,200 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/bluetooth/BluetoothManager")
+	c, err = env.FindClass("android/bluetooth/BluetoothLeAudioCodecConfig")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsManager = env.NewGlobalRef(&c.Object)
+		clsLeAudioCodecConfig = env.NewGlobalRef(&c.Object)
 
-		midManagerGetAdapter, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "getAdapter", "()Landroid/bluetooth/BluetoothAdapter;")
+		midLeAudioCodecConfigDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecConfig)), "describeContents", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midManagerGetConnectedDevices, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "getConnectedDevices", "(I)Ljava/util/List;")
+		midLeAudioCodecConfigEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecConfig)), "equals", "(Ljava/lang/Object;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midManagerGetConnectionState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "getConnectionState", "(Landroid/bluetooth/BluetoothDevice;I)I")
+		midLeAudioCodecConfigGetBitsPerSample, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecConfig)), "getBitsPerSample", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midManagerGetDevicesMatchingConnectionStates, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "getDevicesMatchingConnectionStates", "(I[I)Ljava/util/List;")
+		midLeAudioCodecConfigGetChannelCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecConfig)), "getChannelCount", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midManagerOpenGattServer, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "openGattServer", "(Landroid/content/Context;Landroid/bluetooth/BluetoothGattServerCallback;)Landroid/bluetooth/BluetoothGattServer;")
+		midLeAudioCodecConfigGetCodecName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecConfig)), "getCodecName", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midManagerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "toString", "()Ljava/lang/String;")
+		midLeAudioCodecConfigGetCodecPriority, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecConfig)), "getCodecPriority", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLeAudioCodecConfigGetCodecType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecConfig)), "getCodecType", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLeAudioCodecConfigGetFrameDuration, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecConfig)), "getFrameDuration", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLeAudioCodecConfigGetMaxOctetsPerFrame, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecConfig)), "getMaxOctetsPerFrame", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLeAudioCodecConfigGetMinOctetsPerFrame, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecConfig)), "getMinOctetsPerFrame", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLeAudioCodecConfigGetOctetsPerFrame, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecConfig)), "getOctetsPerFrame", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLeAudioCodecConfigGetSampleRate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecConfig)), "getSampleRate", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLeAudioCodecConfigHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecConfig)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLeAudioCodecConfigToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecConfig)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLeAudioCodecConfigWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecConfig)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/bluetooth/BluetoothLeAudioCodecConfig$Builder")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsLeAudioCodecConfigBuilder = env.NewGlobalRef(&c.Object)
+
+		midLeAudioCodecConfigBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecConfigBuilder)), "build", "()Landroid/bluetooth/BluetoothLeAudioCodecConfig;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLeAudioCodecConfigBuilderSetBitsPerSample, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecConfigBuilder)), "setBitsPerSample", "(I)Landroid/bluetooth/BluetoothLeAudioCodecConfig$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLeAudioCodecConfigBuilderSetChannelCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecConfigBuilder)), "setChannelCount", "(I)Landroid/bluetooth/BluetoothLeAudioCodecConfig$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLeAudioCodecConfigBuilderSetCodecPriority, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecConfigBuilder)), "setCodecPriority", "(I)Landroid/bluetooth/BluetoothLeAudioCodecConfig$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLeAudioCodecConfigBuilderSetCodecType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecConfigBuilder)), "setCodecType", "(I)Landroid/bluetooth/BluetoothLeAudioCodecConfig$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLeAudioCodecConfigBuilderSetFrameDuration, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecConfigBuilder)), "setFrameDuration", "(I)Landroid/bluetooth/BluetoothLeAudioCodecConfig$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLeAudioCodecConfigBuilderSetMaxOctetsPerFrame, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecConfigBuilder)), "setMaxOctetsPerFrame", "(I)Landroid/bluetooth/BluetoothLeAudioCodecConfig$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLeAudioCodecConfigBuilderSetMinOctetsPerFrame, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecConfigBuilder)), "setMinOctetsPerFrame", "(I)Landroid/bluetooth/BluetoothLeAudioCodecConfig$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLeAudioCodecConfigBuilderSetOctetsPerFrame, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecConfigBuilder)), "setOctetsPerFrame", "(I)Landroid/bluetooth/BluetoothLeAudioCodecConfig$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLeAudioCodecConfigBuilderSetSampleRate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecConfigBuilder)), "setSampleRate", "(I)Landroid/bluetooth/BluetoothLeAudioCodecConfig$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLeAudioCodecConfigBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecConfigBuilder)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1046,43 +1234,68 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/bluetooth/BluetoothServerSocket")
+	c, err = env.FindClass("android/bluetooth/BluetoothHidDeviceAppSdpSettings")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsServerSocket = env.NewGlobalRef(&c.Object)
+		clsHidDeviceAppSdpSettings = env.NewGlobalRef(&c.Object)
+		midHidDeviceAppSdpSettingsCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHidDeviceAppSdpSettings)), "<init>", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;B[B)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midServerSocketAccept0, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsServerSocket)), "accept", "()Landroid/bluetooth/BluetoothSocket;")
+		midHidDeviceAppSdpSettingsDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHidDeviceAppSdpSettings)), "describeContents", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midServerSocketAccept1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsServerSocket)), "accept", "(I)Landroid/bluetooth/BluetoothSocket;")
+		midHidDeviceAppSdpSettingsGetDescription, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHidDeviceAppSdpSettings)), "getDescription", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midServerSocketClose, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsServerSocket)), "close", "()V")
+		midHidDeviceAppSdpSettingsGetDescriptors, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHidDeviceAppSdpSettings)), "getDescriptors", "()[B")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midServerSocketGetPsm, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsServerSocket)), "getPsm", "()I")
+		midHidDeviceAppSdpSettingsGetName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHidDeviceAppSdpSettings)), "getName", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midServerSocketToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsServerSocket)), "toString", "()Ljava/lang/String;")
+		midHidDeviceAppSdpSettingsGetProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHidDeviceAppSdpSettings)), "getProvider", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHidDeviceAppSdpSettingsGetSubclass, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHidDeviceAppSdpSettings)), "getSubclass", "()B")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHidDeviceAppSdpSettingsWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHidDeviceAppSdpSettings)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHidDeviceAppSdpSettingsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHidDeviceAppSdpSettings)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1091,78 +1304,71 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/bluetooth/BluetoothSocket")
+	c, err = env.FindClass("android/bluetooth/BluetoothClass")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsSocket = env.NewGlobalRef(&c.Object)
+		clsClass = env.NewGlobalRef(&c.Object)
 
-		midSocketClose, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocket)), "close", "()V")
+		midClassDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsClass)), "describeContents", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSocketConnect, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocket)), "connect", "()V")
+		midClassDoesClassMatch, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsClass)), "doesClassMatch", "(I)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSocketGetConnectionType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocket)), "getConnectionType", "()I")
+		midClassEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsClass)), "equals", "(Ljava/lang/Object;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSocketGetInputStream, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocket)), "getInputStream", "()Ljava/io/InputStream;")
+		midClassGetDeviceClass, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsClass)), "getDeviceClass", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSocketGetMaxReceivePacketSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocket)), "getMaxReceivePacketSize", "()I")
+		midClassGetMajorDeviceClass, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsClass)), "getMajorDeviceClass", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSocketGetMaxTransmitPacketSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocket)), "getMaxTransmitPacketSize", "()I")
+		midClassHasService, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsClass)), "hasService", "(I)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSocketGetOutputStream, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocket)), "getOutputStream", "()Ljava/io/OutputStream;")
+		midClassHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsClass)), "hashCode", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSocketGetRemoteDevice, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocket)), "getRemoteDevice", "()Landroid/bluetooth/BluetoothDevice;")
+		midClassToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsClass)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSocketIsConnected, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocket)), "isConnected", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSocketToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocket)), "toString", "()Ljava/lang/String;")
+		midClassWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsClass)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1171,103 +1377,654 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/bluetooth/BluetoothLeAudioCodecStatus")
+	c, err = env.FindClass("android/bluetooth/BluetoothClass$Device")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsLeAudioCodecStatus = env.NewGlobalRef(&c.Object)
-		midLeAudioCodecStatusCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecStatus)), "<init>", "(Landroid/bluetooth/BluetoothLeAudioCodecConfig;Landroid/bluetooth/BluetoothLeAudioCodecConfig;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
+		clsClassDevice = env.NewGlobalRef(&c.Object)
 
-		midLeAudioCodecStatusDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecStatus)), "describeContents", "()I")
+		midClassDeviceToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsClassDevice)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midLeAudioCodecStatusEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecStatus)), "equals", "(Ljava/lang/Object;)Z")
+	}
+
+	c, err = env.FindClass("android/bluetooth/BluetoothClass$Service")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsClassService = env.NewGlobalRef(&c.Object)
+
+		midClassServiceToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsClassService)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midLeAudioCodecStatusGetInputCodecConfig, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecStatus)), "getInputCodecConfig", "()Landroid/bluetooth/BluetoothLeAudioCodecConfig;")
+	}
+
+	c, err = env.FindClass("android/bluetooth/BluetoothHidDeviceAppQosSettings")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsHidDeviceAppQosSettings = env.NewGlobalRef(&c.Object)
+		midHidDeviceAppQosSettingsCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHidDeviceAppQosSettings)), "<init>", "(IIIIII)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midHidDeviceAppQosSettingsDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHidDeviceAppQosSettings)), "describeContents", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midLeAudioCodecStatusGetInputCodecLocalCapabilities, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecStatus)), "getInputCodecLocalCapabilities", "()Ljava/util/List;")
+		midHidDeviceAppQosSettingsGetDelayVariation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHidDeviceAppQosSettings)), "getDelayVariation", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midLeAudioCodecStatusGetInputCodecSelectableCapabilities, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecStatus)), "getInputCodecSelectableCapabilities", "()Ljava/util/List;")
+		midHidDeviceAppQosSettingsGetLatency, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHidDeviceAppQosSettings)), "getLatency", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midLeAudioCodecStatusGetOutputCodecConfig, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecStatus)), "getOutputCodecConfig", "()Landroid/bluetooth/BluetoothLeAudioCodecConfig;")
+		midHidDeviceAppQosSettingsGetPeakBandwidth, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHidDeviceAppQosSettings)), "getPeakBandwidth", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midLeAudioCodecStatusGetOutputCodecLocalCapabilities, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecStatus)), "getOutputCodecLocalCapabilities", "()Ljava/util/List;")
+		midHidDeviceAppQosSettingsGetServiceType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHidDeviceAppQosSettings)), "getServiceType", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midLeAudioCodecStatusGetOutputCodecSelectableCapabilities, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecStatus)), "getOutputCodecSelectableCapabilities", "()Ljava/util/List;")
+		midHidDeviceAppQosSettingsGetTokenBucketSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHidDeviceAppQosSettings)), "getTokenBucketSize", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midLeAudioCodecStatusHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecStatus)), "hashCode", "()I")
+		midHidDeviceAppQosSettingsGetTokenRate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHidDeviceAppQosSettings)), "getTokenRate", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midLeAudioCodecStatusIsInputCodecConfigSelectable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecStatus)), "isInputCodecConfigSelectable", "(Landroid/bluetooth/BluetoothLeAudioCodecConfig;)Z")
+		midHidDeviceAppQosSettingsWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHidDeviceAppQosSettings)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midLeAudioCodecStatusIsOutputCodecConfigSelectable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecStatus)), "isOutputCodecConfigSelectable", "(Landroid/bluetooth/BluetoothLeAudioCodecConfig;)Z")
+		midHidDeviceAppQosSettingsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHidDeviceAppQosSettings)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midLeAudioCodecStatusToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecStatus)), "toString", "()Ljava/lang/String;")
+	}
+
+	c, err = env.FindClass("android/bluetooth/BluetoothA2dp")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsA2dp = env.NewGlobalRef(&c.Object)
+
+		midA2dpFinalize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsA2dp)), "finalize", "()V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midLeAudioCodecStatusWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecStatus)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midA2dpGetConnectedDevices, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsA2dp)), "getConnectedDevices", "()Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midA2dpGetConnectionState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsA2dp)), "getConnectionState", "(Landroid/bluetooth/BluetoothDevice;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midA2dpGetDevicesMatchingConnectionStates, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsA2dp)), "getDevicesMatchingConnectionStates", "([I)Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midA2dpGetSupportedCodecTypes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsA2dp)), "getSupportedCodecTypes", "()Ljava/util/Collection;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midA2dpIsA2dpPlaying, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsA2dp)), "isA2dpPlaying", "(Landroid/bluetooth/BluetoothDevice;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midA2dpToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsA2dp)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/bluetooth/BluetoothCodecStatus")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsCodecStatus = env.NewGlobalRef(&c.Object)
+
+		midCodecStatusDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecStatus)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCodecStatusEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecStatus)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCodecStatusGetCodecConfig, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecStatus)), "getCodecConfig", "()Landroid/bluetooth/BluetoothCodecConfig;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCodecStatusGetCodecsLocalCapabilities, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecStatus)), "getCodecsLocalCapabilities", "()Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCodecStatusGetCodecsSelectableCapabilities, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecStatus)), "getCodecsSelectableCapabilities", "()Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCodecStatusHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecStatus)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCodecStatusIsCodecConfigSelectable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecStatus)), "isCodecConfigSelectable", "(Landroid/bluetooth/BluetoothCodecConfig;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCodecStatusToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecStatus)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCodecStatusWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecStatus)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/bluetooth/BluetoothCodecStatus$Builder")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsCodecStatusBuilder = env.NewGlobalRef(&c.Object)
+
+		midCodecStatusBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecStatusBuilder)), "build", "()Landroid/bluetooth/BluetoothCodecStatus;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCodecStatusBuilderSetCodecConfig, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecStatusBuilder)), "setCodecConfig", "(Landroid/bluetooth/BluetoothCodecConfig;)Landroid/bluetooth/BluetoothCodecStatus$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCodecStatusBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecStatusBuilder)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/bluetooth/BluetoothGattCallback")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsGattCallback = env.NewGlobalRef(&c.Object)
+
+		midGattCallbackOnCharacteristicChanged2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattCallback)), "onCharacteristicChanged", "(Landroid/bluetooth/BluetoothGatt;Landroid/bluetooth/BluetoothGattCharacteristic;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGattCallbackOnCharacteristicChanged3_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattCallback)), "onCharacteristicChanged", "(Landroid/bluetooth/BluetoothGatt;Landroid/bluetooth/BluetoothGattCharacteristic;[B)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGattCallbackOnCharacteristicRead4, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattCallback)), "onCharacteristicRead", "(Landroid/bluetooth/BluetoothGatt;Landroid/bluetooth/BluetoothGattCharacteristic;[BI)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGattCallbackOnCharacteristicRead3_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattCallback)), "onCharacteristicRead", "(Landroid/bluetooth/BluetoothGatt;Landroid/bluetooth/BluetoothGattCharacteristic;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGattCallbackOnCharacteristicWrite, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattCallback)), "onCharacteristicWrite", "(Landroid/bluetooth/BluetoothGatt;Landroid/bluetooth/BluetoothGattCharacteristic;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGattCallbackOnConnectionStateChange, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattCallback)), "onConnectionStateChange", "(Landroid/bluetooth/BluetoothGatt;II)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGattCallbackOnDescriptorRead3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattCallback)), "onDescriptorRead", "(Landroid/bluetooth/BluetoothGatt;Landroid/bluetooth/BluetoothGattDescriptor;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGattCallbackOnDescriptorRead4_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattCallback)), "onDescriptorRead", "(Landroid/bluetooth/BluetoothGatt;Landroid/bluetooth/BluetoothGattDescriptor;I[B)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGattCallbackOnDescriptorWrite, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattCallback)), "onDescriptorWrite", "(Landroid/bluetooth/BluetoothGatt;Landroid/bluetooth/BluetoothGattDescriptor;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGattCallbackOnMtuChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattCallback)), "onMtuChanged", "(Landroid/bluetooth/BluetoothGatt;II)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGattCallbackOnPhyRead, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattCallback)), "onPhyRead", "(Landroid/bluetooth/BluetoothGatt;III)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGattCallbackOnPhyUpdate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattCallback)), "onPhyUpdate", "(Landroid/bluetooth/BluetoothGatt;III)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGattCallbackOnReadRemoteRssi, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattCallback)), "onReadRemoteRssi", "(Landroid/bluetooth/BluetoothGatt;II)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGattCallbackOnReliableWriteCompleted, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattCallback)), "onReliableWriteCompleted", "(Landroid/bluetooth/BluetoothGatt;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGattCallbackOnServiceChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattCallback)), "onServiceChanged", "(Landroid/bluetooth/BluetoothGatt;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGattCallbackOnServicesDiscovered, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattCallback)), "onServicesDiscovered", "(Landroid/bluetooth/BluetoothGatt;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGattCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattCallback)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/bluetooth/BluetoothHealthCallback")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsHealthCallback = env.NewGlobalRef(&c.Object)
+
+		midHealthCallbackOnHealthAppConfigurationStatusChange, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHealthCallback)), "onHealthAppConfigurationStatusChange", "(Landroid/bluetooth/BluetoothHealthAppConfiguration;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHealthCallbackOnHealthChannelStateChange, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHealthCallback)), "onHealthChannelStateChange", "(Landroid/bluetooth/BluetoothHealthAppConfiguration;Landroid/bluetooth/BluetoothDevice;IILandroid/os/ParcelFileDescriptor;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHealthCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHealthCallback)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/bluetooth/BluetoothSocketSettings")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSocketSettings = env.NewGlobalRef(&c.Object)
+
+		midSocketSettingsGetL2capPsm, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocketSettings)), "getL2capPsm", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSocketSettingsGetRfcommServiceName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocketSettings)), "getRfcommServiceName", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSocketSettingsGetRfcommUuid, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocketSettings)), "getRfcommUuid", "()Ljava/util/UUID;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSocketSettingsGetSocketType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocketSettings)), "getSocketType", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSocketSettingsIsAuthenticationRequired, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocketSettings)), "isAuthenticationRequired", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSocketSettingsIsEncryptionRequired, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocketSettings)), "isEncryptionRequired", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSocketSettingsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocketSettings)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/bluetooth/BluetoothSocketSettings$Builder")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSocketSettingsBuilder = env.NewGlobalRef(&c.Object)
+
+		midSocketSettingsBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocketSettingsBuilder)), "build", "()Landroid/bluetooth/BluetoothSocketSettings;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSocketSettingsBuilderSetAuthenticationRequired, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocketSettingsBuilder)), "setAuthenticationRequired", "(Z)Landroid/bluetooth/BluetoothSocketSettings$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSocketSettingsBuilderSetEncryptionRequired, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocketSettingsBuilder)), "setEncryptionRequired", "(Z)Landroid/bluetooth/BluetoothSocketSettings$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSocketSettingsBuilderSetL2capPsm, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocketSettingsBuilder)), "setL2capPsm", "(I)Landroid/bluetooth/BluetoothSocketSettings$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSocketSettingsBuilderSetRfcommServiceName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocketSettingsBuilder)), "setRfcommServiceName", "(Ljava/lang/String;)Landroid/bluetooth/BluetoothSocketSettings$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSocketSettingsBuilderSetRfcommUuid, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocketSettingsBuilder)), "setRfcommUuid", "(Ljava/util/UUID;)Landroid/bluetooth/BluetoothSocketSettings$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSocketSettingsBuilderSetSocketType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocketSettingsBuilder)), "setSocketType", "(I)Landroid/bluetooth/BluetoothSocketSettings$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSocketSettingsBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocketSettingsBuilder)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/bluetooth/BluetoothSocketException")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSocketException = env.NewGlobalRef(&c.Object)
+		midSocketExceptionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocketException)), "<init>", "(I)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midSocketExceptionGetErrorCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocketException)), "getErrorCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSocketExceptionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocketException)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/bluetooth/BluetoothStatusCodes")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsStatusCodes = env.NewGlobalRef(&c.Object)
+
+		midStatusCodesToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStatusCodes)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/bluetooth/BluetoothManager")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsManager = env.NewGlobalRef(&c.Object)
+
+		midManagerGetAdapter, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "getAdapter", "()Landroid/bluetooth/BluetoothAdapter;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerGetConnectedDevices, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "getConnectedDevices", "(I)Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerGetConnectionState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "getConnectionState", "(Landroid/bluetooth/BluetoothDevice;I)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerGetDevicesMatchingConnectionStates, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "getDevicesMatchingConnectionStates", "(I[I)Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerOpenGattServer, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "openGattServer", "(Landroid/content/Context;Landroid/bluetooth/BluetoothGattServerCallback;)Landroid/bluetooth/BluetoothGattServer;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1437,50 +2194,140 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/bluetooth/BluetoothHealthAppConfiguration")
+	c, err = env.FindClass("android/bluetooth/BluetoothLeAudio")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsHealthAppConfiguration = env.NewGlobalRef(&c.Object)
+		clsLeAudio = env.NewGlobalRef(&c.Object)
 
-		midHealthAppConfigurationDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHealthAppConfiguration)), "describeContents", "()I")
+		midLeAudioClose, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudio)), "close", "()V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midHealthAppConfigurationGetDataType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHealthAppConfiguration)), "getDataType", "()I")
+		midLeAudioGetConnectedDevices, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudio)), "getConnectedDevices", "()Ljava/util/List;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midHealthAppConfigurationGetName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHealthAppConfiguration)), "getName", "()Ljava/lang/String;")
+		midLeAudioGetConnectedGroupLeadDevice, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudio)), "getConnectedGroupLeadDevice", "(I)Landroid/bluetooth/BluetoothDevice;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midHealthAppConfigurationGetRole, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHealthAppConfiguration)), "getRole", "()I")
+		midLeAudioGetConnectionState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudio)), "getConnectionState", "(Landroid/bluetooth/BluetoothDevice;)I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midHealthAppConfigurationWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHealthAppConfiguration)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midLeAudioGetDevicesMatchingConnectionStates, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudio)), "getDevicesMatchingConnectionStates", "([I)Ljava/util/List;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midHealthAppConfigurationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHealthAppConfiguration)), "toString", "()Ljava/lang/String;")
+		midLeAudioGetGroupId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudio)), "getGroupId", "(Landroid/bluetooth/BluetoothDevice;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLeAudioToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudio)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/bluetooth/BluetoothHearingAid")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsHearingAid = env.NewGlobalRef(&c.Object)
+
+		midHearingAidGetConnectedDevices, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHearingAid)), "getConnectedDevices", "()Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHearingAidGetConnectionState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHearingAid)), "getConnectionState", "(Landroid/bluetooth/BluetoothDevice;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHearingAidGetDevicesMatchingConnectionStates, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHearingAid)), "getDevicesMatchingConnectionStates", "([I)Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHearingAidToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHearingAid)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/bluetooth/BluetoothCsipSetCoordinator")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsCsipSetCoordinator = env.NewGlobalRef(&c.Object)
+
+		midCsipSetCoordinatorClose, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCsipSetCoordinator)), "close", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCsipSetCoordinatorGetConnectedDevices, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCsipSetCoordinator)), "getConnectedDevices", "()Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCsipSetCoordinatorGetConnectionState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCsipSetCoordinator)), "getConnectionState", "(Landroid/bluetooth/BluetoothDevice;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCsipSetCoordinatorGetDevicesMatchingConnectionStates, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCsipSetCoordinator)), "getDevicesMatchingConnectionStates", "([I)Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCsipSetCoordinatorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCsipSetCoordinator)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1824,629 +2671,6 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/bluetooth/BluetoothAssignedNumbers")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsAssignedNumbers = env.NewGlobalRef(&c.Object)
-
-		midAssignedNumbersToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAssignedNumbers)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/bluetooth/BluetoothGattServer")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsGattServer = env.NewGlobalRef(&c.Object)
-
-		midGattServerAddService, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattServer)), "addService", "(Landroid/bluetooth/BluetoothGattService;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGattServerCancelConnection, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattServer)), "cancelConnection", "(Landroid/bluetooth/BluetoothDevice;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGattServerClearServices, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattServer)), "clearServices", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGattServerClose, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattServer)), "close", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGattServerConnect, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattServer)), "connect", "(Landroid/bluetooth/BluetoothDevice;Z)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGattServerGetConnectedDevices, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattServer)), "getConnectedDevices", "()Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGattServerGetConnectionState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattServer)), "getConnectionState", "(Landroid/bluetooth/BluetoothDevice;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGattServerGetDevicesMatchingConnectionStates, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattServer)), "getDevicesMatchingConnectionStates", "([I)Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGattServerGetService, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattServer)), "getService", "(Ljava/util/UUID;)Landroid/bluetooth/BluetoothGattService;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGattServerGetServices, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattServer)), "getServices", "()Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGattServerNotifyCharacteristicChanged3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattServer)), "notifyCharacteristicChanged", "(Landroid/bluetooth/BluetoothDevice;Landroid/bluetooth/BluetoothGattCharacteristic;Z)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGattServerNotifyCharacteristicChanged4_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattServer)), "notifyCharacteristicChanged", "(Landroid/bluetooth/BluetoothDevice;Landroid/bluetooth/BluetoothGattCharacteristic;Z[B)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGattServerReadPhy, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattServer)), "readPhy", "(Landroid/bluetooth/BluetoothDevice;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGattServerRemoveService, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattServer)), "removeService", "(Landroid/bluetooth/BluetoothGattService;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGattServerSendResponse, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattServer)), "sendResponse", "(Landroid/bluetooth/BluetoothDevice;III[B)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGattServerSetPreferredPhy, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattServer)), "setPreferredPhy", "(Landroid/bluetooth/BluetoothDevice;III)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGattServerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattServer)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/bluetooth/BluetoothLeAudio")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsLeAudio = env.NewGlobalRef(&c.Object)
-
-		midLeAudioClose, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudio)), "close", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLeAudioGetConnectedDevices, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudio)), "getConnectedDevices", "()Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLeAudioGetConnectedGroupLeadDevice, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudio)), "getConnectedGroupLeadDevice", "(I)Landroid/bluetooth/BluetoothDevice;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLeAudioGetConnectionState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudio)), "getConnectionState", "(Landroid/bluetooth/BluetoothDevice;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLeAudioGetDevicesMatchingConnectionStates, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudio)), "getDevicesMatchingConnectionStates", "([I)Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLeAudioGetGroupId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudio)), "getGroupId", "(Landroid/bluetooth/BluetoothDevice;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLeAudioToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudio)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/bluetooth/BluetoothLeAudioCodecConfig")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsLeAudioCodecConfig = env.NewGlobalRef(&c.Object)
-
-		midLeAudioCodecConfigDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecConfig)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLeAudioCodecConfigEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecConfig)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLeAudioCodecConfigGetBitsPerSample, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecConfig)), "getBitsPerSample", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLeAudioCodecConfigGetChannelCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecConfig)), "getChannelCount", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLeAudioCodecConfigGetCodecName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecConfig)), "getCodecName", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLeAudioCodecConfigGetCodecPriority, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecConfig)), "getCodecPriority", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLeAudioCodecConfigGetCodecType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecConfig)), "getCodecType", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLeAudioCodecConfigGetFrameDuration, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecConfig)), "getFrameDuration", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLeAudioCodecConfigGetMaxOctetsPerFrame, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecConfig)), "getMaxOctetsPerFrame", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLeAudioCodecConfigGetMinOctetsPerFrame, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecConfig)), "getMinOctetsPerFrame", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLeAudioCodecConfigGetOctetsPerFrame, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecConfig)), "getOctetsPerFrame", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLeAudioCodecConfigGetSampleRate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecConfig)), "getSampleRate", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLeAudioCodecConfigHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecConfig)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLeAudioCodecConfigToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecConfig)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLeAudioCodecConfigWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecConfig)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/bluetooth/BluetoothLeAudioCodecConfig$Builder")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsLeAudioCodecConfigBuilder = env.NewGlobalRef(&c.Object)
-
-		midLeAudioCodecConfigBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecConfigBuilder)), "build", "()Landroid/bluetooth/BluetoothLeAudioCodecConfig;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLeAudioCodecConfigBuilderSetBitsPerSample, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecConfigBuilder)), "setBitsPerSample", "(I)Landroid/bluetooth/BluetoothLeAudioCodecConfig$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLeAudioCodecConfigBuilderSetChannelCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecConfigBuilder)), "setChannelCount", "(I)Landroid/bluetooth/BluetoothLeAudioCodecConfig$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLeAudioCodecConfigBuilderSetCodecPriority, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecConfigBuilder)), "setCodecPriority", "(I)Landroid/bluetooth/BluetoothLeAudioCodecConfig$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLeAudioCodecConfigBuilderSetCodecType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecConfigBuilder)), "setCodecType", "(I)Landroid/bluetooth/BluetoothLeAudioCodecConfig$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLeAudioCodecConfigBuilderSetFrameDuration, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecConfigBuilder)), "setFrameDuration", "(I)Landroid/bluetooth/BluetoothLeAudioCodecConfig$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLeAudioCodecConfigBuilderSetMaxOctetsPerFrame, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecConfigBuilder)), "setMaxOctetsPerFrame", "(I)Landroid/bluetooth/BluetoothLeAudioCodecConfig$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLeAudioCodecConfigBuilderSetMinOctetsPerFrame, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecConfigBuilder)), "setMinOctetsPerFrame", "(I)Landroid/bluetooth/BluetoothLeAudioCodecConfig$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLeAudioCodecConfigBuilderSetOctetsPerFrame, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecConfigBuilder)), "setOctetsPerFrame", "(I)Landroid/bluetooth/BluetoothLeAudioCodecConfig$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLeAudioCodecConfigBuilderSetSampleRate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecConfigBuilder)), "setSampleRate", "(I)Landroid/bluetooth/BluetoothLeAudioCodecConfig$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLeAudioCodecConfigBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLeAudioCodecConfigBuilder)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/bluetooth/BluetoothCodecConfig")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsCodecConfig = env.NewGlobalRef(&c.Object)
-
-		midCodecConfigDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfig)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCodecConfigEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfig)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCodecConfigGetBitsPerSample, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfig)), "getBitsPerSample", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCodecConfigGetChannelMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfig)), "getChannelMode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCodecConfigGetCodecPriority, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfig)), "getCodecPriority", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCodecConfigGetCodecSpecific1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfig)), "getCodecSpecific1", "()J")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCodecConfigGetCodecSpecific2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfig)), "getCodecSpecific2", "()J")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCodecConfigGetCodecSpecific3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfig)), "getCodecSpecific3", "()J")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCodecConfigGetCodecSpecific4, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfig)), "getCodecSpecific4", "()J")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCodecConfigGetCodecType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfig)), "getCodecType", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCodecConfigGetExtendedCodecType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfig)), "getExtendedCodecType", "()Landroid/bluetooth/BluetoothCodecType;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCodecConfigGetSampleRate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfig)), "getSampleRate", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCodecConfigHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfig)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCodecConfigIsMandatoryCodec, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfig)), "isMandatoryCodec", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCodecConfigToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfig)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCodecConfigWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfig)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/bluetooth/BluetoothCodecConfig$Builder")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsCodecConfigBuilder = env.NewGlobalRef(&c.Object)
-
-		midCodecConfigBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfigBuilder)), "build", "()Landroid/bluetooth/BluetoothCodecConfig;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCodecConfigBuilderSetBitsPerSample, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfigBuilder)), "setBitsPerSample", "(I)Landroid/bluetooth/BluetoothCodecConfig$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCodecConfigBuilderSetChannelMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfigBuilder)), "setChannelMode", "(I)Landroid/bluetooth/BluetoothCodecConfig$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCodecConfigBuilderSetCodecPriority, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfigBuilder)), "setCodecPriority", "(I)Landroid/bluetooth/BluetoothCodecConfig$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCodecConfigBuilderSetCodecSpecific1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfigBuilder)), "setCodecSpecific1", "(J)Landroid/bluetooth/BluetoothCodecConfig$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCodecConfigBuilderSetCodecSpecific2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfigBuilder)), "setCodecSpecific2", "(J)Landroid/bluetooth/BluetoothCodecConfig$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCodecConfigBuilderSetCodecSpecific3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfigBuilder)), "setCodecSpecific3", "(J)Landroid/bluetooth/BluetoothCodecConfig$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCodecConfigBuilderSetCodecSpecific4, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfigBuilder)), "setCodecSpecific4", "(J)Landroid/bluetooth/BluetoothCodecConfig$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCodecConfigBuilderSetCodecType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfigBuilder)), "setCodecType", "(I)Landroid/bluetooth/BluetoothCodecConfig$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCodecConfigBuilderSetExtendedCodecType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfigBuilder)), "setExtendedCodecType", "(Landroid/bluetooth/BluetoothCodecType;)Landroid/bluetooth/BluetoothCodecConfig$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCodecConfigBuilderSetSampleRate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfigBuilder)), "setSampleRate", "(I)Landroid/bluetooth/BluetoothCodecConfig$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCodecConfigBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfigBuilder)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
 	c, err = env.FindClass("android/bluetooth/BluetoothGattServerCallback")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -2533,86 +2757,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midGattServerCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattServerCallback)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/bluetooth/BluetoothHeadset")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsHeadset = env.NewGlobalRef(&c.Object)
-
-		midHeadsetGetConnectedDevices, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHeadset)), "getConnectedDevices", "()Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHeadsetGetConnectionState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHeadset)), "getConnectionState", "(Landroid/bluetooth/BluetoothDevice;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHeadsetGetDevicesMatchingConnectionStates, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHeadset)), "getDevicesMatchingConnectionStates", "([I)Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHeadsetIsAudioConnected, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHeadset)), "isAudioConnected", "(Landroid/bluetooth/BluetoothDevice;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHeadsetIsNoiseReductionSupported, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHeadset)), "isNoiseReductionSupported", "(Landroid/bluetooth/BluetoothDevice;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHeadsetIsVoiceRecognitionSupported, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHeadset)), "isVoiceRecognitionSupported", "(Landroid/bluetooth/BluetoothDevice;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHeadsetSendVendorSpecificResultCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHeadset)), "sendVendorSpecificResultCode", "(Landroid/bluetooth/BluetoothDevice;Ljava/lang/String;Ljava/lang/String;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHeadsetStartVoiceRecognition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHeadset)), "startVoiceRecognition", "(Landroid/bluetooth/BluetoothDevice;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHeadsetStopVoiceRecognition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHeadset)), "stopVoiceRecognition", "(Landroid/bluetooth/BluetoothDevice;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHeadsetToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHeadset)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -2865,6 +3009,233 @@ func doInit(env *jni.Env) error {
 
 	}
 
+	c, err = env.FindClass("android/bluetooth/BluetoothGattService")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsGattService = env.NewGlobalRef(&c.Object)
+		midGattServiceCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattService)), "<init>", "(Ljava/util/UUID;I)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midGattServiceAddCharacteristic, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattService)), "addCharacteristic", "(Landroid/bluetooth/BluetoothGattCharacteristic;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGattServiceAddService, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattService)), "addService", "(Landroid/bluetooth/BluetoothGattService;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGattServiceDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattService)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGattServiceGetCharacteristic, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattService)), "getCharacteristic", "(Ljava/util/UUID;)Landroid/bluetooth/BluetoothGattCharacteristic;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGattServiceGetCharacteristics, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattService)), "getCharacteristics", "()Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGattServiceGetIncludedServices, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattService)), "getIncludedServices", "()Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGattServiceGetInstanceId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattService)), "getInstanceId", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGattServiceGetType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattService)), "getType", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGattServiceGetUuid, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattService)), "getUuid", "()Ljava/util/UUID;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGattServiceWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattService)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGattServiceToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattService)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/bluetooth/BluetoothGattDescriptor")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsGattDescriptor = env.NewGlobalRef(&c.Object)
+		midGattDescriptorCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattDescriptor)), "<init>", "(Ljava/util/UUID;I)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midGattDescriptorDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattDescriptor)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGattDescriptorGetCharacteristic, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattDescriptor)), "getCharacteristic", "()Landroid/bluetooth/BluetoothGattCharacteristic;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGattDescriptorGetPermissions, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattDescriptor)), "getPermissions", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGattDescriptorGetUuid, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattDescriptor)), "getUuid", "()Ljava/util/UUID;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGattDescriptorGetValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattDescriptor)), "getValue", "()[B")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGattDescriptorSetValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattDescriptor)), "setValue", "([B)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGattDescriptorWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattDescriptor)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGattDescriptorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattDescriptor)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/bluetooth/BluetoothCodecType")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsCodecType = env.NewGlobalRef(&c.Object)
+
+		midCodecTypeDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecType)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCodecTypeEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecType)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCodecTypeGetCodecId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecType)), "getCodecId", "()J")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCodecTypeGetCodecName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecType)), "getCodecName", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCodecTypeHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecType)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCodecTypeIsMandatoryCodec, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecType)), "isMandatoryCodec", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCodecTypeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecType)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCodecTypeWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecType)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
 	c, err = env.FindClass("android/bluetooth/BluetoothGatt")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -3064,15 +3435,78 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/bluetooth/BluetoothStatusCodes")
+	c, err = env.FindClass("android/bluetooth/BluetoothSocket")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsStatusCodes = env.NewGlobalRef(&c.Object)
+		clsSocket = env.NewGlobalRef(&c.Object)
 
-		midStatusCodesToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStatusCodes)), "toString", "()Ljava/lang/String;")
+		midSocketClose, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocket)), "close", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSocketConnect, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocket)), "connect", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSocketGetConnectionType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocket)), "getConnectionType", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSocketGetInputStream, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocket)), "getInputStream", "()Ljava/io/InputStream;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSocketGetMaxReceivePacketSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocket)), "getMaxReceivePacketSize", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSocketGetMaxTransmitPacketSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocket)), "getMaxTransmitPacketSize", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSocketGetOutputStream, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocket)), "getOutputStream", "()Ljava/io/OutputStream;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSocketGetRemoteDevice, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocket)), "getRemoteDevice", "()Landroid/bluetooth/BluetoothDevice;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSocketIsConnected, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocket)), "isConnected", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSocketToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocket)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -3081,71 +3515,120 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/bluetooth/BluetoothCodecStatus")
+	c, err = env.FindClass("android/bluetooth/BluetoothCodecConfig")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsCodecStatus = env.NewGlobalRef(&c.Object)
+		clsCodecConfig = env.NewGlobalRef(&c.Object)
 
-		midCodecStatusDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecStatus)), "describeContents", "()I")
+		midCodecConfigDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfig)), "describeContents", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCodecStatusEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecStatus)), "equals", "(Ljava/lang/Object;)Z")
+		midCodecConfigEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfig)), "equals", "(Ljava/lang/Object;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCodecStatusGetCodecConfig, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecStatus)), "getCodecConfig", "()Landroid/bluetooth/BluetoothCodecConfig;")
+		midCodecConfigGetBitsPerSample, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfig)), "getBitsPerSample", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCodecStatusGetCodecsLocalCapabilities, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecStatus)), "getCodecsLocalCapabilities", "()Ljava/util/List;")
+		midCodecConfigGetChannelMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfig)), "getChannelMode", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCodecStatusGetCodecsSelectableCapabilities, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecStatus)), "getCodecsSelectableCapabilities", "()Ljava/util/List;")
+		midCodecConfigGetCodecPriority, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfig)), "getCodecPriority", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCodecStatusHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecStatus)), "hashCode", "()I")
+		midCodecConfigGetCodecSpecific1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfig)), "getCodecSpecific1", "()J")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCodecStatusIsCodecConfigSelectable, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecStatus)), "isCodecConfigSelectable", "(Landroid/bluetooth/BluetoothCodecConfig;)Z")
+		midCodecConfigGetCodecSpecific2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfig)), "getCodecSpecific2", "()J")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCodecStatusToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecStatus)), "toString", "()Ljava/lang/String;")
+		midCodecConfigGetCodecSpecific3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfig)), "getCodecSpecific3", "()J")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCodecStatusWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecStatus)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midCodecConfigGetCodecSpecific4, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfig)), "getCodecSpecific4", "()J")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCodecConfigGetCodecType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfig)), "getCodecType", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCodecConfigGetExtendedCodecType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfig)), "getExtendedCodecType", "()Landroid/bluetooth/BluetoothCodecType;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCodecConfigGetSampleRate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfig)), "getSampleRate", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCodecConfigHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfig)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCodecConfigIsMandatoryCodec, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfig)), "isMandatoryCodec", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCodecConfigToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfig)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCodecConfigWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfig)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -3154,29 +3637,92 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/bluetooth/BluetoothCodecStatus$Builder")
+	c, err = env.FindClass("android/bluetooth/BluetoothCodecConfig$Builder")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsCodecStatusBuilder = env.NewGlobalRef(&c.Object)
+		clsCodecConfigBuilder = env.NewGlobalRef(&c.Object)
 
-		midCodecStatusBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecStatusBuilder)), "build", "()Landroid/bluetooth/BluetoothCodecStatus;")
+		midCodecConfigBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfigBuilder)), "build", "()Landroid/bluetooth/BluetoothCodecConfig;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCodecStatusBuilderSetCodecConfig, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecStatusBuilder)), "setCodecConfig", "(Landroid/bluetooth/BluetoothCodecConfig;)Landroid/bluetooth/BluetoothCodecStatus$Builder;")
+		midCodecConfigBuilderSetBitsPerSample, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfigBuilder)), "setBitsPerSample", "(I)Landroid/bluetooth/BluetoothCodecConfig$Builder;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCodecStatusBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecStatusBuilder)), "toString", "()Ljava/lang/String;")
+		midCodecConfigBuilderSetChannelMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfigBuilder)), "setChannelMode", "(I)Landroid/bluetooth/BluetoothCodecConfig$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCodecConfigBuilderSetCodecPriority, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfigBuilder)), "setCodecPriority", "(I)Landroid/bluetooth/BluetoothCodecConfig$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCodecConfigBuilderSetCodecSpecific1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfigBuilder)), "setCodecSpecific1", "(J)Landroid/bluetooth/BluetoothCodecConfig$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCodecConfigBuilderSetCodecSpecific2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfigBuilder)), "setCodecSpecific2", "(J)Landroid/bluetooth/BluetoothCodecConfig$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCodecConfigBuilderSetCodecSpecific3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfigBuilder)), "setCodecSpecific3", "(J)Landroid/bluetooth/BluetoothCodecConfig$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCodecConfigBuilderSetCodecSpecific4, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfigBuilder)), "setCodecSpecific4", "(J)Landroid/bluetooth/BluetoothCodecConfig$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCodecConfigBuilderSetCodecType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfigBuilder)), "setCodecType", "(I)Landroid/bluetooth/BluetoothCodecConfig$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCodecConfigBuilderSetExtendedCodecType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfigBuilder)), "setExtendedCodecType", "(Landroid/bluetooth/BluetoothCodecType;)Landroid/bluetooth/BluetoothCodecConfig$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCodecConfigBuilderSetSampleRate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfigBuilder)), "setSampleRate", "(I)Landroid/bluetooth/BluetoothCodecConfig$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCodecConfigBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecConfigBuilder)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -3185,57 +3731,50 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/bluetooth/BluetoothSocketSettings")
+	c, err = env.FindClass("android/bluetooth/BluetoothHealthAppConfiguration")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsSocketSettings = env.NewGlobalRef(&c.Object)
+		clsHealthAppConfiguration = env.NewGlobalRef(&c.Object)
 
-		midSocketSettingsGetL2capPsm, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocketSettings)), "getL2capPsm", "()I")
+		midHealthAppConfigurationDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHealthAppConfiguration)), "describeContents", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSocketSettingsGetRfcommServiceName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocketSettings)), "getRfcommServiceName", "()Ljava/lang/String;")
+		midHealthAppConfigurationGetDataType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHealthAppConfiguration)), "getDataType", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSocketSettingsGetRfcommUuid, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocketSettings)), "getRfcommUuid", "()Ljava/util/UUID;")
+		midHealthAppConfigurationGetName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHealthAppConfiguration)), "getName", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSocketSettingsGetSocketType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocketSettings)), "getSocketType", "()I")
+		midHealthAppConfigurationGetRole, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHealthAppConfiguration)), "getRole", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSocketSettingsIsAuthenticationRequired, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocketSettings)), "isAuthenticationRequired", "()Z")
+		midHealthAppConfigurationWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHealthAppConfiguration)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSocketSettingsIsEncryptionRequired, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocketSettings)), "isEncryptionRequired", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSocketSettingsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocketSettings)), "toString", "()Ljava/lang/String;")
+		midHealthAppConfigurationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHealthAppConfiguration)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -3244,64 +3783,78 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/bluetooth/BluetoothSocketSettings$Builder")
+	c, err = env.FindClass("android/bluetooth/BluetoothHeadset")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsSocketSettingsBuilder = env.NewGlobalRef(&c.Object)
+		clsHeadset = env.NewGlobalRef(&c.Object)
 
-		midSocketSettingsBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocketSettingsBuilder)), "build", "()Landroid/bluetooth/BluetoothSocketSettings;")
+		midHeadsetGetConnectedDevices, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHeadset)), "getConnectedDevices", "()Ljava/util/List;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSocketSettingsBuilderSetAuthenticationRequired, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocketSettingsBuilder)), "setAuthenticationRequired", "(Z)Landroid/bluetooth/BluetoothSocketSettings$Builder;")
+		midHeadsetGetConnectionState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHeadset)), "getConnectionState", "(Landroid/bluetooth/BluetoothDevice;)I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSocketSettingsBuilderSetEncryptionRequired, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocketSettingsBuilder)), "setEncryptionRequired", "(Z)Landroid/bluetooth/BluetoothSocketSettings$Builder;")
+		midHeadsetGetDevicesMatchingConnectionStates, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHeadset)), "getDevicesMatchingConnectionStates", "([I)Ljava/util/List;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSocketSettingsBuilderSetL2capPsm, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocketSettingsBuilder)), "setL2capPsm", "(I)Landroid/bluetooth/BluetoothSocketSettings$Builder;")
+		midHeadsetIsAudioConnected, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHeadset)), "isAudioConnected", "(Landroid/bluetooth/BluetoothDevice;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSocketSettingsBuilderSetRfcommServiceName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocketSettingsBuilder)), "setRfcommServiceName", "(Ljava/lang/String;)Landroid/bluetooth/BluetoothSocketSettings$Builder;")
+		midHeadsetIsNoiseReductionSupported, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHeadset)), "isNoiseReductionSupported", "(Landroid/bluetooth/BluetoothDevice;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSocketSettingsBuilderSetRfcommUuid, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocketSettingsBuilder)), "setRfcommUuid", "(Ljava/util/UUID;)Landroid/bluetooth/BluetoothSocketSettings$Builder;")
+		midHeadsetIsVoiceRecognitionSupported, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHeadset)), "isVoiceRecognitionSupported", "(Landroid/bluetooth/BluetoothDevice;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSocketSettingsBuilderSetSocketType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocketSettingsBuilder)), "setSocketType", "(I)Landroid/bluetooth/BluetoothSocketSettings$Builder;")
+		midHeadsetSendVendorSpecificResultCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHeadset)), "sendVendorSpecificResultCode", "(Landroid/bluetooth/BluetoothDevice;Ljava/lang/String;Ljava/lang/String;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSocketSettingsBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocketSettingsBuilder)), "toString", "()Ljava/lang/String;")
+		midHeadsetStartVoiceRecognition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHeadset)), "startVoiceRecognition", "(Landroid/bluetooth/BluetoothDevice;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHeadsetStopVoiceRecognition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHeadset)), "stopVoiceRecognition", "(Landroid/bluetooth/BluetoothDevice;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHeadsetToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHeadset)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -3310,196 +3863,43 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/bluetooth/BluetoothGattService")
+	c, err = env.FindClass("android/bluetooth/BluetoothServerSocket")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsGattService = env.NewGlobalRef(&c.Object)
-		midGattServiceCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattService)), "<init>", "(Ljava/util/UUID;I)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
+		clsServerSocket = env.NewGlobalRef(&c.Object)
 
-		midGattServiceAddCharacteristic, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattService)), "addCharacteristic", "(Landroid/bluetooth/BluetoothGattCharacteristic;)Z")
+		midServerSocketAccept0, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsServerSocket)), "accept", "()Landroid/bluetooth/BluetoothSocket;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midGattServiceAddService, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattService)), "addService", "(Landroid/bluetooth/BluetoothGattService;)Z")
+		midServerSocketAccept1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsServerSocket)), "accept", "(I)Landroid/bluetooth/BluetoothSocket;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midGattServiceDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattService)), "describeContents", "()I")
+		midServerSocketClose, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsServerSocket)), "close", "()V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midGattServiceGetCharacteristic, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattService)), "getCharacteristic", "(Ljava/util/UUID;)Landroid/bluetooth/BluetoothGattCharacteristic;")
+		midServerSocketGetPsm, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsServerSocket)), "getPsm", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midGattServiceGetCharacteristics, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattService)), "getCharacteristics", "()Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGattServiceGetIncludedServices, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattService)), "getIncludedServices", "()Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGattServiceGetInstanceId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattService)), "getInstanceId", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGattServiceGetType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattService)), "getType", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGattServiceGetUuid, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattService)), "getUuid", "()Ljava/util/UUID;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGattServiceWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattService)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGattServiceToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattService)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/bluetooth/BluetoothClass")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsClass = env.NewGlobalRef(&c.Object)
-
-		midClassDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsClass)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midClassDoesClassMatch, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsClass)), "doesClassMatch", "(I)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midClassEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsClass)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midClassGetDeviceClass, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsClass)), "getDeviceClass", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midClassGetMajorDeviceClass, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsClass)), "getMajorDeviceClass", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midClassHasService, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsClass)), "hasService", "(I)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midClassHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsClass)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midClassToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsClass)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midClassWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsClass)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/bluetooth/BluetoothClass$Device")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsClassDevice = env.NewGlobalRef(&c.Object)
-
-		midClassDeviceToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsClassDevice)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/bluetooth/BluetoothClass$Service")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsClassService = env.NewGlobalRef(&c.Object)
-
-		midClassServiceToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsClassService)), "toString", "()Ljava/lang/String;")
+		midServerSocketToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsServerSocket)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -3573,406 +3973,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midHealthToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHealth)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/bluetooth/BluetoothGattDescriptor")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsGattDescriptor = env.NewGlobalRef(&c.Object)
-		midGattDescriptorCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattDescriptor)), "<init>", "(Ljava/util/UUID;I)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midGattDescriptorDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattDescriptor)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGattDescriptorGetCharacteristic, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattDescriptor)), "getCharacteristic", "()Landroid/bluetooth/BluetoothGattCharacteristic;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGattDescriptorGetPermissions, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattDescriptor)), "getPermissions", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGattDescriptorGetUuid, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattDescriptor)), "getUuid", "()Ljava/util/UUID;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGattDescriptorGetValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattDescriptor)), "getValue", "()[B")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGattDescriptorSetValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattDescriptor)), "setValue", "([B)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGattDescriptorWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattDescriptor)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGattDescriptorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattDescriptor)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/bluetooth/BluetoothProfile")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsProfile = env.NewGlobalRef(&c.Object)
-
-		midProfileGetConnectedDevices, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfile)), "getConnectedDevices", "()Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midProfileGetConnectionState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfile)), "getConnectionState", "(Landroid/bluetooth/BluetoothDevice;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midProfileGetDevicesMatchingConnectionStates, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfile)), "getDevicesMatchingConnectionStates", "([I)Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midProfileToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfile)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/bluetooth/BluetoothProfile$ServiceListener")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsProfileServiceListener = env.NewGlobalRef(&c.Object)
-
-		midProfileServiceListenerOnServiceConnected, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfileServiceListener)), "onServiceConnected", "(ILandroid/bluetooth/BluetoothProfile;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midProfileServiceListenerOnServiceDisconnected, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfileServiceListener)), "onServiceDisconnected", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midProfileServiceListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProfileServiceListener)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/bluetooth/BluetoothSocketException")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsSocketException = env.NewGlobalRef(&c.Object)
-		midSocketExceptionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocketException)), "<init>", "(I)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midSocketExceptionGetErrorCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocketException)), "getErrorCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSocketExceptionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSocketException)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/bluetooth/BluetoothHearingAid")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsHearingAid = env.NewGlobalRef(&c.Object)
-
-		midHearingAidGetConnectedDevices, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHearingAid)), "getConnectedDevices", "()Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHearingAidGetConnectionState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHearingAid)), "getConnectionState", "(Landroid/bluetooth/BluetoothDevice;)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHearingAidGetDevicesMatchingConnectionStates, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHearingAid)), "getDevicesMatchingConnectionStates", "([I)Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHearingAidToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHearingAid)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/bluetooth/BluetoothGattCallback")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsGattCallback = env.NewGlobalRef(&c.Object)
-
-		midGattCallbackOnCharacteristicChanged2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattCallback)), "onCharacteristicChanged", "(Landroid/bluetooth/BluetoothGatt;Landroid/bluetooth/BluetoothGattCharacteristic;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGattCallbackOnCharacteristicChanged3_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattCallback)), "onCharacteristicChanged", "(Landroid/bluetooth/BluetoothGatt;Landroid/bluetooth/BluetoothGattCharacteristic;[B)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGattCallbackOnCharacteristicRead4, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattCallback)), "onCharacteristicRead", "(Landroid/bluetooth/BluetoothGatt;Landroid/bluetooth/BluetoothGattCharacteristic;[BI)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGattCallbackOnCharacteristicRead3_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattCallback)), "onCharacteristicRead", "(Landroid/bluetooth/BluetoothGatt;Landroid/bluetooth/BluetoothGattCharacteristic;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGattCallbackOnCharacteristicWrite, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattCallback)), "onCharacteristicWrite", "(Landroid/bluetooth/BluetoothGatt;Landroid/bluetooth/BluetoothGattCharacteristic;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGattCallbackOnConnectionStateChange, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattCallback)), "onConnectionStateChange", "(Landroid/bluetooth/BluetoothGatt;II)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGattCallbackOnDescriptorRead3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattCallback)), "onDescriptorRead", "(Landroid/bluetooth/BluetoothGatt;Landroid/bluetooth/BluetoothGattDescriptor;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGattCallbackOnDescriptorRead4_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattCallback)), "onDescriptorRead", "(Landroid/bluetooth/BluetoothGatt;Landroid/bluetooth/BluetoothGattDescriptor;I[B)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGattCallbackOnDescriptorWrite, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattCallback)), "onDescriptorWrite", "(Landroid/bluetooth/BluetoothGatt;Landroid/bluetooth/BluetoothGattDescriptor;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGattCallbackOnMtuChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattCallback)), "onMtuChanged", "(Landroid/bluetooth/BluetoothGatt;II)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGattCallbackOnPhyRead, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattCallback)), "onPhyRead", "(Landroid/bluetooth/BluetoothGatt;III)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGattCallbackOnPhyUpdate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattCallback)), "onPhyUpdate", "(Landroid/bluetooth/BluetoothGatt;III)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGattCallbackOnReadRemoteRssi, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattCallback)), "onReadRemoteRssi", "(Landroid/bluetooth/BluetoothGatt;II)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGattCallbackOnReliableWriteCompleted, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattCallback)), "onReliableWriteCompleted", "(Landroid/bluetooth/BluetoothGatt;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGattCallbackOnServiceChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattCallback)), "onServiceChanged", "(Landroid/bluetooth/BluetoothGatt;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGattCallbackOnServicesDiscovered, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattCallback)), "onServicesDiscovered", "(Landroid/bluetooth/BluetoothGatt;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGattCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGattCallback)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/bluetooth/BluetoothCodecType")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsCodecType = env.NewGlobalRef(&c.Object)
-
-		midCodecTypeDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecType)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCodecTypeEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecType)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCodecTypeGetCodecId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecType)), "getCodecId", "()J")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCodecTypeGetCodecName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecType)), "getCodecName", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCodecTypeHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecType)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCodecTypeIsMandatoryCodec, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecType)), "isMandatoryCodec", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCodecTypeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecType)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCodecTypeWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCodecType)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

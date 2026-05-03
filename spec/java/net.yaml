@@ -5,64 +5,9 @@
 package: net
 go_import: github.com/AndroidGoLab/jni/net
 classes:
-    - java_class: android.net.DhcpInfo
-      go_type: DhcpInfo
-      obtain: constructor
+    - java_class: android.net.Ikev2VpnProfile
+      go_type: Ikev2VpnProfile
       methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.net.Credentials
-      go_type: Credentials
-      obtain: constructor
-      constructor_params:
-        - java_type: int
-          go_name: arg0
-        - java_type: int
-          go_name: arg1
-        - java_type: int
-          go_name: arg2
-      methods:
-        - java_method: getGid
-          go_name: GetGid
-          returns: int
-          error: true
-        - java_method: getPid
-          go_name: GetPid
-          returns: int
-          error: true
-        - java_method: getUid
-          go_name: GetUid
-          returns: int
-          error: true
-    - java_class: android.net.NetworkRequest
-      go_type: workRequest
-      methods:
-        - java_method: canBeSatisfiedBy
-          go_name: CanBeSatisfiedBy
-          params:
-            - java_type: android.net.NetworkCapabilities
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
         - java_method: equals
           go_name: Equals
           params:
@@ -70,304 +15,222 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
-        - java_method: getCapabilities
-          go_name: GetCapabilities
-          returns: '[I'
+        - java_method: getAllowedAlgorithms
+          go_name: GetAllowedAlgorithms
+          returns: java.util.List<java.lang.String>
           error: true
-        - java_method: getNetworkSpecifier
-          go_name: GetNetworkSpecifier
-          returns: android.net.NetworkSpecifier
+        - java_method: getIkeTunnelConnectionParams
+          go_name: GetIkeTunnelConnectionParams
+          returns: android.net.ipsec.ike.IkeTunnelConnectionParams
           error: true
-        - java_method: getSubscriptionIds
-          go_name: GetSubscriptionIds
-          returns: java.util.Set<java.lang.Integer>
+        - java_method: getMaxMtu
+          go_name: GetMaxMtu
+          returns: int
           error: true
-        - java_method: getTransportTypes
-          go_name: GetTransportTypes
-          returns: '[I'
+        - java_method: getPassword
+          go_name: GetPassword
+          returns: String
           error: true
-        - java_method: hasCapability
-          go_name: HasCapability
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
+        - java_method: getPresharedKey
+          go_name: GetPresharedKey
+          returns: '[B'
           error: true
-        - java_method: hasTransport
-          go_name: HasTransport
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
+        - java_method: getProxyInfo
+          go_name: GetProxyInfo
+          returns: android.net.ProxyInfo
+          error: true
+        - java_method: getRsaPrivateKey
+          go_name: GetRsaPrivateKey
+          returns: java.security.PrivateKey
+          error: true
+        - java_method: getServerAddr
+          go_name: GetServerAddr
+          returns: String
+          error: true
+        - java_method: getServerRootCaCert
+          go_name: GetServerRootCaCert
+          returns: java.security.cert.X509Certificate
+          error: true
+        - java_method: getUserCert
+          go_name: GetUserCert
+          returns: java.security.cert.X509Certificate
+          error: true
+        - java_method: getUserIdentity
+          go_name: GetUserIdentity
+          returns: String
+          error: true
+        - java_method: getUsername
+          go_name: GetUsername
+          returns: String
           error: true
         - java_method: hashCode
           go_name: HashCode
           returns: int
           error: true
+        - java_method: isAutomaticIpVersionSelectionEnabled
+          go_name: IsAutomaticIpVersionSelectionEnabled
+          returns: boolean
+          error: true
+        - java_method: isAutomaticNattKeepaliveTimerEnabled
+          go_name: IsAutomaticNattKeepaliveTimerEnabled
+          returns: boolean
+          error: true
+        - java_method: isBypassable
+          go_name: IsBypassable
+          returns: boolean
+          error: true
+        - java_method: isMetered
+          go_name: IsMetered
+          returns: boolean
+          error: true
         - java_method: toString
           go_name: ToString
           returns: String
           error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.net.NetworkRequest$Builder
-      go_type: workRequestBuilder
-      methods:
-        - java_method: addCapability
-          go_name: AddCapability
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.net.NetworkRequest$Builder
-          error: true
-        - java_method: addTransportType
-          go_name: AddTransportType
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.net.NetworkRequest$Builder
-          error: true
-        - java_method: build
-          go_name: Build
-          returns: android.net.NetworkRequest
-          error: true
-        - java_method: clearCapabilities
-          go_name: ClearCapabilities
-          returns: android.net.NetworkRequest$Builder
-          error: true
-        - java_method: removeCapability
-          go_name: RemoveCapability
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.net.NetworkRequest$Builder
-          error: true
-        - java_method: removeTransportType
-          go_name: RemoveTransportType
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.net.NetworkRequest$Builder
-          error: true
-        - java_method: setIncludeOtherUidNetworks
-          go_name: SetIncludeOtherUidNetworks
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.net.NetworkRequest$Builder
-          error: true
-        - java_method: setNetworkSpecifier
-          go_name: SetNetworkSpecifier1
-          params:
-            - java_type: android.net.NetworkSpecifier
-              go_name: arg0
-          returns: android.net.NetworkRequest$Builder
-          error: true
-        - java_method: setNetworkSpecifier
-          go_name: SetNetworkSpecifier1_1
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.net.NetworkRequest$Builder
-          error: true
-    - java_class: android.net.NetworkSpecifier
-      go_type: workSpecifier
-    - java_class: android.net.IpSecTransformState
-      go_type: IpSecTransformState
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getByteCount
-          go_name: GetByteCount
-          returns: long
-          error: true
-        - java_method: getPacketCount
-          go_name: GetPacketCount
-          returns: long
-          error: true
-        - java_method: getReplayBitmap
-          go_name: GetReplayBitmap
-          returns: '[B'
-          error: true
-        - java_method: getRxHighestSequenceNumber
-          go_name: GetRxHighestSequenceNumber
-          returns: long
-          error: true
-        - java_method: getTimestampMillis
-          go_name: GetTimestampMillis
-          returns: long
-          error: true
-        - java_method: getTxHighestSequenceNumber
-          go_name: GetTxHighestSequenceNumber
-          returns: long
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.net.IpSecTransformState$Builder
-      go_type: IpSecTransformStateBuilder
+    - java_class: android.net.Ikev2VpnProfile$Builder
+      go_type: Ikev2VpnProfileBuilder
       methods:
         - java_method: build
           go_name: Build
-          returns: android.net.IpSecTransformState
+          returns: android.net.Ikev2VpnProfile
           error: true
-        - java_method: setByteCount
-          go_name: SetByteCount
+        - java_method: setAuthDigitalSignature
+          go_name: SetAuthDigitalSignature
           params:
-            - java_type: long
+            - java_type: java.security.cert.X509Certificate
               go_name: arg0
-          returns: android.net.IpSecTransformState$Builder
+            - java_type: java.security.PrivateKey
+              go_name: arg1
+            - java_type: java.security.cert.X509Certificate
+              go_name: arg2
+          returns: android.net.Ikev2VpnProfile$Builder
           error: true
-        - java_method: setPacketCount
-          go_name: SetPacketCount
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: android.net.IpSecTransformState$Builder
-          error: true
-        - java_method: setReplayBitmap
-          go_name: SetReplayBitmap
+        - java_method: setAuthPsk
+          go_name: SetAuthPsk
           params:
             - java_type: '[B'
               go_name: arg0
-          returns: android.net.IpSecTransformState$Builder
+          returns: android.net.Ikev2VpnProfile$Builder
           error: true
-        - java_method: setRxHighestSequenceNumber
-          go_name: SetRxHighestSequenceNumber
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: android.net.IpSecTransformState$Builder
-          error: true
-        - java_method: setTimestampMillis
-          go_name: SetTimestampMillis
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: android.net.IpSecTransformState$Builder
-          error: true
-        - java_method: setTxHighestSequenceNumber
-          go_name: SetTxHighestSequenceNumber
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: android.net.IpSecTransformState$Builder
-          error: true
-    - java_class: android.net.MailTo
-      go_type: MailTo
-      methods:
-        - java_method: getBody
-          go_name: GetBody
-          returns: String
-          error: true
-        - java_method: getCc
-          go_name: GetCc
-          returns: String
-          error: true
-        - java_method: getSubject
-          go_name: GetSubject
-          returns: String
-          error: true
-        - java_method: getTo
-          go_name: GetTo
-          returns: String
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-      static_methods:
-        - java_method: isMailTo
-          go_name: IsMailTo
+        - java_method: setAuthUsernamePassword
+          go_name: SetAuthUsernamePassword
           params:
             - java_type: String
               go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: parse
-          go_name: Parse
-          params:
             - java_type: String
-              go_name: arg0
-          returns: android.net.MailTo
+              go_name: arg1
+            - java_type: java.security.cert.X509Certificate
+              go_name: arg2
+          returns: android.net.Ikev2VpnProfile$Builder
           error: true
-    - java_class: android.net.IpSecTransform
-      go_type: IpSecTransform
+        - java_method: setAutomaticIpVersionSelectionEnabled
+          go_name: SetAutomaticIpVersionSelectionEnabled
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.net.Ikev2VpnProfile$Builder
+          error: true
+        - java_method: setAutomaticNattKeepaliveTimerEnabled
+          go_name: SetAutomaticNattKeepaliveTimerEnabled
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.net.Ikev2VpnProfile$Builder
+          error: true
+        - java_method: setBypassable
+          go_name: SetBypassable
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.net.Ikev2VpnProfile$Builder
+          error: true
+        - java_method: setLocalRoutesExcluded
+          go_name: SetLocalRoutesExcluded
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.net.Ikev2VpnProfile$Builder
+          error: true
+        - java_method: setMaxMtu
+          go_name: SetMaxMtu
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.net.Ikev2VpnProfile$Builder
+          error: true
+        - java_method: setMetered
+          go_name: SetMetered
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.net.Ikev2VpnProfile$Builder
+          error: true
+        - java_method: setProxy
+          go_name: SetProxy
+          params:
+            - java_type: android.net.ProxyInfo
+              go_name: arg0
+          returns: android.net.Ikev2VpnProfile$Builder
+          error: true
+        - java_method: setRequiresInternetValidation
+          go_name: SetRequiresInternetValidation
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.net.Ikev2VpnProfile$Builder
+          error: true
+    - java_class: android.net.ConnectivityDiagnosticsManager
+      go_type: ConnectivityDiagnosticsManager
+      obtain: system_service
+      service_name: connectivity_diagnostics
+      close: true
       methods:
-        - java_method: close
-          go_name: Close
+        - java_method: registerConnectivityDiagnosticsCallback
+          go_name: RegisterConnectivityDiagnosticsCallback
+          params:
+            - java_type: android.net.NetworkRequest
+              go_name: arg0
+            - java_type: java.util.concurrent.Executor
+              go_name: arg1
+            - java_type: android.net.ConnectivityDiagnosticsManager$ConnectivityDiagnosticsCallback
+              go_name: arg2
           returns: void
           error: true
-        - java_method: equals
-          go_name: Equals
+        - java_method: unregisterConnectivityDiagnosticsCallback
+          go_name: UnregisterConnectivityDiagnosticsCallback
           params:
-            - java_type: java.lang.Object
+            - java_type: android.net.ConnectivityDiagnosticsManager$ConnectivityDiagnosticsCallback
               go_name: arg0
-          returns: boolean
+          returns: void
           error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-    - java_class: android.net.IpSecTransform$Builder
-      go_type: IpSecTransformBuilder
+    - java_class: android.net.ConnectivityDiagnosticsManager$ConnectivityDiagnosticsCallback
+      go_type: ConnectivityDiagnosticsManagerConnectivityDiagnosticsCallback
       methods:
-        - java_method: buildTransportModeTransform
-          go_name: BuildTransportModeTransform
+        - java_method: onConnectivityReportAvailable
+          go_name: OnConnectivityReportAvailable
           params:
-            - java_type: java.net.InetAddress
+            - java_type: android.net.ConnectivityDiagnosticsManager$ConnectivityReport
               go_name: arg0
-            - java_type: android.net.IpSecManager$SecurityParameterIndex
+          returns: void
+          error: true
+        - java_method: onDataStallSuspected
+          go_name: OnDataStallSuspected
+          params:
+            - java_type: android.net.ConnectivityDiagnosticsManager$DataStallReport
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onNetworkConnectivityReported
+          go_name: OnNetworkConnectivityReported
+          params:
+            - java_type: android.net.Network
+              go_name: arg0
+            - java_type: boolean
               go_name: arg1
-          returns: android.net.IpSecTransform
+          returns: void
           error: true
-        - java_method: setAuthenticatedEncryption
-          go_name: SetAuthenticatedEncryption
-          params:
-            - java_type: android.net.IpSecAlgorithm
-              go_name: arg0
-          returns: android.net.IpSecTransform$Builder
-          error: true
-        - java_method: setAuthentication
-          go_name: SetAuthentication
-          params:
-            - java_type: android.net.IpSecAlgorithm
-              go_name: arg0
-          returns: android.net.IpSecTransform$Builder
-          error: true
-        - java_method: setEncryption
-          go_name: SetEncryption
-          params:
-            - java_type: android.net.IpSecAlgorithm
-              go_name: arg0
-          returns: android.net.IpSecTransform$Builder
-          error: true
-        - java_method: setIpv4Encapsulation
-          go_name: SetIpv4Encapsulation
-          params:
-            - java_type: android.net.IpSecManager$UdpEncapsulationSocket
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: android.net.IpSecTransform$Builder
-          error: true
-    - java_class: android.net.TelephonyNetworkSpecifier
-      go_type: TelephonyNetworkSpecifier
+    - java_class: android.net.ConnectivityDiagnosticsManager$ConnectivityReport
+      go_type: ConnectivityDiagnosticsManagerConnectivityReport
       methods:
         - java_method: describeContents
           go_name: DescribeContents
@@ -380,18 +243,30 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
-        - java_method: getSubscriptionId
-          go_name: GetSubscriptionId
-          returns: int
+        - java_method: getAdditionalInfo
+          go_name: GetAdditionalInfo
+          returns: android.os.PersistableBundle
+          error: true
+        - java_method: getLinkProperties
+          go_name: GetLinkProperties
+          returns: android.net.LinkProperties
+          error: true
+        - java_method: getNetwork
+          go_name: GetNetwork
+          returns: android.net.Network
+          error: true
+        - java_method: getNetworkCapabilities
+          go_name: GetNetworkCapabilities
+          returns: android.net.NetworkCapabilities
+          error: true
+        - java_method: getReportTimestamp
+          go_name: GetReportTimestamp
+          returns: long
           error: true
         - java_method: hashCode
           go_name: HashCode
           returns: int
           error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
         - java_method: writeToParcel
           go_name: WriteToParcel
           params:
@@ -401,59 +276,9 @@ classes:
               go_name: arg1
           returns: void
           error: true
-    - java_class: android.net.TelephonyNetworkSpecifier$Builder
-      go_type: TelephonyNetworkSpecifierBuilder
+    - java_class: android.net.ConnectivityDiagnosticsManager$DataStallReport
+      go_type: ConnectivityDiagnosticsManagerDataStallReport
       methods:
-        - java_method: build
-          go_name: Build
-          returns: android.net.TelephonyNetworkSpecifier
-          error: true
-        - java_method: setSubscriptionId
-          go_name: SetSubscriptionId
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.net.TelephonyNetworkSpecifier$Builder
-          error: true
-    - java_class: android.net.CaptivePortal
-      go_type: CaptivePortal
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: ignoreNetwork
-          go_name: IgnoreNetwork
-          returns: void
-          error: true
-        - java_method: reportCaptivePortalDismissed
-          go_name: ReportCaptivePortalDismissed
-          returns: void
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.net.LinkProperties
-      go_type: LinkProperties
-      obtain: constructor
-      methods:
-        - java_method: addRoute
-          go_name: AddRoute
-          params:
-            - java_type: android.net.RouteInfo
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: clear
-          go_name: Clear
-          returns: void
-          error: true
         - java_method: describeContents
           go_name: DescribeContents
           returns: int
@@ -465,9 +290,56 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
-        - java_method: getDhcpServerAddress
-          go_name: GetDhcpServerAddress
-          returns: java.net.Inet4Address
+        - java_method: getDetectionMethod
+          go_name: GetDetectionMethod
+          returns: int
+          error: true
+        - java_method: getLinkProperties
+          go_name: GetLinkProperties
+          returns: android.net.LinkProperties
+          error: true
+        - java_method: getNetwork
+          go_name: GetNetwork
+          returns: android.net.Network
+          error: true
+        - java_method: getNetworkCapabilities
+          go_name: GetNetworkCapabilities
+          returns: android.net.NetworkCapabilities
+          error: true
+        - java_method: getReportTimestamp
+          go_name: GetReportTimestamp
+          returns: long
+          error: true
+        - java_method: getStallDetails
+          go_name: GetStallDetails
+          returns: android.os.PersistableBundle
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.net.StaticIpConfiguration
+      go_type: StaticIpConfiguration
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
           error: true
         - java_method: getDnsServers
           go_name: GetDnsServers
@@ -477,724 +349,58 @@ classes:
           go_name: GetDomains
           returns: String
           error: true
-        - java_method: getHttpProxy
-          go_name: GetHttpProxy
-          returns: android.net.ProxyInfo
+        - java_method: getGateway
+          go_name: GetGateway
+          returns: java.net.InetAddress
           error: true
-        - java_method: getInterfaceName
-          go_name: GetInterfaceName
-          returns: String
-          error: true
-        - java_method: getLinkAddresses
-          go_name: GetLinkAddresses
-          returns: java.util.List<android.net.LinkAddress>
-          error: true
-        - java_method: getMtu
-          go_name: GetMtu
-          returns: int
-          error: true
-        - java_method: getNat64Prefix
-          go_name: GetNat64Prefix
-          returns: android.net.IpPrefix
-          error: true
-        - java_method: getPrivateDnsServerName
-          go_name: GetPrivateDnsServerName
-          returns: String
-          error: true
-        - java_method: getRoutes
-          go_name: GetRoutes
-          returns: java.util.List<android.net.RouteInfo>
+        - java_method: getIpAddress
+          go_name: GetIpAddress
+          returns: android.net.LinkAddress
           error: true
         - java_method: hashCode
           go_name: HashCode
           returns: int
           error: true
-        - java_method: isPrivateDnsActive
-          go_name: IsPrivateDnsActive
-          returns: boolean
+        - java_method: toString
+          go_name: ToString
+          returns: String
           error: true
-        - java_method: isWakeOnLanSupported
-          go_name: IsWakeOnLanSupported
-          returns: boolean
-          error: true
-        - java_method: setDhcpServerAddress
-          go_name: SetDhcpServerAddress
+        - java_method: writeToParcel
+          go_name: WriteToParcel
           params:
-            - java_type: java.net.Inet4Address
+            - java_type: android.os.Parcel
               go_name: arg0
+            - java_type: int
+              go_name: arg1
           returns: void
+          error: true
+    - java_class: android.net.StaticIpConfiguration$Builder
+      go_type: StaticIpConfigurationBuilder
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.net.StaticIpConfiguration
           error: true
         - java_method: setDomains
           go_name: SetDomains
           params:
             - java_type: String
               go_name: arg0
-          returns: void
+          returns: android.net.StaticIpConfiguration$Builder
           error: true
-        - java_method: setHttpProxy
-          go_name: SetHttpProxy
-          params:
-            - java_type: android.net.ProxyInfo
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setInterfaceName
-          go_name: SetInterfaceName
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setMtu
-          go_name: SetMtu
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setNat64Prefix
-          go_name: SetNat64Prefix
-          params:
-            - java_type: android.net.IpPrefix
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.net.IpPrefix
-      go_type: IpPrefix
-      obtain: constructor
-      constructor_params:
-        - java_type: java.net.InetAddress
-          go_name: arg0
-        - java_type: int
-          go_name: arg1
-      methods:
-        - java_method: contains
-          go_name: Contains
+        - java_method: setGateway
+          go_name: SetGateway
           params:
             - java_type: java.net.InetAddress
               go_name: arg0
-          returns: boolean
+          returns: android.net.StaticIpConfiguration$Builder
           error: true
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
+        - java_method: setIpAddress
+          go_name: SetIpAddress
           params:
-            - java_type: java.lang.Object
+            - java_type: android.net.LinkAddress
               go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getAddress
-          go_name: GetAddress
-          returns: java.net.InetAddress
-          error: true
-        - java_method: getPrefixLength
-          go_name: GetPrefixLength
-          returns: int
-          error: true
-        - java_method: getRawAddress
-          go_name: GetRawAddress
-          returns: '[B'
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.net.UrlQuerySanitizer
-      go_type: UrlQuerySanitizer
-      obtain: constructor
-      methods:
-        - java_method: getAllowUnregisteredParamaters
-          go_name: GetAllowUnregisteredParamaters
-          returns: boolean
-          error: true
-        - java_method: getEffectiveValueSanitizer
-          go_name: GetEffectiveValueSanitizer
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.net.UrlQuerySanitizer$ValueSanitizer
-          error: true
-        - java_method: getParameterList
-          go_name: GetParameterList
-          returns: java.util.List<android.net.UrlQuerySanitizer$ParameterValuePair>
-          error: true
-        - java_method: getParameterSet
-          go_name: GetParameterSet
-          returns: java.util.Set<java.lang.String>
-          error: true
-        - java_method: getPreferFirstRepeatedParameter
-          go_name: GetPreferFirstRepeatedParameter
-          returns: boolean
-          error: true
-        - java_method: getUnregisteredParameterValueSanitizer
-          go_name: GetUnregisteredParameterValueSanitizer
-          returns: android.net.UrlQuerySanitizer$ValueSanitizer
-          error: true
-        - java_method: getValue
-          go_name: GetValue
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: String
-          error: true
-        - java_method: getValueSanitizer
-          go_name: GetValueSanitizer
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.net.UrlQuerySanitizer$ValueSanitizer
-          error: true
-        - java_method: hasParameter
-          go_name: HasParameter
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: parseQuery
-          go_name: ParseQuery
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: parseUrl
-          go_name: ParseUrl
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: registerParameter
-          go_name: RegisterParameter
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: android.net.UrlQuerySanitizer$ValueSanitizer
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: registerParameters
-          go_name: RegisterParameters
-          params:
-            - java_type: java.lang.String[]
-              go_name: arg0
-            - java_type: android.net.UrlQuerySanitizer$ValueSanitizer
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: setAllowUnregisteredParamaters
-          go_name: SetAllowUnregisteredParamaters
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setPreferFirstRepeatedParameter
-          go_name: SetPreferFirstRepeatedParameter
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setUnregisteredParameterValueSanitizer
-          go_name: SetUnregisteredParameterValueSanitizer
-          params:
-            - java_type: android.net.UrlQuerySanitizer$ValueSanitizer
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: unescape
-          go_name: Unescape
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: String
-          error: true
-      static_methods:
-        - java_method: getAllButNulAndAngleBracketsLegal
-          go_name: GetAllButNulAndAngleBracketsLegal
-          returns: android.net.UrlQuerySanitizer$ValueSanitizer
-          error: true
-        - java_method: getAllButNulLegal
-          go_name: GetAllButNulLegal
-          returns: android.net.UrlQuerySanitizer$ValueSanitizer
-          error: true
-        - java_method: getAllButWhitespaceLegal
-          go_name: GetAllButWhitespaceLegal
-          returns: android.net.UrlQuerySanitizer$ValueSanitizer
-          error: true
-        - java_method: getAllIllegal
-          go_name: GetAllIllegal
-          returns: android.net.UrlQuerySanitizer$ValueSanitizer
-          error: true
-        - java_method: getAmpAndSpaceLegal
-          go_name: GetAmpAndSpaceLegal
-          returns: android.net.UrlQuerySanitizer$ValueSanitizer
-          error: true
-        - java_method: getAmpLegal
-          go_name: GetAmpLegal
-          returns: android.net.UrlQuerySanitizer$ValueSanitizer
-          error: true
-        - java_method: getSpaceLegal
-          go_name: GetSpaceLegal
-          returns: android.net.UrlQuerySanitizer$ValueSanitizer
-          error: true
-        - java_method: getUrlAndSpaceLegal
-          go_name: GetUrlAndSpaceLegal
-          returns: android.net.UrlQuerySanitizer$ValueSanitizer
-          error: true
-        - java_method: getUrlLegal
-          go_name: GetUrlLegal
-          returns: android.net.UrlQuerySanitizer$ValueSanitizer
-          error: true
-    - java_class: android.net.UrlQuerySanitizer$IllegalCharacterValueSanitizer
-      go_type: UrlQuerySanitizerIllegalCharacterValueSanitizer
-      methods:
-        - java_method: sanitize
-          go_name: Sanitize
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: String
-          error: true
-    - java_class: android.net.UrlQuerySanitizer$ParameterValuePair
-      go_type: UrlQuerySanitizerParameterValuePair
-    - java_class: android.net.UrlQuerySanitizer$ValueSanitizer
-      go_type: UrlQuerySanitizerValueSanitizer
-      methods:
-        - java_method: sanitize
-          go_name: Sanitize
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: String
-          error: true
-    - java_class: android.net.LocalSocketAddress
-      go_type: LocalSocketAddress
-      obtain: constructor
-      constructor_params:
-        - java_type: String
-          go_name: arg0
-      methods:
-        - java_method: getName
-          go_name: GetName
-          returns: String
-          error: true
-        - java_method: getNamespace
-          go_name: GetNamespace
-          returns: android.net.LocalSocketAddress$Namespace
-          error: true
-    - java_class: android.net.LocalSocketAddress$Namespace
-      go_type: LocalSocketAddressNamespace
-      static_methods:
-        - java_method: values
-          go_name: Values
-          returns: android.net.LocalSocketAddress$Namespace[]
-          error: true
-        - java_method: valueOf
-          go_name: ValueOf
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.net.LocalSocketAddress$Namespace
-          error: true
-    - java_class: android.net.LocalSocket
-      go_type: LocalSocket
-      obtain: constructor
-      methods:
-        - java_method: bind
-          go_name: Bind
-          params:
-            - java_type: android.net.LocalSocketAddress
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: close
-          go_name: Close
-          returns: void
-          error: true
-        - java_method: connect
-          go_name: Connect1
-          params:
-            - java_type: android.net.LocalSocketAddress
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: connect
-          go_name: Connect2_1
-          params:
-            - java_type: android.net.LocalSocketAddress
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: getAncillaryFileDescriptors
-          go_name: GetAncillaryFileDescriptors
-          returns: java.io.FileDescriptor[]
-          error: true
-        - java_method: getFileDescriptor
-          go_name: GetFileDescriptor
-          returns: java.io.FileDescriptor
-          error: true
-        - java_method: getInputStream
-          go_name: GetInputStream
-          returns: java.io.InputStream
-          error: true
-        - java_method: getLocalSocketAddress
-          go_name: GetLocalSocketAddress
-          returns: android.net.LocalSocketAddress
-          error: true
-        - java_method: getOutputStream
-          go_name: GetOutputStream
-          returns: java.io.OutputStream
-          error: true
-        - java_method: getPeerCredentials
-          go_name: GetPeerCredentials
-          returns: android.net.Credentials
-          error: true
-        - java_method: getReceiveBufferSize
-          go_name: GetReceiveBufferSize
-          returns: int
-          error: true
-        - java_method: getRemoteSocketAddress
-          go_name: GetRemoteSocketAddress
-          returns: android.net.LocalSocketAddress
-          error: true
-        - java_method: getSendBufferSize
-          go_name: GetSendBufferSize
-          returns: int
-          error: true
-        - java_method: getSoTimeout
-          go_name: GetSoTimeout
-          returns: int
-          error: true
-        - java_method: isClosed
-          go_name: IsClosed
-          returns: boolean
-          error: true
-        - java_method: isInputShutdown
-          go_name: IsInputShutdown
-          returns: boolean
-          error: true
-        - java_method: isOutputShutdown
-          go_name: IsOutputShutdown
-          returns: boolean
-          error: true
-        - java_method: setFileDescriptorsForSend
-          go_name: SetFileDescriptorsForSend
-          params:
-            - java_type: java.io.FileDescriptor[]
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setReceiveBufferSize
-          go_name: SetReceiveBufferSize
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setSendBufferSize
-          go_name: SetSendBufferSize
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setSoTimeout
-          go_name: SetSoTimeout
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: shutdownInput
-          go_name: ShutdownInput
-          returns: void
-          error: true
-        - java_method: shutdownOutput
-          go_name: ShutdownOutput
-          returns: void
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-    - java_class: android.net.VpnManager
-      go_type: VpnManager
-      methods:
-        - java_method: deleteProvisionedVpnProfile
-          go_name: DeleteProvisionedVpnProfile
-          returns: void
-          error: true
-        - java_method: getProvisionedVpnProfileState
-          go_name: GetProvisionedVpnProfileState
-          returns: android.net.VpnProfileState
-          error: true
-        - java_method: provisionVpnProfile
-          go_name: ProvisionVpnProfile
-          params:
-            - java_type: android.net.PlatformVpnProfile
-              go_name: arg0
-          returns: android.content.Intent
-          error: true
-        - java_method: startProvisionedVpnProfile
-          go_name: StartProvisionedVpnProfile
-          returns: void
-          error: true
-        - java_method: startProvisionedVpnProfileSession
-          go_name: StartProvisionedVpnProfileSession
-          returns: String
-          error: true
-        - java_method: stopProvisionedVpnProfile
-          go_name: StopProvisionedVpnProfile
-          returns: void
-          error: true
-    - java_class: android.net.PlatformVpnProfile
-      go_type: PlatformVpnProfile
-      methods:
-        - java_method: areLocalRoutesExcluded
-          go_name: AreLocalRoutesExcluded
-          returns: boolean
-          error: true
-        - java_method: getType
-          go_name: GetType
-          returns: int
-          error: true
-        - java_method: getTypeString
-          go_name: GetTypeString
-          returns: String
-          error: true
-        - java_method: isInternetValidationRequired
-          go_name: IsInternetValidationRequired
-          returns: boolean
-          error: true
-    - java_class: android.net.InetAddresses
-      go_type: InetAddresses
-      static_methods:
-        - java_method: isNumericAddress
-          go_name: IsNumericAddress
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: parseNumericAddress
-          go_name: ParseNumericAddress
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: java.net.InetAddress
-          error: true
-    - java_class: android.net.ProxyInfo
-      go_type: ProxyInfo
-      obtain: constructor
-      constructor_params:
-        - java_type: android.net.ProxyInfo
-          go_name: arg0
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getExclusionList
-          go_name: GetExclusionList
-          returns: java.lang.String[]
-          error: true
-        - java_method: getHost
-          go_name: GetHost
-          returns: String
-          error: true
-        - java_method: getPacFileUrl
-          go_name: GetPacFileUrl
-          returns: android.net.Uri
-          error: true
-        - java_method: getPort
-          go_name: GetPort
-          returns: int
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: isValid
-          go_name: IsValid
-          returns: boolean
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-      static_methods:
-        - java_method: buildDirectProxy
-          go_name: BuildDirectProxy
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: android.net.ProxyInfo
-          error: true
-        - java_method: buildPacProxy
-          go_name: BuildPacProxy1
-          params:
-            - java_type: android.net.Uri
-              go_name: arg0
-          returns: android.net.ProxyInfo
-          error: true
-        - java_method: buildPacProxy
-          go_name: BuildPacProxy2_1
-          params:
-            - java_type: android.net.Uri
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: android.net.ProxyInfo
-          error: true
-    - java_class: android.net.Network
-      go_type: work
-      methods:
-        - java_method: bindSocket
-          go_name: BindSocket1
-          params:
-            - java_type: java.io.FileDescriptor
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: bindSocket
-          go_name: BindSocket1_1
-          params:
-            - java_type: java.net.DatagramSocket
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: bindSocket
-          go_name: BindSocket1_2
-          params:
-            - java_type: java.net.Socket
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getAllByName
-          go_name: GetAllByName
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: java.net.InetAddress[]
-          error: true
-        - java_method: getByName
-          go_name: GetByName
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: java.net.InetAddress
-          error: true
-        - java_method: getNetworkHandle
-          go_name: GetNetworkHandle
-          returns: long
-          error: true
-        - java_method: getSocketFactory
-          go_name: GetSocketFactory
-          returns: javax.net.SocketFactory
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: openConnection
-          go_name: OpenConnection1
-          params:
-            - java_type: java.net.URL
-              go_name: arg0
-          returns: java.net.URLConnection
-          error: true
-        - java_method: openConnection
-          go_name: OpenConnection2_1
-          params:
-            - java_type: java.net.URL
-              go_name: arg0
-            - java_type: java.net.Proxy
-              go_name: arg1
-          returns: java.net.URLConnection
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-      static_methods:
-        - java_method: fromNetworkHandle
-          go_name: FromNetworkHandle
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: android.net.Network
+          returns: android.net.StaticIpConfiguration$Builder
           error: true
     - java_class: android.net.TrafficStats
       go_type: TrafficStats
@@ -1439,370 +645,169 @@ classes:
               go_name: arg0
           returns: void
           error: true
-    - java_class: android.net.NetworkInfo
-      go_type: workInfo
+    - java_class: android.net.SSLCertificateSocketFactory
+      go_type: SSLCertificateSocketFactory
       obtain: constructor
       constructor_params:
         - java_type: int
           go_name: arg0
-        - java_type: int
-          go_name: arg1
-        - java_type: String
-          go_name: arg2
-        - java_type: String
-          go_name: arg3
       methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
+        - java_method: createSocket
+          go_name: CreateSocket0
+          returns: java.net.Socket
           error: true
-        - java_method: getDetailedState
-          go_name: GetDetailedState
-          returns: android.net.NetworkInfo$DetailedState
-          error: true
-        - java_method: getExtraInfo
-          go_name: GetExtraInfo
-          returns: String
-          error: true
-        - java_method: getReason
-          go_name: GetReason
-          returns: String
-          error: true
-        - java_method: getState
-          go_name: GetState
-          returns: android.net.NetworkInfo$State
-          error: true
-        - java_method: getSubtype
-          go_name: GetSubtype
-          returns: int
-          error: true
-        - java_method: getSubtypeName
-          go_name: GetSubtypeName
-          returns: String
-          error: true
-        - java_method: getType
-          go_name: GetType
-          returns: int
-          error: true
-        - java_method: getTypeName
-          go_name: GetTypeName
-          returns: String
-          error: true
-        - java_method: isAvailable
-          go_name: IsAvailable
-          returns: boolean
-          error: true
-        - java_method: isConnected
-          go_name: IsConnected
-          returns: boolean
-          error: true
-        - java_method: isConnectedOrConnecting
-          go_name: IsConnectedOrConnecting
-          returns: boolean
-          error: true
-        - java_method: isFailover
-          go_name: IsFailover
-          returns: boolean
-          error: true
-        - java_method: isRoaming
-          go_name: IsRoaming
-          returns: boolean
-          error: true
-        - java_method: setDetailedState
-          go_name: SetDetailedState
+        - java_method: createSocket
+          go_name: CreateSocket2_1
           params:
-            - java_type: android.net.NetworkInfo$DetailedState
-              go_name: arg0
             - java_type: String
-              go_name: arg1
-            - java_type: String
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
               go_name: arg0
             - java_type: int
               go_name: arg1
-          returns: void
+          returns: java.net.Socket
           error: true
-    - java_class: android.net.NetworkInfo$DetailedState
-      go_type: workInfoDetailedState
-      static_methods:
-        - java_method: values
-          go_name: Values
-          returns: android.net.NetworkInfo$DetailedState[]
-          error: true
-        - java_method: valueOf
-          go_name: ValueOf
+        - java_method: createSocket
+          go_name: CreateSocket4_2
           params:
             - java_type: String
               go_name: arg0
-          returns: android.net.NetworkInfo$DetailedState
-          error: true
-    - java_class: android.net.NetworkInfo$State
-      go_type: workInfoState
-      static_methods:
-        - java_method: values
-          go_name: Values
-          returns: android.net.NetworkInfo$State[]
-          error: true
-        - java_method: valueOf
-          go_name: ValueOf
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.net.NetworkInfo$State
-          error: true
-    - java_class: android.net.ConnectivityDiagnosticsManager
-      go_type: ConnectivityDiagnosticsManager
-      obtain: system_service
-      service_name: connectivity_diagnostics
-      close: true
-      methods:
-        - java_method: registerConnectivityDiagnosticsCallback
-          go_name: RegisterConnectivityDiagnosticsCallback
-          params:
-            - java_type: android.net.NetworkRequest
-              go_name: arg0
-            - java_type: java.util.concurrent.Executor
+            - java_type: int
               go_name: arg1
-            - java_type: android.net.ConnectivityDiagnosticsManager$ConnectivityDiagnosticsCallback
+            - java_type: java.net.InetAddress
               go_name: arg2
+            - java_type: int
+              go_name: arg3
+          returns: java.net.Socket
+          error: true
+        - java_method: createSocket
+          go_name: CreateSocket2_3
+          params:
+            - java_type: java.net.InetAddress
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: java.net.Socket
+          error: true
+        - java_method: createSocket
+          go_name: CreateSocket4_4
+          params:
+            - java_type: java.net.InetAddress
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: java.net.InetAddress
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+          returns: java.net.Socket
+          error: true
+        - java_method: createSocket
+          go_name: CreateSocket4_5
+          params:
+            - java_type: java.net.Socket
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: boolean
+              go_name: arg3
+          returns: java.net.Socket
+          error: true
+        - java_method: getDefaultCipherSuites
+          go_name: GetDefaultCipherSuites
+          returns: java.lang.String[]
+          error: true
+        - java_method: getNpnSelectedProtocol
+          go_name: GetNpnSelectedProtocol
+          params:
+            - java_type: java.net.Socket
+              go_name: arg0
+          returns: '[B'
+          error: true
+        - java_method: getSupportedCipherSuites
+          go_name: GetSupportedCipherSuites
+          returns: java.lang.String[]
+          error: true
+        - java_method: setHostname
+          go_name: SetHostname
+          params:
+            - java_type: java.net.Socket
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
           returns: void
           error: true
-        - java_method: unregisterConnectivityDiagnosticsCallback
-          go_name: UnregisterConnectivityDiagnosticsCallback
+        - java_method: setKeyManagers
+          go_name: SetKeyManagers
           params:
-            - java_type: android.net.ConnectivityDiagnosticsManager$ConnectivityDiagnosticsCallback
+            - java_type: javax.net.ssl.KeyManager[]
               go_name: arg0
           returns: void
           error: true
-    - java_class: android.net.ConnectivityDiagnosticsManager$ConnectivityDiagnosticsCallback
-      go_type: ConnectivityDiagnosticsManagerConnectivityDiagnosticsCallback
-      methods:
-        - java_method: onConnectivityReportAvailable
-          go_name: OnConnectivityReportAvailable
+        - java_method: setNpnProtocols
+          go_name: SetNpnProtocols
           params:
-            - java_type: android.net.ConnectivityDiagnosticsManager$ConnectivityReport
+            - java_type: byte[][]
               go_name: arg0
           returns: void
           error: true
-        - java_method: onDataStallSuspected
-          go_name: OnDataStallSuspected
+        - java_method: setTrustManagers
+          go_name: SetTrustManagers
           params:
-            - java_type: android.net.ConnectivityDiagnosticsManager$DataStallReport
+            - java_type: javax.net.ssl.TrustManager[]
               go_name: arg0
           returns: void
           error: true
-        - java_method: onNetworkConnectivityReported
-          go_name: OnNetworkConnectivityReported
+        - java_method: setUseSessionTickets
+          go_name: SetUseSessionTickets
           params:
-            - java_type: android.net.Network
+            - java_type: java.net.Socket
               go_name: arg0
             - java_type: boolean
               go_name: arg1
           returns: void
           error: true
-    - java_class: android.net.ConnectivityDiagnosticsManager$ConnectivityReport
-      go_type: ConnectivityDiagnosticsManagerConnectivityReport
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getAdditionalInfo
-          go_name: GetAdditionalInfo
-          returns: android.os.PersistableBundle
-          error: true
-        - java_method: getLinkProperties
-          go_name: GetLinkProperties
-          returns: android.net.LinkProperties
-          error: true
-        - java_method: getNetwork
-          go_name: GetNetwork
-          returns: android.net.Network
-          error: true
-        - java_method: getNetworkCapabilities
-          go_name: GetNetworkCapabilities
-          returns: android.net.NetworkCapabilities
-          error: true
-        - java_method: getReportTimestamp
-          go_name: GetReportTimestamp
-          returns: long
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.net.ConnectivityDiagnosticsManager$DataStallReport
-      go_type: ConnectivityDiagnosticsManagerDataStallReport
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getDetectionMethod
-          go_name: GetDetectionMethod
-          returns: int
-          error: true
-        - java_method: getLinkProperties
-          go_name: GetLinkProperties
-          returns: android.net.LinkProperties
-          error: true
-        - java_method: getNetwork
-          go_name: GetNetwork
-          returns: android.net.Network
-          error: true
-        - java_method: getNetworkCapabilities
-          go_name: GetNetworkCapabilities
-          returns: android.net.NetworkCapabilities
-          error: true
-        - java_method: getReportTimestamp
-          go_name: GetReportTimestamp
-          returns: long
-          error: true
-        - java_method: getStallDetails
-          go_name: GetStallDetails
-          returns: android.os.PersistableBundle
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.net.LinkAddress
-      go_type: LinkAddress
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getAddress
-          go_name: GetAddress
-          returns: java.net.InetAddress
-          error: true
-        - java_method: getFlags
-          go_name: GetFlags
-          returns: int
-          error: true
-        - java_method: getPrefixLength
-          go_name: GetPrefixLength
-          returns: int
-          error: true
-        - java_method: getScope
-          go_name: GetScope
-          returns: int
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.net.DnsResolver
-      go_type: DnsResolver
       static_methods:
-        - java_method: getInstance
-          go_name: GetInstance
-          returns: android.net.DnsResolver
-          error: true
-    - java_class: android.net.DnsResolver$Callback
-      go_type: DnsResolverCallback
-      methods:
-        - java_method: onError
-          go_name: OnError
+        - java_method: getDefault
+          go_name: GetDefault1
           params:
-            - java_type: android.net.DnsResolver$DnsException
+            - java_type: int
               go_name: arg0
-          returns: void
+          returns: javax.net.SocketFactory
           error: true
-    - java_class: android.net.DnsResolver$DnsException
-      go_type: DnsResolverDnsException
-    - java_class: android.net.Proxy
-      go_type: Proxy
+        - java_method: getDefault
+          go_name: GetDefault2_1
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: android.net.SSLSessionCache
+              go_name: arg1
+          returns: javax.net.ssl.SSLSocketFactory
+          error: true
+        - java_method: getInsecure
+          go_name: GetInsecure
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: android.net.SSLSessionCache
+              go_name: arg1
+          returns: javax.net.ssl.SSLSocketFactory
+          error: true
+    - java_class: android.net.LinkProperties
+      go_type: LinkProperties
       obtain: constructor
-      static_methods:
-        - java_method: getDefaultHost
-          go_name: GetDefaultHost
-          returns: String
-          error: true
-        - java_method: getDefaultPort
-          go_name: GetDefaultPort
-          returns: int
-          error: true
-        - java_method: getHost
-          go_name: GetHost
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-          returns: String
-          error: true
-        - java_method: getPort
-          go_name: GetPort
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-          returns: int
-          error: true
-    - java_class: android.net.RouteInfo
-      go_type: RouteInfo
       methods:
+        - java_method: addRoute
+          go_name: AddRoute
+          params:
+            - java_type: android.net.RouteInfo
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: clear
+          go_name: Clear
+          returns: void
+          error: true
         - java_method: describeContents
           go_name: DescribeContents
           returns: int
@@ -1814,40 +819,99 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
-        - java_method: getDestination
-          go_name: GetDestination
+        - java_method: getDhcpServerAddress
+          go_name: GetDhcpServerAddress
+          returns: java.net.Inet4Address
+          error: true
+        - java_method: getDnsServers
+          go_name: GetDnsServers
+          returns: java.util.List<java.net.InetAddress>
+          error: true
+        - java_method: getDomains
+          go_name: GetDomains
+          returns: String
+          error: true
+        - java_method: getHttpProxy
+          go_name: GetHttpProxy
+          returns: android.net.ProxyInfo
+          error: true
+        - java_method: getInterfaceName
+          go_name: GetInterfaceName
+          returns: String
+          error: true
+        - java_method: getLinkAddresses
+          go_name: GetLinkAddresses
+          returns: java.util.List<android.net.LinkAddress>
+          error: true
+        - java_method: getMtu
+          go_name: GetMtu
+          returns: int
+          error: true
+        - java_method: getNat64Prefix
+          go_name: GetNat64Prefix
           returns: android.net.IpPrefix
           error: true
-        - java_method: getGateway
-          go_name: GetGateway
-          returns: java.net.InetAddress
-          error: true
-        - java_method: getInterface
-          go_name: GetInterface
+        - java_method: getPrivateDnsServerName
+          go_name: GetPrivateDnsServerName
           returns: String
           error: true
-        - java_method: getType
-          go_name: GetType
-          returns: int
-          error: true
-        - java_method: hasGateway
-          go_name: HasGateway
-          returns: boolean
+        - java_method: getRoutes
+          go_name: GetRoutes
+          returns: java.util.List<android.net.RouteInfo>
           error: true
         - java_method: hashCode
           go_name: HashCode
           returns: int
           error: true
-        - java_method: isDefaultRoute
-          go_name: IsDefaultRoute
+        - java_method: isPrivateDnsActive
+          go_name: IsPrivateDnsActive
           returns: boolean
           error: true
-        - java_method: matches
-          go_name: Matches
-          params:
-            - java_type: java.net.InetAddress
-              go_name: arg0
+        - java_method: isWakeOnLanSupported
+          go_name: IsWakeOnLanSupported
           returns: boolean
+          error: true
+        - java_method: setDhcpServerAddress
+          go_name: SetDhcpServerAddress
+          params:
+            - java_type: java.net.Inet4Address
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setDomains
+          go_name: SetDomains
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setHttpProxy
+          go_name: SetHttpProxy
+          params:
+            - java_type: android.net.ProxyInfo
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setInterfaceName
+          go_name: SetInterfaceName
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setMtu
+          go_name: SetMtu
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setNat64Prefix
+          go_name: SetNat64Prefix
+          params:
+            - java_type: android.net.IpPrefix
+              go_name: arg0
+          returns: void
           error: true
         - java_method: toString
           go_name: ToString
@@ -1861,6 +925,97 @@ classes:
             - java_type: int
               go_name: arg1
           returns: void
+          error: true
+    - java_class: android.net.TransportInfo
+      go_type: TransportInfo
+    - java_class: android.net.IpSecTransformState
+      go_type: IpSecTransformState
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getByteCount
+          go_name: GetByteCount
+          returns: long
+          error: true
+        - java_method: getPacketCount
+          go_name: GetPacketCount
+          returns: long
+          error: true
+        - java_method: getReplayBitmap
+          go_name: GetReplayBitmap
+          returns: '[B'
+          error: true
+        - java_method: getRxHighestSequenceNumber
+          go_name: GetRxHighestSequenceNumber
+          returns: long
+          error: true
+        - java_method: getTimestampMillis
+          go_name: GetTimestampMillis
+          returns: long
+          error: true
+        - java_method: getTxHighestSequenceNumber
+          go_name: GetTxHighestSequenceNumber
+          returns: long
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.net.IpSecTransformState$Builder
+      go_type: IpSecTransformStateBuilder
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.net.IpSecTransformState
+          error: true
+        - java_method: setByteCount
+          go_name: SetByteCount
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: android.net.IpSecTransformState$Builder
+          error: true
+        - java_method: setPacketCount
+          go_name: SetPacketCount
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: android.net.IpSecTransformState$Builder
+          error: true
+        - java_method: setReplayBitmap
+          go_name: SetReplayBitmap
+          params:
+            - java_type: '[B'
+              go_name: arg0
+          returns: android.net.IpSecTransformState$Builder
+          error: true
+        - java_method: setRxHighestSequenceNumber
+          go_name: SetRxHighestSequenceNumber
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: android.net.IpSecTransformState$Builder
+          error: true
+        - java_method: setTimestampMillis
+          go_name: SetTimestampMillis
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: android.net.IpSecTransformState$Builder
+          error: true
+        - java_method: setTxHighestSequenceNumber
+          go_name: SetTxHighestSequenceNumber
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: android.net.IpSecTransformState$Builder
           error: true
     - java_class: android.net.ConnectivityManager
       go_type: ConnectivityManager
@@ -2124,6 +1279,23 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
+    - java_class: android.net.InetAddresses
+      go_type: InetAddresses
+      static_methods:
+        - java_method: isNumericAddress
+          go_name: IsNumericAddress
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: parseNumericAddress
+          go_name: ParseNumericAddress
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: java.net.InetAddress
+          error: true
     - java_class: android.net.ConnectivityManager$NetworkCallback
       go_type: ConnectivityManagerNetworkCallback
       methods:
@@ -2195,115 +1367,12 @@ classes:
           go_name: OnNetworkActive
           returns: void
           error: true
-    - java_class: android.net.IpSecAlgorithm
-      go_type: IpSecAlgorithm
-      obtain: constructor
-      constructor_params:
-        - java_type: String
-          go_name: arg0
-        - java_type: '[B'
-          go_name: arg1
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getKey
-          go_name: GetKey
-          returns: '[B'
-          error: true
-        - java_method: getName
-          go_name: GetName
-          returns: String
-          error: true
-        - java_method: getTruncationLengthBits
-          go_name: GetTruncationLengthBits
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-      static_methods:
-        - java_method: getSupportedAlgorithms
-          go_name: GetSupportedAlgorithms
-          returns: java.util.Set<java.lang.String>
-          error: true
     - java_class: android.net.SSLSessionCache
       go_type: SSLSessionCache
       obtain: constructor
       constructor_params:
         - java_type: android.content.Context
           go_name: arg0
-    - java_class: android.net.IpConfiguration
-      go_type: IpConfiguration
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getHttpProxy
-          go_name: GetHttpProxy
-          returns: android.net.ProxyInfo
-          error: true
-        - java_method: getStaticIpConfiguration
-          go_name: GetStaticIpConfiguration
-          returns: android.net.StaticIpConfiguration
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.net.IpConfiguration$Builder
-      go_type: IpConfigurationBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.net.IpConfiguration
-          error: true
-        - java_method: setHttpProxy
-          go_name: SetHttpProxy
-          params:
-            - java_type: android.net.ProxyInfo
-              go_name: arg0
-          returns: android.net.IpConfiguration$Builder
-          error: true
-        - java_method: setStaticIpConfiguration
-          go_name: SetStaticIpConfiguration
-          params:
-            - java_type: android.net.StaticIpConfiguration
-              go_name: arg0
-          returns: android.net.IpConfiguration$Builder
-          error: true
     - java_class: android.net.L2capNetworkSpecifier
       go_type: L2capNetworkSpecifier
       methods:
@@ -2397,6 +1466,63 @@ classes:
               go_name: arg0
           returns: android.net.L2capNetworkSpecifier$Builder
           error: true
+    - java_class: android.net.DnsResolver
+      go_type: DnsResolver
+      static_methods:
+        - java_method: getInstance
+          go_name: GetInstance
+          returns: android.net.DnsResolver
+          error: true
+    - java_class: android.net.DnsResolver$Callback
+      go_type: DnsResolverCallback
+      methods:
+        - java_method: onError
+          go_name: OnError
+          params:
+            - java_type: android.net.DnsResolver$DnsException
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.net.DnsResolver$DnsException
+      go_type: DnsResolverDnsException
+    - java_class: android.net.MailTo
+      go_type: MailTo
+      methods:
+        - java_method: getBody
+          go_name: GetBody
+          returns: String
+          error: true
+        - java_method: getCc
+          go_name: GetCc
+          returns: String
+          error: true
+        - java_method: getSubject
+          go_name: GetSubject
+          returns: String
+          error: true
+        - java_method: getTo
+          go_name: GetTo
+          returns: String
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: isMailTo
+          go_name: IsMailTo
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: parse
+          go_name: Parse
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.net.MailTo
+          error: true
     - java_class: android.net.NetworkCapabilities
       go_type: workCapabilities
       obtain: constructor
@@ -2486,556 +1612,329 @@ classes:
               go_name: arg1
           returns: void
           error: true
-    - java_class: android.net.SSLCertificateSocketFactory
-      go_type: SSLCertificateSocketFactory
+    - java_class: android.net.Credentials
+      go_type: Credentials
       obtain: constructor
       constructor_params:
         - java_type: int
           go_name: arg0
+        - java_type: int
+          go_name: arg1
+        - java_type: int
+          go_name: arg2
       methods:
-        - java_method: createSocket
-          go_name: CreateSocket0
-          returns: java.net.Socket
+        - java_method: getGid
+          go_name: GetGid
+          returns: int
           error: true
-        - java_method: createSocket
-          go_name: CreateSocket2_1
+        - java_method: getPid
+          go_name: GetPid
+          returns: int
+          error: true
+        - java_method: getUid
+          go_name: GetUid
+          returns: int
+          error: true
+    - java_class: android.net.TelephonyNetworkSpecifier
+      go_type: TelephonyNetworkSpecifier
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getSubscriptionId
+          go_name: GetSubscriptionId
+          returns: int
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.net.TelephonyNetworkSpecifier$Builder
+      go_type: TelephonyNetworkSpecifierBuilder
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.net.TelephonyNetworkSpecifier
+          error: true
+        - java_method: setSubscriptionId
+          go_name: SetSubscriptionId
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.net.TelephonyNetworkSpecifier$Builder
+          error: true
+    - java_class: android.net.UrlQuerySanitizer
+      go_type: UrlQuerySanitizer
+      obtain: constructor
+      methods:
+        - java_method: getAllowUnregisteredParamaters
+          go_name: GetAllowUnregisteredParamaters
+          returns: boolean
+          error: true
+        - java_method: getEffectiveValueSanitizer
+          go_name: GetEffectiveValueSanitizer
           params:
             - java_type: String
               go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: java.net.Socket
+          returns: android.net.UrlQuerySanitizer$ValueSanitizer
           error: true
-        - java_method: createSocket
-          go_name: CreateSocket4_2
+        - java_method: getParameterList
+          go_name: GetParameterList
+          returns: java.util.List<android.net.UrlQuerySanitizer$ParameterValuePair>
+          error: true
+        - java_method: getParameterSet
+          go_name: GetParameterSet
+          returns: java.util.Set<java.lang.String>
+          error: true
+        - java_method: getPreferFirstRepeatedParameter
+          go_name: GetPreferFirstRepeatedParameter
+          returns: boolean
+          error: true
+        - java_method: getUnregisteredParameterValueSanitizer
+          go_name: GetUnregisteredParameterValueSanitizer
+          returns: android.net.UrlQuerySanitizer$ValueSanitizer
+          error: true
+        - java_method: getValue
+          go_name: GetValue
           params:
             - java_type: String
               go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: java.net.InetAddress
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-          returns: java.net.Socket
+          returns: String
           error: true
-        - java_method: createSocket
-          go_name: CreateSocket2_3
+        - java_method: getValueSanitizer
+          go_name: GetValueSanitizer
           params:
-            - java_type: java.net.InetAddress
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: java.net.Socket
-          error: true
-        - java_method: createSocket
-          go_name: CreateSocket4_4
-          params:
-            - java_type: java.net.InetAddress
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: java.net.InetAddress
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-          returns: java.net.Socket
-          error: true
-        - java_method: createSocket
-          go_name: CreateSocket4_5
-          params:
-            - java_type: java.net.Socket
-              go_name: arg0
             - java_type: String
+              go_name: arg0
+          returns: android.net.UrlQuerySanitizer$ValueSanitizer
+          error: true
+        - java_method: hasParameter
+          go_name: HasParameter
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: parseQuery
+          go_name: ParseQuery
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: parseUrl
+          go_name: ParseUrl
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: registerParameter
+          go_name: RegisterParameter
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: android.net.UrlQuerySanitizer$ValueSanitizer
               go_name: arg1
-            - java_type: int
-              go_name: arg2
+          returns: void
+          error: true
+        - java_method: registerParameters
+          go_name: RegisterParameters
+          params:
+            - java_type: java.lang.String[]
+              go_name: arg0
+            - java_type: android.net.UrlQuerySanitizer$ValueSanitizer
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: setAllowUnregisteredParamaters
+          go_name: SetAllowUnregisteredParamaters
+          params:
             - java_type: boolean
-              go_name: arg3
-          returns: java.net.Socket
+              go_name: arg0
+          returns: void
           error: true
-        - java_method: getDefaultCipherSuites
-          go_name: GetDefaultCipherSuites
+        - java_method: setPreferFirstRepeatedParameter
+          go_name: SetPreferFirstRepeatedParameter
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setUnregisteredParameterValueSanitizer
+          go_name: SetUnregisteredParameterValueSanitizer
+          params:
+            - java_type: android.net.UrlQuerySanitizer$ValueSanitizer
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: unescape
+          go_name: Unescape
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: String
+          error: true
+      static_methods:
+        - java_method: getAllButNulAndAngleBracketsLegal
+          go_name: GetAllButNulAndAngleBracketsLegal
+          returns: android.net.UrlQuerySanitizer$ValueSanitizer
+          error: true
+        - java_method: getAllButNulLegal
+          go_name: GetAllButNulLegal
+          returns: android.net.UrlQuerySanitizer$ValueSanitizer
+          error: true
+        - java_method: getAllButWhitespaceLegal
+          go_name: GetAllButWhitespaceLegal
+          returns: android.net.UrlQuerySanitizer$ValueSanitizer
+          error: true
+        - java_method: getAllIllegal
+          go_name: GetAllIllegal
+          returns: android.net.UrlQuerySanitizer$ValueSanitizer
+          error: true
+        - java_method: getAmpAndSpaceLegal
+          go_name: GetAmpAndSpaceLegal
+          returns: android.net.UrlQuerySanitizer$ValueSanitizer
+          error: true
+        - java_method: getAmpLegal
+          go_name: GetAmpLegal
+          returns: android.net.UrlQuerySanitizer$ValueSanitizer
+          error: true
+        - java_method: getSpaceLegal
+          go_name: GetSpaceLegal
+          returns: android.net.UrlQuerySanitizer$ValueSanitizer
+          error: true
+        - java_method: getUrlAndSpaceLegal
+          go_name: GetUrlAndSpaceLegal
+          returns: android.net.UrlQuerySanitizer$ValueSanitizer
+          error: true
+        - java_method: getUrlLegal
+          go_name: GetUrlLegal
+          returns: android.net.UrlQuerySanitizer$ValueSanitizer
+          error: true
+    - java_class: android.net.UrlQuerySanitizer$IllegalCharacterValueSanitizer
+      go_type: UrlQuerySanitizerIllegalCharacterValueSanitizer
+      methods:
+        - java_method: sanitize
+          go_name: Sanitize
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: String
+          error: true
+    - java_class: android.net.UrlQuerySanitizer$ParameterValuePair
+      go_type: UrlQuerySanitizerParameterValuePair
+    - java_class: android.net.UrlQuerySanitizer$ValueSanitizer
+      go_type: UrlQuerySanitizerValueSanitizer
+      methods:
+        - java_method: sanitize
+          go_name: Sanitize
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: String
+          error: true
+    - java_class: android.net.ProxyInfo
+      go_type: ProxyInfo
+      obtain: constructor
+      constructor_params:
+        - java_type: android.net.ProxyInfo
+          go_name: arg0
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getExclusionList
+          go_name: GetExclusionList
           returns: java.lang.String[]
           error: true
-        - java_method: getNpnSelectedProtocol
-          go_name: GetNpnSelectedProtocol
-          params:
-            - java_type: java.net.Socket
-              go_name: arg0
-          returns: '[B'
+        - java_method: getHost
+          go_name: GetHost
+          returns: String
           error: true
-        - java_method: getSupportedCipherSuites
-          go_name: GetSupportedCipherSuites
-          returns: java.lang.String[]
+        - java_method: getPacFileUrl
+          go_name: GetPacFileUrl
+          returns: android.net.Uri
           error: true
-        - java_method: setHostname
-          go_name: SetHostname
-          params:
-            - java_type: java.net.Socket
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-          returns: void
+        - java_method: getPort
+          go_name: GetPort
+          returns: int
           error: true
-        - java_method: setKeyManagers
-          go_name: SetKeyManagers
-          params:
-            - java_type: javax.net.ssl.KeyManager[]
-              go_name: arg0
-          returns: void
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
           error: true
-        - java_method: setNpnProtocols
-          go_name: SetNpnProtocols
-          params:
-            - java_type: byte[][]
-              go_name: arg0
-          returns: void
+        - java_method: isValid
+          go_name: IsValid
+          returns: boolean
           error: true
-        - java_method: setTrustManagers
-          go_name: SetTrustManagers
-          params:
-            - java_type: javax.net.ssl.TrustManager[]
-              go_name: arg0
-          returns: void
+        - java_method: toString
+          go_name: ToString
+          returns: String
           error: true
-        - java_method: setUseSessionTickets
-          go_name: SetUseSessionTickets
+        - java_method: writeToParcel
+          go_name: WriteToParcel
           params:
-            - java_type: java.net.Socket
+            - java_type: android.os.Parcel
               go_name: arg0
-            - java_type: boolean
+            - java_type: int
               go_name: arg1
           returns: void
           error: true
       static_methods:
-        - java_method: getDefault
-          go_name: GetDefault1
+        - java_method: buildDirectProxy
+          go_name: BuildDirectProxy
           params:
-            - java_type: int
-              go_name: arg0
-          returns: javax.net.SocketFactory
-          error: true
-        - java_method: getDefault
-          go_name: GetDefault2_1
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.net.SSLSessionCache
-              go_name: arg1
-          returns: javax.net.ssl.SSLSocketFactory
-          error: true
-        - java_method: getInsecure
-          go_name: GetInsecure
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.net.SSLSessionCache
-              go_name: arg1
-          returns: javax.net.ssl.SSLSocketFactory
-          error: true
-    - java_class: android.net.TetheringInterface
-      go_type: TetheringInterface
-      obtain: constructor
-      constructor_params:
-        - java_type: int
-          go_name: arg0
-        - java_type: String
-          go_name: arg1
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getInterface
-          go_name: GetInterface
-          returns: String
-          error: true
-        - java_method: getSoftApConfiguration
-          go_name: GetSoftApConfiguration
-          returns: android.net.wifi.SoftApConfiguration
-          error: true
-        - java_method: getType
-          go_name: GetType
-          returns: int
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
+            - java_type: String
               go_name: arg0
             - java_type: int
               go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.net.ParseException
-      go_type: ParseException
-      obtain: constructor
-      constructor_params:
-        - java_type: String
-          go_name: arg0
-    - java_class: android.net.VpnProfileState
-      go_type: VpnProfileState
-      obtain: constructor
-      constructor_params:
-        - java_type: int
-          go_name: arg0
-        - java_type: String
-          go_name: arg1
-        - java_type: boolean
-          go_name: arg2
-        - java_type: boolean
-          go_name: arg3
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getSessionId
-          go_name: GetSessionId
-          returns: String
-          error: true
-        - java_method: getState
-          go_name: GetState
-          returns: int
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: isAlwaysOn
-          go_name: IsAlwaysOn
-          returns: boolean
-          error: true
-        - java_method: isLockdownEnabled
-          go_name: IsLockdownEnabled
-          returns: boolean
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.net.SocketKeepalive
-      go_type: SocketKeepalive
-      methods:
-        - java_method: close
-          go_name: Close
-          returns: void
-          error: true
-        - java_method: start
-          go_name: Start
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: stop
-          go_name: Stop
-          returns: void
-          error: true
-    - java_class: android.net.SocketKeepalive$Callback
-      go_type: SocketKeepaliveCallback
-      methods:
-        - java_method: onDataReceived
-          go_name: OnDataReceived
-          returns: void
-          error: true
-        - java_method: onError
-          go_name: OnError
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onStarted
-          go_name: OnStarted
-          returns: void
-          error: true
-        - java_method: onStopped
-          go_name: OnStopped
-          returns: void
-          error: true
-    - java_class: android.net.Ikev2VpnProfile
-      go_type: Ikev2VpnProfile
-      methods:
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getAllowedAlgorithms
-          go_name: GetAllowedAlgorithms
-          returns: java.util.List<java.lang.String>
-          error: true
-        - java_method: getIkeTunnelConnectionParams
-          go_name: GetIkeTunnelConnectionParams
-          returns: android.net.ipsec.ike.IkeTunnelConnectionParams
-          error: true
-        - java_method: getMaxMtu
-          go_name: GetMaxMtu
-          returns: int
-          error: true
-        - java_method: getPassword
-          go_name: GetPassword
-          returns: String
-          error: true
-        - java_method: getPresharedKey
-          go_name: GetPresharedKey
-          returns: '[B'
-          error: true
-        - java_method: getProxyInfo
-          go_name: GetProxyInfo
           returns: android.net.ProxyInfo
           error: true
-        - java_method: getRsaPrivateKey
-          go_name: GetRsaPrivateKey
-          returns: java.security.PrivateKey
-          error: true
-        - java_method: getServerAddr
-          go_name: GetServerAddr
-          returns: String
-          error: true
-        - java_method: getServerRootCaCert
-          go_name: GetServerRootCaCert
-          returns: java.security.cert.X509Certificate
-          error: true
-        - java_method: getUserCert
-          go_name: GetUserCert
-          returns: java.security.cert.X509Certificate
-          error: true
-        - java_method: getUserIdentity
-          go_name: GetUserIdentity
-          returns: String
-          error: true
-        - java_method: getUsername
-          go_name: GetUsername
-          returns: String
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: isAutomaticIpVersionSelectionEnabled
-          go_name: IsAutomaticIpVersionSelectionEnabled
-          returns: boolean
-          error: true
-        - java_method: isAutomaticNattKeepaliveTimerEnabled
-          go_name: IsAutomaticNattKeepaliveTimerEnabled
-          returns: boolean
-          error: true
-        - java_method: isBypassable
-          go_name: IsBypassable
-          returns: boolean
-          error: true
-        - java_method: isMetered
-          go_name: IsMetered
-          returns: boolean
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-    - java_class: android.net.Ikev2VpnProfile$Builder
-      go_type: Ikev2VpnProfileBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.net.Ikev2VpnProfile
-          error: true
-        - java_method: setAuthDigitalSignature
-          go_name: SetAuthDigitalSignature
+        - java_method: buildPacProxy
+          go_name: BuildPacProxy1
           params:
-            - java_type: java.security.cert.X509Certificate
+            - java_type: android.net.Uri
               go_name: arg0
-            - java_type: java.security.PrivateKey
-              go_name: arg1
-            - java_type: java.security.cert.X509Certificate
-              go_name: arg2
-          returns: android.net.Ikev2VpnProfile$Builder
+          returns: android.net.ProxyInfo
           error: true
-        - java_method: setAuthPsk
-          go_name: SetAuthPsk
+        - java_method: buildPacProxy
+          go_name: BuildPacProxy2_1
           params:
-            - java_type: '[B'
-              go_name: arg0
-          returns: android.net.Ikev2VpnProfile$Builder
-          error: true
-        - java_method: setAuthUsernamePassword
-          go_name: SetAuthUsernamePassword
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-            - java_type: java.security.cert.X509Certificate
-              go_name: arg2
-          returns: android.net.Ikev2VpnProfile$Builder
-          error: true
-        - java_method: setAutomaticIpVersionSelectionEnabled
-          go_name: SetAutomaticIpVersionSelectionEnabled
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.net.Ikev2VpnProfile$Builder
-          error: true
-        - java_method: setAutomaticNattKeepaliveTimerEnabled
-          go_name: SetAutomaticNattKeepaliveTimerEnabled
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.net.Ikev2VpnProfile$Builder
-          error: true
-        - java_method: setBypassable
-          go_name: SetBypassable
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.net.Ikev2VpnProfile$Builder
-          error: true
-        - java_method: setLocalRoutesExcluded
-          go_name: SetLocalRoutesExcluded
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.net.Ikev2VpnProfile$Builder
-          error: true
-        - java_method: setMaxMtu
-          go_name: SetMaxMtu
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.net.Ikev2VpnProfile$Builder
-          error: true
-        - java_method: setMetered
-          go_name: SetMetered
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.net.Ikev2VpnProfile$Builder
-          error: true
-        - java_method: setProxy
-          go_name: SetProxy
-          params:
-            - java_type: android.net.ProxyInfo
-              go_name: arg0
-          returns: android.net.Ikev2VpnProfile$Builder
-          error: true
-        - java_method: setRequiresInternetValidation
-          go_name: SetRequiresInternetValidation
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.net.Ikev2VpnProfile$Builder
-          error: true
-    - java_class: android.net.TransportInfo
-      go_type: TransportInfo
-    - java_class: android.net.StaticIpConfiguration
-      go_type: StaticIpConfiguration
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getDnsServers
-          go_name: GetDnsServers
-          returns: java.util.List<java.net.InetAddress>
-          error: true
-        - java_method: getDomains
-          go_name: GetDomains
-          returns: String
-          error: true
-        - java_method: getGateway
-          go_name: GetGateway
-          returns: java.net.InetAddress
-          error: true
-        - java_method: getIpAddress
-          go_name: GetIpAddress
-          returns: android.net.LinkAddress
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
+            - java_type: android.net.Uri
               go_name: arg0
             - java_type: int
               go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.net.StaticIpConfiguration$Builder
-      go_type: StaticIpConfigurationBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.net.StaticIpConfiguration
-          error: true
-        - java_method: setDomains
-          go_name: SetDomains
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.net.StaticIpConfiguration$Builder
-          error: true
-        - java_method: setGateway
-          go_name: SetGateway
-          params:
-            - java_type: java.net.InetAddress
-              go_name: arg0
-          returns: android.net.StaticIpConfiguration$Builder
-          error: true
-        - java_method: setIpAddress
-          go_name: SetIpAddress
-          params:
-            - java_type: android.net.LinkAddress
-              go_name: arg0
-          returns: android.net.StaticIpConfiguration$Builder
+          returns: android.net.ProxyInfo
           error: true
     - java_class: android.net.TetheringManager
       go_type: TetheringManager
@@ -3197,6 +2096,803 @@ classes:
               go_name: arg0
           returns: android.net.MacAddress
           error: true
+    - java_class: android.net.Network
+      go_type: work
+      methods:
+        - java_method: bindSocket
+          go_name: BindSocket1
+          params:
+            - java_type: java.io.FileDescriptor
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: bindSocket
+          go_name: BindSocket1_1
+          params:
+            - java_type: java.net.DatagramSocket
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: bindSocket
+          go_name: BindSocket1_2
+          params:
+            - java_type: java.net.Socket
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getAllByName
+          go_name: GetAllByName
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: java.net.InetAddress[]
+          error: true
+        - java_method: getByName
+          go_name: GetByName
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: java.net.InetAddress
+          error: true
+        - java_method: getNetworkHandle
+          go_name: GetNetworkHandle
+          returns: long
+          error: true
+        - java_method: getSocketFactory
+          go_name: GetSocketFactory
+          returns: javax.net.SocketFactory
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: openConnection
+          go_name: OpenConnection1
+          params:
+            - java_type: java.net.URL
+              go_name: arg0
+          returns: java.net.URLConnection
+          error: true
+        - java_method: openConnection
+          go_name: OpenConnection2_1
+          params:
+            - java_type: java.net.URL
+              go_name: arg0
+            - java_type: java.net.Proxy
+              go_name: arg1
+          returns: java.net.URLConnection
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+      static_methods:
+        - java_method: fromNetworkHandle
+          go_name: FromNetworkHandle
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: android.net.Network
+          error: true
+    - java_class: android.net.DhcpInfo
+      go_type: DhcpInfo
+      obtain: constructor
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.net.NetworkInfo
+      go_type: workInfo
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+        - java_type: int
+          go_name: arg1
+        - java_type: String
+          go_name: arg2
+        - java_type: String
+          go_name: arg3
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getDetailedState
+          go_name: GetDetailedState
+          returns: android.net.NetworkInfo$DetailedState
+          error: true
+        - java_method: getExtraInfo
+          go_name: GetExtraInfo
+          returns: String
+          error: true
+        - java_method: getReason
+          go_name: GetReason
+          returns: String
+          error: true
+        - java_method: getState
+          go_name: GetState
+          returns: android.net.NetworkInfo$State
+          error: true
+        - java_method: getSubtype
+          go_name: GetSubtype
+          returns: int
+          error: true
+        - java_method: getSubtypeName
+          go_name: GetSubtypeName
+          returns: String
+          error: true
+        - java_method: getType
+          go_name: GetType
+          returns: int
+          error: true
+        - java_method: getTypeName
+          go_name: GetTypeName
+          returns: String
+          error: true
+        - java_method: isAvailable
+          go_name: IsAvailable
+          returns: boolean
+          error: true
+        - java_method: isConnected
+          go_name: IsConnected
+          returns: boolean
+          error: true
+        - java_method: isConnectedOrConnecting
+          go_name: IsConnectedOrConnecting
+          returns: boolean
+          error: true
+        - java_method: isFailover
+          go_name: IsFailover
+          returns: boolean
+          error: true
+        - java_method: isRoaming
+          go_name: IsRoaming
+          returns: boolean
+          error: true
+        - java_method: setDetailedState
+          go_name: SetDetailedState
+          params:
+            - java_type: android.net.NetworkInfo$DetailedState
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+            - java_type: String
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.net.NetworkInfo$DetailedState
+      go_type: workInfoDetailedState
+      static_methods:
+        - java_method: values
+          go_name: Values
+          returns: android.net.NetworkInfo$DetailedState[]
+          error: true
+        - java_method: valueOf
+          go_name: ValueOf
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.net.NetworkInfo$DetailedState
+          error: true
+    - java_class: android.net.NetworkInfo$State
+      go_type: workInfoState
+      static_methods:
+        - java_method: values
+          go_name: Values
+          returns: android.net.NetworkInfo$State[]
+          error: true
+        - java_method: valueOf
+          go_name: ValueOf
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.net.NetworkInfo$State
+          error: true
+    - java_class: android.net.LinkAddress
+      go_type: LinkAddress
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getAddress
+          go_name: GetAddress
+          returns: java.net.InetAddress
+          error: true
+        - java_method: getFlags
+          go_name: GetFlags
+          returns: int
+          error: true
+        - java_method: getPrefixLength
+          go_name: GetPrefixLength
+          returns: int
+          error: true
+        - java_method: getScope
+          go_name: GetScope
+          returns: int
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.net.IpPrefix
+      go_type: IpPrefix
+      obtain: constructor
+      constructor_params:
+        - java_type: java.net.InetAddress
+          go_name: arg0
+        - java_type: int
+          go_name: arg1
+      methods:
+        - java_method: contains
+          go_name: Contains
+          params:
+            - java_type: java.net.InetAddress
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getAddress
+          go_name: GetAddress
+          returns: java.net.InetAddress
+          error: true
+        - java_method: getPrefixLength
+          go_name: GetPrefixLength
+          returns: int
+          error: true
+        - java_method: getRawAddress
+          go_name: GetRawAddress
+          returns: '[B'
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.net.RouteInfo
+      go_type: RouteInfo
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getDestination
+          go_name: GetDestination
+          returns: android.net.IpPrefix
+          error: true
+        - java_method: getGateway
+          go_name: GetGateway
+          returns: java.net.InetAddress
+          error: true
+        - java_method: getInterface
+          go_name: GetInterface
+          returns: String
+          error: true
+        - java_method: getType
+          go_name: GetType
+          returns: int
+          error: true
+        - java_method: hasGateway
+          go_name: HasGateway
+          returns: boolean
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: isDefaultRoute
+          go_name: IsDefaultRoute
+          returns: boolean
+          error: true
+        - java_method: matches
+          go_name: Matches
+          params:
+            - java_type: java.net.InetAddress
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.net.VpnManager
+      go_type: VpnManager
+      methods:
+        - java_method: deleteProvisionedVpnProfile
+          go_name: DeleteProvisionedVpnProfile
+          returns: void
+          error: true
+        - java_method: getProvisionedVpnProfileState
+          go_name: GetProvisionedVpnProfileState
+          returns: android.net.VpnProfileState
+          error: true
+        - java_method: provisionVpnProfile
+          go_name: ProvisionVpnProfile
+          params:
+            - java_type: android.net.PlatformVpnProfile
+              go_name: arg0
+          returns: android.content.Intent
+          error: true
+        - java_method: startProvisionedVpnProfile
+          go_name: StartProvisionedVpnProfile
+          returns: void
+          error: true
+        - java_method: startProvisionedVpnProfileSession
+          go_name: StartProvisionedVpnProfileSession
+          returns: String
+          error: true
+        - java_method: stopProvisionedVpnProfile
+          go_name: StopProvisionedVpnProfile
+          returns: void
+          error: true
+    - java_class: android.net.LocalSocket
+      go_type: LocalSocket
+      obtain: constructor
+      methods:
+        - java_method: bind
+          go_name: Bind
+          params:
+            - java_type: android.net.LocalSocketAddress
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: close
+          go_name: Close
+          returns: void
+          error: true
+        - java_method: connect
+          go_name: Connect1
+          params:
+            - java_type: android.net.LocalSocketAddress
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: connect
+          go_name: Connect2_1
+          params:
+            - java_type: android.net.LocalSocketAddress
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: getAncillaryFileDescriptors
+          go_name: GetAncillaryFileDescriptors
+          returns: java.io.FileDescriptor[]
+          error: true
+        - java_method: getFileDescriptor
+          go_name: GetFileDescriptor
+          returns: java.io.FileDescriptor
+          error: true
+        - java_method: getInputStream
+          go_name: GetInputStream
+          returns: java.io.InputStream
+          error: true
+        - java_method: getLocalSocketAddress
+          go_name: GetLocalSocketAddress
+          returns: android.net.LocalSocketAddress
+          error: true
+        - java_method: getOutputStream
+          go_name: GetOutputStream
+          returns: java.io.OutputStream
+          error: true
+        - java_method: getPeerCredentials
+          go_name: GetPeerCredentials
+          returns: android.net.Credentials
+          error: true
+        - java_method: getReceiveBufferSize
+          go_name: GetReceiveBufferSize
+          returns: int
+          error: true
+        - java_method: getRemoteSocketAddress
+          go_name: GetRemoteSocketAddress
+          returns: android.net.LocalSocketAddress
+          error: true
+        - java_method: getSendBufferSize
+          go_name: GetSendBufferSize
+          returns: int
+          error: true
+        - java_method: getSoTimeout
+          go_name: GetSoTimeout
+          returns: int
+          error: true
+        - java_method: isClosed
+          go_name: IsClosed
+          returns: boolean
+          error: true
+        - java_method: isInputShutdown
+          go_name: IsInputShutdown
+          returns: boolean
+          error: true
+        - java_method: isOutputShutdown
+          go_name: IsOutputShutdown
+          returns: boolean
+          error: true
+        - java_method: setFileDescriptorsForSend
+          go_name: SetFileDescriptorsForSend
+          params:
+            - java_type: java.io.FileDescriptor[]
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setReceiveBufferSize
+          go_name: SetReceiveBufferSize
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setSendBufferSize
+          go_name: SetSendBufferSize
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setSoTimeout
+          go_name: SetSoTimeout
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: shutdownInput
+          go_name: ShutdownInput
+          returns: void
+          error: true
+        - java_method: shutdownOutput
+          go_name: ShutdownOutput
+          returns: void
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+    - java_class: android.net.Proxy
+      go_type: Proxy
+      obtain: constructor
+      static_methods:
+        - java_method: getDefaultHost
+          go_name: GetDefaultHost
+          returns: String
+          error: true
+        - java_method: getDefaultPort
+          go_name: GetDefaultPort
+          returns: int
+          error: true
+        - java_method: getHost
+          go_name: GetHost
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+          returns: String
+          error: true
+        - java_method: getPort
+          go_name: GetPort
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+          returns: int
+          error: true
+    - java_class: android.net.ParseException
+      go_type: ParseException
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+    - java_class: android.net.PlatformVpnProfile
+      go_type: PlatformVpnProfile
+      methods:
+        - java_method: areLocalRoutesExcluded
+          go_name: AreLocalRoutesExcluded
+          returns: boolean
+          error: true
+        - java_method: getType
+          go_name: GetType
+          returns: int
+          error: true
+        - java_method: getTypeString
+          go_name: GetTypeString
+          returns: String
+          error: true
+        - java_method: isInternetValidationRequired
+          go_name: IsInternetValidationRequired
+          returns: boolean
+          error: true
+    - java_class: android.net.IpSecTransform
+      go_type: IpSecTransform
+      methods:
+        - java_method: close
+          go_name: Close
+          returns: void
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+    - java_class: android.net.IpSecTransform$Builder
+      go_type: IpSecTransformBuilder
+      methods:
+        - java_method: buildTransportModeTransform
+          go_name: BuildTransportModeTransform
+          params:
+            - java_type: java.net.InetAddress
+              go_name: arg0
+            - java_type: android.net.IpSecManager$SecurityParameterIndex
+              go_name: arg1
+          returns: android.net.IpSecTransform
+          error: true
+        - java_method: setAuthenticatedEncryption
+          go_name: SetAuthenticatedEncryption
+          params:
+            - java_type: android.net.IpSecAlgorithm
+              go_name: arg0
+          returns: android.net.IpSecTransform$Builder
+          error: true
+        - java_method: setAuthentication
+          go_name: SetAuthentication
+          params:
+            - java_type: android.net.IpSecAlgorithm
+              go_name: arg0
+          returns: android.net.IpSecTransform$Builder
+          error: true
+        - java_method: setEncryption
+          go_name: SetEncryption
+          params:
+            - java_type: android.net.IpSecAlgorithm
+              go_name: arg0
+          returns: android.net.IpSecTransform$Builder
+          error: true
+        - java_method: setIpv4Encapsulation
+          go_name: SetIpv4Encapsulation
+          params:
+            - java_type: android.net.IpSecManager$UdpEncapsulationSocket
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: android.net.IpSecTransform$Builder
+          error: true
+    - java_class: android.net.NetworkRequest
+      go_type: workRequest
+      methods:
+        - java_method: canBeSatisfiedBy
+          go_name: CanBeSatisfiedBy
+          params:
+            - java_type: android.net.NetworkCapabilities
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getCapabilities
+          go_name: GetCapabilities
+          returns: '[I'
+          error: true
+        - java_method: getNetworkSpecifier
+          go_name: GetNetworkSpecifier
+          returns: android.net.NetworkSpecifier
+          error: true
+        - java_method: getSubscriptionIds
+          go_name: GetSubscriptionIds
+          returns: java.util.Set<java.lang.Integer>
+          error: true
+        - java_method: getTransportTypes
+          go_name: GetTransportTypes
+          returns: '[I'
+          error: true
+        - java_method: hasCapability
+          go_name: HasCapability
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: hasTransport
+          go_name: HasTransport
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.net.NetworkRequest$Builder
+      go_type: workRequestBuilder
+      methods:
+        - java_method: addCapability
+          go_name: AddCapability
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.net.NetworkRequest$Builder
+          error: true
+        - java_method: addTransportType
+          go_name: AddTransportType
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.net.NetworkRequest$Builder
+          error: true
+        - java_method: build
+          go_name: Build
+          returns: android.net.NetworkRequest
+          error: true
+        - java_method: clearCapabilities
+          go_name: ClearCapabilities
+          returns: android.net.NetworkRequest$Builder
+          error: true
+        - java_method: removeCapability
+          go_name: RemoveCapability
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.net.NetworkRequest$Builder
+          error: true
+        - java_method: removeTransportType
+          go_name: RemoveTransportType
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.net.NetworkRequest$Builder
+          error: true
+        - java_method: setIncludeOtherUidNetworks
+          go_name: SetIncludeOtherUidNetworks
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.net.NetworkRequest$Builder
+          error: true
+        - java_method: setNetworkSpecifier
+          go_name: SetNetworkSpecifier1
+          params:
+            - java_type: android.net.NetworkSpecifier
+              go_name: arg0
+          returns: android.net.NetworkRequest$Builder
+          error: true
+        - java_method: setNetworkSpecifier
+          go_name: SetNetworkSpecifier1_1
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.net.NetworkRequest$Builder
+          error: true
     - java_class: android.net.EthernetNetworkSpecifier
       go_type: EthernetNetworkSpecifier
       obtain: constructor
@@ -3243,28 +2939,197 @@ classes:
               go_name: arg1
           returns: void
           error: true
-    - java_class: android.net.LocalServerSocket
-      go_type: LocalServerSocket
-      obtain: constructor
-      constructor_params:
-        - java_type: java.io.FileDescriptor
-          go_name: arg0
+    - java_class: android.net.IpConfiguration
+      go_type: IpConfiguration
       methods:
-        - java_method: accept
-          go_name: Accept
-          returns: android.net.LocalSocket
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
           error: true
-        - java_method: close
-          go_name: Close
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getHttpProxy
+          go_name: GetHttpProxy
+          returns: android.net.ProxyInfo
+          error: true
+        - java_method: getStaticIpConfiguration
+          go_name: GetStaticIpConfiguration
+          returns: android.net.StaticIpConfiguration
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
           returns: void
           error: true
-        - java_method: getFileDescriptor
-          go_name: GetFileDescriptor
-          returns: java.io.FileDescriptor
+    - java_class: android.net.IpConfiguration$Builder
+      go_type: IpConfigurationBuilder
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.net.IpConfiguration
           error: true
-        - java_method: getLocalSocketAddress
-          go_name: GetLocalSocketAddress
-          returns: android.net.LocalSocketAddress
+        - java_method: setHttpProxy
+          go_name: SetHttpProxy
+          params:
+            - java_type: android.net.ProxyInfo
+              go_name: arg0
+          returns: android.net.IpConfiguration$Builder
+          error: true
+        - java_method: setStaticIpConfiguration
+          go_name: SetStaticIpConfiguration
+          params:
+            - java_type: android.net.StaticIpConfiguration
+              go_name: arg0
+          returns: android.net.IpConfiguration$Builder
+          error: true
+    - java_class: android.net.VpnProfileState
+      go_type: VpnProfileState
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+        - java_type: String
+          go_name: arg1
+        - java_type: boolean
+          go_name: arg2
+        - java_type: boolean
+          go_name: arg3
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getSessionId
+          go_name: GetSessionId
+          returns: String
+          error: true
+        - java_method: getState
+          go_name: GetState
+          returns: int
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: isAlwaysOn
+          go_name: IsAlwaysOn
+          returns: boolean
+          error: true
+        - java_method: isLockdownEnabled
+          go_name: IsLockdownEnabled
+          returns: boolean
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.net.TetheringInterface
+      go_type: TetheringInterface
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+        - java_type: String
+          go_name: arg1
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getInterface
+          go_name: GetInterface
+          returns: String
+          error: true
+        - java_method: getSoftApConfiguration
+          go_name: GetSoftApConfiguration
+          returns: android.net.wifi.SoftApConfiguration
+          error: true
+        - java_method: getType
+          go_name: GetType
+          returns: int
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.net.NetworkSpecifier
+      go_type: workSpecifier
+    - java_class: android.net.CaptivePortal
+      go_type: CaptivePortal
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: ignoreNetwork
+          go_name: IgnoreNetwork
+          returns: void
+          error: true
+        - java_method: reportCaptivePortalDismissed
+          go_name: ReportCaptivePortalDismissed
+          returns: void
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
           error: true
     - java_class: android.net.IpSecManager
       go_type: IpSecManager
@@ -3370,12 +3235,52 @@ classes:
           go_name: ToString
           returns: String
           error: true
+    - java_class: android.net.SocketKeepalive
+      go_type: SocketKeepalive
+      methods:
+        - java_method: close
+          go_name: Close
+          returns: void
+          error: true
+        - java_method: start
+          go_name: Start
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: stop
+          go_name: Stop
+          returns: void
+          error: true
     - java_class: android.net.IpSecManager$SpiUnavailableException
       go_type: IpSecManagerSpiUnavailableException
       methods:
         - java_method: getSpi
           go_name: GetSpi
           returns: int
+          error: true
+    - java_class: android.net.SocketKeepalive$Callback
+      go_type: SocketKeepaliveCallback
+      methods:
+        - java_method: onDataReceived
+          go_name: OnDataReceived
+          returns: void
+          error: true
+        - java_method: onError
+          go_name: OnError
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onStarted
+          go_name: OnStarted
+          returns: void
+          error: true
+        - java_method: onStopped
+          go_name: OnStopped
+          returns: void
           error: true
     - java_class: android.net.IpSecManager$UdpEncapsulationSocket
       go_type: IpSecManagerUdpEncapsulationSocket
@@ -3396,206 +3301,158 @@ classes:
           go_name: ToString
           returns: String
           error: true
+    - java_class: android.net.IpSecAlgorithm
+      go_type: IpSecAlgorithm
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+        - java_type: '[B'
+          go_name: arg1
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getKey
+          go_name: GetKey
+          returns: '[B'
+          error: true
+        - java_method: getName
+          go_name: GetName
+          returns: String
+          error: true
+        - java_method: getTruncationLengthBits
+          go_name: GetTruncationLengthBits
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+      static_methods:
+        - java_method: getSupportedAlgorithms
+          go_name: GetSupportedAlgorithms
+          returns: java.util.Set<java.lang.String>
+          error: true
+    - java_class: android.net.LocalServerSocket
+      go_type: LocalServerSocket
+      obtain: constructor
+      constructor_params:
+        - java_type: java.io.FileDescriptor
+          go_name: arg0
+      methods:
+        - java_method: accept
+          go_name: Accept
+          returns: android.net.LocalSocket
+          error: true
+        - java_method: close
+          go_name: Close
+          returns: void
+          error: true
+        - java_method: getFileDescriptor
+          go_name: GetFileDescriptor
+          returns: java.io.FileDescriptor
+          error: true
+        - java_method: getLocalSocketAddress
+          go_name: GetLocalSocketAddress
+          returns: android.net.LocalSocketAddress
+          error: true
+    - java_class: android.net.LocalSocketAddress
+      go_type: LocalSocketAddress
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+      methods:
+        - java_method: getName
+          go_name: GetName
+          returns: String
+          error: true
+        - java_method: getNamespace
+          go_name: GetNamespace
+          returns: android.net.LocalSocketAddress$Namespace
+          error: true
+    - java_class: android.net.LocalSocketAddress$Namespace
+      go_type: LocalSocketAddressNamespace
+      static_methods:
+        - java_method: values
+          go_name: Values
+          returns: android.net.LocalSocketAddress$Namespace[]
+          error: true
+        - java_method: valueOf
+          go_name: ValueOf
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.net.LocalSocketAddress$Namespace
+          error: true
+abstract_callbacks:
+    - java_class: android.net.ConnectivityDiagnosticsManager$ConnectivityDiagnosticsCallback
+      go_type: ConnectivityDiagnosticsManagerConnectivityDiagnosticsCallbackCallback
+      methods:
+        - java_method: onConnectivityReportAvailable
+          params:
+            - android.net.ConnectivityDiagnosticsManager$ConnectivityReport
+          returns: void
+          go_field: OnConnectivityReportAvailable
+        - java_method: onDataStallSuspected
+          params:
+            - android.net.ConnectivityDiagnosticsManager$DataStallReport
+          returns: void
+          go_field: OnDataStallSuspected
+        - java_method: onNetworkConnectivityReported
+          params:
+            - android.net.Network
+            - boolean
+          returns: void
+          go_field: OnNetworkConnectivityReported
+    - java_class: android.net.PlatformVpnProfile
+      go_type: PlatformVpnProfileCallback
+      methods:
+        - java_method: areLocalRoutesExcluded
+          params: []
+          returns: boolean
+          go_field: AreLocalRoutesExcluded
+        - java_method: getType
+          params: []
+          returns: int
+          go_field: GetType
+        - java_method: getTypeString
+          params: []
+          returns: String
+          go_field: GetTypeString
+        - java_method: isInternetValidationRequired
+          params: []
+          returns: boolean
+          go_field: IsInternetValidationRequired
+    - java_class: android.net.SocketKeepalive
+      go_type: SocketKeepaliveCallback
+      methods:
+        - java_method: close
+          params: []
+          returns: void
+          go_field: Close
+        - java_method: start
+          params:
+            - int
+          returns: void
+          go_field: Start
+        - java_method: stop
+          params: []
+          returns: void
+          go_field: Stop
 constants:
     - go_name: Creator
-      value: "0"
-      go_type: int
-    - go_name: MailtoScheme
-      value: '"mailto:"'
-      go_type: string
-    - go_name: AllButNulAndAngleBracketsLegal
-      value: "1439"
-      go_type: int
-    - go_name: AllButNulLegal
-      value: "1535"
-      go_type: int
-    - go_name: AllButWhitespaceLegal
-      value: "1532"
-      go_type: int
-    - go_name: AllIllegal
-      value: "0"
-      go_type: int
-    - go_name: AllOk
-      value: "2047"
-      go_type: int
-    - go_name: AllWhitespaceOk
-      value: "3"
-      go_type: int
-    - go_name: AmpAndSpaceLegal
-      value: "129"
-      go_type: int
-    - go_name: AmpLegal
-      value: "128"
-      go_type: int
-    - go_name: AmpOk
-      value: "128"
-      go_type: int
-    - go_name: DquoteOk
-      value: "8"
-      go_type: int
-    - go_name: GtOk
-      value: "64"
-      go_type: int
-    - go_name: LtOk
-      value: "32"
-      go_type: int
-    - go_name: Non7BitAsciiOk
-      value: "4"
-      go_type: int
-    - go_name: NulOk
-      value: "512"
-      go_type: int
-    - go_name: OtherWhitespaceOk
-      value: "2"
-      go_type: int
-    - go_name: PctOk
-      value: "256"
-      go_type: int
-    - go_name: ScriptUrlOk
-      value: "1024"
-      go_type: int
-    - go_name: SpaceLegal
-      value: "1"
-      go_type: int
-    - go_name: SpaceOk
-      value: "1"
-      go_type: int
-    - go_name: SquoteOk
-      value: "16"
-      go_type: int
-    - go_name: UrlAndSpaceLegal
-      value: "405"
-      go_type: int
-    - go_name: UrlLegal
-      value: "404"
-      go_type: int
-    - go_name: Abstract
-      value: "0"
-      go_type: int
-    - go_name: Filesystem
-      value: "0"
-      go_type: int
-    - go_name: Reserved
-      value: "0"
-      go_type: int
-    - go_name: SocketDgram
-      value: "1"
-      go_type: int
-    - go_name: SocketSeqpacket
-      value: "3"
-      go_type: int
-    - go_name: SocketStream
-      value: "2"
-      go_type: int
-    - go_name: ActionVpnManagerEvent
-      value: '"android.net.action.VPN_MANAGER_EVENT"'
-      go_type: string
-    - go_name: CategoryEventAlwaysOnStateChanged
-      value: '"android.net.category.EVENT_ALWAYS_ON_STATE_CHANGED"'
-      go_type: string
-    - go_name: CategoryEventDeactivatedByUser
-      value: '"android.net.category.EVENT_DEACTIVATED_BY_USER"'
-      go_type: string
-    - go_name: CategoryEventIkeError
-      value: '"android.net.category.EVENT_IKE_ERROR"'
-      go_type: string
-    - go_name: CategoryEventNetworkError
-      value: '"android.net.category.EVENT_NETWORK_ERROR"'
-      go_type: string
-    - go_name: ErrorClassNotRecoverable
-      value: "1"
-      go_type: int
-    - go_name: ErrorClassRecoverable
-      value: "2"
-      go_type: int
-    - go_name: ErrorCodeNetworkIo
-      value: "3"
-      go_type: int
-    - go_name: ErrorCodeNetworkLost
-      value: "2"
-      go_type: int
-    - go_name: ErrorCodeNetworkProtocolTimeout
-      value: "1"
-      go_type: int
-    - go_name: ErrorCodeNetworkUnknownHost
-      value: "0"
-      go_type: int
-    - go_name: ExtraErrorClass
-      value: '"android.net.extra.ERROR_CLASS"'
-      go_type: string
-    - go_name: ExtraErrorCode
-      value: '"android.net.extra.ERROR_CODE"'
-      go_type: string
-    - go_name: ExtraSessionKey
-      value: '"android.net.extra.SESSION_KEY"'
-      go_type: string
-    - go_name: ExtraTimestampMillis
-      value: '"android.net.extra.TIMESTAMP_MILLIS"'
-      go_type: string
-    - go_name: ExtraUnderlyingLinkProperties
-      value: '"android.net.extra.UNDERLYING_LINK_PROPERTIES"'
-      go_type: string
-    - go_name: ExtraUnderlyingNetwork
-      value: '"android.net.extra.UNDERLYING_NETWORK"'
-      go_type: string
-    - go_name: ExtraUnderlyingNetworkCapabilities
-      value: '"android.net.extra.UNDERLYING_NETWORK_CAPABILITIES"'
-      go_type: string
-    - go_name: ExtraVpnProfileState
-      value: '"android.net.extra.VPN_PROFILE_STATE"'
-      go_type: string
-    - go_name: TypeIkev2IpsecPsk
-      value: "7"
-      go_type: int
-    - go_name: TypeIkev2IpsecRsa
-      value: "8"
-      go_type: int
-    - go_name: TypeIkev2IpsecUserPass
-      value: "6"
-      go_type: int
-    - go_name: Unsupported
-      value: "-1"
-      go_type: int
-    - go_name: Authenticating
-      value: "0"
-      go_type: int
-    - go_name: Blocked
-      value: "0"
-      go_type: int
-    - go_name: CaptivePortalCheck
-      value: "0"
-      go_type: int
-    - go_name: Connected
-      value: "0"
-      go_type: int
-    - go_name: Connecting
-      value: "0"
-      go_type: int
-    - go_name: Disconnected
-      value: "0"
-      go_type: int
-    - go_name: Disconnecting
-      value: "0"
-      go_type: int
-    - go_name: Failed
-      value: "0"
-      go_type: int
-    - go_name: Idle
-      value: "0"
-      go_type: int
-    - go_name: ObtainingIpaddr
-      value: "0"
-      go_type: int
-    - go_name: Scanning
-      value: "0"
-      go_type: int
-    - go_name: Suspended
-      value: "0"
-      go_type: int
-    - go_name: VerifyingPoorLink
-      value: "0"
-      go_type: int
-    - go_name: Unknown
       value: "0"
       go_type: int
     - go_name: KeyNetworkProbesAttemptedBitmask
@@ -3649,44 +3506,8 @@ constants:
     - go_name: KeyTcpPacketFailRate
       value: '"tcpPacketFailRate"'
       go_type: string
-    - go_name: ClassIn
-      value: "1"
-      go_type: int
-    - go_name: ErrorParse
-      value: "0"
-      go_type: int
-    - go_name: ErrorSystem
-      value: "1"
-      go_type: int
-    - go_name: FlagEmpty
-      value: "0"
-      go_type: int
-    - go_name: FlagNoCacheLookup
-      value: "4"
-      go_type: int
-    - go_name: FlagNoCacheStore
-      value: "2"
-      go_type: int
-    - go_name: FlagNoRetry
-      value: "1"
-      go_type: int
-    - go_name: TypeA
-      value: "1"
-      go_type: int
-    - go_name: TypeAaaa
-      value: "28"
-      go_type: int
-    - go_name: ProxyChangeAction
-      value: '"android.intent.action.PROXY_CHANGE"'
-      go_type: string
-    - go_name: RtnThrow
-      value: "9"
-      go_type: int
-    - go_name: RtnUnicast
-      value: "1"
-      go_type: int
-    - go_name: RtnUnreachable
-      value: "7"
+    - go_name: Unsupported
+      value: "-1"
       go_type: int
     - go_name: ActionBackgroundDataSettingChanged
       value: '"android.net.conn.BACKGROUND_DATA_SETTING_CHANGED"'
@@ -3790,39 +3611,6 @@ constants:
     - go_name: FlagIncludeLocationInfo
       value: "1"
       go_type: int
-    - go_name: AuthAesCmac
-      value: '"cmac(aes)"'
-      go_type: string
-    - go_name: AuthAesXcbc
-      value: '"xcbc(aes)"'
-      go_type: string
-    - go_name: AuthCryptAesGcm
-      value: '"rfc4106(gcm(aes))"'
-      go_type: string
-    - go_name: AuthCryptChacha20Poly1305
-      value: '"rfc7539esp(chacha20,poly1305)"'
-      go_type: string
-    - go_name: AuthHmacMd5
-      value: '"hmac(md5)"'
-      go_type: string
-    - go_name: AuthHmacSha1
-      value: '"hmac(sha1)"'
-      go_type: string
-    - go_name: AuthHmacSha256
-      value: '"hmac(sha256)"'
-      go_type: string
-    - go_name: AuthHmacSha384
-      value: '"hmac(sha384)"'
-      go_type: string
-    - go_name: AuthHmacSha512
-      value: '"hmac(sha512)"'
-      go_type: string
-    - go_name: CryptAesCbc
-      value: '"cbc(aes)"'
-      go_type: string
-    - go_name: CryptAesCtr
-      value: '"rfc3686(ctr(aes))"'
-      go_type: string
     - go_name: HeaderCompression6lowpan
       value: "2"
       go_type: int
@@ -3844,6 +3632,36 @@ constants:
     - go_name: RoleServer
       value: "2"
       go_type: int
+    - go_name: ClassIn
+      value: "1"
+      go_type: int
+    - go_name: ErrorParse
+      value: "0"
+      go_type: int
+    - go_name: ErrorSystem
+      value: "1"
+      go_type: int
+    - go_name: FlagEmpty
+      value: "0"
+      go_type: int
+    - go_name: FlagNoCacheLookup
+      value: "4"
+      go_type: int
+    - go_name: FlagNoCacheStore
+      value: "2"
+      go_type: int
+    - go_name: FlagNoRetry
+      value: "1"
+      go_type: int
+    - go_name: TypeA
+      value: "1"
+      go_type: int
+    - go_name: TypeAaaa
+      value: "28"
+      go_type: int
+    - go_name: MailtoScheme
+      value: '"mailto:"'
+      go_type: string
     - go_name: NetCapabilityCaptivePortal
       value: "17"
       go_type: int
@@ -3985,47 +3803,71 @@ constants:
     - go_name: TransportWifiAware
       value: "5"
       go_type: int
-    - go_name: StateConnected
-      value: "2"
+    - go_name: AllButNulAndAngleBracketsLegal
+      value: "1439"
       go_type: int
-    - go_name: StateConnecting
-      value: "1"
+    - go_name: AllButNulLegal
+      value: "1535"
       go_type: int
-    - go_name: StateDisconnected
+    - go_name: AllButWhitespaceLegal
+      value: "1532"
+      go_type: int
+    - go_name: AllIllegal
       value: "0"
       go_type: int
-    - go_name: StateFailed
+    - go_name: AllOk
+      value: "2047"
+      go_type: int
+    - go_name: AllWhitespaceOk
       value: "3"
       go_type: int
-    - go_name: ErrorHardwareError
-      value: "-31"
+    - go_name: AmpAndSpaceLegal
+      value: "129"
       go_type: int
-    - go_name: ErrorInsufficientResources
-      value: "-32"
+    - go_name: AmpLegal
+      value: "128"
       go_type: int
-    - go_name: ErrorInvalidInterval
-      value: "-24"
+    - go_name: AmpOk
+      value: "128"
       go_type: int
-    - go_name: ErrorInvalidIpAddress
-      value: "-21"
+    - go_name: DquoteOk
+      value: "8"
       go_type: int
-    - go_name: ErrorInvalidLength
-      value: "-23"
+    - go_name: GtOk
+      value: "64"
       go_type: int
-    - go_name: ErrorInvalidNetwork
-      value: "-20"
+    - go_name: LtOk
+      value: "32"
       go_type: int
-    - go_name: ErrorInvalidPort
-      value: "-22"
+    - go_name: Non7BitAsciiOk
+      value: "4"
       go_type: int
-    - go_name: ErrorInvalidSocket
-      value: "-25"
+    - go_name: NulOk
+      value: "512"
       go_type: int
-    - go_name: ErrorSocketNotIdle
-      value: "-26"
+    - go_name: OtherWhitespaceOk
+      value: "2"
       go_type: int
-    - go_name: ErrorUnsupported
-      value: "-30"
+    - go_name: PctOk
+      value: "256"
+      go_type: int
+    - go_name: ScriptUrlOk
+      value: "1024"
+      go_type: int
+    - go_name: SpaceLegal
+      value: "1"
+      go_type: int
+    - go_name: SpaceOk
+      value: "1"
+      go_type: int
+    - go_name: SquoteOk
+      value: "16"
+      go_type: int
+    - go_name: UrlAndSpaceLegal
+      value: "405"
+      go_type: int
+    - go_name: UrlLegal
+      value: "404"
       go_type: int
     - go_name: ConnectivityScopeGlobal
       value: "1"
@@ -4102,9 +3944,222 @@ constants:
     - go_name: TypeUnicast
       value: "1"
       go_type: int
+    - go_name: Authenticating
+      value: "0"
+      go_type: int
+    - go_name: Blocked
+      value: "0"
+      go_type: int
+    - go_name: CaptivePortalCheck
+      value: "0"
+      go_type: int
+    - go_name: Connected
+      value: "0"
+      go_type: int
+    - go_name: Connecting
+      value: "0"
+      go_type: int
+    - go_name: Disconnected
+      value: "0"
+      go_type: int
+    - go_name: Disconnecting
+      value: "0"
+      go_type: int
+    - go_name: Failed
+      value: "0"
+      go_type: int
+    - go_name: Idle
+      value: "0"
+      go_type: int
+    - go_name: ObtainingIpaddr
+      value: "0"
+      go_type: int
+    - go_name: Scanning
+      value: "0"
+      go_type: int
+    - go_name: Suspended
+      value: "0"
+      go_type: int
+    - go_name: VerifyingPoorLink
+      value: "0"
+      go_type: int
+    - go_name: Unknown
+      value: "0"
+      go_type: int
+    - go_name: RtnThrow
+      value: "9"
+      go_type: int
+    - go_name: RtnUnicast
+      value: "1"
+      go_type: int
+    - go_name: RtnUnreachable
+      value: "7"
+      go_type: int
+    - go_name: ActionVpnManagerEvent
+      value: '"android.net.action.VPN_MANAGER_EVENT"'
+      go_type: string
+    - go_name: CategoryEventAlwaysOnStateChanged
+      value: '"android.net.category.EVENT_ALWAYS_ON_STATE_CHANGED"'
+      go_type: string
+    - go_name: CategoryEventDeactivatedByUser
+      value: '"android.net.category.EVENT_DEACTIVATED_BY_USER"'
+      go_type: string
+    - go_name: CategoryEventIkeError
+      value: '"android.net.category.EVENT_IKE_ERROR"'
+      go_type: string
+    - go_name: CategoryEventNetworkError
+      value: '"android.net.category.EVENT_NETWORK_ERROR"'
+      go_type: string
+    - go_name: ErrorClassNotRecoverable
+      value: "1"
+      go_type: int
+    - go_name: ErrorClassRecoverable
+      value: "2"
+      go_type: int
+    - go_name: ErrorCodeNetworkIo
+      value: "3"
+      go_type: int
+    - go_name: ErrorCodeNetworkLost
+      value: "2"
+      go_type: int
+    - go_name: ErrorCodeNetworkProtocolTimeout
+      value: "1"
+      go_type: int
+    - go_name: ErrorCodeNetworkUnknownHost
+      value: "0"
+      go_type: int
+    - go_name: ExtraErrorClass
+      value: '"android.net.extra.ERROR_CLASS"'
+      go_type: string
+    - go_name: ExtraErrorCode
+      value: '"android.net.extra.ERROR_CODE"'
+      go_type: string
+    - go_name: ExtraSessionKey
+      value: '"android.net.extra.SESSION_KEY"'
+      go_type: string
+    - go_name: ExtraTimestampMillis
+      value: '"android.net.extra.TIMESTAMP_MILLIS"'
+      go_type: string
+    - go_name: ExtraUnderlyingLinkProperties
+      value: '"android.net.extra.UNDERLYING_LINK_PROPERTIES"'
+      go_type: string
+    - go_name: ExtraUnderlyingNetwork
+      value: '"android.net.extra.UNDERLYING_NETWORK"'
+      go_type: string
+    - go_name: ExtraUnderlyingNetworkCapabilities
+      value: '"android.net.extra.UNDERLYING_NETWORK_CAPABILITIES"'
+      go_type: string
+    - go_name: ExtraVpnProfileState
+      value: '"android.net.extra.VPN_PROFILE_STATE"'
+      go_type: string
+    - go_name: SocketDgram
+      value: "1"
+      go_type: int
+    - go_name: SocketSeqpacket
+      value: "3"
+      go_type: int
+    - go_name: SocketStream
+      value: "2"
+      go_type: int
+    - go_name: ProxyChangeAction
+      value: '"android.intent.action.PROXY_CHANGE"'
+      go_type: string
+    - go_name: TypeIkev2IpsecPsk
+      value: "7"
+      go_type: int
+    - go_name: TypeIkev2IpsecRsa
+      value: "8"
+      go_type: int
+    - go_name: TypeIkev2IpsecUserPass
+      value: "6"
+      go_type: int
+    - go_name: StateConnected
+      value: "2"
+      go_type: int
+    - go_name: StateConnecting
+      value: "1"
+      go_type: int
+    - go_name: StateDisconnected
+      value: "0"
+      go_type: int
+    - go_name: StateFailed
+      value: "3"
+      go_type: int
     - go_name: DirectionIn
       value: "0"
       go_type: int
     - go_name: DirectionOut
       value: "1"
+      go_type: int
+    - go_name: ErrorHardwareError
+      value: "-31"
+      go_type: int
+    - go_name: ErrorInsufficientResources
+      value: "-32"
+      go_type: int
+    - go_name: ErrorInvalidInterval
+      value: "-24"
+      go_type: int
+    - go_name: ErrorInvalidIpAddress
+      value: "-21"
+      go_type: int
+    - go_name: ErrorInvalidLength
+      value: "-23"
+      go_type: int
+    - go_name: ErrorInvalidNetwork
+      value: "-20"
+      go_type: int
+    - go_name: ErrorInvalidPort
+      value: "-22"
+      go_type: int
+    - go_name: ErrorInvalidSocket
+      value: "-25"
+      go_type: int
+    - go_name: ErrorSocketNotIdle
+      value: "-26"
+      go_type: int
+    - go_name: ErrorUnsupported
+      value: "-30"
+      go_type: int
+    - go_name: AuthAesCmac
+      value: '"cmac(aes)"'
+      go_type: string
+    - go_name: AuthAesXcbc
+      value: '"xcbc(aes)"'
+      go_type: string
+    - go_name: AuthCryptAesGcm
+      value: '"rfc4106(gcm(aes))"'
+      go_type: string
+    - go_name: AuthCryptChacha20Poly1305
+      value: '"rfc7539esp(chacha20,poly1305)"'
+      go_type: string
+    - go_name: AuthHmacMd5
+      value: '"hmac(md5)"'
+      go_type: string
+    - go_name: AuthHmacSha1
+      value: '"hmac(sha1)"'
+      go_type: string
+    - go_name: AuthHmacSha256
+      value: '"hmac(sha256)"'
+      go_type: string
+    - go_name: AuthHmacSha384
+      value: '"hmac(sha384)"'
+      go_type: string
+    - go_name: AuthHmacSha512
+      value: '"hmac(sha512)"'
+      go_type: string
+    - go_name: CryptAesCbc
+      value: '"cbc(aes)"'
+      go_type: string
+    - go_name: CryptAesCtr
+      value: '"rfc3686(ctr(aes))"'
+      go_type: string
+    - go_name: Abstract
+      value: "0"
+      go_type: int
+    - go_name: Filesystem
+      value: "0"
+      go_type: int
+    - go_name: Reserved
+      value: "0"
       go_type: int

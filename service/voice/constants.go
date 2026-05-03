@@ -20,8 +20,8 @@ const (
 )
 
 const (
-	ServiceInterface        = consts.ServiceInterface
-	ServiceMetaData         = consts.ServiceMetaData
 	KeyForegroundActivities = consts.KeyForegroundActivities
 	KeyShowSessionId        = consts.KeyShowSessionId
+	ServiceInterface        = consts.ServiceInterface
+	ServiceMetaData         = consts.ServiceMetaData
 )

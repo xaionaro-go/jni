@@ -37,6 +37,9 @@ const (
 	FlagRetrieveInteractiveWindows                 = consts.FlagRetrieveInteractiveWindows
 	FlagSendMotionEvents                           = consts.FlagSendMotionEvents
 	FlagServiceHandlesDoubleTap                    = consts.FlagServiceHandlesDoubleTap
+	MagnificationModeDefault                       = consts.MagnificationModeDefault
+	MagnificationModeFullscreen                    = consts.MagnificationModeFullscreen
+	MagnificationModeWindow                        = consts.MagnificationModeWindow
 	ErrorTakeScreenshotInternalError               = consts.ErrorTakeScreenshotInternalError
 	ErrorTakeScreenshotIntervalTimeShort           = consts.ErrorTakeScreenshotIntervalTimeShort
 	ErrorTakeScreenshotInvalidDisplay              = consts.ErrorTakeScreenshotInvalidDisplay
@@ -117,20 +120,17 @@ const (
 	EnableImeFailByAdmin                           = consts.EnableImeFailByAdmin
 	EnableImeFailUnknown                           = consts.EnableImeFailUnknown
 	EnableImeSuccess                               = consts.EnableImeSuccess
-	FingerprintGestureSwipeDown                    = consts.FingerprintGestureSwipeDown
-	FingerprintGestureSwipeLeft                    = consts.FingerprintGestureSwipeLeft
-	FingerprintGestureSwipeRight                   = consts.FingerprintGestureSwipeRight
-	FingerprintGestureSwipeUp                      = consts.FingerprintGestureSwipeUp
-	MagnificationModeDefault                       = consts.MagnificationModeDefault
-	MagnificationModeFullscreen                    = consts.MagnificationModeFullscreen
-	MagnificationModeWindow                        = consts.MagnificationModeWindow
-	FlagErrorBrailleDisplayNotFound                = consts.FlagErrorBrailleDisplayNotFound
-	FlagErrorCannotAccess                          = consts.FlagErrorCannotAccess
 	StateClear                                     = consts.StateClear
 	StateDelegating                                = consts.StateDelegating
 	StateDragging                                  = consts.StateDragging
 	StateTouchExploring                            = consts.StateTouchExploring
 	StateTouchInteracting                          = consts.StateTouchInteracting
+	FlagErrorBrailleDisplayNotFound                = consts.FlagErrorBrailleDisplayNotFound
+	FlagErrorCannotAccess                          = consts.FlagErrorCannotAccess
+	FingerprintGestureSwipeDown                    = consts.FingerprintGestureSwipeDown
+	FingerprintGestureSwipeLeft                    = consts.FingerprintGestureSwipeLeft
+	FingerprintGestureSwipeRight                   = consts.FingerprintGestureSwipeRight
+	FingerprintGestureSwipeUp                      = consts.FingerprintGestureSwipeUp
 )
 
 const (

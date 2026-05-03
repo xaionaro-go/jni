@@ -5,6 +5,63 @@
 package: ike
 go_import: github.com/AndroidGoLab/jni/net/ipsec/ike
 classes:
+    - java_class: android.net.ipsec.ike.ChildSessionConfiguration
+      go_type: ChildSessionConfiguration
+      methods:
+        - java_method: getInboundTrafficSelectors
+          go_name: GetInboundTrafficSelectors
+          returns: java.util.List<android.net.ipsec.ike.IkeTrafficSelector>
+          error: true
+        - java_method: getOutboundTrafficSelectors
+          go_name: GetOutboundTrafficSelectors
+          returns: java.util.List<android.net.ipsec.ike.IkeTrafficSelector>
+          error: true
+    - java_class: android.net.ipsec.ike.ChildSessionConfiguration$Builder
+      go_type: ChildSessionConfigurationBuilder
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.net.ipsec.ike.ChildSessionConfiguration
+          error: true
+    - java_class: android.net.ipsec.ike.TransportModeChildSessionParams
+      go_type: TransportModeChildSessionParams
+    - java_class: android.net.ipsec.ike.TransportModeChildSessionParams$Builder
+      go_type: TransportModeChildSessionParamsBuilder
+      methods:
+        - java_method: addChildSaProposal
+          go_name: AddChildSaProposal
+          params:
+            - java_type: android.net.ipsec.ike.ChildSaProposal
+              go_name: arg0
+          returns: android.net.ipsec.ike.TransportModeChildSessionParams$Builder
+          error: true
+        - java_method: addInboundTrafficSelectors
+          go_name: AddInboundTrafficSelectors
+          params:
+            - java_type: android.net.ipsec.ike.IkeTrafficSelector
+              go_name: arg0
+          returns: android.net.ipsec.ike.TransportModeChildSessionParams$Builder
+          error: true
+        - java_method: addOutboundTrafficSelectors
+          go_name: AddOutboundTrafficSelectors
+          params:
+            - java_type: android.net.ipsec.ike.IkeTrafficSelector
+              go_name: arg0
+          returns: android.net.ipsec.ike.TransportModeChildSessionParams$Builder
+          error: true
+        - java_method: build
+          go_name: Build
+          returns: android.net.ipsec.ike.TransportModeChildSessionParams
+          error: true
+        - java_method: setLifetimeSeconds
+          go_name: SetLifetimeSeconds
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: android.net.ipsec.ike.TransportModeChildSessionParams$Builder
+          error: true
     - java_class: android.net.ipsec.ike.IkeSessionConfiguration
       go_type: SessionConfiguration
       methods:
@@ -78,28 +135,208 @@ classes:
               go_name: arg0
           returns: android.net.ipsec.ike.IkeSessionConfiguration$Builder
           error: true
-    - java_class: android.net.ipsec.ike.IkeSessionConnectionInfo
-      go_type: SessionConnectionInfo
+    - java_class: android.net.ipsec.ike.IkeTunnelConnectionParams
+      go_type: TunnelConnectionParams
       obtain: constructor
       constructor_params:
-        - java_type: java.net.InetAddress
+        - java_type: android.net.ipsec.ike.IkeSessionParams
           go_name: arg0
-        - java_type: java.net.InetAddress
+        - java_type: android.net.ipsec.ike.TunnelModeChildSessionParams
           go_name: arg1
-        - java_type: android.net.Network
-          go_name: arg2
       methods:
-        - java_method: getLocalAddress
-          go_name: GetLocalAddress
-          returns: java.net.InetAddress
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
           error: true
-        - java_method: getNetwork
-          go_name: GetNetwork
-          returns: android.net.Network
+        - java_method: getIkeSessionParams
+          go_name: GetIkeSessionParams
+          returns: android.net.ipsec.ike.IkeSessionParams
           error: true
-        - java_method: getRemoteAddress
-          go_name: GetRemoteAddress
-          returns: java.net.InetAddress
+        - java_method: getTunnelModeChildSessionParams
+          go_name: GetTunnelModeChildSessionParams
+          returns: android.net.ipsec.ike.TunnelModeChildSessionParams
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+    - java_class: android.net.ipsec.ike.IkeSession
+      go_type: Session
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+        - java_type: android.net.ipsec.ike.IkeSessionParams
+          go_name: arg1
+        - java_type: android.net.ipsec.ike.ChildSessionParams
+          go_name: arg2
+        - java_type: java.util.concurrent.Executor
+          go_name: arg3
+        - java_type: android.net.ipsec.ike.IkeSessionCallback
+          go_name: arg4
+        - java_type: android.net.ipsec.ike.ChildSessionCallback
+          go_name: arg5
+      methods:
+        - java_method: close
+          go_name: Close
+          returns: void
+          error: true
+        - java_method: closeChildSession
+          go_name: CloseChildSession
+          params:
+            - java_type: android.net.ipsec.ike.ChildSessionCallback
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: dump
+          go_name: Dump
+          params:
+            - java_type: java.io.PrintWriter
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: finalize
+          go_name: Finalize
+          returns: void
+          error: true
+        - java_method: kill
+          go_name: Kill
+          returns: void
+          error: true
+        - java_method: openChildSession
+          go_name: OpenChildSession
+          params:
+            - java_type: android.net.ipsec.ike.ChildSessionParams
+              go_name: arg0
+            - java_type: android.net.ipsec.ike.ChildSessionCallback
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.net.ipsec.ike.SaProposal
+      go_type: SaProposal
+      methods:
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getDhGroups
+          go_name: GetDhGroups
+          returns: java.util.List<java.lang.Integer>
+          error: true
+        - java_method: getIntegrityAlgorithms
+          go_name: GetIntegrityAlgorithms
+          returns: java.util.List<java.lang.Integer>
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: getSupportedDhGroups
+          go_name: GetSupportedDhGroups
+          returns: java.util.Set<java.lang.Integer>
+          error: true
+    - java_class: android.net.ipsec.ike.IkeDerAsn1DnIdentification
+      go_type: DerAsn1DnIdentification
+      obtain: constructor
+      constructor_params:
+        - java_type: javax.security.auth.x500.X500Principal
+          go_name: arg0
+      methods:
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+    - java_class: android.net.ipsec.ike.ChildSessionCallback
+      go_type: ChildSessionCallback
+      methods:
+        - java_method: onClosed
+          go_name: OnClosed
+          returns: void
+          error: true
+        - java_method: onIpSecTransformCreated
+          go_name: OnIpSecTransformCreated
+          params:
+            - java_type: android.net.IpSecTransform
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onIpSecTransformDeleted
+          go_name: OnIpSecTransformDeleted
+          params:
+            - java_type: android.net.IpSecTransform
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onOpened
+          go_name: OnOpened
+          params:
+            - java_type: android.net.ipsec.ike.ChildSessionConfiguration
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.net.ipsec.ike.IkeIpv4AddrIdentification
+      go_type: Ipv4AddrIdentification
+      obtain: constructor
+      constructor_params:
+        - java_type: java.net.Inet4Address
+          go_name: arg0
+      methods:
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+    - java_class: android.net.ipsec.ike.IkeTrafficSelector
+      go_type: TrafficSelector
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+        - java_type: int
+          go_name: arg1
+        - java_type: java.net.InetAddress
+          go_name: arg2
+        - java_type: java.net.InetAddress
+          go_name: arg3
+      methods:
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
           error: true
     - java_class: android.net.ipsec.ike.ChildSaProposal
       go_type: ChildSaProposal
@@ -154,11 +391,11 @@ classes:
           go_name: Build
           returns: android.net.ipsec.ike.ChildSaProposal
           error: true
-    - java_class: android.net.ipsec.ike.IkeDerAsn1DnIdentification
-      go_type: DerAsn1DnIdentification
+    - java_class: android.net.ipsec.ike.IkeIpv6AddrIdentification
+      go_type: Ipv6AddrIdentification
       obtain: constructor
       constructor_params:
-        - java_type: javax.security.auth.x500.X500Principal
+        - java_type: java.net.Inet6Address
           go_name: arg0
       methods:
         - java_method: equals
@@ -172,8 +409,26 @@ classes:
           go_name: HashCode
           returns: int
           error: true
-    - java_class: android.net.ipsec.ike.SaProposal
-      go_type: SaProposal
+    - java_class: android.net.ipsec.ike.IkeSessionCallback
+      go_type: SessionCallback
+      methods:
+        - java_method: onClosed
+          go_name: OnClosed
+          returns: void
+          error: true
+        - java_method: onOpened
+          go_name: OnOpened
+          params:
+            - java_type: android.net.ipsec.ike.IkeSessionConfiguration
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.net.ipsec.ike.IkeRfc822AddrIdentification
+      go_type: Rfc822AddrIdentification
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
       methods:
         - java_method: equals
           go_name: Equals
@@ -182,26 +437,292 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
-        - java_method: getDhGroups
-          go_name: GetDhGroups
-          returns: java.util.List<java.lang.Integer>
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
           error: true
-        - java_method: getIntegrityAlgorithms
-          go_name: GetIntegrityAlgorithms
+    - java_class: android.net.ipsec.ike.IkeIdentification
+      go_type: Identification
+    - java_class: android.net.ipsec.ike.IkeKeyIdIdentification
+      go_type: KeyIdIdentification
+      obtain: constructor
+      constructor_params:
+        - java_type: '[B'
+          go_name: arg0
+      methods:
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+    - java_class: android.net.ipsec.ike.TunnelModeChildSessionParams
+      go_type: TunnelModeChildSessionParams
+      methods:
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getConfigurationRequests
+          go_name: GetConfigurationRequests
+          returns: java.util.List<android.net.ipsec.ike.TunnelModeChildSessionParams$TunnelModeChildConfigRequest>
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+    - java_class: android.net.ipsec.ike.TunnelModeChildSessionParams$Builder
+      go_type: TunnelModeChildSessionParamsBuilder
+      methods:
+        - java_method: addChildSaProposal
+          go_name: AddChildSaProposal
+          params:
+            - java_type: android.net.ipsec.ike.ChildSaProposal
+              go_name: arg0
+          returns: android.net.ipsec.ike.TunnelModeChildSessionParams$Builder
+          error: true
+        - java_method: addInboundTrafficSelectors
+          go_name: AddInboundTrafficSelectors
+          params:
+            - java_type: android.net.ipsec.ike.IkeTrafficSelector
+              go_name: arg0
+          returns: android.net.ipsec.ike.TunnelModeChildSessionParams$Builder
+          error: true
+        - java_method: addInternalAddressRequest
+          go_name: AddInternalAddressRequest1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.net.ipsec.ike.TunnelModeChildSessionParams$Builder
+          error: true
+        - java_method: addInternalAddressRequest
+          go_name: AddInternalAddressRequest1_1
+          params:
+            - java_type: java.net.Inet4Address
+              go_name: arg0
+          returns: android.net.ipsec.ike.TunnelModeChildSessionParams$Builder
+          error: true
+        - java_method: addInternalAddressRequest
+          go_name: AddInternalAddressRequest2_2
+          params:
+            - java_type: java.net.Inet6Address
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: android.net.ipsec.ike.TunnelModeChildSessionParams$Builder
+          error: true
+        - java_method: addInternalDhcpServerRequest
+          go_name: AddInternalDhcpServerRequest
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.net.ipsec.ike.TunnelModeChildSessionParams$Builder
+          error: true
+        - java_method: addInternalDnsServerRequest
+          go_name: AddInternalDnsServerRequest
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.net.ipsec.ike.TunnelModeChildSessionParams$Builder
+          error: true
+        - java_method: addOutboundTrafficSelectors
+          go_name: AddOutboundTrafficSelectors
+          params:
+            - java_type: android.net.ipsec.ike.IkeTrafficSelector
+              go_name: arg0
+          returns: android.net.ipsec.ike.TunnelModeChildSessionParams$Builder
+          error: true
+        - java_method: build
+          go_name: Build
+          returns: android.net.ipsec.ike.TunnelModeChildSessionParams
+          error: true
+        - java_method: setLifetimeSeconds
+          go_name: SetLifetimeSeconds
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: android.net.ipsec.ike.TunnelModeChildSessionParams$Builder
+          error: true
+    - java_class: android.net.ipsec.ike.TunnelModeChildSessionParams$ConfigRequestIpv4Address
+      go_type: TunnelModeChildSessionParamsConfigRequestIpv4Address
+      methods:
+        - java_method: getAddress
+          go_name: GetAddress
+          returns: java.net.Inet4Address
+          error: true
+    - java_class: android.net.ipsec.ike.TunnelModeChildSessionParams$ConfigRequestIpv4DhcpServer
+      go_type: TunnelModeChildSessionParamsConfigRequestIpv4DhcpServer
+    - java_class: android.net.ipsec.ike.TunnelModeChildSessionParams$ConfigRequestIpv4DnsServer
+      go_type: TunnelModeChildSessionParamsConfigRequestIpv4DnsServer
+    - java_class: android.net.ipsec.ike.TunnelModeChildSessionParams$ConfigRequestIpv4Netmask
+      go_type: TunnelModeChildSessionParamsConfigRequestIpv4Netmask
+    - java_class: android.net.ipsec.ike.TunnelModeChildSessionParams$ConfigRequestIpv6Address
+      go_type: TunnelModeChildSessionParamsConfigRequestIpv6Address
+      methods:
+        - java_method: getAddress
+          go_name: GetAddress
+          returns: java.net.Inet6Address
+          error: true
+        - java_method: getPrefixLength
+          go_name: GetPrefixLength
+          returns: int
+          error: true
+    - java_class: android.net.ipsec.ike.TunnelModeChildSessionParams$ConfigRequestIpv6DnsServer
+      go_type: TunnelModeChildSessionParamsConfigRequestIpv6DnsServer
+    - java_class: android.net.ipsec.ike.TunnelModeChildSessionParams$TunnelModeChildConfigRequest
+      go_type: TunnelModeChildSessionParamsTunnelModeChildConfigRequest
+    - java_class: android.net.ipsec.ike.IkeSessionConnectionInfo
+      go_type: SessionConnectionInfo
+      obtain: constructor
+      constructor_params:
+        - java_type: java.net.InetAddress
+          go_name: arg0
+        - java_type: java.net.InetAddress
+          go_name: arg1
+        - java_type: android.net.Network
+          go_name: arg2
+      methods:
+        - java_method: getLocalAddress
+          go_name: GetLocalAddress
+          returns: java.net.InetAddress
+          error: true
+        - java_method: getNetwork
+          go_name: GetNetwork
+          returns: android.net.Network
+          error: true
+        - java_method: getRemoteAddress
+          go_name: GetRemoteAddress
+          returns: java.net.InetAddress
+          error: true
+    - java_class: android.net.ipsec.ike.IkeSaProposal
+      go_type: IkeSaProposal
+      methods:
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getPseudorandomFunctions
+          go_name: GetPseudorandomFunctions
           returns: java.util.List<java.lang.Integer>
           error: true
         - java_method: hashCode
           go_name: HashCode
           returns: int
           error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
       static_methods:
-        - java_method: getSupportedDhGroups
-          go_name: GetSupportedDhGroups
+        - java_method: getSupportedEncryptionAlgorithms
+          go_name: GetSupportedEncryptionAlgorithms
           returns: java.util.Set<java.lang.Integer>
+          error: true
+        - java_method: getSupportedIntegrityAlgorithms
+          go_name: GetSupportedIntegrityAlgorithms
+          returns: java.util.Set<java.lang.Integer>
+          error: true
+        - java_method: getSupportedPseudorandomFunctions
+          go_name: GetSupportedPseudorandomFunctions
+          returns: java.util.Set<java.lang.Integer>
+          error: true
+    - java_class: android.net.ipsec.ike.IkeSaProposal$Builder
+      go_type: SaProposalBuilder
+      methods:
+        - java_method: addDhGroup
+          go_name: AddDhGroup
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.net.ipsec.ike.IkeSaProposal$Builder
+          error: true
+        - java_method: addEncryptionAlgorithm
+          go_name: AddEncryptionAlgorithm
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: android.net.ipsec.ike.IkeSaProposal$Builder
+          error: true
+        - java_method: addIntegrityAlgorithm
+          go_name: AddIntegrityAlgorithm
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.net.ipsec.ike.IkeSaProposal$Builder
+          error: true
+        - java_method: addPseudorandomFunction
+          go_name: AddPseudorandomFunction
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.net.ipsec.ike.IkeSaProposal$Builder
+          error: true
+        - java_method: build
+          go_name: Build
+          returns: android.net.ipsec.ike.IkeSaProposal
+          error: true
+    - java_class: android.net.ipsec.ike.IkeFqdnIdentification
+      go_type: FqdnIdentification
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+      methods:
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+    - java_class: android.net.ipsec.ike.ChildSessionParams
+      go_type: ChildSessionParams
+      methods:
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getChildSaProposals
+          go_name: GetChildSaProposals
+          returns: java.util.List<android.net.ipsec.ike.ChildSaProposal>
+          error: true
+        - java_method: getHardLifetimeSeconds
+          go_name: GetHardLifetimeSeconds
+          returns: int
+          error: true
+        - java_method: getInboundTrafficSelectors
+          go_name: GetInboundTrafficSelectors
+          returns: java.util.List<android.net.ipsec.ike.IkeTrafficSelector>
+          error: true
+        - java_method: getOutboundTrafficSelectors
+          go_name: GetOutboundTrafficSelectors
+          returns: java.util.List<android.net.ipsec.ike.IkeTrafficSelector>
+          error: true
+        - java_method: getSoftLifetimeSeconds
+          go_name: GetSoftLifetimeSeconds
+          returns: int
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
           error: true
     - java_class: android.net.ipsec.ike.IkeSessionParams
       go_type: SessionParams
@@ -483,527 +1004,75 @@ classes:
           go_name: HashCode
           returns: int
           error: true
-    - java_class: android.net.ipsec.ike.IkeRfc822AddrIdentification
-      go_type: Rfc822AddrIdentification
-      obtain: constructor
-      constructor_params:
-        - java_type: String
-          go_name: arg0
+abstract_callbacks:
+    - java_class: android.net.ipsec.ike.SaProposal
+      go_type: SaProposalCallback
       methods:
         - java_method: equals
-          go_name: Equals
           params:
-            - java_type: java.lang.Object
-              go_name: arg0
+            - java.lang.Object
           returns: boolean
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-    - java_class: android.net.ipsec.ike.IkeTrafficSelector
-      go_type: TrafficSelector
-      obtain: constructor
-      constructor_params:
-        - java_type: int
-          go_name: arg0
-        - java_type: int
-          go_name: arg1
-        - java_type: java.net.InetAddress
-          go_name: arg2
-        - java_type: java.net.InetAddress
-          go_name: arg3
-      methods:
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-    - java_class: android.net.ipsec.ike.ChildSessionConfiguration
-      go_type: ChildSessionConfiguration
-      methods:
-        - java_method: getInboundTrafficSelectors
-          go_name: GetInboundTrafficSelectors
-          returns: java.util.List<android.net.ipsec.ike.IkeTrafficSelector>
-          error: true
-        - java_method: getOutboundTrafficSelectors
-          go_name: GetOutboundTrafficSelectors
-          returns: java.util.List<android.net.ipsec.ike.IkeTrafficSelector>
-          error: true
-    - java_class: android.net.ipsec.ike.ChildSessionConfiguration$Builder
-      go_type: ChildSessionConfigurationBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.net.ipsec.ike.ChildSessionConfiguration
-          error: true
-    - java_class: android.net.ipsec.ike.IkeSaProposal
-      go_type: IkeSaProposal
-      methods:
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getPseudorandomFunctions
-          go_name: GetPseudorandomFunctions
+          go_field: Equals
+        - java_method: getDhGroups
+          params: []
           returns: java.util.List<java.lang.Integer>
-          error: true
+          go_field: GetDhGroups
+        - java_method: getIntegrityAlgorithms
+          params: []
+          returns: java.util.List<java.lang.Integer>
+          go_field: GetIntegrityAlgorithms
         - java_method: hashCode
-          go_name: HashCode
+          params: []
           returns: int
-          error: true
-      static_methods:
-        - java_method: getSupportedEncryptionAlgorithms
-          go_name: GetSupportedEncryptionAlgorithms
-          returns: java.util.Set<java.lang.Integer>
-          error: true
-        - java_method: getSupportedIntegrityAlgorithms
-          go_name: GetSupportedIntegrityAlgorithms
-          returns: java.util.Set<java.lang.Integer>
-          error: true
-        - java_method: getSupportedPseudorandomFunctions
-          go_name: GetSupportedPseudorandomFunctions
-          returns: java.util.Set<java.lang.Integer>
-          error: true
-    - java_class: android.net.ipsec.ike.IkeSaProposal$Builder
-      go_type: SaProposalBuilder
-      methods:
-        - java_method: addDhGroup
-          go_name: AddDhGroup
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.net.ipsec.ike.IkeSaProposal$Builder
-          error: true
-        - java_method: addEncryptionAlgorithm
-          go_name: AddEncryptionAlgorithm
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: android.net.ipsec.ike.IkeSaProposal$Builder
-          error: true
-        - java_method: addIntegrityAlgorithm
-          go_name: AddIntegrityAlgorithm
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.net.ipsec.ike.IkeSaProposal$Builder
-          error: true
-        - java_method: addPseudorandomFunction
-          go_name: AddPseudorandomFunction
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.net.ipsec.ike.IkeSaProposal$Builder
-          error: true
-        - java_method: build
-          go_name: Build
-          returns: android.net.ipsec.ike.IkeSaProposal
-          error: true
-    - java_class: android.net.ipsec.ike.IkeSession
-      go_type: Session
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-        - java_type: android.net.ipsec.ike.IkeSessionParams
-          go_name: arg1
-        - java_type: android.net.ipsec.ike.ChildSessionParams
-          go_name: arg2
-        - java_type: java.util.concurrent.Executor
-          go_name: arg3
-        - java_type: android.net.ipsec.ike.IkeSessionCallback
-          go_name: arg4
-        - java_type: android.net.ipsec.ike.ChildSessionCallback
-          go_name: arg5
-      methods:
-        - java_method: close
-          go_name: Close
-          returns: void
-          error: true
-        - java_method: closeChildSession
-          go_name: CloseChildSession
-          params:
-            - java_type: android.net.ipsec.ike.ChildSessionCallback
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: dump
-          go_name: Dump
-          params:
-            - java_type: java.io.PrintWriter
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: finalize
-          go_name: Finalize
-          returns: void
-          error: true
-        - java_method: kill
-          go_name: Kill
-          returns: void
-          error: true
-        - java_method: openChildSession
-          go_name: OpenChildSession
-          params:
-            - java_type: android.net.ipsec.ike.ChildSessionParams
-              go_name: arg0
-            - java_type: android.net.ipsec.ike.ChildSessionCallback
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.net.ipsec.ike.IkeIpv4AddrIdentification
-      go_type: Ipv4AddrIdentification
-      obtain: constructor
-      constructor_params:
-        - java_type: java.net.Inet4Address
-          go_name: arg0
-      methods:
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-    - java_class: android.net.ipsec.ike.IkeIpv6AddrIdentification
-      go_type: Ipv6AddrIdentification
-      obtain: constructor
-      constructor_params:
-        - java_type: java.net.Inet6Address
-          go_name: arg0
-      methods:
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-    - java_class: android.net.ipsec.ike.IkeTunnelConnectionParams
-      go_type: TunnelConnectionParams
-      obtain: constructor
-      constructor_params:
-        - java_type: android.net.ipsec.ike.IkeSessionParams
-          go_name: arg0
-        - java_type: android.net.ipsec.ike.TunnelModeChildSessionParams
-          go_name: arg1
-      methods:
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getIkeSessionParams
-          go_name: GetIkeSessionParams
-          returns: android.net.ipsec.ike.IkeSessionParams
-          error: true
-        - java_method: getTunnelModeChildSessionParams
-          go_name: GetTunnelModeChildSessionParams
-          returns: android.net.ipsec.ike.TunnelModeChildSessionParams
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-    - java_class: android.net.ipsec.ike.IkeIdentification
-      go_type: Identification
-    - java_class: android.net.ipsec.ike.IkeSessionCallback
-      go_type: SessionCallback
-      methods:
-        - java_method: onClosed
-          go_name: OnClosed
-          returns: void
-          error: true
-        - java_method: onOpened
-          go_name: OnOpened
-          params:
-            - java_type: android.net.ipsec.ike.IkeSessionConfiguration
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.net.ipsec.ike.ChildSessionCallback
-      go_type: ChildSessionCallback
-      methods:
-        - java_method: onClosed
-          go_name: OnClosed
-          returns: void
-          error: true
-        - java_method: onIpSecTransformCreated
-          go_name: OnIpSecTransformCreated
-          params:
-            - java_type: android.net.IpSecTransform
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onIpSecTransformDeleted
-          go_name: OnIpSecTransformDeleted
-          params:
-            - java_type: android.net.IpSecTransform
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onOpened
-          go_name: OnOpened
-          params:
-            - java_type: android.net.ipsec.ike.ChildSessionConfiguration
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.net.ipsec.ike.IkeKeyIdIdentification
-      go_type: KeyIdIdentification
-      obtain: constructor
-      constructor_params:
-        - java_type: '[B'
-          go_name: arg0
-      methods:
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-    - java_class: android.net.ipsec.ike.IkeFqdnIdentification
-      go_type: FqdnIdentification
-      obtain: constructor
-      constructor_params:
-        - java_type: String
-          go_name: arg0
-      methods:
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
+          go_field: HashCode
+        - java_method: toString
+          params: []
+          returns: String
+          go_field: ToString
     - java_class: android.net.ipsec.ike.ChildSessionParams
-      go_type: ChildSessionParams
+      go_type: ChildSessionParamsCallback
       methods:
         - java_method: equals
-          go_name: Equals
           params:
-            - java_type: java.lang.Object
-              go_name: arg0
+            - java.lang.Object
           returns: boolean
-          error: true
+          go_field: Equals
         - java_method: getChildSaProposals
-          go_name: GetChildSaProposals
+          params: []
           returns: java.util.List<android.net.ipsec.ike.ChildSaProposal>
-          error: true
+          go_field: GetChildSaProposals
         - java_method: getHardLifetimeSeconds
-          go_name: GetHardLifetimeSeconds
+          params: []
           returns: int
-          error: true
+          go_field: GetHardLifetimeSeconds
         - java_method: getInboundTrafficSelectors
-          go_name: GetInboundTrafficSelectors
+          params: []
           returns: java.util.List<android.net.ipsec.ike.IkeTrafficSelector>
-          error: true
+          go_field: GetInboundTrafficSelectors
         - java_method: getOutboundTrafficSelectors
-          go_name: GetOutboundTrafficSelectors
+          params: []
           returns: java.util.List<android.net.ipsec.ike.IkeTrafficSelector>
-          error: true
+          go_field: GetOutboundTrafficSelectors
         - java_method: getSoftLifetimeSeconds
-          go_name: GetSoftLifetimeSeconds
+          params: []
           returns: int
-          error: true
+          go_field: GetSoftLifetimeSeconds
         - java_method: hashCode
-          go_name: HashCode
+          params: []
           returns: int
-          error: true
-    - java_class: android.net.ipsec.ike.TunnelModeChildSessionParams
-      go_type: TunnelModeChildSessionParams
+          go_field: HashCode
+    - java_class: android.net.ipsec.ike.IkeSessionParams$IkeAuthConfig
+      go_type: SessionParamsIkeAuthConfigCallback
       methods:
         - java_method: equals
-          go_name: Equals
           params:
-            - java_type: java.lang.Object
-              go_name: arg0
+            - java.lang.Object
           returns: boolean
-          error: true
-        - java_method: getConfigurationRequests
-          go_name: GetConfigurationRequests
-          returns: java.util.List<android.net.ipsec.ike.TunnelModeChildSessionParams$TunnelModeChildConfigRequest>
-          error: true
+          go_field: Equals
         - java_method: hashCode
-          go_name: HashCode
+          params: []
           returns: int
-          error: true
-    - java_class: android.net.ipsec.ike.TunnelModeChildSessionParams$Builder
-      go_type: TunnelModeChildSessionParamsBuilder
-      methods:
-        - java_method: addChildSaProposal
-          go_name: AddChildSaProposal
-          params:
-            - java_type: android.net.ipsec.ike.ChildSaProposal
-              go_name: arg0
-          returns: android.net.ipsec.ike.TunnelModeChildSessionParams$Builder
-          error: true
-        - java_method: addInboundTrafficSelectors
-          go_name: AddInboundTrafficSelectors
-          params:
-            - java_type: android.net.ipsec.ike.IkeTrafficSelector
-              go_name: arg0
-          returns: android.net.ipsec.ike.TunnelModeChildSessionParams$Builder
-          error: true
-        - java_method: addInternalAddressRequest
-          go_name: AddInternalAddressRequest1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.net.ipsec.ike.TunnelModeChildSessionParams$Builder
-          error: true
-        - java_method: addInternalAddressRequest
-          go_name: AddInternalAddressRequest1_1
-          params:
-            - java_type: java.net.Inet4Address
-              go_name: arg0
-          returns: android.net.ipsec.ike.TunnelModeChildSessionParams$Builder
-          error: true
-        - java_method: addInternalAddressRequest
-          go_name: AddInternalAddressRequest2_2
-          params:
-            - java_type: java.net.Inet6Address
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: android.net.ipsec.ike.TunnelModeChildSessionParams$Builder
-          error: true
-        - java_method: addInternalDhcpServerRequest
-          go_name: AddInternalDhcpServerRequest
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.net.ipsec.ike.TunnelModeChildSessionParams$Builder
-          error: true
-        - java_method: addInternalDnsServerRequest
-          go_name: AddInternalDnsServerRequest
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.net.ipsec.ike.TunnelModeChildSessionParams$Builder
-          error: true
-        - java_method: addOutboundTrafficSelectors
-          go_name: AddOutboundTrafficSelectors
-          params:
-            - java_type: android.net.ipsec.ike.IkeTrafficSelector
-              go_name: arg0
-          returns: android.net.ipsec.ike.TunnelModeChildSessionParams$Builder
-          error: true
-        - java_method: build
-          go_name: Build
-          returns: android.net.ipsec.ike.TunnelModeChildSessionParams
-          error: true
-        - java_method: setLifetimeSeconds
-          go_name: SetLifetimeSeconds
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: android.net.ipsec.ike.TunnelModeChildSessionParams$Builder
-          error: true
-    - java_class: android.net.ipsec.ike.TunnelModeChildSessionParams$ConfigRequestIpv4Address
-      go_type: TunnelModeChildSessionParamsConfigRequestIpv4Address
-      methods:
-        - java_method: getAddress
-          go_name: GetAddress
-          returns: java.net.Inet4Address
-          error: true
-    - java_class: android.net.ipsec.ike.TunnelModeChildSessionParams$ConfigRequestIpv4DhcpServer
-      go_type: TunnelModeChildSessionParamsConfigRequestIpv4DhcpServer
-    - java_class: android.net.ipsec.ike.TunnelModeChildSessionParams$ConfigRequestIpv4DnsServer
-      go_type: TunnelModeChildSessionParamsConfigRequestIpv4DnsServer
-    - java_class: android.net.ipsec.ike.TunnelModeChildSessionParams$ConfigRequestIpv4Netmask
-      go_type: TunnelModeChildSessionParamsConfigRequestIpv4Netmask
-    - java_class: android.net.ipsec.ike.TunnelModeChildSessionParams$ConfigRequestIpv6Address
-      go_type: TunnelModeChildSessionParamsConfigRequestIpv6Address
-      methods:
-        - java_method: getAddress
-          go_name: GetAddress
-          returns: java.net.Inet6Address
-          error: true
-        - java_method: getPrefixLength
-          go_name: GetPrefixLength
-          returns: int
-          error: true
-    - java_class: android.net.ipsec.ike.TunnelModeChildSessionParams$ConfigRequestIpv6DnsServer
-      go_type: TunnelModeChildSessionParamsConfigRequestIpv6DnsServer
-    - java_class: android.net.ipsec.ike.TunnelModeChildSessionParams$TunnelModeChildConfigRequest
-      go_type: TunnelModeChildSessionParamsTunnelModeChildConfigRequest
-    - java_class: android.net.ipsec.ike.TransportModeChildSessionParams
-      go_type: TransportModeChildSessionParams
-    - java_class: android.net.ipsec.ike.TransportModeChildSessionParams$Builder
-      go_type: TransportModeChildSessionParamsBuilder
-      methods:
-        - java_method: addChildSaProposal
-          go_name: AddChildSaProposal
-          params:
-            - java_type: android.net.ipsec.ike.ChildSaProposal
-              go_name: arg0
-          returns: android.net.ipsec.ike.TransportModeChildSessionParams$Builder
-          error: true
-        - java_method: addInboundTrafficSelectors
-          go_name: AddInboundTrafficSelectors
-          params:
-            - java_type: android.net.ipsec.ike.IkeTrafficSelector
-              go_name: arg0
-          returns: android.net.ipsec.ike.TransportModeChildSessionParams$Builder
-          error: true
-        - java_method: addOutboundTrafficSelectors
-          go_name: AddOutboundTrafficSelectors
-          params:
-            - java_type: android.net.ipsec.ike.IkeTrafficSelector
-              go_name: arg0
-          returns: android.net.ipsec.ike.TransportModeChildSessionParams$Builder
-          error: true
-        - java_method: build
-          go_name: Build
-          returns: android.net.ipsec.ike.TransportModeChildSessionParams
-          error: true
-        - java_method: setLifetimeSeconds
-          go_name: SetLifetimeSeconds
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: android.net.ipsec.ike.TransportModeChildSessionParams$Builder
-          error: true
+          go_field: HashCode
 constants:
     - go_name: ExtensionTypeFragmentation
       value: "1"

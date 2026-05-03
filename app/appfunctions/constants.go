@@ -10,6 +10,9 @@ const (
 )
 
 const (
+	AppFunctionStateDefault         = consts.AppFunctionStateDefault
+	AppFunctionStateDisabled        = consts.AppFunctionStateDisabled
+	AppFunctionStateEnabled         = consts.AppFunctionStateEnabled
 	Creator                         = consts.Creator
 	ErrorAppUnknownError            = consts.ErrorAppUnknownError
 	ErrorCancelled                  = consts.ErrorCancelled
@@ -23,7 +26,4 @@ const (
 	ErrorFunctionNotFound           = consts.ErrorFunctionNotFound
 	ErrorInvalidArgument            = consts.ErrorInvalidArgument
 	ErrorSystemError                = consts.ErrorSystemError
-	AppFunctionStateDefault         = consts.AppFunctionStateDefault
-	AppFunctionStateDisabled        = consts.AppFunctionStateDisabled
-	AppFunctionStateEnabled         = consts.AppFunctionStateEnabled
 )

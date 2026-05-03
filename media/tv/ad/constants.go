@@ -5,21 +5,8 @@ package ad
 import "github.com/AndroidGoLab/jni/media/tv/ad/consts"
 
 const (
-	Creator                  = consts.Creator
-	ErrorBlocked             = consts.ErrorBlocked
-	ErrorEncrypted           = consts.ErrorEncrypted
-	ErrorNone                = consts.ErrorNone
-	ErrorNotSupported        = consts.ErrorNotSupported
-	ErrorResourceUnavailable = consts.ErrorResourceUnavailable
-	ErrorUnknown             = consts.ErrorUnknown
-	ErrorUnknownChannel      = consts.ErrorUnknownChannel
-	ErrorWeakSignal          = consts.ErrorWeakSignal
-	SessionStateError        = consts.SessionStateError
-	SessionStateRunning      = consts.SessionStateRunning
-	SessionStateStopped      = consts.SessionStateStopped
-)
-
-const (
+	ServiceInterface                          = consts.ServiceInterface
+	ServiceMetaData                           = consts.ServiceMetaData
 	ErrorKeyErrorCode                         = consts.ErrorKeyErrorCode
 	ErrorKeyMethodName                        = consts.ErrorKeyMethodName
 	ActionAppLinkCommand                      = consts.ActionAppLinkCommand
@@ -40,6 +27,19 @@ const (
 	SessionDataTypeAdRequest                  = consts.SessionDataTypeAdRequest
 	SessionDataTypeBroadcastInfoRequest       = consts.SessionDataTypeBroadcastInfoRequest
 	SessionDataTypeRemoveBroadcastInfoRequest = consts.SessionDataTypeRemoveBroadcastInfoRequest
-	ServiceInterface                          = consts.ServiceInterface
-	ServiceMetaData                           = consts.ServiceMetaData
+)
+
+const (
+	Creator                  = consts.Creator
+	ErrorBlocked             = consts.ErrorBlocked
+	ErrorEncrypted           = consts.ErrorEncrypted
+	ErrorNone                = consts.ErrorNone
+	ErrorNotSupported        = consts.ErrorNotSupported
+	ErrorResourceUnavailable = consts.ErrorResourceUnavailable
+	ErrorUnknown             = consts.ErrorUnknown
+	ErrorUnknownChannel      = consts.ErrorUnknownChannel
+	ErrorWeakSignal          = consts.ErrorWeakSignal
+	SessionStateError        = consts.SessionStateError
+	SessionStateRunning      = consts.SessionStateRunning
+	SessionStateStopped      = consts.SessionStateStopped
 )

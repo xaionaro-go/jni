@@ -8,13 +8,13 @@ const (
 )
 
 const (
+	KeyHasSetDefaultValues      string = "_has_set_default_values"
+	MetadataKeyPreferences      string = "android.preference"
 	ExtraNoHeaders              string = ":android:no_headers"
 	ExtraShowFragment           string = ":android:show_fragment"
 	ExtraShowFragmentArguments  string = ":android:show_fragment_args"
 	ExtraShowFragmentShortTitle string = ":android:show_fragment_short_title"
 	ExtraShowFragmentTitle      string = ":android:show_fragment_title"
-	KeyHasSetDefaultValues      string = "_has_set_default_values"
-	MetadataKeyPreferences      string = "android.preference"
 )
 
 const (

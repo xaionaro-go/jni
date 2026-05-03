@@ -5,10 +5,34 @@ package content
 import "github.com/AndroidGoLab/jni/content/consts"
 
 const (
+	ClassificationComplete          = consts.ClassificationComplete
+	ClassificationNotComplete       = consts.ClassificationNotComplete
+	ClassificationNotPerformed      = consts.ClassificationNotPerformed
 	Creator                         = consts.Creator
-	Fragment                        = consts.Fragment
-	Path                            = consts.Path
-	Query                           = consts.Query
+	Button1                         = consts.Button1
+	Button2                         = consts.Button2
+	Button3                         = consts.Button3
+	ButtonNegative                  = consts.ButtonNegative
+	ButtonNeutral                   = consts.ButtonNeutral
+	ButtonPositive                  = consts.ButtonPositive
+	TrimMemoryBackground            = consts.TrimMemoryBackground
+	TrimMemoryComplete              = consts.TrimMemoryComplete
+	TrimMemoryModerate              = consts.TrimMemoryModerate
+	TrimMemoryRunningCritical       = consts.TrimMemoryRunningCritical
+	TrimMemoryRunningLow            = consts.TrimMemoryRunningLow
+	TrimMemoryRunningModerate       = consts.TrimMemoryRunningModerate
+	TrimMemoryUiHidden              = consts.TrimMemoryUiHidden
+	DatabaseMode2lines              = consts.DatabaseMode2lines
+	DatabaseModeQueries             = consts.DatabaseModeQueries
+	NoMatch                         = consts.NoMatch
+	TypeBoolean                     = consts.TypeBoolean
+	TypeBundle                      = consts.TypeBundle
+	TypeBundleArray                 = consts.TypeBundleArray
+	TypeChoice                      = consts.TypeChoice
+	TypeInteger                     = consts.TypeInteger
+	TypeMultiSelect                 = consts.TypeMultiSelect
+	TypeNull                        = consts.TypeNull
+	TypeString                      = consts.TypeString
 	MatchAdjustmentMask             = consts.MatchAdjustmentMask
 	MatchAdjustmentNormal           = consts.MatchAdjustmentNormal
 	MatchCategoryEmpty              = consts.MatchCategoryEmpty
@@ -25,6 +49,13 @@ const (
 	NoMatchType                     = consts.NoMatchType
 	SystemHighPriority              = consts.SystemHighPriority
 	SystemLowPriority               = consts.SystemLowPriority
+	AlreadyInProgress               = consts.AlreadyInProgress
+	Fragment                        = consts.Fragment
+	Path                            = consts.Path
+	Query                           = consts.Query
+	ActionAllow                     = consts.ActionAllow
+	ActionBlock                     = consts.ActionBlock
+	LogSyncDetails                  = consts.LogSyncDetails
 	ResultApproved                  = consts.ResultApproved
 	ResultDenied                    = consts.ResultDenied
 	ResultError                     = consts.ResultError
@@ -33,41 +64,16 @@ const (
 	ResultErrorNetwork              = consts.ResultErrorNetwork
 	ResultNoResponse                = consts.ResultNoResponse
 	ResultUnknownRequest            = consts.ResultUnknownRequest
-	ClassificationComplete          = consts.ClassificationComplete
-	ClassificationNotComplete       = consts.ClassificationNotComplete
-	ClassificationNotPerformed      = consts.ClassificationNotPerformed
-	TrimMemoryBackground            = consts.TrimMemoryBackground
-	TrimMemoryComplete              = consts.TrimMemoryComplete
-	TrimMemoryModerate              = consts.TrimMemoryModerate
-	TrimMemoryRunningCritical       = consts.TrimMemoryRunningCritical
-	TrimMemoryRunningLow            = consts.TrimMemoryRunningLow
-	TrimMemoryRunningModerate       = consts.TrimMemoryRunningModerate
-	TrimMemoryUiHidden              = consts.TrimMemoryUiHidden
-	AlreadyInProgress               = consts.AlreadyInProgress
-	NoMatch                         = consts.NoMatch
-	DatabaseMode2lines              = consts.DatabaseMode2lines
-	DatabaseModeQueries             = consts.DatabaseModeQueries
-	Button1                         = consts.Button1
-	Button2                         = consts.Button2
-	Button3                         = consts.Button3
-	ButtonNegative                  = consts.ButtonNegative
-	ButtonNeutral                   = consts.ButtonNeutral
-	ButtonPositive                  = consts.ButtonPositive
-	LogSyncDetails                  = consts.LogSyncDetails
-	TypeBoolean                     = consts.TypeBoolean
-	TypeBundle                      = consts.TypeBundle
-	TypeBundleArray                 = consts.TypeBundleArray
-	TypeChoice                      = consts.TypeChoice
-	TypeInteger                     = consts.TypeInteger
-	TypeMultiSelect                 = consts.TypeMultiSelect
-	TypeNull                        = consts.TypeNull
-	TypeString                      = consts.TypeString
-	IdNull                          = consts.IdNull
-	ActionAllow                     = consts.ActionAllow
-	ActionBlock                     = consts.ActionBlock
 )
 
 const (
+	ExtraIsRemoteDevice              = consts.ExtraIsRemoteDevice
+	ExtraIsSensitive                 = consts.ExtraIsSensitive
+	MimetypeTextHtml                 = consts.MimetypeTextHtml
+	MimetypeTextIntent               = consts.MimetypeTextIntent
+	MimetypeTextPlain                = consts.MimetypeTextPlain
+	MimetypeTextUrilist              = consts.MimetypeTextUrilist
+	MimetypeUnknown                  = consts.MimetypeUnknown
 	Tag                              = consts.Tag
 	FeatureDelete                    = consts.FeatureDelete
 	FeatureDownload                  = consts.FeatureDownload
@@ -97,13 +103,6 @@ const (
 	ResponseKeyMessage               = consts.ResponseKeyMessage
 	ResponseKeyResponseTimestamp     = consts.ResponseKeyResponseTimestamp
 	ResponseKeyResult                = consts.ResponseKeyResult
-	ExtraIsRemoteDevice              = consts.ExtraIsRemoteDevice
-	ExtraIsSensitive                 = consts.ExtraIsSensitive
-	MimetypeTextHtml                 = consts.MimetypeTextHtml
-	MimetypeTextIntent               = consts.MimetypeTextIntent
-	MimetypeTextPlain                = consts.MimetypeTextPlain
-	MimetypeTextUrilist              = consts.MimetypeTextUrilist
-	MimetypeUnknown                  = consts.MimetypeUnknown
 )
 
 const (

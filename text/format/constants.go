@@ -5,24 +5,28 @@ package format
 import "github.com/AndroidGoLab/jni/text/format/consts"
 
 const (
-	EpochJulianDay          = consts.EpochJulianDay
-	Friday                  = consts.Friday
-	Hour                    = consts.Hour
-	Minute                  = consts.Minute
-	Monday                  = consts.Monday
-	MondayBeforeJulianEpoch = consts.MondayBeforeJulianEpoch
-	Month                   = consts.Month
-	MonthDay                = consts.MonthDay
-	Saturday                = consts.Saturday
-	Second                  = consts.Second
-	Sunday                  = consts.Sunday
-	Thursday                = consts.Thursday
-	Tuesday                 = consts.Tuesday
-	Wednesday               = consts.Wednesday
-	WeekDay                 = consts.WeekDay
-	WeekNum                 = consts.WeekNum
-	Year                    = consts.Year
-	YearDay                 = consts.YearDay
+	AbbrevMonthFormat   = consts.AbbrevMonthFormat
+	AbbrevWeekdayFormat = consts.AbbrevWeekdayFormat
+	HourMinute24        = consts.HourMinute24
+	MonthDayFormat      = consts.MonthDayFormat
+	MonthFormat         = consts.MonthFormat
+	NumericMonthFormat  = consts.NumericMonthFormat
+	WeekdayFormat       = consts.WeekdayFormat
+	YearFormat          = consts.YearFormat
+	YearFormatTwoDigits = consts.YearFormatTwoDigits
+	TimezoneUtc         = consts.TimezoneUtc
+)
+
+const (
+	DayInMillis    = consts.DayInMillis
+	HourInMillis   = consts.HourInMillis
+	MinuteInMillis = consts.MinuteInMillis
+	SecondInMillis = consts.SecondInMillis
+	WeekInMillis   = consts.WeekInMillis
+	YearInMillis   = consts.YearInMillis
+)
+
+const (
 	Format12hour            = consts.Format12hour
 	Format24hour            = consts.Format24hour
 	FormatAbbrevAll         = consts.FormatAbbrevAll
@@ -52,26 +56,22 @@ const (
 	LengthShortest          = consts.LengthShortest
 	Samemonthtable          = consts.Samemonthtable
 	Sameyeartable           = consts.Sameyeartable
-)
-
-const (
-	TimezoneUtc         = consts.TimezoneUtc
-	AbbrevMonthFormat   = consts.AbbrevMonthFormat
-	AbbrevWeekdayFormat = consts.AbbrevWeekdayFormat
-	HourMinute24        = consts.HourMinute24
-	MonthDayFormat      = consts.MonthDayFormat
-	MonthFormat         = consts.MonthFormat
-	NumericMonthFormat  = consts.NumericMonthFormat
-	WeekdayFormat       = consts.WeekdayFormat
-	YearFormat          = consts.YearFormat
-	YearFormatTwoDigits = consts.YearFormatTwoDigits
-)
-
-const (
-	DayInMillis    = consts.DayInMillis
-	HourInMillis   = consts.HourInMillis
-	MinuteInMillis = consts.MinuteInMillis
-	SecondInMillis = consts.SecondInMillis
-	WeekInMillis   = consts.WeekInMillis
-	YearInMillis   = consts.YearInMillis
+	EpochJulianDay          = consts.EpochJulianDay
+	Friday                  = consts.Friday
+	Hour                    = consts.Hour
+	Minute                  = consts.Minute
+	Monday                  = consts.Monday
+	MondayBeforeJulianEpoch = consts.MondayBeforeJulianEpoch
+	Month                   = consts.Month
+	MonthDay                = consts.MonthDay
+	Saturday                = consts.Saturday
+	Second                  = consts.Second
+	Sunday                  = consts.Sunday
+	Thursday                = consts.Thursday
+	Tuesday                 = consts.Tuesday
+	Wednesday               = consts.Wednesday
+	WeekDay                 = consts.WeekDay
+	WeekNum                 = consts.WeekNum
+	Year                    = consts.Year
+	YearDay                 = consts.YearDay
 )

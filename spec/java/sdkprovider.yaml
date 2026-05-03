@@ -15,6 +15,16 @@ classes:
               go_name: arg0
           returns: void
           error: true
+    - java_class: android.app.sdksandbox.sdkprovider.SdkSandboxClientImportanceListener
+      go_type: SdkSandboxClientImportanceListener
+      methods:
+        - java_method: onForegroundImportanceChanged
+          go_name: OnForegroundImportanceChanged
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
     - java_class: android.app.sdksandbox.sdkprovider.SdkSandboxController
       go_type: SdkSandboxController
       methods:
@@ -47,16 +57,6 @@ classes:
           go_name: UnregisterSdkSandboxClientImportanceListener
           params:
             - java_type: android.app.sdksandbox.sdkprovider.SdkSandboxClientImportanceListener
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.app.sdksandbox.sdkprovider.SdkSandboxClientImportanceListener
-      go_type: SdkSandboxClientImportanceListener
-      methods:
-        - java_method: onForegroundImportanceChanged
-          go_name: OnForegroundImportanceChanged
-          params:
-            - java_type: boolean
               go_name: arg0
           returns: void
           error: true

@@ -5,6 +5,25 @@
 package: jank
 go_import: github.com/AndroidGoLab/jni/app/jank
 classes:
+    - java_class: android.app.jank.RelativeFrameTimeHistogram
+      go_type: RelativeFrameTimeHistogram
+      obtain: constructor
+      methods:
+        - java_method: addRelativeFrameTimeMillis
+          go_name: AddRelativeFrameTimeMillis
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getBucketCounters
+          go_name: GetBucketCounters
+          returns: '[I'
+          error: true
+        - java_method: getBucketEndpointsMillis
+          go_name: GetBucketEndpointsMillis
+          returns: '[I'
+          error: true
     - java_class: android.app.jank.AppJankStats
       go_type: AppJankStats
       obtain: constructor
@@ -57,25 +76,6 @@ classes:
         - java_method: getWidgetState
           go_name: GetWidgetState
           returns: String
-          error: true
-    - java_class: android.app.jank.RelativeFrameTimeHistogram
-      go_type: RelativeFrameTimeHistogram
-      obtain: constructor
-      methods:
-        - java_method: addRelativeFrameTimeMillis
-          go_name: AddRelativeFrameTimeMillis
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getBucketCounters
-          go_name: GetBucketCounters
-          returns: '[I'
-          error: true
-        - java_method: getBucketEndpointsMillis
-          go_name: GetBucketEndpointsMillis
-          returns: '[I'
           error: true
 constants:
     - go_name: WidgetCategoryAnimation

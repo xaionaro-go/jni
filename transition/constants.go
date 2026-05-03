@@ -5,14 +5,14 @@ package transition
 import "github.com/AndroidGoLab/jni/transition/consts"
 
 const (
+	OrderingSequential = consts.OrderingSequential
+	OrderingTogether   = consts.OrderingTogether
 	MatchId            = consts.MatchId
 	MatchInstance      = consts.MatchInstance
 	MatchItemId        = consts.MatchItemId
 	MatchName          = consts.MatchName
-	ModeIn             = consts.ModeIn
-	ModeOut            = consts.ModeOut
 	In                 = consts.In
 	Out                = consts.Out
-	OrderingSequential = consts.OrderingSequential
-	OrderingTogether   = consts.OrderingTogether
+	ModeIn             = consts.ModeIn
+	ModeOut            = consts.ModeOut
 )

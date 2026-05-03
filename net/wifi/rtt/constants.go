@@ -5,6 +5,52 @@ package rtt
 import "github.com/AndroidGoLab/jni/net/wifi/rtt/consts"
 
 const (
+	ActionWifiRttStateChanged                                = consts.ActionWifiRttStateChanged
+	CharacteristicsKeyBooleanLci                             = consts.CharacteristicsKeyBooleanLci
+	CharacteristicsKeyBooleanLcr                             = consts.CharacteristicsKeyBooleanLcr
+	CharacteristicsKeyBooleanNtbInitiator                    = consts.CharacteristicsKeyBooleanNtbInitiator
+	CharacteristicsKeyBooleanOneSidedRtt                     = consts.CharacteristicsKeyBooleanOneSidedRtt
+	CharacteristicsKeyBooleanRangingFrameProtectionSupported = consts.CharacteristicsKeyBooleanRangingFrameProtectionSupported
+	CharacteristicsKeyBooleanSecureHeLtfSupported            = consts.CharacteristicsKeyBooleanSecureHeLtfSupported
+	CharacteristicsKeyBooleanStaResponder                    = consts.CharacteristicsKeyBooleanStaResponder
+	CharacteristicsKeyIntMaxSupportedSecureHeLtfProtoVersion = consts.CharacteristicsKeyIntMaxSupportedSecureHeLtfProtoVersion
+)
+
+const (
+	Creator                                  = consts.Creator
+	StatusFail                               = consts.StatusFail
+	StatusResponderDoesNotSupportIeee80211mc = consts.StatusResponderDoesNotSupportIeee80211mc
+	StatusSuccess                            = consts.StatusSuccess
+	Unspecified                              = consts.Unspecified
+	AltitudeFloors                           = consts.AltitudeFloors
+	AltitudeMeters                           = consts.AltitudeMeters
+	AltitudeUndefined                        = consts.AltitudeUndefined
+	DatumNad83Mllw                           = consts.DatumNad83Mllw
+	DatumNad83Nav88                          = consts.DatumNad83Nav88
+	DatumUndefined                           = consts.DatumUndefined
+	DatumWgs84                               = consts.DatumWgs84
+	LciVersion1                              = consts.LciVersion1
+	LocationFixed                            = consts.LocationFixed
+	LocationMovementUnknown                  = consts.LocationMovementUnknown
+	LocationReserved                         = consts.LocationReserved
+	LocationVariable                         = consts.LocationVariable
+	AkmFilsEapSha256                         = consts.AkmFilsEapSha256
+	AkmFilsEapSha384                         = consts.AkmFilsEapSha384
+	AkmFtEapSha256                           = consts.AkmFtEapSha256
+	AkmFtEapSha384                           = consts.AkmFtEapSha384
+	AkmFtPskSha256                           = consts.AkmFtPskSha256
+	AkmFtPskSha384                           = consts.AkmFtPskSha384
+	AkmNone                                  = consts.AkmNone
+	AkmPasn                                  = consts.AkmPasn
+	AkmSae                                   = consts.AkmSae
+	CipherCcmp128                            = consts.CipherCcmp128
+	CipherCcmp256                            = consts.CipherCcmp256
+	CipherGcmp128                            = consts.CipherGcmp128
+	CipherGcmp256                            = consts.CipherGcmp256
+	CipherNone                               = consts.CipherNone
+	SecurityModeOpen                         = consts.SecurityModeOpen
+	SecurityModeOpportunistic                = consts.SecurityModeOpportunistic
+	SecurityModeSecureAuth                   = consts.SecurityModeSecureAuth
 	AdditionalCode                           = consts.AdditionalCode
 	Apt                                      = consts.Apt
 	Borough                                  = consts.Borough
@@ -37,54 +83,8 @@ const (
 	Sts                                      = consts.Sts
 	SubbranchRoadName                        = consts.SubbranchRoadName
 	TypeOfPlace                              = consts.TypeOfPlace
-	AltitudeFloors                           = consts.AltitudeFloors
-	AltitudeMeters                           = consts.AltitudeMeters
-	AltitudeUndefined                        = consts.AltitudeUndefined
-	Creator                                  = consts.Creator
-	DatumNad83Mllw                           = consts.DatumNad83Mllw
-	DatumNad83Nav88                          = consts.DatumNad83Nav88
-	DatumUndefined                           = consts.DatumUndefined
-	DatumWgs84                               = consts.DatumWgs84
-	LciVersion1                              = consts.LciVersion1
-	LocationFixed                            = consts.LocationFixed
-	LocationMovementUnknown                  = consts.LocationMovementUnknown
-	LocationReserved                         = consts.LocationReserved
-	LocationVariable                         = consts.LocationVariable
-	StatusFail                               = consts.StatusFail
-	StatusResponderDoesNotSupportIeee80211mc = consts.StatusResponderDoesNotSupportIeee80211mc
-	StatusSuccess                            = consts.StatusSuccess
-	Unspecified                              = consts.Unspecified
-	SecurityModeOpen                         = consts.SecurityModeOpen
-	SecurityModeOpportunistic                = consts.SecurityModeOpportunistic
-	SecurityModeSecureAuth                   = consts.SecurityModeSecureAuth
 	StatusCodeFail                           = consts.StatusCodeFail
 	StatusCodeFailRttNotAvailable            = consts.StatusCodeFailRttNotAvailable
 	ResponderAp                              = consts.ResponderAp
 	ResponderSta                             = consts.ResponderSta
-	AkmFilsEapSha256                         = consts.AkmFilsEapSha256
-	AkmFilsEapSha384                         = consts.AkmFilsEapSha384
-	AkmFtEapSha256                           = consts.AkmFtEapSha256
-	AkmFtEapSha384                           = consts.AkmFtEapSha384
-	AkmFtPskSha256                           = consts.AkmFtPskSha256
-	AkmFtPskSha384                           = consts.AkmFtPskSha384
-	AkmNone                                  = consts.AkmNone
-	AkmPasn                                  = consts.AkmPasn
-	AkmSae                                   = consts.AkmSae
-	CipherCcmp128                            = consts.CipherCcmp128
-	CipherCcmp256                            = consts.CipherCcmp256
-	CipherGcmp128                            = consts.CipherGcmp128
-	CipherGcmp256                            = consts.CipherGcmp256
-	CipherNone                               = consts.CipherNone
-)
-
-const (
-	ActionWifiRttStateChanged                                = consts.ActionWifiRttStateChanged
-	CharacteristicsKeyBooleanLci                             = consts.CharacteristicsKeyBooleanLci
-	CharacteristicsKeyBooleanLcr                             = consts.CharacteristicsKeyBooleanLcr
-	CharacteristicsKeyBooleanNtbInitiator                    = consts.CharacteristicsKeyBooleanNtbInitiator
-	CharacteristicsKeyBooleanOneSidedRtt                     = consts.CharacteristicsKeyBooleanOneSidedRtt
-	CharacteristicsKeyBooleanRangingFrameProtectionSupported = consts.CharacteristicsKeyBooleanRangingFrameProtectionSupported
-	CharacteristicsKeyBooleanSecureHeLtfSupported            = consts.CharacteristicsKeyBooleanSecureHeLtfSupported
-	CharacteristicsKeyBooleanStaResponder                    = consts.CharacteristicsKeyBooleanStaResponder
-	CharacteristicsKeyIntMaxSupportedSecureHeLtfProtoVersion = consts.CharacteristicsKeyIntMaxSupportedSecureHeLtfProtoVersion
 )

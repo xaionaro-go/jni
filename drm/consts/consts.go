@@ -23,20 +23,12 @@ const (
 	RightsInvalid                         int = 1
 	RightsNotAcquired                     int = 3
 	RightsValid                           int = 0
-	TypeAcquireDrmInfoFailed              int = 2008
-	TypeNotSupported                      int = 2003
-	TypeNoInternetConnection              int = 2005
-	TypeOutOfMemory                       int = 2004
-	TypeProcessDrmInfoFailed              int = 2006
-	TypeRemoveAllRightsFailed             int = 2007
-	TypeRightsNotInstalled                int = 2001
-	TypeRightsRenewalNotAllowed           int = 2002
-	ErrorNone                             int = 0
-	ErrorUnknown                          int = -2000
-	TypeAllRightsRemoved                  int = 1001
-	TypeDrmInfoProcessed                  int = 1002
 	StatusError                           int = 2
 	StatusOk                              int = 1
+	TypeAllRightsRemoved                  int = 1001
+	TypeDrmInfoProcessed                  int = 1002
+	ErrorNone                             int = 0
+	ErrorUnknown                          int = -2000
 	TypeAccountAlreadyRegistered          int = 5
 	TypeAlreadyRegisteredByAnotherAccount int = 1
 	TypeRemoveRights                      int = 2
@@ -47,6 +39,14 @@ const (
 	TypeRightsAcquisitionInfo             int = 3
 	TypeRightsAcquisitionProgressInfo     int = 4
 	TypeUnregistrationInfo                int = 2
+	TypeAcquireDrmInfoFailed              int = 2008
+	TypeNotSupported                      int = 2003
+	TypeNoInternetConnection              int = 2005
+	TypeOutOfMemory                       int = 2004
+	TypeProcessDrmInfoFailed              int = 2006
+	TypeRemoveAllRightsFailed             int = 2007
+	TypeRightsNotInstalled                int = 2001
+	TypeRightsRenewalNotAllowed           int = 2002
 	StatusInputdataError                  int = 2
 )
 

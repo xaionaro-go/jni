@@ -18,9 +18,6 @@ const (
 	TypeBoth                = consts.TypeBoth
 	TypeIdentity            = consts.TypeIdentity
 	TypeMatrix              = consts.TypeMatrix
-	OrderNormal             = consts.OrderNormal
-	OrderRandom             = consts.OrderRandom
-	OrderReverse            = consts.OrderReverse
 	Absolute                = consts.Absolute
 	Infinite                = consts.Infinite
 	RelativeToParent        = consts.RelativeToParent
@@ -31,4 +28,7 @@ const (
 	ZorderBottom            = consts.ZorderBottom
 	ZorderNormal            = consts.ZorderNormal
 	ZorderTop               = consts.ZorderTop
+	OrderNormal             = consts.OrderNormal
+	OrderRandom             = consts.OrderRandom
+	OrderReverse            = consts.OrderReverse
 )

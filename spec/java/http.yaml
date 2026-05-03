@@ -5,6 +5,117 @@
 package: http
 go_import: github.com/AndroidGoLab/jni/net/http
 classes:
+    - java_class: android.net.http.HeaderBlock
+      go_type: HeaderBlock
+    - java_class: android.net.http.QuicException
+      go_type: QuicException
+    - java_class: android.net.http.SslCertificate
+      go_type: SslCertificate
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+        - java_type: String
+          go_name: arg1
+        - java_type: String
+          go_name: arg2
+        - java_type: String
+          go_name: arg3
+      methods:
+        - java_method: getIssuedBy
+          go_name: GetIssuedBy
+          returns: android.net.http.SslCertificate$DName
+          error: true
+        - java_method: getIssuedTo
+          go_name: GetIssuedTo
+          returns: android.net.http.SslCertificate$DName
+          error: true
+        - java_method: getValidNotAfter
+          go_name: GetValidNotAfter
+          returns: String
+          error: true
+        - java_method: getValidNotAfterDate
+          go_name: GetValidNotAfterDate
+          returns: java.util.Date
+          error: true
+        - java_method: getValidNotBefore
+          go_name: GetValidNotBefore
+          returns: String
+          error: true
+        - java_method: getValidNotBeforeDate
+          go_name: GetValidNotBeforeDate
+          returns: java.util.Date
+          error: true
+        - java_method: getX509Certificate
+          go_name: GetX509Certificate
+          returns: java.security.cert.X509Certificate
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: restoreState
+          go_name: RestoreState
+          params:
+            - java_type: android.os.Bundle
+              go_name: arg0
+          returns: android.net.http.SslCertificate
+          error: true
+        - java_method: saveState
+          go_name: SaveState
+          params:
+            - java_type: android.net.http.SslCertificate
+              go_name: arg0
+          returns: android.os.Bundle
+          error: true
+    - java_class: android.net.http.SslCertificate$DName
+      go_type: SslCertificateDName
+      methods:
+        - java_method: getCName
+          go_name: GetCName
+          returns: String
+          error: true
+        - java_method: getDName
+          go_name: GetDName
+          returns: String
+          error: true
+        - java_method: getOName
+          go_name: GetOName
+          returns: String
+          error: true
+        - java_method: getUName
+          go_name: GetUName
+          returns: String
+          error: true
+    - java_class: android.net.http.UploadDataSink
+      go_type: UploadDataSink
+      methods:
+        - java_method: onReadError
+          go_name: OnReadError
+          params:
+            - java_type: java.lang.Exception
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onReadSucceeded
+          go_name: OnReadSucceeded
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onRewindError
+          go_name: OnRewindError
+          params:
+            - java_type: java.lang.Exception
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onRewindSucceeded
+          go_name: OnRewindSucceeded
+          returns: void
+          error: true
     - java_class: android.net.http.ConnectionMigrationOptions
       go_type: ConnectionMigrationOptions
       methods:
@@ -47,6 +158,55 @@ classes:
             - java_type: int
               go_name: arg0
           returns: android.net.http.ConnectionMigrationOptions$Builder
+          error: true
+    - java_class: android.net.http.X509TrustManagerExtensions
+      go_type: X509TrustManagerExtensions
+      obtain: constructor
+      constructor_params:
+        - java_type: javax.net.ssl.X509TrustManager
+          go_name: arg0
+      methods:
+        - java_method: checkServerTrusted
+          go_name: CheckServerTrusted5
+          params:
+            - java_type: java.security.cert.X509Certificate[]
+              go_name: arg0
+            - java_type: '[B'
+              go_name: arg1
+            - java_type: '[B'
+              go_name: arg2
+            - java_type: String
+              go_name: arg3
+            - java_type: String
+              go_name: arg4
+          returns: java.util.List<java.security.cert.X509Certificate>
+          error: true
+        - java_method: checkServerTrusted
+          go_name: CheckServerTrusted3_1
+          params:
+            - java_type: java.security.cert.X509Certificate[]
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+            - java_type: String
+              go_name: arg2
+          returns: java.util.List<java.security.cert.X509Certificate>
+          error: true
+        - java_method: isSameTrustConfiguration
+          go_name: IsSameTrustConfiguration
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: isUserAddedCertificate
+          go_name: IsUserAddedCertificate
+          params:
+            - java_type: java.security.cert.X509Certificate
+              go_name: arg0
+          returns: boolean
           error: true
     - java_class: android.net.http.UrlRequest
       go_type: UrlRequest
@@ -248,108 +408,114 @@ classes:
               go_name: arg0
           returns: void
           error: true
-    - java_class: android.net.http.X509TrustManagerExtensions
-      go_type: X509TrustManagerExtensions
-      obtain: constructor
-      constructor_params:
-        - java_type: javax.net.ssl.X509TrustManager
-          go_name: arg0
-      methods:
-        - java_method: checkServerTrusted
-          go_name: CheckServerTrusted5
-          params:
-            - java_type: java.security.cert.X509Certificate[]
-              go_name: arg0
-            - java_type: '[B'
-              go_name: arg1
-            - java_type: '[B'
-              go_name: arg2
-            - java_type: String
-              go_name: arg3
-            - java_type: String
-              go_name: arg4
-          returns: java.util.List<java.security.cert.X509Certificate>
-          error: true
-        - java_method: checkServerTrusted
-          go_name: CheckServerTrusted3_1
-          params:
-            - java_type: java.security.cert.X509Certificate[]
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-            - java_type: String
-              go_name: arg2
-          returns: java.util.List<java.security.cert.X509Certificate>
-          error: true
-        - java_method: isSameTrustConfiguration
-          go_name: IsSameTrustConfiguration
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: isUserAddedCertificate
-          go_name: IsUserAddedCertificate
-          params:
-            - java_type: java.security.cert.X509Certificate
-              go_name: arg0
-          returns: boolean
-          error: true
-    - java_class: android.net.http.UploadDataSink
-      go_type: UploadDataSink
-      methods:
-        - java_method: onReadError
-          go_name: OnReadError
-          params:
-            - java_type: java.lang.Exception
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onReadSucceeded
-          go_name: OnReadSucceeded
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onRewindError
-          go_name: OnRewindError
-          params:
-            - java_type: java.lang.Exception
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onRewindSucceeded
-          go_name: OnRewindSucceeded
-          returns: void
-          error: true
-    - java_class: android.net.http.HttpException
-      go_type: Exception
-      obtain: constructor
-      constructor_params:
-        - java_type: String
-          go_name: arg0
-        - java_type: java.lang.Throwable
-          go_name: arg1
-    - java_class: android.net.http.UploadDataProvider
-      go_type: UploadDataProvider
+    - java_class: android.net.http.CallbackException
+      go_type: CallbackException
+    - java_class: android.net.http.HttpResponseCache
+      go_type: ResponseCache
       methods:
         - java_method: close
           go_name: Close
           returns: void
           error: true
-        - java_method: getLength
-          go_name: GetLength
+        - java_method: delete
+          go_name: Delete
+          returns: void
+          error: true
+        - java_method: flush
+          go_name: Flush
+          returns: void
+          error: true
+        - java_method: getHitCount
+          go_name: GetHitCount
+          returns: int
+          error: true
+        - java_method: getNetworkCount
+          go_name: GetNetworkCount
+          returns: int
+          error: true
+        - java_method: getRequestCount
+          go_name: GetRequestCount
+          returns: int
+          error: true
+        - java_method: maxSize
+          go_name: MaxSize
           returns: long
           error: true
-        - java_method: rewind
-          go_name: Rewind
+        - java_method: put
+          go_name: Put
           params:
-            - java_type: android.net.http.UploadDataSink
+            - java_type: java.net.URI
               go_name: arg0
-          returns: void
+            - java_type: java.net.URLConnection
+              go_name: arg1
+          returns: java.net.CacheRequest
+          error: true
+        - java_method: size
+          go_name: Size
+          returns: long
+          error: true
+      static_methods:
+        - java_method: getInstalled
+          go_name: GetInstalled
+          returns: android.net.http.HttpResponseCache
+          error: true
+    - java_class: android.net.http.QuicOptions
+      go_type: QuicOptions
+      methods:
+        - java_method: getAllowedQuicHosts
+          go_name: GetAllowedQuicHosts
+          returns: java.util.Set<java.lang.String>
+          error: true
+        - java_method: getHandshakeUserAgent
+          go_name: GetHandshakeUserAgent
+          returns: String
+          error: true
+        - java_method: getIdleConnectionTimeout
+          go_name: GetIdleConnectionTimeout
+          returns: java.time.Duration
+          error: true
+        - java_method: getInMemoryServerConfigsCacheSize
+          go_name: GetInMemoryServerConfigsCacheSize
+          returns: int
+          error: true
+        - java_method: hasInMemoryServerConfigsCacheSize
+          go_name: HasInMemoryServerConfigsCacheSize
+          returns: boolean
+          error: true
+    - java_class: android.net.http.QuicOptions$Builder
+      go_type: QuicOptionsBuilder
+      methods:
+        - java_method: addAllowedQuicHost
+          go_name: AddAllowedQuicHost
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.net.http.QuicOptions$Builder
+          error: true
+        - java_method: build
+          go_name: Build
+          returns: android.net.http.QuicOptions
+          error: true
+        - java_method: setHandshakeUserAgent
+          go_name: SetHandshakeUserAgent
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.net.http.QuicOptions$Builder
+          error: true
+        - java_method: setIdleConnectionTimeout
+          go_name: SetIdleConnectionTimeout
+          params:
+            - java_type: java.time.Duration
+              go_name: arg0
+          returns: android.net.http.QuicOptions$Builder
+          error: true
+        - java_method: setInMemoryServerConfigsCacheSize
+          go_name: SetInMemoryServerConfigsCacheSize
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.net.http.QuicOptions$Builder
           error: true
     - java_class: android.net.http.BidirectionalStream
       go_type: BidirectionalStream
@@ -512,8 +678,215 @@ classes:
               go_name: arg1
           returns: void
           error: true
-    - java_class: android.net.http.QuicException
-      go_type: QuicException
+    - java_class: android.net.http.UrlResponseInfo
+      go_type: UrlResponseInfo
+      methods:
+        - java_method: getHeaders
+          go_name: GetHeaders
+          returns: android.net.http.HeaderBlock
+          error: true
+        - java_method: getHttpStatusCode
+          go_name: GetHttpStatusCode
+          returns: int
+          error: true
+        - java_method: getHttpStatusText
+          go_name: GetHttpStatusText
+          returns: String
+          error: true
+        - java_method: getNegotiatedProtocol
+          go_name: GetNegotiatedProtocol
+          returns: String
+          error: true
+        - java_method: getReceivedByteCount
+          go_name: GetReceivedByteCount
+          returns: long
+          error: true
+        - java_method: getUrl
+          go_name: GetUrl
+          returns: String
+          error: true
+        - java_method: getUrlChain
+          go_name: GetUrlChain
+          returns: java.util.List<java.lang.String>
+          error: true
+        - java_method: wasCached
+          go_name: WasCached
+          returns: boolean
+          error: true
+    - java_class: android.net.http.UploadDataProvider
+      go_type: UploadDataProvider
+      methods:
+        - java_method: close
+          go_name: Close
+          returns: void
+          error: true
+        - java_method: getLength
+          go_name: GetLength
+          returns: long
+          error: true
+        - java_method: rewind
+          go_name: Rewind
+          params:
+            - java_type: android.net.http.UploadDataSink
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.net.http.DnsOptions
+      go_type: DnsOptions
+      methods:
+        - java_method: getPersistHostCache
+          go_name: GetPersistHostCache
+          returns: int
+          error: true
+        - java_method: getPersistHostCachePeriod
+          go_name: GetPersistHostCachePeriod
+          returns: java.time.Duration
+          error: true
+        - java_method: getPreestablishConnectionsToStaleDnsResults
+          go_name: GetPreestablishConnectionsToStaleDnsResults
+          returns: int
+          error: true
+        - java_method: getStaleDns
+          go_name: GetStaleDns
+          returns: int
+          error: true
+        - java_method: getStaleDnsOptions
+          go_name: GetStaleDnsOptions
+          returns: android.net.http.DnsOptions$StaleDnsOptions
+          error: true
+        - java_method: getUseHttpStackDnsResolver
+          go_name: GetUseHttpStackDnsResolver
+          returns: int
+          error: true
+    - java_class: android.net.http.DnsOptions$Builder
+      go_type: DnsOptionsBuilder
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.net.http.DnsOptions
+          error: true
+        - java_method: setPersistHostCache
+          go_name: SetPersistHostCache
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.net.http.DnsOptions$Builder
+          error: true
+        - java_method: setPersistHostCachePeriod
+          go_name: SetPersistHostCachePeriod
+          params:
+            - java_type: java.time.Duration
+              go_name: arg0
+          returns: android.net.http.DnsOptions$Builder
+          error: true
+        - java_method: setPreestablishConnectionsToStaleDnsResults
+          go_name: SetPreestablishConnectionsToStaleDnsResults
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.net.http.DnsOptions$Builder
+          error: true
+        - java_method: setStaleDns
+          go_name: SetStaleDns
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.net.http.DnsOptions$Builder
+          error: true
+        - java_method: setStaleDnsOptions
+          go_name: SetStaleDnsOptions
+          params:
+            - java_type: android.net.http.DnsOptions$StaleDnsOptions
+              go_name: arg0
+          returns: android.net.http.DnsOptions$Builder
+          error: true
+        - java_method: setUseHttpStackDnsResolver
+          go_name: SetUseHttpStackDnsResolver
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.net.http.DnsOptions$Builder
+          error: true
+    - java_class: android.net.http.DnsOptions$StaleDnsOptions
+      go_type: DnsOptionsStaleDnsOptions
+      methods:
+        - java_method: getAllowCrossNetworkUsage
+          go_name: GetAllowCrossNetworkUsage
+          returns: int
+          error: true
+        - java_method: getFreshLookupTimeout
+          go_name: GetFreshLookupTimeout
+          returns: java.time.Duration
+          error: true
+        - java_method: getMaxExpiredDelay
+          go_name: GetMaxExpiredDelay
+          returns: java.time.Duration
+          error: true
+        - java_method: getUseStaleOnNameNotResolved
+          go_name: GetUseStaleOnNameNotResolved
+          returns: int
+          error: true
+    - java_class: android.net.http.InlineExecutionProhibitedException
+      go_type: InlineExecutionProhibitedException
+      obtain: constructor
+    - java_class: android.net.http.NetworkException
+      go_type: NetworkException
+      methods:
+        - java_method: getErrorCode
+          go_name: GetErrorCode
+          returns: int
+          error: true
+        - java_method: isImmediatelyRetryable
+          go_name: IsImmediatelyRetryable
+          returns: boolean
+          error: true
+    - java_class: android.net.http.HttpException
+      go_type: Exception
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+        - java_type: java.lang.Throwable
+          go_name: arg1
+    - java_class: android.net.http.SslError
+      go_type: SslError
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+        - java_type: android.net.http.SslCertificate
+          go_name: arg1
+      methods:
+        - java_method: addError
+          go_name: AddError
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getCertificate
+          go_name: GetCertificate
+          returns: android.net.http.SslCertificate
+          error: true
+        - java_method: getPrimaryError
+          go_name: GetPrimaryError
+          returns: int
+          error: true
+        - java_method: getUrl
+          go_name: GetUrl
+          returns: String
+          error: true
+        - java_method: hasError
+          go_name: HasError
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
     - java_class: android.net.http.HttpEngine
       go_type: Engine
       methods:
@@ -660,379 +1033,329 @@ classes:
               go_name: arg0
           returns: android.net.http.HttpEngine$Builder
           error: true
-    - java_class: android.net.http.NetworkException
-      go_type: NetworkException
+abstract_callbacks:
+    - java_class: android.net.http.UploadDataSink
+      go_type: UploadDataSinkCallback
       methods:
-        - java_method: getErrorCode
-          go_name: GetErrorCode
-          returns: int
-          error: true
-        - java_method: isImmediatelyRetryable
-          go_name: IsImmediatelyRetryable
-          returns: boolean
-          error: true
-    - java_class: android.net.http.SslError
-      go_type: SslError
-      obtain: constructor
-      constructor_params:
-        - java_type: int
-          go_name: arg0
-        - java_type: android.net.http.SslCertificate
-          go_name: arg1
-      methods:
-        - java_method: addError
-          go_name: AddError
+        - java_method: onReadError
           params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getCertificate
-          go_name: GetCertificate
-          returns: android.net.http.SslCertificate
-          error: true
-        - java_method: getPrimaryError
-          go_name: GetPrimaryError
-          returns: int
-          error: true
-        - java_method: getUrl
-          go_name: GetUrl
-          returns: String
-          error: true
-        - java_method: hasError
-          go_name: HasError
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-    - java_class: android.net.http.InlineExecutionProhibitedException
-      go_type: InlineExecutionProhibitedException
-      obtain: constructor
-    - java_class: android.net.http.QuicOptions
-      go_type: QuicOptions
-      methods:
-        - java_method: getAllowedQuicHosts
-          go_name: GetAllowedQuicHosts
-          returns: java.util.Set<java.lang.String>
-          error: true
-        - java_method: getHandshakeUserAgent
-          go_name: GetHandshakeUserAgent
-          returns: String
-          error: true
-        - java_method: getIdleConnectionTimeout
-          go_name: GetIdleConnectionTimeout
-          returns: java.time.Duration
-          error: true
-        - java_method: getInMemoryServerConfigsCacheSize
-          go_name: GetInMemoryServerConfigsCacheSize
-          returns: int
-          error: true
-        - java_method: hasInMemoryServerConfigsCacheSize
-          go_name: HasInMemoryServerConfigsCacheSize
-          returns: boolean
-          error: true
-    - java_class: android.net.http.QuicOptions$Builder
-      go_type: QuicOptionsBuilder
-      methods:
-        - java_method: addAllowedQuicHost
-          go_name: AddAllowedQuicHost
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.net.http.QuicOptions$Builder
-          error: true
-        - java_method: build
-          go_name: Build
-          returns: android.net.http.QuicOptions
-          error: true
-        - java_method: setHandshakeUserAgent
-          go_name: SetHandshakeUserAgent
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.net.http.QuicOptions$Builder
-          error: true
-        - java_method: setIdleConnectionTimeout
-          go_name: SetIdleConnectionTimeout
-          params:
-            - java_type: java.time.Duration
-              go_name: arg0
-          returns: android.net.http.QuicOptions$Builder
-          error: true
-        - java_method: setInMemoryServerConfigsCacheSize
-          go_name: SetInMemoryServerConfigsCacheSize
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.net.http.QuicOptions$Builder
-          error: true
-    - java_class: android.net.http.CallbackException
-      go_type: CallbackException
-    - java_class: android.net.http.DnsOptions
-      go_type: DnsOptions
-      methods:
-        - java_method: getPersistHostCache
-          go_name: GetPersistHostCache
-          returns: int
-          error: true
-        - java_method: getPersistHostCachePeriod
-          go_name: GetPersistHostCachePeriod
-          returns: java.time.Duration
-          error: true
-        - java_method: getPreestablishConnectionsToStaleDnsResults
-          go_name: GetPreestablishConnectionsToStaleDnsResults
-          returns: int
-          error: true
-        - java_method: getStaleDns
-          go_name: GetStaleDns
-          returns: int
-          error: true
-        - java_method: getStaleDnsOptions
-          go_name: GetStaleDnsOptions
-          returns: android.net.http.DnsOptions$StaleDnsOptions
-          error: true
-        - java_method: getUseHttpStackDnsResolver
-          go_name: GetUseHttpStackDnsResolver
-          returns: int
-          error: true
-    - java_class: android.net.http.DnsOptions$Builder
-      go_type: DnsOptionsBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.net.http.DnsOptions
-          error: true
-        - java_method: setPersistHostCache
-          go_name: SetPersistHostCache
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.net.http.DnsOptions$Builder
-          error: true
-        - java_method: setPersistHostCachePeriod
-          go_name: SetPersistHostCachePeriod
-          params:
-            - java_type: java.time.Duration
-              go_name: arg0
-          returns: android.net.http.DnsOptions$Builder
-          error: true
-        - java_method: setPreestablishConnectionsToStaleDnsResults
-          go_name: SetPreestablishConnectionsToStaleDnsResults
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.net.http.DnsOptions$Builder
-          error: true
-        - java_method: setStaleDns
-          go_name: SetStaleDns
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.net.http.DnsOptions$Builder
-          error: true
-        - java_method: setStaleDnsOptions
-          go_name: SetStaleDnsOptions
-          params:
-            - java_type: android.net.http.DnsOptions$StaleDnsOptions
-              go_name: arg0
-          returns: android.net.http.DnsOptions$Builder
-          error: true
-        - java_method: setUseHttpStackDnsResolver
-          go_name: SetUseHttpStackDnsResolver
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.net.http.DnsOptions$Builder
-          error: true
-    - java_class: android.net.http.DnsOptions$StaleDnsOptions
-      go_type: DnsOptionsStaleDnsOptions
-      methods:
-        - java_method: getAllowCrossNetworkUsage
-          go_name: GetAllowCrossNetworkUsage
-          returns: int
-          error: true
-        - java_method: getFreshLookupTimeout
-          go_name: GetFreshLookupTimeout
-          returns: java.time.Duration
-          error: true
-        - java_method: getMaxExpiredDelay
-          go_name: GetMaxExpiredDelay
-          returns: java.time.Duration
-          error: true
-        - java_method: getUseStaleOnNameNotResolved
-          go_name: GetUseStaleOnNameNotResolved
-          returns: int
-          error: true
-    - java_class: android.net.http.HeaderBlock
-      go_type: HeaderBlock
-    - java_class: android.net.http.HttpResponseCache
-      go_type: ResponseCache
-      methods:
-        - java_method: close
-          go_name: Close
+            - java.lang.Exception
           returns: void
-          error: true
-        - java_method: delete
-          go_name: Delete
+          go_field: OnReadError
+        - java_method: onReadSucceeded
+          params:
+            - boolean
           returns: void
-          error: true
+          go_field: OnReadSucceeded
+        - java_method: onRewindError
+          params:
+            - java.lang.Exception
+          returns: void
+          go_field: OnRewindError
+        - java_method: onRewindSucceeded
+          params: []
+          returns: void
+          go_field: OnRewindSucceeded
+    - java_class: android.net.http.UrlRequest
+      go_type: UrlRequestCallback
+      methods:
+        - java_method: cancel
+          params: []
+          returns: void
+          go_field: Cancel
+        - java_method: followRedirect
+          params: []
+          returns: void
+          go_field: FollowRedirect
+        - java_method: getHeaders
+          params: []
+          returns: android.net.http.HeaderBlock
+          go_field: GetHeaders
+        - java_method: getHttpMethod
+          params: []
+          returns: String
+          go_field: GetHttpMethod
+        - java_method: getPriority
+          params: []
+          returns: int
+          go_field: GetPriority
+        - java_method: getStatus
+          params:
+            - android.net.http.UrlRequest$StatusListener
+          returns: void
+          go_field: GetStatus
+        - java_method: getTrafficStatsTag
+          params: []
+          returns: int
+          go_field: GetTrafficStatsTag
+        - java_method: getTrafficStatsUid
+          params: []
+          returns: int
+          go_field: GetTrafficStatsUid
+        - java_method: hasTrafficStatsTag
+          params: []
+          returns: boolean
+          go_field: HasTrafficStatsTag
+        - java_method: hasTrafficStatsUid
+          params: []
+          returns: boolean
+          go_field: HasTrafficStatsUid
+        - java_method: isCacheDisabled
+          params: []
+          returns: boolean
+          go_field: IsCacheDisabled
+        - java_method: isDirectExecutorAllowed
+          params: []
+          returns: boolean
+          go_field: IsDirectExecutorAllowed
+        - java_method: isDone
+          params: []
+          returns: boolean
+          go_field: IsDone
+        - java_method: start
+          params: []
+          returns: void
+          go_field: Start
+    - java_class: android.net.http.UrlRequest$Builder
+      go_type: UrlRequestBuilderCallback
+      methods:
+        - java_method: addHeader
+          params:
+            - String
+            - String
+          returns: android.net.http.UrlRequest$Builder
+          go_field: AddHeader
+        - java_method: bindToNetwork
+          params:
+            - android.net.Network
+          returns: android.net.http.UrlRequest$Builder
+          go_field: BindToNetwork
+        - java_method: build
+          params: []
+          returns: android.net.http.UrlRequest
+          go_field: Build
+        - java_method: setCacheDisabled
+          params:
+            - boolean
+          returns: android.net.http.UrlRequest$Builder
+          go_field: SetCacheDisabled
+        - java_method: setDirectExecutorAllowed
+          params:
+            - boolean
+          returns: android.net.http.UrlRequest$Builder
+          go_field: SetDirectExecutorAllowed
+        - java_method: setHttpMethod
+          params:
+            - String
+          returns: android.net.http.UrlRequest$Builder
+          go_field: SetHttpMethod
+        - java_method: setPriority
+          params:
+            - int
+          returns: android.net.http.UrlRequest$Builder
+          go_field: SetPriority
+        - java_method: setTrafficStatsTag
+          params:
+            - int
+          returns: android.net.http.UrlRequest$Builder
+          go_field: SetTrafficStatsTag
+        - java_method: setTrafficStatsUid
+          params:
+            - int
+          returns: android.net.http.UrlRequest$Builder
+          go_field: SetTrafficStatsUid
+        - java_method: setUploadDataProvider
+          params:
+            - android.net.http.UploadDataProvider
+            - java.util.concurrent.Executor
+          returns: android.net.http.UrlRequest$Builder
+          go_field: SetUploadDataProvider
+    - java_class: android.net.http.BidirectionalStream
+      go_type: BidirectionalStreamCallback
+      methods:
+        - java_method: cancel
+          params: []
+          returns: void
+          go_field: Cancel
         - java_method: flush
-          go_name: Flush
+          params: []
           returns: void
-          error: true
-        - java_method: getHitCount
-          go_name: GetHitCount
+          go_field: Flush
+        - java_method: getHeaders
+          params: []
+          returns: android.net.http.HeaderBlock
+          go_field: GetHeaders
+        - java_method: getHttpMethod
+          params: []
+          returns: String
+          go_field: GetHttpMethod
+        - java_method: getPriority
+          params: []
           returns: int
-          error: true
-        - java_method: getNetworkCount
-          go_name: GetNetworkCount
+          go_field: GetPriority
+        - java_method: getTrafficStatsTag
+          params: []
           returns: int
-          error: true
-        - java_method: getRequestCount
-          go_name: GetRequestCount
+          go_field: GetTrafficStatsTag
+        - java_method: getTrafficStatsUid
+          params: []
           returns: int
-          error: true
-        - java_method: maxSize
-          go_name: MaxSize
-          returns: long
-          error: true
-        - java_method: put
-          go_name: Put
-          params:
-            - java_type: java.net.URI
-              go_name: arg0
-            - java_type: java.net.URLConnection
-              go_name: arg1
-          returns: java.net.CacheRequest
-          error: true
-        - java_method: size
-          go_name: Size
-          returns: long
-          error: true
-      static_methods:
-        - java_method: getInstalled
-          go_name: GetInstalled
-          returns: android.net.http.HttpResponseCache
-          error: true
-    - java_class: android.net.http.SslCertificate
-      go_type: SslCertificate
-      obtain: constructor
-      constructor_params:
-        - java_type: String
-          go_name: arg0
-        - java_type: String
-          go_name: arg1
-        - java_type: String
-          go_name: arg2
-        - java_type: String
-          go_name: arg3
+          go_field: GetTrafficStatsUid
+        - java_method: hasTrafficStatsTag
+          params: []
+          returns: boolean
+          go_field: HasTrafficStatsTag
+        - java_method: hasTrafficStatsUid
+          params: []
+          returns: boolean
+          go_field: HasTrafficStatsUid
+        - java_method: isDelayRequestHeadersUntilFirstFlushEnabled
+          params: []
+          returns: boolean
+          go_field: IsDelayRequestHeadersUntilFirstFlushEnabled
+        - java_method: isDone
+          params: []
+          returns: boolean
+          go_field: IsDone
+        - java_method: start
+          params: []
+          returns: void
+          go_field: Start
+    - java_class: android.net.http.BidirectionalStream$Builder
+      go_type: BidirectionalStreamBuilderCallback
       methods:
-        - java_method: getIssuedBy
-          go_name: GetIssuedBy
-          returns: android.net.http.SslCertificate$DName
-          error: true
-        - java_method: getIssuedTo
-          go_name: GetIssuedTo
-          returns: android.net.http.SslCertificate$DName
-          error: true
-        - java_method: getValidNotAfter
-          go_name: GetValidNotAfter
-          returns: String
-          error: true
-        - java_method: getValidNotAfterDate
-          go_name: GetValidNotAfterDate
-          returns: java.util.Date
-          error: true
-        - java_method: getValidNotBefore
-          go_name: GetValidNotBefore
-          returns: String
-          error: true
-        - java_method: getValidNotBeforeDate
-          go_name: GetValidNotBeforeDate
-          returns: java.util.Date
-          error: true
-        - java_method: getX509Certificate
-          go_name: GetX509Certificate
-          returns: java.security.cert.X509Certificate
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-      static_methods:
-        - java_method: restoreState
-          go_name: RestoreState
+        - java_method: addHeader
           params:
-            - java_type: android.os.Bundle
-              go_name: arg0
-          returns: android.net.http.SslCertificate
-          error: true
-        - java_method: saveState
-          go_name: SaveState
+            - String
+            - String
+          returns: android.net.http.BidirectionalStream$Builder
+          go_field: AddHeader
+        - java_method: build
+          params: []
+          returns: android.net.http.BidirectionalStream
+          go_field: Build
+        - java_method: setDelayRequestHeadersUntilFirstFlushEnabled
           params:
-            - java_type: android.net.http.SslCertificate
-              go_name: arg0
-          returns: android.os.Bundle
-          error: true
-    - java_class: android.net.http.SslCertificate$DName
-      go_type: SslCertificateDName
-      methods:
-        - java_method: getCName
-          go_name: GetCName
-          returns: String
-          error: true
-        - java_method: getDName
-          go_name: GetDName
-          returns: String
-          error: true
-        - java_method: getOName
-          go_name: GetOName
-          returns: String
-          error: true
-        - java_method: getUName
-          go_name: GetUName
-          returns: String
-          error: true
+            - boolean
+          returns: android.net.http.BidirectionalStream$Builder
+          go_field: SetDelayRequestHeadersUntilFirstFlushEnabled
+        - java_method: setHttpMethod
+          params:
+            - String
+          returns: android.net.http.BidirectionalStream$Builder
+          go_field: SetHttpMethod
+        - java_method: setPriority
+          params:
+            - int
+          returns: android.net.http.BidirectionalStream$Builder
+          go_field: SetPriority
+        - java_method: setTrafficStatsTag
+          params:
+            - int
+          returns: android.net.http.BidirectionalStream$Builder
+          go_field: SetTrafficStatsTag
+        - java_method: setTrafficStatsUid
+          params:
+            - int
+          returns: android.net.http.BidirectionalStream$Builder
+          go_field: SetTrafficStatsUid
     - java_class: android.net.http.UrlResponseInfo
-      go_type: UrlResponseInfo
+      go_type: UrlResponseInfoCallback
       methods:
         - java_method: getHeaders
-          go_name: GetHeaders
+          params: []
           returns: android.net.http.HeaderBlock
-          error: true
+          go_field: GetHeaders
         - java_method: getHttpStatusCode
-          go_name: GetHttpStatusCode
+          params: []
           returns: int
-          error: true
+          go_field: GetHttpStatusCode
         - java_method: getHttpStatusText
-          go_name: GetHttpStatusText
+          params: []
           returns: String
-          error: true
+          go_field: GetHttpStatusText
         - java_method: getNegotiatedProtocol
-          go_name: GetNegotiatedProtocol
+          params: []
           returns: String
-          error: true
+          go_field: GetNegotiatedProtocol
         - java_method: getReceivedByteCount
-          go_name: GetReceivedByteCount
+          params: []
           returns: long
-          error: true
+          go_field: GetReceivedByteCount
         - java_method: getUrl
-          go_name: GetUrl
+          params: []
           returns: String
-          error: true
+          go_field: GetUrl
         - java_method: getUrlChain
-          go_name: GetUrlChain
+          params: []
           returns: java.util.List<java.lang.String>
-          error: true
+          go_field: GetUrlChain
         - java_method: wasCached
-          go_name: WasCached
+          params: []
           returns: boolean
-          error: true
+          go_field: WasCached
+    - java_class: android.net.http.UploadDataProvider
+      go_type: UploadDataProviderCallback
+      methods:
+        - java_method: close
+          params: []
+          returns: void
+          go_field: Close
+        - java_method: getLength
+          params: []
+          returns: long
+          go_field: GetLength
+        - java_method: rewind
+          params:
+            - android.net.http.UploadDataSink
+          returns: void
+          go_field: Rewind
+    - java_class: android.net.http.NetworkException
+      go_type: NetworkExceptionCallback
+      methods:
+        - java_method: getErrorCode
+          params: []
+          returns: int
+          go_field: GetErrorCode
+        - java_method: isImmediatelyRetryable
+          params: []
+          returns: boolean
+          go_field: IsImmediatelyRetryable
+    - java_class: android.net.http.HttpEngine
+      go_type: EngineCallback
+      methods:
+        - java_method: bindToNetwork
+          params:
+            - android.net.Network
+          returns: void
+          go_field: BindToNetwork
+        - java_method: createUrlStreamHandlerFactory
+          params: []
+          returns: java.net.URLStreamHandlerFactory
+          go_field: CreateUrlStreamHandlerFactory
+        - java_method: newBidirectionalStreamBuilder
+          params:
+            - String
+            - java.util.concurrent.Executor
+            - android.net.http.BidirectionalStream$Callback
+          returns: android.net.http.BidirectionalStream$Builder
+          go_field: NewBidirectionalStreamBuilder
+        - java_method: newUrlRequestBuilder
+          params:
+            - String
+            - java.util.concurrent.Executor
+            - android.net.http.UrlRequest$Callback
+          returns: android.net.http.UrlRequest$Builder
+          go_field: NewUrlRequestBuilder
+        - java_method: openConnection
+          params:
+            - java.net.URL
+          returns: java.net.URLConnection
+          go_field: OpenConnection
+        - java_method: shutdown
+          params: []
+          returns: void
+          go_field: Shutdown
 constants:
     - go_name: MigrationOptionDisabled
       value: "2"
@@ -1121,17 +1444,14 @@ constants:
     - go_name: StreamPriorityMedium
       value: "3"
       go_type: int
-    - go_name: HttpCacheDisabled
-      value: "0"
-      go_type: int
-    - go_name: HttpCacheDisk
-      value: "3"
-      go_type: int
-    - go_name: HttpCacheDiskNoHttp
+    - go_name: DnsOptionDisabled
       value: "2"
       go_type: int
-    - go_name: HttpCacheInMemory
+    - go_name: DnsOptionEnabled
       value: "1"
+      go_type: int
+    - go_name: DnsOptionUnspecified
+      value: "0"
       go_type: int
     - go_name: ErrorAddressUnreachable
       value: "9"
@@ -1187,12 +1507,15 @@ constants:
     - go_name: SslUntrusted
       value: "3"
       go_type: int
-    - go_name: DnsOptionDisabled
+    - go_name: HttpCacheDisabled
+      value: "0"
+      go_type: int
+    - go_name: HttpCacheDisk
+      value: "3"
+      go_type: int
+    - go_name: HttpCacheDiskNoHttp
       value: "2"
       go_type: int
-    - go_name: DnsOptionEnabled
+    - go_name: HttpCacheInMemory
       value: "1"
-      go_type: int
-    - go_name: DnsOptionUnspecified
-      value: "0"
       go_type: int

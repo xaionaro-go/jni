@@ -17,3 +17,4 @@ examples/*/build/
 .aar-cache/org/
 .aar-cache/io/
 !.aar-cache/lock.json
+.claude/

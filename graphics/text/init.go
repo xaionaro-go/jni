@@ -23,66 +23,6 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsLineBreakConfig                      *jni.GlobalRef
-	midLineBreakConfigDescribeContents      jni.MethodID
-	midLineBreakConfigEquals                jni.MethodID
-	midLineBreakConfigGetHyphenation        jni.MethodID
-	midLineBreakConfigGetLineBreakStyle     jni.MethodID
-	midLineBreakConfigGetLineBreakWordStyle jni.MethodID
-	midLineBreakConfigHashCode              jni.MethodID
-	midLineBreakConfigMerge                 jni.MethodID
-	midLineBreakConfigToString              jni.MethodID
-	midLineBreakConfigWriteToParcel         jni.MethodID
-
-	clsLineBreakConfigBuilder                      *jni.GlobalRef
-	midLineBreakConfigBuilderBuild                 jni.MethodID
-	midLineBreakConfigBuilderMerge                 jni.MethodID
-	midLineBreakConfigBuilderSetHyphenation        jni.MethodID
-	midLineBreakConfigBuilderSetLineBreakStyle     jni.MethodID
-	midLineBreakConfigBuilderSetLineBreakWordStyle jni.MethodID
-	midLineBreakConfigBuilderToString              jni.MethodID
-
-	clsMeasuredText                  *jni.GlobalRef
-	midMeasuredTextGetBounds         jni.MethodID
-	midMeasuredTextGetCharWidthAt    jni.MethodID
-	midMeasuredTextGetFontMetricsInt jni.MethodID
-	midMeasuredTextGetWidth          jni.MethodID
-	midMeasuredTextToString          jni.MethodID
-
-	clsMeasuredTextBuilder                         *jni.GlobalRef
-	midMeasuredTextBuilderAppendReplacementRun     jni.MethodID
-	midMeasuredTextBuilderAppendStyleRun4          jni.MethodID
-	midMeasuredTextBuilderAppendStyleRun3_1        jni.MethodID
-	midMeasuredTextBuilderBuild                    jni.MethodID
-	midMeasuredTextBuilderSetComputeHyphenation1   jni.MethodID
-	midMeasuredTextBuilderSetComputeHyphenation1_1 jni.MethodID
-	midMeasuredTextBuilderSetComputeLayout         jni.MethodID
-	midMeasuredTextBuilderToString                 jni.MethodID
-
-	clsRunShaper                *jni.GlobalRef
-	midRunShaperToString        jni.MethodID
-	midRunShaperShapeTextRun9   jni.MethodID
-	midRunShaperShapeTextRun9_1 jni.MethodID
-
-	clsPositionedGlyphs                  *jni.GlobalRef
-	midPositionedGlyphsEquals            jni.MethodID
-	midPositionedGlyphsGetAdvance        jni.MethodID
-	midPositionedGlyphsGetAscent         jni.MethodID
-	midPositionedGlyphsGetDescent        jni.MethodID
-	midPositionedGlyphsGetFakeBold       jni.MethodID
-	midPositionedGlyphsGetFakeItalic     jni.MethodID
-	midPositionedGlyphsGetFont           jni.MethodID
-	midPositionedGlyphsGetGlyphId        jni.MethodID
-	midPositionedGlyphsGetGlyphX         jni.MethodID
-	midPositionedGlyphsGetGlyphY         jni.MethodID
-	midPositionedGlyphsGetItalicOverride jni.MethodID
-	midPositionedGlyphsGetOffsetX        jni.MethodID
-	midPositionedGlyphsGetOffsetY        jni.MethodID
-	midPositionedGlyphsGetWeightOverride jni.MethodID
-	midPositionedGlyphsGlyphCount        jni.MethodID
-	midPositionedGlyphsHashCode          jni.MethodID
-	midPositionedGlyphsToString          jni.MethodID
-
 	clsLineBreaker                  *jni.GlobalRef
 	midLineBreakerComputeLineBreaks jni.MethodID
 	midLineBreakerToString          jni.MethodID
@@ -117,6 +57,66 @@ var (
 	midLineBreakerResultGetStartLineHyphenEdit jni.MethodID
 	midLineBreakerResultHasLineTab             jni.MethodID
 	midLineBreakerResultToString               jni.MethodID
+
+	clsMeasuredText                  *jni.GlobalRef
+	midMeasuredTextGetBounds         jni.MethodID
+	midMeasuredTextGetCharWidthAt    jni.MethodID
+	midMeasuredTextGetFontMetricsInt jni.MethodID
+	midMeasuredTextGetWidth          jni.MethodID
+	midMeasuredTextToString          jni.MethodID
+
+	clsMeasuredTextBuilder                         *jni.GlobalRef
+	midMeasuredTextBuilderAppendReplacementRun     jni.MethodID
+	midMeasuredTextBuilderAppendStyleRun4          jni.MethodID
+	midMeasuredTextBuilderAppendStyleRun3_1        jni.MethodID
+	midMeasuredTextBuilderBuild                    jni.MethodID
+	midMeasuredTextBuilderSetComputeHyphenation1   jni.MethodID
+	midMeasuredTextBuilderSetComputeHyphenation1_1 jni.MethodID
+	midMeasuredTextBuilderSetComputeLayout         jni.MethodID
+	midMeasuredTextBuilderToString                 jni.MethodID
+
+	clsPositionedGlyphs                  *jni.GlobalRef
+	midPositionedGlyphsEquals            jni.MethodID
+	midPositionedGlyphsGetAdvance        jni.MethodID
+	midPositionedGlyphsGetAscent         jni.MethodID
+	midPositionedGlyphsGetDescent        jni.MethodID
+	midPositionedGlyphsGetFakeBold       jni.MethodID
+	midPositionedGlyphsGetFakeItalic     jni.MethodID
+	midPositionedGlyphsGetFont           jni.MethodID
+	midPositionedGlyphsGetGlyphId        jni.MethodID
+	midPositionedGlyphsGetGlyphX         jni.MethodID
+	midPositionedGlyphsGetGlyphY         jni.MethodID
+	midPositionedGlyphsGetItalicOverride jni.MethodID
+	midPositionedGlyphsGetOffsetX        jni.MethodID
+	midPositionedGlyphsGetOffsetY        jni.MethodID
+	midPositionedGlyphsGetWeightOverride jni.MethodID
+	midPositionedGlyphsGlyphCount        jni.MethodID
+	midPositionedGlyphsHashCode          jni.MethodID
+	midPositionedGlyphsToString          jni.MethodID
+
+	clsLineBreakConfig                      *jni.GlobalRef
+	midLineBreakConfigDescribeContents      jni.MethodID
+	midLineBreakConfigEquals                jni.MethodID
+	midLineBreakConfigGetHyphenation        jni.MethodID
+	midLineBreakConfigGetLineBreakStyle     jni.MethodID
+	midLineBreakConfigGetLineBreakWordStyle jni.MethodID
+	midLineBreakConfigHashCode              jni.MethodID
+	midLineBreakConfigMerge                 jni.MethodID
+	midLineBreakConfigToString              jni.MethodID
+	midLineBreakConfigWriteToParcel         jni.MethodID
+
+	clsLineBreakConfigBuilder                      *jni.GlobalRef
+	midLineBreakConfigBuilderBuild                 jni.MethodID
+	midLineBreakConfigBuilderMerge                 jni.MethodID
+	midLineBreakConfigBuilderSetHyphenation        jni.MethodID
+	midLineBreakConfigBuilderSetLineBreakStyle     jni.MethodID
+	midLineBreakConfigBuilderSetLineBreakWordStyle jni.MethodID
+	midLineBreakConfigBuilderToString              jni.MethodID
+
+	clsRunShaper                *jni.GlobalRef
+	midRunShaperToString        jni.MethodID
+	midRunShaperShapeTextRun9   jni.MethodID
+	midRunShaperShapeTextRun9_1 jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -136,402 +136,6 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
-
-	c, err = env.FindClass("android/graphics/text/LineBreakConfig")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsLineBreakConfig = env.NewGlobalRef(&c.Object)
-
-		midLineBreakConfigDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLineBreakConfig)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLineBreakConfigEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLineBreakConfig)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLineBreakConfigGetHyphenation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLineBreakConfig)), "getHyphenation", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLineBreakConfigGetLineBreakStyle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLineBreakConfig)), "getLineBreakStyle", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLineBreakConfigGetLineBreakWordStyle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLineBreakConfig)), "getLineBreakWordStyle", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLineBreakConfigHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLineBreakConfig)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLineBreakConfigMerge, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLineBreakConfig)), "merge", "(Landroid/graphics/text/LineBreakConfig;)Landroid/graphics/text/LineBreakConfig;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLineBreakConfigToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLineBreakConfig)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLineBreakConfigWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLineBreakConfig)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/graphics/text/LineBreakConfig$Builder")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsLineBreakConfigBuilder = env.NewGlobalRef(&c.Object)
-
-		midLineBreakConfigBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLineBreakConfigBuilder)), "build", "()Landroid/graphics/text/LineBreakConfig;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLineBreakConfigBuilderMerge, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLineBreakConfigBuilder)), "merge", "(Landroid/graphics/text/LineBreakConfig;)Landroid/graphics/text/LineBreakConfig$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLineBreakConfigBuilderSetHyphenation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLineBreakConfigBuilder)), "setHyphenation", "(I)Landroid/graphics/text/LineBreakConfig$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLineBreakConfigBuilderSetLineBreakStyle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLineBreakConfigBuilder)), "setLineBreakStyle", "(I)Landroid/graphics/text/LineBreakConfig$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLineBreakConfigBuilderSetLineBreakWordStyle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLineBreakConfigBuilder)), "setLineBreakWordStyle", "(I)Landroid/graphics/text/LineBreakConfig$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLineBreakConfigBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLineBreakConfigBuilder)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/graphics/text/MeasuredText")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsMeasuredText = env.NewGlobalRef(&c.Object)
-
-		midMeasuredTextGetBounds, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMeasuredText)), "getBounds", "(IILandroid/graphics/Rect;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMeasuredTextGetCharWidthAt, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMeasuredText)), "getCharWidthAt", "(I)F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMeasuredTextGetFontMetricsInt, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMeasuredText)), "getFontMetricsInt", "(IILandroid/graphics/Paint$FontMetricsInt;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMeasuredTextGetWidth, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMeasuredText)), "getWidth", "(II)F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMeasuredTextToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMeasuredText)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/graphics/text/MeasuredText$Builder")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsMeasuredTextBuilder = env.NewGlobalRef(&c.Object)
-
-		midMeasuredTextBuilderAppendReplacementRun, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMeasuredTextBuilder)), "appendReplacementRun", "(Landroid/graphics/Paint;IF)Landroid/graphics/text/MeasuredText$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMeasuredTextBuilderAppendStyleRun4, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMeasuredTextBuilder)), "appendStyleRun", "(Landroid/graphics/Paint;Landroid/graphics/text/LineBreakConfig;IZ)Landroid/graphics/text/MeasuredText$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMeasuredTextBuilderAppendStyleRun3_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMeasuredTextBuilder)), "appendStyleRun", "(Landroid/graphics/Paint;IZ)Landroid/graphics/text/MeasuredText$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMeasuredTextBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMeasuredTextBuilder)), "build", "()Landroid/graphics/text/MeasuredText;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMeasuredTextBuilderSetComputeHyphenation1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMeasuredTextBuilder)), "setComputeHyphenation", "(Z)Landroid/graphics/text/MeasuredText$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMeasuredTextBuilderSetComputeHyphenation1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMeasuredTextBuilder)), "setComputeHyphenation", "(I)Landroid/graphics/text/MeasuredText$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMeasuredTextBuilderSetComputeLayout, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMeasuredTextBuilder)), "setComputeLayout", "(Z)Landroid/graphics/text/MeasuredText$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMeasuredTextBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMeasuredTextBuilder)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/graphics/text/TextRunShaper")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsRunShaper = env.NewGlobalRef(&c.Object)
-
-		midRunShaperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRunShaper)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRunShaperShapeTextRun9, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRunShaper)), "shapeTextRun", "([CIIIIFFZLandroid/graphics/Paint;)Landroid/graphics/text/PositionedGlyphs;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRunShaperShapeTextRun9_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRunShaper)), "shapeTextRun", "(Ljava/lang/CharSequence;IIIIFFZLandroid/graphics/Paint;)Landroid/graphics/text/PositionedGlyphs;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/graphics/text/PositionedGlyphs")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsPositionedGlyphs = env.NewGlobalRef(&c.Object)
-
-		midPositionedGlyphsEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPositionedGlyphs)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPositionedGlyphsGetAdvance, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPositionedGlyphs)), "getAdvance", "()F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPositionedGlyphsGetAscent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPositionedGlyphs)), "getAscent", "()F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPositionedGlyphsGetDescent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPositionedGlyphs)), "getDescent", "()F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPositionedGlyphsGetFakeBold, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPositionedGlyphs)), "getFakeBold", "(I)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPositionedGlyphsGetFakeItalic, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPositionedGlyphs)), "getFakeItalic", "(I)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPositionedGlyphsGetFont, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPositionedGlyphs)), "getFont", "(I)Landroid/graphics/fonts/Font;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPositionedGlyphsGetGlyphId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPositionedGlyphs)), "getGlyphId", "(I)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPositionedGlyphsGetGlyphX, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPositionedGlyphs)), "getGlyphX", "(I)F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPositionedGlyphsGetGlyphY, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPositionedGlyphs)), "getGlyphY", "(I)F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPositionedGlyphsGetItalicOverride, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPositionedGlyphs)), "getItalicOverride", "(I)F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPositionedGlyphsGetOffsetX, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPositionedGlyphs)), "getOffsetX", "()F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPositionedGlyphsGetOffsetY, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPositionedGlyphs)), "getOffsetY", "()F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPositionedGlyphsGetWeightOverride, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPositionedGlyphs)), "getWeightOverride", "(I)F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPositionedGlyphsGlyphCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPositionedGlyphs)), "glyphCount", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPositionedGlyphsHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPositionedGlyphs)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPositionedGlyphsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPositionedGlyphs)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
 
 	c, err = env.FindClass("android/graphics/text/LineBreaker")
 	if err != nil {
@@ -754,6 +358,402 @@ func doInit(env *jni.Env) error {
 		}
 
 		midLineBreakerResultToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLineBreakerResult)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/graphics/text/MeasuredText")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsMeasuredText = env.NewGlobalRef(&c.Object)
+
+		midMeasuredTextGetBounds, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMeasuredText)), "getBounds", "(IILandroid/graphics/Rect;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMeasuredTextGetCharWidthAt, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMeasuredText)), "getCharWidthAt", "(I)F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMeasuredTextGetFontMetricsInt, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMeasuredText)), "getFontMetricsInt", "(IILandroid/graphics/Paint$FontMetricsInt;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMeasuredTextGetWidth, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMeasuredText)), "getWidth", "(II)F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMeasuredTextToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMeasuredText)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/graphics/text/MeasuredText$Builder")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsMeasuredTextBuilder = env.NewGlobalRef(&c.Object)
+
+		midMeasuredTextBuilderAppendReplacementRun, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMeasuredTextBuilder)), "appendReplacementRun", "(Landroid/graphics/Paint;IF)Landroid/graphics/text/MeasuredText$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMeasuredTextBuilderAppendStyleRun4, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMeasuredTextBuilder)), "appendStyleRun", "(Landroid/graphics/Paint;Landroid/graphics/text/LineBreakConfig;IZ)Landroid/graphics/text/MeasuredText$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMeasuredTextBuilderAppendStyleRun3_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMeasuredTextBuilder)), "appendStyleRun", "(Landroid/graphics/Paint;IZ)Landroid/graphics/text/MeasuredText$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMeasuredTextBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMeasuredTextBuilder)), "build", "()Landroid/graphics/text/MeasuredText;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMeasuredTextBuilderSetComputeHyphenation1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMeasuredTextBuilder)), "setComputeHyphenation", "(Z)Landroid/graphics/text/MeasuredText$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMeasuredTextBuilderSetComputeHyphenation1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMeasuredTextBuilder)), "setComputeHyphenation", "(I)Landroid/graphics/text/MeasuredText$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMeasuredTextBuilderSetComputeLayout, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMeasuredTextBuilder)), "setComputeLayout", "(Z)Landroid/graphics/text/MeasuredText$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMeasuredTextBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMeasuredTextBuilder)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/graphics/text/PositionedGlyphs")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsPositionedGlyphs = env.NewGlobalRef(&c.Object)
+
+		midPositionedGlyphsEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPositionedGlyphs)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPositionedGlyphsGetAdvance, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPositionedGlyphs)), "getAdvance", "()F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPositionedGlyphsGetAscent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPositionedGlyphs)), "getAscent", "()F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPositionedGlyphsGetDescent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPositionedGlyphs)), "getDescent", "()F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPositionedGlyphsGetFakeBold, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPositionedGlyphs)), "getFakeBold", "(I)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPositionedGlyphsGetFakeItalic, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPositionedGlyphs)), "getFakeItalic", "(I)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPositionedGlyphsGetFont, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPositionedGlyphs)), "getFont", "(I)Landroid/graphics/fonts/Font;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPositionedGlyphsGetGlyphId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPositionedGlyphs)), "getGlyphId", "(I)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPositionedGlyphsGetGlyphX, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPositionedGlyphs)), "getGlyphX", "(I)F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPositionedGlyphsGetGlyphY, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPositionedGlyphs)), "getGlyphY", "(I)F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPositionedGlyphsGetItalicOverride, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPositionedGlyphs)), "getItalicOverride", "(I)F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPositionedGlyphsGetOffsetX, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPositionedGlyphs)), "getOffsetX", "()F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPositionedGlyphsGetOffsetY, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPositionedGlyphs)), "getOffsetY", "()F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPositionedGlyphsGetWeightOverride, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPositionedGlyphs)), "getWeightOverride", "(I)F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPositionedGlyphsGlyphCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPositionedGlyphs)), "glyphCount", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPositionedGlyphsHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPositionedGlyphs)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPositionedGlyphsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPositionedGlyphs)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/graphics/text/LineBreakConfig")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsLineBreakConfig = env.NewGlobalRef(&c.Object)
+
+		midLineBreakConfigDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLineBreakConfig)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLineBreakConfigEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLineBreakConfig)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLineBreakConfigGetHyphenation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLineBreakConfig)), "getHyphenation", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLineBreakConfigGetLineBreakStyle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLineBreakConfig)), "getLineBreakStyle", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLineBreakConfigGetLineBreakWordStyle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLineBreakConfig)), "getLineBreakWordStyle", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLineBreakConfigHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLineBreakConfig)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLineBreakConfigMerge, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLineBreakConfig)), "merge", "(Landroid/graphics/text/LineBreakConfig;)Landroid/graphics/text/LineBreakConfig;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLineBreakConfigToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLineBreakConfig)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLineBreakConfigWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLineBreakConfig)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/graphics/text/LineBreakConfig$Builder")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsLineBreakConfigBuilder = env.NewGlobalRef(&c.Object)
+
+		midLineBreakConfigBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLineBreakConfigBuilder)), "build", "()Landroid/graphics/text/LineBreakConfig;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLineBreakConfigBuilderMerge, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLineBreakConfigBuilder)), "merge", "(Landroid/graphics/text/LineBreakConfig;)Landroid/graphics/text/LineBreakConfig$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLineBreakConfigBuilderSetHyphenation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLineBreakConfigBuilder)), "setHyphenation", "(I)Landroid/graphics/text/LineBreakConfig$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLineBreakConfigBuilderSetLineBreakStyle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLineBreakConfigBuilder)), "setLineBreakStyle", "(I)Landroid/graphics/text/LineBreakConfig$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLineBreakConfigBuilderSetLineBreakWordStyle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLineBreakConfigBuilder)), "setLineBreakWordStyle", "(I)Landroid/graphics/text/LineBreakConfig$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLineBreakConfigBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLineBreakConfigBuilder)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/graphics/text/TextRunShaper")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsRunShaper = env.NewGlobalRef(&c.Object)
+
+		midRunShaperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRunShaper)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRunShaperShapeTextRun9, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRunShaper)), "shapeTextRun", "([CIIIIFFZLandroid/graphics/Paint;)Landroid/graphics/text/PositionedGlyphs;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRunShaperShapeTextRun9_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRunShaper)), "shapeTextRun", "(Ljava/lang/CharSequence;IIIIFFZLandroid/graphics/Paint;)Landroid/graphics/text/PositionedGlyphs;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

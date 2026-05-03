@@ -5,59 +5,6 @@
 package: window
 go_import: github.com/AndroidGoLab/jni/window
 classes:
-    - java_class: android.window.OnBackInvokedCallback
-      go_type: OnBackInvokedCallback
-      methods:
-        - java_method: onBackInvoked
-          go_name: OnBackInvoked
-          returns: void
-          error: true
-    - java_class: android.window.OnBackAnimationCallback
-      go_type: OnBackAnimationCallback
-    - java_class: android.window.BackEvent
-      go_type: BackEvent
-      obtain: constructor
-      constructor_params:
-        - java_type: float
-          go_name: arg0
-        - java_type: float
-          go_name: arg1
-        - java_type: float
-          go_name: arg2
-        - java_type: int
-          go_name: arg3
-      methods:
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getFrameTimeMillis
-          go_name: GetFrameTimeMillis
-          returns: long
-          error: true
-        - java_method: getProgress
-          go_name: GetProgress
-          returns: float
-          error: true
-        - java_method: getSwipeEdge
-          go_name: GetSwipeEdge
-          returns: int
-          error: true
-        - java_method: getTouchX
-          go_name: GetTouchX
-          returns: float
-          error: true
-        - java_method: getTouchY
-          go_name: GetTouchY
-          returns: float
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
     - java_class: android.window.OnBackInvokedDispatcher
       go_type: OnBackInvokedDispatcher
       methods:
@@ -75,64 +22,6 @@ classes:
           params:
             - java_type: android.window.OnBackInvokedCallback
               go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.window.SplashScreen
-      go_type: SplashScreen
-      methods:
-        - java_method: clearOnExitAnimationListener
-          go_name: ClearOnExitAnimationListener
-          returns: void
-          error: true
-        - java_method: setOnExitAnimationListener
-          go_name: SetOnExitAnimationListener
-          params:
-            - java_type: android.window.SplashScreen$OnExitAnimationListener
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setSplashScreenTheme
-          go_name: SetSplashScreenTheme
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.window.SplashScreen$OnExitAnimationListener
-      go_type: SplashScreenOnExitAnimationListener
-      methods:
-        - java_method: onSplashScreenExit
-          go_name: OnSplashScreenExit
-          params:
-            - java_type: android.window.SplashScreenView
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.window.InputTransferToken
-      go_type: InputTransferToken
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
           returns: void
           error: true
     - java_class: android.window.TrustedPresentationThresholds
@@ -186,6 +75,129 @@ classes:
               go_name: arg1
           returns: void
           error: true
+    - java_class: android.window.InputTransferToken
+      go_type: InputTransferToken
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.window.SystemOnBackInvokedCallbacks
+      go_type: SystemOnBackInvokedCallbacks
+      static_methods:
+        - java_method: finishAndRemoveTaskCallback
+          go_name: FinishAndRemoveTaskCallback
+          params:
+            - java_type: android.app.Activity
+              go_name: arg0
+          returns: android.window.OnBackInvokedCallback
+          error: true
+        - java_method: moveTaskToBackCallback
+          go_name: MoveTaskToBackCallback
+          params:
+            - java_type: android.app.Activity
+              go_name: arg0
+          returns: android.window.OnBackInvokedCallback
+          error: true
+    - java_class: android.window.BackEvent
+      go_type: BackEvent
+      obtain: constructor
+      constructor_params:
+        - java_type: float
+          go_name: arg0
+        - java_type: float
+          go_name: arg1
+        - java_type: float
+          go_name: arg2
+        - java_type: int
+          go_name: arg3
+      methods:
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getFrameTimeMillis
+          go_name: GetFrameTimeMillis
+          returns: long
+          error: true
+        - java_method: getProgress
+          go_name: GetProgress
+          returns: float
+          error: true
+        - java_method: getSwipeEdge
+          go_name: GetSwipeEdge
+          returns: int
+          error: true
+        - java_method: getTouchX
+          go_name: GetTouchX
+          returns: float
+          error: true
+        - java_method: getTouchY
+          go_name: GetTouchY
+          returns: float
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+    - java_class: android.window.SplashScreenView
+      go_type: SplashScreenView
+      methods:
+        - java_method: getIconAnimationDuration
+          go_name: GetIconAnimationDuration
+          returns: java.time.Duration
+          error: true
+        - java_method: getIconAnimationStart
+          go_name: GetIconAnimationStart
+          returns: java.time.Instant
+          error: true
+        - java_method: getIconView
+          go_name: GetIconView
+          returns: android.view.View
+          error: true
+        - java_method: remove
+          go_name: Remove
+          returns: void
+          error: true
+        - java_method: setAlpha
+          go_name: SetAlpha
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.window.OnBackAnimationCallback
+      go_type: OnBackAnimationCallback
+    - java_class: android.window.OnBackInvokedCallback
+      go_type: OnBackInvokedCallback
+      methods:
+        - java_method: onBackInvoked
+          go_name: OnBackInvoked
+          returns: void
+          error: true
     - java_class: android.window.SurfaceSyncGroup
       go_type: SurfaceSyncGroup
       obtain: constructor
@@ -222,59 +234,38 @@ classes:
           go_name: MarkSyncReady
           returns: void
           error: true
-    - java_class: android.window.SplashScreenView
-      go_type: SplashScreenView
+    - java_class: android.window.SplashScreen
+      go_type: SplashScreen
       methods:
-        - java_method: getIconAnimationDuration
-          go_name: GetIconAnimationDuration
-          returns: java.time.Duration
-          error: true
-        - java_method: getIconAnimationStart
-          go_name: GetIconAnimationStart
-          returns: java.time.Instant
-          error: true
-        - java_method: getIconView
-          go_name: GetIconView
-          returns: android.view.View
-          error: true
-        - java_method: remove
-          go_name: Remove
+        - java_method: clearOnExitAnimationListener
+          go_name: ClearOnExitAnimationListener
           returns: void
           error: true
-        - java_method: setAlpha
-          go_name: SetAlpha
+        - java_method: setOnExitAnimationListener
+          go_name: SetOnExitAnimationListener
           params:
-            - java_type: float
+            - java_type: android.window.SplashScreen$OnExitAnimationListener
               go_name: arg0
           returns: void
           error: true
-    - java_class: android.window.SystemOnBackInvokedCallbacks
-      go_type: SystemOnBackInvokedCallbacks
-      static_methods:
-        - java_method: finishAndRemoveTaskCallback
-          go_name: FinishAndRemoveTaskCallback
+        - java_method: setSplashScreenTheme
+          go_name: SetSplashScreenTheme
           params:
-            - java_type: android.app.Activity
+            - java_type: int
               go_name: arg0
-          returns: android.window.OnBackInvokedCallback
+          returns: void
           error: true
-        - java_method: moveTaskToBackCallback
-          go_name: MoveTaskToBackCallback
+    - java_class: android.window.SplashScreen$OnExitAnimationListener
+      go_type: SplashScreenOnExitAnimationListener
+      methods:
+        - java_method: onSplashScreenExit
+          go_name: OnSplashScreenExit
           params:
-            - java_type: android.app.Activity
+            - java_type: android.window.SplashScreenView
               go_name: arg0
-          returns: android.window.OnBackInvokedCallback
+          returns: void
           error: true
 constants:
-    - go_name: EdgeLeft
-      value: "0"
-      go_type: int
-    - go_name: EdgeNone
-      value: "2"
-      go_type: int
-    - go_name: EdgeRight
-      value: "1"
-      go_type: int
     - go_name: PriorityDefault
       value: "0"
       go_type: int
@@ -284,12 +275,21 @@ constants:
     - go_name: PrioritySystemNavigationObserver
       value: "-2"
       go_type: int
+    - go_name: Creator
+      value: "0"
+      go_type: int
+    - go_name: EdgeLeft
+      value: "0"
+      go_type: int
+    - go_name: EdgeNone
+      value: "2"
+      go_type: int
+    - go_name: EdgeRight
+      value: "1"
+      go_type: int
     - go_name: SplashScreenStyleIcon
       value: "1"
       go_type: int
     - go_name: SplashScreenStyleSolidColor
-      value: "0"
-      go_type: int
-    - go_name: Creator
       value: "0"
       go_type: int

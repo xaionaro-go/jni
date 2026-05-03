@@ -5,30 +5,6 @@
 package: rtt
 go_import: github.com/AndroidGoLab/jni/ranging/wifi/rtt
 classes:
-    - java_class: android.ranging.wifi.rtt.RttRangingCapabilities
-      go_type: RangingCapabilities
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: hasPeriodicRangingHardwareFeature
-          go_name: HasPeriodicRangingHardwareFeature
-          returns: boolean
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
     - java_class: android.ranging.wifi.rtt.RttRangingParams
       go_type: RangingParams
       methods:
@@ -103,6 +79,30 @@ classes:
             - java_type: int
               go_name: arg0
           returns: android.ranging.wifi.rtt.RttRangingParams$Builder
+          error: true
+    - java_class: android.ranging.wifi.rtt.RttRangingCapabilities
+      go_type: RangingCapabilities
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: hasPeriodicRangingHardwareFeature
+          go_name: HasPeriodicRangingHardwareFeature
+          returns: boolean
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
           error: true
 constants:
     - go_name: Creator

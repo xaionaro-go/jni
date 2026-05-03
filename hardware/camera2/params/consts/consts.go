@@ -3,10 +3,30 @@
 package consts
 
 const (
+	Count                            int = 4
+	Usecase10bitOutput               int = 8
+	UsecaseLowLatencySnapshot        int = 6
+	UsecasePreview                   int = 0
+	UsecaseRaw                       int = 5
+	UsecaseRecord                    int = 1
+	UsecaseSnapshot                  int = 3
+	UsecaseVideoSnapshot             int = 2
+	UsecaseZsl                       int = 4
+	IdUnsupported                    int = -1
+	ScoreMax                         int = 100
+	ScoreMin                         int = 1
+	Unspecified                      int = -1
 	MeteringWeightDontCare           int = 0
 	MeteringWeightMax                int = 1000
 	MeteringWeightMin                int = 0
-	Unspecified                      int = -1
+	Blue                             int = 3
+	GreenEven                        int = 1
+	GreenOdd                         int = 2
+	Red                              int = 0
+	ChannelBlue                      int = 2
+	ChannelGreen                     int = 1
+	ChannelRed                       int = 0
+	PointSize                        int = 2
 	Creator                          int = 0
 	MirrorModeAuto                   int = 0
 	MirrorModeH                      int = 2
@@ -20,29 +40,11 @@ const (
 	TimestampBaseSensor              int = 1
 	SessionHighSpeed                 int = 1
 	SessionRegular                   int = 0
-	IdUnsupported                    int = -1
-	ScoreMax                         int = 100
-	ScoreMin                         int = 1
-	ChannelBlue                      int = 2
-	ChannelGreen                     int = 1
-	ChannelRed                       int = 0
-	PointSize                        int = 2
-	Blue                             int = 3
-	Count                            int = 4
-	GreenEven                        int = 1
-	GreenOdd                         int = 2
-	Red                              int = 0
-	Usecase10bitOutput               int = 8
-	UsecaseLowLatencySnapshot        int = 6
-	UsecasePreview                   int = 0
-	UsecaseRaw                       int = 5
-	UsecaseRecord                    int = 1
-	UsecaseSnapshot                  int = 3
-	UsecaseVideoSnapshot             int = 2
-	UsecaseZsl                       int = 4
 )
 
 const (
+	Folded                 int64 = 4
+	Normal                 int64 = 0
 	DolbyVision10bHdrOem   int64 = 64
 	DolbyVision10bHdrOemPo int64 = 128
 	DolbyVision10bHdrRef   int64 = 16
@@ -56,12 +58,10 @@ const (
 	Hlg10                  int64 = 2
 	PublicMax              int64 = 4096
 	Standard               int64 = 1
-	Folded                 int64 = 4
-	Normal                 int64 = 0
 )
 
 const (
+	MinimumGainFactor float32 = 1.0
 	LevelBlack        float32 = 0.0
 	LevelWhite        float32 = 1.0
-	MinimumGainFactor float32 = 1.0
 )

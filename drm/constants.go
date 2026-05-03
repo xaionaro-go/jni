@@ -25,20 +25,12 @@ const (
 	RightsInvalid                         = consts.RightsInvalid
 	RightsNotAcquired                     = consts.RightsNotAcquired
 	RightsValid                           = consts.RightsValid
-	TypeAcquireDrmInfoFailed              = consts.TypeAcquireDrmInfoFailed
-	TypeNotSupported                      = consts.TypeNotSupported
-	TypeNoInternetConnection              = consts.TypeNoInternetConnection
-	TypeOutOfMemory                       = consts.TypeOutOfMemory
-	TypeProcessDrmInfoFailed              = consts.TypeProcessDrmInfoFailed
-	TypeRemoveAllRightsFailed             = consts.TypeRemoveAllRightsFailed
-	TypeRightsNotInstalled                = consts.TypeRightsNotInstalled
-	TypeRightsRenewalNotAllowed           = consts.TypeRightsRenewalNotAllowed
-	ErrorNone                             = consts.ErrorNone
-	ErrorUnknown                          = consts.ErrorUnknown
-	TypeAllRightsRemoved                  = consts.TypeAllRightsRemoved
-	TypeDrmInfoProcessed                  = consts.TypeDrmInfoProcessed
 	StatusError                           = consts.StatusError
 	StatusOk                              = consts.StatusOk
+	TypeAllRightsRemoved                  = consts.TypeAllRightsRemoved
+	TypeDrmInfoProcessed                  = consts.TypeDrmInfoProcessed
+	ErrorNone                             = consts.ErrorNone
+	ErrorUnknown                          = consts.ErrorUnknown
 	TypeAccountAlreadyRegistered          = consts.TypeAccountAlreadyRegistered
 	TypeAlreadyRegisteredByAnotherAccount = consts.TypeAlreadyRegisteredByAnotherAccount
 	TypeRemoveRights                      = consts.TypeRemoveRights
@@ -49,6 +41,14 @@ const (
 	TypeRightsAcquisitionInfo             = consts.TypeRightsAcquisitionInfo
 	TypeRightsAcquisitionProgressInfo     = consts.TypeRightsAcquisitionProgressInfo
 	TypeUnregistrationInfo                = consts.TypeUnregistrationInfo
+	TypeAcquireDrmInfoFailed              = consts.TypeAcquireDrmInfoFailed
+	TypeNotSupported                      = consts.TypeNotSupported
+	TypeNoInternetConnection              = consts.TypeNoInternetConnection
+	TypeOutOfMemory                       = consts.TypeOutOfMemory
+	TypeProcessDrmInfoFailed              = consts.TypeProcessDrmInfoFailed
+	TypeRemoveAllRightsFailed             = consts.TypeRemoveAllRightsFailed
+	TypeRightsNotInstalled                = consts.TypeRightsNotInstalled
+	TypeRightsRenewalNotAllowed           = consts.TypeRightsRenewalNotAllowed
 	StatusInputdataError                  = consts.StatusInputdataError
 )
 

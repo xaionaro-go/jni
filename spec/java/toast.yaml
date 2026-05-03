@@ -144,6 +144,18 @@ classes:
           go_name: OnToastShown
           returns: void
           error: true
+abstract_callbacks:
+    - java_class: android.widget.Toast$Callback
+      go_type: CallbackCallback
+      methods:
+        - java_method: onToastHidden
+          params: []
+          returns: void
+          go_field: OnToastHidden
+        - java_method: onToastShown
+          params: []
+          returns: void
+          go_field: OnToastShown
 constants:
     - go_name: LengthLong
       value: "1"

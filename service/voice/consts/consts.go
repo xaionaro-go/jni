@@ -18,8 +18,8 @@ const (
 )
 
 const (
-	ServiceInterface        string = "android.service.voice.VoiceInteractionService"
-	ServiceMetaData         string = "android.voice_interaction"
 	KeyForegroundActivities string = "android.service.voice.FOREGROUND_ACTIVITIES"
 	KeyShowSessionId        string = "android.service.voice.SHOW_SESSION_ID"
+	ServiceInterface        string = "android.service.voice.VoiceInteractionService"
+	ServiceMetaData         string = "android.voice_interaction"
 )

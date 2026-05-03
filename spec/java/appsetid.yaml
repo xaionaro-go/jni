@@ -5,16 +5,6 @@
 package: appsetid
 go_import: github.com/AndroidGoLab/jni/adservices/appsetid
 classes:
-    - java_class: android.adservices.appsetid.AppSetIdManager
-      go_type: AppSetIdManager
-      static_methods:
-        - java_method: get
-          go_name: Get
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-          returns: android.adservices.appsetid.AppSetIdManager
-          error: true
     - java_class: android.adservices.appsetid.AppSetId
       go_type: AppSetId
       obtain: constructor
@@ -42,6 +32,16 @@ classes:
         - java_method: hashCode
           go_name: HashCode
           returns: int
+          error: true
+    - java_class: android.adservices.appsetid.AppSetIdManager
+      go_type: AppSetIdManager
+      static_methods:
+        - java_method: get
+          go_name: Get
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+          returns: android.adservices.appsetid.AppSetIdManager
           error: true
 constants:
     - go_name: ScopeApp

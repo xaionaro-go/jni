@@ -23,13 +23,28 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsOverlayManagerTransaction                            *jni.GlobalRef
-	midOverlayManagerTransactionDescribeContents            jni.MethodID
-	midOverlayManagerTransactionRegisterFabricatedOverlay   jni.MethodID
-	midOverlayManagerTransactionToString                    jni.MethodID
-	midOverlayManagerTransactionUnregisterFabricatedOverlay jni.MethodID
-	midOverlayManagerTransactionWriteToParcel               jni.MethodID
-	midOverlayManagerTransactionNewInstance                 jni.MethodID
+	clsOverlayInfo                         *jni.GlobalRef
+	midOverlayInfoDescribeContents         jni.MethodID
+	midOverlayInfoEquals                   jni.MethodID
+	midOverlayInfoGetOverlayIdentifier     jni.MethodID
+	midOverlayInfoGetOverlayName           jni.MethodID
+	midOverlayInfoGetTargetOverlayableName jni.MethodID
+	midOverlayInfoGetTargetPackageName     jni.MethodID
+	midOverlayInfoHashCode                 jni.MethodID
+	midOverlayInfoToString                 jni.MethodID
+	midOverlayInfoWriteToParcel            jni.MethodID
+
+	clsOverlayManager                         *jni.GlobalRef
+	midOverlayManagerCommit                   jni.MethodID
+	midOverlayManagerGetOverlayInfosForTarget jni.MethodID
+	midOverlayManagerToString                 jni.MethodID
+
+	clsOverlayIdentifier                 *jni.GlobalRef
+	midOverlayIdentifierDescribeContents jni.MethodID
+	midOverlayIdentifierEquals           jni.MethodID
+	midOverlayIdentifierHashCode         jni.MethodID
+	midOverlayIdentifierToString         jni.MethodID
+	midOverlayIdentifierWriteToParcel    jni.MethodID
 
 	clsFabricatedOverlay                          *jni.GlobalRef
 	midFabricatedOverlayCtor                      jni.MethodID
@@ -42,28 +57,13 @@ var (
 	midFabricatedOverlaySetTargetOverlayable      jni.MethodID
 	midFabricatedOverlayToString                  jni.MethodID
 
-	clsOverlayIdentifier                 *jni.GlobalRef
-	midOverlayIdentifierDescribeContents jni.MethodID
-	midOverlayIdentifierEquals           jni.MethodID
-	midOverlayIdentifierHashCode         jni.MethodID
-	midOverlayIdentifierToString         jni.MethodID
-	midOverlayIdentifierWriteToParcel    jni.MethodID
-
-	clsOverlayManager                         *jni.GlobalRef
-	midOverlayManagerCommit                   jni.MethodID
-	midOverlayManagerGetOverlayInfosForTarget jni.MethodID
-	midOverlayManagerToString                 jni.MethodID
-
-	clsOverlayInfo                         *jni.GlobalRef
-	midOverlayInfoDescribeContents         jni.MethodID
-	midOverlayInfoEquals                   jni.MethodID
-	midOverlayInfoGetOverlayIdentifier     jni.MethodID
-	midOverlayInfoGetOverlayName           jni.MethodID
-	midOverlayInfoGetTargetOverlayableName jni.MethodID
-	midOverlayInfoGetTargetPackageName     jni.MethodID
-	midOverlayInfoHashCode                 jni.MethodID
-	midOverlayInfoToString                 jni.MethodID
-	midOverlayInfoWriteToParcel            jni.MethodID
+	clsOverlayManagerTransaction                            *jni.GlobalRef
+	midOverlayManagerTransactionDescribeContents            jni.MethodID
+	midOverlayManagerTransactionRegisterFabricatedOverlay   jni.MethodID
+	midOverlayManagerTransactionToString                    jni.MethodID
+	midOverlayManagerTransactionUnregisterFabricatedOverlay jni.MethodID
+	midOverlayManagerTransactionWriteToParcel               jni.MethodID
+	midOverlayManagerTransactionNewInstance                 jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -84,50 +84,147 @@ func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
 
-	c, err = env.FindClass("android/content/om/OverlayManagerTransaction")
+	c, err = env.FindClass("android/content/om/OverlayInfo")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsOverlayManagerTransaction = env.NewGlobalRef(&c.Object)
+		clsOverlayInfo = env.NewGlobalRef(&c.Object)
 
-		midOverlayManagerTransactionDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayManagerTransaction)), "describeContents", "()I")
+		midOverlayInfoDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayInfo)), "describeContents", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midOverlayManagerTransactionRegisterFabricatedOverlay, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayManagerTransaction)), "registerFabricatedOverlay", "(Landroid/content/om/FabricatedOverlay;)V")
+		midOverlayInfoEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayInfo)), "equals", "(Ljava/lang/Object;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midOverlayManagerTransactionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayManagerTransaction)), "toString", "()Ljava/lang/String;")
+		midOverlayInfoGetOverlayIdentifier, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayInfo)), "getOverlayIdentifier", "()Landroid/content/om/OverlayIdentifier;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midOverlayManagerTransactionUnregisterFabricatedOverlay, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayManagerTransaction)), "unregisterFabricatedOverlay", "(Landroid/content/om/OverlayIdentifier;)V")
+		midOverlayInfoGetOverlayName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayInfo)), "getOverlayName", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midOverlayManagerTransactionWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayManagerTransaction)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midOverlayInfoGetTargetOverlayableName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayInfo)), "getTargetOverlayableName", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midOverlayManagerTransactionNewInstance, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsOverlayManagerTransaction)), "newInstance", "()Landroid/content/om/OverlayManagerTransaction;")
+		midOverlayInfoGetTargetPackageName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayInfo)), "getTargetPackageName", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOverlayInfoHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayInfo)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOverlayInfoToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayInfo)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOverlayInfoWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayInfo)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/content/om/OverlayManager")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsOverlayManager = env.NewGlobalRef(&c.Object)
+
+		midOverlayManagerCommit, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayManager)), "commit", "(Landroid/content/om/OverlayManagerTransaction;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOverlayManagerGetOverlayInfosForTarget, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayManager)), "getOverlayInfosForTarget", "(Ljava/lang/String;)Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOverlayManagerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayManager)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/content/om/OverlayIdentifier")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsOverlayIdentifier = env.NewGlobalRef(&c.Object)
+
+		midOverlayIdentifierDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayIdentifier)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOverlayIdentifierEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayIdentifier)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOverlayIdentifierHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayIdentifier)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOverlayIdentifierToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayIdentifier)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOverlayIdentifierWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayIdentifier)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -206,147 +303,50 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/content/om/OverlayIdentifier")
+	c, err = env.FindClass("android/content/om/OverlayManagerTransaction")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsOverlayIdentifier = env.NewGlobalRef(&c.Object)
+		clsOverlayManagerTransaction = env.NewGlobalRef(&c.Object)
 
-		midOverlayIdentifierDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayIdentifier)), "describeContents", "()I")
+		midOverlayManagerTransactionDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayManagerTransaction)), "describeContents", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midOverlayIdentifierEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayIdentifier)), "equals", "(Ljava/lang/Object;)Z")
+		midOverlayManagerTransactionRegisterFabricatedOverlay, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayManagerTransaction)), "registerFabricatedOverlay", "(Landroid/content/om/FabricatedOverlay;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midOverlayIdentifierHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayIdentifier)), "hashCode", "()I")
+		midOverlayManagerTransactionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayManagerTransaction)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midOverlayIdentifierToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayIdentifier)), "toString", "()Ljava/lang/String;")
+		midOverlayManagerTransactionUnregisterFabricatedOverlay, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayManagerTransaction)), "unregisterFabricatedOverlay", "(Landroid/content/om/OverlayIdentifier;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midOverlayIdentifierWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayIdentifier)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midOverlayManagerTransactionWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayManagerTransaction)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-	}
-
-	c, err = env.FindClass("android/content/om/OverlayManager")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsOverlayManager = env.NewGlobalRef(&c.Object)
-
-		midOverlayManagerCommit, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayManager)), "commit", "(Landroid/content/om/OverlayManagerTransaction;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOverlayManagerGetOverlayInfosForTarget, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayManager)), "getOverlayInfosForTarget", "(Ljava/lang/String;)Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOverlayManagerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayManager)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/content/om/OverlayInfo")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsOverlayInfo = env.NewGlobalRef(&c.Object)
-
-		midOverlayInfoDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayInfo)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOverlayInfoEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayInfo)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOverlayInfoGetOverlayIdentifier, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayInfo)), "getOverlayIdentifier", "()Landroid/content/om/OverlayIdentifier;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOverlayInfoGetOverlayName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayInfo)), "getOverlayName", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOverlayInfoGetTargetOverlayableName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayInfo)), "getTargetOverlayableName", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOverlayInfoGetTargetPackageName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayInfo)), "getTargetPackageName", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOverlayInfoHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayInfo)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOverlayInfoToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayInfo)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOverlayInfoWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayInfo)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midOverlayManagerTransactionNewInstance, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsOverlayManagerTransaction)), "newInstance", "()Landroid/content/om/OverlayManagerTransaction;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

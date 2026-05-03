@@ -5,6 +5,101 @@
 package: carrier
 go_import: github.com/AndroidGoLab/jni/service/carrier
 classes:
+    - java_class: android.service.carrier.MessagePdu
+      go_type: MessagePdu
+      obtain: constructor
+      constructor_params:
+        - java_type: java.util.List<byte[]>
+          go_name: arg0
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getPdus
+          go_name: GetPdus
+          returns: java.util.List<byte[]>
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.service.carrier.CarrierIdentifier
+      go_type: Identifier
+      obtain: constructor
+      constructor_params:
+        - java_type: '[B'
+          go_name: arg0
+        - java_type: String
+          go_name: arg1
+        - java_type: String
+          go_name: arg2
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getCarrierId
+          go_name: GetCarrierId
+          returns: int
+          error: true
+        - java_method: getGid1
+          go_name: GetGid1
+          returns: String
+          error: true
+        - java_method: getGid2
+          go_name: GetGid2
+          returns: String
+          error: true
+        - java_method: getImsi
+          go_name: GetImsi
+          returns: String
+          error: true
+        - java_method: getMcc
+          go_name: GetMcc
+          returns: String
+          error: true
+        - java_method: getMnc
+          go_name: GetMnc
+          returns: String
+          error: true
+        - java_method: getSpecificCarrierId
+          go_name: GetSpecificCarrierId
+          returns: int
+          error: true
+        - java_method: getSpn
+          go_name: GetSpn
+          returns: String
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
     - java_class: android.service.carrier.CarrierService
       go_type: Service
       methods:
@@ -92,77 +187,6 @@ classes:
           go_name: GetSendStatus
           returns: int
           error: true
-    - java_class: android.service.carrier.CarrierIdentifier
-      go_type: Identifier
-      obtain: constructor
-      constructor_params:
-        - java_type: '[B'
-          go_name: arg0
-        - java_type: String
-          go_name: arg1
-        - java_type: String
-          go_name: arg2
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getCarrierId
-          go_name: GetCarrierId
-          returns: int
-          error: true
-        - java_method: getGid1
-          go_name: GetGid1
-          returns: String
-          error: true
-        - java_method: getGid2
-          go_name: GetGid2
-          returns: String
-          error: true
-        - java_method: getImsi
-          go_name: GetImsi
-          returns: String
-          error: true
-        - java_method: getMcc
-          go_name: GetMcc
-          returns: String
-          error: true
-        - java_method: getMnc
-          go_name: GetMnc
-          returns: String
-          error: true
-        - java_method: getSpecificCarrierId
-          go_name: GetSpecificCarrierId
-          returns: int
-          error: true
-        - java_method: getSpn
-          go_name: GetSpn
-          returns: String
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
     - java_class: android.service.carrier.CarrierMessagingClientService
       go_type: MessagingClientService
       obtain: constructor
@@ -174,31 +198,49 @@ classes:
               go_name: arg0
           returns: android.os.IBinder
           error: true
-    - java_class: android.service.carrier.MessagePdu
-      go_type: MessagePdu
-      obtain: constructor
-      constructor_params:
-        - java_type: java.util.List<byte[]>
-          go_name: arg0
+abstract_callbacks:
+    - java_class: android.service.carrier.CarrierService
+      go_type: ServiceCallback
       methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getPdus
-          go_name: GetPdus
-          returns: java.util.List<byte[]>
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
+        - java_method: notifyCarrierNetworkChange
           params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
+            - boolean
           returns: void
-          error: true
+          go_field: NotifyCarrierNetworkChange
+        - java_method: notifyCarrierNetworkChange
+          params:
+            - int
+            - boolean
+          returns: void
+          go_field: NotifyCarrierNetworkChange
+        - java_method: onBind
+          params:
+            - android.content.Intent
+          returns: android.os.IBinder
+          go_field: OnBind
+        - java_method: onLoadConfig
+          params:
+            - android.service.carrier.CarrierIdentifier
+          returns: android.os.PersistableBundle
+          go_field: OnLoadConfig
+        - java_method: onLoadConfig
+          params:
+            - int
+            - android.service.carrier.CarrierIdentifier
+          returns: android.os.PersistableBundle
+          go_field: OnLoadConfig
+    - java_class: android.service.carrier.CarrierMessagingService
+      go_type: MessagingServiceCallback
+      methods:
+        - java_method: onBind
+          params:
+            - android.content.Intent
+          returns: android.os.IBinder
+          go_field: OnBind
 constants:
+    - go_name: Creator
+      value: "0"
+      go_type: int
     - go_name: CarrierServiceInterface
       value: '"android.service.carrier.CarrierService"'
       go_type: string
@@ -364,6 +406,3 @@ constants:
     - go_name: ServiceInterface
       value: '"android.service.carrier.CarrierMessagingService"'
       go_type: string
-    - go_name: Creator
-      value: "0"
-      go_type: int

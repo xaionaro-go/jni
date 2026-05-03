@@ -23,35 +23,6 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsAppWidgetProvider                          *jni.GlobalRef
-	midAppWidgetProviderCtor                      jni.MethodID
-	midAppWidgetProviderOnAppWidgetOptionsChanged jni.MethodID
-	midAppWidgetProviderOnDeleted                 jni.MethodID
-	midAppWidgetProviderOnDisabled                jni.MethodID
-	midAppWidgetProviderOnEnabled                 jni.MethodID
-	midAppWidgetProviderOnReceive                 jni.MethodID
-	midAppWidgetProviderOnRestored                jni.MethodID
-	midAppWidgetProviderOnUpdate                  jni.MethodID
-	midAppWidgetProviderToString                  jni.MethodID
-
-	clsAppWidgetHostView                           *jni.GlobalRef
-	midAppWidgetHostViewCtor                       jni.MethodID
-	midAppWidgetHostViewGenerateLayoutParams1      jni.MethodID
-	midAppWidgetHostViewGetAppWidgetId             jni.MethodID
-	midAppWidgetHostViewGetAppWidgetInfo           jni.MethodID
-	midAppWidgetHostViewOnWindowFocusChanged       jni.MethodID
-	midAppWidgetHostViewResetColorResources        jni.MethodID
-	midAppWidgetHostViewSetAppWidget               jni.MethodID
-	midAppWidgetHostViewSetColorResources          jni.MethodID
-	midAppWidgetHostViewSetExecutor                jni.MethodID
-	midAppWidgetHostViewSetOnLightBackground       jni.MethodID
-	midAppWidgetHostViewUpdateAppWidget            jni.MethodID
-	midAppWidgetHostViewUpdateAppWidgetOptions     jni.MethodID
-	midAppWidgetHostViewUpdateAppWidgetSize        jni.MethodID
-	midAppWidgetHostViewGenerateLayoutParams1_1    jni.MethodID
-	midAppWidgetHostViewToString                   jni.MethodID
-	midAppWidgetHostViewGetDefaultPaddingForWidget jni.MethodID
-
 	clsAppWidgetHost                                         *jni.GlobalRef
 	midAppWidgetHostCtor                                     jni.MethodID
 	midAppWidgetHostAllocateAppWidgetId                      jni.MethodID
@@ -93,6 +64,35 @@ var (
 	midAppWidgetManagerToString                          jni.MethodID
 	midAppWidgetManagerGetInstance                       jni.MethodID
 
+	clsAppWidgetHostView                           *jni.GlobalRef
+	midAppWidgetHostViewCtor                       jni.MethodID
+	midAppWidgetHostViewGenerateLayoutParams1      jni.MethodID
+	midAppWidgetHostViewGetAppWidgetId             jni.MethodID
+	midAppWidgetHostViewGetAppWidgetInfo           jni.MethodID
+	midAppWidgetHostViewOnWindowFocusChanged       jni.MethodID
+	midAppWidgetHostViewResetColorResources        jni.MethodID
+	midAppWidgetHostViewSetAppWidget               jni.MethodID
+	midAppWidgetHostViewSetColorResources          jni.MethodID
+	midAppWidgetHostViewSetExecutor                jni.MethodID
+	midAppWidgetHostViewSetOnLightBackground       jni.MethodID
+	midAppWidgetHostViewUpdateAppWidget            jni.MethodID
+	midAppWidgetHostViewUpdateAppWidgetOptions     jni.MethodID
+	midAppWidgetHostViewUpdateAppWidgetSize        jni.MethodID
+	midAppWidgetHostViewGenerateLayoutParams1_1    jni.MethodID
+	midAppWidgetHostViewToString                   jni.MethodID
+	midAppWidgetHostViewGetDefaultPaddingForWidget jni.MethodID
+
+	clsAppWidgetProvider                          *jni.GlobalRef
+	midAppWidgetProviderCtor                      jni.MethodID
+	midAppWidgetProviderOnAppWidgetOptionsChanged jni.MethodID
+	midAppWidgetProviderOnDeleted                 jni.MethodID
+	midAppWidgetProviderOnDisabled                jni.MethodID
+	midAppWidgetProviderOnEnabled                 jni.MethodID
+	midAppWidgetProviderOnReceive                 jni.MethodID
+	midAppWidgetProviderOnRestored                jni.MethodID
+	midAppWidgetProviderOnUpdate                  jni.MethodID
+	midAppWidgetProviderToString                  jni.MethodID
+
 	clsAppWidgetProviderInfo                 *jni.GlobalRef
 	midAppWidgetProviderInfoCtor             jni.MethodID
 	midAppWidgetProviderInfoClone0           jni.MethodID
@@ -125,195 +125,6 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
-
-	c, err = env.FindClass("android/appwidget/AppWidgetProvider")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsAppWidgetProvider = env.NewGlobalRef(&c.Object)
-		midAppWidgetProviderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppWidgetProvider)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midAppWidgetProviderOnAppWidgetOptionsChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppWidgetProvider)), "onAppWidgetOptionsChanged", "(Landroid/content/Context;Landroid/appwidget/AppWidgetManager;ILandroid/os/Bundle;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppWidgetProviderOnDeleted, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppWidgetProvider)), "onDeleted", "(Landroid/content/Context;[I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppWidgetProviderOnDisabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppWidgetProvider)), "onDisabled", "(Landroid/content/Context;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppWidgetProviderOnEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppWidgetProvider)), "onEnabled", "(Landroid/content/Context;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppWidgetProviderOnReceive, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppWidgetProvider)), "onReceive", "(Landroid/content/Context;Landroid/content/Intent;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppWidgetProviderOnRestored, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppWidgetProvider)), "onRestored", "(Landroid/content/Context;[I[I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppWidgetProviderOnUpdate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppWidgetProvider)), "onUpdate", "(Landroid/content/Context;Landroid/appwidget/AppWidgetManager;[I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppWidgetProviderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppWidgetProvider)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/appwidget/AppWidgetHostView")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsAppWidgetHostView = env.NewGlobalRef(&c.Object)
-		midAppWidgetHostViewCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppWidgetHostView)), "<init>", "(Landroid/content/Context;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midAppWidgetHostViewGenerateLayoutParams1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppWidgetHostView)), "generateLayoutParams", "(Landroid/util/AttributeSet;)Landroid/widget/FrameLayout$LayoutParams;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppWidgetHostViewGetAppWidgetId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppWidgetHostView)), "getAppWidgetId", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppWidgetHostViewGetAppWidgetInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppWidgetHostView)), "getAppWidgetInfo", "()Landroid/appwidget/AppWidgetProviderInfo;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppWidgetHostViewOnWindowFocusChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppWidgetHostView)), "onWindowFocusChanged", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppWidgetHostViewResetColorResources, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppWidgetHostView)), "resetColorResources", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppWidgetHostViewSetAppWidget, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppWidgetHostView)), "setAppWidget", "(ILandroid/appwidget/AppWidgetProviderInfo;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppWidgetHostViewSetColorResources, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppWidgetHostView)), "setColorResources", "(Landroid/util/SparseIntArray;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppWidgetHostViewSetExecutor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppWidgetHostView)), "setExecutor", "(Ljava/util/concurrent/Executor;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppWidgetHostViewSetOnLightBackground, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppWidgetHostView)), "setOnLightBackground", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppWidgetHostViewUpdateAppWidget, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppWidgetHostView)), "updateAppWidget", "(Landroid/widget/RemoteViews;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppWidgetHostViewUpdateAppWidgetOptions, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppWidgetHostView)), "updateAppWidgetOptions", "(Landroid/os/Bundle;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppWidgetHostViewUpdateAppWidgetSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppWidgetHostView)), "updateAppWidgetSize", "(Landroid/os/Bundle;IIII)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppWidgetHostViewGenerateLayoutParams1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppWidgetHostView)), "generateLayoutParams", "(Landroid/util/AttributeSet;)Landroid/view/ViewGroup$LayoutParams;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppWidgetHostViewToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppWidgetHostView)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppWidgetHostViewGetDefaultPaddingForWidget, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsAppWidgetHostView)), "getDefaultPaddingForWidget", "(Landroid/content/Context;Landroid/content/ComponentName;Landroid/graphics/Rect;)Landroid/graphics/Rect;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
 
 	c, err = env.FindClass("android/appwidget/AppWidgetHost")
 	if err != nil {
@@ -583,6 +394,195 @@ func doInit(env *jni.Env) error {
 		}
 
 		midAppWidgetManagerGetInstance, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsAppWidgetManager)), "getInstance", "(Landroid/content/Context;)Landroid/appwidget/AppWidgetManager;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/appwidget/AppWidgetHostView")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAppWidgetHostView = env.NewGlobalRef(&c.Object)
+		midAppWidgetHostViewCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppWidgetHostView)), "<init>", "(Landroid/content/Context;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midAppWidgetHostViewGenerateLayoutParams1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppWidgetHostView)), "generateLayoutParams", "(Landroid/util/AttributeSet;)Landroid/widget/FrameLayout$LayoutParams;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppWidgetHostViewGetAppWidgetId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppWidgetHostView)), "getAppWidgetId", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppWidgetHostViewGetAppWidgetInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppWidgetHostView)), "getAppWidgetInfo", "()Landroid/appwidget/AppWidgetProviderInfo;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppWidgetHostViewOnWindowFocusChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppWidgetHostView)), "onWindowFocusChanged", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppWidgetHostViewResetColorResources, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppWidgetHostView)), "resetColorResources", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppWidgetHostViewSetAppWidget, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppWidgetHostView)), "setAppWidget", "(ILandroid/appwidget/AppWidgetProviderInfo;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppWidgetHostViewSetColorResources, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppWidgetHostView)), "setColorResources", "(Landroid/util/SparseIntArray;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppWidgetHostViewSetExecutor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppWidgetHostView)), "setExecutor", "(Ljava/util/concurrent/Executor;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppWidgetHostViewSetOnLightBackground, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppWidgetHostView)), "setOnLightBackground", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppWidgetHostViewUpdateAppWidget, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppWidgetHostView)), "updateAppWidget", "(Landroid/widget/RemoteViews;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppWidgetHostViewUpdateAppWidgetOptions, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppWidgetHostView)), "updateAppWidgetOptions", "(Landroid/os/Bundle;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppWidgetHostViewUpdateAppWidgetSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppWidgetHostView)), "updateAppWidgetSize", "(Landroid/os/Bundle;IIII)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppWidgetHostViewGenerateLayoutParams1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppWidgetHostView)), "generateLayoutParams", "(Landroid/util/AttributeSet;)Landroid/view/ViewGroup$LayoutParams;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppWidgetHostViewToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppWidgetHostView)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppWidgetHostViewGetDefaultPaddingForWidget, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsAppWidgetHostView)), "getDefaultPaddingForWidget", "(Landroid/content/Context;Landroid/content/ComponentName;Landroid/graphics/Rect;)Landroid/graphics/Rect;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/appwidget/AppWidgetProvider")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAppWidgetProvider = env.NewGlobalRef(&c.Object)
+		midAppWidgetProviderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppWidgetProvider)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midAppWidgetProviderOnAppWidgetOptionsChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppWidgetProvider)), "onAppWidgetOptionsChanged", "(Landroid/content/Context;Landroid/appwidget/AppWidgetManager;ILandroid/os/Bundle;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppWidgetProviderOnDeleted, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppWidgetProvider)), "onDeleted", "(Landroid/content/Context;[I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppWidgetProviderOnDisabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppWidgetProvider)), "onDisabled", "(Landroid/content/Context;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppWidgetProviderOnEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppWidgetProvider)), "onEnabled", "(Landroid/content/Context;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppWidgetProviderOnReceive, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppWidgetProvider)), "onReceive", "(Landroid/content/Context;Landroid/content/Intent;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppWidgetProviderOnRestored, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppWidgetProvider)), "onRestored", "(Landroid/content/Context;[I[I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppWidgetProviderOnUpdate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppWidgetProvider)), "onUpdate", "(Landroid/content/Context;Landroid/appwidget/AppWidgetManager;[I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppWidgetProviderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppWidgetProvider)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

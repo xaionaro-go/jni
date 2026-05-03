@@ -15,6 +15,11 @@ classes:
               go_name: arg0
           returns: android.os.IBinder
           error: true
+    - java_class: android.app.appfunctions.AppFunctionManager
+      go_type: AppFunctionManager
+      obtain: system_service
+      service_name: app_function
+      close: true
     - java_class: android.app.appfunctions.AppFunctionException
       go_type: AppFunctionException
       obtain: constructor
@@ -106,11 +111,6 @@ classes:
               go_name: arg0
           returns: android.app.appfunctions.ExecuteAppFunctionRequest$Builder
           error: true
-    - java_class: android.app.appfunctions.AppFunctionManager
-      go_type: AppFunctionManager
-      obtain: system_service
-      service_name: app_function
-      close: true
     - java_class: android.app.appfunctions.ExecuteAppFunctionResponse
       go_type: ExecuteAppFunctionResponse
       obtain: constructor
@@ -139,10 +139,28 @@ classes:
               go_name: arg1
           returns: void
           error: true
+abstract_callbacks:
+    - java_class: android.app.appfunctions.AppFunctionService
+      go_type: AppFunctionServiceCallback
+      methods:
+        - java_method: onBind
+          params:
+            - android.content.Intent
+          returns: android.os.IBinder
+          go_field: OnBind
 constants:
     - go_name: ServiceInterface
       value: '"android.app.appfunctions.AppFunctionService"'
       go_type: string
+    - go_name: AppFunctionStateDefault
+      value: "0"
+      go_type: int
+    - go_name: AppFunctionStateDisabled
+      value: "2"
+      go_type: int
+    - go_name: AppFunctionStateEnabled
+      value: "1"
+      go_type: int
     - go_name: Creator
       value: "0"
       go_type: int
@@ -181,15 +199,6 @@ constants:
       go_type: int
     - go_name: ErrorSystemError
       value: "2000"
-      go_type: int
-    - go_name: AppFunctionStateDefault
-      value: "0"
-      go_type: int
-    - go_name: AppFunctionStateDisabled
-      value: "2"
-      go_type: int
-    - go_name: AppFunctionStateEnabled
-      value: "1"
       go_type: int
     - go_name: PropertyReturnValue
       value: '"androidAppfunctionsReturnValue"'

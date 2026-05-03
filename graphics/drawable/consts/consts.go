@@ -3,9 +3,6 @@
 package consts
 
 const (
-	InsetUndefined        int = -2147483648
-	PaddingModeNest       int = 0
-	PaddingModeStack      int = 1
 	Creator               int = 0
 	TypeAdaptiveBitmap    int = 5
 	TypeBitmap            int = 1
@@ -13,8 +10,8 @@ const (
 	TypeResource          int = 2
 	TypeUri               int = 4
 	TypeUriAdaptiveBitmap int = 6
-	Horizontal            int = 1
-	Vertical              int = 2
+	RepeatInfinite        int = -1
+	RadiusAuto            int = -1
 	Line                  int = 2
 	LinearGradient        int = 0
 	Oval                  int = 1
@@ -30,6 +27,9 @@ const (
 	TlBr                  int = 0
 	TopBottom             int = 0
 	TrBl                  int = 0
-	RadiusAuto            int = -1
-	RepeatInfinite        int = -1
+	InsetUndefined        int = -2147483648
+	PaddingModeNest       int = 0
+	PaddingModeStack      int = 1
+	Horizontal            int = 1
+	Vertical              int = 2
 )

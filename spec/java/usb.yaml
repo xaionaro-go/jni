@@ -188,83 +188,113 @@ classes:
               go_name: arg1
           returns: void
           error: true
-    - java_class: android.hardware.usb.UsbRequest
-      go_type: Request
-      obtain: constructor
+    - java_class: android.hardware.usb.UsbManager
+      go_type: Manager
+      obtain: system_service
+      service_name: usb
+      close: true
       methods:
-        - java_method: cancel
-          go_name: Cancel
+        - java_method: getAccessoryList
+          go_name: GetAccessoryList
+          returns: android.hardware.usb.UsbAccessory[]
+          error: true
+        - java_method: hasPermission
+          go_name: HasPermission1
+          params:
+            - java_type: android.hardware.usb.UsbAccessory
+              go_name: arg0
           returns: boolean
           error: true
-        - java_method: close
-          go_name: Close
-          returns: void
-          error: true
-        - java_method: getClientData
-          go_name: GetClientData
-          returns: java.lang.Object
-          error: true
-        - java_method: getEndpoint
-          go_name: GetEndpoint
-          returns: android.hardware.usb.UsbEndpoint
-          error: true
-        - java_method: initialize
-          go_name: Initialize
+        - java_method: hasPermission
+          go_name: HasPermission1_1
           params:
-            - java_type: android.hardware.usb.UsbDeviceConnection
+            - java_type: android.hardware.usb.UsbDevice
               go_name: arg0
-            - java_type: android.hardware.usb.UsbEndpoint
+          returns: boolean
+          error: true
+        - java_method: openAccessory
+          go_name: OpenAccessory
+          params:
+            - java_type: android.hardware.usb.UsbAccessory
+              go_name: arg0
+          returns: android.os.ParcelFileDescriptor
+          error: true
+        - java_method: openAccessoryInputStream
+          go_name: OpenAccessoryInputStream
+          params:
+            - java_type: android.hardware.usb.UsbAccessory
+              go_name: arg0
+          returns: java.io.InputStream
+          error: true
+        - java_method: openAccessoryOutputStream
+          go_name: OpenAccessoryOutputStream
+          params:
+            - java_type: android.hardware.usb.UsbAccessory
+              go_name: arg0
+          returns: java.io.OutputStream
+          error: true
+        - java_method: openDevice
+          go_name: OpenDevice
+          params:
+            - java_type: android.hardware.usb.UsbDevice
+              go_name: arg0
+          returns: android.hardware.usb.UsbDeviceConnection
+          error: true
+        - java_method: requestPermission
+          go_name: RequestPermission2
+          params:
+            - java_type: android.hardware.usb.UsbAccessory
+              go_name: arg0
+            - java_type: android.app.PendingIntent
               go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: setClientData
-          go_name: SetClientData
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
           returns: void
           error: true
-    - java_class: android.hardware.usb.UsbInterface
-      go_type: Interface
+        - java_method: requestPermission
+          go_name: RequestPermission2_1
+          params:
+            - java_type: android.hardware.usb.UsbDevice
+              go_name: arg0
+            - java_type: android.app.PendingIntent
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.hardware.usb.UsbConfiguration
+      go_type: Configuration
       methods:
         - java_method: describeContents
           go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getAlternateSetting
-          go_name: GetAlternateSetting
-          returns: int
-          error: true
-        - java_method: getEndpoint
-          go_name: GetEndpoint
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.hardware.usb.UsbEndpoint
-          error: true
-        - java_method: getEndpointCount
-          go_name: GetEndpointCount
           returns: int
           error: true
         - java_method: getId
           go_name: GetId
           returns: int
           error: true
-        - java_method: getInterfaceClass
-          go_name: GetInterfaceClass
+        - java_method: getInterface
+          go_name: GetInterface
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.hardware.usb.UsbInterface
+          error: true
+        - java_method: getInterfaceCount
+          go_name: GetInterfaceCount
           returns: int
           error: true
-        - java_method: getInterfaceProtocol
-          go_name: GetInterfaceProtocol
-          returns: int
-          error: true
-        - java_method: getInterfaceSubclass
-          go_name: GetInterfaceSubclass
+        - java_method: getMaxPower
+          go_name: GetMaxPower
           returns: int
           error: true
         - java_method: getName
           go_name: GetName
           returns: String
+          error: true
+        - java_method: isRemoteWakeup
+          go_name: IsRemoteWakeup
+          returns: boolean
+          error: true
+        - java_method: isSelfPowered
+          go_name: IsSelfPowered
+          returns: boolean
           error: true
         - java_method: toString
           go_name: ToString
@@ -279,9 +309,6 @@ classes:
               go_name: arg1
           returns: void
           error: true
-    - java_class: android.hardware.usb.UsbConstants
-      go_type: Constants
-      obtain: constructor
     - java_class: android.hardware.usb.UsbEndpoint
       go_type: Endpoint
       methods:
@@ -328,6 +355,45 @@ classes:
               go_name: arg0
             - java_type: int
               go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.hardware.usb.UsbConstants
+      go_type: Constants
+      obtain: constructor
+    - java_class: android.hardware.usb.UsbRequest
+      go_type: Request
+      obtain: constructor
+      methods:
+        - java_method: cancel
+          go_name: Cancel
+          returns: boolean
+          error: true
+        - java_method: close
+          go_name: Close
+          returns: void
+          error: true
+        - java_method: getClientData
+          go_name: GetClientData
+          returns: java.lang.Object
+          error: true
+        - java_method: getEndpoint
+          go_name: GetEndpoint
+          returns: android.hardware.usb.UsbEndpoint
+          error: true
+        - java_method: initialize
+          go_name: Initialize
+          params:
+            - java_type: android.hardware.usb.UsbDeviceConnection
+              go_name: arg0
+            - java_type: android.hardware.usb.UsbEndpoint
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: setClientData
+          go_name: SetClientData
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
           returns: void
           error: true
     - java_class: android.hardware.usb.UsbDevice
@@ -442,43 +508,47 @@ classes:
               go_name: arg0
           returns: String
           error: true
-    - java_class: android.hardware.usb.UsbConfiguration
-      go_type: Configuration
+    - java_class: android.hardware.usb.UsbInterface
+      go_type: Interface
       methods:
         - java_method: describeContents
           go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getAlternateSetting
+          go_name: GetAlternateSetting
+          returns: int
+          error: true
+        - java_method: getEndpoint
+          go_name: GetEndpoint
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.hardware.usb.UsbEndpoint
+          error: true
+        - java_method: getEndpointCount
+          go_name: GetEndpointCount
           returns: int
           error: true
         - java_method: getId
           go_name: GetId
           returns: int
           error: true
-        - java_method: getInterface
-          go_name: GetInterface
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.hardware.usb.UsbInterface
-          error: true
-        - java_method: getInterfaceCount
-          go_name: GetInterfaceCount
+        - java_method: getInterfaceClass
+          go_name: GetInterfaceClass
           returns: int
           error: true
-        - java_method: getMaxPower
-          go_name: GetMaxPower
+        - java_method: getInterfaceProtocol
+          go_name: GetInterfaceProtocol
+          returns: int
+          error: true
+        - java_method: getInterfaceSubclass
+          go_name: GetInterfaceSubclass
           returns: int
           error: true
         - java_method: getName
           go_name: GetName
           returns: String
-          error: true
-        - java_method: isRemoteWakeup
-          go_name: IsRemoteWakeup
-          returns: boolean
-          error: true
-        - java_method: isSelfPowered
-          go_name: IsSelfPowered
-          returns: boolean
           error: true
         - java_method: toString
           go_name: ToString
@@ -493,80 +563,31 @@ classes:
               go_name: arg1
           returns: void
           error: true
-    - java_class: android.hardware.usb.UsbManager
-      go_type: Manager
-      obtain: system_service
-      service_name: usb
-      close: true
-      methods:
-        - java_method: getAccessoryList
-          go_name: GetAccessoryList
-          returns: android.hardware.usb.UsbAccessory[]
-          error: true
-        - java_method: hasPermission
-          go_name: HasPermission1
-          params:
-            - java_type: android.hardware.usb.UsbAccessory
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: hasPermission
-          go_name: HasPermission1_1
-          params:
-            - java_type: android.hardware.usb.UsbDevice
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: openAccessory
-          go_name: OpenAccessory
-          params:
-            - java_type: android.hardware.usb.UsbAccessory
-              go_name: arg0
-          returns: android.os.ParcelFileDescriptor
-          error: true
-        - java_method: openAccessoryInputStream
-          go_name: OpenAccessoryInputStream
-          params:
-            - java_type: android.hardware.usb.UsbAccessory
-              go_name: arg0
-          returns: java.io.InputStream
-          error: true
-        - java_method: openAccessoryOutputStream
-          go_name: OpenAccessoryOutputStream
-          params:
-            - java_type: android.hardware.usb.UsbAccessory
-              go_name: arg0
-          returns: java.io.OutputStream
-          error: true
-        - java_method: openDevice
-          go_name: OpenDevice
-          params:
-            - java_type: android.hardware.usb.UsbDevice
-              go_name: arg0
-          returns: android.hardware.usb.UsbDeviceConnection
-          error: true
-        - java_method: requestPermission
-          go_name: RequestPermission2
-          params:
-            - java_type: android.hardware.usb.UsbAccessory
-              go_name: arg0
-            - java_type: android.app.PendingIntent
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: requestPermission
-          go_name: RequestPermission2_1
-          params:
-            - java_type: android.hardware.usb.UsbDevice
-              go_name: arg0
-            - java_type: android.app.PendingIntent
-              go_name: arg1
-          returns: void
-          error: true
 constants:
     - go_name: Creator
       value: "0"
       go_type: int
+    - go_name: ActionUsbAccessoryAttached
+      value: '"android.hardware.usb.action.USB_ACCESSORY_ATTACHED"'
+      go_type: string
+    - go_name: ActionUsbAccessoryDetached
+      value: '"android.hardware.usb.action.USB_ACCESSORY_DETACHED"'
+      go_type: string
+    - go_name: ActionUsbDeviceAttached
+      value: '"android.hardware.usb.action.USB_DEVICE_ATTACHED"'
+      go_type: string
+    - go_name: ActionUsbDeviceDetached
+      value: '"android.hardware.usb.action.USB_DEVICE_DETACHED"'
+      go_type: string
+    - go_name: ExtraAccessory
+      value: '"accessory"'
+      go_type: string
+    - go_name: ExtraDevice
+      value: '"device"'
+      go_type: string
+    - go_name: ExtraPermissionGranted
+      value: '"permission"'
+      go_type: string
     - go_name: UsbClassAppSpec
       value: "254"
       go_type: int
@@ -666,24 +687,3 @@ constants:
     - go_name: UsbTypeVendor
       value: "64"
       go_type: int
-    - go_name: ActionUsbAccessoryAttached
-      value: '"android.hardware.usb.action.USB_ACCESSORY_ATTACHED"'
-      go_type: string
-    - go_name: ActionUsbAccessoryDetached
-      value: '"android.hardware.usb.action.USB_ACCESSORY_DETACHED"'
-      go_type: string
-    - go_name: ActionUsbDeviceAttached
-      value: '"android.hardware.usb.action.USB_DEVICE_ATTACHED"'
-      go_type: string
-    - go_name: ActionUsbDeviceDetached
-      value: '"android.hardware.usb.action.USB_DEVICE_DETACHED"'
-      go_type: string
-    - go_name: ExtraAccessory
-      value: '"accessory"'
-      go_type: string
-    - go_name: ExtraDevice
-      value: '"device"'
-      go_type: string
-    - go_name: ExtraPermissionGranted
-      value: '"permission"'
-      go_type: string

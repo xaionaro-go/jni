@@ -39,7 +39,8 @@ const (
 	SubtypeSource             = consts.SubtypeSource
 	SubtypeToggle             = consts.SubtypeToggle
 	SubtypeValue              = consts.SubtypeValue
-	SliceType                 = consts.SliceType
+	CategorySlice             = consts.CategorySlice
+	SliceMetadataKey          = consts.SliceMetadataKey
 	FormatAction              = consts.FormatAction
 	FormatBundle              = consts.FormatBundle
 	FormatImage               = consts.FormatImage
@@ -48,6 +49,5 @@ const (
 	FormatRemoteInput         = consts.FormatRemoteInput
 	FormatSlice               = consts.FormatSlice
 	FormatText                = consts.FormatText
-	CategorySlice             = consts.CategorySlice
-	SliceMetadataKey          = consts.SliceMetadataKey
+	SliceType                 = consts.SliceType
 )

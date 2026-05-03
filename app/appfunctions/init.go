@@ -27,6 +27,9 @@ var (
 	midAppFunctionServiceOnBind   jni.MethodID
 	midAppFunctionServiceToString jni.MethodID
 
+	clsAppFunctionManager         *jni.GlobalRef
+	midAppFunctionManagerToString jni.MethodID
+
 	clsAppFunctionException                 *jni.GlobalRef
 	midAppFunctionExceptionCtor             jni.MethodID
 	midAppFunctionExceptionDescribeContents jni.MethodID
@@ -51,9 +54,6 @@ var (
 	midExecuteAppFunctionRequestBuilderSetExtras     jni.MethodID
 	midExecuteAppFunctionRequestBuilderSetParameters jni.MethodID
 	midExecuteAppFunctionRequestBuilderToString      jni.MethodID
-
-	clsAppFunctionManager         *jni.GlobalRef
-	midAppFunctionManagerToString jni.MethodID
 
 	clsExecuteAppFunctionResponse                  *jni.GlobalRef
 	midExecuteAppFunctionResponseCtor              jni.MethodID
@@ -98,6 +98,23 @@ func doInit(env *jni.Env) error {
 		}
 
 		midAppFunctionServiceToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppFunctionService)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/app/appfunctions/AppFunctionManager")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAppFunctionManager = env.NewGlobalRef(&c.Object)
+
+		midAppFunctionManagerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppFunctionManager)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -258,23 +275,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midExecuteAppFunctionRequestBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsExecuteAppFunctionRequestBuilder)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/app/appfunctions/AppFunctionManager")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsAppFunctionManager = env.NewGlobalRef(&c.Object)
-
-		midAppFunctionManagerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppFunctionManager)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

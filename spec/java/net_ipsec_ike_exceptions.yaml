@@ -5,13 +5,6 @@
 package: exceptions
 go_import: github.com/AndroidGoLab/jni/net/ipsec/ike/exceptions
 classes:
-    - java_class: android.net.ipsec.ike.exceptions.IkeProtocolException
-      go_type: IkeProtocolException
-      methods:
-        - java_method: getErrorType
-          go_name: GetErrorType
-          returns: int
-          error: true
     - java_class: android.net.ipsec.ike.exceptions.InvalidSelectorsException
       go_type: InvalidSelectorsException
       obtain: constructor
@@ -29,30 +22,12 @@ classes:
           go_name: GetIpSecSpi
           returns: int
           error: true
-    - java_class: android.net.ipsec.ike.exceptions.InvalidKeException
-      go_type: InvalidKeException
+    - java_class: android.net.ipsec.ike.exceptions.IkeTimeoutException
+      go_type: IkeTimeoutException
       obtain: constructor
       constructor_params:
-        - java_type: int
+        - java_type: String
           go_name: arg0
-      methods:
-        - java_method: getDhGroup
-          go_name: GetDhGroup
-          returns: int
-          error: true
-    - java_class: android.net.ipsec.ike.exceptions.IkeNetworkLostException
-      go_type: IkeNetworkLostException
-      obtain: constructor
-      constructor_params:
-        - java_type: android.net.Network
-          go_name: arg0
-      methods:
-        - java_method: getNetwork
-          go_name: GetNetwork
-          returns: android.net.Network
-          error: true
-    - java_class: android.net.ipsec.ike.exceptions.IkeException
-      go_type: IkeException
     - java_class: android.net.ipsec.ike.exceptions.InvalidMajorVersionException
       go_type: InvalidMajorVersionException
       obtain: constructor
@@ -64,14 +39,21 @@ classes:
           go_name: GetMajorVersion
           returns: byte
           error: true
-    - java_class: android.net.ipsec.ike.exceptions.IkeInternalException
-      go_type: IkeInternalException
+    - java_class: android.net.ipsec.ike.exceptions.InvalidKeException
+      go_type: InvalidKeException
       obtain: constructor
       constructor_params:
-        - java_type: String
+        - java_type: int
           go_name: arg0
-        - java_type: java.lang.Throwable
-          go_name: arg1
+      methods:
+        - java_method: getDhGroup
+          go_name: GetDhGroup
+          returns: int
+          error: true
+    - java_class: android.net.ipsec.ike.exceptions.IkeNonProtocolException
+      go_type: IkeNonProtocolException
+    - java_class: android.net.ipsec.ike.exceptions.IkeException
+      go_type: IkeException
     - java_class: android.net.ipsec.ike.exceptions.IkeIOException
       go_type: IkeIOException
       obtain: constructor
@@ -87,14 +69,40 @@ classes:
           go_name: GetCause0_1
           returns: java.lang.Throwable
           error: true
-    - java_class: android.net.ipsec.ike.exceptions.IkeNonProtocolException
-      go_type: IkeNonProtocolException
-    - java_class: android.net.ipsec.ike.exceptions.IkeTimeoutException
-      go_type: IkeTimeoutException
+    - java_class: android.net.ipsec.ike.exceptions.IkeProtocolException
+      go_type: IkeProtocolException
+      methods:
+        - java_method: getErrorType
+          go_name: GetErrorType
+          returns: int
+          error: true
+    - java_class: android.net.ipsec.ike.exceptions.IkeInternalException
+      go_type: IkeInternalException
       obtain: constructor
       constructor_params:
         - java_type: String
           go_name: arg0
+        - java_type: java.lang.Throwable
+          go_name: arg1
+    - java_class: android.net.ipsec.ike.exceptions.IkeNetworkLostException
+      go_type: IkeNetworkLostException
+      obtain: constructor
+      constructor_params:
+        - java_type: android.net.Network
+          go_name: arg0
+      methods:
+        - java_method: getNetwork
+          go_name: GetNetwork
+          returns: android.net.Network
+          error: true
+abstract_callbacks:
+    - java_class: android.net.ipsec.ike.exceptions.IkeProtocolException
+      go_type: IkeProtocolExceptionCallback
+      methods:
+        - java_method: getErrorType
+          params: []
+          returns: int
+          go_field: GetErrorType
 constants:
     - go_name: ErrorTypeAuthenticationFailed
       value: "24"

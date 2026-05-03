@@ -5,258 +5,6 @@
 package: common
 go_import: github.com/AndroidGoLab/jni/adservices/common
 classes:
-    - java_class: android.adservices.common.KeyedFrequencyCap
-      go_type: KeyedFrequencyCap
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getAdCounterKey
-          go_name: GetAdCounterKey
-          returns: int
-          error: true
-        - java_method: getInterval
-          go_name: GetInterval
-          returns: java.time.Duration
-          error: true
-        - java_method: getMaxCount
-          go_name: GetMaxCount
-          returns: int
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.adservices.common.KeyedFrequencyCap$Builder
-      go_type: KeyedFrequencyCapBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.adservices.common.KeyedFrequencyCap
-          error: true
-        - java_method: setAdCounterKey
-          go_name: SetAdCounterKey
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.adservices.common.KeyedFrequencyCap$Builder
-          error: true
-        - java_method: setInterval
-          go_name: SetInterval
-          params:
-            - java_type: java.time.Duration
-              go_name: arg0
-          returns: android.adservices.common.KeyedFrequencyCap$Builder
-          error: true
-        - java_method: setMaxCount
-          go_name: SetMaxCount
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.adservices.common.KeyedFrequencyCap$Builder
-          error: true
-    - java_class: android.adservices.common.AdServicesPermissions
-      go_type: AdServicesPermissions
-    - java_class: android.adservices.common.AdSelectionSignals
-      go_type: AdSelectionSignals
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-      static_methods:
-        - java_method: fromString
-          go_name: FromString
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.adservices.common.AdSelectionSignals
-          error: true
-    - java_class: android.adservices.common.FrequencyCapFilters
-      go_type: FrequencyCapFilters
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getKeyedFrequencyCapsForClickEvents
-          go_name: GetKeyedFrequencyCapsForClickEvents
-          returns: java.util.List<android.adservices.common.KeyedFrequencyCap>
-          error: true
-        - java_method: getKeyedFrequencyCapsForImpressionEvents
-          go_name: GetKeyedFrequencyCapsForImpressionEvents
-          returns: java.util.List<android.adservices.common.KeyedFrequencyCap>
-          error: true
-        - java_method: getKeyedFrequencyCapsForViewEvents
-          go_name: GetKeyedFrequencyCapsForViewEvents
-          returns: java.util.List<android.adservices.common.KeyedFrequencyCap>
-          error: true
-        - java_method: getKeyedFrequencyCapsForWinEvents
-          go_name: GetKeyedFrequencyCapsForWinEvents
-          returns: java.util.List<android.adservices.common.KeyedFrequencyCap>
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.adservices.common.FrequencyCapFilters$Builder
-      go_type: FrequencyCapFiltersBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.adservices.common.FrequencyCapFilters
-          error: true
-    - java_class: android.adservices.common.ComponentAdData
-      go_type: ComponentAdData
-      obtain: constructor
-      constructor_params:
-        - java_type: android.net.Uri
-          go_name: arg0
-        - java_type: String
-          go_name: arg1
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getAdRenderId
-          go_name: GetAdRenderId
-          returns: String
-          error: true
-        - java_method: getRenderUri
-          go_name: GetRenderUri
-          returns: android.net.Uri
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.adservices.common.AdServicesOutcomeReceiver
-      go_type: AdServicesOutcomeReceiver
-    - java_class: android.adservices.common.AdTechIdentifier
-      go_type: AdTechIdentifier
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-      static_methods:
-        - java_method: fromString
-          go_name: FromString
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.adservices.common.AdTechIdentifier
-          error: true
     - java_class: android.adservices.common.AdData
       go_type: AdData
       methods:
@@ -343,6 +91,296 @@ classes:
               go_name: arg0
           returns: android.adservices.common.AdData$Builder
           error: true
+    - java_class: android.adservices.common.AppInstallFilters
+      go_type: AppInstallFilters
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getPackageNames
+          go_name: GetPackageNames
+          returns: java.util.Set<java.lang.String>
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.adservices.common.AppInstallFilters$Builder
+      go_type: AppInstallFiltersBuilder
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.adservices.common.AppInstallFilters
+          error: true
+    - java_class: android.adservices.common.FrequencyCapFilters
+      go_type: FrequencyCapFilters
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getKeyedFrequencyCapsForClickEvents
+          go_name: GetKeyedFrequencyCapsForClickEvents
+          returns: java.util.List<android.adservices.common.KeyedFrequencyCap>
+          error: true
+        - java_method: getKeyedFrequencyCapsForImpressionEvents
+          go_name: GetKeyedFrequencyCapsForImpressionEvents
+          returns: java.util.List<android.adservices.common.KeyedFrequencyCap>
+          error: true
+        - java_method: getKeyedFrequencyCapsForViewEvents
+          go_name: GetKeyedFrequencyCapsForViewEvents
+          returns: java.util.List<android.adservices.common.KeyedFrequencyCap>
+          error: true
+        - java_method: getKeyedFrequencyCapsForWinEvents
+          go_name: GetKeyedFrequencyCapsForWinEvents
+          returns: java.util.List<android.adservices.common.KeyedFrequencyCap>
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.adservices.common.FrequencyCapFilters$Builder
+      go_type: FrequencyCapFiltersBuilder
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.adservices.common.FrequencyCapFilters
+          error: true
+    - java_class: android.adservices.common.AdSelectionSignals
+      go_type: AdSelectionSignals
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+      static_methods:
+        - java_method: fromString
+          go_name: FromString
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.adservices.common.AdSelectionSignals
+          error: true
+    - java_class: android.adservices.common.AdTechIdentifier
+      go_type: AdTechIdentifier
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+      static_methods:
+        - java_method: fromString
+          go_name: FromString
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.adservices.common.AdTechIdentifier
+          error: true
+    - java_class: android.adservices.common.KeyedFrequencyCap
+      go_type: KeyedFrequencyCap
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getAdCounterKey
+          go_name: GetAdCounterKey
+          returns: int
+          error: true
+        - java_method: getInterval
+          go_name: GetInterval
+          returns: java.time.Duration
+          error: true
+        - java_method: getMaxCount
+          go_name: GetMaxCount
+          returns: int
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.adservices.common.KeyedFrequencyCap$Builder
+      go_type: KeyedFrequencyCapBuilder
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.adservices.common.KeyedFrequencyCap
+          error: true
+        - java_method: setAdCounterKey
+          go_name: SetAdCounterKey
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.adservices.common.KeyedFrequencyCap$Builder
+          error: true
+        - java_method: setInterval
+          go_name: SetInterval
+          params:
+            - java_type: java.time.Duration
+              go_name: arg0
+          returns: android.adservices.common.KeyedFrequencyCap$Builder
+          error: true
+        - java_method: setMaxCount
+          go_name: SetMaxCount
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.adservices.common.KeyedFrequencyCap$Builder
+          error: true
+    - java_class: android.adservices.common.ComponentAdData
+      go_type: ComponentAdData
+      obtain: constructor
+      constructor_params:
+        - java_type: android.net.Uri
+          go_name: arg0
+        - java_type: String
+          go_name: arg1
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getAdRenderId
+          go_name: GetAdRenderId
+          returns: String
+          error: true
+        - java_method: getRenderUri
+          go_name: GetRenderUri
+          returns: android.net.Uri
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
     - java_class: android.adservices.common.AdFilters
       go_type: AdFilters
       methods:
@@ -403,50 +441,27 @@ classes:
               go_name: arg0
           returns: android.adservices.common.AdFilters$Builder
           error: true
-    - java_class: android.adservices.common.AppInstallFilters
-      go_type: AppInstallFilters
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getPackageNames
-          go_name: GetPackageNames
-          returns: java.util.Set<java.lang.String>
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.adservices.common.AppInstallFilters$Builder
-      go_type: AppInstallFiltersBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.adservices.common.AppInstallFilters
-          error: true
+    - java_class: android.adservices.common.AdServicesOutcomeReceiver
+      go_type: AdServicesOutcomeReceiver
+    - java_class: android.adservices.common.AdServicesPermissions
+      go_type: AdServicesPermissions
 constants:
     - go_name: Creator
+      value: "0"
+      go_type: int
+    - go_name: AdEventTypeClick
+      value: "3"
+      go_type: int
+    - go_name: AdEventTypeImpression
+      value: "1"
+      go_type: int
+    - go_name: AdEventTypeView
+      value: "2"
+      go_type: int
+    - go_name: AdEventTypeWin
+      value: "0"
+      go_type: int
+    - go_name: Empty
       value: "0"
       go_type: int
     - go_name: AccessAdservicesAdId
@@ -467,18 +482,3 @@ constants:
     - go_name: AccessAdservicesTopics
       value: '"android.permission.ACCESS_ADSERVICES_TOPICS"'
       go_type: string
-    - go_name: Empty
-      value: "0"
-      go_type: int
-    - go_name: AdEventTypeClick
-      value: "3"
-      go_type: int
-    - go_name: AdEventTypeImpression
-      value: "1"
-      go_type: int
-    - go_name: AdEventTypeView
-      value: "2"
-      go_type: int
-    - go_name: AdEventTypeWin
-      value: "0"
-      go_type: int

@@ -23,16 +23,6 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsRequestPreparer                   *jni.GlobalRef
-	midRequestPreparerGetView            jni.MethodID
-	midRequestPreparerOnPrepareExtraData jni.MethodID
-	midRequestPreparerToString           jni.MethodID
-
-	clsEventSource                                *jni.GlobalRef
-	midEventSourceSendAccessibilityEvent          jni.MethodID
-	midEventSourceSendAccessibilityEventUnchecked jni.MethodID
-	midEventSourceToString                        jni.MethodID
-
 	clsWindowInfo                         *jni.GlobalRef
 	midWindowInfoCtor                     jni.MethodID
 	midWindowInfoDescribeContents         jni.MethodID
@@ -62,6 +52,128 @@ var (
 	midWindowInfoWriteToParcel            jni.MethodID
 	midWindowInfoObtain0                  jni.MethodID
 	midWindowInfoObtain1_1                jni.MethodID
+
+	clsEvent                              *jni.GlobalRef
+	midEventCtor                          jni.MethodID
+	midEventAppendRecord                  jni.MethodID
+	midEventDescribeContents              jni.MethodID
+	midEventGetAction                     jni.MethodID
+	midEventGetContentChangeTypes         jni.MethodID
+	midEventGetEventTime                  jni.MethodID
+	midEventGetEventType                  jni.MethodID
+	midEventGetMovementGranularity        jni.MethodID
+	midEventGetPackageName                jni.MethodID
+	midEventGetRecord                     jni.MethodID
+	midEventGetRecordCount                jni.MethodID
+	midEventGetSpeechStateChangeTypes     jni.MethodID
+	midEventGetWindowChanges              jni.MethodID
+	midEventInitFromParcel                jni.MethodID
+	midEventIsAccessibilityDataSensitive  jni.MethodID
+	midEventRecycle                       jni.MethodID
+	midEventSetAccessibilityDataSensitive jni.MethodID
+	midEventSetAction                     jni.MethodID
+	midEventSetContentChangeTypes         jni.MethodID
+	midEventSetEventTime                  jni.MethodID
+	midEventSetEventType                  jni.MethodID
+	midEventSetMovementGranularity        jni.MethodID
+	midEventSetPackageName                jni.MethodID
+	midEventSetSpeechStateChangeTypes     jni.MethodID
+	midEventToString                      jni.MethodID
+	midEventWriteToParcel                 jni.MethodID
+	midEventEventTypeToString             jni.MethodID
+	midEventObtain0                       jni.MethodID
+	midEventObtain1_1                     jni.MethodID
+	midEventObtain1_2                     jni.MethodID
+
+	clsEventSource                                *jni.GlobalRef
+	midEventSourceSendAccessibilityEvent          jni.MethodID
+	midEventSourceSendAccessibilityEventUnchecked jni.MethodID
+	midEventSourceToString                        jni.MethodID
+
+	clsCaptioningManager                                 *jni.GlobalRef
+	midCaptioningManagerAddCaptioningChangeListener      jni.MethodID
+	midCaptioningManagerGetFontScale                     jni.MethodID
+	midCaptioningManagerGetLocale                        jni.MethodID
+	midCaptioningManagerGetUserStyle                     jni.MethodID
+	midCaptioningManagerIsCallCaptioningEnabled          jni.MethodID
+	midCaptioningManagerIsEnabled                        jni.MethodID
+	midCaptioningManagerIsSystemAudioCaptioningEnabled   jni.MethodID
+	midCaptioningManagerIsSystemAudioCaptioningUiEnabled jni.MethodID
+	midCaptioningManagerRemoveCaptioningChangeListener   jni.MethodID
+	midCaptioningManagerToString                         jni.MethodID
+
+	clsCaptioningManagerCaptionStyle                   *jni.GlobalRef
+	midCaptioningManagerCaptionStyleGetTypeface        jni.MethodID
+	midCaptioningManagerCaptionStyleHasBackgroundColor jni.MethodID
+	midCaptioningManagerCaptionStyleHasEdgeColor       jni.MethodID
+	midCaptioningManagerCaptionStyleHasEdgeType        jni.MethodID
+	midCaptioningManagerCaptionStyleHasForegroundColor jni.MethodID
+	midCaptioningManagerCaptionStyleHasWindowColor     jni.MethodID
+	midCaptioningManagerCaptionStyleToString           jni.MethodID
+
+	clsCaptioningManagerCaptioningChangeListener                                 *jni.GlobalRef
+	midCaptioningManagerCaptioningChangeListenerOnEnabledChanged                 jni.MethodID
+	midCaptioningManagerCaptioningChangeListenerOnFontScaleChanged               jni.MethodID
+	midCaptioningManagerCaptioningChangeListenerOnLocaleChanged                  jni.MethodID
+	midCaptioningManagerCaptioningChangeListenerOnSystemAudioCaptioningChanged   jni.MethodID
+	midCaptioningManagerCaptioningChangeListenerOnSystemAudioCaptioningUiChanged jni.MethodID
+	midCaptioningManagerCaptioningChangeListenerOnUserStyleChanged               jni.MethodID
+	midCaptioningManagerCaptioningChangeListenerToString                         jni.MethodID
+
+	clsManager                                               *jni.GlobalRef
+	midManagerAddAccessibilityRequestPreparer                jni.MethodID
+	midManagerAddAccessibilityServicesStateChangeListener1   jni.MethodID
+	midManagerAddAccessibilityServicesStateChangeListener2_1 jni.MethodID
+	midManagerAddAccessibilityStateChangeListener            jni.MethodID
+	midManagerAddAudioDescriptionRequestedChangeListener     jni.MethodID
+	midManagerAddHighContrastTextStateChangeListener         jni.MethodID
+	midManagerAddTouchExplorationStateChangeListener         jni.MethodID
+	midManagerGetAccessibilityFocusColor                     jni.MethodID
+	midManagerGetAccessibilityFocusStrokeWidth               jni.MethodID
+	midManagerGetAccessibilityServiceList                    jni.MethodID
+	midManagerGetEnabledAccessibilityServiceList             jni.MethodID
+	midManagerGetInstalledAccessibilityServiceList           jni.MethodID
+	midManagerGetRecommendedTimeoutMillis                    jni.MethodID
+	midManagerInterrupt                                      jni.MethodID
+	midManagerIsAudioDescriptionRequested                    jni.MethodID
+	midManagerIsEnabled                                      jni.MethodID
+	midManagerIsHighContrastTextEnabled                      jni.MethodID
+	midManagerIsRequestFromAccessibilityTool                 jni.MethodID
+	midManagerIsTouchExplorationEnabled                      jni.MethodID
+	midManagerRemoveAccessibilityRequestPreparer             jni.MethodID
+	midManagerRemoveAccessibilityServicesStateChangeListener jni.MethodID
+	midManagerRemoveAccessibilityStateChangeListener         jni.MethodID
+	midManagerRemoveAudioDescriptionRequestedChangeListener  jni.MethodID
+	midManagerRemoveHighContrastTextStateChangeListener      jni.MethodID
+	midManagerRemoveTouchExplorationStateChangeListener      jni.MethodID
+	midManagerSendAccessibilityEvent                         jni.MethodID
+	midManagerToString                                       jni.MethodID
+	midManagerIsAccessibilityButtonSupported                 jni.MethodID
+
+	clsManagerAccessibilityServicesStateChangeListener                                    *jni.GlobalRef
+	midManagerAccessibilityServicesStateChangeListenerOnAccessibilityServicesStateChanged jni.MethodID
+	midManagerAccessibilityServicesStateChangeListenerToString                            jni.MethodID
+
+	clsManagerAccessibilityStateChangeListener                            *jni.GlobalRef
+	midManagerAccessibilityStateChangeListenerOnAccessibilityStateChanged jni.MethodID
+	midManagerAccessibilityStateChangeListenerToString                    jni.MethodID
+
+	clsManagerAudioDescriptionRequestedChangeListener                                   *jni.GlobalRef
+	midManagerAudioDescriptionRequestedChangeListenerOnAudioDescriptionRequestedChanged jni.MethodID
+	midManagerAudioDescriptionRequestedChangeListenerToString                           jni.MethodID
+
+	clsManagerHighContrastTextStateChangeListener                               *jni.GlobalRef
+	midManagerHighContrastTextStateChangeListenerOnHighContrastTextStateChanged jni.MethodID
+	midManagerHighContrastTextStateChangeListenerToString                       jni.MethodID
+
+	clsManagerTouchExplorationStateChangeListener                               *jni.GlobalRef
+	midManagerTouchExplorationStateChangeListenerOnTouchExplorationStateChanged jni.MethodID
+	midManagerTouchExplorationStateChangeListenerToString                       jni.MethodID
+
+	clsRequestPreparer                   *jni.GlobalRef
+	midRequestPreparerGetView            jni.MethodID
+	midRequestPreparerOnPrepareExtraData jni.MethodID
+	midRequestPreparerToString           jni.MethodID
 
 	clsNodeInfo                                    *jni.GlobalRef
 	midNodeInfoCtor                                jni.MethodID
@@ -296,117 +408,13 @@ var (
 	midNodeInfoTouchDelegateInfoWriteToParcel      jni.MethodID
 	midNodeInfoTouchDelegateInfoToString           jni.MethodID
 
-	clsCaptioningManager                                 *jni.GlobalRef
-	midCaptioningManagerAddCaptioningChangeListener      jni.MethodID
-	midCaptioningManagerGetFontScale                     jni.MethodID
-	midCaptioningManagerGetLocale                        jni.MethodID
-	midCaptioningManagerGetUserStyle                     jni.MethodID
-	midCaptioningManagerIsCallCaptioningEnabled          jni.MethodID
-	midCaptioningManagerIsEnabled                        jni.MethodID
-	midCaptioningManagerIsSystemAudioCaptioningEnabled   jni.MethodID
-	midCaptioningManagerIsSystemAudioCaptioningUiEnabled jni.MethodID
-	midCaptioningManagerRemoveCaptioningChangeListener   jni.MethodID
-	midCaptioningManagerToString                         jni.MethodID
-
-	clsCaptioningManagerCaptionStyle                   *jni.GlobalRef
-	midCaptioningManagerCaptionStyleGetTypeface        jni.MethodID
-	midCaptioningManagerCaptionStyleHasBackgroundColor jni.MethodID
-	midCaptioningManagerCaptionStyleHasEdgeColor       jni.MethodID
-	midCaptioningManagerCaptionStyleHasEdgeType        jni.MethodID
-	midCaptioningManagerCaptionStyleHasForegroundColor jni.MethodID
-	midCaptioningManagerCaptionStyleHasWindowColor     jni.MethodID
-	midCaptioningManagerCaptionStyleToString           jni.MethodID
-
-	clsCaptioningManagerCaptioningChangeListener                                 *jni.GlobalRef
-	midCaptioningManagerCaptioningChangeListenerOnEnabledChanged                 jni.MethodID
-	midCaptioningManagerCaptioningChangeListenerOnFontScaleChanged               jni.MethodID
-	midCaptioningManagerCaptioningChangeListenerOnLocaleChanged                  jni.MethodID
-	midCaptioningManagerCaptioningChangeListenerOnSystemAudioCaptioningChanged   jni.MethodID
-	midCaptioningManagerCaptioningChangeListenerOnSystemAudioCaptioningUiChanged jni.MethodID
-	midCaptioningManagerCaptioningChangeListenerOnUserStyleChanged               jni.MethodID
-	midCaptioningManagerCaptioningChangeListenerToString                         jni.MethodID
-
-	clsManager                                               *jni.GlobalRef
-	midManagerAddAccessibilityRequestPreparer                jni.MethodID
-	midManagerAddAccessibilityServicesStateChangeListener1   jni.MethodID
-	midManagerAddAccessibilityServicesStateChangeListener2_1 jni.MethodID
-	midManagerAddAccessibilityStateChangeListener            jni.MethodID
-	midManagerAddAudioDescriptionRequestedChangeListener     jni.MethodID
-	midManagerAddHighContrastTextStateChangeListener         jni.MethodID
-	midManagerAddTouchExplorationStateChangeListener         jni.MethodID
-	midManagerGetAccessibilityFocusColor                     jni.MethodID
-	midManagerGetAccessibilityFocusStrokeWidth               jni.MethodID
-	midManagerGetAccessibilityServiceList                    jni.MethodID
-	midManagerGetEnabledAccessibilityServiceList             jni.MethodID
-	midManagerGetInstalledAccessibilityServiceList           jni.MethodID
-	midManagerGetRecommendedTimeoutMillis                    jni.MethodID
-	midManagerInterrupt                                      jni.MethodID
-	midManagerIsAudioDescriptionRequested                    jni.MethodID
-	midManagerIsEnabled                                      jni.MethodID
-	midManagerIsHighContrastTextEnabled                      jni.MethodID
-	midManagerIsRequestFromAccessibilityTool                 jni.MethodID
-	midManagerIsTouchExplorationEnabled                      jni.MethodID
-	midManagerRemoveAccessibilityRequestPreparer             jni.MethodID
-	midManagerRemoveAccessibilityServicesStateChangeListener jni.MethodID
-	midManagerRemoveAccessibilityStateChangeListener         jni.MethodID
-	midManagerRemoveAudioDescriptionRequestedChangeListener  jni.MethodID
-	midManagerRemoveHighContrastTextStateChangeListener      jni.MethodID
-	midManagerRemoveTouchExplorationStateChangeListener      jni.MethodID
-	midManagerSendAccessibilityEvent                         jni.MethodID
-	midManagerToString                                       jni.MethodID
-	midManagerIsAccessibilityButtonSupported                 jni.MethodID
-
-	clsManagerAccessibilityServicesStateChangeListener                                    *jni.GlobalRef
-	midManagerAccessibilityServicesStateChangeListenerOnAccessibilityServicesStateChanged jni.MethodID
-	midManagerAccessibilityServicesStateChangeListenerToString                            jni.MethodID
-
-	clsManagerAccessibilityStateChangeListener                            *jni.GlobalRef
-	midManagerAccessibilityStateChangeListenerOnAccessibilityStateChanged jni.MethodID
-	midManagerAccessibilityStateChangeListenerToString                    jni.MethodID
-
-	clsManagerAudioDescriptionRequestedChangeListener                                   *jni.GlobalRef
-	midManagerAudioDescriptionRequestedChangeListenerOnAudioDescriptionRequestedChanged jni.MethodID
-	midManagerAudioDescriptionRequestedChangeListenerToString                           jni.MethodID
-
-	clsManagerHighContrastTextStateChangeListener                               *jni.GlobalRef
-	midManagerHighContrastTextStateChangeListenerOnHighContrastTextStateChanged jni.MethodID
-	midManagerHighContrastTextStateChangeListenerToString                       jni.MethodID
-
-	clsManagerTouchExplorationStateChangeListener                               *jni.GlobalRef
-	midManagerTouchExplorationStateChangeListenerOnTouchExplorationStateChanged jni.MethodID
-	midManagerTouchExplorationStateChangeListenerToString                       jni.MethodID
-
-	clsEvent                              *jni.GlobalRef
-	midEventCtor                          jni.MethodID
-	midEventAppendRecord                  jni.MethodID
-	midEventDescribeContents              jni.MethodID
-	midEventGetAction                     jni.MethodID
-	midEventGetContentChangeTypes         jni.MethodID
-	midEventGetEventTime                  jni.MethodID
-	midEventGetEventType                  jni.MethodID
-	midEventGetMovementGranularity        jni.MethodID
-	midEventGetPackageName                jni.MethodID
-	midEventGetRecord                     jni.MethodID
-	midEventGetRecordCount                jni.MethodID
-	midEventGetSpeechStateChangeTypes     jni.MethodID
-	midEventGetWindowChanges              jni.MethodID
-	midEventInitFromParcel                jni.MethodID
-	midEventIsAccessibilityDataSensitive  jni.MethodID
-	midEventRecycle                       jni.MethodID
-	midEventSetAccessibilityDataSensitive jni.MethodID
-	midEventSetAction                     jni.MethodID
-	midEventSetContentChangeTypes         jni.MethodID
-	midEventSetEventTime                  jni.MethodID
-	midEventSetEventType                  jni.MethodID
-	midEventSetMovementGranularity        jni.MethodID
-	midEventSetPackageName                jni.MethodID
-	midEventSetSpeechStateChangeTypes     jni.MethodID
-	midEventToString                      jni.MethodID
-	midEventWriteToParcel                 jni.MethodID
-	midEventEventTypeToString             jni.MethodID
-	midEventObtain0                       jni.MethodID
-	midEventObtain1_1                     jni.MethodID
-	midEventObtain1_2                     jni.MethodID
+	clsNodeProvider                                    *jni.GlobalRef
+	midNodeProviderAddExtraDataToAccessibilityNodeInfo jni.MethodID
+	midNodeProviderCreateAccessibilityNodeInfo         jni.MethodID
+	midNodeProviderFindAccessibilityNodeInfosByText    jni.MethodID
+	midNodeProviderFindFocus                           jni.MethodID
+	midNodeProviderPerformAction                       jni.MethodID
+	midNodeProviderToString                            jni.MethodID
 
 	clsRecord                      *jni.GlobalRef
 	midRecordCtor                  jni.MethodID
@@ -463,14 +471,6 @@ var (
 	midRecordToString              jni.MethodID
 	midRecordObtain0               jni.MethodID
 	midRecordObtain1_1             jni.MethodID
-
-	clsNodeProvider                                    *jni.GlobalRef
-	midNodeProviderAddExtraDataToAccessibilityNodeInfo jni.MethodID
-	midNodeProviderCreateAccessibilityNodeInfo         jni.MethodID
-	midNodeProviderFindAccessibilityNodeInfosByText    jni.MethodID
-	midNodeProviderFindFocus                           jni.MethodID
-	midNodeProviderPerformAction                       jni.MethodID
-	midNodeProviderToString                            jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -490,68 +490,6 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
-
-	c, err = env.FindClass("android/view/accessibility/AccessibilityRequestPreparer")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsRequestPreparer = env.NewGlobalRef(&c.Object)
-
-		midRequestPreparerGetView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRequestPreparer)), "getView", "()Landroid/view/View;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRequestPreparerOnPrepareExtraData, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRequestPreparer)), "onPrepareExtraData", "(ILjava/lang/String;Landroid/os/Bundle;Landroid/os/Message;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRequestPreparerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRequestPreparer)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/view/accessibility/AccessibilityEventSource")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsEventSource = env.NewGlobalRef(&c.Object)
-
-		midEventSourceSendAccessibilityEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEventSource)), "sendAccessibilityEvent", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEventSourceSendAccessibilityEventUnchecked, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEventSource)), "sendAccessibilityEventUnchecked", "(Landroid/view/accessibility/AccessibilityEvent;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEventSourceToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEventSource)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
 
 	c, err = env.FindClass("android/view/accessibility/AccessibilityWindowInfo")
 	if err != nil {
@@ -748,6 +686,809 @@ func doInit(env *jni.Env) error {
 		}
 
 		midWindowInfoObtain1_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsWindowInfo)), "obtain", "(Landroid/view/accessibility/AccessibilityWindowInfo;)Landroid/view/accessibility/AccessibilityWindowInfo;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/view/accessibility/AccessibilityEvent")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsEvent = env.NewGlobalRef(&c.Object)
+		midEventCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midEventAppendRecord, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "appendRecord", "(Landroid/view/accessibility/AccessibilityRecord;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEventDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEventGetAction, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "getAction", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEventGetContentChangeTypes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "getContentChangeTypes", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEventGetEventTime, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "getEventTime", "()J")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEventGetEventType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "getEventType", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEventGetMovementGranularity, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "getMovementGranularity", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEventGetPackageName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "getPackageName", "()Ljava/lang/CharSequence;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEventGetRecord, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "getRecord", "(I)Landroid/view/accessibility/AccessibilityRecord;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEventGetRecordCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "getRecordCount", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEventGetSpeechStateChangeTypes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "getSpeechStateChangeTypes", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEventGetWindowChanges, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "getWindowChanges", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEventInitFromParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "initFromParcel", "(Landroid/os/Parcel;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEventIsAccessibilityDataSensitive, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "isAccessibilityDataSensitive", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEventRecycle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "recycle", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEventSetAccessibilityDataSensitive, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "setAccessibilityDataSensitive", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEventSetAction, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "setAction", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEventSetContentChangeTypes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "setContentChangeTypes", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEventSetEventTime, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "setEventTime", "(J)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEventSetEventType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "setEventType", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEventSetMovementGranularity, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "setMovementGranularity", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEventSetPackageName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "setPackageName", "(Ljava/lang/CharSequence;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEventSetSpeechStateChangeTypes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "setSpeechStateChangeTypes", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEventToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEventWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEventEventTypeToString, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "eventTypeToString", "(I)Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEventObtain0, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "obtain", "()Landroid/view/accessibility/AccessibilityEvent;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEventObtain1_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "obtain", "(Landroid/view/accessibility/AccessibilityEvent;)Landroid/view/accessibility/AccessibilityEvent;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEventObtain1_2, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "obtain", "(I)Landroid/view/accessibility/AccessibilityEvent;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/view/accessibility/AccessibilityEventSource")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsEventSource = env.NewGlobalRef(&c.Object)
+
+		midEventSourceSendAccessibilityEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEventSource)), "sendAccessibilityEvent", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEventSourceSendAccessibilityEventUnchecked, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEventSource)), "sendAccessibilityEventUnchecked", "(Landroid/view/accessibility/AccessibilityEvent;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEventSourceToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEventSource)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/view/accessibility/CaptioningManager")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsCaptioningManager = env.NewGlobalRef(&c.Object)
+
+		midCaptioningManagerAddCaptioningChangeListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCaptioningManager)), "addCaptioningChangeListener", "(Landroid/view/accessibility/CaptioningManager$CaptioningChangeListener;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCaptioningManagerGetFontScale, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCaptioningManager)), "getFontScale", "()F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCaptioningManagerGetLocale, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCaptioningManager)), "getLocale", "()Ljava/util/Locale;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCaptioningManagerGetUserStyle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCaptioningManager)), "getUserStyle", "()Landroid/view/accessibility/CaptioningManager$CaptionStyle;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCaptioningManagerIsCallCaptioningEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCaptioningManager)), "isCallCaptioningEnabled", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCaptioningManagerIsEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCaptioningManager)), "isEnabled", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCaptioningManagerIsSystemAudioCaptioningEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCaptioningManager)), "isSystemAudioCaptioningEnabled", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCaptioningManagerIsSystemAudioCaptioningUiEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCaptioningManager)), "isSystemAudioCaptioningUiEnabled", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCaptioningManagerRemoveCaptioningChangeListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCaptioningManager)), "removeCaptioningChangeListener", "(Landroid/view/accessibility/CaptioningManager$CaptioningChangeListener;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCaptioningManagerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCaptioningManager)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/view/accessibility/CaptioningManager$CaptionStyle")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsCaptioningManagerCaptionStyle = env.NewGlobalRef(&c.Object)
+
+		midCaptioningManagerCaptionStyleGetTypeface, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCaptioningManagerCaptionStyle)), "getTypeface", "()Landroid/graphics/Typeface;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCaptioningManagerCaptionStyleHasBackgroundColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCaptioningManagerCaptionStyle)), "hasBackgroundColor", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCaptioningManagerCaptionStyleHasEdgeColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCaptioningManagerCaptionStyle)), "hasEdgeColor", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCaptioningManagerCaptionStyleHasEdgeType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCaptioningManagerCaptionStyle)), "hasEdgeType", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCaptioningManagerCaptionStyleHasForegroundColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCaptioningManagerCaptionStyle)), "hasForegroundColor", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCaptioningManagerCaptionStyleHasWindowColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCaptioningManagerCaptionStyle)), "hasWindowColor", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCaptioningManagerCaptionStyleToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCaptioningManagerCaptionStyle)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/view/accessibility/CaptioningManager$CaptioningChangeListener")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsCaptioningManagerCaptioningChangeListener = env.NewGlobalRef(&c.Object)
+
+		midCaptioningManagerCaptioningChangeListenerOnEnabledChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCaptioningManagerCaptioningChangeListener)), "onEnabledChanged", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCaptioningManagerCaptioningChangeListenerOnFontScaleChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCaptioningManagerCaptioningChangeListener)), "onFontScaleChanged", "(F)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCaptioningManagerCaptioningChangeListenerOnLocaleChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCaptioningManagerCaptioningChangeListener)), "onLocaleChanged", "(Ljava/util/Locale;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCaptioningManagerCaptioningChangeListenerOnSystemAudioCaptioningChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCaptioningManagerCaptioningChangeListener)), "onSystemAudioCaptioningChanged", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCaptioningManagerCaptioningChangeListenerOnSystemAudioCaptioningUiChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCaptioningManagerCaptioningChangeListener)), "onSystemAudioCaptioningUiChanged", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCaptioningManagerCaptioningChangeListenerOnUserStyleChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCaptioningManagerCaptioningChangeListener)), "onUserStyleChanged", "(Landroid/view/accessibility/CaptioningManager$CaptionStyle;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCaptioningManagerCaptioningChangeListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCaptioningManagerCaptioningChangeListener)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/view/accessibility/AccessibilityManager")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsManager = env.NewGlobalRef(&c.Object)
+
+		midManagerAddAccessibilityRequestPreparer, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "addAccessibilityRequestPreparer", "(Landroid/view/accessibility/AccessibilityRequestPreparer;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerAddAccessibilityServicesStateChangeListener1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "addAccessibilityServicesStateChangeListener", "(Landroid/view/accessibility/AccessibilityManager$AccessibilityServicesStateChangeListener;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerAddAccessibilityServicesStateChangeListener2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "addAccessibilityServicesStateChangeListener", "(Ljava/util/concurrent/Executor;Landroid/view/accessibility/AccessibilityManager$AccessibilityServicesStateChangeListener;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerAddAccessibilityStateChangeListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "addAccessibilityStateChangeListener", "(Landroid/view/accessibility/AccessibilityManager$AccessibilityStateChangeListener;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerAddAudioDescriptionRequestedChangeListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "addAudioDescriptionRequestedChangeListener", "(Ljava/util/concurrent/Executor;Landroid/view/accessibility/AccessibilityManager$AudioDescriptionRequestedChangeListener;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerAddHighContrastTextStateChangeListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "addHighContrastTextStateChangeListener", "(Ljava/util/concurrent/Executor;Landroid/view/accessibility/AccessibilityManager$HighContrastTextStateChangeListener;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerAddTouchExplorationStateChangeListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "addTouchExplorationStateChangeListener", "(Landroid/view/accessibility/AccessibilityManager$TouchExplorationStateChangeListener;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerGetAccessibilityFocusColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "getAccessibilityFocusColor", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerGetAccessibilityFocusStrokeWidth, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "getAccessibilityFocusStrokeWidth", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerGetAccessibilityServiceList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "getAccessibilityServiceList", "()Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerGetEnabledAccessibilityServiceList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "getEnabledAccessibilityServiceList", "(I)Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerGetInstalledAccessibilityServiceList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "getInstalledAccessibilityServiceList", "()Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerGetRecommendedTimeoutMillis, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "getRecommendedTimeoutMillis", "(II)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerInterrupt, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "interrupt", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerIsAudioDescriptionRequested, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "isAudioDescriptionRequested", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerIsEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "isEnabled", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerIsHighContrastTextEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "isHighContrastTextEnabled", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerIsRequestFromAccessibilityTool, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "isRequestFromAccessibilityTool", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerIsTouchExplorationEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "isTouchExplorationEnabled", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerRemoveAccessibilityRequestPreparer, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "removeAccessibilityRequestPreparer", "(Landroid/view/accessibility/AccessibilityRequestPreparer;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerRemoveAccessibilityServicesStateChangeListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "removeAccessibilityServicesStateChangeListener", "(Landroid/view/accessibility/AccessibilityManager$AccessibilityServicesStateChangeListener;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerRemoveAccessibilityStateChangeListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "removeAccessibilityStateChangeListener", "(Landroid/view/accessibility/AccessibilityManager$AccessibilityStateChangeListener;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerRemoveAudioDescriptionRequestedChangeListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "removeAudioDescriptionRequestedChangeListener", "(Landroid/view/accessibility/AccessibilityManager$AudioDescriptionRequestedChangeListener;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerRemoveHighContrastTextStateChangeListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "removeHighContrastTextStateChangeListener", "(Landroid/view/accessibility/AccessibilityManager$HighContrastTextStateChangeListener;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerRemoveTouchExplorationStateChangeListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "removeTouchExplorationStateChangeListener", "(Landroid/view/accessibility/AccessibilityManager$TouchExplorationStateChangeListener;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerSendAccessibilityEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "sendAccessibilityEvent", "(Landroid/view/accessibility/AccessibilityEvent;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerIsAccessibilityButtonSupported, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "isAccessibilityButtonSupported", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/view/accessibility/AccessibilityManager$AccessibilityServicesStateChangeListener")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsManagerAccessibilityServicesStateChangeListener = env.NewGlobalRef(&c.Object)
+
+		midManagerAccessibilityServicesStateChangeListenerOnAccessibilityServicesStateChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManagerAccessibilityServicesStateChangeListener)), "onAccessibilityServicesStateChanged", "(Landroid/view/accessibility/AccessibilityManager;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerAccessibilityServicesStateChangeListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManagerAccessibilityServicesStateChangeListener)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/view/accessibility/AccessibilityManager$AccessibilityStateChangeListener")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsManagerAccessibilityStateChangeListener = env.NewGlobalRef(&c.Object)
+
+		midManagerAccessibilityStateChangeListenerOnAccessibilityStateChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManagerAccessibilityStateChangeListener)), "onAccessibilityStateChanged", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerAccessibilityStateChangeListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManagerAccessibilityStateChangeListener)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/view/accessibility/AccessibilityManager$AudioDescriptionRequestedChangeListener")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsManagerAudioDescriptionRequestedChangeListener = env.NewGlobalRef(&c.Object)
+
+		midManagerAudioDescriptionRequestedChangeListenerOnAudioDescriptionRequestedChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManagerAudioDescriptionRequestedChangeListener)), "onAudioDescriptionRequestedChanged", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerAudioDescriptionRequestedChangeListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManagerAudioDescriptionRequestedChangeListener)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/view/accessibility/AccessibilityManager$HighContrastTextStateChangeListener")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsManagerHighContrastTextStateChangeListener = env.NewGlobalRef(&c.Object)
+
+		midManagerHighContrastTextStateChangeListenerOnHighContrastTextStateChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManagerHighContrastTextStateChangeListener)), "onHighContrastTextStateChanged", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerHighContrastTextStateChangeListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManagerHighContrastTextStateChangeListener)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/view/accessibility/AccessibilityManager$TouchExplorationStateChangeListener")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsManagerTouchExplorationStateChangeListener = env.NewGlobalRef(&c.Object)
+
+		midManagerTouchExplorationStateChangeListenerOnTouchExplorationStateChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManagerTouchExplorationStateChangeListener)), "onTouchExplorationStateChanged", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerTouchExplorationStateChangeListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManagerTouchExplorationStateChangeListener)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/view/accessibility/AccessibilityRequestPreparer")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsRequestPreparer = env.NewGlobalRef(&c.Object)
+
+		midRequestPreparerGetView, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRequestPreparer)), "getView", "()Landroid/view/View;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRequestPreparerOnPrepareExtraData, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRequestPreparer)), "onPrepareExtraData", "(ILjava/lang/String;Landroid/os/Bundle;Landroid/os/Message;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRequestPreparerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRequestPreparer)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -2356,739 +3097,50 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/view/accessibility/CaptioningManager")
+	c, err = env.FindClass("android/view/accessibility/AccessibilityNodeProvider")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsCaptioningManager = env.NewGlobalRef(&c.Object)
+		clsNodeProvider = env.NewGlobalRef(&c.Object)
 
-		midCaptioningManagerAddCaptioningChangeListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCaptioningManager)), "addCaptioningChangeListener", "(Landroid/view/accessibility/CaptioningManager$CaptioningChangeListener;)V")
+		midNodeProviderAddExtraDataToAccessibilityNodeInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsNodeProvider)), "addExtraDataToAccessibilityNodeInfo", "(ILandroid/view/accessibility/AccessibilityNodeInfo;Ljava/lang/String;Landroid/os/Bundle;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCaptioningManagerGetFontScale, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCaptioningManager)), "getFontScale", "()F")
+		midNodeProviderCreateAccessibilityNodeInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsNodeProvider)), "createAccessibilityNodeInfo", "(I)Landroid/view/accessibility/AccessibilityNodeInfo;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCaptioningManagerGetLocale, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCaptioningManager)), "getLocale", "()Ljava/util/Locale;")
+		midNodeProviderFindAccessibilityNodeInfosByText, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsNodeProvider)), "findAccessibilityNodeInfosByText", "(Ljava/lang/String;I)Ljava/util/List;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCaptioningManagerGetUserStyle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCaptioningManager)), "getUserStyle", "()Landroid/view/accessibility/CaptioningManager$CaptionStyle;")
+		midNodeProviderFindFocus, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsNodeProvider)), "findFocus", "(I)Landroid/view/accessibility/AccessibilityNodeInfo;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCaptioningManagerIsCallCaptioningEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCaptioningManager)), "isCallCaptioningEnabled", "()Z")
+		midNodeProviderPerformAction, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsNodeProvider)), "performAction", "(IILandroid/os/Bundle;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCaptioningManagerIsEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCaptioningManager)), "isEnabled", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCaptioningManagerIsSystemAudioCaptioningEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCaptioningManager)), "isSystemAudioCaptioningEnabled", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCaptioningManagerIsSystemAudioCaptioningUiEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCaptioningManager)), "isSystemAudioCaptioningUiEnabled", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCaptioningManagerRemoveCaptioningChangeListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCaptioningManager)), "removeCaptioningChangeListener", "(Landroid/view/accessibility/CaptioningManager$CaptioningChangeListener;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCaptioningManagerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCaptioningManager)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/view/accessibility/CaptioningManager$CaptionStyle")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsCaptioningManagerCaptionStyle = env.NewGlobalRef(&c.Object)
-
-		midCaptioningManagerCaptionStyleGetTypeface, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCaptioningManagerCaptionStyle)), "getTypeface", "()Landroid/graphics/Typeface;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCaptioningManagerCaptionStyleHasBackgroundColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCaptioningManagerCaptionStyle)), "hasBackgroundColor", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCaptioningManagerCaptionStyleHasEdgeColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCaptioningManagerCaptionStyle)), "hasEdgeColor", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCaptioningManagerCaptionStyleHasEdgeType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCaptioningManagerCaptionStyle)), "hasEdgeType", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCaptioningManagerCaptionStyleHasForegroundColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCaptioningManagerCaptionStyle)), "hasForegroundColor", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCaptioningManagerCaptionStyleHasWindowColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCaptioningManagerCaptionStyle)), "hasWindowColor", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCaptioningManagerCaptionStyleToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCaptioningManagerCaptionStyle)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/view/accessibility/CaptioningManager$CaptioningChangeListener")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsCaptioningManagerCaptioningChangeListener = env.NewGlobalRef(&c.Object)
-
-		midCaptioningManagerCaptioningChangeListenerOnEnabledChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCaptioningManagerCaptioningChangeListener)), "onEnabledChanged", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCaptioningManagerCaptioningChangeListenerOnFontScaleChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCaptioningManagerCaptioningChangeListener)), "onFontScaleChanged", "(F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCaptioningManagerCaptioningChangeListenerOnLocaleChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCaptioningManagerCaptioningChangeListener)), "onLocaleChanged", "(Ljava/util/Locale;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCaptioningManagerCaptioningChangeListenerOnSystemAudioCaptioningChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCaptioningManagerCaptioningChangeListener)), "onSystemAudioCaptioningChanged", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCaptioningManagerCaptioningChangeListenerOnSystemAudioCaptioningUiChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCaptioningManagerCaptioningChangeListener)), "onSystemAudioCaptioningUiChanged", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCaptioningManagerCaptioningChangeListenerOnUserStyleChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCaptioningManagerCaptioningChangeListener)), "onUserStyleChanged", "(Landroid/view/accessibility/CaptioningManager$CaptionStyle;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCaptioningManagerCaptioningChangeListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCaptioningManagerCaptioningChangeListener)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/view/accessibility/AccessibilityManager")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsManager = env.NewGlobalRef(&c.Object)
-
-		midManagerAddAccessibilityRequestPreparer, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "addAccessibilityRequestPreparer", "(Landroid/view/accessibility/AccessibilityRequestPreparer;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerAddAccessibilityServicesStateChangeListener1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "addAccessibilityServicesStateChangeListener", "(Landroid/view/accessibility/AccessibilityManager$AccessibilityServicesStateChangeListener;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerAddAccessibilityServicesStateChangeListener2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "addAccessibilityServicesStateChangeListener", "(Ljava/util/concurrent/Executor;Landroid/view/accessibility/AccessibilityManager$AccessibilityServicesStateChangeListener;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerAddAccessibilityStateChangeListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "addAccessibilityStateChangeListener", "(Landroid/view/accessibility/AccessibilityManager$AccessibilityStateChangeListener;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerAddAudioDescriptionRequestedChangeListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "addAudioDescriptionRequestedChangeListener", "(Ljava/util/concurrent/Executor;Landroid/view/accessibility/AccessibilityManager$AudioDescriptionRequestedChangeListener;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerAddHighContrastTextStateChangeListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "addHighContrastTextStateChangeListener", "(Ljava/util/concurrent/Executor;Landroid/view/accessibility/AccessibilityManager$HighContrastTextStateChangeListener;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerAddTouchExplorationStateChangeListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "addTouchExplorationStateChangeListener", "(Landroid/view/accessibility/AccessibilityManager$TouchExplorationStateChangeListener;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerGetAccessibilityFocusColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "getAccessibilityFocusColor", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerGetAccessibilityFocusStrokeWidth, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "getAccessibilityFocusStrokeWidth", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerGetAccessibilityServiceList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "getAccessibilityServiceList", "()Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerGetEnabledAccessibilityServiceList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "getEnabledAccessibilityServiceList", "(I)Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerGetInstalledAccessibilityServiceList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "getInstalledAccessibilityServiceList", "()Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerGetRecommendedTimeoutMillis, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "getRecommendedTimeoutMillis", "(II)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerInterrupt, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "interrupt", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerIsAudioDescriptionRequested, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "isAudioDescriptionRequested", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerIsEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "isEnabled", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerIsHighContrastTextEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "isHighContrastTextEnabled", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerIsRequestFromAccessibilityTool, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "isRequestFromAccessibilityTool", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerIsTouchExplorationEnabled, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "isTouchExplorationEnabled", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerRemoveAccessibilityRequestPreparer, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "removeAccessibilityRequestPreparer", "(Landroid/view/accessibility/AccessibilityRequestPreparer;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerRemoveAccessibilityServicesStateChangeListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "removeAccessibilityServicesStateChangeListener", "(Landroid/view/accessibility/AccessibilityManager$AccessibilityServicesStateChangeListener;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerRemoveAccessibilityStateChangeListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "removeAccessibilityStateChangeListener", "(Landroid/view/accessibility/AccessibilityManager$AccessibilityStateChangeListener;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerRemoveAudioDescriptionRequestedChangeListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "removeAudioDescriptionRequestedChangeListener", "(Landroid/view/accessibility/AccessibilityManager$AudioDescriptionRequestedChangeListener;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerRemoveHighContrastTextStateChangeListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "removeHighContrastTextStateChangeListener", "(Landroid/view/accessibility/AccessibilityManager$HighContrastTextStateChangeListener;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerRemoveTouchExplorationStateChangeListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "removeTouchExplorationStateChangeListener", "(Landroid/view/accessibility/AccessibilityManager$TouchExplorationStateChangeListener;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerSendAccessibilityEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "sendAccessibilityEvent", "(Landroid/view/accessibility/AccessibilityEvent;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerIsAccessibilityButtonSupported, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "isAccessibilityButtonSupported", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/view/accessibility/AccessibilityManager$AccessibilityServicesStateChangeListener")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsManagerAccessibilityServicesStateChangeListener = env.NewGlobalRef(&c.Object)
-
-		midManagerAccessibilityServicesStateChangeListenerOnAccessibilityServicesStateChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManagerAccessibilityServicesStateChangeListener)), "onAccessibilityServicesStateChanged", "(Landroid/view/accessibility/AccessibilityManager;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerAccessibilityServicesStateChangeListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManagerAccessibilityServicesStateChangeListener)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/view/accessibility/AccessibilityManager$AccessibilityStateChangeListener")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsManagerAccessibilityStateChangeListener = env.NewGlobalRef(&c.Object)
-
-		midManagerAccessibilityStateChangeListenerOnAccessibilityStateChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManagerAccessibilityStateChangeListener)), "onAccessibilityStateChanged", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerAccessibilityStateChangeListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManagerAccessibilityStateChangeListener)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/view/accessibility/AccessibilityManager$AudioDescriptionRequestedChangeListener")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsManagerAudioDescriptionRequestedChangeListener = env.NewGlobalRef(&c.Object)
-
-		midManagerAudioDescriptionRequestedChangeListenerOnAudioDescriptionRequestedChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManagerAudioDescriptionRequestedChangeListener)), "onAudioDescriptionRequestedChanged", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerAudioDescriptionRequestedChangeListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManagerAudioDescriptionRequestedChangeListener)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/view/accessibility/AccessibilityManager$HighContrastTextStateChangeListener")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsManagerHighContrastTextStateChangeListener = env.NewGlobalRef(&c.Object)
-
-		midManagerHighContrastTextStateChangeListenerOnHighContrastTextStateChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManagerHighContrastTextStateChangeListener)), "onHighContrastTextStateChanged", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerHighContrastTextStateChangeListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManagerHighContrastTextStateChangeListener)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/view/accessibility/AccessibilityManager$TouchExplorationStateChangeListener")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsManagerTouchExplorationStateChangeListener = env.NewGlobalRef(&c.Object)
-
-		midManagerTouchExplorationStateChangeListenerOnTouchExplorationStateChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManagerTouchExplorationStateChangeListener)), "onTouchExplorationStateChanged", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerTouchExplorationStateChangeListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManagerTouchExplorationStateChangeListener)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/view/accessibility/AccessibilityEvent")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsEvent = env.NewGlobalRef(&c.Object)
-		midEventCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midEventAppendRecord, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "appendRecord", "(Landroid/view/accessibility/AccessibilityRecord;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEventDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEventGetAction, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "getAction", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEventGetContentChangeTypes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "getContentChangeTypes", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEventGetEventTime, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "getEventTime", "()J")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEventGetEventType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "getEventType", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEventGetMovementGranularity, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "getMovementGranularity", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEventGetPackageName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "getPackageName", "()Ljava/lang/CharSequence;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEventGetRecord, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "getRecord", "(I)Landroid/view/accessibility/AccessibilityRecord;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEventGetRecordCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "getRecordCount", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEventGetSpeechStateChangeTypes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "getSpeechStateChangeTypes", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEventGetWindowChanges, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "getWindowChanges", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEventInitFromParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "initFromParcel", "(Landroid/os/Parcel;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEventIsAccessibilityDataSensitive, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "isAccessibilityDataSensitive", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEventRecycle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "recycle", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEventSetAccessibilityDataSensitive, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "setAccessibilityDataSensitive", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEventSetAction, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "setAction", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEventSetContentChangeTypes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "setContentChangeTypes", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEventSetEventTime, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "setEventTime", "(J)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEventSetEventType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "setEventType", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEventSetMovementGranularity, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "setMovementGranularity", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEventSetPackageName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "setPackageName", "(Ljava/lang/CharSequence;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEventSetSpeechStateChangeTypes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "setSpeechStateChangeTypes", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEventToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEventWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEventEventTypeToString, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "eventTypeToString", "(I)Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEventObtain0, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "obtain", "()Landroid/view/accessibility/AccessibilityEvent;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEventObtain1_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "obtain", "(Landroid/view/accessibility/AccessibilityEvent;)Landroid/view/accessibility/AccessibilityEvent;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEventObtain1_2, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsEvent)), "obtain", "(I)Landroid/view/accessibility/AccessibilityEvent;")
+		midNodeProviderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsNodeProvider)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -3474,58 +3526,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midRecordObtain1_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRecord)), "obtain", "(Landroid/view/accessibility/AccessibilityRecord;)Landroid/view/accessibility/AccessibilityRecord;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/view/accessibility/AccessibilityNodeProvider")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsNodeProvider = env.NewGlobalRef(&c.Object)
-
-		midNodeProviderAddExtraDataToAccessibilityNodeInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsNodeProvider)), "addExtraDataToAccessibilityNodeInfo", "(ILandroid/view/accessibility/AccessibilityNodeInfo;Ljava/lang/String;Landroid/os/Bundle;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midNodeProviderCreateAccessibilityNodeInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsNodeProvider)), "createAccessibilityNodeInfo", "(I)Landroid/view/accessibility/AccessibilityNodeInfo;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midNodeProviderFindAccessibilityNodeInfosByText, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsNodeProvider)), "findAccessibilityNodeInfosByText", "(Ljava/lang/String;I)Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midNodeProviderFindFocus, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsNodeProvider)), "findFocus", "(I)Landroid/view/accessibility/AccessibilityNodeInfo;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midNodeProviderPerformAction, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsNodeProvider)), "performAction", "(IILandroid/os/Bundle;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midNodeProviderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsNodeProvider)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

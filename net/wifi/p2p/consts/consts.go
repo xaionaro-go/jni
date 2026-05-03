@@ -18,12 +18,6 @@ const (
 	PccModeConnectionTypeLegacyOnly                    int = 0
 	PccModeConnectionTypeLegacyOrR2                    int = 1
 	PccModeConnectionTypeR2Only                        int = 2
-	PairingBootstrappingMethodDisplayPassphrase        int = 4
-	PairingBootstrappingMethodDisplayPincode           int = 2
-	PairingBootstrappingMethodKeypadPassphrase         int = 16
-	PairingBootstrappingMethodKeypadPincode            int = 8
-	PairingBootstrappingMethodOpportunistic            int = 1
-	PairingBootstrappingMethodOutOfBand                int = 32
 	Available                                          int = 3
 	Connected                                          int = 0
 	Failed                                             int = 2
@@ -84,6 +78,12 @@ const (
 	RequestTypeInvitation                              int = 1
 	RequestTypeJoin                                    int = 2
 	RequestTypeNegotiation                             int = 0
+	PairingBootstrappingMethodDisplayPassphrase        int = 4
+	PairingBootstrappingMethodDisplayPincode           int = 2
+	PairingBootstrappingMethodKeypadPassphrase         int = 16
+	PairingBootstrappingMethodKeypadPincode            int = 8
+	PairingBootstrappingMethodOpportunistic            int = 1
+	PairingBootstrappingMethodOutOfBand                int = 32
 )
 
 const (

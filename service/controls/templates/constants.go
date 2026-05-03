@@ -13,6 +13,7 @@ const (
 	TypeThumbnail    = consts.TypeThumbnail
 	TypeToggle       = consts.TypeToggle
 	TypeToggleRange  = consts.TypeToggleRange
+	Creator          = consts.Creator
 	FlagModeCool     = consts.FlagModeCool
 	FlagModeEco      = consts.FlagModeEco
 	FlagModeHeat     = consts.FlagModeHeat
@@ -24,5 +25,4 @@ const (
 	ModeHeatCool     = consts.ModeHeatCool
 	ModeOff          = consts.ModeOff
 	ModeUnknown      = consts.ModeUnknown
-	Creator          = consts.Creator
 )

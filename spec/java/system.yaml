@@ -5,256 +5,33 @@
 package: system
 go_import: github.com/AndroidGoLab/jni/system
 classes:
-    - java_class: android.system.OsConstants
-      go_type: OsConstants
-      static_methods:
-        - java_method: S_ISBLK
-          go_name: S_ISBLK
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: S_ISCHR
-          go_name: S_ISCHR
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: S_ISDIR
-          go_name: S_ISDIR
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: S_ISFIFO
-          go_name: S_ISFIFO
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: S_ISLNK
-          go_name: S_ISLNK
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: S_ISREG
-          go_name: S_ISREG
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: S_ISSOCK
-          go_name: S_ISSOCK
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: WCOREDUMP
-          go_name: WCOREDUMP
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: WEXITSTATUS
-          go_name: WEXITSTATUS
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: WIFEXITED
-          go_name: WIFEXITED
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: WIFSIGNALED
-          go_name: WIFSIGNALED
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: WIFSTOPPED
-          go_name: WIFSTOPPED
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: WSTOPSIG
-          go_name: WSTOPSIG
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: WTERMSIG
-          go_name: WTERMSIG
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: errnoName
-          go_name: ErrnoName
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: String
-          error: true
-        - java_method: gaiName
-          go_name: GaiName
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: String
-          error: true
-    - java_class: android.system.ErrnoException
-      go_type: ErrnoException
+    - java_class: android.system.StructMsghdr
+      go_type: StructMsghdr
       obtain: constructor
       constructor_params:
-        - java_type: String
+        - java_type: java.net.SocketAddress
           go_name: arg0
-        - java_type: int
+        - java_type: java.nio.ByteBuffer[]
           go_name: arg1
-      methods:
-        - java_method: getMessage
-          go_name: GetMessage
-          returns: String
-          error: true
-        - java_method: rethrowAsIOException
-          go_name: RethrowAsIOException
-          returns: java.io.IOException
-          error: true
-        - java_method: rethrowAsSocketException
-          go_name: RethrowAsSocketException
-          returns: java.net.SocketException
-          error: true
-    - java_class: android.system.StructPollfd
-      go_type: StructPollfd
-      obtain: constructor
-      methods:
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-    - java_class: android.system.Int64Ref
-      go_type: Int64Ref
-      obtain: constructor
-      constructor_params:
-        - java_type: long
-          go_name: arg0
-      methods:
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-    - java_class: android.system.StructTimeval
-      go_type: StructTimeval
-      methods:
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toMillis
-          go_name: ToMillis
-          returns: long
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-      static_methods:
-        - java_method: fromMillis
-          go_name: FromMillis
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: android.system.StructTimeval
-          error: true
-    - java_class: android.system.StructCmsghdr
-      go_type: StructCmsghdr
-      obtain: constructor
-      constructor_params:
-        - java_type: int
-          go_name: arg0
-        - java_type: int
-          go_name: arg1
-        - java_type: '[B'
+        - java_type: android.system.StructCmsghdr[]
           go_name: arg2
-    - java_class: android.system.StructUtsname
-      go_type: StructUtsname
-      obtain: constructor
-      constructor_params:
-        - java_type: String
-          go_name: arg0
-        - java_type: String
-          go_name: arg1
-        - java_type: String
-          go_name: arg2
-        - java_type: String
+        - java_type: int
           go_name: arg3
-        - java_type: String
-          go_name: arg4
-      methods:
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-    - java_class: android.system.StructTimespec
-      go_type: StructTimespec
+    - java_class: android.system.VmSocketAddress
+      go_type: VmSocketAddress
       obtain: constructor
       constructor_params:
-        - java_type: long
+        - java_type: int
           go_name: arg0
-        - java_type: long
+        - java_type: int
           go_name: arg1
       methods:
-        - java_method: compareTo
-          go_name: CompareTo1
-          params:
-            - java_type: android.system.StructTimespec
-              go_name: arg0
+        - java_method: getSvmCid
+          go_name: GetSvmCid
           returns: int
           error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: compareTo
-          go_name: CompareTo1_1
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
+        - java_method: getSvmPort
+          go_name: GetSvmPort
           returns: int
           error: true
     - java_class: android.system.Os
@@ -1162,30 +939,131 @@ classes:
               go_name: arg3
           returns: int
           error: true
-    - java_class: android.system.SystemCleaner
-      go_type: Cleaner
+    - java_class: android.system.OsConstants
+      go_type: OsConstants
       static_methods:
-        - java_method: cleaner
-          go_name: Cleaner
-          returns: java.lang.ref.Cleaner
+        - java_method: S_ISBLK
+          go_name: S_ISBLK
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
           error: true
-    - java_class: android.system.VmSocketAddress
-      go_type: VmSocketAddress
+        - java_method: S_ISCHR
+          go_name: S_ISCHR
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: S_ISDIR
+          go_name: S_ISDIR
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: S_ISFIFO
+          go_name: S_ISFIFO
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: S_ISLNK
+          go_name: S_ISLNK
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: S_ISREG
+          go_name: S_ISREG
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: S_ISSOCK
+          go_name: S_ISSOCK
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: WCOREDUMP
+          go_name: WCOREDUMP
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: WEXITSTATUS
+          go_name: WEXITSTATUS
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: WIFEXITED
+          go_name: WIFEXITED
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: WIFSIGNALED
+          go_name: WIFSIGNALED
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: WIFSTOPPED
+          go_name: WIFSTOPPED
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: WSTOPSIG
+          go_name: WSTOPSIG
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: WTERMSIG
+          go_name: WTERMSIG
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: errnoName
+          go_name: ErrnoName
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: String
+          error: true
+        - java_method: gaiName
+          go_name: GaiName
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: String
+          error: true
+    - java_class: android.system.StructCmsghdr
+      go_type: StructCmsghdr
       obtain: constructor
       constructor_params:
         - java_type: int
           go_name: arg0
         - java_type: int
           go_name: arg1
-      methods:
-        - java_method: getSvmCid
-          go_name: GetSvmCid
-          returns: int
-          error: true
-        - java_method: getSvmPort
-          go_name: GetSvmPort
-          returns: int
-          error: true
+        - java_type: '[B'
+          go_name: arg2
     - java_class: android.system.StructStatVfs
       go_type: StructStatVfs
       obtain: constructor
@@ -1217,18 +1095,63 @@ classes:
           go_name: ToString
           returns: String
           error: true
-    - java_class: android.system.StructMsghdr
-      go_type: StructMsghdr
+    - java_class: android.system.StructTimespec
+      go_type: StructTimespec
       obtain: constructor
       constructor_params:
-        - java_type: java.net.SocketAddress
+        - java_type: long
           go_name: arg0
-        - java_type: java.nio.ByteBuffer[]
+        - java_type: long
           go_name: arg1
-        - java_type: android.system.StructCmsghdr[]
-          go_name: arg2
-        - java_type: int
-          go_name: arg3
+      methods:
+        - java_method: compareTo
+          go_name: CompareTo1
+          params:
+            - java_type: android.system.StructTimespec
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: compareTo
+          go_name: CompareTo1_1
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: int
+          error: true
+    - java_class: android.system.Int64Ref
+      go_type: Int64Ref
+      obtain: constructor
+      constructor_params:
+        - java_type: long
+          go_name: arg0
+      methods:
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+    - java_class: android.system.StructPollfd
+      go_type: StructPollfd
+      obtain: constructor
+      methods:
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
     - java_class: android.system.StructStat
       go_type: StructStat
       obtain: constructor
@@ -1263,6 +1186,83 @@ classes:
         - java_method: toString
           go_name: ToString
           returns: String
+          error: true
+    - java_class: android.system.StructUtsname
+      go_type: StructUtsname
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+        - java_type: String
+          go_name: arg1
+        - java_type: String
+          go_name: arg2
+        - java_type: String
+          go_name: arg3
+        - java_type: String
+          go_name: arg4
+      methods:
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+    - java_class: android.system.ErrnoException
+      go_type: ErrnoException
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+        - java_type: int
+          go_name: arg1
+      methods:
+        - java_method: getMessage
+          go_name: GetMessage
+          returns: String
+          error: true
+        - java_method: rethrowAsIOException
+          go_name: RethrowAsIOException
+          returns: java.io.IOException
+          error: true
+        - java_method: rethrowAsSocketException
+          go_name: RethrowAsSocketException
+          returns: java.net.SocketException
+          error: true
+    - java_class: android.system.StructTimeval
+      go_type: StructTimeval
+      methods:
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toMillis
+          go_name: ToMillis
+          returns: long
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: fromMillis
+          go_name: FromMillis
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: android.system.StructTimeval
+          error: true
+    - java_class: android.system.SystemCleaner
+      go_type: Cleaner
+      static_methods:
+        - java_method: cleaner
+          go_name: Cleaner
+          returns: java.lang.ref.Cleaner
           error: true
 constants:
     - go_name: AfInet

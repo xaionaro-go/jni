@@ -6,6 +6,12 @@ import "github.com/AndroidGoLab/jni/service/autofill/consts"
 
 const (
 	Creator                             = consts.Creator
+	FlagDelayFill                       = consts.FlagDelayFill
+	FlagDisableActivityOnly             = consts.FlagDisableActivityOnly
+	FlagTrackContextCommited            = consts.FlagTrackContextCommited
+	FlagCompatibilityModeRequest        = consts.FlagCompatibilityModeRequest
+	FlagManualRequest                   = consts.FlagManualRequest
+	FlagSupportsFillDialog              = consts.FlagSupportsFillDialog
 	ErrorNeedsUserAction                = consts.ErrorNeedsUserAction
 	ErrorOther                          = consts.ErrorOther
 	ErrorUnsupported                    = consts.ErrorUnsupported
@@ -26,12 +32,6 @@ const (
 	SaveDataTypePassword                = consts.SaveDataTypePassword
 	SaveDataTypePaymentCard             = consts.SaveDataTypePaymentCard
 	SaveDataTypeUsername                = consts.SaveDataTypeUsername
-	FlagDelayFill                       = consts.FlagDelayFill
-	FlagDisableActivityOnly             = consts.FlagDisableActivityOnly
-	FlagTrackContextCommited            = consts.FlagTrackContextCommited
-	FlagCompatibilityModeRequest        = consts.FlagCompatibilityModeRequest
-	FlagManualRequest                   = consts.FlagManualRequest
-	FlagSupportsFillDialog              = consts.FlagSupportsFillDialog
 	NoSaveUiReasonDatasetMatch          = consts.NoSaveUiReasonDatasetMatch
 	NoSaveUiReasonFieldValidationFailed = consts.NoSaveUiReasonFieldValidationFailed
 	NoSaveUiReasonHasEmptyRequired      = consts.NoSaveUiReasonHasEmptyRequired
@@ -55,9 +55,9 @@ const (
 )
 
 const (
+	TypeOther         = consts.TypeOther
+	TypePasswords     = consts.TypePasswords
 	ExtraFillResponse = consts.ExtraFillResponse
 	ServiceInterface  = consts.ServiceInterface
 	ServiceMetaData   = consts.ServiceMetaData
-	TypeOther         = consts.TypeOther
-	TypePasswords     = consts.TypePasswords
 )

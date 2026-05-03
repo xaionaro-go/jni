@@ -3,14 +3,14 @@
 package consts
 
 const (
+	ServiceMetaData string = "android.view.textservice.scs"
+)
+
+const (
 	Creator                             int = 0
 	ResultAttrDontShowUiForSuggestions  int = 16
 	ResultAttrHasRecommendedSuggestions int = 4
 	ResultAttrInTheDictionary           int = 1
 	ResultAttrLooksLikeGrammarError     int = 8
 	ResultAttrLooksLikeTypo             int = 2
-)
-
-const (
-	ServiceMetaData string = "android.view.textservice.scs"
 )

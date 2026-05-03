@@ -5,27 +5,25 @@
 package: translation
 go_import: github.com/AndroidGoLab/jni/view/translation
 classes:
-    - java_class: android.view.translation.UiTranslationManager
-      go_type: UiTranslationManager
+    - java_class: android.view.translation.UiTranslationStateCallback
+      go_type: UiTranslationStateCallback
       methods:
-        - java_method: registerUiTranslationStateCallback
-          go_name: RegisterUiTranslationStateCallback
-          params:
-            - java_type: java.util.concurrent.Executor
-              go_name: arg0
-            - java_type: android.view.translation.UiTranslationStateCallback
-              go_name: arg1
+        - java_method: onFinished
+          go_name: OnFinished
           returns: void
           error: true
-        - java_method: unregisterUiTranslationStateCallback
-          go_name: UnregisterUiTranslationStateCallback
-          params:
-            - java_type: android.view.translation.UiTranslationStateCallback
-              go_name: arg0
+        - java_method: onPaused
+          go_name: OnPaused
           returns: void
           error: true
-    - java_class: android.view.translation.ViewTranslationResponse
-      go_type: ViewTranslationResponse
+    - java_class: android.view.translation.TranslationSpec
+      go_type: Spec
+      obtain: constructor
+      constructor_params:
+        - java_type: android.icu.util.ULocale
+          go_name: arg0
+        - java_type: int
+          go_name: arg1
       methods:
         - java_method: describeContents
           go_name: DescribeContents
@@ -38,20 +36,13 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
-        - java_method: getAutofillId
-          go_name: GetAutofillId
-          returns: android.view.autofill.AutofillId
+        - java_method: getDataFormat
+          go_name: GetDataFormat
+          returns: int
           error: true
-        - java_method: getKeys
-          go_name: GetKeys
-          returns: java.util.Set<java.lang.String>
-          error: true
-        - java_method: getValue
-          go_name: GetValue
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.view.translation.TranslationResponseValue
+        - java_method: getLocale
+          go_name: GetLocale
+          returns: android.icu.util.ULocale
           error: true
         - java_method: hashCode
           go_name: HashCode
@@ -70,21 +61,91 @@ classes:
               go_name: arg1
           returns: void
           error: true
-    - java_class: android.view.translation.ViewTranslationResponse$Builder
-      go_type: ViewTranslationResponseBuilder
+    - java_class: android.view.translation.TranslationRequest
+      go_type: Request
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getFlags
+          go_name: GetFlags
+          returns: int
+          error: true
+        - java_method: getTranslationRequestValues
+          go_name: GetTranslationRequestValues
+          returns: java.util.List<android.view.translation.TranslationRequestValue>
+          error: true
+        - java_method: getViewTranslationRequests
+          go_name: GetViewTranslationRequests
+          returns: java.util.List<android.view.translation.ViewTranslationRequest>
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.view.translation.TranslationRequest$Builder
+      go_type: RequestBuilder
       methods:
         - java_method: build
           go_name: Build
-          returns: android.view.translation.ViewTranslationResponse
+          returns: android.view.translation.TranslationRequest
           error: true
-        - java_method: setValue
-          go_name: SetValue
+        - java_method: setFlags
+          go_name: SetFlags
           params:
-            - java_type: String
+            - java_type: int
               go_name: arg0
-            - java_type: android.view.translation.TranslationResponseValue
+          returns: android.view.translation.TranslationRequest$Builder
+          error: true
+    - java_class: android.view.translation.TranslationCapability
+      go_type: Capability
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getSourceSpec
+          go_name: GetSourceSpec
+          returns: android.view.translation.TranslationSpec
+          error: true
+        - java_method: getState
+          go_name: GetState
+          returns: int
+          error: true
+        - java_method: getSupportedTranslationFlags
+          go_name: GetSupportedTranslationFlags
+          returns: int
+          error: true
+        - java_method: getTargetSpec
+          go_name: GetTargetSpec
+          returns: android.view.translation.TranslationSpec
+          error: true
+        - java_method: isUiTranslationEnabled
+          go_name: IsUiTranslationEnabled
+          returns: boolean
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
               go_name: arg1
-          returns: android.view.translation.ViewTranslationResponse$Builder
+          returns: void
           error: true
     - java_class: android.view.translation.TranslationRequestValue
       go_type: RequestValue
@@ -129,127 +190,6 @@ classes:
               go_name: arg0
           returns: android.view.translation.TranslationRequestValue
           error: true
-    - java_class: android.view.translation.ViewTranslationCallback
-      go_type: ViewTranslationCallback
-      methods:
-        - java_method: onClearTranslation
-          go_name: OnClearTranslation
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: onHideTranslation
-          go_name: OnHideTranslation
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: onShowTranslation
-          go_name: OnShowTranslation
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-          returns: boolean
-          error: true
-    - java_class: android.view.translation.TranslationCapability
-      go_type: Capability
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getSourceSpec
-          go_name: GetSourceSpec
-          returns: android.view.translation.TranslationSpec
-          error: true
-        - java_method: getState
-          go_name: GetState
-          returns: int
-          error: true
-        - java_method: getSupportedTranslationFlags
-          go_name: GetSupportedTranslationFlags
-          returns: int
-          error: true
-        - java_method: getTargetSpec
-          go_name: GetTargetSpec
-          returns: android.view.translation.TranslationSpec
-          error: true
-        - java_method: isUiTranslationEnabled
-          go_name: IsUiTranslationEnabled
-          returns: boolean
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.view.translation.UiTranslationStateCallback
-      go_type: UiTranslationStateCallback
-      methods:
-        - java_method: onFinished
-          go_name: OnFinished
-          returns: void
-          error: true
-        - java_method: onPaused
-          go_name: OnPaused
-          returns: void
-          error: true
-    - java_class: android.view.translation.TranslationContext
-      go_type: Context
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getSourceSpec
-          go_name: GetSourceSpec
-          returns: android.view.translation.TranslationSpec
-          error: true
-        - java_method: getTargetSpec
-          go_name: GetTargetSpec
-          returns: android.view.translation.TranslationSpec
-          error: true
-        - java_method: getTranslationFlags
-          go_name: GetTranslationFlags
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.view.translation.TranslationContext$Builder
-      go_type: ContextBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.view.translation.TranslationContext
-          error: true
-        - java_method: setTranslationFlags
-          go_name: SetTranslationFlags
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.view.translation.TranslationContext$Builder
-          error: true
     - java_class: android.view.translation.TranslationManager
       go_type: Manager
       methods:
@@ -265,79 +205,6 @@ classes:
         - java_method: getOnDeviceTranslationSettingsActivityIntent
           go_name: GetOnDeviceTranslationSettingsActivityIntent
           returns: android.app.PendingIntent
-          error: true
-    - java_class: android.view.translation.Translator
-      go_type: Translator
-      methods:
-        - java_method: destroy
-          go_name: Destroy
-          returns: void
-          error: true
-        - java_method: isDestroyed
-          go_name: IsDestroyed
-          returns: boolean
-          error: true
-    - java_class: android.view.translation.ViewTranslationRequest
-      go_type: ViewTranslationRequest
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getAutofillId
-          go_name: GetAutofillId
-          returns: android.view.autofill.AutofillId
-          error: true
-        - java_method: getKeys
-          go_name: GetKeys
-          returns: java.util.Set<java.lang.String>
-          error: true
-        - java_method: getValue
-          go_name: GetValue
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.view.translation.TranslationRequestValue
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.view.translation.ViewTranslationRequest$Builder
-      go_type: ViewTranslationRequestBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.view.translation.ViewTranslationRequest
-          error: true
-        - java_method: setValue
-          go_name: SetValue
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: android.view.translation.TranslationRequestValue
-              go_name: arg1
-          returns: android.view.translation.ViewTranslationRequest$Builder
           error: true
     - java_class: android.view.translation.TranslationResponse
       go_type: Response
@@ -407,24 +274,38 @@ classes:
               go_name: arg1
           returns: android.view.translation.TranslationResponse$Builder
           error: true
-    - java_class: android.view.translation.TranslationRequest
-      go_type: Request
+    - java_class: android.view.translation.ViewTranslationResponse
+      go_type: ViewTranslationResponse
       methods:
         - java_method: describeContents
           go_name: DescribeContents
           returns: int
           error: true
-        - java_method: getFlags
-          go_name: GetFlags
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getAutofillId
+          go_name: GetAutofillId
+          returns: android.view.autofill.AutofillId
+          error: true
+        - java_method: getKeys
+          go_name: GetKeys
+          returns: java.util.Set<java.lang.String>
+          error: true
+        - java_method: getValue
+          go_name: GetValue
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.view.translation.TranslationResponseValue
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
           returns: int
-          error: true
-        - java_method: getTranslationRequestValues
-          go_name: GetTranslationRequestValues
-          returns: java.util.List<android.view.translation.TranslationRequestValue>
-          error: true
-        - java_method: getViewTranslationRequests
-          go_name: GetViewTranslationRequests
-          returns: java.util.List<android.view.translation.ViewTranslationRequest>
           error: true
         - java_method: toString
           go_name: ToString
@@ -439,19 +320,183 @@ classes:
               go_name: arg1
           returns: void
           error: true
-    - java_class: android.view.translation.TranslationRequest$Builder
-      go_type: RequestBuilder
+    - java_class: android.view.translation.ViewTranslationResponse$Builder
+      go_type: ViewTranslationResponseBuilder
       methods:
         - java_method: build
           go_name: Build
-          returns: android.view.translation.TranslationRequest
+          returns: android.view.translation.ViewTranslationResponse
           error: true
-        - java_method: setFlags
-          go_name: SetFlags
+        - java_method: setValue
+          go_name: SetValue
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: android.view.translation.TranslationResponseValue
+              go_name: arg1
+          returns: android.view.translation.ViewTranslationResponse$Builder
+          error: true
+    - java_class: android.view.translation.Translator
+      go_type: Translator
+      methods:
+        - java_method: destroy
+          go_name: Destroy
+          returns: void
+          error: true
+        - java_method: isDestroyed
+          go_name: IsDestroyed
+          returns: boolean
+          error: true
+    - java_class: android.view.translation.UiTranslationManager
+      go_type: UiTranslationManager
+      methods:
+        - java_method: registerUiTranslationStateCallback
+          go_name: RegisterUiTranslationStateCallback
+          params:
+            - java_type: java.util.concurrent.Executor
+              go_name: arg0
+            - java_type: android.view.translation.UiTranslationStateCallback
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: unregisterUiTranslationStateCallback
+          go_name: UnregisterUiTranslationStateCallback
+          params:
+            - java_type: android.view.translation.UiTranslationStateCallback
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.view.translation.ViewTranslationCallback
+      go_type: ViewTranslationCallback
+      methods:
+        - java_method: onClearTranslation
+          go_name: OnClearTranslation
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: onHideTranslation
+          go_name: OnHideTranslation
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: onShowTranslation
+          go_name: OnShowTranslation
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+          returns: boolean
+          error: true
+    - java_class: android.view.translation.TranslationContext
+      go_type: Context
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getSourceSpec
+          go_name: GetSourceSpec
+          returns: android.view.translation.TranslationSpec
+          error: true
+        - java_method: getTargetSpec
+          go_name: GetTargetSpec
+          returns: android.view.translation.TranslationSpec
+          error: true
+        - java_method: getTranslationFlags
+          go_name: GetTranslationFlags
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.view.translation.TranslationContext$Builder
+      go_type: ContextBuilder
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.view.translation.TranslationContext
+          error: true
+        - java_method: setTranslationFlags
+          go_name: SetTranslationFlags
           params:
             - java_type: int
               go_name: arg0
-          returns: android.view.translation.TranslationRequest$Builder
+          returns: android.view.translation.TranslationContext$Builder
+          error: true
+    - java_class: android.view.translation.ViewTranslationRequest
+      go_type: ViewTranslationRequest
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getAutofillId
+          go_name: GetAutofillId
+          returns: android.view.autofill.AutofillId
+          error: true
+        - java_method: getKeys
+          go_name: GetKeys
+          returns: java.util.Set<java.lang.String>
+          error: true
+        - java_method: getValue
+          go_name: GetValue
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.view.translation.TranslationRequestValue
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.view.translation.ViewTranslationRequest$Builder
+      go_type: ViewTranslationRequestBuilder
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.view.translation.ViewTranslationRequest
+          error: true
+        - java_method: setValue
+          go_name: SetValue
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: android.view.translation.TranslationRequestValue
+              go_name: arg1
+          returns: android.view.translation.ViewTranslationRequest$Builder
           error: true
     - java_class: android.view.translation.TranslationResponseValue
       go_type: ResponseValue
@@ -533,86 +578,11 @@ classes:
               go_name: arg0
           returns: android.view.translation.TranslationResponseValue$Builder
           error: true
-    - java_class: android.view.translation.TranslationSpec
-      go_type: Spec
-      obtain: constructor
-      constructor_params:
-        - java_type: android.icu.util.ULocale
-          go_name: arg0
-        - java_type: int
-          go_name: arg1
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getDataFormat
-          go_name: GetDataFormat
-          returns: int
-          error: true
-        - java_method: getLocale
-          go_name: GetLocale
-          returns: android.icu.util.ULocale
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
 constants:
     - go_name: Creator
       value: "0"
       go_type: int
-    - go_name: StateAvailableToDownload
-      value: "1"
-      go_type: int
-    - go_name: StateDownloading
-      value: "2"
-      go_type: int
-    - go_name: StateNotAvailable
-      value: "4"
-      go_type: int
-    - go_name: StateOnDevice
-      value: "3"
-      go_type: int
-    - go_name: FlagDefinitions
-      value: "4"
-      go_type: int
-    - go_name: FlagLowLatency
-      value: "1"
-      go_type: int
-    - go_name: FlagTransliteration
-      value: "2"
-      go_type: int
-    - go_name: IdText
-      value: '"android:text"'
-      go_type: string
-    - go_name: TranslationStatusContextUnsupported
-      value: "2"
-      go_type: int
-    - go_name: TranslationStatusSuccess
-      value: "0"
-      go_type: int
-    - go_name: TranslationStatusUnknownError
+    - go_name: DataFormatText
       value: "1"
       go_type: int
     - go_name: FlagDictionaryResult
@@ -627,6 +597,39 @@ constants:
     - go_name: FlagTransliterationResult
       value: "4"
       go_type: int
+    - go_name: StateAvailableToDownload
+      value: "1"
+      go_type: int
+    - go_name: StateDownloading
+      value: "2"
+      go_type: int
+    - go_name: StateNotAvailable
+      value: "4"
+      go_type: int
+    - go_name: StateOnDevice
+      value: "3"
+      go_type: int
+    - go_name: TranslationStatusContextUnsupported
+      value: "2"
+      go_type: int
+    - go_name: TranslationStatusSuccess
+      value: "0"
+      go_type: int
+    - go_name: TranslationStatusUnknownError
+      value: "1"
+      go_type: int
+    - go_name: FlagDefinitions
+      value: "4"
+      go_type: int
+    - go_name: FlagLowLatency
+      value: "1"
+      go_type: int
+    - go_name: FlagTransliteration
+      value: "2"
+      go_type: int
+    - go_name: IdText
+      value: '"android:text"'
+      go_type: string
     - go_name: ExtraDefinitions
       value: '"android.view.translation.extra.DEFINITIONS"'
       go_type: string
@@ -635,7 +638,4 @@ constants:
       go_type: int
     - go_name: StatusSuccess
       value: "0"
-      go_type: int
-    - go_name: DataFormatText
-      value: "1"
       go_type: int

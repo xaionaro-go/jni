@@ -23,17 +23,6 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsResourcesProvider                  *jni.GlobalRef
-	midResourcesProviderClose             jni.MethodID
-	midResourcesProviderToString          jni.MethodID
-	midResourcesProviderEmpty             jni.MethodID
-	midResourcesProviderLoadFromApk1      jni.MethodID
-	midResourcesProviderLoadFromApk2_1    jni.MethodID
-	midResourcesProviderLoadFromDirectory jni.MethodID
-	midResourcesProviderLoadFromSplit     jni.MethodID
-	midResourcesProviderLoadFromTable     jni.MethodID
-	midResourcesProviderLoadOverlay       jni.MethodID
-
 	clsResourcesLoader               *jni.GlobalRef
 	midResourcesLoaderCtor           jni.MethodID
 	midResourcesLoaderAddProvider    jni.MethodID
@@ -44,6 +33,17 @@ var (
 
 	clsAssetsProvider         *jni.GlobalRef
 	midAssetsProviderToString jni.MethodID
+
+	clsResourcesProvider                  *jni.GlobalRef
+	midResourcesProviderClose             jni.MethodID
+	midResourcesProviderToString          jni.MethodID
+	midResourcesProviderEmpty             jni.MethodID
+	midResourcesProviderLoadFromApk1      jni.MethodID
+	midResourcesProviderLoadFromApk2_1    jni.MethodID
+	midResourcesProviderLoadFromDirectory jni.MethodID
+	midResourcesProviderLoadFromSplit     jni.MethodID
+	midResourcesProviderLoadFromTable     jni.MethodID
+	midResourcesProviderLoadOverlay       jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -63,6 +63,72 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
+
+	c, err = env.FindClass("android/content/res/loader/ResourcesLoader")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsResourcesLoader = env.NewGlobalRef(&c.Object)
+		midResourcesLoaderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResourcesLoader)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midResourcesLoaderAddProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResourcesLoader)), "addProvider", "(Landroid/content/res/loader/ResourcesProvider;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midResourcesLoaderClearProviders, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResourcesLoader)), "clearProviders", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midResourcesLoaderGetProviders, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResourcesLoader)), "getProviders", "()Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midResourcesLoaderRemoveProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResourcesLoader)), "removeProvider", "(Landroid/content/res/loader/ResourcesProvider;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midResourcesLoaderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResourcesLoader)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/content/res/loader/AssetsProvider")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAssetsProvider = env.NewGlobalRef(&c.Object)
+
+		midAssetsProviderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAssetsProvider)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
 
 	c, err = env.FindClass("android/content/res/loader/ResourcesProvider")
 	if err != nil {
@@ -129,72 +195,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midResourcesProviderLoadOverlay, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsResourcesProvider)), "loadOverlay", "(Landroid/content/om/OverlayInfo;)Landroid/content/res/loader/ResourcesProvider;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/content/res/loader/ResourcesLoader")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsResourcesLoader = env.NewGlobalRef(&c.Object)
-		midResourcesLoaderCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResourcesLoader)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midResourcesLoaderAddProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResourcesLoader)), "addProvider", "(Landroid/content/res/loader/ResourcesProvider;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midResourcesLoaderClearProviders, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResourcesLoader)), "clearProviders", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midResourcesLoaderGetProviders, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResourcesLoader)), "getProviders", "()Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midResourcesLoaderRemoveProvider, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResourcesLoader)), "removeProvider", "(Landroid/content/res/loader/ResourcesProvider;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midResourcesLoaderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsResourcesLoader)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/content/res/loader/AssetsProvider")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsAssetsProvider = env.NewGlobalRef(&c.Object)
-
-		midAssetsProviderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAssetsProvider)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

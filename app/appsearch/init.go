@@ -23,98 +23,15 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsAppSearchManager         *jni.GlobalRef
-	midAppSearchManagerToString jni.MethodID
-
-	clsAppSearchManagerSearchContext                *jni.GlobalRef
-	midAppSearchManagerSearchContextGetDatabaseName jni.MethodID
-	midAppSearchManagerSearchContextToString        jni.MethodID
-
-	clsCommitBlobResponse                 *jni.GlobalRef
-	midCommitBlobResponseCtor             jni.MethodID
-	midCommitBlobResponseDescribeContents jni.MethodID
-	midCommitBlobResponseWriteToParcel    jni.MethodID
-	midCommitBlobResponseToString         jni.MethodID
-
-	clsRemoveBlobResponse                 *jni.GlobalRef
-	midRemoveBlobResponseCtor             jni.MethodID
-	midRemoveBlobResponseDescribeContents jni.MethodID
-	midRemoveBlobResponseWriteToParcel    jni.MethodID
-	midRemoveBlobResponseToString         jni.MethodID
-
-	clsSearchSuggestionResult                   *jni.GlobalRef
-	midSearchSuggestionResultDescribeContents   jni.MethodID
-	midSearchSuggestionResultEquals             jni.MethodID
-	midSearchSuggestionResultGetSuggestedResult jni.MethodID
-	midSearchSuggestionResultHashCode           jni.MethodID
-	midSearchSuggestionResultWriteToParcel      jni.MethodID
-	midSearchSuggestionResultToString           jni.MethodID
-
-	clsSearchSuggestionResultBuilder                   *jni.GlobalRef
-	midSearchSuggestionResultBuilderBuild              jni.MethodID
-	midSearchSuggestionResultBuilderSetSuggestedResult jni.MethodID
-	midSearchSuggestionResultBuilderToString           jni.MethodID
-
-	clsSearchResult                               *jni.GlobalRef
-	midSearchResultDescribeContents               jni.MethodID
-	midSearchResultGetDatabaseName                jni.MethodID
-	midSearchResultGetGenericDocument             jni.MethodID
-	midSearchResultGetInformationalRankingSignals jni.MethodID
-	midSearchResultGetJoinedResults               jni.MethodID
-	midSearchResultGetMatchInfos                  jni.MethodID
-	midSearchResultGetPackageName                 jni.MethodID
-	midSearchResultGetRankingSignal               jni.MethodID
-	midSearchResultWriteToParcel                  jni.MethodID
-	midSearchResultToString                       jni.MethodID
-
-	clsSearchResultBuilder                              *jni.GlobalRef
-	midSearchResultBuilderAddInformationalRankingSignal jni.MethodID
-	midSearchResultBuilderAddJoinedResult               jni.MethodID
-	midSearchResultBuilderAddMatchInfo                  jni.MethodID
-	midSearchResultBuilderBuild                         jni.MethodID
-	midSearchResultBuilderSetGenericDocument            jni.MethodID
-	midSearchResultBuilderSetRankingSignal              jni.MethodID
-	midSearchResultBuilderToString                      jni.MethodID
-
-	clsSearchResultMatchInfo                      *jni.GlobalRef
-	midSearchResultMatchInfoDescribeContents      jni.MethodID
-	midSearchResultMatchInfoGetExactMatch         jni.MethodID
-	midSearchResultMatchInfoGetExactMatchRange    jni.MethodID
-	midSearchResultMatchInfoGetFullText           jni.MethodID
-	midSearchResultMatchInfoGetPropertyPath       jni.MethodID
-	midSearchResultMatchInfoGetPropertyPathObject jni.MethodID
-	midSearchResultMatchInfoGetSnippet            jni.MethodID
-	midSearchResultMatchInfoGetSnippetRange       jni.MethodID
-	midSearchResultMatchInfoGetSubmatch           jni.MethodID
-	midSearchResultMatchInfoGetSubmatchRange      jni.MethodID
-	midSearchResultMatchInfoWriteToParcel         jni.MethodID
-	midSearchResultMatchInfoToString              jni.MethodID
-
-	clsSearchResultMatchRange         *jni.GlobalRef
-	midSearchResultMatchRangeEquals   jni.MethodID
-	midSearchResultMatchRangeGetEnd   jni.MethodID
-	midSearchResultMatchRangeGetStart jni.MethodID
-	midSearchResultMatchRangeHashCode jni.MethodID
-	midSearchResultMatchRangeToString jni.MethodID
-
-	clsAppSearchBatchResult          *jni.GlobalRef
-	midAppSearchBatchResultIsSuccess jni.MethodID
-	midAppSearchBatchResultToString  jni.MethodID
-
-	clsAppSearchBatchResultBuilder         *jni.GlobalRef
-	midAppSearchBatchResultBuilderToString jni.MethodID
-
-	clsRemoveByDocumentIdRequest                 *jni.GlobalRef
-	midRemoveByDocumentIdRequestDescribeContents jni.MethodID
-	midRemoveByDocumentIdRequestGetIds           jni.MethodID
-	midRemoveByDocumentIdRequestGetNamespace     jni.MethodID
-	midRemoveByDocumentIdRequestWriteToParcel    jni.MethodID
-	midRemoveByDocumentIdRequestToString         jni.MethodID
-
-	clsRemoveByDocumentIdRequestBuilder         *jni.GlobalRef
-	midRemoveByDocumentIdRequestBuilderAddIds   jni.MethodID
-	midRemoveByDocumentIdRequestBuilderBuild    jni.MethodID
-	midRemoveByDocumentIdRequestBuilderToString jni.MethodID
+	clsJoinSpec                              *jni.GlobalRef
+	midJoinSpecDescribeContents              jni.MethodID
+	midJoinSpecGetAggregationScoringStrategy jni.MethodID
+	midJoinSpecGetChildPropertyExpression    jni.MethodID
+	midJoinSpecGetMaxJoinedResultCount       jni.MethodID
+	midJoinSpecGetNestedQuery                jni.MethodID
+	midJoinSpecGetNestedSearchSpec           jni.MethodID
+	midJoinSpecWriteToParcel                 jni.MethodID
+	midJoinSpecToString                      jni.MethodID
 
 	clsSchemaVisibilityConfig                                *jni.GlobalRef
 	midSchemaVisibilityConfigDescribeContents                jni.MethodID
@@ -126,6 +43,14 @@ var (
 	midSchemaVisibilityConfigWriteToParcel                   jni.MethodID
 	midSchemaVisibilityConfigToString                        jni.MethodID
 
+	clsJoinSpecBuilder                              *jni.GlobalRef
+	midJoinSpecBuilderBuild                         jni.MethodID
+	midJoinSpecBuilderSetAggregationScoringStrategy jni.MethodID
+	midJoinSpecBuilderSetChildPropertyExpression    jni.MethodID
+	midJoinSpecBuilderSetMaxJoinedResultCount       jni.MethodID
+	midJoinSpecBuilderSetNestedSearch               jni.MethodID
+	midJoinSpecBuilderToString                      jni.MethodID
+
 	clsSchemaVisibilityConfigBuilder                                *jni.GlobalRef
 	midSchemaVisibilityConfigBuilderAddAllowedPackage               jni.MethodID
 	midSchemaVisibilityConfigBuilderBuild                           jni.MethodID
@@ -133,82 +58,6 @@ var (
 	midSchemaVisibilityConfigBuilderClearRequiredPermissions        jni.MethodID
 	midSchemaVisibilityConfigBuilderSetPubliclyVisibleTargetPackage jni.MethodID
 	midSchemaVisibilityConfigBuilderToString                        jni.MethodID
-
-	clsGetByDocumentIdRequest                 *jni.GlobalRef
-	midGetByDocumentIdRequestDescribeContents jni.MethodID
-	midGetByDocumentIdRequestGetIds           jni.MethodID
-	midGetByDocumentIdRequestGetNamespace     jni.MethodID
-	midGetByDocumentIdRequestWriteToParcel    jni.MethodID
-	midGetByDocumentIdRequestToString         jni.MethodID
-
-	clsGetByDocumentIdRequestBuilder         *jni.GlobalRef
-	midGetByDocumentIdRequestBuilderAddIds   jni.MethodID
-	midGetByDocumentIdRequestBuilderBuild    jni.MethodID
-	midGetByDocumentIdRequestBuilderToString jni.MethodID
-
-	clsAppSearchResult                *jni.GlobalRef
-	midAppSearchResultEquals          jni.MethodID
-	midAppSearchResultGetErrorMessage jni.MethodID
-	midAppSearchResultGetResultCode   jni.MethodID
-	midAppSearchResultGetResultValue  jni.MethodID
-	midAppSearchResultHashCode        jni.MethodID
-	midAppSearchResultIsSuccess       jni.MethodID
-	midAppSearchResultToString        jni.MethodID
-
-	clsReportSystemUsageRequest                        *jni.GlobalRef
-	midReportSystemUsageRequestGetDatabaseName         jni.MethodID
-	midReportSystemUsageRequestGetDocumentId           jni.MethodID
-	midReportSystemUsageRequestGetNamespace            jni.MethodID
-	midReportSystemUsageRequestGetPackageName          jni.MethodID
-	midReportSystemUsageRequestGetUsageTimestampMillis jni.MethodID
-	midReportSystemUsageRequestToString                jni.MethodID
-
-	clsReportSystemUsageRequestBuilder                        *jni.GlobalRef
-	midReportSystemUsageRequestBuilderBuild                   jni.MethodID
-	midReportSystemUsageRequestBuilderSetUsageTimestampMillis jni.MethodID
-	midReportSystemUsageRequestBuilderToString                jni.MethodID
-
-	clsSearchResults         *jni.GlobalRef
-	midSearchResultsClose    jni.MethodID
-	midSearchResultsToString jni.MethodID
-
-	clsMigrator              *jni.GlobalRef
-	midMigratorOnDowngrade   jni.MethodID
-	midMigratorOnUpgrade     jni.MethodID
-	midMigratorShouldMigrate jni.MethodID
-	midMigratorToString      jni.MethodID
-
-	clsPackageIdentifier                     *jni.GlobalRef
-	midPackageIdentifierCtor                 jni.MethodID
-	midPackageIdentifierEquals               jni.MethodID
-	midPackageIdentifierGetPackageName       jni.MethodID
-	midPackageIdentifierGetSha256Certificate jni.MethodID
-	midPackageIdentifierHashCode             jni.MethodID
-	midPackageIdentifierToString             jni.MethodID
-
-	clsReportUsageRequest                        *jni.GlobalRef
-	midReportUsageRequestDescribeContents        jni.MethodID
-	midReportUsageRequestGetDocumentId           jni.MethodID
-	midReportUsageRequestGetNamespace            jni.MethodID
-	midReportUsageRequestGetUsageTimestampMillis jni.MethodID
-	midReportUsageRequestWriteToParcel           jni.MethodID
-	midReportUsageRequestToString                jni.MethodID
-
-	clsReportUsageRequestBuilder                        *jni.GlobalRef
-	midReportUsageRequestBuilderBuild                   jni.MethodID
-	midReportUsageRequestBuilderSetUsageTimestampMillis jni.MethodID
-	midReportUsageRequestBuilderToString                jni.MethodID
-
-	clsPutDocumentsRequest                               *jni.GlobalRef
-	midPutDocumentsRequestGetGenericDocuments            jni.MethodID
-	midPutDocumentsRequestGetTakenActionGenericDocuments jni.MethodID
-	midPutDocumentsRequestToString                       jni.MethodID
-
-	clsPutDocumentsRequestBuilder                               *jni.GlobalRef
-	midPutDocumentsRequestBuilderAddGenericDocuments            jni.MethodID
-	midPutDocumentsRequestBuilderAddTakenActionGenericDocuments jni.MethodID
-	midPutDocumentsRequestBuilderBuild                          jni.MethodID
-	midPutDocumentsRequestBuilderToString                       jni.MethodID
 
 	clsSetSchemaRequest                               *jni.GlobalRef
 	midSetSchemaRequestEquals                         jni.MethodID
@@ -218,6 +67,14 @@ var (
 	midSetSchemaRequestHashCode                       jni.MethodID
 	midSetSchemaRequestIsForceOverride                jni.MethodID
 	midSetSchemaRequestToString                       jni.MethodID
+
+	clsPackageIdentifier                     *jni.GlobalRef
+	midPackageIdentifierCtor                 jni.MethodID
+	midPackageIdentifierEquals               jni.MethodID
+	midPackageIdentifierGetPackageName       jni.MethodID
+	midPackageIdentifierGetSha256Certificate jni.MethodID
+	midPackageIdentifierHashCode             jni.MethodID
+	midPackageIdentifierToString             jni.MethodID
 
 	clsSetSchemaRequestBuilder                                                *jni.GlobalRef
 	midSetSchemaRequestBuilderAddSchemaTypeVisibleToConfig                    jni.MethodID
@@ -235,45 +92,35 @@ var (
 	midSetSchemaRequestBuilderSetVersion                                      jni.MethodID
 	midSetSchemaRequestBuilderToString                                        jni.MethodID
 
-	clsBatchResultCallback         *jni.GlobalRef
-	midBatchResultCallbackToString jni.MethodID
+	clsRemoveByDocumentIdRequest                 *jni.GlobalRef
+	midRemoveByDocumentIdRequestDescribeContents jni.MethodID
+	midRemoveByDocumentIdRequestGetIds           jni.MethodID
+	midRemoveByDocumentIdRequestGetNamespace     jni.MethodID
+	midRemoveByDocumentIdRequestWriteToParcel    jni.MethodID
+	midRemoveByDocumentIdRequestToString         jni.MethodID
 
-	clsSetSchemaResponse                     *jni.GlobalRef
-	midSetSchemaResponseDescribeContents     jni.MethodID
-	midSetSchemaResponseGetDeletedTypes      jni.MethodID
-	midSetSchemaResponseGetIncompatibleTypes jni.MethodID
-	midSetSchemaResponseGetMigratedTypes     jni.MethodID
-	midSetSchemaResponseGetMigrationFailures jni.MethodID
-	midSetSchemaResponseWriteToParcel        jni.MethodID
-	midSetSchemaResponseToString             jni.MethodID
+	clsRemoveByDocumentIdRequestBuilder         *jni.GlobalRef
+	midRemoveByDocumentIdRequestBuilderAddIds   jni.MethodID
+	midRemoveByDocumentIdRequestBuilderBuild    jni.MethodID
+	midRemoveByDocumentIdRequestBuilderToString jni.MethodID
 
-	clsSetSchemaResponseBuilder                    *jni.GlobalRef
-	midSetSchemaResponseBuilderAddDeletedType      jni.MethodID
-	midSetSchemaResponseBuilderAddIncompatibleType jni.MethodID
-	midSetSchemaResponseBuilderAddMigratedType     jni.MethodID
-	midSetSchemaResponseBuilderAddMigrationFailure jni.MethodID
-	midSetSchemaResponseBuilderBuild               jni.MethodID
-	midSetSchemaResponseBuilderToString            jni.MethodID
+	clsOpenBlobForReadResponse                 *jni.GlobalRef
+	midOpenBlobForReadResponseCtor             jni.MethodID
+	midOpenBlobForReadResponseClose            jni.MethodID
+	midOpenBlobForReadResponseDescribeContents jni.MethodID
+	midOpenBlobForReadResponseWriteToParcel    jni.MethodID
+	midOpenBlobForReadResponseToString         jni.MethodID
 
-	clsSetSchemaResponseMigrationFailure                   *jni.GlobalRef
-	midSetSchemaResponseMigrationFailureDescribeContents   jni.MethodID
-	midSetSchemaResponseMigrationFailureGetAppSearchResult jni.MethodID
-	midSetSchemaResponseMigrationFailureGetDocumentId      jni.MethodID
-	midSetSchemaResponseMigrationFailureGetNamespace       jni.MethodID
-	midSetSchemaResponseMigrationFailureGetSchemaType      jni.MethodID
-	midSetSchemaResponseMigrationFailureToString           jni.MethodID
-	midSetSchemaResponseMigrationFailureWriteToParcel      jni.MethodID
+	clsPutDocumentsRequest                               *jni.GlobalRef
+	midPutDocumentsRequestGetGenericDocuments            jni.MethodID
+	midPutDocumentsRequestGetTakenActionGenericDocuments jni.MethodID
+	midPutDocumentsRequestToString                       jni.MethodID
 
-	clsSetBlobVisibilityRequest                                  *jni.GlobalRef
-	midSetBlobVisibilityRequestGetNamespacesNotDisplayedBySystem jni.MethodID
-	midSetBlobVisibilityRequestToString                          jni.MethodID
-
-	clsSetBlobVisibilityRequestBuilder                               *jni.GlobalRef
-	midSetBlobVisibilityRequestBuilderAddNamespaceVisibleToConfig    jni.MethodID
-	midSetBlobVisibilityRequestBuilderBuild                          jni.MethodID
-	midSetBlobVisibilityRequestBuilderClearNamespaceVisibleToConfigs jni.MethodID
-	midSetBlobVisibilityRequestBuilderSetNamespaceDisplayedBySystem  jni.MethodID
-	midSetBlobVisibilityRequestBuilderToString                       jni.MethodID
+	clsPutDocumentsRequestBuilder                               *jni.GlobalRef
+	midPutDocumentsRequestBuilderAddGenericDocuments            jni.MethodID
+	midPutDocumentsRequestBuilderAddTakenActionGenericDocuments jni.MethodID
+	midPutDocumentsRequestBuilderBuild                          jni.MethodID
+	midPutDocumentsRequestBuilderToString                       jni.MethodID
 
 	clsGlobalSearchSession                           *jni.GlobalRef
 	midGlobalSearchSessionClose                      jni.MethodID
@@ -281,74 +128,6 @@ var (
 	midGlobalSearchSessionSearch                     jni.MethodID
 	midGlobalSearchSessionUnregisterObserverCallback jni.MethodID
 	midGlobalSearchSessionToString                   jni.MethodID
-
-	clsStorageInfo                        *jni.GlobalRef
-	midStorageInfoDescribeContents        jni.MethodID
-	midStorageInfoGetAliveDocumentsCount  jni.MethodID
-	midStorageInfoGetAliveNamespacesCount jni.MethodID
-	midStorageInfoGetBlobsCount           jni.MethodID
-	midStorageInfoGetBlobsSizeBytes       jni.MethodID
-	midStorageInfoGetSizeBytes            jni.MethodID
-	midStorageInfoWriteToParcel           jni.MethodID
-	midStorageInfoToString                jni.MethodID
-
-	clsStorageInfoBuilder                        *jni.GlobalRef
-	midStorageInfoBuilderBuild                   jni.MethodID
-	midStorageInfoBuilderSetAliveDocumentsCount  jni.MethodID
-	midStorageInfoBuilderSetAliveNamespacesCount jni.MethodID
-	midStorageInfoBuilderSetBlobsCount           jni.MethodID
-	midStorageInfoBuilderSetBlobsSizeBytes       jni.MethodID
-	midStorageInfoBuilderSetSizeBytes            jni.MethodID
-	midStorageInfoBuilderToString                jni.MethodID
-
-	clsGenericDocument                           *jni.GlobalRef
-	midGenericDocumentEquals                     jni.MethodID
-	midGenericDocumentGetCreationTimestampMillis jni.MethodID
-	midGenericDocumentGetId                      jni.MethodID
-	midGenericDocumentGetNamespace               jni.MethodID
-	midGenericDocumentGetProperty                jni.MethodID
-	midGenericDocumentGetPropertyBlobHandle      jni.MethodID
-	midGenericDocumentGetPropertyBlobHandleArray jni.MethodID
-	midGenericDocumentGetPropertyBoolean         jni.MethodID
-	midGenericDocumentGetPropertyBooleanArray    jni.MethodID
-	midGenericDocumentGetPropertyBytes           jni.MethodID
-	midGenericDocumentGetPropertyBytesArray      jni.MethodID
-	midGenericDocumentGetPropertyDocument        jni.MethodID
-	midGenericDocumentGetPropertyDocumentArray   jni.MethodID
-	midGenericDocumentGetPropertyDouble          jni.MethodID
-	midGenericDocumentGetPropertyDoubleArray     jni.MethodID
-	midGenericDocumentGetPropertyEmbedding       jni.MethodID
-	midGenericDocumentGetPropertyEmbeddingArray  jni.MethodID
-	midGenericDocumentGetPropertyLong            jni.MethodID
-	midGenericDocumentGetPropertyLongArray       jni.MethodID
-	midGenericDocumentGetPropertyNames           jni.MethodID
-	midGenericDocumentGetPropertyString          jni.MethodID
-	midGenericDocumentGetPropertyStringArray     jni.MethodID
-	midGenericDocumentGetSchemaType              jni.MethodID
-	midGenericDocumentGetScore                   jni.MethodID
-	midGenericDocumentGetTtlMillis               jni.MethodID
-	midGenericDocumentHashCode                   jni.MethodID
-	midGenericDocumentToString                   jni.MethodID
-	midGenericDocumentGetMaxIndexedProperties    jni.MethodID
-
-	clsGenericDocumentBuilder                           *jni.GlobalRef
-	midGenericDocumentBuilderBuild                      jni.MethodID
-	midGenericDocumentBuilderClearProperty              jni.MethodID
-	midGenericDocumentBuilderSetCreationTimestampMillis jni.MethodID
-	midGenericDocumentBuilderSetId                      jni.MethodID
-	midGenericDocumentBuilderSetNamespace               jni.MethodID
-	midGenericDocumentBuilderSetPropertyBlobHandle      jni.MethodID
-	midGenericDocumentBuilderSetPropertyBoolean         jni.MethodID
-	midGenericDocumentBuilderSetPropertyBytes           jni.MethodID
-	midGenericDocumentBuilderSetPropertyDocument        jni.MethodID
-	midGenericDocumentBuilderSetPropertyDouble          jni.MethodID
-	midGenericDocumentBuilderSetPropertyEmbedding       jni.MethodID
-	midGenericDocumentBuilderSetPropertyLong            jni.MethodID
-	midGenericDocumentBuilderSetPropertyString          jni.MethodID
-	midGenericDocumentBuilderSetSchemaType              jni.MethodID
-	midGenericDocumentBuilderSetScore                   jni.MethodID
-	midGenericDocumentBuilderSetTtlMillis               jni.MethodID
-	midGenericDocumentBuilderToString                   jni.MethodID
 
 	clsAppSearchSchema                 *jni.GlobalRef
 	midAppSearchSchemaDescribeContents jni.MethodID
@@ -412,23 +191,136 @@ var (
 	midAppSearchSchemaStringPropertyConfigGetTokenizerType     jni.MethodID
 	midAppSearchSchemaStringPropertyConfigToString             jni.MethodID
 
-	clsJoinSpec                              *jni.GlobalRef
-	midJoinSpecDescribeContents              jni.MethodID
-	midJoinSpecGetAggregationScoringStrategy jni.MethodID
-	midJoinSpecGetChildPropertyExpression    jni.MethodID
-	midJoinSpecGetMaxJoinedResultCount       jni.MethodID
-	midJoinSpecGetNestedQuery                jni.MethodID
-	midJoinSpecGetNestedSearchSpec           jni.MethodID
-	midJoinSpecWriteToParcel                 jni.MethodID
-	midJoinSpecToString                      jni.MethodID
+	clsAppSearchSession         *jni.GlobalRef
+	midAppSearchSessionClose    jni.MethodID
+	midAppSearchSessionSearch   jni.MethodID
+	midAppSearchSessionToString jni.MethodID
 
-	clsJoinSpecBuilder                              *jni.GlobalRef
-	midJoinSpecBuilderBuild                         jni.MethodID
-	midJoinSpecBuilderSetAggregationScoringStrategy jni.MethodID
-	midJoinSpecBuilderSetChildPropertyExpression    jni.MethodID
-	midJoinSpecBuilderSetMaxJoinedResultCount       jni.MethodID
-	midJoinSpecBuilderSetNestedSearch               jni.MethodID
-	midJoinSpecBuilderToString                      jni.MethodID
+	clsSearchResult                               *jni.GlobalRef
+	midSearchResultDescribeContents               jni.MethodID
+	midSearchResultGetDatabaseName                jni.MethodID
+	midSearchResultGetGenericDocument             jni.MethodID
+	midSearchResultGetInformationalRankingSignals jni.MethodID
+	midSearchResultGetJoinedResults               jni.MethodID
+	midSearchResultGetMatchInfos                  jni.MethodID
+	midSearchResultGetPackageName                 jni.MethodID
+	midSearchResultGetRankingSignal               jni.MethodID
+	midSearchResultWriteToParcel                  jni.MethodID
+	midSearchResultToString                       jni.MethodID
+
+	clsSearchResultBuilder                              *jni.GlobalRef
+	midSearchResultBuilderAddInformationalRankingSignal jni.MethodID
+	midSearchResultBuilderAddJoinedResult               jni.MethodID
+	midSearchResultBuilderAddMatchInfo                  jni.MethodID
+	midSearchResultBuilderBuild                         jni.MethodID
+	midSearchResultBuilderSetGenericDocument            jni.MethodID
+	midSearchResultBuilderSetRankingSignal              jni.MethodID
+	midSearchResultBuilderToString                      jni.MethodID
+
+	clsSearchResultMatchInfo                      *jni.GlobalRef
+	midSearchResultMatchInfoDescribeContents      jni.MethodID
+	midSearchResultMatchInfoGetExactMatch         jni.MethodID
+	midSearchResultMatchInfoGetExactMatchRange    jni.MethodID
+	midSearchResultMatchInfoGetFullText           jni.MethodID
+	midSearchResultMatchInfoGetPropertyPath       jni.MethodID
+	midSearchResultMatchInfoGetPropertyPathObject jni.MethodID
+	midSearchResultMatchInfoGetSnippet            jni.MethodID
+	midSearchResultMatchInfoGetSnippetRange       jni.MethodID
+	midSearchResultMatchInfoGetSubmatch           jni.MethodID
+	midSearchResultMatchInfoGetSubmatchRange      jni.MethodID
+	midSearchResultMatchInfoWriteToParcel         jni.MethodID
+	midSearchResultMatchInfoToString              jni.MethodID
+
+	clsSearchResultMatchRange         *jni.GlobalRef
+	midSearchResultMatchRangeEquals   jni.MethodID
+	midSearchResultMatchRangeGetEnd   jni.MethodID
+	midSearchResultMatchRangeGetStart jni.MethodID
+	midSearchResultMatchRangeHashCode jni.MethodID
+	midSearchResultMatchRangeToString jni.MethodID
+
+	clsSearchResults         *jni.GlobalRef
+	midSearchResultsClose    jni.MethodID
+	midSearchResultsToString jni.MethodID
+
+	clsAppSearchManager         *jni.GlobalRef
+	midAppSearchManagerToString jni.MethodID
+
+	clsAppSearchManagerSearchContext                *jni.GlobalRef
+	midAppSearchManagerSearchContextGetDatabaseName jni.MethodID
+	midAppSearchManagerSearchContextToString        jni.MethodID
+
+	clsAppSearchBatchResult          *jni.GlobalRef
+	midAppSearchBatchResultIsSuccess jni.MethodID
+	midAppSearchBatchResultToString  jni.MethodID
+
+	clsAppSearchBatchResultBuilder         *jni.GlobalRef
+	midAppSearchBatchResultBuilderToString jni.MethodID
+
+	clsGenericDocument                           *jni.GlobalRef
+	midGenericDocumentEquals                     jni.MethodID
+	midGenericDocumentGetCreationTimestampMillis jni.MethodID
+	midGenericDocumentGetId                      jni.MethodID
+	midGenericDocumentGetNamespace               jni.MethodID
+	midGenericDocumentGetProperty                jni.MethodID
+	midGenericDocumentGetPropertyBlobHandle      jni.MethodID
+	midGenericDocumentGetPropertyBlobHandleArray jni.MethodID
+	midGenericDocumentGetPropertyBoolean         jni.MethodID
+	midGenericDocumentGetPropertyBooleanArray    jni.MethodID
+	midGenericDocumentGetPropertyBytes           jni.MethodID
+	midGenericDocumentGetPropertyBytesArray      jni.MethodID
+	midGenericDocumentGetPropertyDocument        jni.MethodID
+	midGenericDocumentGetPropertyDocumentArray   jni.MethodID
+	midGenericDocumentGetPropertyDouble          jni.MethodID
+	midGenericDocumentGetPropertyDoubleArray     jni.MethodID
+	midGenericDocumentGetPropertyEmbedding       jni.MethodID
+	midGenericDocumentGetPropertyEmbeddingArray  jni.MethodID
+	midGenericDocumentGetPropertyLong            jni.MethodID
+	midGenericDocumentGetPropertyLongArray       jni.MethodID
+	midGenericDocumentGetPropertyNames           jni.MethodID
+	midGenericDocumentGetPropertyString          jni.MethodID
+	midGenericDocumentGetPropertyStringArray     jni.MethodID
+	midGenericDocumentGetSchemaType              jni.MethodID
+	midGenericDocumentGetScore                   jni.MethodID
+	midGenericDocumentGetTtlMillis               jni.MethodID
+	midGenericDocumentHashCode                   jni.MethodID
+	midGenericDocumentToString                   jni.MethodID
+	midGenericDocumentGetMaxIndexedProperties    jni.MethodID
+
+	clsGenericDocumentBuilder                           *jni.GlobalRef
+	midGenericDocumentBuilderBuild                      jni.MethodID
+	midGenericDocumentBuilderClearProperty              jni.MethodID
+	midGenericDocumentBuilderSetCreationTimestampMillis jni.MethodID
+	midGenericDocumentBuilderSetId                      jni.MethodID
+	midGenericDocumentBuilderSetNamespace               jni.MethodID
+	midGenericDocumentBuilderSetPropertyBlobHandle      jni.MethodID
+	midGenericDocumentBuilderSetPropertyBoolean         jni.MethodID
+	midGenericDocumentBuilderSetPropertyBytes           jni.MethodID
+	midGenericDocumentBuilderSetPropertyDocument        jni.MethodID
+	midGenericDocumentBuilderSetPropertyDouble          jni.MethodID
+	midGenericDocumentBuilderSetPropertyEmbedding       jni.MethodID
+	midGenericDocumentBuilderSetPropertyLong            jni.MethodID
+	midGenericDocumentBuilderSetPropertyString          jni.MethodID
+	midGenericDocumentBuilderSetSchemaType              jni.MethodID
+	midGenericDocumentBuilderSetScore                   jni.MethodID
+	midGenericDocumentBuilderSetTtlMillis               jni.MethodID
+	midGenericDocumentBuilderToString                   jni.MethodID
+
+	clsSetSchemaResponse                     *jni.GlobalRef
+	midSetSchemaResponseDescribeContents     jni.MethodID
+	midSetSchemaResponseGetDeletedTypes      jni.MethodID
+	midSetSchemaResponseGetIncompatibleTypes jni.MethodID
+	midSetSchemaResponseGetMigratedTypes     jni.MethodID
+	midSetSchemaResponseGetMigrationFailures jni.MethodID
+	midSetSchemaResponseWriteToParcel        jni.MethodID
+	midSetSchemaResponseToString             jni.MethodID
+
+	clsSetSchemaResponseBuilder                    *jni.GlobalRef
+	midSetSchemaResponseBuilderAddDeletedType      jni.MethodID
+	midSetSchemaResponseBuilderAddIncompatibleType jni.MethodID
+	midSetSchemaResponseBuilderAddMigratedType     jni.MethodID
+	midSetSchemaResponseBuilderAddMigrationFailure jni.MethodID
+	midSetSchemaResponseBuilderBuild               jni.MethodID
+	midSetSchemaResponseBuilderToString            jni.MethodID
 
 	clsEmbeddingVector                  *jni.GlobalRef
 	midEmbeddingVectorCtor              jni.MethodID
@@ -440,6 +332,115 @@ var (
 	midEmbeddingVectorWriteToParcel     jni.MethodID
 	midEmbeddingVectorToString          jni.MethodID
 
+	clsSetSchemaResponseMigrationFailure                   *jni.GlobalRef
+	midSetSchemaResponseMigrationFailureDescribeContents   jni.MethodID
+	midSetSchemaResponseMigrationFailureGetAppSearchResult jni.MethodID
+	midSetSchemaResponseMigrationFailureGetDocumentId      jni.MethodID
+	midSetSchemaResponseMigrationFailureGetNamespace       jni.MethodID
+	midSetSchemaResponseMigrationFailureGetSchemaType      jni.MethodID
+	midSetSchemaResponseMigrationFailureToString           jni.MethodID
+	midSetSchemaResponseMigrationFailureWriteToParcel      jni.MethodID
+
+	clsStorageInfo                        *jni.GlobalRef
+	midStorageInfoDescribeContents        jni.MethodID
+	midStorageInfoGetAliveDocumentsCount  jni.MethodID
+	midStorageInfoGetAliveNamespacesCount jni.MethodID
+	midStorageInfoGetBlobsCount           jni.MethodID
+	midStorageInfoGetBlobsSizeBytes       jni.MethodID
+	midStorageInfoGetSizeBytes            jni.MethodID
+	midStorageInfoWriteToParcel           jni.MethodID
+	midStorageInfoToString                jni.MethodID
+
+	clsStorageInfoBuilder                        *jni.GlobalRef
+	midStorageInfoBuilderBuild                   jni.MethodID
+	midStorageInfoBuilderSetAliveDocumentsCount  jni.MethodID
+	midStorageInfoBuilderSetAliveNamespacesCount jni.MethodID
+	midStorageInfoBuilderSetBlobsCount           jni.MethodID
+	midStorageInfoBuilderSetBlobsSizeBytes       jni.MethodID
+	midStorageInfoBuilderSetSizeBytes            jni.MethodID
+	midStorageInfoBuilderToString                jni.MethodID
+
+	clsReportSystemUsageRequest                        *jni.GlobalRef
+	midReportSystemUsageRequestGetDatabaseName         jni.MethodID
+	midReportSystemUsageRequestGetDocumentId           jni.MethodID
+	midReportSystemUsageRequestGetNamespace            jni.MethodID
+	midReportSystemUsageRequestGetPackageName          jni.MethodID
+	midReportSystemUsageRequestGetUsageTimestampMillis jni.MethodID
+	midReportSystemUsageRequestToString                jni.MethodID
+
+	clsReportSystemUsageRequestBuilder                        *jni.GlobalRef
+	midReportSystemUsageRequestBuilderBuild                   jni.MethodID
+	midReportSystemUsageRequestBuilderSetUsageTimestampMillis jni.MethodID
+	midReportSystemUsageRequestBuilderToString                jni.MethodID
+
+	clsEnterpriseGlobalSearchSession         *jni.GlobalRef
+	midEnterpriseGlobalSearchSessionSearch   jni.MethodID
+	midEnterpriseGlobalSearchSessionToString jni.MethodID
+
+	clsSearchSuggestionSpec                          *jni.GlobalRef
+	midSearchSuggestionSpecDescribeContents          jni.MethodID
+	midSearchSuggestionSpecGetFilterNamespaces       jni.MethodID
+	midSearchSuggestionSpecGetFilterSchemas          jni.MethodID
+	midSearchSuggestionSpecGetMaximumResultCount     jni.MethodID
+	midSearchSuggestionSpecGetRankingStrategy        jni.MethodID
+	midSearchSuggestionSpecGetSearchStringParameters jni.MethodID
+	midSearchSuggestionSpecWriteToParcel             jni.MethodID
+	midSearchSuggestionSpecToString                  jni.MethodID
+
+	clsSearchSuggestionSpecBuilder                          *jni.GlobalRef
+	midSearchSuggestionSpecBuilderAddFilterDocumentIds      jni.MethodID
+	midSearchSuggestionSpecBuilderAddFilterNamespaces       jni.MethodID
+	midSearchSuggestionSpecBuilderAddFilterSchemas          jni.MethodID
+	midSearchSuggestionSpecBuilderAddSearchStringParameters jni.MethodID
+	midSearchSuggestionSpecBuilderBuild                     jni.MethodID
+	midSearchSuggestionSpecBuilderSetRankingStrategy        jni.MethodID
+	midSearchSuggestionSpecBuilderToString                  jni.MethodID
+
+	clsMigrator              *jni.GlobalRef
+	midMigratorOnDowngrade   jni.MethodID
+	midMigratorOnUpgrade     jni.MethodID
+	midMigratorShouldMigrate jni.MethodID
+	midMigratorToString      jni.MethodID
+
+	clsAppSearchBlobHandle                 *jni.GlobalRef
+	midAppSearchBlobHandleDescribeContents jni.MethodID
+	midAppSearchBlobHandleEquals           jni.MethodID
+	midAppSearchBlobHandleGetDatabaseName  jni.MethodID
+	midAppSearchBlobHandleGetNamespace     jni.MethodID
+	midAppSearchBlobHandleGetPackageName   jni.MethodID
+	midAppSearchBlobHandleGetSha256Digest  jni.MethodID
+	midAppSearchBlobHandleHashCode         jni.MethodID
+	midAppSearchBlobHandleToString         jni.MethodID
+	midAppSearchBlobHandleWriteToParcel    jni.MethodID
+	midAppSearchBlobHandleCreateWithSha256 jni.MethodID
+
+	clsPropertyPath         *jni.GlobalRef
+	midPropertyPathCtor     jni.MethodID
+	midPropertyPathEquals   jni.MethodID
+	midPropertyPathGet      jni.MethodID
+	midPropertyPathHashCode jni.MethodID
+	midPropertyPathIterator jni.MethodID
+	midPropertyPathSize     jni.MethodID
+	midPropertyPathToString jni.MethodID
+
+	clsAppSearchResult                *jni.GlobalRef
+	midAppSearchResultEquals          jni.MethodID
+	midAppSearchResultGetErrorMessage jni.MethodID
+	midAppSearchResultGetResultCode   jni.MethodID
+	midAppSearchResultGetResultValue  jni.MethodID
+	midAppSearchResultHashCode        jni.MethodID
+	midAppSearchResultIsSuccess       jni.MethodID
+	midAppSearchResultToString        jni.MethodID
+
+	clsPropertyPathPathSegment                 *jni.GlobalRef
+	midPropertyPathPathSegmentEquals           jni.MethodID
+	midPropertyPathPathSegmentGetPropertyIndex jni.MethodID
+	midPropertyPathPathSegmentGetPropertyName  jni.MethodID
+	midPropertyPathPathSegmentHashCode         jni.MethodID
+	midPropertyPathPathSegmentToString         jni.MethodID
+	midPropertyPathPathSegmentCreate1          jni.MethodID
+	midPropertyPathPathSegmentCreate2_1        jni.MethodID
+
 	clsGetSchemaResponse                                   *jni.GlobalRef
 	midGetSchemaResponseDescribeContents                   jni.MethodID
 	midGetSchemaResponseGetSchemaTypesNotDisplayedBySystem jni.MethodID
@@ -447,6 +448,14 @@ var (
 	midGetSchemaResponseGetVersion                         jni.MethodID
 	midGetSchemaResponseWriteToParcel                      jni.MethodID
 	midGetSchemaResponseToString                           jni.MethodID
+
+	clsSearchSuggestionResult                   *jni.GlobalRef
+	midSearchSuggestionResultDescribeContents   jni.MethodID
+	midSearchSuggestionResultEquals             jni.MethodID
+	midSearchSuggestionResultGetSuggestedResult jni.MethodID
+	midSearchSuggestionResultHashCode           jni.MethodID
+	midSearchSuggestionResultWriteToParcel      jni.MethodID
+	midSearchSuggestionResultToString           jni.MethodID
 
 	clsGetSchemaResponseBuilder                                                *jni.GlobalRef
 	midGetSchemaResponseBuilderAddSchema                                       jni.MethodID
@@ -462,23 +471,35 @@ var (
 	midGetSchemaResponseBuilderSetVersion                                      jni.MethodID
 	midGetSchemaResponseBuilderToString                                        jni.MethodID
 
+	clsSearchSuggestionResultBuilder                   *jni.GlobalRef
+	midSearchSuggestionResultBuilderBuild              jni.MethodID
+	midSearchSuggestionResultBuilderSetSuggestedResult jni.MethodID
+	midSearchSuggestionResultBuilderToString           jni.MethodID
+
+	clsGetByDocumentIdRequest                 *jni.GlobalRef
+	midGetByDocumentIdRequestDescribeContents jni.MethodID
+	midGetByDocumentIdRequestGetIds           jni.MethodID
+	midGetByDocumentIdRequestGetNamespace     jni.MethodID
+	midGetByDocumentIdRequestWriteToParcel    jni.MethodID
+	midGetByDocumentIdRequestToString         jni.MethodID
+
+	clsGetByDocumentIdRequestBuilder         *jni.GlobalRef
+	midGetByDocumentIdRequestBuilderAddIds   jni.MethodID
+	midGetByDocumentIdRequestBuilderBuild    jni.MethodID
+	midGetByDocumentIdRequestBuilderToString jni.MethodID
+
+	clsRemoveBlobResponse                 *jni.GlobalRef
+	midRemoveBlobResponseCtor             jni.MethodID
+	midRemoveBlobResponseDescribeContents jni.MethodID
+	midRemoveBlobResponseWriteToParcel    jni.MethodID
+	midRemoveBlobResponseToString         jni.MethodID
+
 	clsOpenBlobForWriteResponse                 *jni.GlobalRef
 	midOpenBlobForWriteResponseCtor             jni.MethodID
 	midOpenBlobForWriteResponseClose            jni.MethodID
 	midOpenBlobForWriteResponseDescribeContents jni.MethodID
 	midOpenBlobForWriteResponseWriteToParcel    jni.MethodID
 	midOpenBlobForWriteResponseToString         jni.MethodID
-
-	clsEnterpriseGlobalSearchSession         *jni.GlobalRef
-	midEnterpriseGlobalSearchSessionSearch   jni.MethodID
-	midEnterpriseGlobalSearchSessionToString jni.MethodID
-
-	clsOpenBlobForReadResponse                 *jni.GlobalRef
-	midOpenBlobForReadResponseCtor             jni.MethodID
-	midOpenBlobForReadResponseClose            jni.MethodID
-	midOpenBlobForReadResponseDescribeContents jni.MethodID
-	midOpenBlobForReadResponseWriteToParcel    jni.MethodID
-	midOpenBlobForReadResponseToString         jni.MethodID
 
 	clsSearchSpec                                                *jni.GlobalRef
 	midSearchSpecDescribeContents                                jni.MethodID
@@ -553,59 +574,38 @@ var (
 	midSearchSpecBuilderSetVerbatimSearchEnabled                         jni.MethodID
 	midSearchSpecBuilderToString                                         jni.MethodID
 
-	clsAppSearchSession         *jni.GlobalRef
-	midAppSearchSessionClose    jni.MethodID
-	midAppSearchSessionSearch   jni.MethodID
-	midAppSearchSessionToString jni.MethodID
+	clsBatchResultCallback         *jni.GlobalRef
+	midBatchResultCallbackToString jni.MethodID
 
-	clsPropertyPath         *jni.GlobalRef
-	midPropertyPathCtor     jni.MethodID
-	midPropertyPathEquals   jni.MethodID
-	midPropertyPathGet      jni.MethodID
-	midPropertyPathHashCode jni.MethodID
-	midPropertyPathIterator jni.MethodID
-	midPropertyPathSize     jni.MethodID
-	midPropertyPathToString jni.MethodID
+	clsReportUsageRequest                        *jni.GlobalRef
+	midReportUsageRequestDescribeContents        jni.MethodID
+	midReportUsageRequestGetDocumentId           jni.MethodID
+	midReportUsageRequestGetNamespace            jni.MethodID
+	midReportUsageRequestGetUsageTimestampMillis jni.MethodID
+	midReportUsageRequestWriteToParcel           jni.MethodID
+	midReportUsageRequestToString                jni.MethodID
 
-	clsPropertyPathPathSegment                 *jni.GlobalRef
-	midPropertyPathPathSegmentEquals           jni.MethodID
-	midPropertyPathPathSegmentGetPropertyIndex jni.MethodID
-	midPropertyPathPathSegmentGetPropertyName  jni.MethodID
-	midPropertyPathPathSegmentHashCode         jni.MethodID
-	midPropertyPathPathSegmentToString         jni.MethodID
-	midPropertyPathPathSegmentCreate1          jni.MethodID
-	midPropertyPathPathSegmentCreate2_1        jni.MethodID
+	clsReportUsageRequestBuilder                        *jni.GlobalRef
+	midReportUsageRequestBuilderBuild                   jni.MethodID
+	midReportUsageRequestBuilderSetUsageTimestampMillis jni.MethodID
+	midReportUsageRequestBuilderToString                jni.MethodID
 
-	clsSearchSuggestionSpec                          *jni.GlobalRef
-	midSearchSuggestionSpecDescribeContents          jni.MethodID
-	midSearchSuggestionSpecGetFilterNamespaces       jni.MethodID
-	midSearchSuggestionSpecGetFilterSchemas          jni.MethodID
-	midSearchSuggestionSpecGetMaximumResultCount     jni.MethodID
-	midSearchSuggestionSpecGetRankingStrategy        jni.MethodID
-	midSearchSuggestionSpecGetSearchStringParameters jni.MethodID
-	midSearchSuggestionSpecWriteToParcel             jni.MethodID
-	midSearchSuggestionSpecToString                  jni.MethodID
+	clsCommitBlobResponse                 *jni.GlobalRef
+	midCommitBlobResponseCtor             jni.MethodID
+	midCommitBlobResponseDescribeContents jni.MethodID
+	midCommitBlobResponseWriteToParcel    jni.MethodID
+	midCommitBlobResponseToString         jni.MethodID
 
-	clsSearchSuggestionSpecBuilder                          *jni.GlobalRef
-	midSearchSuggestionSpecBuilderAddFilterDocumentIds      jni.MethodID
-	midSearchSuggestionSpecBuilderAddFilterNamespaces       jni.MethodID
-	midSearchSuggestionSpecBuilderAddFilterSchemas          jni.MethodID
-	midSearchSuggestionSpecBuilderAddSearchStringParameters jni.MethodID
-	midSearchSuggestionSpecBuilderBuild                     jni.MethodID
-	midSearchSuggestionSpecBuilderSetRankingStrategy        jni.MethodID
-	midSearchSuggestionSpecBuilderToString                  jni.MethodID
+	clsSetBlobVisibilityRequest                                  *jni.GlobalRef
+	midSetBlobVisibilityRequestGetNamespacesNotDisplayedBySystem jni.MethodID
+	midSetBlobVisibilityRequestToString                          jni.MethodID
 
-	clsAppSearchBlobHandle                 *jni.GlobalRef
-	midAppSearchBlobHandleDescribeContents jni.MethodID
-	midAppSearchBlobHandleEquals           jni.MethodID
-	midAppSearchBlobHandleGetDatabaseName  jni.MethodID
-	midAppSearchBlobHandleGetNamespace     jni.MethodID
-	midAppSearchBlobHandleGetPackageName   jni.MethodID
-	midAppSearchBlobHandleGetSha256Digest  jni.MethodID
-	midAppSearchBlobHandleHashCode         jni.MethodID
-	midAppSearchBlobHandleToString         jni.MethodID
-	midAppSearchBlobHandleWriteToParcel    jni.MethodID
-	midAppSearchBlobHandleCreateWithSha256 jni.MethodID
+	clsSetBlobVisibilityRequestBuilder                               *jni.GlobalRef
+	midSetBlobVisibilityRequestBuilderAddNamespaceVisibleToConfig    jni.MethodID
+	midSetBlobVisibilityRequestBuilderBuild                          jni.MethodID
+	midSetBlobVisibilityRequestBuilderClearNamespaceVisibleToConfigs jni.MethodID
+	midSetBlobVisibilityRequestBuilderSetNamespaceDisplayedBySystem  jni.MethodID
+	midSetBlobVisibilityRequestBuilderToString                       jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -626,587 +626,64 @@ func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
 
-	c, err = env.FindClass("android/app/appsearch/AppSearchManager")
+	c, err = env.FindClass("android/app/appsearch/JoinSpec")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsAppSearchManager = env.NewGlobalRef(&c.Object)
+		clsJoinSpec = env.NewGlobalRef(&c.Object)
 
-		midAppSearchManagerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppSearchManager)), "toString", "()Ljava/lang/String;")
+		midJoinSpecDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsJoinSpec)), "describeContents", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-	}
-
-	c, err = env.FindClass("android/app/appsearch/AppSearchManager$SearchContext")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsAppSearchManagerSearchContext = env.NewGlobalRef(&c.Object)
-
-		midAppSearchManagerSearchContextGetDatabaseName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppSearchManagerSearchContext)), "getDatabaseName", "()Ljava/lang/String;")
+		midJoinSpecGetAggregationScoringStrategy, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsJoinSpec)), "getAggregationScoringStrategy", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppSearchManagerSearchContextToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppSearchManagerSearchContext)), "toString", "()Ljava/lang/String;")
+		midJoinSpecGetChildPropertyExpression, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsJoinSpec)), "getChildPropertyExpression", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-	}
-
-	c, err = env.FindClass("android/app/appsearch/CommitBlobResponse")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsCommitBlobResponse = env.NewGlobalRef(&c.Object)
-		midCommitBlobResponseCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCommitBlobResponse)), "<init>", "(Landroid/app/appsearch/AppSearchBatchResult;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midCommitBlobResponseDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCommitBlobResponse)), "describeContents", "()I")
+		midJoinSpecGetMaxJoinedResultCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsJoinSpec)), "getMaxJoinedResultCount", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCommitBlobResponseWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCommitBlobResponse)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midJoinSpecGetNestedQuery, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsJoinSpec)), "getNestedQuery", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midCommitBlobResponseToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCommitBlobResponse)), "toString", "()Ljava/lang/String;")
+		midJoinSpecGetNestedSearchSpec, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsJoinSpec)), "getNestedSearchSpec", "()Landroid/app/appsearch/SearchSpec;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-	}
-
-	c, err = env.FindClass("android/app/appsearch/RemoveBlobResponse")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsRemoveBlobResponse = env.NewGlobalRef(&c.Object)
-		midRemoveBlobResponseCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRemoveBlobResponse)), "<init>", "(Landroid/app/appsearch/AppSearchBatchResult;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midRemoveBlobResponseDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRemoveBlobResponse)), "describeContents", "()I")
+		midJoinSpecWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsJoinSpec)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midRemoveBlobResponseWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRemoveBlobResponse)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRemoveBlobResponseToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRemoveBlobResponse)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/app/appsearch/SearchSuggestionResult")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsSearchSuggestionResult = env.NewGlobalRef(&c.Object)
-
-		midSearchSuggestionResultDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchSuggestionResult)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSearchSuggestionResultEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchSuggestionResult)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSearchSuggestionResultGetSuggestedResult, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchSuggestionResult)), "getSuggestedResult", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSearchSuggestionResultHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchSuggestionResult)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSearchSuggestionResultWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchSuggestionResult)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSearchSuggestionResultToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchSuggestionResult)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/app/appsearch/SearchSuggestionResult$Builder")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsSearchSuggestionResultBuilder = env.NewGlobalRef(&c.Object)
-
-		midSearchSuggestionResultBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchSuggestionResultBuilder)), "build", "()Landroid/app/appsearch/SearchSuggestionResult;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSearchSuggestionResultBuilderSetSuggestedResult, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchSuggestionResultBuilder)), "setSuggestedResult", "(Ljava/lang/String;)Landroid/app/appsearch/SearchSuggestionResult$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSearchSuggestionResultBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchSuggestionResultBuilder)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/app/appsearch/SearchResult")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsSearchResult = env.NewGlobalRef(&c.Object)
-
-		midSearchResultDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResult)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSearchResultGetDatabaseName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResult)), "getDatabaseName", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSearchResultGetGenericDocument, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResult)), "getGenericDocument", "()Landroid/app/appsearch/GenericDocument;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSearchResultGetInformationalRankingSignals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResult)), "getInformationalRankingSignals", "()Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSearchResultGetJoinedResults, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResult)), "getJoinedResults", "()Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSearchResultGetMatchInfos, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResult)), "getMatchInfos", "()Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSearchResultGetPackageName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResult)), "getPackageName", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSearchResultGetRankingSignal, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResult)), "getRankingSignal", "()D")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSearchResultWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResult)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSearchResultToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResult)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/app/appsearch/SearchResult$Builder")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsSearchResultBuilder = env.NewGlobalRef(&c.Object)
-
-		midSearchResultBuilderAddInformationalRankingSignal, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResultBuilder)), "addInformationalRankingSignal", "(D)Landroid/app/appsearch/SearchResult$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSearchResultBuilderAddJoinedResult, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResultBuilder)), "addJoinedResult", "(Landroid/app/appsearch/SearchResult;)Landroid/app/appsearch/SearchResult$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSearchResultBuilderAddMatchInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResultBuilder)), "addMatchInfo", "(Landroid/app/appsearch/SearchResult$MatchInfo;)Landroid/app/appsearch/SearchResult$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSearchResultBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResultBuilder)), "build", "()Landroid/app/appsearch/SearchResult;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSearchResultBuilderSetGenericDocument, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResultBuilder)), "setGenericDocument", "(Landroid/app/appsearch/GenericDocument;)Landroid/app/appsearch/SearchResult$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSearchResultBuilderSetRankingSignal, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResultBuilder)), "setRankingSignal", "(D)Landroid/app/appsearch/SearchResult$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSearchResultBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResultBuilder)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/app/appsearch/SearchResult$MatchInfo")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsSearchResultMatchInfo = env.NewGlobalRef(&c.Object)
-
-		midSearchResultMatchInfoDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResultMatchInfo)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSearchResultMatchInfoGetExactMatch, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResultMatchInfo)), "getExactMatch", "()Ljava/lang/CharSequence;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSearchResultMatchInfoGetExactMatchRange, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResultMatchInfo)), "getExactMatchRange", "()Landroid/app/appsearch/SearchResult$MatchRange;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSearchResultMatchInfoGetFullText, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResultMatchInfo)), "getFullText", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSearchResultMatchInfoGetPropertyPath, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResultMatchInfo)), "getPropertyPath", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSearchResultMatchInfoGetPropertyPathObject, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResultMatchInfo)), "getPropertyPathObject", "()Landroid/app/appsearch/PropertyPath;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSearchResultMatchInfoGetSnippet, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResultMatchInfo)), "getSnippet", "()Ljava/lang/CharSequence;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSearchResultMatchInfoGetSnippetRange, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResultMatchInfo)), "getSnippetRange", "()Landroid/app/appsearch/SearchResult$MatchRange;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSearchResultMatchInfoGetSubmatch, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResultMatchInfo)), "getSubmatch", "()Ljava/lang/CharSequence;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSearchResultMatchInfoGetSubmatchRange, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResultMatchInfo)), "getSubmatchRange", "()Landroid/app/appsearch/SearchResult$MatchRange;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSearchResultMatchInfoWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResultMatchInfo)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSearchResultMatchInfoToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResultMatchInfo)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/app/appsearch/SearchResult$MatchRange")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsSearchResultMatchRange = env.NewGlobalRef(&c.Object)
-
-		midSearchResultMatchRangeEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResultMatchRange)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSearchResultMatchRangeGetEnd, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResultMatchRange)), "getEnd", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSearchResultMatchRangeGetStart, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResultMatchRange)), "getStart", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSearchResultMatchRangeHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResultMatchRange)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSearchResultMatchRangeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResultMatchRange)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/app/appsearch/AppSearchBatchResult")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsAppSearchBatchResult = env.NewGlobalRef(&c.Object)
-
-		midAppSearchBatchResultIsSuccess, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppSearchBatchResult)), "isSuccess", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppSearchBatchResultToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppSearchBatchResult)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/app/appsearch/AppSearchBatchResult$Builder")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsAppSearchBatchResultBuilder = env.NewGlobalRef(&c.Object)
-
-		midAppSearchBatchResultBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppSearchBatchResultBuilder)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/app/appsearch/RemoveByDocumentIdRequest")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsRemoveByDocumentIdRequest = env.NewGlobalRef(&c.Object)
-
-		midRemoveByDocumentIdRequestDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRemoveByDocumentIdRequest)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRemoveByDocumentIdRequestGetIds, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRemoveByDocumentIdRequest)), "getIds", "()Ljava/util/Set;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRemoveByDocumentIdRequestGetNamespace, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRemoveByDocumentIdRequest)), "getNamespace", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRemoveByDocumentIdRequestWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRemoveByDocumentIdRequest)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRemoveByDocumentIdRequestToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRemoveByDocumentIdRequest)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/app/appsearch/RemoveByDocumentIdRequest$Builder")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsRemoveByDocumentIdRequestBuilder = env.NewGlobalRef(&c.Object)
-
-		midRemoveByDocumentIdRequestBuilderAddIds, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRemoveByDocumentIdRequestBuilder)), "addIds", "([Ljava/lang/String;)Landroid/app/appsearch/RemoveByDocumentIdRequest$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRemoveByDocumentIdRequestBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRemoveByDocumentIdRequestBuilder)), "build", "()Landroid/app/appsearch/RemoveByDocumentIdRequest;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRemoveByDocumentIdRequestBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRemoveByDocumentIdRequestBuilder)), "toString", "()Ljava/lang/String;")
+		midJoinSpecToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsJoinSpec)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1281,6 +758,58 @@ func doInit(env *jni.Env) error {
 
 	}
 
+	c, err = env.FindClass("android/app/appsearch/JoinSpec$Builder")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsJoinSpecBuilder = env.NewGlobalRef(&c.Object)
+
+		midJoinSpecBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsJoinSpecBuilder)), "build", "()Landroid/app/appsearch/JoinSpec;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midJoinSpecBuilderSetAggregationScoringStrategy, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsJoinSpecBuilder)), "setAggregationScoringStrategy", "(I)Landroid/app/appsearch/JoinSpec$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midJoinSpecBuilderSetChildPropertyExpression, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsJoinSpecBuilder)), "setChildPropertyExpression", "(Ljava/lang/String;)Landroid/app/appsearch/JoinSpec$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midJoinSpecBuilderSetMaxJoinedResultCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsJoinSpecBuilder)), "setMaxJoinedResultCount", "(I)Landroid/app/appsearch/JoinSpec$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midJoinSpecBuilderSetNestedSearch, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsJoinSpecBuilder)), "setNestedSearch", "(Ljava/lang/String;Landroid/app/appsearch/SearchSpec;)Landroid/app/appsearch/JoinSpec$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midJoinSpecBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsJoinSpecBuilder)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
 	c, err = env.FindClass("android/app/appsearch/SchemaVisibilityConfig$Builder")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -1325,487 +854,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midSchemaVisibilityConfigBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSchemaVisibilityConfigBuilder)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/app/appsearch/GetByDocumentIdRequest")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsGetByDocumentIdRequest = env.NewGlobalRef(&c.Object)
-
-		midGetByDocumentIdRequestDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGetByDocumentIdRequest)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGetByDocumentIdRequestGetIds, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGetByDocumentIdRequest)), "getIds", "()Ljava/util/Set;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGetByDocumentIdRequestGetNamespace, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGetByDocumentIdRequest)), "getNamespace", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGetByDocumentIdRequestWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGetByDocumentIdRequest)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGetByDocumentIdRequestToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGetByDocumentIdRequest)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/app/appsearch/GetByDocumentIdRequest$Builder")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsGetByDocumentIdRequestBuilder = env.NewGlobalRef(&c.Object)
-
-		midGetByDocumentIdRequestBuilderAddIds, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGetByDocumentIdRequestBuilder)), "addIds", "([Ljava/lang/String;)Landroid/app/appsearch/GetByDocumentIdRequest$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGetByDocumentIdRequestBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGetByDocumentIdRequestBuilder)), "build", "()Landroid/app/appsearch/GetByDocumentIdRequest;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGetByDocumentIdRequestBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGetByDocumentIdRequestBuilder)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/app/appsearch/AppSearchResult")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsAppSearchResult = env.NewGlobalRef(&c.Object)
-
-		midAppSearchResultEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppSearchResult)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppSearchResultGetErrorMessage, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppSearchResult)), "getErrorMessage", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppSearchResultGetResultCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppSearchResult)), "getResultCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppSearchResultGetResultValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppSearchResult)), "getResultValue", "()Ljava/lang/ValueType;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppSearchResultHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppSearchResult)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppSearchResultIsSuccess, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppSearchResult)), "isSuccess", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppSearchResultToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppSearchResult)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/app/appsearch/ReportSystemUsageRequest")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsReportSystemUsageRequest = env.NewGlobalRef(&c.Object)
-
-		midReportSystemUsageRequestGetDatabaseName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReportSystemUsageRequest)), "getDatabaseName", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midReportSystemUsageRequestGetDocumentId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReportSystemUsageRequest)), "getDocumentId", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midReportSystemUsageRequestGetNamespace, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReportSystemUsageRequest)), "getNamespace", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midReportSystemUsageRequestGetPackageName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReportSystemUsageRequest)), "getPackageName", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midReportSystemUsageRequestGetUsageTimestampMillis, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReportSystemUsageRequest)), "getUsageTimestampMillis", "()J")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midReportSystemUsageRequestToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReportSystemUsageRequest)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/app/appsearch/ReportSystemUsageRequest$Builder")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsReportSystemUsageRequestBuilder = env.NewGlobalRef(&c.Object)
-
-		midReportSystemUsageRequestBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReportSystemUsageRequestBuilder)), "build", "()Landroid/app/appsearch/ReportSystemUsageRequest;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midReportSystemUsageRequestBuilderSetUsageTimestampMillis, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReportSystemUsageRequestBuilder)), "setUsageTimestampMillis", "(J)Landroid/app/appsearch/ReportSystemUsageRequest$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midReportSystemUsageRequestBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReportSystemUsageRequestBuilder)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/app/appsearch/SearchResults")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsSearchResults = env.NewGlobalRef(&c.Object)
-
-		midSearchResultsClose, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResults)), "close", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSearchResultsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResults)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/app/appsearch/Migrator")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsMigrator = env.NewGlobalRef(&c.Object)
-
-		midMigratorOnDowngrade, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMigrator)), "onDowngrade", "(IILandroid/app/appsearch/GenericDocument;)Landroid/app/appsearch/GenericDocument;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMigratorOnUpgrade, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMigrator)), "onUpgrade", "(IILandroid/app/appsearch/GenericDocument;)Landroid/app/appsearch/GenericDocument;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMigratorShouldMigrate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMigrator)), "shouldMigrate", "(II)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMigratorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMigrator)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/app/appsearch/PackageIdentifier")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsPackageIdentifier = env.NewGlobalRef(&c.Object)
-		midPackageIdentifierCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPackageIdentifier)), "<init>", "(Ljava/lang/String;[B)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midPackageIdentifierEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPackageIdentifier)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPackageIdentifierGetPackageName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPackageIdentifier)), "getPackageName", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPackageIdentifierGetSha256Certificate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPackageIdentifier)), "getSha256Certificate", "()[B")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPackageIdentifierHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPackageIdentifier)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPackageIdentifierToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPackageIdentifier)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/app/appsearch/ReportUsageRequest")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsReportUsageRequest = env.NewGlobalRef(&c.Object)
-
-		midReportUsageRequestDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReportUsageRequest)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midReportUsageRequestGetDocumentId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReportUsageRequest)), "getDocumentId", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midReportUsageRequestGetNamespace, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReportUsageRequest)), "getNamespace", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midReportUsageRequestGetUsageTimestampMillis, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReportUsageRequest)), "getUsageTimestampMillis", "()J")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midReportUsageRequestWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReportUsageRequest)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midReportUsageRequestToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReportUsageRequest)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/app/appsearch/ReportUsageRequest$Builder")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsReportUsageRequestBuilder = env.NewGlobalRef(&c.Object)
-
-		midReportUsageRequestBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReportUsageRequestBuilder)), "build", "()Landroid/app/appsearch/ReportUsageRequest;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midReportUsageRequestBuilderSetUsageTimestampMillis, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReportUsageRequestBuilder)), "setUsageTimestampMillis", "(J)Landroid/app/appsearch/ReportUsageRequest$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midReportUsageRequestBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReportUsageRequestBuilder)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/app/appsearch/PutDocumentsRequest")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsPutDocumentsRequest = env.NewGlobalRef(&c.Object)
-
-		midPutDocumentsRequestGetGenericDocuments, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPutDocumentsRequest)), "getGenericDocuments", "()Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPutDocumentsRequestGetTakenActionGenericDocuments, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPutDocumentsRequest)), "getTakenActionGenericDocuments", "()Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPutDocumentsRequestToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPutDocumentsRequest)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/app/appsearch/PutDocumentsRequest$Builder")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsPutDocumentsRequestBuilder = env.NewGlobalRef(&c.Object)
-
-		midPutDocumentsRequestBuilderAddGenericDocuments, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPutDocumentsRequestBuilder)), "addGenericDocuments", "([Landroid/app/appsearch/GenericDocument;)Landroid/app/appsearch/PutDocumentsRequest$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPutDocumentsRequestBuilderAddTakenActionGenericDocuments, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPutDocumentsRequestBuilder)), "addTakenActionGenericDocuments", "([Landroid/app/appsearch/GenericDocument;)Landroid/app/appsearch/PutDocumentsRequest$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPutDocumentsRequestBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPutDocumentsRequestBuilder)), "build", "()Landroid/app/appsearch/PutDocumentsRequest;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPutDocumentsRequestBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPutDocumentsRequestBuilder)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1865,6 +913,55 @@ func doInit(env *jni.Env) error {
 		}
 
 		midSetSchemaRequestToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetSchemaRequest)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/app/appsearch/PackageIdentifier")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsPackageIdentifier = env.NewGlobalRef(&c.Object)
+		midPackageIdentifierCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPackageIdentifier)), "<init>", "(Ljava/lang/String;[B)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midPackageIdentifierEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPackageIdentifier)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPackageIdentifierGetPackageName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPackageIdentifier)), "getPackageName", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPackageIdentifierGetSha256Certificate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPackageIdentifier)), "getSha256Certificate", "()[B")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPackageIdentifierHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPackageIdentifier)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPackageIdentifierToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPackageIdentifier)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1981,15 +1078,43 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/app/appsearch/BatchResultCallback")
+	c, err = env.FindClass("android/app/appsearch/RemoveByDocumentIdRequest")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsBatchResultCallback = env.NewGlobalRef(&c.Object)
+		clsRemoveByDocumentIdRequest = env.NewGlobalRef(&c.Object)
 
-		midBatchResultCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBatchResultCallback)), "toString", "()Ljava/lang/String;")
+		midRemoveByDocumentIdRequestDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRemoveByDocumentIdRequest)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRemoveByDocumentIdRequestGetIds, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRemoveByDocumentIdRequest)), "getIds", "()Ljava/util/Set;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRemoveByDocumentIdRequestGetNamespace, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRemoveByDocumentIdRequest)), "getNamespace", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRemoveByDocumentIdRequestWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRemoveByDocumentIdRequest)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRemoveByDocumentIdRequestToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRemoveByDocumentIdRequest)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1998,57 +1123,29 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/app/appsearch/SetSchemaResponse")
+	c, err = env.FindClass("android/app/appsearch/RemoveByDocumentIdRequest$Builder")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsSetSchemaResponse = env.NewGlobalRef(&c.Object)
+		clsRemoveByDocumentIdRequestBuilder = env.NewGlobalRef(&c.Object)
 
-		midSetSchemaResponseDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetSchemaResponse)), "describeContents", "()I")
+		midRemoveByDocumentIdRequestBuilderAddIds, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRemoveByDocumentIdRequestBuilder)), "addIds", "([Ljava/lang/String;)Landroid/app/appsearch/RemoveByDocumentIdRequest$Builder;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSetSchemaResponseGetDeletedTypes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetSchemaResponse)), "getDeletedTypes", "()Ljava/util/Set;")
+		midRemoveByDocumentIdRequestBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRemoveByDocumentIdRequestBuilder)), "build", "()Landroid/app/appsearch/RemoveByDocumentIdRequest;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSetSchemaResponseGetIncompatibleTypes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetSchemaResponse)), "getIncompatibleTypes", "()Ljava/util/Set;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetSchemaResponseGetMigratedTypes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetSchemaResponse)), "getMigratedTypes", "()Ljava/util/Set;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetSchemaResponseGetMigrationFailures, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetSchemaResponse)), "getMigrationFailures", "()Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetSchemaResponseWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetSchemaResponse)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetSchemaResponseToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetSchemaResponse)), "toString", "()Ljava/lang/String;")
+		midRemoveByDocumentIdRequestBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRemoveByDocumentIdRequestBuilder)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -2057,50 +1154,40 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/app/appsearch/SetSchemaResponse$Builder")
+	c, err = env.FindClass("android/app/appsearch/OpenBlobForReadResponse")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsSetSchemaResponseBuilder = env.NewGlobalRef(&c.Object)
+		clsOpenBlobForReadResponse = env.NewGlobalRef(&c.Object)
+		midOpenBlobForReadResponseCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOpenBlobForReadResponse)), "<init>", "(Landroid/app/appsearch/AppSearchBatchResult;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midSetSchemaResponseBuilderAddDeletedType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetSchemaResponseBuilder)), "addDeletedType", "(Ljava/lang/String;)Landroid/app/appsearch/SetSchemaResponse$Builder;")
+		midOpenBlobForReadResponseClose, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOpenBlobForReadResponse)), "close", "()V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSetSchemaResponseBuilderAddIncompatibleType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetSchemaResponseBuilder)), "addIncompatibleType", "(Ljava/lang/String;)Landroid/app/appsearch/SetSchemaResponse$Builder;")
+		midOpenBlobForReadResponseDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOpenBlobForReadResponse)), "describeContents", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSetSchemaResponseBuilderAddMigratedType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetSchemaResponseBuilder)), "addMigratedType", "(Ljava/lang/String;)Landroid/app/appsearch/SetSchemaResponse$Builder;")
+		midOpenBlobForReadResponseWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOpenBlobForReadResponse)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSetSchemaResponseBuilderAddMigrationFailure, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetSchemaResponseBuilder)), "addMigrationFailure", "(Landroid/app/appsearch/SetSchemaResponse$MigrationFailure;)Landroid/app/appsearch/SetSchemaResponse$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetSchemaResponseBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetSchemaResponseBuilder)), "build", "()Landroid/app/appsearch/SetSchemaResponse;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetSchemaResponseBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetSchemaResponseBuilder)), "toString", "()Ljava/lang/String;")
+		midOpenBlobForReadResponseToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOpenBlobForReadResponse)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -2109,57 +1196,29 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/app/appsearch/SetSchemaResponse$MigrationFailure")
+	c, err = env.FindClass("android/app/appsearch/PutDocumentsRequest")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsSetSchemaResponseMigrationFailure = env.NewGlobalRef(&c.Object)
+		clsPutDocumentsRequest = env.NewGlobalRef(&c.Object)
 
-		midSetSchemaResponseMigrationFailureDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetSchemaResponseMigrationFailure)), "describeContents", "()I")
+		midPutDocumentsRequestGetGenericDocuments, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPutDocumentsRequest)), "getGenericDocuments", "()Ljava/util/List;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSetSchemaResponseMigrationFailureGetAppSearchResult, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetSchemaResponseMigrationFailure)), "getAppSearchResult", "()Landroid/app/appsearch/AppSearchResult;")
+		midPutDocumentsRequestGetTakenActionGenericDocuments, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPutDocumentsRequest)), "getTakenActionGenericDocuments", "()Ljava/util/List;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSetSchemaResponseMigrationFailureGetDocumentId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetSchemaResponseMigrationFailure)), "getDocumentId", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetSchemaResponseMigrationFailureGetNamespace, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetSchemaResponseMigrationFailure)), "getNamespace", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetSchemaResponseMigrationFailureGetSchemaType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetSchemaResponseMigrationFailure)), "getSchemaType", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetSchemaResponseMigrationFailureToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetSchemaResponseMigrationFailure)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetSchemaResponseMigrationFailureWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetSchemaResponseMigrationFailure)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midPutDocumentsRequestToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPutDocumentsRequest)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -2168,67 +1227,36 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/app/appsearch/SetBlobVisibilityRequest")
+	c, err = env.FindClass("android/app/appsearch/PutDocumentsRequest$Builder")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsSetBlobVisibilityRequest = env.NewGlobalRef(&c.Object)
+		clsPutDocumentsRequestBuilder = env.NewGlobalRef(&c.Object)
 
-		midSetBlobVisibilityRequestGetNamespacesNotDisplayedBySystem, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetBlobVisibilityRequest)), "getNamespacesNotDisplayedBySystem", "()Ljava/util/Set;")
+		midPutDocumentsRequestBuilderAddGenericDocuments, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPutDocumentsRequestBuilder)), "addGenericDocuments", "([Landroid/app/appsearch/GenericDocument;)Landroid/app/appsearch/PutDocumentsRequest$Builder;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSetBlobVisibilityRequestToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetBlobVisibilityRequest)), "toString", "()Ljava/lang/String;")
+		midPutDocumentsRequestBuilderAddTakenActionGenericDocuments, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPutDocumentsRequestBuilder)), "addTakenActionGenericDocuments", "([Landroid/app/appsearch/GenericDocument;)Landroid/app/appsearch/PutDocumentsRequest$Builder;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-	}
-
-	c, err = env.FindClass("android/app/appsearch/SetBlobVisibilityRequest$Builder")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsSetBlobVisibilityRequestBuilder = env.NewGlobalRef(&c.Object)
-
-		midSetBlobVisibilityRequestBuilderAddNamespaceVisibleToConfig, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetBlobVisibilityRequestBuilder)), "addNamespaceVisibleToConfig", "(Ljava/lang/String;Landroid/app/appsearch/SchemaVisibilityConfig;)Landroid/app/appsearch/SetBlobVisibilityRequest$Builder;")
+		midPutDocumentsRequestBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPutDocumentsRequestBuilder)), "build", "()Landroid/app/appsearch/PutDocumentsRequest;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSetBlobVisibilityRequestBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetBlobVisibilityRequestBuilder)), "build", "()Landroid/app/appsearch/SetBlobVisibilityRequest;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetBlobVisibilityRequestBuilderClearNamespaceVisibleToConfigs, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetBlobVisibilityRequestBuilder)), "clearNamespaceVisibleToConfigs", "(Ljava/lang/String;)Landroid/app/appsearch/SetBlobVisibilityRequest$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetBlobVisibilityRequestBuilderSetNamespaceDisplayedBySystem, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetBlobVisibilityRequestBuilder)), "setNamespaceDisplayedBySystem", "(Ljava/lang/String;Z)Landroid/app/appsearch/SetBlobVisibilityRequest$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSetBlobVisibilityRequestBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetBlobVisibilityRequestBuilder)), "toString", "()Ljava/lang/String;")
+		midPutDocumentsRequestBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPutDocumentsRequestBuilder)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -2274,466 +1302,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midGlobalSearchSessionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGlobalSearchSession)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/app/appsearch/StorageInfo")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsStorageInfo = env.NewGlobalRef(&c.Object)
-
-		midStorageInfoDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStorageInfo)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStorageInfoGetAliveDocumentsCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStorageInfo)), "getAliveDocumentsCount", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStorageInfoGetAliveNamespacesCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStorageInfo)), "getAliveNamespacesCount", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStorageInfoGetBlobsCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStorageInfo)), "getBlobsCount", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStorageInfoGetBlobsSizeBytes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStorageInfo)), "getBlobsSizeBytes", "()J")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStorageInfoGetSizeBytes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStorageInfo)), "getSizeBytes", "()J")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStorageInfoWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStorageInfo)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStorageInfoToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStorageInfo)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/app/appsearch/StorageInfo$Builder")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsStorageInfoBuilder = env.NewGlobalRef(&c.Object)
-
-		midStorageInfoBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStorageInfoBuilder)), "build", "()Landroid/app/appsearch/StorageInfo;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStorageInfoBuilderSetAliveDocumentsCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStorageInfoBuilder)), "setAliveDocumentsCount", "(I)Landroid/app/appsearch/StorageInfo$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStorageInfoBuilderSetAliveNamespacesCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStorageInfoBuilder)), "setAliveNamespacesCount", "(I)Landroid/app/appsearch/StorageInfo$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStorageInfoBuilderSetBlobsCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStorageInfoBuilder)), "setBlobsCount", "(I)Landroid/app/appsearch/StorageInfo$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStorageInfoBuilderSetBlobsSizeBytes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStorageInfoBuilder)), "setBlobsSizeBytes", "(J)Landroid/app/appsearch/StorageInfo$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStorageInfoBuilderSetSizeBytes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStorageInfoBuilder)), "setSizeBytes", "(J)Landroid/app/appsearch/StorageInfo$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midStorageInfoBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStorageInfoBuilder)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/app/appsearch/GenericDocument")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsGenericDocument = env.NewGlobalRef(&c.Object)
-
-		midGenericDocumentEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGenericDocumentGetCreationTimestampMillis, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "getCreationTimestampMillis", "()J")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGenericDocumentGetId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "getId", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGenericDocumentGetNamespace, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "getNamespace", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGenericDocumentGetProperty, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "getProperty", "(Ljava/lang/String;)Ljava/lang/Object;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGenericDocumentGetPropertyBlobHandle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "getPropertyBlobHandle", "(Ljava/lang/String;)Landroid/app/appsearch/AppSearchBlobHandle;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGenericDocumentGetPropertyBlobHandleArray, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "getPropertyBlobHandleArray", "(Ljava/lang/String;)[Landroid/app/appsearch/AppSearchBlobHandle;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGenericDocumentGetPropertyBoolean, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "getPropertyBoolean", "(Ljava/lang/String;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGenericDocumentGetPropertyBooleanArray, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "getPropertyBooleanArray", "(Ljava/lang/String;)[Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGenericDocumentGetPropertyBytes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "getPropertyBytes", "(Ljava/lang/String;)[B")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGenericDocumentGetPropertyBytesArray, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "getPropertyBytesArray", "(Ljava/lang/String;)[[B")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGenericDocumentGetPropertyDocument, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "getPropertyDocument", "(Ljava/lang/String;)Landroid/app/appsearch/GenericDocument;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGenericDocumentGetPropertyDocumentArray, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "getPropertyDocumentArray", "(Ljava/lang/String;)[Landroid/app/appsearch/GenericDocument;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGenericDocumentGetPropertyDouble, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "getPropertyDouble", "(Ljava/lang/String;)D")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGenericDocumentGetPropertyDoubleArray, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "getPropertyDoubleArray", "(Ljava/lang/String;)[D")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGenericDocumentGetPropertyEmbedding, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "getPropertyEmbedding", "(Ljava/lang/String;)Landroid/app/appsearch/EmbeddingVector;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGenericDocumentGetPropertyEmbeddingArray, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "getPropertyEmbeddingArray", "(Ljava/lang/String;)[Landroid/app/appsearch/EmbeddingVector;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGenericDocumentGetPropertyLong, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "getPropertyLong", "(Ljava/lang/String;)J")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGenericDocumentGetPropertyLongArray, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "getPropertyLongArray", "(Ljava/lang/String;)[J")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGenericDocumentGetPropertyNames, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "getPropertyNames", "()Ljava/util/Set;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGenericDocumentGetPropertyString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "getPropertyString", "(Ljava/lang/String;)Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGenericDocumentGetPropertyStringArray, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "getPropertyStringArray", "(Ljava/lang/String;)[Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGenericDocumentGetSchemaType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "getSchemaType", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGenericDocumentGetScore, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "getScore", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGenericDocumentGetTtlMillis, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "getTtlMillis", "()J")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGenericDocumentHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGenericDocumentToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGenericDocumentGetMaxIndexedProperties, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "getMaxIndexedProperties", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/app/appsearch/GenericDocument$Builder")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsGenericDocumentBuilder = env.NewGlobalRef(&c.Object)
-
-		midGenericDocumentBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocumentBuilder)), "build", "()Landroid/app/appsearch/GenericDocument;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGenericDocumentBuilderClearProperty, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocumentBuilder)), "clearProperty", "(Ljava/lang/String;)Ljava/lang/BuilderType;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGenericDocumentBuilderSetCreationTimestampMillis, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocumentBuilder)), "setCreationTimestampMillis", "(J)Ljava/lang/BuilderType;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGenericDocumentBuilderSetId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocumentBuilder)), "setId", "(Ljava/lang/String;)Ljava/lang/BuilderType;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGenericDocumentBuilderSetNamespace, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocumentBuilder)), "setNamespace", "(Ljava/lang/String;)Ljava/lang/BuilderType;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGenericDocumentBuilderSetPropertyBlobHandle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocumentBuilder)), "setPropertyBlobHandle", "(Ljava/lang/String;[Landroid/app/appsearch/AppSearchBlobHandle;)Ljava/lang/BuilderType;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGenericDocumentBuilderSetPropertyBoolean, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocumentBuilder)), "setPropertyBoolean", "(Ljava/lang/String;[Z)Ljava/lang/BuilderType;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGenericDocumentBuilderSetPropertyBytes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocumentBuilder)), "setPropertyBytes", "(Ljava/lang/String;[[B)Ljava/lang/BuilderType;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGenericDocumentBuilderSetPropertyDocument, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocumentBuilder)), "setPropertyDocument", "(Ljava/lang/String;[Landroid/app/appsearch/GenericDocument;)Ljava/lang/BuilderType;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGenericDocumentBuilderSetPropertyDouble, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocumentBuilder)), "setPropertyDouble", "(Ljava/lang/String;[D)Ljava/lang/BuilderType;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGenericDocumentBuilderSetPropertyEmbedding, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocumentBuilder)), "setPropertyEmbedding", "(Ljava/lang/String;[Landroid/app/appsearch/EmbeddingVector;)Ljava/lang/BuilderType;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGenericDocumentBuilderSetPropertyLong, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocumentBuilder)), "setPropertyLong", "(Ljava/lang/String;[J)Ljava/lang/BuilderType;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGenericDocumentBuilderSetPropertyString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocumentBuilder)), "setPropertyString", "(Ljava/lang/String;[Ljava/lang/String;)Ljava/lang/BuilderType;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGenericDocumentBuilderSetSchemaType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocumentBuilder)), "setSchemaType", "(Ljava/lang/String;)Ljava/lang/BuilderType;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGenericDocumentBuilderSetScore, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocumentBuilder)), "setScore", "(I)Ljava/lang/BuilderType;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGenericDocumentBuilderSetTtlMillis, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocumentBuilder)), "setTtlMillis", "(J)Ljava/lang/BuilderType;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midGenericDocumentBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocumentBuilder)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -3132,64 +1700,29 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/app/appsearch/JoinSpec")
+	c, err = env.FindClass("android/app/appsearch/AppSearchSession")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsJoinSpec = env.NewGlobalRef(&c.Object)
+		clsAppSearchSession = env.NewGlobalRef(&c.Object)
 
-		midJoinSpecDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsJoinSpec)), "describeContents", "()I")
+		midAppSearchSessionClose, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppSearchSession)), "close", "()V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midJoinSpecGetAggregationScoringStrategy, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsJoinSpec)), "getAggregationScoringStrategy", "()I")
+		midAppSearchSessionSearch, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppSearchSession)), "search", "(Ljava/lang/String;Landroid/app/appsearch/SearchSpec;)Landroid/app/appsearch/SearchResults;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midJoinSpecGetChildPropertyExpression, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsJoinSpec)), "getChildPropertyExpression", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midJoinSpecGetMaxJoinedResultCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsJoinSpec)), "getMaxJoinedResultCount", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midJoinSpecGetNestedQuery, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsJoinSpec)), "getNestedQuery", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midJoinSpecGetNestedSearchSpec, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsJoinSpec)), "getNestedSearchSpec", "()Landroid/app/appsearch/SearchSpec;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midJoinSpecWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsJoinSpec)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midJoinSpecToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsJoinSpec)), "toString", "()Ljava/lang/String;")
+		midAppSearchSessionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppSearchSession)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -3198,50 +1731,828 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/app/appsearch/JoinSpec$Builder")
+	c, err = env.FindClass("android/app/appsearch/SearchResult")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsJoinSpecBuilder = env.NewGlobalRef(&c.Object)
+		clsSearchResult = env.NewGlobalRef(&c.Object)
 
-		midJoinSpecBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsJoinSpecBuilder)), "build", "()Landroid/app/appsearch/JoinSpec;")
+		midSearchResultDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResult)), "describeContents", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midJoinSpecBuilderSetAggregationScoringStrategy, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsJoinSpecBuilder)), "setAggregationScoringStrategy", "(I)Landroid/app/appsearch/JoinSpec$Builder;")
+		midSearchResultGetDatabaseName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResult)), "getDatabaseName", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midJoinSpecBuilderSetChildPropertyExpression, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsJoinSpecBuilder)), "setChildPropertyExpression", "(Ljava/lang/String;)Landroid/app/appsearch/JoinSpec$Builder;")
+		midSearchResultGetGenericDocument, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResult)), "getGenericDocument", "()Landroid/app/appsearch/GenericDocument;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midJoinSpecBuilderSetMaxJoinedResultCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsJoinSpecBuilder)), "setMaxJoinedResultCount", "(I)Landroid/app/appsearch/JoinSpec$Builder;")
+		midSearchResultGetInformationalRankingSignals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResult)), "getInformationalRankingSignals", "()Ljava/util/List;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midJoinSpecBuilderSetNestedSearch, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsJoinSpecBuilder)), "setNestedSearch", "(Ljava/lang/String;Landroid/app/appsearch/SearchSpec;)Landroid/app/appsearch/JoinSpec$Builder;")
+		midSearchResultGetJoinedResults, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResult)), "getJoinedResults", "()Ljava/util/List;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midJoinSpecBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsJoinSpecBuilder)), "toString", "()Ljava/lang/String;")
+		midSearchResultGetMatchInfos, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResult)), "getMatchInfos", "()Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSearchResultGetPackageName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResult)), "getPackageName", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSearchResultGetRankingSignal, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResult)), "getRankingSignal", "()D")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSearchResultWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResult)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSearchResultToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResult)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/app/appsearch/SearchResult$Builder")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSearchResultBuilder = env.NewGlobalRef(&c.Object)
+
+		midSearchResultBuilderAddInformationalRankingSignal, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResultBuilder)), "addInformationalRankingSignal", "(D)Landroid/app/appsearch/SearchResult$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSearchResultBuilderAddJoinedResult, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResultBuilder)), "addJoinedResult", "(Landroid/app/appsearch/SearchResult;)Landroid/app/appsearch/SearchResult$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSearchResultBuilderAddMatchInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResultBuilder)), "addMatchInfo", "(Landroid/app/appsearch/SearchResult$MatchInfo;)Landroid/app/appsearch/SearchResult$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSearchResultBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResultBuilder)), "build", "()Landroid/app/appsearch/SearchResult;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSearchResultBuilderSetGenericDocument, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResultBuilder)), "setGenericDocument", "(Landroid/app/appsearch/GenericDocument;)Landroid/app/appsearch/SearchResult$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSearchResultBuilderSetRankingSignal, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResultBuilder)), "setRankingSignal", "(D)Landroid/app/appsearch/SearchResult$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSearchResultBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResultBuilder)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/app/appsearch/SearchResult$MatchInfo")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSearchResultMatchInfo = env.NewGlobalRef(&c.Object)
+
+		midSearchResultMatchInfoDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResultMatchInfo)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSearchResultMatchInfoGetExactMatch, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResultMatchInfo)), "getExactMatch", "()Ljava/lang/CharSequence;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSearchResultMatchInfoGetExactMatchRange, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResultMatchInfo)), "getExactMatchRange", "()Landroid/app/appsearch/SearchResult$MatchRange;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSearchResultMatchInfoGetFullText, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResultMatchInfo)), "getFullText", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSearchResultMatchInfoGetPropertyPath, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResultMatchInfo)), "getPropertyPath", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSearchResultMatchInfoGetPropertyPathObject, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResultMatchInfo)), "getPropertyPathObject", "()Landroid/app/appsearch/PropertyPath;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSearchResultMatchInfoGetSnippet, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResultMatchInfo)), "getSnippet", "()Ljava/lang/CharSequence;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSearchResultMatchInfoGetSnippetRange, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResultMatchInfo)), "getSnippetRange", "()Landroid/app/appsearch/SearchResult$MatchRange;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSearchResultMatchInfoGetSubmatch, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResultMatchInfo)), "getSubmatch", "()Ljava/lang/CharSequence;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSearchResultMatchInfoGetSubmatchRange, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResultMatchInfo)), "getSubmatchRange", "()Landroid/app/appsearch/SearchResult$MatchRange;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSearchResultMatchInfoWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResultMatchInfo)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSearchResultMatchInfoToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResultMatchInfo)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/app/appsearch/SearchResult$MatchRange")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSearchResultMatchRange = env.NewGlobalRef(&c.Object)
+
+		midSearchResultMatchRangeEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResultMatchRange)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSearchResultMatchRangeGetEnd, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResultMatchRange)), "getEnd", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSearchResultMatchRangeGetStart, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResultMatchRange)), "getStart", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSearchResultMatchRangeHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResultMatchRange)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSearchResultMatchRangeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResultMatchRange)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/app/appsearch/SearchResults")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSearchResults = env.NewGlobalRef(&c.Object)
+
+		midSearchResultsClose, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResults)), "close", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSearchResultsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchResults)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/app/appsearch/AppSearchManager")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAppSearchManager = env.NewGlobalRef(&c.Object)
+
+		midAppSearchManagerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppSearchManager)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/app/appsearch/AppSearchManager$SearchContext")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAppSearchManagerSearchContext = env.NewGlobalRef(&c.Object)
+
+		midAppSearchManagerSearchContextGetDatabaseName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppSearchManagerSearchContext)), "getDatabaseName", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppSearchManagerSearchContextToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppSearchManagerSearchContext)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/app/appsearch/AppSearchBatchResult")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAppSearchBatchResult = env.NewGlobalRef(&c.Object)
+
+		midAppSearchBatchResultIsSuccess, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppSearchBatchResult)), "isSuccess", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppSearchBatchResultToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppSearchBatchResult)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/app/appsearch/AppSearchBatchResult$Builder")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAppSearchBatchResultBuilder = env.NewGlobalRef(&c.Object)
+
+		midAppSearchBatchResultBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppSearchBatchResultBuilder)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/app/appsearch/GenericDocument")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsGenericDocument = env.NewGlobalRef(&c.Object)
+
+		midGenericDocumentEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGenericDocumentGetCreationTimestampMillis, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "getCreationTimestampMillis", "()J")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGenericDocumentGetId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "getId", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGenericDocumentGetNamespace, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "getNamespace", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGenericDocumentGetProperty, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "getProperty", "(Ljava/lang/String;)Ljava/lang/Object;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGenericDocumentGetPropertyBlobHandle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "getPropertyBlobHandle", "(Ljava/lang/String;)Landroid/app/appsearch/AppSearchBlobHandle;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGenericDocumentGetPropertyBlobHandleArray, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "getPropertyBlobHandleArray", "(Ljava/lang/String;)[Landroid/app/appsearch/AppSearchBlobHandle;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGenericDocumentGetPropertyBoolean, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "getPropertyBoolean", "(Ljava/lang/String;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGenericDocumentGetPropertyBooleanArray, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "getPropertyBooleanArray", "(Ljava/lang/String;)[Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGenericDocumentGetPropertyBytes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "getPropertyBytes", "(Ljava/lang/String;)[B")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGenericDocumentGetPropertyBytesArray, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "getPropertyBytesArray", "(Ljava/lang/String;)[[B")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGenericDocumentGetPropertyDocument, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "getPropertyDocument", "(Ljava/lang/String;)Landroid/app/appsearch/GenericDocument;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGenericDocumentGetPropertyDocumentArray, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "getPropertyDocumentArray", "(Ljava/lang/String;)[Landroid/app/appsearch/GenericDocument;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGenericDocumentGetPropertyDouble, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "getPropertyDouble", "(Ljava/lang/String;)D")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGenericDocumentGetPropertyDoubleArray, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "getPropertyDoubleArray", "(Ljava/lang/String;)[D")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGenericDocumentGetPropertyEmbedding, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "getPropertyEmbedding", "(Ljava/lang/String;)Landroid/app/appsearch/EmbeddingVector;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGenericDocumentGetPropertyEmbeddingArray, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "getPropertyEmbeddingArray", "(Ljava/lang/String;)[Landroid/app/appsearch/EmbeddingVector;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGenericDocumentGetPropertyLong, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "getPropertyLong", "(Ljava/lang/String;)J")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGenericDocumentGetPropertyLongArray, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "getPropertyLongArray", "(Ljava/lang/String;)[J")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGenericDocumentGetPropertyNames, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "getPropertyNames", "()Ljava/util/Set;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGenericDocumentGetPropertyString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "getPropertyString", "(Ljava/lang/String;)Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGenericDocumentGetPropertyStringArray, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "getPropertyStringArray", "(Ljava/lang/String;)[Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGenericDocumentGetSchemaType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "getSchemaType", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGenericDocumentGetScore, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "getScore", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGenericDocumentGetTtlMillis, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "getTtlMillis", "()J")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGenericDocumentHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGenericDocumentToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGenericDocumentGetMaxIndexedProperties, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocument)), "getMaxIndexedProperties", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/app/appsearch/GenericDocument$Builder")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsGenericDocumentBuilder = env.NewGlobalRef(&c.Object)
+
+		midGenericDocumentBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocumentBuilder)), "build", "()Landroid/app/appsearch/GenericDocument;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGenericDocumentBuilderClearProperty, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocumentBuilder)), "clearProperty", "(Ljava/lang/String;)Ljava/lang/BuilderType;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGenericDocumentBuilderSetCreationTimestampMillis, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocumentBuilder)), "setCreationTimestampMillis", "(J)Ljava/lang/BuilderType;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGenericDocumentBuilderSetId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocumentBuilder)), "setId", "(Ljava/lang/String;)Ljava/lang/BuilderType;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGenericDocumentBuilderSetNamespace, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocumentBuilder)), "setNamespace", "(Ljava/lang/String;)Ljava/lang/BuilderType;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGenericDocumentBuilderSetPropertyBlobHandle, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocumentBuilder)), "setPropertyBlobHandle", "(Ljava/lang/String;[Landroid/app/appsearch/AppSearchBlobHandle;)Ljava/lang/BuilderType;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGenericDocumentBuilderSetPropertyBoolean, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocumentBuilder)), "setPropertyBoolean", "(Ljava/lang/String;[Z)Ljava/lang/BuilderType;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGenericDocumentBuilderSetPropertyBytes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocumentBuilder)), "setPropertyBytes", "(Ljava/lang/String;[[B)Ljava/lang/BuilderType;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGenericDocumentBuilderSetPropertyDocument, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocumentBuilder)), "setPropertyDocument", "(Ljava/lang/String;[Landroid/app/appsearch/GenericDocument;)Ljava/lang/BuilderType;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGenericDocumentBuilderSetPropertyDouble, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocumentBuilder)), "setPropertyDouble", "(Ljava/lang/String;[D)Ljava/lang/BuilderType;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGenericDocumentBuilderSetPropertyEmbedding, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocumentBuilder)), "setPropertyEmbedding", "(Ljava/lang/String;[Landroid/app/appsearch/EmbeddingVector;)Ljava/lang/BuilderType;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGenericDocumentBuilderSetPropertyLong, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocumentBuilder)), "setPropertyLong", "(Ljava/lang/String;[J)Ljava/lang/BuilderType;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGenericDocumentBuilderSetPropertyString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocumentBuilder)), "setPropertyString", "(Ljava/lang/String;[Ljava/lang/String;)Ljava/lang/BuilderType;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGenericDocumentBuilderSetSchemaType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocumentBuilder)), "setSchemaType", "(Ljava/lang/String;)Ljava/lang/BuilderType;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGenericDocumentBuilderSetScore, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocumentBuilder)), "setScore", "(I)Ljava/lang/BuilderType;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGenericDocumentBuilderSetTtlMillis, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocumentBuilder)), "setTtlMillis", "(J)Ljava/lang/BuilderType;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGenericDocumentBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGenericDocumentBuilder)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/app/appsearch/SetSchemaResponse")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSetSchemaResponse = env.NewGlobalRef(&c.Object)
+
+		midSetSchemaResponseDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetSchemaResponse)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSetSchemaResponseGetDeletedTypes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetSchemaResponse)), "getDeletedTypes", "()Ljava/util/Set;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSetSchemaResponseGetIncompatibleTypes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetSchemaResponse)), "getIncompatibleTypes", "()Ljava/util/Set;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSetSchemaResponseGetMigratedTypes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetSchemaResponse)), "getMigratedTypes", "()Ljava/util/Set;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSetSchemaResponseGetMigrationFailures, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetSchemaResponse)), "getMigrationFailures", "()Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSetSchemaResponseWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetSchemaResponse)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSetSchemaResponseToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetSchemaResponse)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/app/appsearch/SetSchemaResponse$Builder")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSetSchemaResponseBuilder = env.NewGlobalRef(&c.Object)
+
+		midSetSchemaResponseBuilderAddDeletedType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetSchemaResponseBuilder)), "addDeletedType", "(Ljava/lang/String;)Landroid/app/appsearch/SetSchemaResponse$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSetSchemaResponseBuilderAddIncompatibleType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetSchemaResponseBuilder)), "addIncompatibleType", "(Ljava/lang/String;)Landroid/app/appsearch/SetSchemaResponse$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSetSchemaResponseBuilderAddMigratedType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetSchemaResponseBuilder)), "addMigratedType", "(Ljava/lang/String;)Landroid/app/appsearch/SetSchemaResponse$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSetSchemaResponseBuilderAddMigrationFailure, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetSchemaResponseBuilder)), "addMigrationFailure", "(Landroid/app/appsearch/SetSchemaResponse$MigrationFailure;)Landroid/app/appsearch/SetSchemaResponse$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSetSchemaResponseBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetSchemaResponseBuilder)), "build", "()Landroid/app/appsearch/SetSchemaResponse;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSetSchemaResponseBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetSchemaResponseBuilder)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -3313,6 +2624,714 @@ func doInit(env *jni.Env) error {
 
 	}
 
+	c, err = env.FindClass("android/app/appsearch/SetSchemaResponse$MigrationFailure")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSetSchemaResponseMigrationFailure = env.NewGlobalRef(&c.Object)
+
+		midSetSchemaResponseMigrationFailureDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetSchemaResponseMigrationFailure)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSetSchemaResponseMigrationFailureGetAppSearchResult, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetSchemaResponseMigrationFailure)), "getAppSearchResult", "()Landroid/app/appsearch/AppSearchResult;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSetSchemaResponseMigrationFailureGetDocumentId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetSchemaResponseMigrationFailure)), "getDocumentId", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSetSchemaResponseMigrationFailureGetNamespace, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetSchemaResponseMigrationFailure)), "getNamespace", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSetSchemaResponseMigrationFailureGetSchemaType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetSchemaResponseMigrationFailure)), "getSchemaType", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSetSchemaResponseMigrationFailureToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetSchemaResponseMigrationFailure)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSetSchemaResponseMigrationFailureWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetSchemaResponseMigrationFailure)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/app/appsearch/StorageInfo")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsStorageInfo = env.NewGlobalRef(&c.Object)
+
+		midStorageInfoDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStorageInfo)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStorageInfoGetAliveDocumentsCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStorageInfo)), "getAliveDocumentsCount", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStorageInfoGetAliveNamespacesCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStorageInfo)), "getAliveNamespacesCount", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStorageInfoGetBlobsCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStorageInfo)), "getBlobsCount", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStorageInfoGetBlobsSizeBytes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStorageInfo)), "getBlobsSizeBytes", "()J")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStorageInfoGetSizeBytes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStorageInfo)), "getSizeBytes", "()J")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStorageInfoWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStorageInfo)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStorageInfoToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStorageInfo)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/app/appsearch/StorageInfo$Builder")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsStorageInfoBuilder = env.NewGlobalRef(&c.Object)
+
+		midStorageInfoBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStorageInfoBuilder)), "build", "()Landroid/app/appsearch/StorageInfo;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStorageInfoBuilderSetAliveDocumentsCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStorageInfoBuilder)), "setAliveDocumentsCount", "(I)Landroid/app/appsearch/StorageInfo$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStorageInfoBuilderSetAliveNamespacesCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStorageInfoBuilder)), "setAliveNamespacesCount", "(I)Landroid/app/appsearch/StorageInfo$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStorageInfoBuilderSetBlobsCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStorageInfoBuilder)), "setBlobsCount", "(I)Landroid/app/appsearch/StorageInfo$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStorageInfoBuilderSetBlobsSizeBytes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStorageInfoBuilder)), "setBlobsSizeBytes", "(J)Landroid/app/appsearch/StorageInfo$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStorageInfoBuilderSetSizeBytes, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStorageInfoBuilder)), "setSizeBytes", "(J)Landroid/app/appsearch/StorageInfo$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midStorageInfoBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsStorageInfoBuilder)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/app/appsearch/ReportSystemUsageRequest")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsReportSystemUsageRequest = env.NewGlobalRef(&c.Object)
+
+		midReportSystemUsageRequestGetDatabaseName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReportSystemUsageRequest)), "getDatabaseName", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midReportSystemUsageRequestGetDocumentId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReportSystemUsageRequest)), "getDocumentId", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midReportSystemUsageRequestGetNamespace, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReportSystemUsageRequest)), "getNamespace", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midReportSystemUsageRequestGetPackageName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReportSystemUsageRequest)), "getPackageName", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midReportSystemUsageRequestGetUsageTimestampMillis, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReportSystemUsageRequest)), "getUsageTimestampMillis", "()J")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midReportSystemUsageRequestToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReportSystemUsageRequest)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/app/appsearch/ReportSystemUsageRequest$Builder")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsReportSystemUsageRequestBuilder = env.NewGlobalRef(&c.Object)
+
+		midReportSystemUsageRequestBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReportSystemUsageRequestBuilder)), "build", "()Landroid/app/appsearch/ReportSystemUsageRequest;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midReportSystemUsageRequestBuilderSetUsageTimestampMillis, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReportSystemUsageRequestBuilder)), "setUsageTimestampMillis", "(J)Landroid/app/appsearch/ReportSystemUsageRequest$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midReportSystemUsageRequestBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReportSystemUsageRequestBuilder)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/app/appsearch/EnterpriseGlobalSearchSession")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsEnterpriseGlobalSearchSession = env.NewGlobalRef(&c.Object)
+
+		midEnterpriseGlobalSearchSessionSearch, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEnterpriseGlobalSearchSession)), "search", "(Ljava/lang/String;Landroid/app/appsearch/SearchSpec;)Landroid/app/appsearch/SearchResults;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midEnterpriseGlobalSearchSessionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEnterpriseGlobalSearchSession)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/app/appsearch/SearchSuggestionSpec")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSearchSuggestionSpec = env.NewGlobalRef(&c.Object)
+
+		midSearchSuggestionSpecDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchSuggestionSpec)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSearchSuggestionSpecGetFilterNamespaces, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchSuggestionSpec)), "getFilterNamespaces", "()Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSearchSuggestionSpecGetFilterSchemas, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchSuggestionSpec)), "getFilterSchemas", "()Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSearchSuggestionSpecGetMaximumResultCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchSuggestionSpec)), "getMaximumResultCount", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSearchSuggestionSpecGetRankingStrategy, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchSuggestionSpec)), "getRankingStrategy", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSearchSuggestionSpecGetSearchStringParameters, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchSuggestionSpec)), "getSearchStringParameters", "()Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSearchSuggestionSpecWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchSuggestionSpec)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSearchSuggestionSpecToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchSuggestionSpec)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/app/appsearch/SearchSuggestionSpec$Builder")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSearchSuggestionSpecBuilder = env.NewGlobalRef(&c.Object)
+
+		midSearchSuggestionSpecBuilderAddFilterDocumentIds, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchSuggestionSpecBuilder)), "addFilterDocumentIds", "(Ljava/lang/String;[Ljava/lang/String;)Landroid/app/appsearch/SearchSuggestionSpec$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSearchSuggestionSpecBuilderAddFilterNamespaces, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchSuggestionSpecBuilder)), "addFilterNamespaces", "([Ljava/lang/String;)Landroid/app/appsearch/SearchSuggestionSpec$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSearchSuggestionSpecBuilderAddFilterSchemas, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchSuggestionSpecBuilder)), "addFilterSchemas", "([Ljava/lang/String;)Landroid/app/appsearch/SearchSuggestionSpec$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSearchSuggestionSpecBuilderAddSearchStringParameters, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchSuggestionSpecBuilder)), "addSearchStringParameters", "([Ljava/lang/String;)Landroid/app/appsearch/SearchSuggestionSpec$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSearchSuggestionSpecBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchSuggestionSpecBuilder)), "build", "()Landroid/app/appsearch/SearchSuggestionSpec;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSearchSuggestionSpecBuilderSetRankingStrategy, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchSuggestionSpecBuilder)), "setRankingStrategy", "(I)Landroid/app/appsearch/SearchSuggestionSpec$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSearchSuggestionSpecBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchSuggestionSpecBuilder)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/app/appsearch/Migrator")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsMigrator = env.NewGlobalRef(&c.Object)
+
+		midMigratorOnDowngrade, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMigrator)), "onDowngrade", "(IILandroid/app/appsearch/GenericDocument;)Landroid/app/appsearch/GenericDocument;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMigratorOnUpgrade, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMigrator)), "onUpgrade", "(IILandroid/app/appsearch/GenericDocument;)Landroid/app/appsearch/GenericDocument;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMigratorShouldMigrate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMigrator)), "shouldMigrate", "(II)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMigratorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMigrator)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/app/appsearch/AppSearchBlobHandle")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAppSearchBlobHandle = env.NewGlobalRef(&c.Object)
+
+		midAppSearchBlobHandleDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppSearchBlobHandle)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppSearchBlobHandleEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppSearchBlobHandle)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppSearchBlobHandleGetDatabaseName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppSearchBlobHandle)), "getDatabaseName", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppSearchBlobHandleGetNamespace, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppSearchBlobHandle)), "getNamespace", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppSearchBlobHandleGetPackageName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppSearchBlobHandle)), "getPackageName", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppSearchBlobHandleGetSha256Digest, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppSearchBlobHandle)), "getSha256Digest", "()[B")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppSearchBlobHandleHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppSearchBlobHandle)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppSearchBlobHandleToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppSearchBlobHandle)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppSearchBlobHandleWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppSearchBlobHandle)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppSearchBlobHandleCreateWithSha256, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsAppSearchBlobHandle)), "createWithSha256", "([BLjava/lang/String;Ljava/lang/String;Ljava/lang/String;)Landroid/app/appsearch/AppSearchBlobHandle;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/app/appsearch/PropertyPath")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsPropertyPath = env.NewGlobalRef(&c.Object)
+		midPropertyPathCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertyPath)), "<init>", "(Ljava/lang/String;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midPropertyPathEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertyPath)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPropertyPathGet, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertyPath)), "get", "(I)Landroid/app/appsearch/PropertyPath$PathSegment;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPropertyPathHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertyPath)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPropertyPathIterator, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertyPath)), "iterator", "()Ljava/util/Iterator;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPropertyPathSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertyPath)), "size", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPropertyPathToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertyPath)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/app/appsearch/AppSearchResult")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsAppSearchResult = env.NewGlobalRef(&c.Object)
+
+		midAppSearchResultEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppSearchResult)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppSearchResultGetErrorMessage, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppSearchResult)), "getErrorMessage", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppSearchResultGetResultCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppSearchResult)), "getResultCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppSearchResultGetResultValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppSearchResult)), "getResultValue", "()Ljava/lang/ValueType;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppSearchResultHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppSearchResult)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppSearchResultIsSuccess, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppSearchResult)), "isSuccess", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midAppSearchResultToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppSearchResult)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/app/appsearch/PropertyPath$PathSegment")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsPropertyPathPathSegment = env.NewGlobalRef(&c.Object)
+
+		midPropertyPathPathSegmentEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertyPathPathSegment)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPropertyPathPathSegmentGetPropertyIndex, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertyPathPathSegment)), "getPropertyIndex", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPropertyPathPathSegmentGetPropertyName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertyPathPathSegment)), "getPropertyName", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPropertyPathPathSegmentHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertyPathPathSegment)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPropertyPathPathSegmentToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertyPathPathSegment)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPropertyPathPathSegmentCreate1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPropertyPathPathSegment)), "create", "(Ljava/lang/String;)Landroid/app/appsearch/PropertyPath$PathSegment;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPropertyPathPathSegmentCreate2_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPropertyPathPathSegment)), "create", "(Ljava/lang/String;I)Landroid/app/appsearch/PropertyPath$PathSegment;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
 	c, err = env.FindClass("android/app/appsearch/GetSchemaResponse")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -3357,6 +3376,58 @@ func doInit(env *jni.Env) error {
 		}
 
 		midGetSchemaResponseToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGetSchemaResponse)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/app/appsearch/SearchSuggestionResult")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSearchSuggestionResult = env.NewGlobalRef(&c.Object)
+
+		midSearchSuggestionResultDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchSuggestionResult)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSearchSuggestionResultEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchSuggestionResult)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSearchSuggestionResultGetSuggestedResult, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchSuggestionResult)), "getSuggestedResult", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSearchSuggestionResultHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchSuggestionResult)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSearchSuggestionResultWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchSuggestionResult)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSearchSuggestionResultToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchSuggestionResult)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -3459,6 +3530,148 @@ func doInit(env *jni.Env) error {
 
 	}
 
+	c, err = env.FindClass("android/app/appsearch/SearchSuggestionResult$Builder")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSearchSuggestionResultBuilder = env.NewGlobalRef(&c.Object)
+
+		midSearchSuggestionResultBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchSuggestionResultBuilder)), "build", "()Landroid/app/appsearch/SearchSuggestionResult;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSearchSuggestionResultBuilderSetSuggestedResult, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchSuggestionResultBuilder)), "setSuggestedResult", "(Ljava/lang/String;)Landroid/app/appsearch/SearchSuggestionResult$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSearchSuggestionResultBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchSuggestionResultBuilder)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/app/appsearch/GetByDocumentIdRequest")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsGetByDocumentIdRequest = env.NewGlobalRef(&c.Object)
+
+		midGetByDocumentIdRequestDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGetByDocumentIdRequest)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGetByDocumentIdRequestGetIds, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGetByDocumentIdRequest)), "getIds", "()Ljava/util/Set;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGetByDocumentIdRequestGetNamespace, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGetByDocumentIdRequest)), "getNamespace", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGetByDocumentIdRequestWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGetByDocumentIdRequest)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGetByDocumentIdRequestToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGetByDocumentIdRequest)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/app/appsearch/GetByDocumentIdRequest$Builder")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsGetByDocumentIdRequestBuilder = env.NewGlobalRef(&c.Object)
+
+		midGetByDocumentIdRequestBuilderAddIds, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGetByDocumentIdRequestBuilder)), "addIds", "([Ljava/lang/String;)Landroid/app/appsearch/GetByDocumentIdRequest$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGetByDocumentIdRequestBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGetByDocumentIdRequestBuilder)), "build", "()Landroid/app/appsearch/GetByDocumentIdRequest;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midGetByDocumentIdRequestBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGetByDocumentIdRequestBuilder)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/app/appsearch/RemoveBlobResponse")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsRemoveBlobResponse = env.NewGlobalRef(&c.Object)
+		midRemoveBlobResponseCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRemoveBlobResponse)), "<init>", "(Landroid/app/appsearch/AppSearchBatchResult;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midRemoveBlobResponseDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRemoveBlobResponse)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRemoveBlobResponseWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRemoveBlobResponse)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRemoveBlobResponseToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRemoveBlobResponse)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
 	c, err = env.FindClass("android/app/appsearch/OpenBlobForWriteResponse")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -3493,72 +3706,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midOpenBlobForWriteResponseToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOpenBlobForWriteResponse)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/app/appsearch/EnterpriseGlobalSearchSession")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsEnterpriseGlobalSearchSession = env.NewGlobalRef(&c.Object)
-
-		midEnterpriseGlobalSearchSessionSearch, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEnterpriseGlobalSearchSession)), "search", "(Ljava/lang/String;Landroid/app/appsearch/SearchSpec;)Landroid/app/appsearch/SearchResults;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midEnterpriseGlobalSearchSessionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsEnterpriseGlobalSearchSession)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/app/appsearch/OpenBlobForReadResponse")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsOpenBlobForReadResponse = env.NewGlobalRef(&c.Object)
-		midOpenBlobForReadResponseCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOpenBlobForReadResponse)), "<init>", "(Landroid/app/appsearch/AppSearchBatchResult;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midOpenBlobForReadResponseClose, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOpenBlobForReadResponse)), "close", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOpenBlobForReadResponseDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOpenBlobForReadResponse)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOpenBlobForReadResponseWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOpenBlobForReadResponse)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOpenBlobForReadResponseToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOpenBlobForReadResponse)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -4070,29 +4217,15 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/app/appsearch/AppSearchSession")
+	c, err = env.FindClass("android/app/appsearch/BatchResultCallback")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsAppSearchSession = env.NewGlobalRef(&c.Object)
+		clsBatchResultCallback = env.NewGlobalRef(&c.Object)
 
-		midAppSearchSessionClose, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppSearchSession)), "close", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppSearchSessionSearch, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppSearchSession)), "search", "(Ljava/lang/String;Landroid/app/appsearch/SearchSpec;)Landroid/app/appsearch/SearchResults;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppSearchSessionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppSearchSession)), "toString", "()Ljava/lang/String;")
+		midBatchResultCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBatchResultCallback)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -4101,54 +4234,50 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/app/appsearch/PropertyPath")
+	c, err = env.FindClass("android/app/appsearch/ReportUsageRequest")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsPropertyPath = env.NewGlobalRef(&c.Object)
-		midPropertyPathCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertyPath)), "<init>", "(Ljava/lang/String;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
+		clsReportUsageRequest = env.NewGlobalRef(&c.Object)
 
-		midPropertyPathEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertyPath)), "equals", "(Ljava/lang/Object;)Z")
+		midReportUsageRequestDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReportUsageRequest)), "describeContents", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midPropertyPathGet, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertyPath)), "get", "(I)Landroid/app/appsearch/PropertyPath$PathSegment;")
+		midReportUsageRequestGetDocumentId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReportUsageRequest)), "getDocumentId", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midPropertyPathHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertyPath)), "hashCode", "()I")
+		midReportUsageRequestGetNamespace, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReportUsageRequest)), "getNamespace", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midPropertyPathIterator, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertyPath)), "iterator", "()Ljava/util/Iterator;")
+		midReportUsageRequestGetUsageTimestampMillis, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReportUsageRequest)), "getUsageTimestampMillis", "()J")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midPropertyPathSize, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertyPath)), "size", "()I")
+		midReportUsageRequestWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReportUsageRequest)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midPropertyPathToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertyPath)), "toString", "()Ljava/lang/String;")
+		midReportUsageRequestToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReportUsageRequest)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -4157,57 +4286,29 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/app/appsearch/PropertyPath$PathSegment")
+	c, err = env.FindClass("android/app/appsearch/ReportUsageRequest$Builder")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsPropertyPathPathSegment = env.NewGlobalRef(&c.Object)
+		clsReportUsageRequestBuilder = env.NewGlobalRef(&c.Object)
 
-		midPropertyPathPathSegmentEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertyPathPathSegment)), "equals", "(Ljava/lang/Object;)Z")
+		midReportUsageRequestBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReportUsageRequestBuilder)), "build", "()Landroid/app/appsearch/ReportUsageRequest;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midPropertyPathPathSegmentGetPropertyIndex, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertyPathPathSegment)), "getPropertyIndex", "()I")
+		midReportUsageRequestBuilderSetUsageTimestampMillis, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReportUsageRequestBuilder)), "setUsageTimestampMillis", "(J)Landroid/app/appsearch/ReportUsageRequest$Builder;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midPropertyPathPathSegmentGetPropertyName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertyPathPathSegment)), "getPropertyName", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPropertyPathPathSegmentHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertyPathPathSegment)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPropertyPathPathSegmentToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertyPathPathSegment)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPropertyPathPathSegmentCreate1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPropertyPathPathSegment)), "create", "(Ljava/lang/String;)Landroid/app/appsearch/PropertyPath$PathSegment;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPropertyPathPathSegmentCreate2_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPropertyPathPathSegment)), "create", "(Ljava/lang/String;I)Landroid/app/appsearch/PropertyPath$PathSegment;")
+		midReportUsageRequestBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsReportUsageRequestBuilder)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -4216,64 +4317,33 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/app/appsearch/SearchSuggestionSpec")
+	c, err = env.FindClass("android/app/appsearch/CommitBlobResponse")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsSearchSuggestionSpec = env.NewGlobalRef(&c.Object)
+		clsCommitBlobResponse = env.NewGlobalRef(&c.Object)
+		midCommitBlobResponseCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCommitBlobResponse)), "<init>", "(Landroid/app/appsearch/AppSearchBatchResult;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
 
-		midSearchSuggestionSpecDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchSuggestionSpec)), "describeContents", "()I")
+		midCommitBlobResponseDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCommitBlobResponse)), "describeContents", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSearchSuggestionSpecGetFilterNamespaces, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchSuggestionSpec)), "getFilterNamespaces", "()Ljava/util/List;")
+		midCommitBlobResponseWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCommitBlobResponse)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSearchSuggestionSpecGetFilterSchemas, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchSuggestionSpec)), "getFilterSchemas", "()Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSearchSuggestionSpecGetMaximumResultCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchSuggestionSpec)), "getMaximumResultCount", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSearchSuggestionSpecGetRankingStrategy, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchSuggestionSpec)), "getRankingStrategy", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSearchSuggestionSpecGetSearchStringParameters, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchSuggestionSpec)), "getSearchStringParameters", "()Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSearchSuggestionSpecWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchSuggestionSpec)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSearchSuggestionSpecToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchSuggestionSpec)), "toString", "()Ljava/lang/String;")
+		midCommitBlobResponseToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCommitBlobResponse)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -4282,57 +4352,22 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/app/appsearch/SearchSuggestionSpec$Builder")
+	c, err = env.FindClass("android/app/appsearch/SetBlobVisibilityRequest")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsSearchSuggestionSpecBuilder = env.NewGlobalRef(&c.Object)
+		clsSetBlobVisibilityRequest = env.NewGlobalRef(&c.Object)
 
-		midSearchSuggestionSpecBuilderAddFilterDocumentIds, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchSuggestionSpecBuilder)), "addFilterDocumentIds", "(Ljava/lang/String;[Ljava/lang/String;)Landroid/app/appsearch/SearchSuggestionSpec$Builder;")
+		midSetBlobVisibilityRequestGetNamespacesNotDisplayedBySystem, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetBlobVisibilityRequest)), "getNamespacesNotDisplayedBySystem", "()Ljava/util/Set;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSearchSuggestionSpecBuilderAddFilterNamespaces, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchSuggestionSpecBuilder)), "addFilterNamespaces", "([Ljava/lang/String;)Landroid/app/appsearch/SearchSuggestionSpec$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSearchSuggestionSpecBuilderAddFilterSchemas, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchSuggestionSpecBuilder)), "addFilterSchemas", "([Ljava/lang/String;)Landroid/app/appsearch/SearchSuggestionSpec$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSearchSuggestionSpecBuilderAddSearchStringParameters, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchSuggestionSpecBuilder)), "addSearchStringParameters", "([Ljava/lang/String;)Landroid/app/appsearch/SearchSuggestionSpec$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSearchSuggestionSpecBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchSuggestionSpecBuilder)), "build", "()Landroid/app/appsearch/SearchSuggestionSpec;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSearchSuggestionSpecBuilderSetRankingStrategy, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchSuggestionSpecBuilder)), "setRankingStrategy", "(I)Landroid/app/appsearch/SearchSuggestionSpec$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSearchSuggestionSpecBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSearchSuggestionSpecBuilder)), "toString", "()Ljava/lang/String;")
+		midSetBlobVisibilityRequestToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetBlobVisibilityRequest)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -4341,78 +4376,43 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/app/appsearch/AppSearchBlobHandle")
+	c, err = env.FindClass("android/app/appsearch/SetBlobVisibilityRequest$Builder")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsAppSearchBlobHandle = env.NewGlobalRef(&c.Object)
+		clsSetBlobVisibilityRequestBuilder = env.NewGlobalRef(&c.Object)
 
-		midAppSearchBlobHandleDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppSearchBlobHandle)), "describeContents", "()I")
+		midSetBlobVisibilityRequestBuilderAddNamespaceVisibleToConfig, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetBlobVisibilityRequestBuilder)), "addNamespaceVisibleToConfig", "(Ljava/lang/String;Landroid/app/appsearch/SchemaVisibilityConfig;)Landroid/app/appsearch/SetBlobVisibilityRequest$Builder;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppSearchBlobHandleEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppSearchBlobHandle)), "equals", "(Ljava/lang/Object;)Z")
+		midSetBlobVisibilityRequestBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetBlobVisibilityRequestBuilder)), "build", "()Landroid/app/appsearch/SetBlobVisibilityRequest;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppSearchBlobHandleGetDatabaseName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppSearchBlobHandle)), "getDatabaseName", "()Ljava/lang/String;")
+		midSetBlobVisibilityRequestBuilderClearNamespaceVisibleToConfigs, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetBlobVisibilityRequestBuilder)), "clearNamespaceVisibleToConfigs", "(Ljava/lang/String;)Landroid/app/appsearch/SetBlobVisibilityRequest$Builder;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppSearchBlobHandleGetNamespace, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppSearchBlobHandle)), "getNamespace", "()Ljava/lang/String;")
+		midSetBlobVisibilityRequestBuilderSetNamespaceDisplayedBySystem, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetBlobVisibilityRequestBuilder)), "setNamespaceDisplayedBySystem", "(Ljava/lang/String;Z)Landroid/app/appsearch/SetBlobVisibilityRequest$Builder;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midAppSearchBlobHandleGetPackageName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppSearchBlobHandle)), "getPackageName", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppSearchBlobHandleGetSha256Digest, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppSearchBlobHandle)), "getSha256Digest", "()[B")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppSearchBlobHandleHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppSearchBlobHandle)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppSearchBlobHandleToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppSearchBlobHandle)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppSearchBlobHandleWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsAppSearchBlobHandle)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midAppSearchBlobHandleCreateWithSha256, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsAppSearchBlobHandle)), "createWithSha256", "([BLjava/lang/String;Ljava/lang/String;Ljava/lang/String;)Landroid/app/appsearch/AppSearchBlobHandle;")
+		midSetBlobVisibilityRequestBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSetBlobVisibilityRequestBuilder)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

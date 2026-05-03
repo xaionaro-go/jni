@@ -5,17 +5,17 @@
 package: annotation
 go_import: github.com/AndroidGoLab/jni/annotation
 classes:
-    - java_class: android.annotation.TargetApi
-      go_type: TargetApi
-      methods:
-        - java_method: value
-          go_name: Value
-          returns: int
-          error: true
     - java_class: android.annotation.SuppressLint
       go_type: SuppressLint
       methods:
         - java_method: value
           go_name: Value
           returns: java.lang.String[]
+          error: true
+    - java_class: android.annotation.TargetApi
+      go_type: TargetApi
+      methods:
+        - java_method: value
+          go_name: Value
+          returns: int
           error: true

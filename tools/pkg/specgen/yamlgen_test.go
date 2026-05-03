@@ -292,6 +292,114 @@ func TestAbstractCallbackFromJavap(t *testing.T) {
 	})
 }
 
+// TestClassFromJavap_OverloadDisambiguator_NoCollision verifies that when
+// two Java methods differ only by case (e.g. Dimension.Suggested static and
+// Dimension.suggested instance — both PascalCase to "Suggested"), the
+// generated Go names are unique. Regression test for cycle 7: previously
+// the disambiguator counted by Java method name, so case-only collisions
+// produced two identical Go names (e.g. Suggested1 and Suggested1).
+func TestClassFromJavap_OverloadDisambiguator_NoCollision(t *testing.T) {
+	origSvc := AndroidServiceName
+	AndroidServiceName = nil
+	defer func() { AndroidServiceName = origSvc }()
+
+	jc := &JavapClass{
+		FullName: "androidx.constraintlayout.solver.state.Dimension",
+		Methods: []JavapMethod{
+			// Static capital-S methods (case differs from instance methods).
+			{Name: "Suggested", IsStatic: true, ReturnType: "androidx.constraintlayout.solver.state.Dimension",
+				Params: []JavapParam{{JavaType: "int"}}},
+			{Name: "Suggested", IsStatic: true, ReturnType: "androidx.constraintlayout.solver.state.Dimension",
+				Params: []JavapParam{{JavaType: "java.lang.Object"}}},
+			{Name: "Fixed", IsStatic: true, ReturnType: "androidx.constraintlayout.solver.state.Dimension",
+				Params: []JavapParam{{JavaType: "int"}}},
+			{Name: "Fixed", IsStatic: true, ReturnType: "androidx.constraintlayout.solver.state.Dimension",
+				Params: []JavapParam{{JavaType: "java.lang.Object"}}},
+			// Instance lowercase methods.
+			{Name: "suggested", ReturnType: "androidx.constraintlayout.solver.state.Dimension",
+				Params: []JavapParam{{JavaType: "int"}}},
+			{Name: "suggested", ReturnType: "androidx.constraintlayout.solver.state.Dimension",
+				Params: []JavapParam{{JavaType: "java.lang.Object"}}},
+			{Name: "fixed", ReturnType: "androidx.constraintlayout.solver.state.Dimension",
+				Params: []JavapParam{{JavaType: "int"}}},
+			{Name: "fixed", ReturnType: "androidx.constraintlayout.solver.state.Dimension",
+				Params: []JavapParam{{JavaType: "java.lang.Object"}}},
+		},
+	}
+	cls := classFromJavap(jc, "state")
+
+	seen := make(map[string]int)
+	for _, m := range cls.Methods {
+		seen[m.GoName]++
+	}
+	for _, m := range cls.StaticMethods {
+		seen[m.GoName]++
+	}
+	for name, count := range seen {
+		if count > 1 {
+			t.Errorf("Go name %q appears %d times across methods+static_methods (want 1)", name, count)
+		}
+	}
+	// Sanity-check totals: 8 input methods → 8 unique Go names.
+	if total := len(seen); total != 8 {
+		t.Errorf("got %d unique Go names, want 8 (Methods=%d, StaticMethods=%d)",
+			total, len(cls.Methods), len(cls.StaticMethods))
+	}
+}
+
+// TestClassFromJavap_OverloadDifferentParamCount verifies that overloads
+// distinguished by parameter count still produce distinct Go names. The
+// disambiguator uses paramCount as the primary suffix and an occurrence
+// index as the secondary suffix; both must combine to a unique identifier.
+func TestClassFromJavap_OverloadDifferentParamCount(t *testing.T) {
+	origSvc := AndroidServiceName
+	AndroidServiceName = nil
+	defer func() { AndroidServiceName = origSvc }()
+
+	jc := &JavapClass{
+		FullName: "com.example.Foo",
+		Methods: []JavapMethod{
+			{Name: "doIt", ReturnType: "void"},
+			{Name: "doIt", ReturnType: "void", Params: []JavapParam{{JavaType: "int"}}},
+			{Name: "doIt", ReturnType: "void", Params: []JavapParam{{JavaType: "int"}, {JavaType: "int"}}},
+		},
+	}
+	cls := classFromJavap(jc, "foo")
+	seen := make(map[string]int)
+	for _, m := range cls.Methods {
+		seen[m.GoName]++
+	}
+	if len(cls.Methods) != 3 {
+		t.Fatalf("expected 3 methods, got %d", len(cls.Methods))
+	}
+	for name, count := range seen {
+		if count > 1 {
+			t.Errorf("Go name %q appeared %d times, want 1", name, count)
+		}
+	}
+}
+
+// TestInferConstantDefault_BooleanReturnsFalse verifies that boolean
+// constants with no value get the Go zero value "false" rather than "0",
+// which was an invalid bool literal.
+func TestInferConstantDefault_BooleanReturnsFalse(t *testing.T) {
+	for _, tc := range []struct {
+		jt   string
+		want string
+	}{
+		{"boolean", "false"},
+		{"java.lang.String", `""`},
+		{"int", "0"},
+		{"long", "0"},
+		{"float", "0"},
+	} {
+		got := inferConstantDefault(tc.jt)
+		if got != tc.want {
+			t.Errorf("inferConstantDefault(%q) = %q, want %q", tc.jt, got, tc.want)
+		}
+	}
+}
+
 func TestDeduplicateGoTypes(t *testing.T) {
 	t.Run("no collision", func(t *testing.T) {
 		classes := []SpecClass{

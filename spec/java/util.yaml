@@ -5,369 +5,63 @@
 package: util
 go_import: github.com/AndroidGoLab/jni/util
 classes:
-    - java_class: android.util.SparseBooleanArray
-      go_type: SparseBooleanArray
-      obtain: constructor
-      methods:
-        - java_method: append
-          go_name: Append
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: boolean
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: clear
-          go_name: Clear
-          returns: void
-          error: true
-        - java_method: clone
-          go_name: Clone0
-          returns: android.util.SparseBooleanArray
-          error: true
-        - java_method: delete
-          go_name: Delete
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: get
-          go_name: Get1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: get
-          go_name: Get2_1
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: boolean
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: indexOfKey
-          go_name: IndexOfKey
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: indexOfValue
-          go_name: IndexOfValue
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: keyAt
-          go_name: KeyAt
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: put
-          go_name: Put
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: boolean
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: removeAt
-          go_name: RemoveAt
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setValueAt
-          go_name: SetValueAt
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: boolean
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: size
-          go_name: Size
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: valueAt
-          go_name: ValueAt
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: clone
-          go_name: Clone0_1
-          returns: java.lang.Object
-          error: true
-    - java_class: android.util.AtomicFile
-      go_type: AtomicFile
+    - java_class: android.util.TimingLogger
+      go_type: TimingLogger
       obtain: constructor
       constructor_params:
-        - java_type: java.io.File
+        - java_type: String
           go_name: arg0
+        - java_type: String
+          go_name: arg1
       methods:
-        - java_method: delete
-          go_name: Delete
-          returns: void
-          error: true
-        - java_method: failWrite
-          go_name: FailWrite
-          params:
-            - java_type: java.io.FileOutputStream
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: finishWrite
-          go_name: FinishWrite
-          params:
-            - java_type: java.io.FileOutputStream
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getBaseFile
-          go_name: GetBaseFile
-          returns: java.io.File
-          error: true
-        - java_method: getLastModifiedTime
-          go_name: GetLastModifiedTime
-          returns: long
-          error: true
-        - java_method: openRead
-          go_name: OpenRead
-          returns: java.io.FileInputStream
-          error: true
-        - java_method: readFully
-          go_name: ReadFully
-          returns: '[B'
-          error: true
-        - java_method: startWrite
-          go_name: StartWrite
-          returns: java.io.FileOutputStream
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-    - java_class: android.util.TypedValue
-      go_type: TypedValue
-      obtain: constructor
-      methods:
-        - java_method: coerceToString
-          go_name: CoerceToString0
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: getComplexUnit
-          go_name: GetComplexUnit
-          returns: int
-          error: true
-        - java_method: getDimension
-          go_name: GetDimension
-          params:
-            - java_type: android.util.DisplayMetrics
-              go_name: arg0
-          returns: float
-          error: true
-        - java_method: getFloat
-          go_name: GetFloat
-          returns: float
-          error: true
-        - java_method: getFraction
-          go_name: GetFraction
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-          returns: float
-          error: true
-        - java_method: isColorType
-          go_name: IsColorType
-          returns: boolean
-          error: true
-        - java_method: setTo
-          go_name: SetTo
-          params:
-            - java_type: android.util.TypedValue
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-      static_methods:
-        - java_method: applyDimension
-          go_name: ApplyDimension
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-            - java_type: android.util.DisplayMetrics
-              go_name: arg2
-          returns: float
-          error: true
-        - java_method: coerceToString
-          go_name: CoerceToString2_1
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: String
-          error: true
-        - java_method: complexToDimension
-          go_name: ComplexToDimension
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.util.DisplayMetrics
-              go_name: arg1
-          returns: float
-          error: true
-        - java_method: complexToDimensionPixelOffset
-          go_name: ComplexToDimensionPixelOffset
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.util.DisplayMetrics
-              go_name: arg1
-          returns: int
-          error: true
-        - java_method: complexToDimensionPixelSize
-          go_name: ComplexToDimensionPixelSize
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.util.DisplayMetrics
-              go_name: arg1
-          returns: int
-          error: true
-        - java_method: complexToFloat
-          go_name: ComplexToFloat
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: float
-          error: true
-        - java_method: complexToFraction
-          go_name: ComplexToFraction
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-            - java_type: float
-              go_name: arg2
-          returns: float
-          error: true
-        - java_method: convertDimensionToPixels
-          go_name: ConvertDimensionToPixels
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-            - java_type: android.util.DisplayMetrics
-              go_name: arg2
-          returns: float
-          error: true
-        - java_method: convertPixelsToDimension
-          go_name: ConvertPixelsToDimension
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-            - java_type: android.util.DisplayMetrics
-              go_name: arg2
-          returns: float
-          error: true
-        - java_method: deriveDimension
-          go_name: DeriveDimension
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-            - java_type: android.util.DisplayMetrics
-              go_name: arg2
-          returns: float
-          error: true
-    - java_class: android.util.MutableShort
-      go_type: MutableShort
-      obtain: constructor
-      constructor_params:
-        - java_type: short
-          go_name: arg0
-    - java_class: android.util.CloseGuard
-      go_type: CloseGuard
-      obtain: constructor
-      methods:
-        - java_method: close
-          go_name: Close
-          returns: void
-          error: true
-        - java_method: open
-          go_name: Open
+        - java_method: addSplit
+          go_name: AddSplit
           params:
             - java_type: String
               go_name: arg0
           returns: void
           error: true
-        - java_method: warnIfOpen
-          go_name: WarnIfOpen
+        - java_method: dumpToLog
+          go_name: DumpToLog
           returns: void
           error: true
-    - java_class: android.util.Range
-      go_type: Range
+        - java_method: reset
+          go_name: Reset0
+          returns: void
+          error: true
+        - java_method: reset
+          go_name: Reset2_1
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.util.LruCache
+      go_type: LruCache
       obtain: constructor
       constructor_params:
-        - java_type: T
+        - java_type: int
           go_name: arg0
-        - java_type: T
-          go_name: arg1
       methods:
-        - java_method: equals
-          go_name: Equals
+        - java_method: evictAll
+          go_name: EvictAll
+          returns: void
+          error: true
+        - java_method: resize
+          go_name: Resize
           params:
-            - java_type: java.lang.Object
+            - java_type: int
               go_name: arg0
-          returns: boolean
+          returns: void
           error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
+        - java_method: trimToSize
+          go_name: TrimToSize
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
           error: true
     - java_class: android.util.JsonToken
       go_type: JsonToken
@@ -383,92 +77,477 @@ classes:
               go_name: arg0
           returns: android.util.JsonToken
           error: true
-    - java_class: android.util.Base64
-      go_type: Base64
-      static_methods:
-        - java_method: decode
-          go_name: Decode2
-          params:
-            - java_type: '[B'
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: '[B'
+    - java_class: android.util.ArraySet
+      go_type: ArraySet
+      obtain: constructor
+      methods:
+        - java_method: clear
+          go_name: Clear
+          returns: void
           error: true
-        - java_method: decode
-          go_name: Decode4_1
+        - java_method: contains
+          go_name: Contains
           params:
-            - java_type: '[B'
+            - java_type: java.lang.Object
               go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: ensureCapacity
+          go_name: EnsureCapacity
+          params:
             - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: indexOf
+          go_name: IndexOf
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: isEmpty
+          go_name: IsEmpty
+          returns: boolean
+          error: true
+        - java_method: iterator
+          go_name: Iterator
+          returns: java.util.Iterator<E>
+          error: true
+        - java_method: remove
+          go_name: Remove
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: size
+          go_name: Size
+          returns: int
+          error: true
+        - java_method: toArray
+          go_name: ToArray
+          returns: java.lang.Object[]
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+    - java_class: android.util.MutableLong
+      go_type: MutableLong
+      obtain: constructor
+      constructor_params:
+        - java_type: long
+          go_name: arg0
+    - java_class: android.util.MutableInt
+      go_type: MutableInt
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+    - java_class: android.util.Xml
+      go_type: Xml
+      static_methods:
+        - java_method: asAttributeSet
+          go_name: AsAttributeSet
+          params:
+            - java_type: org.xmlpull.v1.XmlPullParser
+              go_name: arg0
+          returns: android.util.AttributeSet
+          error: true
+        - java_method: findEncodingByName
+          go_name: FindEncodingByName
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.util.Xml$Encoding
+          error: true
+        - java_method: newPullParser
+          go_name: NewPullParser
+          returns: org.xmlpull.v1.XmlPullParser
+          error: true
+        - java_method: newSerializer
+          go_name: NewSerializer
+          returns: org.xmlpull.v1.XmlSerializer
+          error: true
+    - java_class: android.util.Xml$Encoding
+      go_type: XmlEncoding
+      static_methods:
+        - java_method: values
+          go_name: Values
+          returns: android.util.Xml$Encoding[]
+          error: true
+        - java_method: valueOf
+          go_name: ValueOf
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.util.Xml$Encoding
+          error: true
+    - java_class: android.util.StatsLog
+      go_type: StatsLog
+      static_methods:
+        - java_method: logBinaryPushStateChanged
+          go_name: LogBinaryPushStateChanged
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: long
               go_name: arg1
             - java_type: int
               go_name: arg2
             - java_type: int
               go_name: arg3
-          returns: '[B'
+            - java_type: '[J'
+              go_name: arg4
+          returns: boolean
           error: true
-        - java_method: decode
-          go_name: Decode2_2
+        - java_method: logEvent
+          go_name: LogEvent
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: logStart
+          go_name: LogStart
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: logStop
+          go_name: LogStop
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+    - java_class: android.util.Dumpable
+      go_type: Dumpable
+      methods:
+        - java_method: dump
+          go_name: Dump
+          params:
+            - java_type: java.io.PrintWriter
+              go_name: arg0
+            - java_type: java.lang.String[]
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.util.LayoutDirection
+      go_type: LayoutDirection
+    - java_class: android.util.Size
+      go_type: Size
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+        - java_type: int
+          go_name: arg1
+      methods:
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getHeight
+          go_name: GetHeight
+          returns: int
+          error: true
+        - java_method: getWidth
+          go_name: GetWidth
+          returns: int
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: parseSize
+          go_name: ParseSize
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.util.Size
+          error: true
+    - java_class: android.util.Log
+      go_type: Log
+      static_methods:
+        - java_method: d
+          go_name: D2
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+          returns: int
+          error: true
+        - java_method: d
+          go_name: D3_1
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+            - java_type: java.lang.Throwable
+              go_name: arg2
+          returns: int
+          error: true
+        - java_method: e
+          go_name: E2
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+          returns: int
+          error: true
+        - java_method: e
+          go_name: E3_1
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+            - java_type: java.lang.Throwable
+              go_name: arg2
+          returns: int
+          error: true
+        - java_method: getStackTraceString
+          go_name: GetStackTraceString
+          params:
+            - java_type: java.lang.Throwable
+              go_name: arg0
+          returns: String
+          error: true
+        - java_method: i
+          go_name: I2
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+          returns: int
+          error: true
+        - java_method: i
+          go_name: I3_1
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+            - java_type: java.lang.Throwable
+              go_name: arg2
+          returns: int
+          error: true
+        - java_method: isLoggable
+          go_name: IsLoggable
           params:
             - java_type: String
               go_name: arg0
             - java_type: int
               go_name: arg1
-          returns: '[B'
+          returns: boolean
           error: true
-        - java_method: encode
-          go_name: Encode2
+        - java_method: println
+          go_name: Println
           params:
-            - java_type: '[B'
+            - java_type: int
               go_name: arg0
-            - java_type: int
+            - java_type: String
               go_name: arg1
-          returns: '[B'
-          error: true
-        - java_method: encode
-          go_name: Encode4_1
-          params:
-            - java_type: '[B'
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
+            - java_type: String
               go_name: arg2
-            - java_type: int
-              go_name: arg3
-          returns: '[B'
+          returns: int
           error: true
-        - java_method: encodeToString
-          go_name: EncodeToString2
+        - java_method: v
+          go_name: V2
           params:
-            - java_type: '[B'
+            - java_type: String
               go_name: arg0
-            - java_type: int
+            - java_type: String
               go_name: arg1
-          returns: String
+          returns: int
           error: true
-        - java_method: encodeToString
-          go_name: EncodeToString4_1
+        - java_method: v
+          go_name: V3_1
           params:
-            - java_type: '[B'
+            - java_type: String
               go_name: arg0
-            - java_type: int
+            - java_type: String
               go_name: arg1
-            - java_type: int
+            - java_type: java.lang.Throwable
               go_name: arg2
-            - java_type: int
-              go_name: arg3
-          returns: String
+          returns: int
           error: true
-    - java_class: android.util.MutableFloat
-      go_type: MutableFloat
+        - java_method: w
+          go_name: W2
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+          returns: int
+          error: true
+        - java_method: w
+          go_name: W3_1
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+            - java_type: java.lang.Throwable
+              go_name: arg2
+          returns: int
+          error: true
+        - java_method: w
+          go_name: W2_2
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: java.lang.Throwable
+              go_name: arg1
+          returns: int
+          error: true
+        - java_method: wtf
+          go_name: Wtf2
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+          returns: int
+          error: true
+        - java_method: wtf
+          go_name: Wtf3_1
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+            - java_type: java.lang.Throwable
+              go_name: arg2
+          returns: int
+          error: true
+        - java_method: wtf
+          go_name: Wtf2_2
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: java.lang.Throwable
+              go_name: arg1
+          returns: int
+          error: true
+    - java_class: android.util.MutableShort
+      go_type: MutableShort
       obtain: constructor
       constructor_params:
-        - java_type: float
+        - java_type: short
           go_name: arg0
-    - java_class: android.util.FloatProperty
-      go_type: FloatProperty
+    - java_class: android.util.PrintWriterPrinter
+      go_type: PrintWriterPrinter
+      obtain: constructor
+      constructor_params:
+        - java_type: java.io.PrintWriter
+          go_name: arg0
+      methods:
+        - java_method: println
+          go_name: Println
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.util.Base64InputStream
+      go_type: Base64InputStream
+      obtain: constructor
+      constructor_params:
+        - java_type: java.io.InputStream
+          go_name: arg0
+        - java_type: int
+          go_name: arg1
+      methods:
+        - java_method: available
+          go_name: Available
+          returns: int
+          error: true
+        - java_method: close
+          go_name: Close
+          returns: void
+          error: true
+        - java_method: mark
+          go_name: Mark
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: markSupported
+          go_name: MarkSupported
+          returns: boolean
+          error: true
+        - java_method: read
+          go_name: Read0
+          returns: int
+          error: true
+        - java_method: read
+          go_name: Read3_1
+          params:
+            - java_type: '[B'
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: int
+          error: true
+        - java_method: reset
+          go_name: Reset
+          returns: void
+          error: true
+        - java_method: skip
+          go_name: Skip
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: long
+          error: true
+    - java_class: android.util.FloatMath
+      go_type: FloatMath
+    - java_class: android.util.StringBuilderPrinter
+      go_type: StringBuilderPrinter
+      obtain: constructor
+      constructor_params:
+        - java_type: java.lang.StringBuilder
+          go_name: arg0
+      methods:
+        - java_method: println
+          go_name: Println
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.util.IntProperty
+      go_type: IntProperty
       methods:
         - java_method: set
           go_name: Set
@@ -478,44 +557,6 @@ classes:
             - java_type: java.lang.Object
               go_name: arg1
           returns: void
-          error: true
-    - java_class: android.util.TimeUtils
-      go_type: TimeUtils
-      static_methods:
-        - java_method: getTimeZone
-          go_name: GetTimeZone
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: boolean
-              go_name: arg1
-            - java_type: long
-              go_name: arg2
-            - java_type: String
-              go_name: arg3
-          returns: java.util.TimeZone
-          error: true
-        - java_method: getTimeZoneDatabaseVersion
-          go_name: GetTimeZoneDatabaseVersion
-          returns: String
-          error: true
-        - java_method: getTimeZoneIdsForCountryCode
-          go_name: GetTimeZoneIdsForCountryCode
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: java.util.List<java.lang.String>
-          error: true
-        - java_method: isTimeBetween
-          go_name: IsTimeBetween
-          params:
-            - java_type: java.time.LocalTime
-              go_name: arg0
-            - java_type: java.time.LocalTime
-              go_name: arg1
-            - java_type: java.time.LocalTime
-              go_name: arg2
-          returns: boolean
           error: true
     - java_class: android.util.Half
       go_type: Half
@@ -835,277 +876,8 @@ classes:
               go_name: arg0
           returns: android.util.Half
           error: true
-    - java_class: android.util.LogPrinter
-      go_type: LogPrinter
-      obtain: constructor
-      constructor_params:
-        - java_type: int
-          go_name: arg0
-        - java_type: String
-          go_name: arg1
-      methods:
-        - java_method: println
-          go_name: Println
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.util.MutableBoolean
-      go_type: MutableBoolean
-      obtain: constructor
-      constructor_params:
-        - java_type: boolean
-          go_name: arg0
-    - java_class: android.util.PrintWriterPrinter
-      go_type: PrintWriterPrinter
-      obtain: constructor
-      constructor_params:
-        - java_type: java.io.PrintWriter
-          go_name: arg0
-      methods:
-        - java_method: println
-          go_name: Println
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.util.TimingLogger
-      go_type: TimingLogger
-      obtain: constructor
-      constructor_params:
-        - java_type: String
-          go_name: arg0
-        - java_type: String
-          go_name: arg1
-      methods:
-        - java_method: addSplit
-          go_name: AddSplit
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: dumpToLog
-          go_name: DumpToLog
-          returns: void
-          error: true
-        - java_method: reset
-          go_name: Reset0
-          returns: void
-          error: true
-        - java_method: reset
-          go_name: Reset2_1
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.util.MutableInt
-      go_type: MutableInt
-      obtain: constructor
-      constructor_params:
-        - java_type: int
-          go_name: arg0
-    - java_class: android.util.JsonReader
-      go_type: JsonReader
-      obtain: constructor
-      constructor_params:
-        - java_type: java.io.Reader
-          go_name: arg0
-      methods:
-        - java_method: beginArray
-          go_name: BeginArray
-          returns: void
-          error: true
-        - java_method: beginObject
-          go_name: BeginObject
-          returns: void
-          error: true
-        - java_method: close
-          go_name: Close
-          returns: void
-          error: true
-        - java_method: endArray
-          go_name: EndArray
-          returns: void
-          error: true
-        - java_method: endObject
-          go_name: EndObject
-          returns: void
-          error: true
-        - java_method: hasNext
-          go_name: HasNext
-          returns: boolean
-          error: true
-        - java_method: isLenient
-          go_name: IsLenient
-          returns: boolean
-          error: true
-        - java_method: nextBoolean
-          go_name: NextBoolean
-          returns: boolean
-          error: true
-        - java_method: nextDouble
-          go_name: NextDouble
-          returns: double
-          error: true
-        - java_method: nextInt
-          go_name: NextInt
-          returns: int
-          error: true
-        - java_method: nextLong
-          go_name: NextLong
-          returns: long
-          error: true
-        - java_method: nextName
-          go_name: NextName
-          returns: String
-          error: true
-        - java_method: nextNull
-          go_name: NextNull
-          returns: void
-          error: true
-        - java_method: nextString
-          go_name: NextString
-          returns: String
-          error: true
-        - java_method: peek
-          go_name: Peek
-          returns: android.util.JsonToken
-          error: true
-        - java_method: setLenient
-          go_name: SetLenient
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: skipValue
-          go_name: SkipValue
-          returns: void
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-    - java_class: android.util.Printer
-      go_type: Printer
-      methods:
-        - java_method: println
-          go_name: Println
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.util.MutableDouble
-      go_type: MutableDouble
-      obtain: constructor
-      constructor_params:
-        - java_type: double
-          go_name: arg0
-    - java_class: android.util.EventLog
-      go_type: EventLog
-      static_methods:
-        - java_method: getTagCode
-          go_name: GetTagCode
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getTagName
-          go_name: GetTagName
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: String
-          error: true
-        - java_method: writeEvent
-          go_name: WriteEvent2
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-          returns: int
-          error: true
-        - java_method: writeEvent
-          go_name: WriteEvent2_1
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: int
-          error: true
-        - java_method: writeEvent
-          go_name: WriteEvent2_2
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: java.lang.Object...
-              go_name: arg1
-          returns: int
-          error: true
-        - java_method: writeEvent
-          go_name: WriteEvent2_3
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-          returns: int
-          error: true
-        - java_method: writeEvent
-          go_name: WriteEvent2_4
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: long
-              go_name: arg1
-          returns: int
-          error: true
-    - java_class: android.util.EventLog$Event
-      go_type: EventLogEvent
-      methods:
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getProcessId
-          go_name: GetProcessId
-          returns: int
-          error: true
-        - java_method: getTag
-          go_name: GetTag
-          returns: int
-          error: true
-        - java_method: getThreadId
-          go_name: GetThreadId
-          returns: int
-          error: true
-        - java_method: getTimeNanos
-          go_name: GetTimeNanos
-          returns: long
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-    - java_class: android.util.MutableLong
-      go_type: MutableLong
-      obtain: constructor
-      constructor_params:
-        - java_type: long
-          go_name: arg0
+    - java_class: android.util.Config
+      go_type: Config
     - java_class: android.util.SparseLongArray
       go_type: SparseLongArray
       obtain: constructor
@@ -1206,6 +978,933 @@ classes:
           go_name: Clone0_1
           returns: java.lang.Object
           error: true
+    - java_class: android.util.JsonWriter
+      go_type: JsonWriter
+      obtain: constructor
+      constructor_params:
+        - java_type: java.io.Writer
+          go_name: arg0
+      methods:
+        - java_method: beginArray
+          go_name: BeginArray
+          returns: android.util.JsonWriter
+          error: true
+        - java_method: beginObject
+          go_name: BeginObject
+          returns: android.util.JsonWriter
+          error: true
+        - java_method: close
+          go_name: Close
+          returns: void
+          error: true
+        - java_method: endArray
+          go_name: EndArray
+          returns: android.util.JsonWriter
+          error: true
+        - java_method: endObject
+          go_name: EndObject
+          returns: android.util.JsonWriter
+          error: true
+        - java_method: flush
+          go_name: Flush
+          returns: void
+          error: true
+        - java_method: isLenient
+          go_name: IsLenient
+          returns: boolean
+          error: true
+        - java_method: name
+          go_name: Name
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.util.JsonWriter
+          error: true
+        - java_method: nullValue
+          go_name: NullValue
+          returns: android.util.JsonWriter
+          error: true
+        - java_method: setIndent
+          go_name: SetIndent
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setLenient
+          go_name: SetLenient
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: value
+          go_name: Value1
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.util.JsonWriter
+          error: true
+        - java_method: value
+          go_name: Value1_1
+          params:
+            - java_type: double
+              go_name: arg0
+          returns: android.util.JsonWriter
+          error: true
+        - java_method: value
+          go_name: Value1_2
+          params:
+            - java_type: java.lang.Number
+              go_name: arg0
+          returns: android.util.JsonWriter
+          error: true
+        - java_method: value
+          go_name: Value1_3
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.util.JsonWriter
+          error: true
+        - java_method: value
+          go_name: Value1_4
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: android.util.JsonWriter
+          error: true
+    - java_class: android.util.SizeF
+      go_type: SizeF
+      obtain: constructor
+      constructor_params:
+        - java_type: float
+          go_name: arg0
+        - java_type: float
+          go_name: arg1
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getHeight
+          go_name: GetHeight
+          returns: float
+          error: true
+        - java_method: getWidth
+          go_name: GetWidth
+          returns: float
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+      static_methods:
+        - java_method: parseSizeF
+          go_name: ParseSizeF
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.util.SizeF
+          error: true
+    - java_class: android.util.StateSet
+      go_type: StateSet
+      static_methods:
+        - java_method: dump
+          go_name: Dump
+          params:
+            - java_type: '[I'
+              go_name: arg0
+          returns: String
+          error: true
+        - java_method: isWildCard
+          go_name: IsWildCard
+          params:
+            - java_type: '[I'
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: stateSetMatches
+          go_name: StateSetMatches2
+          params:
+            - java_type: '[I'
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: stateSetMatches
+          go_name: StateSetMatches2_1
+          params:
+            - java_type: '[I'
+              go_name: arg0
+            - java_type: '[I'
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: trimStateSet
+          go_name: TrimStateSet
+          params:
+            - java_type: '[I'
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: '[I'
+          error: true
+    - java_class: android.util.PrintStreamPrinter
+      go_type: PrintStreamPrinter
+      obtain: constructor
+      constructor_params:
+        - java_type: java.io.PrintStream
+          go_name: arg0
+      methods:
+        - java_method: println
+          go_name: Println
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.util.Base64
+      go_type: Base64
+      static_methods:
+        - java_method: decode
+          go_name: Decode2
+          params:
+            - java_type: '[B'
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: '[B'
+          error: true
+        - java_method: decode
+          go_name: Decode4_1
+          params:
+            - java_type: '[B'
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+          returns: '[B'
+          error: true
+        - java_method: decode
+          go_name: Decode2_2
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: '[B'
+          error: true
+        - java_method: encode
+          go_name: Encode2
+          params:
+            - java_type: '[B'
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: '[B'
+          error: true
+        - java_method: encode
+          go_name: Encode4_1
+          params:
+            - java_type: '[B'
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+          returns: '[B'
+          error: true
+        - java_method: encodeToString
+          go_name: EncodeToString2
+          params:
+            - java_type: '[B'
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: String
+          error: true
+        - java_method: encodeToString
+          go_name: EncodeToString4_1
+          params:
+            - java_type: '[B'
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+          returns: String
+          error: true
+    - java_class: android.util.AndroidException
+      go_type: AndroidException
+      obtain: constructor
+    - java_class: android.util.CloseGuard
+      go_type: CloseGuard
+      obtain: constructor
+      methods:
+        - java_method: close
+          go_name: Close
+          returns: void
+          error: true
+        - java_method: open
+          go_name: Open
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: warnIfOpen
+          go_name: WarnIfOpen
+          returns: void
+          error: true
+    - java_class: android.util.NoSuchPropertyException
+      go_type: NoSuchPropertyException
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+    - java_class: android.util.MutableBoolean
+      go_type: MutableBoolean
+      obtain: constructor
+      constructor_params:
+        - java_type: boolean
+          go_name: arg0
+    - java_class: android.util.FloatProperty
+      go_type: FloatProperty
+      methods:
+        - java_method: set
+          go_name: Set
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+            - java_type: java.lang.Object
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.util.Base64OutputStream
+      go_type: Base64OutputStream
+      obtain: constructor
+      constructor_params:
+        - java_type: java.io.OutputStream
+          go_name: arg0
+        - java_type: int
+          go_name: arg1
+      methods:
+        - java_method: close
+          go_name: Close
+          returns: void
+          error: true
+        - java_method: write
+          go_name: Write3
+          params:
+            - java_type: '[B'
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: write
+          go_name: Write1_1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.util.TypedValue
+      go_type: TypedValue
+      obtain: constructor
+      methods:
+        - java_method: coerceToString
+          go_name: CoerceToString0
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: getComplexUnit
+          go_name: GetComplexUnit
+          returns: int
+          error: true
+        - java_method: getDimension
+          go_name: GetDimension
+          params:
+            - java_type: android.util.DisplayMetrics
+              go_name: arg0
+          returns: float
+          error: true
+        - java_method: getFloat
+          go_name: GetFloat
+          returns: float
+          error: true
+        - java_method: getFraction
+          go_name: GetFraction
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+          returns: float
+          error: true
+        - java_method: isColorType
+          go_name: IsColorType
+          returns: boolean
+          error: true
+        - java_method: setTo
+          go_name: SetTo
+          params:
+            - java_type: android.util.TypedValue
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: applyDimension
+          go_name: ApplyDimension
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+            - java_type: android.util.DisplayMetrics
+              go_name: arg2
+          returns: float
+          error: true
+        - java_method: coerceToString
+          go_name: CoerceToString2_1
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: String
+          error: true
+        - java_method: complexToDimension
+          go_name: ComplexToDimension
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: android.util.DisplayMetrics
+              go_name: arg1
+          returns: float
+          error: true
+        - java_method: complexToDimensionPixelOffset
+          go_name: ComplexToDimensionPixelOffset
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: android.util.DisplayMetrics
+              go_name: arg1
+          returns: int
+          error: true
+        - java_method: complexToDimensionPixelSize
+          go_name: ComplexToDimensionPixelSize
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: android.util.DisplayMetrics
+              go_name: arg1
+          returns: int
+          error: true
+        - java_method: complexToFloat
+          go_name: ComplexToFloat
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: float
+          error: true
+        - java_method: complexToFraction
+          go_name: ComplexToFraction
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+            - java_type: float
+              go_name: arg2
+          returns: float
+          error: true
+        - java_method: convertDimensionToPixels
+          go_name: ConvertDimensionToPixels
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+            - java_type: android.util.DisplayMetrics
+              go_name: arg2
+          returns: float
+          error: true
+        - java_method: convertPixelsToDimension
+          go_name: ConvertPixelsToDimension
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+            - java_type: android.util.DisplayMetrics
+              go_name: arg2
+          returns: float
+          error: true
+        - java_method: deriveDimension
+          go_name: DeriveDimension
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+            - java_type: android.util.DisplayMetrics
+              go_name: arg2
+          returns: float
+          error: true
+    - java_class: android.util.SparseBooleanArray
+      go_type: SparseBooleanArray
+      obtain: constructor
+      methods:
+        - java_method: append
+          go_name: Append
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: boolean
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: clear
+          go_name: Clear
+          returns: void
+          error: true
+        - java_method: clone
+          go_name: Clone0
+          returns: android.util.SparseBooleanArray
+          error: true
+        - java_method: delete
+          go_name: Delete
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: get
+          go_name: Get1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: get
+          go_name: Get2_1
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: boolean
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: indexOfKey
+          go_name: IndexOfKey
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: indexOfValue
+          go_name: IndexOfValue
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: keyAt
+          go_name: KeyAt
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: put
+          go_name: Put
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: boolean
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: removeAt
+          go_name: RemoveAt
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setValueAt
+          go_name: SetValueAt
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: boolean
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: size
+          go_name: Size
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: valueAt
+          go_name: ValueAt
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: clone
+          go_name: Clone0_1
+          returns: java.lang.Object
+          error: true
+    - java_class: android.util.MutableDouble
+      go_type: MutableDouble
+      obtain: constructor
+      constructor_params:
+        - java_type: double
+          go_name: arg0
+    - java_class: android.util.ArrayMap
+      go_type: ArrayMap
+      obtain: constructor
+      methods:
+        - java_method: clear
+          go_name: Clear
+          returns: void
+          error: true
+        - java_method: containsKey
+          go_name: ContainsKey
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: containsValue
+          go_name: ContainsValue
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: ensureCapacity
+          go_name: EnsureCapacity
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: indexOfKey
+          go_name: IndexOfKey
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: indexOfValue
+          go_name: IndexOfValue
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: isEmpty
+          go_name: IsEmpty
+          returns: boolean
+          error: true
+        - java_method: keySet
+          go_name: KeySet
+          returns: java.util.Set<K>
+          error: true
+        - java_method: size
+          go_name: Size
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: values
+          go_name: Values
+          returns: java.util.Collection<V>
+          error: true
+    - java_class: android.util.MalformedJsonException
+      go_type: MalformedJsonException
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+    - java_class: android.util.MonthDisplayHelper
+      go_type: MonthDisplayHelper
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+        - java_type: int
+          go_name: arg1
+      methods:
+        - java_method: getColumnOf
+          go_name: GetColumnOf
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getDayAt
+          go_name: GetDayAt
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: int
+          error: true
+        - java_method: getDigitsForRow
+          go_name: GetDigitsForRow
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: '[I'
+          error: true
+        - java_method: getFirstDayOfMonth
+          go_name: GetFirstDayOfMonth
+          returns: int
+          error: true
+        - java_method: getMonth
+          go_name: GetMonth
+          returns: int
+          error: true
+        - java_method: getNumberOfDaysInMonth
+          go_name: GetNumberOfDaysInMonth
+          returns: int
+          error: true
+        - java_method: getOffset
+          go_name: GetOffset
+          returns: int
+          error: true
+        - java_method: getRowOf
+          go_name: GetRowOf
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getWeekStartDay
+          go_name: GetWeekStartDay
+          returns: int
+          error: true
+        - java_method: getYear
+          go_name: GetYear
+          returns: int
+          error: true
+        - java_method: isWithinCurrentMonth
+          go_name: IsWithinCurrentMonth
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: nextMonth
+          go_name: NextMonth
+          returns: void
+          error: true
+        - java_method: previousMonth
+          go_name: PreviousMonth
+          returns: void
+          error: true
+    - java_class: android.util.Property
+      go_type: Property
+      methods:
+        - java_method: getName
+          go_name: GetName
+          returns: String
+          error: true
+        - java_method: getType
+          go_name: GetType
+          returns: java.lang.Class<V>
+          error: true
+        - java_method: isReadOnly
+          go_name: IsReadOnly
+          returns: boolean
+          error: true
+    - java_class: android.util.EventLog
+      go_type: EventLog
+      static_methods:
+        - java_method: getTagCode
+          go_name: GetTagCode
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getTagName
+          go_name: GetTagName
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: String
+          error: true
+        - java_method: writeEvent
+          go_name: WriteEvent2
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+          returns: int
+          error: true
+        - java_method: writeEvent
+          go_name: WriteEvent2_1
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: int
+          error: true
+        - java_method: writeEvent
+          go_name: WriteEvent2_2
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: java.lang.Object...
+              go_name: arg1
+          returns: int
+          error: true
+        - java_method: writeEvent
+          go_name: WriteEvent2_3
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+          returns: int
+          error: true
+        - java_method: writeEvent
+          go_name: WriteEvent2_4
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: long
+              go_name: arg1
+          returns: int
+          error: true
+    - java_class: android.util.AndroidRuntimeException
+      go_type: AndroidRuntimeException
+      obtain: constructor
+    - java_class: android.util.EventLog$Event
+      go_type: EventLogEvent
+      methods:
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getProcessId
+          go_name: GetProcessId
+          returns: int
+          error: true
+        - java_method: getTag
+          go_name: GetTag
+          returns: int
+          error: true
+        - java_method: getThreadId
+          go_name: GetThreadId
+          returns: int
+          error: true
+        - java_method: getTimeNanos
+          go_name: GetTimeNanos
+          returns: long
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+    - java_class: android.util.Pair
+      go_type: Pair
+      obtain: constructor
+      constructor_params:
+        - java_type: F
+          go_name: arg0
+        - java_type: S
+          go_name: arg1
+      methods:
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
     - java_class: android.util.EventLogTags
       go_type: EventLogTags
       obtain: constructor
@@ -1226,11 +1925,249 @@ classes:
           error: true
     - java_class: android.util.EventLogTags$Description
       go_type: EventLogTagsDescription
-    - java_class: android.util.AndroidRuntimeException
-      go_type: AndroidRuntimeException
+    - java_class: android.util.SparseArray
+      go_type: SparseArray
       obtain: constructor
-    - java_class: android.util.FloatMath
-      go_type: FloatMath
+      methods:
+        - java_method: clear
+          go_name: Clear
+          returns: void
+          error: true
+        - java_method: clone
+          go_name: Clone0
+          returns: android.util.SparseArray<E>
+          error: true
+        - java_method: contains
+          go_name: Contains
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: contentHashCode
+          go_name: ContentHashCode
+          returns: int
+          error: true
+        - java_method: delete
+          go_name: Delete
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: indexOfKey
+          go_name: IndexOfKey
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: keyAt
+          go_name: KeyAt
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: remove
+          go_name: Remove
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: removeAt
+          go_name: RemoveAt
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: removeAtRange
+          go_name: RemoveAtRange
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: size
+          go_name: Size
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: clone
+          go_name: Clone0_1
+          returns: java.lang.Object
+          error: true
+    - java_class: android.util.AtomicFile
+      go_type: AtomicFile
+      obtain: constructor
+      constructor_params:
+        - java_type: java.io.File
+          go_name: arg0
+      methods:
+        - java_method: delete
+          go_name: Delete
+          returns: void
+          error: true
+        - java_method: failWrite
+          go_name: FailWrite
+          params:
+            - java_type: java.io.FileOutputStream
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: finishWrite
+          go_name: FinishWrite
+          params:
+            - java_type: java.io.FileOutputStream
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getBaseFile
+          go_name: GetBaseFile
+          returns: java.io.File
+          error: true
+        - java_method: getLastModifiedTime
+          go_name: GetLastModifiedTime
+          returns: long
+          error: true
+        - java_method: openRead
+          go_name: OpenRead
+          returns: java.io.FileInputStream
+          error: true
+        - java_method: readFully
+          go_name: ReadFully
+          returns: '[B'
+          error: true
+        - java_method: startWrite
+          go_name: StartWrite
+          returns: java.io.FileOutputStream
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+    - java_class: android.util.MutableFloat
+      go_type: MutableFloat
+      obtain: constructor
+      constructor_params:
+        - java_type: float
+          go_name: arg0
+    - java_class: android.util.SparseIntArray
+      go_type: SparseIntArray
+      obtain: constructor
+      methods:
+        - java_method: append
+          go_name: Append
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: clear
+          go_name: Clear
+          returns: void
+          error: true
+        - java_method: clone
+          go_name: Clone0
+          returns: android.util.SparseIntArray
+          error: true
+        - java_method: delete
+          go_name: Delete
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: get
+          go_name: Get1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: get
+          go_name: Get2_1
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: int
+          error: true
+        - java_method: indexOfKey
+          go_name: IndexOfKey
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: indexOfValue
+          go_name: IndexOfValue
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: keyAt
+          go_name: KeyAt
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: put
+          go_name: Put
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: removeAt
+          go_name: RemoveAt
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setValueAt
+          go_name: SetValueAt
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: size
+          go_name: Size
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: valueAt
+          go_name: ValueAt
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: clone
+          go_name: Clone0_1
+          returns: java.lang.Object
+          error: true
     - java_class: android.util.AttributeSet
       go_type: AttributeSet
       methods:
@@ -1415,60 +2352,20 @@ classes:
           go_name: GetStyleAttribute
           returns: int
           error: true
-    - java_class: android.util.StateSet
-      go_type: StateSet
-      static_methods:
-        - java_method: dump
-          go_name: Dump
-          params:
-            - java_type: '[I'
-              go_name: arg0
-          returns: String
-          error: true
-        - java_method: isWildCard
-          go_name: IsWildCard
-          params:
-            - java_type: '[I'
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: stateSetMatches
-          go_name: StateSetMatches2
-          params:
-            - java_type: '[I'
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: stateSetMatches
-          go_name: StateSetMatches2_1
-          params:
-            - java_type: '[I'
-              go_name: arg0
-            - java_type: '[I'
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: trimStateSet
-          go_name: TrimStateSet
-          params:
-            - java_type: '[I'
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: '[I'
-          error: true
-    - java_class: android.util.Dumpable
-      go_type: Dumpable
+    - java_class: android.util.LogPrinter
+      go_type: LogPrinter
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+        - java_type: String
+          go_name: arg1
       methods:
-        - java_method: dump
-          go_name: Dump
+        - java_method: println
+          go_name: Println
           params:
-            - java_type: java.io.PrintWriter
+            - java_type: String
               go_name: arg0
-            - java_type: java.lang.String[]
-              go_name: arg1
           returns: void
           error: true
     - java_class: android.util.DumpableContainer
@@ -1488,61 +2385,14 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
-    - java_class: android.util.SizeF
-      go_type: SizeF
+    - java_class: android.util.MutableChar
+      go_type: MutableChar
       obtain: constructor
       constructor_params:
-        - java_type: float
+        - java_type: char
           go_name: arg0
-        - java_type: float
-          go_name: arg1
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getHeight
-          go_name: GetHeight
-          returns: float
-          error: true
-        - java_method: getWidth
-          go_name: GetWidth
-          returns: float
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-      static_methods:
-        - java_method: parseSizeF
-          go_name: ParseSizeF
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.util.SizeF
-          error: true
-    - java_class: android.util.SparseArray
-      go_type: SparseArray
+    - java_class: android.util.LongSparseArray
+      go_type: LongSparseArray
       obtain: constructor
       methods:
         - java_method: clear
@@ -1551,30 +2401,19 @@ classes:
           error: true
         - java_method: clone
           go_name: Clone0
-          returns: android.util.SparseArray<E>
-          error: true
-        - java_method: contains
-          go_name: Contains
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: contentHashCode
-          go_name: ContentHashCode
-          returns: int
+          returns: android.util.LongSparseArray<E>
           error: true
         - java_method: delete
           go_name: Delete
           params:
-            - java_type: int
+            - java_type: long
               go_name: arg0
           returns: void
           error: true
         - java_method: indexOfKey
           go_name: IndexOfKey
           params:
-            - java_type: int
+            - java_type: long
               go_name: arg0
           returns: int
           error: true
@@ -1583,12 +2422,12 @@ classes:
           params:
             - java_type: int
               go_name: arg0
-          returns: int
+          returns: long
           error: true
         - java_method: remove
           go_name: Remove
           params:
-            - java_type: int
+            - java_type: long
               go_name: arg0
           returns: void
           error: true
@@ -1597,15 +2436,6 @@ classes:
           params:
             - java_type: int
               go_name: arg0
-          returns: void
-          error: true
-        - java_method: removeAtRange
-          go_name: RemoveAtRange
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
           returns: void
           error: true
         - java_method: size
@@ -1619,6 +2449,90 @@ classes:
         - java_method: clone
           go_name: Clone0_1
           returns: java.lang.Object
+          error: true
+    - java_class: android.util.TimeUtils
+      go_type: TimeUtils
+      static_methods:
+        - java_method: getTimeZone
+          go_name: GetTimeZone
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: boolean
+              go_name: arg1
+            - java_type: long
+              go_name: arg2
+            - java_type: String
+              go_name: arg3
+          returns: java.util.TimeZone
+          error: true
+        - java_method: getTimeZoneDatabaseVersion
+          go_name: GetTimeZoneDatabaseVersion
+          returns: String
+          error: true
+        - java_method: getTimeZoneIdsForCountryCode
+          go_name: GetTimeZoneIdsForCountryCode
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: java.util.List<java.lang.String>
+          error: true
+        - java_method: isTimeBetween
+          go_name: IsTimeBetween
+          params:
+            - java_type: java.time.LocalTime
+              go_name: arg0
+            - java_type: java.time.LocalTime
+              go_name: arg1
+            - java_type: java.time.LocalTime
+              go_name: arg2
+          returns: boolean
+          error: true
+    - java_class: android.util.Base64DataException
+      go_type: Base64DataException
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+    - java_class: android.util.MutableByte
+      go_type: MutableByte
+      obtain: constructor
+      constructor_params:
+        - java_type: byte
+          go_name: arg0
+    - java_class: android.util.Range
+      go_type: Range
+      obtain: constructor
+      constructor_params:
+        - java_type: T
+          go_name: arg0
+        - java_type: T
+          go_name: arg1
+      methods:
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+    - java_class: android.util.Printer
+      go_type: Printer
+      methods:
+        - java_method: println
+          go_name: Println
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
           error: true
     - java_class: android.util.Patterns
       go_type: Patterns
@@ -1637,354 +2551,90 @@ classes:
               go_name: arg0
           returns: String
           error: true
-    - java_class: android.util.ArraySet
-      go_type: ArraySet
+    - java_class: android.util.JsonReader
+      go_type: JsonReader
       obtain: constructor
+      constructor_params:
+        - java_type: java.io.Reader
+          go_name: arg0
       methods:
-        - java_method: clear
-          go_name: Clear
+        - java_method: beginArray
+          go_name: BeginArray
           returns: void
           error: true
-        - java_method: contains
-          go_name: Contains
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
+        - java_method: beginObject
+          go_name: BeginObject
+          returns: void
+          error: true
+        - java_method: close
+          go_name: Close
+          returns: void
+          error: true
+        - java_method: endArray
+          go_name: EndArray
+          returns: void
+          error: true
+        - java_method: endObject
+          go_name: EndObject
+          returns: void
+          error: true
+        - java_method: hasNext
+          go_name: HasNext
           returns: boolean
           error: true
-        - java_method: ensureCapacity
-          go_name: EnsureCapacity
+        - java_method: isLenient
+          go_name: IsLenient
+          returns: boolean
+          error: true
+        - java_method: nextBoolean
+          go_name: NextBoolean
+          returns: boolean
+          error: true
+        - java_method: nextDouble
+          go_name: NextDouble
+          returns: double
+          error: true
+        - java_method: nextInt
+          go_name: NextInt
+          returns: int
+          error: true
+        - java_method: nextLong
+          go_name: NextLong
+          returns: long
+          error: true
+        - java_method: nextName
+          go_name: NextName
+          returns: String
+          error: true
+        - java_method: nextNull
+          go_name: NextNull
+          returns: void
+          error: true
+        - java_method: nextString
+          go_name: NextString
+          returns: String
+          error: true
+        - java_method: peek
+          go_name: Peek
+          returns: android.util.JsonToken
+          error: true
+        - java_method: setLenient
+          go_name: SetLenient
           params:
-            - java_type: int
+            - java_type: boolean
               go_name: arg0
           returns: void
           error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: indexOf
-          go_name: IndexOf
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: isEmpty
-          go_name: IsEmpty
-          returns: boolean
-          error: true
-        - java_method: iterator
-          go_name: Iterator
-          returns: java.util.Iterator<E>
-          error: true
-        - java_method: remove
-          go_name: Remove
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: size
-          go_name: Size
-          returns: int
-          error: true
-        - java_method: toArray
-          go_name: ToArray
-          returns: java.lang.Object[]
+        - java_method: skipValue
+          go_name: SkipValue
+          returns: void
           error: true
         - java_method: toString
           go_name: ToString
           returns: String
           error: true
-    - java_class: android.util.StatsLog
-      go_type: StatsLog
-      static_methods:
-        - java_method: logBinaryPushStateChanged
-          go_name: LogBinaryPushStateChanged
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: long
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-            - java_type: '[J'
-              go_name: arg4
-          returns: boolean
-          error: true
-        - java_method: logEvent
-          go_name: LogEvent
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: logStart
-          go_name: LogStart
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: logStop
-          go_name: LogStop
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-    - java_class: android.util.SparseIntArray
-      go_type: SparseIntArray
-      obtain: constructor
-      methods:
-        - java_method: append
-          go_name: Append
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: clear
-          go_name: Clear
-          returns: void
-          error: true
-        - java_method: clone
-          go_name: Clone0
-          returns: android.util.SparseIntArray
-          error: true
-        - java_method: delete
-          go_name: Delete
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: get
-          go_name: Get1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: get
-          go_name: Get2_1
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: int
-          error: true
-        - java_method: indexOfKey
-          go_name: IndexOfKey
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: indexOfValue
-          go_name: IndexOfValue
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: keyAt
-          go_name: KeyAt
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: put
-          go_name: Put
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: removeAt
-          go_name: RemoveAt
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setValueAt
-          go_name: SetValueAt
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: size
-          go_name: Size
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: valueAt
-          go_name: ValueAt
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: clone
-          go_name: Clone0_1
-          returns: java.lang.Object
-          error: true
-    - java_class: android.util.PrintStreamPrinter
-      go_type: PrintStreamPrinter
-      obtain: constructor
-      constructor_params:
-        - java_type: java.io.PrintStream
-          go_name: arg0
-      methods:
-        - java_method: println
-          go_name: Println
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.util.MonthDisplayHelper
-      go_type: MonthDisplayHelper
-      obtain: constructor
-      constructor_params:
-        - java_type: int
-          go_name: arg0
-        - java_type: int
-          go_name: arg1
-      methods:
-        - java_method: getColumnOf
-          go_name: GetColumnOf
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getDayAt
-          go_name: GetDayAt
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: int
-          error: true
-        - java_method: getDigitsForRow
-          go_name: GetDigitsForRow
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: '[I'
-          error: true
-        - java_method: getFirstDayOfMonth
-          go_name: GetFirstDayOfMonth
-          returns: int
-          error: true
-        - java_method: getMonth
-          go_name: GetMonth
-          returns: int
-          error: true
-        - java_method: getNumberOfDaysInMonth
-          go_name: GetNumberOfDaysInMonth
-          returns: int
-          error: true
-        - java_method: getOffset
-          go_name: GetOffset
-          returns: int
-          error: true
-        - java_method: getRowOf
-          go_name: GetRowOf
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getWeekStartDay
-          go_name: GetWeekStartDay
-          returns: int
-          error: true
-        - java_method: getYear
-          go_name: GetYear
-          returns: int
-          error: true
-        - java_method: isWithinCurrentMonth
-          go_name: IsWithinCurrentMonth
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: nextMonth
-          go_name: NextMonth
-          returns: void
-          error: true
-        - java_method: previousMonth
-          go_name: PreviousMonth
-          returns: void
-          error: true
-    - java_class: android.util.Xml
-      go_type: Xml
-      static_methods:
-        - java_method: asAttributeSet
-          go_name: AsAttributeSet
-          params:
-            - java_type: org.xmlpull.v1.XmlPullParser
-              go_name: arg0
-          returns: android.util.AttributeSet
-          error: true
-        - java_method: findEncodingByName
-          go_name: FindEncodingByName
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.util.Xml$Encoding
-          error: true
-        - java_method: newPullParser
-          go_name: NewPullParser
-          returns: org.xmlpull.v1.XmlPullParser
-          error: true
-        - java_method: newSerializer
-          go_name: NewSerializer
-          returns: org.xmlpull.v1.XmlSerializer
-          error: true
-    - java_class: android.util.Xml$Encoding
-      go_type: XmlEncoding
-      static_methods:
-        - java_method: values
-          go_name: Values
-          returns: android.util.Xml$Encoding[]
-          error: true
-        - java_method: valueOf
-          go_name: ValueOf
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.util.Xml$Encoding
-          error: true
+    - java_class: android.util.TimeFormatException
+      go_type: TimeFormatException
     - java_class: android.util.Rational
       go_type: Rational
       obtain: constructor
@@ -2075,616 +2725,6 @@ classes:
               go_name: arg0
           returns: android.util.Rational
           error: true
-    - java_class: android.util.IntProperty
-      go_type: IntProperty
-      methods:
-        - java_method: set
-          go_name: Set
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-            - java_type: java.lang.Object
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.util.JsonWriter
-      go_type: JsonWriter
-      obtain: constructor
-      constructor_params:
-        - java_type: java.io.Writer
-          go_name: arg0
-      methods:
-        - java_method: beginArray
-          go_name: BeginArray
-          returns: android.util.JsonWriter
-          error: true
-        - java_method: beginObject
-          go_name: BeginObject
-          returns: android.util.JsonWriter
-          error: true
-        - java_method: close
-          go_name: Close
-          returns: void
-          error: true
-        - java_method: endArray
-          go_name: EndArray
-          returns: android.util.JsonWriter
-          error: true
-        - java_method: endObject
-          go_name: EndObject
-          returns: android.util.JsonWriter
-          error: true
-        - java_method: flush
-          go_name: Flush
-          returns: void
-          error: true
-        - java_method: isLenient
-          go_name: IsLenient
-          returns: boolean
-          error: true
-        - java_method: name
-          go_name: Name
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.util.JsonWriter
-          error: true
-        - java_method: nullValue
-          go_name: NullValue
-          returns: android.util.JsonWriter
-          error: true
-        - java_method: setIndent
-          go_name: SetIndent
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setLenient
-          go_name: SetLenient
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: value
-          go_name: Value1
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.util.JsonWriter
-          error: true
-        - java_method: value
-          go_name: Value1_1
-          params:
-            - java_type: double
-              go_name: arg0
-          returns: android.util.JsonWriter
-          error: true
-        - java_method: value
-          go_name: Value1_2
-          params:
-            - java_type: java.lang.Number
-              go_name: arg0
-          returns: android.util.JsonWriter
-          error: true
-        - java_method: value
-          go_name: Value1_3
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.util.JsonWriter
-          error: true
-        - java_method: value
-          go_name: Value1_4
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: android.util.JsonWriter
-          error: true
-    - java_class: android.util.Base64OutputStream
-      go_type: Base64OutputStream
-      obtain: constructor
-      constructor_params:
-        - java_type: java.io.OutputStream
-          go_name: arg0
-        - java_type: int
-          go_name: arg1
-      methods:
-        - java_method: close
-          go_name: Close
-          returns: void
-          error: true
-        - java_method: write
-          go_name: Write3
-          params:
-            - java_type: '[B'
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: write
-          go_name: Write1_1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.util.MutableByte
-      go_type: MutableByte
-      obtain: constructor
-      constructor_params:
-        - java_type: byte
-          go_name: arg0
-    - java_class: android.util.MutableChar
-      go_type: MutableChar
-      obtain: constructor
-      constructor_params:
-        - java_type: char
-          go_name: arg0
-    - java_class: android.util.Size
-      go_type: Size
-      obtain: constructor
-      constructor_params:
-        - java_type: int
-          go_name: arg0
-        - java_type: int
-          go_name: arg1
-      methods:
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getHeight
-          go_name: GetHeight
-          returns: int
-          error: true
-        - java_method: getWidth
-          go_name: GetWidth
-          returns: int
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-      static_methods:
-        - java_method: parseSize
-          go_name: ParseSize
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.util.Size
-          error: true
-    - java_class: android.util.ArrayMap
-      go_type: ArrayMap
-      obtain: constructor
-      methods:
-        - java_method: clear
-          go_name: Clear
-          returns: void
-          error: true
-        - java_method: containsKey
-          go_name: ContainsKey
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: containsValue
-          go_name: ContainsValue
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: ensureCapacity
-          go_name: EnsureCapacity
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: indexOfKey
-          go_name: IndexOfKey
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: indexOfValue
-          go_name: IndexOfValue
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: isEmpty
-          go_name: IsEmpty
-          returns: boolean
-          error: true
-        - java_method: keySet
-          go_name: KeySet
-          returns: java.util.Set<K>
-          error: true
-        - java_method: size
-          go_name: Size
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: values
-          go_name: Values
-          returns: java.util.Collection<V>
-          error: true
-    - java_class: android.util.Base64DataException
-      go_type: Base64DataException
-      obtain: constructor
-      constructor_params:
-        - java_type: String
-          go_name: arg0
-    - java_class: android.util.AndroidException
-      go_type: AndroidException
-      obtain: constructor
-    - java_class: android.util.LongSparseArray
-      go_type: LongSparseArray
-      obtain: constructor
-      methods:
-        - java_method: clear
-          go_name: Clear
-          returns: void
-          error: true
-        - java_method: clone
-          go_name: Clone0
-          returns: android.util.LongSparseArray<E>
-          error: true
-        - java_method: delete
-          go_name: Delete
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: indexOfKey
-          go_name: IndexOfKey
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: keyAt
-          go_name: KeyAt
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: long
-          error: true
-        - java_method: remove
-          go_name: Remove
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: removeAt
-          go_name: RemoveAt
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: size
-          go_name: Size
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: clone
-          go_name: Clone0_1
-          returns: java.lang.Object
-          error: true
-    - java_class: android.util.Property
-      go_type: Property
-      methods:
-        - java_method: getName
-          go_name: GetName
-          returns: String
-          error: true
-        - java_method: getType
-          go_name: GetType
-          returns: java.lang.Class<V>
-          error: true
-        - java_method: isReadOnly
-          go_name: IsReadOnly
-          returns: boolean
-          error: true
-    - java_class: android.util.Base64InputStream
-      go_type: Base64InputStream
-      obtain: constructor
-      constructor_params:
-        - java_type: java.io.InputStream
-          go_name: arg0
-        - java_type: int
-          go_name: arg1
-      methods:
-        - java_method: available
-          go_name: Available
-          returns: int
-          error: true
-        - java_method: close
-          go_name: Close
-          returns: void
-          error: true
-        - java_method: mark
-          go_name: Mark
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: markSupported
-          go_name: MarkSupported
-          returns: boolean
-          error: true
-        - java_method: read
-          go_name: Read0
-          returns: int
-          error: true
-        - java_method: read
-          go_name: Read3_1
-          params:
-            - java_type: '[B'
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: int
-          error: true
-        - java_method: reset
-          go_name: Reset
-          returns: void
-          error: true
-        - java_method: skip
-          go_name: Skip
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: long
-          error: true
-    - java_class: android.util.StringBuilderPrinter
-      go_type: StringBuilderPrinter
-      obtain: constructor
-      constructor_params:
-        - java_type: java.lang.StringBuilder
-          go_name: arg0
-      methods:
-        - java_method: println
-          go_name: Println
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.util.TimeFormatException
-      go_type: TimeFormatException
-    - java_class: android.util.Log
-      go_type: Log
-      static_methods:
-        - java_method: d
-          go_name: D2
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-          returns: int
-          error: true
-        - java_method: d
-          go_name: D3_1
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-            - java_type: java.lang.Throwable
-              go_name: arg2
-          returns: int
-          error: true
-        - java_method: e
-          go_name: E2
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-          returns: int
-          error: true
-        - java_method: e
-          go_name: E3_1
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-            - java_type: java.lang.Throwable
-              go_name: arg2
-          returns: int
-          error: true
-        - java_method: getStackTraceString
-          go_name: GetStackTraceString
-          params:
-            - java_type: java.lang.Throwable
-              go_name: arg0
-          returns: String
-          error: true
-        - java_method: i
-          go_name: I2
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-          returns: int
-          error: true
-        - java_method: i
-          go_name: I3_1
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-            - java_type: java.lang.Throwable
-              go_name: arg2
-          returns: int
-          error: true
-        - java_method: isLoggable
-          go_name: IsLoggable
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: println
-          go_name: Println
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-            - java_type: String
-              go_name: arg2
-          returns: int
-          error: true
-        - java_method: v
-          go_name: V2
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-          returns: int
-          error: true
-        - java_method: v
-          go_name: V3_1
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-            - java_type: java.lang.Throwable
-              go_name: arg2
-          returns: int
-          error: true
-        - java_method: w
-          go_name: W2
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-          returns: int
-          error: true
-        - java_method: w
-          go_name: W3_1
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-            - java_type: java.lang.Throwable
-              go_name: arg2
-          returns: int
-          error: true
-        - java_method: w
-          go_name: W2_2
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: java.lang.Throwable
-              go_name: arg1
-          returns: int
-          error: true
-        - java_method: wtf
-          go_name: Wtf2
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-          returns: int
-          error: true
-        - java_method: wtf
-          go_name: Wtf3_1
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-            - java_type: java.lang.Throwable
-              go_name: arg2
-          returns: int
-          error: true
-        - java_method: wtf
-          go_name: Wtf2_2
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: java.lang.Throwable
-              go_name: arg1
-          returns: int
-          error: true
-    - java_class: android.util.LruCache
-      go_type: LruCache
-      obtain: constructor
-      constructor_params:
-        - java_type: int
-          go_name: arg0
-      methods:
-        - java_method: evictAll
-          go_name: EvictAll
-          returns: void
-          error: true
-        - java_method: resize
-          go_name: Resize
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: trimToSize
-          go_name: TrimToSize
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
     - java_class: android.util.DebugUtils
       go_type: DebugUtils
       static_methods:
@@ -2695,47 +2735,191 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
-    - java_class: android.util.LayoutDirection
-      go_type: LayoutDirection
-    - java_class: android.util.Config
-      go_type: Config
-    - java_class: android.util.NoSuchPropertyException
-      go_type: NoSuchPropertyException
-      obtain: constructor
-      constructor_params:
-        - java_type: String
-          go_name: arg0
-    - java_class: android.util.Pair
-      go_type: Pair
-      obtain: constructor
-      constructor_params:
-        - java_type: F
-          go_name: arg0
-        - java_type: S
-          go_name: arg1
+abstract_callbacks:
+    - java_class: android.util.IntProperty
+      go_type: IntPropertyCallback
       methods:
-        - java_method: equals
-          go_name: Equals
+        - java_method: set
           params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
+            - java.lang.Object
+            - java.lang.Object
+          returns: void
+          go_field: Set
+    - java_class: android.util.FloatProperty
+      go_type: FloatPropertyCallback
+      methods:
+        - java_method: set
+          params:
+            - java.lang.Object
+            - java.lang.Object
+          returns: void
+          go_field: Set
+    - java_class: android.util.Property
+      go_type: PropertyCallback
+      methods:
+        - java_method: getName
+          params: []
           returns: String
-          error: true
-    - java_class: android.util.MalformedJsonException
-      go_type: MalformedJsonException
-      obtain: constructor
-      constructor_params:
-        - java_type: String
-          go_name: arg0
+          go_field: GetName
+        - java_method: getType
+          params: []
+          returns: java.lang.Class<V>
+          go_field: GetType
+        - java_method: isReadOnly
+          params: []
+          returns: boolean
+          go_field: IsReadOnly
 constants:
+    - go_name: BeginArray
+      value: "0"
+      go_type: int
+    - go_name: BeginObject
+      value: "0"
+      go_type: int
+    - go_name: Boolean
+      value: "0"
+      go_type: int
+    - go_name: EndArray
+      value: "0"
+      go_type: int
+    - go_name: EndDocument
+      value: "0"
+      go_type: int
+    - go_name: EndObject
+      value: "0"
+      go_type: int
+    - go_name: Name
+      value: "0"
+      go_type: int
+    - go_name: "Null"
+      value: "0"
+      go_type: int
+    - go_name: Number
+      value: "0"
+      go_type: int
+    - go_name: String
+      value: "0"
+      go_type: int
+    - go_name: Iso88591
+      value: "0"
+      go_type: int
+    - go_name: UsAscii
+      value: "0"
+      go_type: int
+    - go_name: Utf16
+      value: "0"
+      go_type: int
+    - go_name: Utf8
+      value: "0"
+      go_type: int
+    - go_name: Inherit
+      value: "2"
+      go_type: int
+    - go_name: Locale
+      value: "3"
+      go_type: int
+    - go_name: Ltr
+      value: "0"
+      go_type: int
+    - go_name: Rtl
+      value: "1"
+      go_type: int
+    - go_name: Assert
+      value: "7"
+      go_type: int
+    - go_name: Debug
+      value: "3"
+      go_type: int
+    - go_name: Error
+      value: "6"
+      go_type: int
+    - go_name: Info
+      value: "4"
+      go_type: int
+    - go_name: Verbose
+      value: "2"
+      go_type: int
+    - go_name: Warn
+      value: "5"
+      go_type: int
+    - go_name: Epsilon
+      value: "5120"
+      go_type: int
+    - go_name: LowestValue
+      value: "-1025"
+      go_type: int
+    - go_name: MaxExponent
+      value: "15"
+      go_type: int
+    - go_name: MaxValue
+      value: "31743"
+      go_type: int
+    - go_name: MinExponent
+      value: "-14"
+      go_type: int
+    - go_name: MinNormal
+      value: "1024"
+      go_type: int
+    - go_name: MinValue
+      value: "1"
+      go_type: int
+    - go_name: NegativeInfinity
+      value: "-1024"
+      go_type: int
+    - go_name: NegativeZero
+      value: "-32768"
+      go_type: int
+    - go_name: Nan
+      value: "32256"
+      go_type: int
+    - go_name: PositiveInfinity
+      value: "31744"
+      go_type: int
+    - go_name: PositiveZero
+      value: "0"
+      go_type: int
+    - go_name: Size
+      value: "16"
+      go_type: int
+    - go_name: Logd
+      value: "true"
+      go_type: bool
+    - go_name: Logv
+      value: "false"
+      go_type: bool
+    - go_name: Profile
+      value: "false"
+      go_type: bool
+    - go_name: Release
+      value: "true"
+      go_type: bool
+    - go_name: Creator
+      value: "0"
+      go_type: int
+    - go_name: Nothing
+      value: "0"
+      go_type: int
+    - go_name: WildCard
+      value: "0"
+      go_type: int
+    - go_name: Crlf
+      value: "4"
+      go_type: int
+    - go_name: Default
+      value: "0"
+      go_type: int
+    - go_name: NoClose
+      value: "16"
+      go_type: int
+    - go_name: NoPadding
+      value: "1"
+      go_type: int
+    - go_name: NoWrap
+      value: "2"
+      go_type: int
+    - go_name: UrlSafe
+      value: "8"
+      go_type: int
     - go_name: ComplexMantissaMask
       value: "16777215"
       go_type: int
@@ -2856,102 +3040,6 @@ constants:
     - go_name: TypeString
       value: "3"
       go_type: int
-    - go_name: BeginArray
-      value: "0"
-      go_type: int
-    - go_name: BeginObject
-      value: "0"
-      go_type: int
-    - go_name: Boolean
-      value: "0"
-      go_type: int
-    - go_name: EndArray
-      value: "0"
-      go_type: int
-    - go_name: EndDocument
-      value: "0"
-      go_type: int
-    - go_name: EndObject
-      value: "0"
-      go_type: int
-    - go_name: Name
-      value: "0"
-      go_type: int
-    - go_name: "Null"
-      value: "0"
-      go_type: int
-    - go_name: Number
-      value: "0"
-      go_type: int
-    - go_name: String
-      value: "0"
-      go_type: int
-    - go_name: Crlf
-      value: "4"
-      go_type: int
-    - go_name: Default
-      value: "0"
-      go_type: int
-    - go_name: NoClose
-      value: "16"
-      go_type: int
-    - go_name: NoPadding
-      value: "1"
-      go_type: int
-    - go_name: NoWrap
-      value: "2"
-      go_type: int
-    - go_name: UrlSafe
-      value: "8"
-      go_type: int
-    - go_name: Epsilon
-      value: "5120"
-      go_type: int
-    - go_name: LowestValue
-      value: "-1025"
-      go_type: int
-    - go_name: MaxExponent
-      value: "15"
-      go_type: int
-    - go_name: MaxValue
-      value: "31743"
-      go_type: int
-    - go_name: MinExponent
-      value: "-14"
-      go_type: int
-    - go_name: MinNormal
-      value: "1024"
-      go_type: int
-    - go_name: MinValue
-      value: "1"
-      go_type: int
-    - go_name: NegativeInfinity
-      value: "-1024"
-      go_type: int
-    - go_name: NegativeZero
-      value: "-32768"
-      go_type: int
-    - go_name: Nan
-      value: "32256"
-      go_type: int
-    - go_name: PositiveInfinity
-      value: "31744"
-      go_type: int
-    - go_name: PositiveZero
-      value: "0"
-      go_type: int
-    - go_name: Size
-      value: "16"
-      go_type: int
-    - go_name: Nothing
-      value: "0"
-      go_type: int
-    - go_name: WildCard
-      value: "0"
-      go_type: int
-    - go_name: Creator
-      value: "0"
-      go_type: int
     - go_name: DomainName
       value: "0"
       go_type: int
@@ -2979,60 +3067,6 @@ constants:
     - go_name: WebUrl
       value: "0"
       go_type: int
-    - go_name: Iso88591
-      value: "0"
-      go_type: int
-    - go_name: UsAscii
-      value: "0"
-      go_type: int
-    - go_name: Utf16
-      value: "0"
-      go_type: int
-    - go_name: Utf8
-      value: "0"
-      go_type: int
     - go_name: Zero
       value: "0"
       go_type: int
-    - go_name: Assert
-      value: "7"
-      go_type: int
-    - go_name: Debug
-      value: "3"
-      go_type: int
-    - go_name: Error
-      value: "6"
-      go_type: int
-    - go_name: Info
-      value: "4"
-      go_type: int
-    - go_name: Verbose
-      value: "2"
-      go_type: int
-    - go_name: Warn
-      value: "5"
-      go_type: int
-    - go_name: Inherit
-      value: "2"
-      go_type: int
-    - go_name: Locale
-      value: "3"
-      go_type: int
-    - go_name: Ltr
-      value: "0"
-      go_type: int
-    - go_name: Rtl
-      value: "1"
-      go_type: int
-    - go_name: Logd
-      value: "true"
-      go_type: bool
-    - go_name: Logv
-      value: "false"
-      go_type: bool
-    - go_name: Profile
-      value: "false"
-      go_type: bool
-    - go_name: Release
-      value: "true"
-      go_type: bool

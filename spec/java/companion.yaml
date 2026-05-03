@@ -5,8 +5,8 @@
 package: companion
 go_import: github.com/AndroidGoLab/jni/companion
 classes:
-    - java_class: android.companion.AssociationInfo
-      go_type: AssociationInfo
+    - java_class: android.companion.DeviceId
+      go_type: DeviceId
       methods:
         - java_method: describeContents
           go_name: DescribeContents
@@ -19,41 +19,17 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
-        - java_method: getAssociatedDevice
-          go_name: GetAssociatedDevice
-          returns: android.companion.AssociatedDevice
-          error: true
-        - java_method: getDeviceId
-          go_name: GetDeviceId
-          returns: android.companion.DeviceId
-          error: true
-        - java_method: getDeviceMacAddress
-          go_name: GetDeviceMacAddress
-          returns: android.net.MacAddress
-          error: true
-        - java_method: getDeviceProfile
-          go_name: GetDeviceProfile
+        - java_method: getCustomId
+          go_name: GetCustomId
           returns: String
           error: true
-        - java_method: getDisplayName
-          go_name: GetDisplayName
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: getId
-          go_name: GetId
-          returns: int
-          error: true
-        - java_method: getSystemDataSyncFlags
-          go_name: GetSystemDataSyncFlags
-          returns: int
+        - java_method: getMacAddress
+          go_name: GetMacAddress
+          returns: android.net.MacAddress
           error: true
         - java_method: hashCode
           go_name: HashCode
           returns: int
-          error: true
-        - java_method: isSelfManaged
-          go_name: IsSelfManaged
-          returns: boolean
           error: true
         - java_method: toString
           go_name: ToString
@@ -68,6 +44,251 @@ classes:
               go_name: arg1
           returns: void
           error: true
+    - java_class: android.companion.DeviceId$Builder
+      go_type: DeviceIdBuilder
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.companion.DeviceId
+          error: true
+        - java_method: setCustomId
+          go_name: SetCustomId
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.companion.DeviceId$Builder
+          error: true
+        - java_method: setMacAddress
+          go_name: SetMacAddress
+          params:
+            - java_type: android.net.MacAddress
+              go_name: arg0
+          returns: android.companion.DeviceId$Builder
+          error: true
+    - java_class: android.companion.BluetoothDeviceFilter
+      go_type: BluetoothDeviceFilter
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.companion.BluetoothDeviceFilter$Builder
+      go_type: BluetoothDeviceFilterBuilder
+      methods:
+        - java_method: addServiceUuid
+          go_name: AddServiceUuid
+          params:
+            - java_type: android.os.ParcelUuid
+              go_name: arg0
+            - java_type: android.os.ParcelUuid
+              go_name: arg1
+          returns: android.companion.BluetoothDeviceFilter$Builder
+          error: true
+        - java_method: build
+          go_name: Build
+          returns: android.companion.BluetoothDeviceFilter
+          error: true
+        - java_method: setAddress
+          go_name: SetAddress
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.companion.BluetoothDeviceFilter$Builder
+          error: true
+        - java_method: setNamePattern
+          go_name: SetNamePattern
+          params:
+            - java_type: java.util.regex.Pattern
+              go_name: arg0
+          returns: android.companion.BluetoothDeviceFilter$Builder
+          error: true
+    - java_class: android.companion.CompanionDeviceService
+      go_type: DeviceService
+      methods:
+        - java_method: attachSystemDataTransport
+          go_name: AttachSystemDataTransport
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: java.io.InputStream
+              go_name: arg1
+            - java_type: java.io.OutputStream
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: detachSystemDataTransport
+          go_name: DetachSystemDataTransport
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onBind
+          go_name: OnBind
+          params:
+            - java_type: android.content.Intent
+              go_name: arg0
+          returns: android.os.IBinder
+          error: true
+        - java_method: onDeviceAppeared
+          go_name: OnDeviceAppeared1
+          params:
+            - java_type: android.companion.AssociationInfo
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onDeviceAppeared
+          go_name: OnDeviceAppeared1_1
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onDeviceDisappeared
+          go_name: OnDeviceDisappeared1
+          params:
+            - java_type: android.companion.AssociationInfo
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onDeviceDisappeared
+          go_name: OnDeviceDisappeared1_1
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onDevicePresenceEvent
+          go_name: OnDevicePresenceEvent
+          params:
+            - java_type: android.companion.DevicePresenceEvent
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.companion.DeviceNotAssociatedException
+      go_type: DeviceNotAssociatedException
+    - java_class: android.companion.BluetoothLeDeviceFilter
+      go_type: BluetoothLeDeviceFilter
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+      static_methods:
+        - java_method: getRenamePrefixLengthLimit
+          go_name: GetRenamePrefixLengthLimit
+          returns: int
+          error: true
+    - java_class: android.companion.BluetoothLeDeviceFilter$Builder
+      go_type: BluetoothLeDeviceFilterBuilder
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.companion.BluetoothLeDeviceFilter
+          error: true
+        - java_method: setNamePattern
+          go_name: SetNamePattern
+          params:
+            - java_type: java.util.regex.Pattern
+              go_name: arg0
+          returns: android.companion.BluetoothLeDeviceFilter$Builder
+          error: true
+        - java_method: setRawDataFilter
+          go_name: SetRawDataFilter
+          params:
+            - java_type: '[B'
+              go_name: arg0
+            - java_type: '[B'
+              go_name: arg1
+          returns: android.companion.BluetoothLeDeviceFilter$Builder
+          error: true
+        - java_method: setRenameFromBytes
+          go_name: SetRenameFromBytes
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+            - java_type: java.nio.ByteOrder
+              go_name: arg4
+          returns: android.companion.BluetoothLeDeviceFilter$Builder
+          error: true
+        - java_method: setRenameFromName
+          go_name: SetRenameFromName
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+          returns: android.companion.BluetoothLeDeviceFilter$Builder
+          error: true
+        - java_method: setScanFilter
+          go_name: SetScanFilter
+          params:
+            - java_type: android.bluetooth.le.ScanFilter
+              go_name: arg0
+          returns: android.companion.BluetoothLeDeviceFilter$Builder
+          error: true
+    - java_class: android.companion.CompanionException
+      go_type: Exception
+    - java_class: android.companion.DeviceFilter
+      go_type: DeviceFilter
     - java_class: android.companion.AssociationRequest
       go_type: AssociationRequest
       methods:
@@ -160,180 +381,6 @@ classes:
             - java_type: boolean
               go_name: arg0
           returns: android.companion.AssociationRequest$Builder
-          error: true
-    - java_class: android.companion.BluetoothDeviceFilter
-      go_type: BluetoothDeviceFilter
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.companion.BluetoothDeviceFilter$Builder
-      go_type: BluetoothDeviceFilterBuilder
-      methods:
-        - java_method: addServiceUuid
-          go_name: AddServiceUuid
-          params:
-            - java_type: android.os.ParcelUuid
-              go_name: arg0
-            - java_type: android.os.ParcelUuid
-              go_name: arg1
-          returns: android.companion.BluetoothDeviceFilter$Builder
-          error: true
-        - java_method: build
-          go_name: Build
-          returns: android.companion.BluetoothDeviceFilter
-          error: true
-        - java_method: setAddress
-          go_name: SetAddress
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.companion.BluetoothDeviceFilter$Builder
-          error: true
-        - java_method: setNamePattern
-          go_name: SetNamePattern
-          params:
-            - java_type: java.util.regex.Pattern
-              go_name: arg0
-          returns: android.companion.BluetoothDeviceFilter$Builder
-          error: true
-    - java_class: android.companion.DeviceNotAssociatedException
-      go_type: DeviceNotAssociatedException
-    - java_class: android.companion.DevicePresenceEvent
-      go_type: DevicePresenceEvent
-      obtain: constructor
-      constructor_params:
-        - java_type: int
-          go_name: arg0
-        - java_type: int
-          go_name: arg1
-        - java_type: android.os.ParcelUuid
-          go_name: arg2
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getAssociationId
-          go_name: GetAssociationId
-          returns: int
-          error: true
-        - java_method: getEvent
-          go_name: GetEvent
-          returns: int
-          error: true
-        - java_method: getUuid
-          go_name: GetUuid
-          returns: android.os.ParcelUuid
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.companion.ObservingDevicePresenceRequest
-      go_type: ObservingDevicePresenceRequest
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getAssociationId
-          go_name: GetAssociationId
-          returns: int
-          error: true
-        - java_method: getUuid
-          go_name: GetUuid
-          returns: android.os.ParcelUuid
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.companion.ObservingDevicePresenceRequest$Builder
-      go_type: ObservingDevicePresenceRequestBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.companion.ObservingDevicePresenceRequest
-          error: true
-        - java_method: setAssociationId
-          go_name: SetAssociationId
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.companion.ObservingDevicePresenceRequest$Builder
-          error: true
-        - java_method: setUuid
-          go_name: SetUuid
-          params:
-            - java_type: android.os.ParcelUuid
-              go_name: arg0
-          returns: android.companion.ObservingDevicePresenceRequest$Builder
           error: true
     - java_class: android.companion.CompanionDeviceManager
       go_type: DeviceManager
@@ -526,12 +573,8 @@ classes:
               go_name: arg0
           returns: void
           error: true
-    - java_class: android.companion.CompanionException
-      go_type: Exception
-    - java_class: android.companion.DeviceFilter
-      go_type: DeviceFilter
-    - java_class: android.companion.DeviceId
-      go_type: DeviceId
+    - java_class: android.companion.ObservingDevicePresenceRequest
+      go_type: ObservingDevicePresenceRequest
       methods:
         - java_method: describeContents
           go_name: DescribeContents
@@ -544,13 +587,13 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
-        - java_method: getCustomId
-          go_name: GetCustomId
-          returns: String
+        - java_method: getAssociationId
+          go_name: GetAssociationId
+          returns: int
           error: true
-        - java_method: getMacAddress
-          go_name: GetMacAddress
-          returns: android.net.MacAddress
+        - java_method: getUuid
+          go_name: GetUuid
+          returns: android.os.ParcelUuid
           error: true
         - java_method: hashCode
           go_name: HashCode
@@ -569,88 +612,68 @@ classes:
               go_name: arg1
           returns: void
           error: true
-    - java_class: android.companion.DeviceId$Builder
-      go_type: DeviceIdBuilder
+    - java_class: android.companion.ObservingDevicePresenceRequest$Builder
+      go_type: ObservingDevicePresenceRequestBuilder
       methods:
         - java_method: build
           go_name: Build
-          returns: android.companion.DeviceId
+          returns: android.companion.ObservingDevicePresenceRequest
           error: true
-        - java_method: setCustomId
-          go_name: SetCustomId
+        - java_method: setAssociationId
+          go_name: SetAssociationId
           params:
-            - java_type: String
+            - java_type: int
               go_name: arg0
-          returns: android.companion.DeviceId$Builder
+          returns: android.companion.ObservingDevicePresenceRequest$Builder
           error: true
-        - java_method: setMacAddress
-          go_name: SetMacAddress
+        - java_method: setUuid
+          go_name: SetUuid
           params:
-            - java_type: android.net.MacAddress
+            - java_type: android.os.ParcelUuid
               go_name: arg0
-          returns: android.companion.DeviceId$Builder
+          returns: android.companion.ObservingDevicePresenceRequest$Builder
           error: true
-    - java_class: android.companion.CompanionDeviceService
-      go_type: DeviceService
+    - java_class: android.companion.AssociatedDevice
+      go_type: AssociatedDevice
       methods:
-        - java_method: attachSystemDataTransport
-          go_name: AttachSystemDataTransport
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
           params:
-            - java_type: int
+            - java_type: java.lang.Object
               go_name: arg0
-            - java_type: java.io.InputStream
+          returns: boolean
+          error: true
+        - java_method: getBleDevice
+          go_name: GetBleDevice
+          returns: android.bluetooth.le.ScanResult
+          error: true
+        - java_method: getBluetoothDevice
+          go_name: GetBluetoothDevice
+          returns: android.bluetooth.BluetoothDevice
+          error: true
+        - java_method: getWifiDevice
+          go_name: GetWifiDevice
+          returns: android.net.wifi.ScanResult
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
               go_name: arg1
-            - java_type: java.io.OutputStream
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: detachSystemDataTransport
-          go_name: DetachSystemDataTransport
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onBind
-          go_name: OnBind
-          params:
-            - java_type: android.content.Intent
-              go_name: arg0
-          returns: android.os.IBinder
-          error: true
-        - java_method: onDeviceAppeared
-          go_name: OnDeviceAppeared1
-          params:
-            - java_type: android.companion.AssociationInfo
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onDeviceAppeared
-          go_name: OnDeviceAppeared1_1
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onDeviceDisappeared
-          go_name: OnDeviceDisappeared1
-          params:
-            - java_type: android.companion.AssociationInfo
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onDeviceDisappeared
-          go_name: OnDeviceDisappeared1_1
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onDevicePresenceEvent
-          go_name: OnDevicePresenceEvent
-          params:
-            - java_type: android.companion.DevicePresenceEvent
-              go_name: arg0
           returns: void
           error: true
     - java_class: android.companion.WifiDeviceFilter
@@ -708,8 +731,8 @@ classes:
               go_name: arg0
           returns: android.companion.WifiDeviceFilter$Builder
           error: true
-    - java_class: android.companion.AssociatedDevice
-      go_type: AssociatedDevice
+    - java_class: android.companion.AssociationInfo
+      go_type: AssociationInfo
       methods:
         - java_method: describeContents
           go_name: DescribeContents
@@ -722,17 +745,88 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
-        - java_method: getBleDevice
-          go_name: GetBleDevice
-          returns: android.bluetooth.le.ScanResult
+        - java_method: getAssociatedDevice
+          go_name: GetAssociatedDevice
+          returns: android.companion.AssociatedDevice
           error: true
-        - java_method: getBluetoothDevice
-          go_name: GetBluetoothDevice
-          returns: android.bluetooth.BluetoothDevice
+        - java_method: getDeviceId
+          go_name: GetDeviceId
+          returns: android.companion.DeviceId
           error: true
-        - java_method: getWifiDevice
-          go_name: GetWifiDevice
-          returns: android.net.wifi.ScanResult
+        - java_method: getDeviceMacAddress
+          go_name: GetDeviceMacAddress
+          returns: android.net.MacAddress
+          error: true
+        - java_method: getDeviceProfile
+          go_name: GetDeviceProfile
+          returns: String
+          error: true
+        - java_method: getDisplayName
+          go_name: GetDisplayName
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: getId
+          go_name: GetId
+          returns: int
+          error: true
+        - java_method: getSystemDataSyncFlags
+          go_name: GetSystemDataSyncFlags
+          returns: int
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: isSelfManaged
+          go_name: IsSelfManaged
+          returns: boolean
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.companion.DevicePresenceEvent
+      go_type: DevicePresenceEvent
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+        - java_type: int
+          go_name: arg1
+        - java_type: android.os.ParcelUuid
+          go_name: arg2
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getAssociationId
+          go_name: GetAssociationId
+          returns: int
+          error: true
+        - java_method: getEvent
+          go_name: GetEvent
+          returns: int
+          error: true
+        - java_method: getUuid
+          go_name: GetUuid
+          returns: android.os.ParcelUuid
           error: true
         - java_method: hashCode
           go_name: HashCode
@@ -751,104 +845,88 @@ classes:
               go_name: arg1
           returns: void
           error: true
-    - java_class: android.companion.BluetoothLeDeviceFilter
-      go_type: BluetoothLeDeviceFilter
+abstract_callbacks:
+    - java_class: android.companion.CompanionDeviceService
+      go_type: DeviceServiceCallback
       methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
+        - java_method: attachSystemDataTransport
           params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
+            - int
+            - java.io.InputStream
+            - java.io.OutputStream
           returns: void
-          error: true
-      static_methods:
-        - java_method: getRenamePrefixLengthLimit
-          go_name: GetRenamePrefixLengthLimit
-          returns: int
-          error: true
-    - java_class: android.companion.BluetoothLeDeviceFilter$Builder
-      go_type: BluetoothLeDeviceFilterBuilder
+          go_field: AttachSystemDataTransport
+        - java_method: detachSystemDataTransport
+          params:
+            - int
+          returns: void
+          go_field: DetachSystemDataTransport
+        - java_method: onBind
+          params:
+            - android.content.Intent
+          returns: android.os.IBinder
+          go_field: OnBind
+        - java_method: onDeviceAppeared
+          params:
+            - android.companion.AssociationInfo
+          returns: void
+          go_field: OnDeviceAppeared
+        - java_method: onDeviceAppeared
+          params:
+            - String
+          returns: void
+          go_field: OnDeviceAppeared
+        - java_method: onDeviceDisappeared
+          params:
+            - android.companion.AssociationInfo
+          returns: void
+          go_field: OnDeviceDisappeared
+        - java_method: onDeviceDisappeared
+          params:
+            - String
+          returns: void
+          go_field: OnDeviceDisappeared
+        - java_method: onDevicePresenceEvent
+          params:
+            - android.companion.DevicePresenceEvent
+          returns: void
+          go_field: OnDevicePresenceEvent
+    - java_class: android.companion.CompanionDeviceManager$Callback
+      go_type: DeviceManagerCallbackCallback
       methods:
-        - java_method: build
-          go_name: Build
-          returns: android.companion.BluetoothLeDeviceFilter
-          error: true
-        - java_method: setNamePattern
-          go_name: SetNamePattern
+        - java_method: onAssociationCreated
           params:
-            - java_type: java.util.regex.Pattern
-              go_name: arg0
-          returns: android.companion.BluetoothLeDeviceFilter$Builder
-          error: true
-        - java_method: setRawDataFilter
-          go_name: SetRawDataFilter
+            - android.companion.AssociationInfo
+          returns: void
+          go_field: OnAssociationCreated
+        - java_method: onAssociationPending
           params:
-            - java_type: '[B'
-              go_name: arg0
-            - java_type: '[B'
-              go_name: arg1
-          returns: android.companion.BluetoothLeDeviceFilter$Builder
-          error: true
-        - java_method: setRenameFromBytes
-          go_name: SetRenameFromBytes
+            - android.content.IntentSender
+          returns: void
+          go_field: OnAssociationPending
+        - java_method: onDeviceFound
           params:
-            - java_type: String
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-            - java_type: java.nio.ByteOrder
-              go_name: arg4
-          returns: android.companion.BluetoothLeDeviceFilter$Builder
-          error: true
-        - java_method: setRenameFromName
-          go_name: SetRenameFromName
+            - android.content.IntentSender
+          returns: void
+          go_field: OnDeviceFound
+        - java_method: onFailure
           params:
-            - java_type: String
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-          returns: android.companion.BluetoothLeDeviceFilter$Builder
-          error: true
-        - java_method: setScanFilter
-          go_name: SetScanFilter
+            - int
+            - java.lang.CharSequence
+          returns: void
+          go_field: OnFailure
+        - java_method: onFailure
           params:
-            - java_type: android.bluetooth.le.ScanFilter
-              go_name: arg0
-          returns: android.companion.BluetoothLeDeviceFilter$Builder
-          error: true
+            - java.lang.CharSequence
+          returns: void
+          go_field: OnFailure
 constants:
     - go_name: Creator
       value: "0"
       go_type: int
+    - go_name: ServiceInterface
+      value: '"android.companion.CompanionDeviceService"'
+      go_type: string
     - go_name: DeviceProfileAppStreaming
       value: '"android.app.role.COMPANION_DEVICE_APP_STREAMING"'
       go_type: string
@@ -867,27 +945,6 @@ constants:
     - go_name: DeviceProfileWatch
       value: '"android.app.role.COMPANION_DEVICE_WATCH"'
       go_type: string
-    - go_name: EventBleAppeared
-      value: "0"
-      go_type: int
-    - go_name: EventBleDisappeared
-      value: "1"
-      go_type: int
-    - go_name: EventBtConnected
-      value: "2"
-      go_type: int
-    - go_name: EventBtDisconnected
-      value: "3"
-      go_type: int
-    - go_name: EventSelfManagedAppeared
-      value: "4"
-      go_type: int
-    - go_name: EventSelfManagedDisappeared
-      value: "5"
-      go_type: int
-    - go_name: NoAssociation
-      value: "-1"
-      go_type: int
     - go_name: ExtraAssociation
       value: '"android.companion.extra.ASSOCIATION"'
       go_type: string
@@ -915,6 +972,24 @@ constants:
     - go_name: ResultUserRejected
       value: "1"
       go_type: int
-    - go_name: ServiceInterface
-      value: '"android.companion.CompanionDeviceService"'
-      go_type: string
+    - go_name: EventBleAppeared
+      value: "0"
+      go_type: int
+    - go_name: EventBleDisappeared
+      value: "1"
+      go_type: int
+    - go_name: EventBtConnected
+      value: "2"
+      go_type: int
+    - go_name: EventBtDisconnected
+      value: "3"
+      go_type: int
+    - go_name: EventSelfManagedAppeared
+      value: "4"
+      go_type: int
+    - go_name: EventSelfManagedDisappeared
+      value: "5"
+      go_type: int
+    - go_name: NoAssociation
+      value: "-1"
+      go_type: int

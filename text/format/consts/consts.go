@@ -3,24 +3,28 @@
 package consts
 
 const (
-	EpochJulianDay          int = 2440588
-	Friday                  int = 5
-	Hour                    int = 3
-	Minute                  int = 2
-	Monday                  int = 1
-	MondayBeforeJulianEpoch int = 2440585
-	Month                   int = 5
-	MonthDay                int = 4
-	Saturday                int = 6
-	Second                  int = 1
-	Sunday                  int = 0
-	Thursday                int = 4
-	Tuesday                 int = 2
-	Wednesday               int = 3
-	WeekDay                 int = 7
-	WeekNum                 int = 9
-	Year                    int = 6
-	YearDay                 int = 8
+	AbbrevMonthFormat   string = "%b"
+	AbbrevWeekdayFormat string = "%a"
+	HourMinute24        string = "%H:%M"
+	MonthDayFormat      string = "%-d"
+	MonthFormat         string = "%B"
+	NumericMonthFormat  string = "%m"
+	WeekdayFormat       string = "%A"
+	YearFormat          string = "%Y"
+	YearFormatTwoDigits string = "%g"
+	TimezoneUtc         string = "UTC"
+)
+
+const (
+	DayInMillis    int64 = 86400000
+	HourInMillis   int64 = 3600000
+	MinuteInMillis int64 = 60000
+	SecondInMillis int64 = 1000
+	WeekInMillis   int64 = 604800000
+	YearInMillis   int64 = 31449600000
+)
+
+const (
 	Format12hour            int = 64
 	Format24hour            int = 128
 	FormatAbbrevAll         int = 524288
@@ -50,26 +54,22 @@ const (
 	LengthShortest          int = 50
 	Samemonthtable          int = 0
 	Sameyeartable           int = 0
-)
-
-const (
-	TimezoneUtc         string = "UTC"
-	AbbrevMonthFormat   string = "%b"
-	AbbrevWeekdayFormat string = "%a"
-	HourMinute24        string = "%H:%M"
-	MonthDayFormat      string = "%-d"
-	MonthFormat         string = "%B"
-	NumericMonthFormat  string = "%m"
-	WeekdayFormat       string = "%A"
-	YearFormat          string = "%Y"
-	YearFormatTwoDigits string = "%g"
-)
-
-const (
-	DayInMillis    int64 = 86400000
-	HourInMillis   int64 = 3600000
-	MinuteInMillis int64 = 60000
-	SecondInMillis int64 = 1000
-	WeekInMillis   int64 = 604800000
-	YearInMillis   int64 = 31449600000
+	EpochJulianDay          int = 2440588
+	Friday                  int = 5
+	Hour                    int = 3
+	Minute                  int = 2
+	Monday                  int = 1
+	MondayBeforeJulianEpoch int = 2440585
+	Month                   int = 5
+	MonthDay                int = 4
+	Saturday                int = 6
+	Second                  int = 1
+	Sunday                  int = 0
+	Thursday                int = 4
+	Tuesday                 int = 2
+	Wednesday               int = 3
+	WeekDay                 int = 7
+	WeekNum                 int = 9
+	Year                    int = 6
+	YearDay                 int = 8
 )

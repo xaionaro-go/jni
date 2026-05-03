@@ -4,10 +4,10 @@ package consts
 
 const (
 	Creator               int = 0
+	TypeNfcPaymentStarted int = 1
 	CardTypeNonPayment    int = 2
 	CardTypePayment       int = 1
 	CardTypeUnknown       int = 0
-	TypeNfcPaymentStarted int = 1
 )
 
 const (

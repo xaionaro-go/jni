@@ -5,249 +5,6 @@
 package: aware
 go_import: github.com/AndroidGoLab/jni/net/wifi/aware
 classes:
-    - java_class: android.net.wifi.aware.SubscribeConfig
-      go_type: SubscribeConfig
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getInstantCommunicationBand
-          go_name: GetInstantCommunicationBand
-          returns: int
-          error: true
-        - java_method: getPairingConfig
-          go_name: GetPairingConfig
-          returns: android.net.wifi.aware.AwarePairingConfig
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: isInstantCommunicationModeEnabled
-          go_name: IsInstantCommunicationModeEnabled
-          returns: boolean
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.net.wifi.aware.SubscribeConfig$Builder
-      go_type: SubscribeConfigBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.net.wifi.aware.SubscribeConfig
-          error: true
-        - java_method: setInstantCommunicationModeEnabled
-          go_name: SetInstantCommunicationModeEnabled
-          params:
-            - java_type: boolean
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: android.net.wifi.aware.SubscribeConfig$Builder
-          error: true
-        - java_method: setMaxDistanceMm
-          go_name: SetMaxDistanceMm
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.net.wifi.aware.SubscribeConfig$Builder
-          error: true
-        - java_method: setMinDistanceMm
-          go_name: SetMinDistanceMm
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.net.wifi.aware.SubscribeConfig$Builder
-          error: true
-        - java_method: setPairingConfig
-          go_name: SetPairingConfig
-          params:
-            - java_type: android.net.wifi.aware.AwarePairingConfig
-              go_name: arg0
-          returns: android.net.wifi.aware.SubscribeConfig$Builder
-          error: true
-        - java_method: setServiceName
-          go_name: SetServiceName
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.net.wifi.aware.SubscribeConfig$Builder
-          error: true
-        - java_method: setServiceSpecificInfo
-          go_name: SetServiceSpecificInfo
-          params:
-            - java_type: '[B'
-              go_name: arg0
-          returns: android.net.wifi.aware.SubscribeConfig$Builder
-          error: true
-        - java_method: setSubscribeType
-          go_name: SetSubscribeType
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.net.wifi.aware.SubscribeConfig$Builder
-          error: true
-        - java_method: setTerminateNotificationEnabled
-          go_name: SetTerminateNotificationEnabled
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.net.wifi.aware.SubscribeConfig$Builder
-          error: true
-        - java_method: setTtlSec
-          go_name: SetTtlSec
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.net.wifi.aware.SubscribeConfig$Builder
-          error: true
-    - java_class: android.net.wifi.aware.WifiAwareManager
-      go_type: WifiAwareManager
-      obtain: system_service
-      service_name: wifiaware
-      close: true
-      methods:
-        - java_method: getAvailableAwareResources
-          go_name: GetAvailableAwareResources
-          returns: android.net.wifi.aware.AwareResources
-          error: true
-        - java_method: getCharacteristics
-          go_name: GetCharacteristics
-          returns: android.net.wifi.aware.Characteristics
-          error: true
-        - java_method: isAvailable
-          go_name: IsAvailable
-          returns: boolean
-          error: true
-        - java_method: isDeviceAttached
-          go_name: IsDeviceAttached
-          returns: boolean
-          error: true
-        - java_method: isInstantCommunicationModeEnabled
-          go_name: IsInstantCommunicationModeEnabled
-          returns: boolean
-          error: true
-        - java_method: isSetChannelOnDataPathSupported
-          go_name: IsSetChannelOnDataPathSupported
-          returns: boolean
-          error: true
-        - java_method: removePairedDevice
-          go_name: RemovePairedDevice
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: resetPairedDevices
-          go_name: ResetPairedDevices
-          returns: void
-          error: true
-        - java_method: setOpportunisticModeEnabled
-          go_name: SetOpportunisticModeEnabled
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.net.wifi.aware.DiscoverySession
-      go_type: DiscoverySession
-      methods:
-        - java_method: acceptPairingRequest
-          go_name: AcceptPairingRequest
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.net.wifi.aware.PeerHandle
-              go_name: arg1
-            - java_type: String
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-            - java_type: String
-              go_name: arg4
-          returns: void
-          error: true
-        - java_method: close
-          go_name: Close
-          returns: void
-          error: true
-        - java_method: createNetworkSpecifierOpen
-          go_name: CreateNetworkSpecifierOpen
-          params:
-            - java_type: android.net.wifi.aware.PeerHandle
-              go_name: arg0
-          returns: android.net.NetworkSpecifier
-          error: true
-        - java_method: createNetworkSpecifierPassphrase
-          go_name: CreateNetworkSpecifierPassphrase
-          params:
-            - java_type: android.net.wifi.aware.PeerHandle
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-          returns: android.net.NetworkSpecifier
-          error: true
-        - java_method: initiateBootstrappingRequest
-          go_name: InitiateBootstrappingRequest
-          params:
-            - java_type: android.net.wifi.aware.PeerHandle
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: initiatePairingRequest
-          go_name: InitiatePairingRequest
-          params:
-            - java_type: android.net.wifi.aware.PeerHandle
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: String
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: rejectPairingRequest
-          go_name: RejectPairingRequest
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.net.wifi.aware.PeerHandle
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: sendMessage
-          go_name: SendMessage
-          params:
-            - java_type: android.net.wifi.aware.PeerHandle
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: '[B'
-              go_name: arg2
-          returns: void
-          error: true
     - java_class: android.net.wifi.aware.WifiAwareNetworkSpecifier
       go_type: WifiAwareNetworkSpecifier
       methods:
@@ -348,6 +105,104 @@ classes:
             - java_type: int
               go_name: arg0
           returns: android.net.wifi.aware.WifiAwareNetworkSpecifier$Builder
+          error: true
+    - java_class: android.net.wifi.aware.WifiAwareManager
+      go_type: WifiAwareManager
+      obtain: system_service
+      service_name: wifiaware
+      close: true
+      methods:
+        - java_method: getAvailableAwareResources
+          go_name: GetAvailableAwareResources
+          returns: android.net.wifi.aware.AwareResources
+          error: true
+        - java_method: getCharacteristics
+          go_name: GetCharacteristics
+          returns: android.net.wifi.aware.Characteristics
+          error: true
+        - java_method: isAvailable
+          go_name: IsAvailable
+          returns: boolean
+          error: true
+        - java_method: isDeviceAttached
+          go_name: IsDeviceAttached
+          returns: boolean
+          error: true
+        - java_method: isInstantCommunicationModeEnabled
+          go_name: IsInstantCommunicationModeEnabled
+          returns: boolean
+          error: true
+        - java_method: isSetChannelOnDataPathSupported
+          go_name: IsSetChannelOnDataPathSupported
+          returns: boolean
+          error: true
+        - java_method: removePairedDevice
+          go_name: RemovePairedDevice
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: resetPairedDevices
+          go_name: ResetPairedDevices
+          returns: void
+          error: true
+        - java_method: setOpportunisticModeEnabled
+          go_name: SetOpportunisticModeEnabled
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.net.wifi.aware.PeerHandle
+      go_type: PeerHandle
+      methods:
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+    - java_class: android.net.wifi.aware.AwareResources
+      go_type: Resources
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+        - java_type: int
+          go_name: arg1
+        - java_type: int
+          go_name: arg2
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getAvailableDataPathsCount
+          go_name: GetAvailableDataPathsCount
+          returns: int
+          error: true
+        - java_method: getAvailablePublishSessionsCount
+          go_name: GetAvailablePublishSessionsCount
+          returns: int
+          error: true
+        - java_method: getAvailableSubscribeSessionsCount
+          go_name: GetAvailableSubscribeSessionsCount
+          returns: int
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
           error: true
     - java_class: android.net.wifi.aware.PublishConfig
       go_type: PublishConfig
@@ -468,50 +323,6 @@ classes:
               go_name: arg0
           returns: android.net.wifi.aware.PublishConfig$Builder
           error: true
-    - java_class: android.net.wifi.aware.IdentityChangedListener
-      go_type: IdentityChangedListener
-      obtain: constructor
-      methods:
-        - java_method: onClusterIdChanged
-          go_name: OnClusterIdChanged
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.net.MacAddress
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onIdentityChanged
-          go_name: OnIdentityChanged
-          params:
-            - java_type: '[B'
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.net.wifi.aware.PeerHandle
-      go_type: PeerHandle
-      methods:
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-    - java_class: android.net.wifi.aware.SubscribeDiscoverySession
-      go_type: SubscribeDiscoverySession
-      methods:
-        - java_method: updateSubscribe
-          go_name: UpdateSubscribe
-          params:
-            - java_type: android.net.wifi.aware.SubscribeConfig
-              go_name: arg0
-          returns: void
-          error: true
     - java_class: android.net.wifi.aware.WifiAwareDataPathSecurityConfig
       go_type: WifiAwareDataPathSecurityConfig
       methods:
@@ -587,6 +398,349 @@ classes:
               go_name: arg0
           returns: android.net.wifi.aware.WifiAwareDataPathSecurityConfig$Builder
           error: true
+    - java_class: android.net.wifi.aware.WifiAwareChannelInfo
+      go_type: WifiAwareChannelInfo
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getChannelBandwidth
+          go_name: GetChannelBandwidth
+          returns: int
+          error: true
+        - java_method: getChannelFrequencyMhz
+          go_name: GetChannelFrequencyMhz
+          returns: int
+          error: true
+        - java_method: getSpatialStreamCount
+          go_name: GetSpatialStreamCount
+          returns: int
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.net.wifi.aware.SubscribeConfig
+      go_type: SubscribeConfig
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getInstantCommunicationBand
+          go_name: GetInstantCommunicationBand
+          returns: int
+          error: true
+        - java_method: getPairingConfig
+          go_name: GetPairingConfig
+          returns: android.net.wifi.aware.AwarePairingConfig
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: isInstantCommunicationModeEnabled
+          go_name: IsInstantCommunicationModeEnabled
+          returns: boolean
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.net.wifi.aware.SubscribeConfig$Builder
+      go_type: SubscribeConfigBuilder
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.net.wifi.aware.SubscribeConfig
+          error: true
+        - java_method: setInstantCommunicationModeEnabled
+          go_name: SetInstantCommunicationModeEnabled
+          params:
+            - java_type: boolean
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: android.net.wifi.aware.SubscribeConfig$Builder
+          error: true
+        - java_method: setMaxDistanceMm
+          go_name: SetMaxDistanceMm
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.net.wifi.aware.SubscribeConfig$Builder
+          error: true
+        - java_method: setMinDistanceMm
+          go_name: SetMinDistanceMm
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.net.wifi.aware.SubscribeConfig$Builder
+          error: true
+        - java_method: setPairingConfig
+          go_name: SetPairingConfig
+          params:
+            - java_type: android.net.wifi.aware.AwarePairingConfig
+              go_name: arg0
+          returns: android.net.wifi.aware.SubscribeConfig$Builder
+          error: true
+        - java_method: setServiceName
+          go_name: SetServiceName
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.net.wifi.aware.SubscribeConfig$Builder
+          error: true
+        - java_method: setServiceSpecificInfo
+          go_name: SetServiceSpecificInfo
+          params:
+            - java_type: '[B'
+              go_name: arg0
+          returns: android.net.wifi.aware.SubscribeConfig$Builder
+          error: true
+        - java_method: setSubscribeType
+          go_name: SetSubscribeType
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.net.wifi.aware.SubscribeConfig$Builder
+          error: true
+        - java_method: setTerminateNotificationEnabled
+          go_name: SetTerminateNotificationEnabled
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.net.wifi.aware.SubscribeConfig$Builder
+          error: true
+        - java_method: setTtlSec
+          go_name: SetTtlSec
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.net.wifi.aware.SubscribeConfig$Builder
+          error: true
+    - java_class: android.net.wifi.aware.DiscoverySession
+      go_type: DiscoverySession
+      methods:
+        - java_method: acceptPairingRequest
+          go_name: AcceptPairingRequest
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: android.net.wifi.aware.PeerHandle
+              go_name: arg1
+            - java_type: String
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+            - java_type: String
+              go_name: arg4
+          returns: void
+          error: true
+        - java_method: close
+          go_name: Close
+          returns: void
+          error: true
+        - java_method: createNetworkSpecifierOpen
+          go_name: CreateNetworkSpecifierOpen
+          params:
+            - java_type: android.net.wifi.aware.PeerHandle
+              go_name: arg0
+          returns: android.net.NetworkSpecifier
+          error: true
+        - java_method: createNetworkSpecifierPassphrase
+          go_name: CreateNetworkSpecifierPassphrase
+          params:
+            - java_type: android.net.wifi.aware.PeerHandle
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+          returns: android.net.NetworkSpecifier
+          error: true
+        - java_method: initiateBootstrappingRequest
+          go_name: InitiateBootstrappingRequest
+          params:
+            - java_type: android.net.wifi.aware.PeerHandle
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: initiatePairingRequest
+          go_name: InitiatePairingRequest
+          params:
+            - java_type: android.net.wifi.aware.PeerHandle
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: String
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: rejectPairingRequest
+          go_name: RejectPairingRequest
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: android.net.wifi.aware.PeerHandle
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: sendMessage
+          go_name: SendMessage
+          params:
+            - java_type: android.net.wifi.aware.PeerHandle
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: '[B'
+              go_name: arg2
+          returns: void
+          error: true
+    - java_class: android.net.wifi.aware.PublishDiscoverySession
+      go_type: PublishDiscoverySession
+      methods:
+        - java_method: updatePublish
+          go_name: UpdatePublish
+          params:
+            - java_type: android.net.wifi.aware.PublishConfig
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.net.wifi.aware.Characteristics
+      go_type: Characteristics
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getMaxMatchFilterLength
+          go_name: GetMaxMatchFilterLength
+          returns: int
+          error: true
+        - java_method: getMaxServiceNameLength
+          go_name: GetMaxServiceNameLength
+          returns: int
+          error: true
+        - java_method: getMaxServiceSpecificInfoLength
+          go_name: GetMaxServiceSpecificInfoLength
+          returns: int
+          error: true
+        - java_method: getNumberOfSupportedDataInterfaces
+          go_name: GetNumberOfSupportedDataInterfaces
+          returns: int
+          error: true
+        - java_method: getNumberOfSupportedDataPaths
+          go_name: GetNumberOfSupportedDataPaths
+          returns: int
+          error: true
+        - java_method: getNumberOfSupportedPublishSessions
+          go_name: GetNumberOfSupportedPublishSessions
+          returns: int
+          error: true
+        - java_method: getNumberOfSupportedSubscribeSessions
+          go_name: GetNumberOfSupportedSubscribeSessions
+          returns: int
+          error: true
+        - java_method: getSupportedCipherSuites
+          go_name: GetSupportedCipherSuites
+          returns: int
+          error: true
+        - java_method: getSupportedPairingCipherSuites
+          go_name: GetSupportedPairingCipherSuites
+          returns: int
+          error: true
+        - java_method: isAwarePairingSupported
+          go_name: IsAwarePairingSupported
+          returns: boolean
+          error: true
+        - java_method: isInstantCommunicationModeSupported
+          go_name: IsInstantCommunicationModeSupported
+          returns: boolean
+          error: true
+        - java_method: isSuspensionSupported
+          go_name: IsSuspensionSupported
+          returns: boolean
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.net.wifi.aware.ServiceDiscoveryInfo
+      go_type: ServiceDiscoveryInfo
+      methods:
+        - java_method: getMatchFilters
+          go_name: GetMatchFilters
+          returns: java.util.List<byte[]>
+          error: true
+        - java_method: getPairedAlias
+          go_name: GetPairedAlias
+          returns: String
+          error: true
+        - java_method: getPairingConfig
+          go_name: GetPairingConfig
+          returns: android.net.wifi.aware.AwarePairingConfig
+          error: true
+        - java_method: getPeerCipherSuite
+          go_name: GetPeerCipherSuite
+          returns: int
+          error: true
+        - java_method: getPeerHandle
+          go_name: GetPeerHandle
+          returns: android.net.wifi.aware.PeerHandle
+          error: true
+        - java_method: getScid
+          go_name: GetScid
+          returns: '[B'
+          error: true
+        - java_method: getServiceSpecificInfo
+          go_name: GetServiceSpecificInfo
+          returns: '[B'
+          error: true
     - java_class: android.net.wifi.aware.ParcelablePeerHandle
       go_type: ParcelablePeerHandle
       obtain: constructor
@@ -633,130 +787,6 @@ classes:
             - java_type: String
               go_name: arg2
           returns: android.net.NetworkSpecifier
-          error: true
-    - java_class: android.net.wifi.aware.PublishDiscoverySession
-      go_type: PublishDiscoverySession
-      methods:
-        - java_method: updatePublish
-          go_name: UpdatePublish
-          params:
-            - java_type: android.net.wifi.aware.PublishConfig
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.net.wifi.aware.ServiceDiscoveryInfo
-      go_type: ServiceDiscoveryInfo
-      methods:
-        - java_method: getMatchFilters
-          go_name: GetMatchFilters
-          returns: java.util.List<byte[]>
-          error: true
-        - java_method: getPairedAlias
-          go_name: GetPairedAlias
-          returns: String
-          error: true
-        - java_method: getPairingConfig
-          go_name: GetPairingConfig
-          returns: android.net.wifi.aware.AwarePairingConfig
-          error: true
-        - java_method: getPeerCipherSuite
-          go_name: GetPeerCipherSuite
-          returns: int
-          error: true
-        - java_method: getPeerHandle
-          go_name: GetPeerHandle
-          returns: android.net.wifi.aware.PeerHandle
-          error: true
-        - java_method: getScid
-          go_name: GetScid
-          returns: '[B'
-          error: true
-        - java_method: getServiceSpecificInfo
-          go_name: GetServiceSpecificInfo
-          returns: '[B'
-          error: true
-    - java_class: android.net.wifi.aware.WifiAwareNetworkInfo
-      go_type: WifiAwareNetworkInfo
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getChannelInfoList
-          go_name: GetChannelInfoList
-          returns: java.util.List<android.net.wifi.aware.WifiAwareChannelInfo>
-          error: true
-        - java_method: getPeerIpv6Addr
-          go_name: GetPeerIpv6Addr
-          returns: java.net.Inet6Address
-          error: true
-        - java_method: getPort
-          go_name: GetPort
-          returns: int
-          error: true
-        - java_method: getTransportProtocol
-          go_name: GetTransportProtocol
-          returns: int
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.net.wifi.aware.AwareResources
-      go_type: Resources
-      obtain: constructor
-      constructor_params:
-        - java_type: int
-          go_name: arg0
-        - java_type: int
-          go_name: arg1
-        - java_type: int
-          go_name: arg2
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getAvailableDataPathsCount
-          go_name: GetAvailableDataPathsCount
-          returns: int
-          error: true
-        - java_method: getAvailablePublishSessionsCount
-          go_name: GetAvailablePublishSessionsCount
-          returns: int
-          error: true
-        - java_method: getAvailableSubscribeSessionsCount
-          go_name: GetAvailableSubscribeSessionsCount
-          returns: int
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
           error: true
     - java_class: android.net.wifi.aware.DiscoverySessionCallback
       go_type: DiscoverySessionCallback
@@ -893,27 +923,28 @@ classes:
               go_name: arg0
           returns: void
           error: true
-    - java_class: android.net.wifi.aware.AttachCallback
-      go_type: AttachCallback
+    - java_class: android.net.wifi.aware.IdentityChangedListener
+      go_type: IdentityChangedListener
       obtain: constructor
       methods:
-        - java_method: onAttachFailed
-          go_name: OnAttachFailed
+        - java_method: onClusterIdChanged
+          go_name: OnClusterIdChanged
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: android.net.MacAddress
+              go_name: arg1
           returns: void
           error: true
-        - java_method: onAttached
-          go_name: OnAttached
+        - java_method: onIdentityChanged
+          go_name: OnIdentityChanged
           params:
-            - java_type: android.net.wifi.aware.WifiAwareSession
+            - java_type: '[B'
               go_name: arg0
           returns: void
           error: true
-        - java_method: onAwareSessionTerminated
-          go_name: OnAwareSessionTerminated
-          returns: void
-          error: true
-    - java_class: android.net.wifi.aware.WifiAwareChannelInfo
-      go_type: WifiAwareChannelInfo
+    - java_class: android.net.wifi.aware.WifiAwareNetworkInfo
+      go_type: WifiAwareNetworkInfo
       methods:
         - java_method: describeContents
           go_name: DescribeContents
@@ -926,16 +957,20 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
-        - java_method: getChannelBandwidth
-          go_name: GetChannelBandwidth
+        - java_method: getChannelInfoList
+          go_name: GetChannelInfoList
+          returns: java.util.List<android.net.wifi.aware.WifiAwareChannelInfo>
+          error: true
+        - java_method: getPeerIpv6Addr
+          go_name: GetPeerIpv6Addr
+          returns: java.net.Inet6Address
+          error: true
+        - java_method: getPort
+          go_name: GetPort
           returns: int
           error: true
-        - java_method: getChannelFrequencyMhz
-          go_name: GetChannelFrequencyMhz
-          returns: int
-          error: true
-        - java_method: getSpatialStreamCount
-          go_name: GetSpatialStreamCount
+        - java_method: getTransportProtocol
+          go_name: GetTransportProtocol
           returns: int
           error: true
         - java_method: hashCode
@@ -955,68 +990,23 @@ classes:
               go_name: arg1
           returns: void
           error: true
-    - java_class: android.net.wifi.aware.Characteristics
-      go_type: Characteristics
+    - java_class: android.net.wifi.aware.AttachCallback
+      go_type: AttachCallback
+      obtain: constructor
       methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
+        - java_method: onAttachFailed
+          go_name: OnAttachFailed
+          returns: void
           error: true
-        - java_method: getMaxMatchFilterLength
-          go_name: GetMaxMatchFilterLength
-          returns: int
-          error: true
-        - java_method: getMaxServiceNameLength
-          go_name: GetMaxServiceNameLength
-          returns: int
-          error: true
-        - java_method: getMaxServiceSpecificInfoLength
-          go_name: GetMaxServiceSpecificInfoLength
-          returns: int
-          error: true
-        - java_method: getNumberOfSupportedDataInterfaces
-          go_name: GetNumberOfSupportedDataInterfaces
-          returns: int
-          error: true
-        - java_method: getNumberOfSupportedDataPaths
-          go_name: GetNumberOfSupportedDataPaths
-          returns: int
-          error: true
-        - java_method: getNumberOfSupportedPublishSessions
-          go_name: GetNumberOfSupportedPublishSessions
-          returns: int
-          error: true
-        - java_method: getNumberOfSupportedSubscribeSessions
-          go_name: GetNumberOfSupportedSubscribeSessions
-          returns: int
-          error: true
-        - java_method: getSupportedCipherSuites
-          go_name: GetSupportedCipherSuites
-          returns: int
-          error: true
-        - java_method: getSupportedPairingCipherSuites
-          go_name: GetSupportedPairingCipherSuites
-          returns: int
-          error: true
-        - java_method: isAwarePairingSupported
-          go_name: IsAwarePairingSupported
-          returns: boolean
-          error: true
-        - java_method: isInstantCommunicationModeSupported
-          go_name: IsInstantCommunicationModeSupported
-          returns: boolean
-          error: true
-        - java_method: isSuspensionSupported
-          go_name: IsSuspensionSupported
-          returns: boolean
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
+        - java_method: onAttached
+          go_name: OnAttached
           params:
-            - java_type: android.os.Parcel
+            - java_type: android.net.wifi.aware.WifiAwareSession
               go_name: arg0
-            - java_type: int
-              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onAwareSessionTerminated
+          go_name: OnAwareSessionTerminated
           returns: void
           error: true
     - java_class: android.net.wifi.aware.AwarePairingConfig
@@ -1108,14 +1098,18 @@ classes:
               go_name: arg0
           returns: android.net.wifi.aware.AwarePairingConfig$Builder
           error: true
+    - java_class: android.net.wifi.aware.SubscribeDiscoverySession
+      go_type: SubscribeDiscoverySession
+      methods:
+        - java_method: updateSubscribe
+          go_name: UpdateSubscribe
+          params:
+            - java_type: android.net.wifi.aware.SubscribeConfig
+              go_name: arg0
+          returns: void
+          error: true
 constants:
     - go_name: Creator
-      value: "0"
-      go_type: int
-    - go_name: SubscribeTypeActive
-      value: "1"
-      go_type: int
-    - go_name: SubscribeTypePassive
       value: "0"
       go_type: int
     - go_name: ActionWifiAwareResourceChanged
@@ -1145,10 +1139,10 @@ constants:
     - go_name: PublishTypeUnsolicited
       value: "0"
       go_type: int
-    - go_name: ClusterChangeEventJoined
+    - go_name: SubscribeTypeActive
       value: "1"
       go_type: int
-    - go_name: ClusterChangeEventStarted
+    - go_name: SubscribeTypePassive
       value: "0"
       go_type: int
     - go_name: WifiAwareCipherSuiteNcsPk128
@@ -1170,6 +1164,12 @@ constants:
       value: "2"
       go_type: int
     - go_name: WifiAwareCipherSuiteNone
+      value: "0"
+      go_type: int
+    - go_name: ClusterChangeEventJoined
+      value: "1"
+      go_type: int
+    - go_name: ClusterChangeEventStarted
       value: "0"
       go_type: int
     - go_name: PairingBootstrappingNfcReader

@@ -27,6 +27,10 @@ var (
 	midSdkSandboxActivityHandlerOnActivityCreated jni.MethodID
 	midSdkSandboxActivityHandlerToString          jni.MethodID
 
+	clsSdkSandboxClientImportanceListener                              *jni.GlobalRef
+	midSdkSandboxClientImportanceListenerOnForegroundImportanceChanged jni.MethodID
+	midSdkSandboxClientImportanceListenerToString                      jni.MethodID
+
 	clsSdkSandboxController                                             *jni.GlobalRef
 	midSdkSandboxControllerGetAppOwnedSdkSandboxInterfaces              jni.MethodID
 	midSdkSandboxControllerGetClientPackageName                         jni.MethodID
@@ -35,10 +39,6 @@ var (
 	midSdkSandboxControllerRegisterSdkSandboxClientImportanceListener   jni.MethodID
 	midSdkSandboxControllerUnregisterSdkSandboxClientImportanceListener jni.MethodID
 	midSdkSandboxControllerToString                                     jni.MethodID
-
-	clsSdkSandboxClientImportanceListener                              *jni.GlobalRef
-	midSdkSandboxClientImportanceListenerOnForegroundImportanceChanged jni.MethodID
-	midSdkSandboxClientImportanceListenerToString                      jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -75,6 +75,30 @@ func doInit(env *jni.Env) error {
 		}
 
 		midSdkSandboxActivityHandlerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSdkSandboxActivityHandler)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/app/sdksandbox/sdkprovider/SdkSandboxClientImportanceListener")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSdkSandboxClientImportanceListener = env.NewGlobalRef(&c.Object)
+
+		midSdkSandboxClientImportanceListenerOnForegroundImportanceChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSdkSandboxClientImportanceListener)), "onForegroundImportanceChanged", "(Z)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSdkSandboxClientImportanceListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSdkSandboxClientImportanceListener)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -134,30 +158,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midSdkSandboxControllerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSdkSandboxController)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/app/sdksandbox/sdkprovider/SdkSandboxClientImportanceListener")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsSdkSandboxClientImportanceListener = env.NewGlobalRef(&c.Object)
-
-		midSdkSandboxClientImportanceListenerOnForegroundImportanceChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSdkSandboxClientImportanceListener)), "onForegroundImportanceChanged", "(Z)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSdkSandboxClientImportanceListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSdkSandboxClientImportanceListener)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

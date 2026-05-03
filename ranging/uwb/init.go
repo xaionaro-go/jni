@@ -23,21 +23,6 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsComplexChannel                 *jni.GlobalRef
-	midComplexChannelDescribeContents jni.MethodID
-	midComplexChannelEquals           jni.MethodID
-	midComplexChannelGetChannel       jni.MethodID
-	midComplexChannelGetPreambleIndex jni.MethodID
-	midComplexChannelHashCode         jni.MethodID
-	midComplexChannelToString         jni.MethodID
-	midComplexChannelWriteToParcel    jni.MethodID
-
-	clsComplexChannelBuilder                 *jni.GlobalRef
-	midComplexChannelBuilderBuild            jni.MethodID
-	midComplexChannelBuilderSetChannel       jni.MethodID
-	midComplexChannelBuilderSetPreambleIndex jni.MethodID
-	midComplexChannelBuilderToString         jni.MethodID
-
 	clsAddress                         *jni.GlobalRef
 	midAddressDescribeContents         jni.MethodID
 	midAddressEquals                   jni.MethodID
@@ -91,6 +76,21 @@ var (
 	midRangingCapabilitiesIsRangingIntervalReconfigurationSupported jni.MethodID
 	midRangingCapabilitiesToString                                  jni.MethodID
 	midRangingCapabilitiesWriteToParcel                             jni.MethodID
+
+	clsComplexChannel                 *jni.GlobalRef
+	midComplexChannelDescribeContents jni.MethodID
+	midComplexChannelEquals           jni.MethodID
+	midComplexChannelGetChannel       jni.MethodID
+	midComplexChannelGetPreambleIndex jni.MethodID
+	midComplexChannelHashCode         jni.MethodID
+	midComplexChannelToString         jni.MethodID
+	midComplexChannelWriteToParcel    jni.MethodID
+
+	clsComplexChannelBuilder                 *jni.GlobalRef
+	midComplexChannelBuilderBuild            jni.MethodID
+	midComplexChannelBuilderSetChannel       jni.MethodID
+	midComplexChannelBuilderSetPreambleIndex jni.MethodID
+	midComplexChannelBuilderToString         jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -110,103 +110,6 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
-
-	c, err = env.FindClass("android/ranging/uwb/UwbComplexChannel")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsComplexChannel = env.NewGlobalRef(&c.Object)
-
-		midComplexChannelDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsComplexChannel)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midComplexChannelEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsComplexChannel)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midComplexChannelGetChannel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsComplexChannel)), "getChannel", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midComplexChannelGetPreambleIndex, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsComplexChannel)), "getPreambleIndex", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midComplexChannelHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsComplexChannel)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midComplexChannelToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsComplexChannel)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midComplexChannelWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsComplexChannel)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/ranging/uwb/UwbComplexChannel$Builder")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsComplexChannelBuilder = env.NewGlobalRef(&c.Object)
-
-		midComplexChannelBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsComplexChannelBuilder)), "build", "()Landroid/ranging/uwb/UwbComplexChannel;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midComplexChannelBuilderSetChannel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsComplexChannelBuilder)), "setChannel", "(I)Landroid/ranging/uwb/UwbComplexChannel$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midComplexChannelBuilderSetPreambleIndex, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsComplexChannelBuilder)), "setPreambleIndex", "(I)Landroid/ranging/uwb/UwbComplexChannel$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midComplexChannelBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsComplexChannelBuilder)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
 
 	c, err = env.FindClass("android/ranging/uwb/UwbAddress")
 	if err != nil {
@@ -562,6 +465,103 @@ func doInit(env *jni.Env) error {
 		}
 
 		midRangingCapabilitiesWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRangingCapabilities)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/ranging/uwb/UwbComplexChannel")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsComplexChannel = env.NewGlobalRef(&c.Object)
+
+		midComplexChannelDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsComplexChannel)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midComplexChannelEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsComplexChannel)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midComplexChannelGetChannel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsComplexChannel)), "getChannel", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midComplexChannelGetPreambleIndex, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsComplexChannel)), "getPreambleIndex", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midComplexChannelHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsComplexChannel)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midComplexChannelToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsComplexChannel)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midComplexChannelWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsComplexChannel)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/ranging/uwb/UwbComplexChannel$Builder")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsComplexChannelBuilder = env.NewGlobalRef(&c.Object)
+
+		midComplexChannelBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsComplexChannelBuilder)), "build", "()Landroid/ranging/uwb/UwbComplexChannel;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midComplexChannelBuilderSetChannel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsComplexChannelBuilder)), "setChannel", "(I)Landroid/ranging/uwb/UwbComplexChannel$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midComplexChannelBuilderSetPreambleIndex, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsComplexChannelBuilder)), "setPreambleIndex", "(I)Landroid/ranging/uwb/UwbComplexChannel$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midComplexChannelBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsComplexChannelBuilder)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

@@ -3,19 +3,11 @@
 package consts
 
 const (
-	Creator                     int = 0
-	NoOp                        int = 0
-	ApplyStrategyIgnore         int = 0
-	ApplyStrategyReplace        int = 1
-	StatusDifferentText         int = 3
-	StatusLinksApplied          int = 0
-	StatusNoLinksApplied        int = 2
-	StatusNoLinksFound          int = 1
-	StatusUnsupportedCharacter  int = 4
 	CategoryConversationActions int = 3
 	CategoryLanguageDetection   int = 4
 	CategoryLinkify             int = 2
 	CategorySelection           int = 1
+	Creator                     int = 0
 	TypeActionsGenerated        int = 20
 	TypeActionsShown            int = 6
 	TypeAutoSelection           int = 5
@@ -58,9 +50,19 @@ const (
 	InvocationLink              int = 2
 	InvocationManual            int = 1
 	InvocationUnknown           int = 0
+	NoOp                        int = 0
+	ApplyStrategyIgnore         int = 0
+	ApplyStrategyReplace        int = 1
+	StatusDifferentText         int = 3
+	StatusLinksApplied          int = 0
+	StatusNoLinksApplied        int = 2
+	StatusNoLinksFound          int = 1
+	StatusUnsupportedCharacter  int = 4
 )
 
 const (
+	HintForInApp                         string = "in_app"
+	HintForNotification                  string = "notification"
 	ExtraFromTextClassifier              string = "android.view.textclassifier.extra.FROM_TEXT_CLASSIFIER"
 	ExtraTextOriginPackage               string = "android.view.textclassifier.extra.TEXT_ORIGIN_PACKAGE"
 	HintTextIsEditable                   string = "android.text_is_editable"
@@ -96,6 +98,4 @@ const (
 	TypeTrackFlight                      string = "track_flight"
 	TypeViewCalendar                     string = "view_calendar"
 	TypeViewMap                          string = "view_map"
-	HintForInApp                         string = "in_app"
-	HintForNotification                  string = "notification"
 )

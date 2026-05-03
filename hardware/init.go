@@ -23,40 +23,11 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsSensorEventListener2                 *jni.GlobalRef
-	midSensorEventListener2OnFlushCompleted jni.MethodID
-	midSensorEventListener2ToString         jni.MethodID
-
-	clsDisplayLuts         *jni.GlobalRef
-	midDisplayLutsCtor     jni.MethodID
-	midDisplayLutsSet1     jni.MethodID
-	midDisplayLutsSet2_1   jni.MethodID
-	midDisplayLutsToString jni.MethodID
-
-	clsDisplayLutsEntry               *jni.GlobalRef
-	midDisplayLutsEntryGetBuffer      jni.MethodID
-	midDisplayLutsEntryGetDimension   jni.MethodID
-	midDisplayLutsEntryGetSamplingKey jni.MethodID
-	midDisplayLutsEntryToString       jni.MethodID
-
-	clsSensorEventCallback                       *jni.GlobalRef
-	midSensorEventCallbackOnAccuracyChanged      jni.MethodID
-	midSensorEventCallbackOnFlushCompleted       jni.MethodID
-	midSensorEventCallbackOnSensorAdditionalInfo jni.MethodID
-	midSensorEventCallbackOnSensorChanged        jni.MethodID
-	midSensorEventCallbackToString               jni.MethodID
-
-	clsDataSpace            *jni.GlobalRef
-	midDataSpaceToString    jni.MethodID
-	midDataSpaceGetRange    jni.MethodID
-	midDataSpaceGetStandard jni.MethodID
-	midDataSpaceGetTransfer jni.MethodID
-	midDataSpacePack        jni.MethodID
-
-	clsSensorEventListener                  *jni.GlobalRef
-	midSensorEventListenerOnAccuracyChanged jni.MethodID
-	midSensorEventListenerOnSensorChanged   jni.MethodID
-	midSensorEventListenerToString          jni.MethodID
+	clsSensorDirectChannel          *jni.GlobalRef
+	midSensorDirectChannelClose     jni.MethodID
+	midSensorDirectChannelConfigure jni.MethodID
+	midSensorDirectChannelIsOpen    jni.MethodID
+	midSensorDirectChannelToString  jni.MethodID
 
 	clsSensorPrivacyManager                        *jni.GlobalRef
 	midSensorPrivacyManagerSupportsSensorToggle1   jni.MethodID
@@ -66,24 +37,9 @@ var (
 	clsSensorPrivacyManagerSensors         *jni.GlobalRef
 	midSensorPrivacyManagerSensorsToString jni.MethodID
 
-	clsTriggerEvent         *jni.GlobalRef
-	midTriggerEventToString jni.MethodID
-
-	clsSensorListener                  *jni.GlobalRef
-	midSensorListenerOnAccuracyChanged jni.MethodID
-	midSensorListenerOnSensorChanged   jni.MethodID
-	midSensorListenerToString          jni.MethodID
-
-	clsSyncFence                 *jni.GlobalRef
-	midSyncFenceCtor             jni.MethodID
-	midSyncFenceAwait            jni.MethodID
-	midSyncFenceAwaitForever     jni.MethodID
-	midSyncFenceClose            jni.MethodID
-	midSyncFenceDescribeContents jni.MethodID
-	midSyncFenceGetSignalTime    jni.MethodID
-	midSyncFenceIsValid          jni.MethodID
-	midSyncFenceWriteToParcel    jni.MethodID
-	midSyncFenceToString         jni.MethodID
+	clsSensorEventListener2                 *jni.GlobalRef
+	midSensorEventListener2OnFlushCompleted jni.MethodID
+	midSensorEventListener2ToString         jni.MethodID
 
 	clsGeomagneticField                      *jni.GlobalRef
 	midGeomagneticFieldCtor                  jni.MethodID
@@ -95,110 +51,6 @@ var (
 	midGeomagneticFieldGetY                  jni.MethodID
 	midGeomagneticFieldGetZ                  jni.MethodID
 	midGeomagneticFieldToString              jni.MethodID
-
-	clsSensorManager                                  *jni.GlobalRef
-	midSensorManagerCancelTriggerSensor               jni.MethodID
-	midSensorManagerCreateDirectChannel1              jni.MethodID
-	midSensorManagerCreateDirectChannel1_1            jni.MethodID
-	midSensorManagerFlush                             jni.MethodID
-	midSensorManagerGetDefaultSensor1                 jni.MethodID
-	midSensorManagerGetDefaultSensor2_1               jni.MethodID
-	midSensorManagerGetDynamicSensorList              jni.MethodID
-	midSensorManagerGetSensorList                     jni.MethodID
-	midSensorManagerGetSensors                        jni.MethodID
-	midSensorManagerIsDynamicSensorDiscoverySupported jni.MethodID
-	midSensorManagerRegisterDynamicSensorCallback     jni.MethodID
-	midSensorManagerRegisterListener3                 jni.MethodID
-	midSensorManagerRegisterListener4_1               jni.MethodID
-	midSensorManagerRegisterListener2_2               jni.MethodID
-	midSensorManagerRegisterListener3_3               jni.MethodID
-	midSensorManagerRequestTriggerSensor              jni.MethodID
-	midSensorManagerUnregisterDynamicSensorCallback   jni.MethodID
-	midSensorManagerUnregisterListener1               jni.MethodID
-	midSensorManagerUnregisterListener2_1             jni.MethodID
-	midSensorManagerUnregisterListener1_2             jni.MethodID
-	midSensorManagerUnregisterListener2_3             jni.MethodID
-	midSensorManagerToString                          jni.MethodID
-	midSensorManagerGetAltitude                       jni.MethodID
-	midSensorManagerGetAngleChange                    jni.MethodID
-	midSensorManagerGetInclination                    jni.MethodID
-	midSensorManagerGetOrientation                    jni.MethodID
-	midSensorManagerGetQuaternionFromVector           jni.MethodID
-	midSensorManagerGetRotationMatrix                 jni.MethodID
-	midSensorManagerGetRotationMatrixFromVector       jni.MethodID
-	midSensorManagerRemapCoordinateSystem             jni.MethodID
-
-	clsSensorManagerDynamicSensorCallback                            *jni.GlobalRef
-	midSensorManagerDynamicSensorCallbackOnDynamicSensorConnected    jni.MethodID
-	midSensorManagerDynamicSensorCallbackOnDynamicSensorDisconnected jni.MethodID
-	midSensorManagerDynamicSensorCallbackToString                    jni.MethodID
-
-	clsSensorEvent         *jni.GlobalRef
-	midSensorEventToString jni.MethodID
-
-	clsBatteryState            *jni.GlobalRef
-	midBatteryStateGetCapacity jni.MethodID
-	midBatteryStateGetStatus   jni.MethodID
-	midBatteryStateIsPresent   jni.MethodID
-	midBatteryStateToString    jni.MethodID
-
-	clsTriggerEventListener          *jni.GlobalRef
-	midTriggerEventListenerOnTrigger jni.MethodID
-	midTriggerEventListenerToString  jni.MethodID
-
-	clsSensor                                *jni.GlobalRef
-	midSensorGetFifoMaxEventCount            jni.MethodID
-	midSensorGetFifoReservedEventCount       jni.MethodID
-	midSensorGetHighestDirectReportRateLevel jni.MethodID
-	midSensorGetId                           jni.MethodID
-	midSensorGetMaxDelay                     jni.MethodID
-	midSensorGetMaximumRange                 jni.MethodID
-	midSensorGetMinDelay                     jni.MethodID
-	midSensorGetName                         jni.MethodID
-	midSensorGetPower                        jni.MethodID
-	midSensorGetReportingMode                jni.MethodID
-	midSensorGetResolution                   jni.MethodID
-	midSensorGetStringType                   jni.MethodID
-	midSensorGetType                         jni.MethodID
-	midSensorGetVendor                       jni.MethodID
-	midSensorGetVersion                      jni.MethodID
-	midSensorIsAdditionalInfoSupported       jni.MethodID
-	midSensorIsDirectChannelTypeSupported    jni.MethodID
-	midSensorIsDynamicSensor                 jni.MethodID
-	midSensorIsWakeUpSensor                  jni.MethodID
-	midSensorToString                        jni.MethodID
-
-	clsSensorAdditionalInfo         *jni.GlobalRef
-	midSensorAdditionalInfoToString jni.MethodID
-
-	clsOverlayProperties                            *jni.GlobalRef
-	midOverlayPropertiesDescribeContents            jni.MethodID
-	midOverlayPropertiesGetLutProperties            jni.MethodID
-	midOverlayPropertiesIsCombinationSupported      jni.MethodID
-	midOverlayPropertiesIsMixedColorSpacesSupported jni.MethodID
-	midOverlayPropertiesWriteToParcel               jni.MethodID
-	midOverlayPropertiesToString                    jni.MethodID
-
-	clsSensorDirectChannel          *jni.GlobalRef
-	midSensorDirectChannelClose     jni.MethodID
-	midSensorDirectChannelConfigure jni.MethodID
-	midSensorDirectChannelIsOpen    jni.MethodID
-	midSensorDirectChannelToString  jni.MethodID
-
-	clsBuffer                 *jni.GlobalRef
-	midBufferClose            jni.MethodID
-	midBufferDescribeContents jni.MethodID
-	midBufferGetFormat        jni.MethodID
-	midBufferGetHeight        jni.MethodID
-	midBufferGetId            jni.MethodID
-	midBufferGetLayers        jni.MethodID
-	midBufferGetUsage         jni.MethodID
-	midBufferGetWidth         jni.MethodID
-	midBufferIsClosed         jni.MethodID
-	midBufferWriteToParcel    jni.MethodID
-	midBufferToString         jni.MethodID
-	midBufferCreate           jni.MethodID
-	midBufferIsSupported      jni.MethodID
 
 	clsCamera                             *jni.GlobalRef
 	midCameraAddCallbackBuffer            jni.MethodID
@@ -370,16 +222,164 @@ var (
 	midCameraShutterCallbackOnShutter jni.MethodID
 	midCameraShutterCallbackToString  jni.MethodID
 
+	clsSensorEventListener                  *jni.GlobalRef
+	midSensorEventListenerOnAccuracyChanged jni.MethodID
+	midSensorEventListenerOnSensorChanged   jni.MethodID
+	midSensorEventListenerToString          jni.MethodID
+
 	clsCameraSize         *jni.GlobalRef
 	midCameraSizeEquals   jni.MethodID
 	midCameraSizeHashCode jni.MethodID
 	midCameraSizeToString jni.MethodID
+
+	clsSensorManager                                  *jni.GlobalRef
+	midSensorManagerCancelTriggerSensor               jni.MethodID
+	midSensorManagerCreateDirectChannel1              jni.MethodID
+	midSensorManagerCreateDirectChannel1_1            jni.MethodID
+	midSensorManagerFlush                             jni.MethodID
+	midSensorManagerGetDefaultSensor1                 jni.MethodID
+	midSensorManagerGetDefaultSensor2_1               jni.MethodID
+	midSensorManagerGetDynamicSensorList              jni.MethodID
+	midSensorManagerGetSensorList                     jni.MethodID
+	midSensorManagerGetSensors                        jni.MethodID
+	midSensorManagerIsDynamicSensorDiscoverySupported jni.MethodID
+	midSensorManagerRegisterDynamicSensorCallback     jni.MethodID
+	midSensorManagerRegisterListener3                 jni.MethodID
+	midSensorManagerRegisterListener4_1               jni.MethodID
+	midSensorManagerRegisterListener2_2               jni.MethodID
+	midSensorManagerRegisterListener3_3               jni.MethodID
+	midSensorManagerRequestTriggerSensor              jni.MethodID
+	midSensorManagerUnregisterDynamicSensorCallback   jni.MethodID
+	midSensorManagerUnregisterListener1               jni.MethodID
+	midSensorManagerUnregisterListener2_1             jni.MethodID
+	midSensorManagerUnregisterListener1_2             jni.MethodID
+	midSensorManagerUnregisterListener2_3             jni.MethodID
+	midSensorManagerToString                          jni.MethodID
+	midSensorManagerGetAltitude                       jni.MethodID
+	midSensorManagerGetAngleChange                    jni.MethodID
+	midSensorManagerGetInclination                    jni.MethodID
+	midSensorManagerGetOrientation                    jni.MethodID
+	midSensorManagerGetQuaternionFromVector           jni.MethodID
+	midSensorManagerGetRotationMatrix                 jni.MethodID
+	midSensorManagerGetRotationMatrixFromVector       jni.MethodID
+	midSensorManagerRemapCoordinateSystem             jni.MethodID
+
+	clsSensorManagerDynamicSensorCallback                            *jni.GlobalRef
+	midSensorManagerDynamicSensorCallbackOnDynamicSensorConnected    jni.MethodID
+	midSensorManagerDynamicSensorCallbackOnDynamicSensorDisconnected jni.MethodID
+	midSensorManagerDynamicSensorCallbackToString                    jni.MethodID
+
+	clsTriggerEvent         *jni.GlobalRef
+	midTriggerEventToString jni.MethodID
+
+	clsSyncFence                 *jni.GlobalRef
+	midSyncFenceCtor             jni.MethodID
+	midSyncFenceAwait            jni.MethodID
+	midSyncFenceAwaitForever     jni.MethodID
+	midSyncFenceClose            jni.MethodID
+	midSyncFenceDescribeContents jni.MethodID
+	midSyncFenceGetSignalTime    jni.MethodID
+	midSyncFenceIsValid          jni.MethodID
+	midSyncFenceWriteToParcel    jni.MethodID
+	midSyncFenceToString         jni.MethodID
+
+	clsSensorEvent         *jni.GlobalRef
+	midSensorEventToString jni.MethodID
+
+	clsOverlayProperties                            *jni.GlobalRef
+	midOverlayPropertiesDescribeContents            jni.MethodID
+	midOverlayPropertiesGetLutProperties            jni.MethodID
+	midOverlayPropertiesIsCombinationSupported      jni.MethodID
+	midOverlayPropertiesIsMixedColorSpacesSupported jni.MethodID
+	midOverlayPropertiesWriteToParcel               jni.MethodID
+	midOverlayPropertiesToString                    jni.MethodID
 
 	clsLutProperties                *jni.GlobalRef
 	midLutPropertiesGetDimension    jni.MethodID
 	midLutPropertiesGetSamplingKeys jni.MethodID
 	midLutPropertiesGetSize         jni.MethodID
 	midLutPropertiesToString        jni.MethodID
+
+	clsBuffer                 *jni.GlobalRef
+	midBufferClose            jni.MethodID
+	midBufferDescribeContents jni.MethodID
+	midBufferGetFormat        jni.MethodID
+	midBufferGetHeight        jni.MethodID
+	midBufferGetId            jni.MethodID
+	midBufferGetLayers        jni.MethodID
+	midBufferGetUsage         jni.MethodID
+	midBufferGetWidth         jni.MethodID
+	midBufferIsClosed         jni.MethodID
+	midBufferWriteToParcel    jni.MethodID
+	midBufferToString         jni.MethodID
+	midBufferCreate           jni.MethodID
+	midBufferIsSupported      jni.MethodID
+
+	clsSensor                                *jni.GlobalRef
+	midSensorGetFifoMaxEventCount            jni.MethodID
+	midSensorGetFifoReservedEventCount       jni.MethodID
+	midSensorGetHighestDirectReportRateLevel jni.MethodID
+	midSensorGetId                           jni.MethodID
+	midSensorGetMaxDelay                     jni.MethodID
+	midSensorGetMaximumRange                 jni.MethodID
+	midSensorGetMinDelay                     jni.MethodID
+	midSensorGetName                         jni.MethodID
+	midSensorGetPower                        jni.MethodID
+	midSensorGetReportingMode                jni.MethodID
+	midSensorGetResolution                   jni.MethodID
+	midSensorGetStringType                   jni.MethodID
+	midSensorGetType                         jni.MethodID
+	midSensorGetVendor                       jni.MethodID
+	midSensorGetVersion                      jni.MethodID
+	midSensorIsAdditionalInfoSupported       jni.MethodID
+	midSensorIsDirectChannelTypeSupported    jni.MethodID
+	midSensorIsDynamicSensor                 jni.MethodID
+	midSensorIsWakeUpSensor                  jni.MethodID
+	midSensorToString                        jni.MethodID
+
+	clsSensorEventCallback                       *jni.GlobalRef
+	midSensorEventCallbackOnAccuracyChanged      jni.MethodID
+	midSensorEventCallbackOnFlushCompleted       jni.MethodID
+	midSensorEventCallbackOnSensorAdditionalInfo jni.MethodID
+	midSensorEventCallbackOnSensorChanged        jni.MethodID
+	midSensorEventCallbackToString               jni.MethodID
+
+	clsSensorAdditionalInfo         *jni.GlobalRef
+	midSensorAdditionalInfoToString jni.MethodID
+
+	clsTriggerEventListener          *jni.GlobalRef
+	midTriggerEventListenerOnTrigger jni.MethodID
+	midTriggerEventListenerToString  jni.MethodID
+
+	clsDisplayLuts         *jni.GlobalRef
+	midDisplayLutsCtor     jni.MethodID
+	midDisplayLutsSet1     jni.MethodID
+	midDisplayLutsSet2_1   jni.MethodID
+	midDisplayLutsToString jni.MethodID
+
+	clsDisplayLutsEntry               *jni.GlobalRef
+	midDisplayLutsEntryGetBuffer      jni.MethodID
+	midDisplayLutsEntryGetDimension   jni.MethodID
+	midDisplayLutsEntryGetSamplingKey jni.MethodID
+	midDisplayLutsEntryToString       jni.MethodID
+
+	clsSensorListener                  *jni.GlobalRef
+	midSensorListenerOnAccuracyChanged jni.MethodID
+	midSensorListenerOnSensorChanged   jni.MethodID
+	midSensorListenerToString          jni.MethodID
+
+	clsBatteryState            *jni.GlobalRef
+	midBatteryStateGetCapacity jni.MethodID
+	midBatteryStateGetStatus   jni.MethodID
+	midBatteryStateIsPresent   jni.MethodID
+	midBatteryStateToString    jni.MethodID
+
+	clsDataSpace            *jni.GlobalRef
+	midDataSpaceToString    jni.MethodID
+	midDataSpaceGetRange    jni.MethodID
+	midDataSpaceGetStandard jni.MethodID
+	midDataSpaceGetTransfer jni.MethodID
+	midDataSpacePack        jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -400,216 +400,36 @@ func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
 
-	c, err = env.FindClass("android/hardware/SensorEventListener2")
+	c, err = env.FindClass("android/hardware/SensorDirectChannel")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsSensorEventListener2 = env.NewGlobalRef(&c.Object)
+		clsSensorDirectChannel = env.NewGlobalRef(&c.Object)
 
-		midSensorEventListener2OnFlushCompleted, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorEventListener2)), "onFlushCompleted", "(Landroid/hardware/Sensor;)V")
+		midSensorDirectChannelClose, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorDirectChannel)), "close", "()V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midSensorEventListener2ToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorEventListener2)), "toString", "()Ljava/lang/String;")
+		midSensorDirectChannelConfigure, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorDirectChannel)), "configure", "(Landroid/hardware/Sensor;I)I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-	}
-
-	c, err = env.FindClass("android/hardware/DisplayLuts")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsDisplayLuts = env.NewGlobalRef(&c.Object)
-		midDisplayLutsCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDisplayLuts)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midDisplayLutsSet1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDisplayLuts)), "set", "(Landroid/hardware/DisplayLuts$Entry;)V")
+		midSensorDirectChannelIsOpen, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorDirectChannel)), "isOpen", "()Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midDisplayLutsSet2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDisplayLuts)), "set", "(Landroid/hardware/DisplayLuts$Entry;Landroid/hardware/DisplayLuts$Entry;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDisplayLutsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDisplayLuts)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/hardware/DisplayLuts$Entry")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsDisplayLutsEntry = env.NewGlobalRef(&c.Object)
-
-		midDisplayLutsEntryGetBuffer, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDisplayLutsEntry)), "getBuffer", "()[F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDisplayLutsEntryGetDimension, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDisplayLutsEntry)), "getDimension", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDisplayLutsEntryGetSamplingKey, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDisplayLutsEntry)), "getSamplingKey", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDisplayLutsEntryToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDisplayLutsEntry)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/hardware/SensorEventCallback")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsSensorEventCallback = env.NewGlobalRef(&c.Object)
-
-		midSensorEventCallbackOnAccuracyChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorEventCallback)), "onAccuracyChanged", "(Landroid/hardware/Sensor;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorEventCallbackOnFlushCompleted, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorEventCallback)), "onFlushCompleted", "(Landroid/hardware/Sensor;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorEventCallbackOnSensorAdditionalInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorEventCallback)), "onSensorAdditionalInfo", "(Landroid/hardware/SensorAdditionalInfo;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorEventCallbackOnSensorChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorEventCallback)), "onSensorChanged", "(Landroid/hardware/SensorEvent;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorEventCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorEventCallback)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/hardware/DataSpace")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsDataSpace = env.NewGlobalRef(&c.Object)
-
-		midDataSpaceToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDataSpace)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDataSpaceGetRange, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDataSpace)), "getRange", "(I)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDataSpaceGetStandard, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDataSpace)), "getStandard", "(I)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDataSpaceGetTransfer, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDataSpace)), "getTransfer", "(I)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midDataSpacePack, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDataSpace)), "pack", "(III)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/hardware/SensorEventListener")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsSensorEventListener = env.NewGlobalRef(&c.Object)
-
-		midSensorEventListenerOnAccuracyChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorEventListener)), "onAccuracyChanged", "(Landroid/hardware/Sensor;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorEventListenerOnSensorChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorEventListener)), "onSensorChanged", "(Landroid/hardware/SensorEvent;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorEventListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorEventListener)), "toString", "()Ljava/lang/String;")
+		midSensorDirectChannelToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorDirectChannel)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -666,116 +486,22 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/hardware/TriggerEvent")
+	c, err = env.FindClass("android/hardware/SensorEventListener2")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsTriggerEvent = env.NewGlobalRef(&c.Object)
+		clsSensorEventListener2 = env.NewGlobalRef(&c.Object)
 
-		midTriggerEventToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTriggerEvent)), "toString", "()Ljava/lang/String;")
+		midSensorEventListener2OnFlushCompleted, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorEventListener2)), "onFlushCompleted", "(Landroid/hardware/Sensor;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-	}
-
-	c, err = env.FindClass("android/hardware/SensorListener")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsSensorListener = env.NewGlobalRef(&c.Object)
-
-		midSensorListenerOnAccuracyChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorListener)), "onAccuracyChanged", "(II)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorListenerOnSensorChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorListener)), "onSensorChanged", "(I[F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorListener)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/hardware/SyncFence")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsSyncFence = env.NewGlobalRef(&c.Object)
-		midSyncFenceCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSyncFence)), "<init>", "(Landroid/hardware/SyncFence;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midSyncFenceAwait, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSyncFence)), "await", "(Ljava/time/Duration;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSyncFenceAwaitForever, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSyncFence)), "awaitForever", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSyncFenceClose, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSyncFence)), "close", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSyncFenceDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSyncFence)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSyncFenceGetSignalTime, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSyncFence)), "getSignalTime", "()J")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSyncFenceIsValid, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSyncFence)), "isValid", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSyncFenceWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSyncFence)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSyncFenceToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSyncFence)), "toString", "()Ljava/lang/String;")
+		midSensorEventListener2ToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorEventListener2)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -846,694 +572,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midGeomagneticFieldToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsGeomagneticField)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/hardware/SensorManager")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsSensorManager = env.NewGlobalRef(&c.Object)
-
-		midSensorManagerCancelTriggerSensor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "cancelTriggerSensor", "(Landroid/hardware/TriggerEventListener;Landroid/hardware/Sensor;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorManagerCreateDirectChannel1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "createDirectChannel", "(Landroid/hardware/HardwareBuffer;)Landroid/hardware/SensorDirectChannel;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorManagerCreateDirectChannel1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "createDirectChannel", "(Landroid/os/MemoryFile;)Landroid/hardware/SensorDirectChannel;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorManagerFlush, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "flush", "(Landroid/hardware/SensorEventListener;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorManagerGetDefaultSensor1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "getDefaultSensor", "(I)Landroid/hardware/Sensor;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorManagerGetDefaultSensor2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "getDefaultSensor", "(IZ)Landroid/hardware/Sensor;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorManagerGetDynamicSensorList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "getDynamicSensorList", "(I)Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorManagerGetSensorList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "getSensorList", "(I)Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorManagerGetSensors, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "getSensors", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorManagerIsDynamicSensorDiscoverySupported, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "isDynamicSensorDiscoverySupported", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorManagerRegisterDynamicSensorCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "registerDynamicSensorCallback", "(Landroid/hardware/SensorManager$DynamicSensorCallback;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorManagerRegisterListener3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "registerListener", "(Landroid/hardware/SensorEventListener;Landroid/hardware/Sensor;I)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorManagerRegisterListener4_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "registerListener", "(Landroid/hardware/SensorEventListener;Landroid/hardware/Sensor;II)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorManagerRegisterListener2_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "registerListener", "(Landroid/hardware/SensorListener;I)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorManagerRegisterListener3_3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "registerListener", "(Landroid/hardware/SensorListener;II)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorManagerRequestTriggerSensor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "requestTriggerSensor", "(Landroid/hardware/TriggerEventListener;Landroid/hardware/Sensor;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorManagerUnregisterDynamicSensorCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "unregisterDynamicSensorCallback", "(Landroid/hardware/SensorManager$DynamicSensorCallback;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorManagerUnregisterListener1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "unregisterListener", "(Landroid/hardware/SensorEventListener;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorManagerUnregisterListener2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "unregisterListener", "(Landroid/hardware/SensorEventListener;Landroid/hardware/Sensor;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorManagerUnregisterListener1_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "unregisterListener", "(Landroid/hardware/SensorListener;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorManagerUnregisterListener2_3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "unregisterListener", "(Landroid/hardware/SensorListener;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorManagerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorManagerGetAltitude, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "getAltitude", "(FF)F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorManagerGetAngleChange, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "getAngleChange", "([F[F[F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorManagerGetInclination, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "getInclination", "([F)F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorManagerGetOrientation, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "getOrientation", "([F[F)[F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorManagerGetQuaternionFromVector, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "getQuaternionFromVector", "([F[F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorManagerGetRotationMatrix, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "getRotationMatrix", "([F[F[F[F)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorManagerGetRotationMatrixFromVector, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "getRotationMatrixFromVector", "([F[F)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorManagerRemapCoordinateSystem, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "remapCoordinateSystem", "([FII[F)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/hardware/SensorManager$DynamicSensorCallback")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsSensorManagerDynamicSensorCallback = env.NewGlobalRef(&c.Object)
-
-		midSensorManagerDynamicSensorCallbackOnDynamicSensorConnected, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorManagerDynamicSensorCallback)), "onDynamicSensorConnected", "(Landroid/hardware/Sensor;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorManagerDynamicSensorCallbackOnDynamicSensorDisconnected, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorManagerDynamicSensorCallback)), "onDynamicSensorDisconnected", "(Landroid/hardware/Sensor;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorManagerDynamicSensorCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorManagerDynamicSensorCallback)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/hardware/SensorEvent")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsSensorEvent = env.NewGlobalRef(&c.Object)
-
-		midSensorEventToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorEvent)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/hardware/BatteryState")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsBatteryState = env.NewGlobalRef(&c.Object)
-
-		midBatteryStateGetCapacity, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBatteryState)), "getCapacity", "()F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBatteryStateGetStatus, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBatteryState)), "getStatus", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBatteryStateIsPresent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBatteryState)), "isPresent", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBatteryStateToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBatteryState)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/hardware/TriggerEventListener")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsTriggerEventListener = env.NewGlobalRef(&c.Object)
-
-		midTriggerEventListenerOnTrigger, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTriggerEventListener)), "onTrigger", "(Landroid/hardware/TriggerEvent;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTriggerEventListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTriggerEventListener)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/hardware/Sensor")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsSensor = env.NewGlobalRef(&c.Object)
-
-		midSensorGetFifoMaxEventCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensor)), "getFifoMaxEventCount", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorGetFifoReservedEventCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensor)), "getFifoReservedEventCount", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorGetHighestDirectReportRateLevel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensor)), "getHighestDirectReportRateLevel", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorGetId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensor)), "getId", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorGetMaxDelay, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensor)), "getMaxDelay", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorGetMaximumRange, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensor)), "getMaximumRange", "()F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorGetMinDelay, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensor)), "getMinDelay", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorGetName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensor)), "getName", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorGetPower, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensor)), "getPower", "()F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorGetReportingMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensor)), "getReportingMode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorGetResolution, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensor)), "getResolution", "()F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorGetStringType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensor)), "getStringType", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorGetType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensor)), "getType", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorGetVendor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensor)), "getVendor", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorGetVersion, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensor)), "getVersion", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorIsAdditionalInfoSupported, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensor)), "isAdditionalInfoSupported", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorIsDirectChannelTypeSupported, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensor)), "isDirectChannelTypeSupported", "(I)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorIsDynamicSensor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensor)), "isDynamicSensor", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorIsWakeUpSensor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensor)), "isWakeUpSensor", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensor)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/hardware/SensorAdditionalInfo")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsSensorAdditionalInfo = env.NewGlobalRef(&c.Object)
-
-		midSensorAdditionalInfoToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorAdditionalInfo)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/hardware/OverlayProperties")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsOverlayProperties = env.NewGlobalRef(&c.Object)
-
-		midOverlayPropertiesDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayProperties)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOverlayPropertiesGetLutProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayProperties)), "getLutProperties", "()[Landroid/hardware/LutProperties;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOverlayPropertiesIsCombinationSupported, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayProperties)), "isCombinationSupported", "(II)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOverlayPropertiesIsMixedColorSpacesSupported, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayProperties)), "isMixedColorSpacesSupported", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOverlayPropertiesWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayProperties)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOverlayPropertiesToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayProperties)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/hardware/SensorDirectChannel")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsSensorDirectChannel = env.NewGlobalRef(&c.Object)
-
-		midSensorDirectChannelClose, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorDirectChannel)), "close", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorDirectChannelConfigure, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorDirectChannel)), "configure", "(Landroid/hardware/Sensor;I)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorDirectChannelIsOpen, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorDirectChannel)), "isOpen", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSensorDirectChannelToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorDirectChannel)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/hardware/HardwareBuffer")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsBuffer = env.NewGlobalRef(&c.Object)
-
-		midBufferClose, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBuffer)), "close", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBufferDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBuffer)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBufferGetFormat, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBuffer)), "getFormat", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBufferGetHeight, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBuffer)), "getHeight", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBufferGetId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBuffer)), "getId", "()J")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBufferGetLayers, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBuffer)), "getLayers", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBufferGetUsage, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBuffer)), "getUsage", "()J")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBufferGetWidth, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBuffer)), "getWidth", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBufferIsClosed, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBuffer)), "isClosed", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBufferWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBuffer)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBufferToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBuffer)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBufferCreate, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsBuffer)), "create", "(IIIIJ)Landroid/hardware/HardwareBuffer;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midBufferIsSupported, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsBuffer)), "isSupported", "(IIIIJ)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -2680,6 +1718,37 @@ func doInit(env *jni.Env) error {
 
 	}
 
+	c, err = env.FindClass("android/hardware/SensorEventListener")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSensorEventListener = env.NewGlobalRef(&c.Object)
+
+		midSensorEventListenerOnAccuracyChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorEventListener)), "onAccuracyChanged", "(Landroid/hardware/Sensor;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorEventListenerOnSensorChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorEventListener)), "onSensorChanged", "(Landroid/hardware/SensorEvent;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorEventListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorEventListener)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
 	c, err = env.FindClass("android/hardware/Camera$Size")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -2703,6 +1772,413 @@ func doInit(env *jni.Env) error {
 		}
 
 		midCameraSizeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCameraSize)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/hardware/SensorManager")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSensorManager = env.NewGlobalRef(&c.Object)
+
+		midSensorManagerCancelTriggerSensor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "cancelTriggerSensor", "(Landroid/hardware/TriggerEventListener;Landroid/hardware/Sensor;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorManagerCreateDirectChannel1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "createDirectChannel", "(Landroid/hardware/HardwareBuffer;)Landroid/hardware/SensorDirectChannel;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorManagerCreateDirectChannel1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "createDirectChannel", "(Landroid/os/MemoryFile;)Landroid/hardware/SensorDirectChannel;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorManagerFlush, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "flush", "(Landroid/hardware/SensorEventListener;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorManagerGetDefaultSensor1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "getDefaultSensor", "(I)Landroid/hardware/Sensor;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorManagerGetDefaultSensor2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "getDefaultSensor", "(IZ)Landroid/hardware/Sensor;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorManagerGetDynamicSensorList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "getDynamicSensorList", "(I)Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorManagerGetSensorList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "getSensorList", "(I)Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorManagerGetSensors, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "getSensors", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorManagerIsDynamicSensorDiscoverySupported, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "isDynamicSensorDiscoverySupported", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorManagerRegisterDynamicSensorCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "registerDynamicSensorCallback", "(Landroid/hardware/SensorManager$DynamicSensorCallback;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorManagerRegisterListener3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "registerListener", "(Landroid/hardware/SensorEventListener;Landroid/hardware/Sensor;I)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorManagerRegisterListener4_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "registerListener", "(Landroid/hardware/SensorEventListener;Landroid/hardware/Sensor;II)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorManagerRegisterListener2_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "registerListener", "(Landroid/hardware/SensorListener;I)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorManagerRegisterListener3_3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "registerListener", "(Landroid/hardware/SensorListener;II)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorManagerRequestTriggerSensor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "requestTriggerSensor", "(Landroid/hardware/TriggerEventListener;Landroid/hardware/Sensor;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorManagerUnregisterDynamicSensorCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "unregisterDynamicSensorCallback", "(Landroid/hardware/SensorManager$DynamicSensorCallback;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorManagerUnregisterListener1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "unregisterListener", "(Landroid/hardware/SensorEventListener;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorManagerUnregisterListener2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "unregisterListener", "(Landroid/hardware/SensorEventListener;Landroid/hardware/Sensor;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorManagerUnregisterListener1_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "unregisterListener", "(Landroid/hardware/SensorListener;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorManagerUnregisterListener2_3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "unregisterListener", "(Landroid/hardware/SensorListener;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorManagerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorManagerGetAltitude, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "getAltitude", "(FF)F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorManagerGetAngleChange, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "getAngleChange", "([F[F[F)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorManagerGetInclination, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "getInclination", "([F)F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorManagerGetOrientation, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "getOrientation", "([F[F)[F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorManagerGetQuaternionFromVector, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "getQuaternionFromVector", "([F[F)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorManagerGetRotationMatrix, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "getRotationMatrix", "([F[F[F[F)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorManagerGetRotationMatrixFromVector, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "getRotationMatrixFromVector", "([F[F)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorManagerRemapCoordinateSystem, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSensorManager)), "remapCoordinateSystem", "([FII[F)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/hardware/SensorManager$DynamicSensorCallback")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSensorManagerDynamicSensorCallback = env.NewGlobalRef(&c.Object)
+
+		midSensorManagerDynamicSensorCallbackOnDynamicSensorConnected, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorManagerDynamicSensorCallback)), "onDynamicSensorConnected", "(Landroid/hardware/Sensor;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorManagerDynamicSensorCallbackOnDynamicSensorDisconnected, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorManagerDynamicSensorCallback)), "onDynamicSensorDisconnected", "(Landroid/hardware/Sensor;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorManagerDynamicSensorCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorManagerDynamicSensorCallback)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/hardware/TriggerEvent")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsTriggerEvent = env.NewGlobalRef(&c.Object)
+
+		midTriggerEventToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTriggerEvent)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/hardware/SyncFence")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSyncFence = env.NewGlobalRef(&c.Object)
+		midSyncFenceCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSyncFence)), "<init>", "(Landroid/hardware/SyncFence;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midSyncFenceAwait, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSyncFence)), "await", "(Ljava/time/Duration;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSyncFenceAwaitForever, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSyncFence)), "awaitForever", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSyncFenceClose, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSyncFence)), "close", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSyncFenceDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSyncFence)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSyncFenceGetSignalTime, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSyncFence)), "getSignalTime", "()J")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSyncFenceIsValid, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSyncFence)), "isValid", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSyncFenceWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSyncFence)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSyncFenceToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSyncFence)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/hardware/SensorEvent")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSensorEvent = env.NewGlobalRef(&c.Object)
+
+		midSensorEventToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorEvent)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/hardware/OverlayProperties")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsOverlayProperties = env.NewGlobalRef(&c.Object)
+
+		midOverlayPropertiesDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayProperties)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOverlayPropertiesGetLutProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayProperties)), "getLutProperties", "()[Landroid/hardware/LutProperties;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOverlayPropertiesIsCombinationSupported, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayProperties)), "isCombinationSupported", "(II)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOverlayPropertiesIsMixedColorSpacesSupported, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayProperties)), "isMixedColorSpacesSupported", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOverlayPropertiesWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayProperties)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOverlayPropertiesToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOverlayProperties)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -2741,6 +2217,530 @@ func doInit(env *jni.Env) error {
 		}
 
 		midLutPropertiesToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLutProperties)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/hardware/HardwareBuffer")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsBuffer = env.NewGlobalRef(&c.Object)
+
+		midBufferClose, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBuffer)), "close", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBufferDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBuffer)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBufferGetFormat, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBuffer)), "getFormat", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBufferGetHeight, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBuffer)), "getHeight", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBufferGetId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBuffer)), "getId", "()J")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBufferGetLayers, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBuffer)), "getLayers", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBufferGetUsage, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBuffer)), "getUsage", "()J")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBufferGetWidth, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBuffer)), "getWidth", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBufferIsClosed, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBuffer)), "isClosed", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBufferWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBuffer)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBufferToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBuffer)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBufferCreate, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsBuffer)), "create", "(IIIIJ)Landroid/hardware/HardwareBuffer;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBufferIsSupported, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsBuffer)), "isSupported", "(IIIIJ)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/hardware/Sensor")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSensor = env.NewGlobalRef(&c.Object)
+
+		midSensorGetFifoMaxEventCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensor)), "getFifoMaxEventCount", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorGetFifoReservedEventCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensor)), "getFifoReservedEventCount", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorGetHighestDirectReportRateLevel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensor)), "getHighestDirectReportRateLevel", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorGetId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensor)), "getId", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorGetMaxDelay, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensor)), "getMaxDelay", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorGetMaximumRange, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensor)), "getMaximumRange", "()F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorGetMinDelay, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensor)), "getMinDelay", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorGetName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensor)), "getName", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorGetPower, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensor)), "getPower", "()F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorGetReportingMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensor)), "getReportingMode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorGetResolution, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensor)), "getResolution", "()F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorGetStringType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensor)), "getStringType", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorGetType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensor)), "getType", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorGetVendor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensor)), "getVendor", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorGetVersion, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensor)), "getVersion", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorIsAdditionalInfoSupported, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensor)), "isAdditionalInfoSupported", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorIsDirectChannelTypeSupported, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensor)), "isDirectChannelTypeSupported", "(I)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorIsDynamicSensor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensor)), "isDynamicSensor", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorIsWakeUpSensor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensor)), "isWakeUpSensor", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensor)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/hardware/SensorEventCallback")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSensorEventCallback = env.NewGlobalRef(&c.Object)
+
+		midSensorEventCallbackOnAccuracyChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorEventCallback)), "onAccuracyChanged", "(Landroid/hardware/Sensor;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorEventCallbackOnFlushCompleted, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorEventCallback)), "onFlushCompleted", "(Landroid/hardware/Sensor;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorEventCallbackOnSensorAdditionalInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorEventCallback)), "onSensorAdditionalInfo", "(Landroid/hardware/SensorAdditionalInfo;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorEventCallbackOnSensorChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorEventCallback)), "onSensorChanged", "(Landroid/hardware/SensorEvent;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorEventCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorEventCallback)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/hardware/SensorAdditionalInfo")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSensorAdditionalInfo = env.NewGlobalRef(&c.Object)
+
+		midSensorAdditionalInfoToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorAdditionalInfo)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/hardware/TriggerEventListener")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsTriggerEventListener = env.NewGlobalRef(&c.Object)
+
+		midTriggerEventListenerOnTrigger, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTriggerEventListener)), "onTrigger", "(Landroid/hardware/TriggerEvent;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTriggerEventListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTriggerEventListener)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/hardware/DisplayLuts")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsDisplayLuts = env.NewGlobalRef(&c.Object)
+		midDisplayLutsCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDisplayLuts)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midDisplayLutsSet1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDisplayLuts)), "set", "(Landroid/hardware/DisplayLuts$Entry;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDisplayLutsSet2_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDisplayLuts)), "set", "(Landroid/hardware/DisplayLuts$Entry;Landroid/hardware/DisplayLuts$Entry;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDisplayLutsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDisplayLuts)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/hardware/DisplayLuts$Entry")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsDisplayLutsEntry = env.NewGlobalRef(&c.Object)
+
+		midDisplayLutsEntryGetBuffer, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDisplayLutsEntry)), "getBuffer", "()[F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDisplayLutsEntryGetDimension, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDisplayLutsEntry)), "getDimension", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDisplayLutsEntryGetSamplingKey, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDisplayLutsEntry)), "getSamplingKey", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDisplayLutsEntryToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDisplayLutsEntry)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/hardware/SensorListener")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSensorListener = env.NewGlobalRef(&c.Object)
+
+		midSensorListenerOnAccuracyChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorListener)), "onAccuracyChanged", "(II)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorListenerOnSensorChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorListener)), "onSensorChanged", "(I[F)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSensorListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSensorListener)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/hardware/BatteryState")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsBatteryState = env.NewGlobalRef(&c.Object)
+
+		midBatteryStateGetCapacity, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBatteryState)), "getCapacity", "()F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBatteryStateGetStatus, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBatteryState)), "getStatus", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBatteryStateIsPresent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBatteryState)), "isPresent", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midBatteryStateToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsBatteryState)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/hardware/DataSpace")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsDataSpace = env.NewGlobalRef(&c.Object)
+
+		midDataSpaceToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsDataSpace)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDataSpaceGetRange, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDataSpace)), "getRange", "(I)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDataSpaceGetStandard, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDataSpace)), "getStandard", "(I)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDataSpaceGetTransfer, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDataSpace)), "getTransfer", "(I)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midDataSpacePack, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsDataSpace)), "pack", "(III)I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

@@ -5,59 +5,25 @@
 package: quality
 go_import: github.com/AndroidGoLab/jni/media/quality
 classes:
-    - java_class: android.media.quality.AmbientBacklightSettings
-      go_type: AmbientBacklightSettings
+    - java_class: android.media.quality.ActiveProcessingPicture
+      go_type: ActiveProcessingPicture
       obtain: constructor
       constructor_params:
         - java_type: int
           go_name: arg0
-        - java_type: int
+        - java_type: String
           go_name: arg1
-        - java_type: int
-          go_name: arg2
-        - java_type: int
-          go_name: arg3
-        - java_type: int
-          go_name: arg4
-        - java_type: boolean
-          go_name: arg5
-        - java_type: int
-          go_name: arg6
       methods:
         - java_method: describeContents
           go_name: DescribeContents
           returns: int
           error: true
-        - java_method: getColorFormat
-          go_name: GetColorFormat
+        - java_method: getId
+          go_name: GetId
           returns: int
           error: true
-        - java_method: getHorizontalZonesCount
-          go_name: GetHorizontalZonesCount
-          returns: int
-          error: true
-        - java_method: getMaxFps
-          go_name: GetMaxFps
-          returns: int
-          error: true
-        - java_method: getSource
-          go_name: GetSource
-          returns: int
-          error: true
-        - java_method: getThreshold
-          go_name: GetThreshold
-          returns: int
-          error: true
-        - java_method: getVerticalZonesCount
-          go_name: GetVerticalZonesCount
-          returns: int
-          error: true
-        - java_method: isLetterboxOmitted
-          go_name: IsLetterboxOmitted
-          returns: boolean
-          error: true
-        - java_method: toString
-          go_name: ToString
+        - java_method: getProfileId
+          go_name: GetProfileId
           returns: String
           error: true
         - java_method: writeToParcel
@@ -133,6 +99,38 @@ classes:
               go_name: arg1
           returns: void
           error: true
+    - java_class: android.media.quality.ParameterCapability
+      go_type: ParameterCapability
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getCapabilities
+          go_name: GetCapabilities
+          returns: android.os.Bundle
+          error: true
+        - java_method: getParameterName
+          go_name: GetParameterName
+          returns: String
+          error: true
+        - java_method: getParameterType
+          go_name: GetParameterType
+          returns: int
+          error: true
+        - java_method: isSupported
+          go_name: IsSupported
+          returns: boolean
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
     - java_class: android.media.quality.SoundProfile
       go_type: SoundProfile
       methods:
@@ -186,173 +184,6 @@ classes:
             - java_type: android.os.PersistableBundle
               go_name: arg0
           returns: android.media.quality.SoundProfile$Builder
-          error: true
-    - java_class: android.media.quality.AmbientBacklightEvent
-      go_type: AmbientBacklightEvent
-      obtain: constructor
-      constructor_params:
-        - java_type: int
-          go_name: arg0
-        - java_type: android.media.quality.AmbientBacklightMetadata
-          go_name: arg1
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getEventType
-          go_name: GetEventType
-          returns: int
-          error: true
-        - java_method: getMetadata
-          go_name: GetMetadata
-          returns: android.media.quality.AmbientBacklightMetadata
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.media.quality.ParameterCapability
-      go_type: ParameterCapability
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getCapabilities
-          go_name: GetCapabilities
-          returns: android.os.Bundle
-          error: true
-        - java_method: getParameterName
-          go_name: GetParameterName
-          returns: String
-          error: true
-        - java_method: getParameterType
-          go_name: GetParameterType
-          returns: int
-          error: true
-        - java_method: isSupported
-          go_name: IsSupported
-          returns: boolean
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.media.quality.MediaQualityContract
-      go_type: MediaQualityContract
-    - java_class: android.media.quality.MediaQualityContract$PictureQuality
-      go_type: MediaQualityContractPictureQuality
-    - java_class: android.media.quality.MediaQualityContract$SoundQuality
-      go_type: MediaQualityContractSoundQuality
-    - java_class: android.media.quality.ActiveProcessingPicture
-      go_type: ActiveProcessingPicture
-      obtain: constructor
-      constructor_params:
-        - java_type: int
-          go_name: arg0
-        - java_type: String
-          go_name: arg1
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getId
-          go_name: GetId
-          returns: int
-          error: true
-        - java_method: getProfileId
-          go_name: GetProfileId
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.media.quality.PictureProfile
-      go_type: PictureProfile
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getInputId
-          go_name: GetInputId
-          returns: String
-          error: true
-        - java_method: getName
-          go_name: GetName
-          returns: String
-          error: true
-        - java_method: getPackageName
-          go_name: GetPackageName
-          returns: String
-          error: true
-        - java_method: getParameters
-          go_name: GetParameters
-          returns: android.os.PersistableBundle
-          error: true
-        - java_method: getProfileId
-          go_name: GetProfileId
-          returns: String
-          error: true
-        - java_method: getProfileType
-          go_name: GetProfileType
-          returns: int
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.media.quality.PictureProfile$Builder
-      go_type: PictureProfileBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.media.quality.PictureProfile
-          error: true
-        - java_method: setParameters
-          go_name: SetParameters
-          params:
-            - java_type: android.os.PersistableBundle
-              go_name: arg0
-          returns: android.media.quality.PictureProfile$Builder
           error: true
     - java_class: android.media.quality.MediaQualityManager
       go_type: MediaQualityManager
@@ -628,27 +459,266 @@ classes:
               go_name: arg1
           returns: void
           error: true
+    - java_class: android.media.quality.AmbientBacklightEvent
+      go_type: AmbientBacklightEvent
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+        - java_type: android.media.quality.AmbientBacklightMetadata
+          go_name: arg1
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getEventType
+          go_name: GetEventType
+          returns: int
+          error: true
+        - java_method: getMetadata
+          go_name: GetMetadata
+          returns: android.media.quality.AmbientBacklightMetadata
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.media.quality.PictureProfile
+      go_type: PictureProfile
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getInputId
+          go_name: GetInputId
+          returns: String
+          error: true
+        - java_method: getName
+          go_name: GetName
+          returns: String
+          error: true
+        - java_method: getPackageName
+          go_name: GetPackageName
+          returns: String
+          error: true
+        - java_method: getParameters
+          go_name: GetParameters
+          returns: android.os.PersistableBundle
+          error: true
+        - java_method: getProfileId
+          go_name: GetProfileId
+          returns: String
+          error: true
+        - java_method: getProfileType
+          go_name: GetProfileType
+          returns: int
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.media.quality.PictureProfile$Builder
+      go_type: PictureProfileBuilder
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.media.quality.PictureProfile
+          error: true
+        - java_method: setParameters
+          go_name: SetParameters
+          params:
+            - java_type: android.os.PersistableBundle
+              go_name: arg0
+          returns: android.media.quality.PictureProfile$Builder
+          error: true
+    - java_class: android.media.quality.AmbientBacklightSettings
+      go_type: AmbientBacklightSettings
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+        - java_type: int
+          go_name: arg1
+        - java_type: int
+          go_name: arg2
+        - java_type: int
+          go_name: arg3
+        - java_type: int
+          go_name: arg4
+        - java_type: boolean
+          go_name: arg5
+        - java_type: int
+          go_name: arg6
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getColorFormat
+          go_name: GetColorFormat
+          returns: int
+          error: true
+        - java_method: getHorizontalZonesCount
+          go_name: GetHorizontalZonesCount
+          returns: int
+          error: true
+        - java_method: getMaxFps
+          go_name: GetMaxFps
+          returns: int
+          error: true
+        - java_method: getSource
+          go_name: GetSource
+          returns: int
+          error: true
+        - java_method: getThreshold
+          go_name: GetThreshold
+          returns: int
+          error: true
+        - java_method: getVerticalZonesCount
+          go_name: GetVerticalZonesCount
+          returns: int
+          error: true
+        - java_method: isLetterboxOmitted
+          go_name: IsLetterboxOmitted
+          returns: boolean
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.media.quality.MediaQualityContract
+      go_type: MediaQualityContract
+    - java_class: android.media.quality.MediaQualityContract$PictureQuality
+      go_type: MediaQualityContractPictureQuality
+    - java_class: android.media.quality.MediaQualityContract$SoundQuality
+      go_type: MediaQualityContractSoundQuality
+abstract_callbacks:
+    - java_class: android.media.quality.MediaQualityManager$PictureProfileCallback
+      go_type: MediaQualityManagerPictureProfileCallbackCallback
+      methods:
+        - java_method: onError
+          params:
+            - String
+            - int
+          returns: void
+          go_field: OnError
+        - java_method: onPictureProfileAdded
+          params:
+            - String
+            - android.media.quality.PictureProfile
+          returns: void
+          go_field: OnPictureProfileAdded
+        - java_method: onPictureProfileRemoved
+          params:
+            - String
+            - android.media.quality.PictureProfile
+          returns: void
+          go_field: OnPictureProfileRemoved
+        - java_method: onPictureProfileUpdated
+          params:
+            - String
+            - android.media.quality.PictureProfile
+          returns: void
+          go_field: OnPictureProfileUpdated
+    - java_class: android.media.quality.MediaQualityManager$SoundProfileCallback
+      go_type: MediaQualityManagerSoundProfileCallbackCallback
+      methods:
+        - java_method: onError
+          params:
+            - String
+            - int
+          returns: void
+          go_field: OnError
+        - java_method: onSoundProfileAdded
+          params:
+            - String
+            - android.media.quality.SoundProfile
+          returns: void
+          go_field: OnSoundProfileAdded
+        - java_method: onSoundProfileRemoved
+          params:
+            - String
+            - android.media.quality.SoundProfile
+          returns: void
+          go_field: OnSoundProfileRemoved
+        - java_method: onSoundProfileUpdated
+          params:
+            - String
+            - android.media.quality.SoundProfile
+          returns: void
+          go_field: OnSoundProfileUpdated
 constants:
     - go_name: Creator
       value: "0"
-      go_type: int
-    - go_name: SourceAudio
-      value: "1"
-      go_type: int
-    - go_name: SourceAudioVideo
-      value: "3"
-      go_type: int
-    - go_name: SourceNone
-      value: "0"
-      go_type: int
-    - go_name: SourceVideo
-      value: "2"
       go_type: int
     - go_name: AlgorithmNone
       value: "0"
       go_type: int
     - go_name: AlgorithmRle
       value: "1"
+      go_type: int
+    - go_name: CapabilityDefault
+      value: '"default"'
+      go_type: string
+    - go_name: CapabilityEnum
+      value: '"enum"'
+      go_type: string
+    - go_name: CapabilityMax
+      value: '"max"'
+      go_type: string
+    - go_name: CapabilityMin
+      value: '"min"'
+      go_type: string
+    - go_name: TypeDouble
+      value: "3"
+      go_type: int
+    - go_name: TypeInt
+      value: "1"
+      go_type: int
+    - go_name: TypeLong
+      value: "2"
+      go_type: int
+    - go_name: TypeNone
+      value: "0"
+      go_type: int
+    - go_name: TypeString
+      value: "4"
       go_type: int
     - go_name: ErrorDuplicate
       value: "2"
@@ -683,32 +753,17 @@ constants:
     - go_name: AmbientBacklightEventMetadataAvailable
       value: "3"
       go_type: int
-    - go_name: CapabilityDefault
-      value: '"default"'
-      go_type: string
-    - go_name: CapabilityEnum
-      value: '"enum"'
-      go_type: string
-    - go_name: CapabilityMax
-      value: '"max"'
-      go_type: string
-    - go_name: CapabilityMin
-      value: '"min"'
-      go_type: string
-    - go_name: TypeDouble
-      value: "3"
-      go_type: int
-    - go_name: TypeInt
+    - go_name: SourceAudio
       value: "1"
       go_type: int
-    - go_name: TypeLong
-      value: "2"
+    - go_name: SourceAudioVideo
+      value: "3"
       go_type: int
-    - go_name: TypeNone
+    - go_name: SourceNone
       value: "0"
       go_type: int
-    - go_name: TypeString
-      value: "4"
+    - go_name: SourceVideo
+      value: "2"
       go_type: int
     - go_name: LevelHigh
       value: '"level_high"'

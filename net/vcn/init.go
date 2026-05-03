@@ -23,19 +23,6 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsWifiUnderlyingNetworkTemplate         *jni.GlobalRef
-	midWifiUnderlyingNetworkTemplateEquals   jni.MethodID
-	midWifiUnderlyingNetworkTemplateGetSsids jni.MethodID
-	midWifiUnderlyingNetworkTemplateHashCode jni.MethodID
-	midWifiUnderlyingNetworkTemplateToString jni.MethodID
-
-	clsWifiUnderlyingNetworkTemplateBuilder                              *jni.GlobalRef
-	midWifiUnderlyingNetworkTemplateBuilderBuild                         jni.MethodID
-	midWifiUnderlyingNetworkTemplateBuilderSetMetered                    jni.MethodID
-	midWifiUnderlyingNetworkTemplateBuilderSetMinDownstreamBandwidthKbps jni.MethodID
-	midWifiUnderlyingNetworkTemplateBuilderSetMinUpstreamBandwidthKbps   jni.MethodID
-	midWifiUnderlyingNetworkTemplateBuilderToString                      jni.MethodID
-
 	clsCellUnderlyingNetworkTemplate                         *jni.GlobalRef
 	midCellUnderlyingNetworkTemplateEquals                   jni.MethodID
 	midCellUnderlyingNetworkTemplateGetCbs                   jni.MethodID
@@ -66,33 +53,6 @@ var (
 	midCellUnderlyingNetworkTemplateBuilderSetRoaming                    jni.MethodID
 	midCellUnderlyingNetworkTemplateBuilderToString                      jni.MethodID
 
-	clsConfig                                         *jni.GlobalRef
-	midConfigDescribeContents                         jni.MethodID
-	midConfigEquals                                   jni.MethodID
-	midConfigGetGatewayConnectionConfigs              jni.MethodID
-	midConfigGetRestrictedUnderlyingNetworkTransports jni.MethodID
-	midConfigHashCode                                 jni.MethodID
-	midConfigWriteToParcel                            jni.MethodID
-	midConfigToString                                 jni.MethodID
-
-	clsConfigBuilder                           *jni.GlobalRef
-	midConfigBuilderAddGatewayConnectionConfig jni.MethodID
-	midConfigBuilderBuild                      jni.MethodID
-	midConfigBuilderToString                   jni.MethodID
-
-	clsManager                                *jni.GlobalRef
-	midManagerClearVcnConfig                  jni.MethodID
-	midManagerGetConfiguredSubscriptionGroups jni.MethodID
-	midManagerRegisterVcnStatusCallback       jni.MethodID
-	midManagerSetVcnConfig                    jni.MethodID
-	midManagerUnregisterVcnStatusCallback     jni.MethodID
-	midManagerToString                        jni.MethodID
-
-	clsManagerVcnStatusCallback                         *jni.GlobalRef
-	midManagerVcnStatusCallbackOnGatewayConnectionError jni.MethodID
-	midManagerVcnStatusCallbackOnStatusChanged          jni.MethodID
-	midManagerVcnStatusCallbackToString                 jni.MethodID
-
 	clsGatewayConnectionConfig                                   *jni.GlobalRef
 	midGatewayConnectionConfigEquals                             jni.MethodID
 	midGatewayConnectionConfigGetExposedCapabilities             jni.MethodID
@@ -118,6 +78,32 @@ var (
 	midGatewayConnectionConfigBuilderSetSafeModeEnabled                 jni.MethodID
 	midGatewayConnectionConfigBuilderToString                           jni.MethodID
 
+	clsManager                                *jni.GlobalRef
+	midManagerClearVcnConfig                  jni.MethodID
+	midManagerGetConfiguredSubscriptionGroups jni.MethodID
+	midManagerRegisterVcnStatusCallback       jni.MethodID
+	midManagerSetVcnConfig                    jni.MethodID
+	midManagerUnregisterVcnStatusCallback     jni.MethodID
+	midManagerToString                        jni.MethodID
+
+	clsManagerVcnStatusCallback                         *jni.GlobalRef
+	midManagerVcnStatusCallbackOnGatewayConnectionError jni.MethodID
+	midManagerVcnStatusCallbackOnStatusChanged          jni.MethodID
+	midManagerVcnStatusCallbackToString                 jni.MethodID
+
+	clsWifiUnderlyingNetworkTemplate         *jni.GlobalRef
+	midWifiUnderlyingNetworkTemplateEquals   jni.MethodID
+	midWifiUnderlyingNetworkTemplateGetSsids jni.MethodID
+	midWifiUnderlyingNetworkTemplateHashCode jni.MethodID
+	midWifiUnderlyingNetworkTemplateToString jni.MethodID
+
+	clsWifiUnderlyingNetworkTemplateBuilder                              *jni.GlobalRef
+	midWifiUnderlyingNetworkTemplateBuilderBuild                         jni.MethodID
+	midWifiUnderlyingNetworkTemplateBuilderSetMetered                    jni.MethodID
+	midWifiUnderlyingNetworkTemplateBuilderSetMinDownstreamBandwidthKbps jni.MethodID
+	midWifiUnderlyingNetworkTemplateBuilderSetMinUpstreamBandwidthKbps   jni.MethodID
+	midWifiUnderlyingNetworkTemplateBuilderToString                      jni.MethodID
+
 	clsUnderlyingNetworkTemplate                                   *jni.GlobalRef
 	midUnderlyingNetworkTemplateEquals                             jni.MethodID
 	midUnderlyingNetworkTemplateGetMetered                         jni.MethodID
@@ -127,6 +113,20 @@ var (
 	midUnderlyingNetworkTemplateGetMinExitUpstreamBandwidthKbps    jni.MethodID
 	midUnderlyingNetworkTemplateHashCode                           jni.MethodID
 	midUnderlyingNetworkTemplateToString                           jni.MethodID
+
+	clsConfig                                         *jni.GlobalRef
+	midConfigDescribeContents                         jni.MethodID
+	midConfigEquals                                   jni.MethodID
+	midConfigGetGatewayConnectionConfigs              jni.MethodID
+	midConfigGetRestrictedUnderlyingNetworkTransports jni.MethodID
+	midConfigHashCode                                 jni.MethodID
+	midConfigWriteToParcel                            jni.MethodID
+	midConfigToString                                 jni.MethodID
+
+	clsConfigBuilder                           *jni.GlobalRef
+	midConfigBuilderAddGatewayConnectionConfig jni.MethodID
+	midConfigBuilderBuild                      jni.MethodID
+	midConfigBuilderToString                   jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -146,89 +146,6 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
-
-	c, err = env.FindClass("android/net/vcn/VcnWifiUnderlyingNetworkTemplate")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsWifiUnderlyingNetworkTemplate = env.NewGlobalRef(&c.Object)
-
-		midWifiUnderlyingNetworkTemplateEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiUnderlyingNetworkTemplate)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWifiUnderlyingNetworkTemplateGetSsids, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiUnderlyingNetworkTemplate)), "getSsids", "()Ljava/util/Set;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWifiUnderlyingNetworkTemplateHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiUnderlyingNetworkTemplate)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWifiUnderlyingNetworkTemplateToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiUnderlyingNetworkTemplate)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/net/vcn/VcnWifiUnderlyingNetworkTemplate$Builder")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsWifiUnderlyingNetworkTemplateBuilder = env.NewGlobalRef(&c.Object)
-
-		midWifiUnderlyingNetworkTemplateBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiUnderlyingNetworkTemplateBuilder)), "build", "()Landroid/net/vcn/VcnWifiUnderlyingNetworkTemplate;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWifiUnderlyingNetworkTemplateBuilderSetMetered, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiUnderlyingNetworkTemplateBuilder)), "setMetered", "(I)Landroid/net/vcn/VcnWifiUnderlyingNetworkTemplate$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWifiUnderlyingNetworkTemplateBuilderSetMinDownstreamBandwidthKbps, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiUnderlyingNetworkTemplateBuilder)), "setMinDownstreamBandwidthKbps", "(II)Landroid/net/vcn/VcnWifiUnderlyingNetworkTemplate$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWifiUnderlyingNetworkTemplateBuilderSetMinUpstreamBandwidthKbps, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiUnderlyingNetworkTemplateBuilder)), "setMinUpstreamBandwidthKbps", "(II)Landroid/net/vcn/VcnWifiUnderlyingNetworkTemplate$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWifiUnderlyingNetworkTemplateBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiUnderlyingNetworkTemplateBuilder)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
 
 	c, err = env.FindClass("android/net/vcn/VcnCellUnderlyingNetworkTemplate")
 	if err != nil {
@@ -432,179 +349,6 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/net/vcn/VcnConfig")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsConfig = env.NewGlobalRef(&c.Object)
-
-		midConfigDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConfig)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConfigEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConfig)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConfigGetGatewayConnectionConfigs, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConfig)), "getGatewayConnectionConfigs", "()Ljava/util/Set;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConfigGetRestrictedUnderlyingNetworkTransports, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConfig)), "getRestrictedUnderlyingNetworkTransports", "()Ljava/util/Set;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConfigHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConfig)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConfigWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConfig)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConfigToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConfig)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/net/vcn/VcnConfig$Builder")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsConfigBuilder = env.NewGlobalRef(&c.Object)
-
-		midConfigBuilderAddGatewayConnectionConfig, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConfigBuilder)), "addGatewayConnectionConfig", "(Landroid/net/vcn/VcnGatewayConnectionConfig;)Landroid/net/vcn/VcnConfig$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConfigBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConfigBuilder)), "build", "()Landroid/net/vcn/VcnConfig;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConfigBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConfigBuilder)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/net/vcn/VcnManager")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsManager = env.NewGlobalRef(&c.Object)
-
-		midManagerClearVcnConfig, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "clearVcnConfig", "(Landroid/os/ParcelUuid;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerGetConfiguredSubscriptionGroups, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "getConfiguredSubscriptionGroups", "()Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerRegisterVcnStatusCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "registerVcnStatusCallback", "(Landroid/os/ParcelUuid;Ljava/util/concurrent/Executor;Landroid/net/vcn/VcnManager$VcnStatusCallback;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerSetVcnConfig, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "setVcnConfig", "(Landroid/os/ParcelUuid;Landroid/net/vcn/VcnConfig;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerUnregisterVcnStatusCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "unregisterVcnStatusCallback", "(Landroid/net/vcn/VcnManager$VcnStatusCallback;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/net/vcn/VcnManager$VcnStatusCallback")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsManagerVcnStatusCallback = env.NewGlobalRef(&c.Object)
-
-		midManagerVcnStatusCallbackOnGatewayConnectionError, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManagerVcnStatusCallback)), "onGatewayConnectionError", "(Ljava/lang/String;ILjava/lang/Throwable;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerVcnStatusCallbackOnStatusChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManagerVcnStatusCallback)), "onStatusChanged", "(I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midManagerVcnStatusCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManagerVcnStatusCallback)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
 	c, err = env.FindClass("android/net/vcn/VcnGatewayConnectionConfig")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -772,6 +516,172 @@ func doInit(env *jni.Env) error {
 
 	}
 
+	c, err = env.FindClass("android/net/vcn/VcnManager")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsManager = env.NewGlobalRef(&c.Object)
+
+		midManagerClearVcnConfig, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "clearVcnConfig", "(Landroid/os/ParcelUuid;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerGetConfiguredSubscriptionGroups, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "getConfiguredSubscriptionGroups", "()Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerRegisterVcnStatusCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "registerVcnStatusCallback", "(Landroid/os/ParcelUuid;Ljava/util/concurrent/Executor;Landroid/net/vcn/VcnManager$VcnStatusCallback;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerSetVcnConfig, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "setVcnConfig", "(Landroid/os/ParcelUuid;Landroid/net/vcn/VcnConfig;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerUnregisterVcnStatusCallback, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "unregisterVcnStatusCallback", "(Landroid/net/vcn/VcnManager$VcnStatusCallback;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/net/vcn/VcnManager$VcnStatusCallback")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsManagerVcnStatusCallback = env.NewGlobalRef(&c.Object)
+
+		midManagerVcnStatusCallbackOnGatewayConnectionError, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManagerVcnStatusCallback)), "onGatewayConnectionError", "(Ljava/lang/String;ILjava/lang/Throwable;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerVcnStatusCallbackOnStatusChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManagerVcnStatusCallback)), "onStatusChanged", "(I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midManagerVcnStatusCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManagerVcnStatusCallback)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/net/vcn/VcnWifiUnderlyingNetworkTemplate")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsWifiUnderlyingNetworkTemplate = env.NewGlobalRef(&c.Object)
+
+		midWifiUnderlyingNetworkTemplateEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiUnderlyingNetworkTemplate)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWifiUnderlyingNetworkTemplateGetSsids, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiUnderlyingNetworkTemplate)), "getSsids", "()Ljava/util/Set;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWifiUnderlyingNetworkTemplateHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiUnderlyingNetworkTemplate)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWifiUnderlyingNetworkTemplateToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiUnderlyingNetworkTemplate)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/net/vcn/VcnWifiUnderlyingNetworkTemplate$Builder")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsWifiUnderlyingNetworkTemplateBuilder = env.NewGlobalRef(&c.Object)
+
+		midWifiUnderlyingNetworkTemplateBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiUnderlyingNetworkTemplateBuilder)), "build", "()Landroid/net/vcn/VcnWifiUnderlyingNetworkTemplate;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWifiUnderlyingNetworkTemplateBuilderSetMetered, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiUnderlyingNetworkTemplateBuilder)), "setMetered", "(I)Landroid/net/vcn/VcnWifiUnderlyingNetworkTemplate$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWifiUnderlyingNetworkTemplateBuilderSetMinDownstreamBandwidthKbps, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiUnderlyingNetworkTemplateBuilder)), "setMinDownstreamBandwidthKbps", "(II)Landroid/net/vcn/VcnWifiUnderlyingNetworkTemplate$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWifiUnderlyingNetworkTemplateBuilderSetMinUpstreamBandwidthKbps, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiUnderlyingNetworkTemplateBuilder)), "setMinUpstreamBandwidthKbps", "(II)Landroid/net/vcn/VcnWifiUnderlyingNetworkTemplate$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWifiUnderlyingNetworkTemplateBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWifiUnderlyingNetworkTemplateBuilder)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
 	c, err = env.FindClass("android/net/vcn/VcnUnderlyingNetworkTemplate")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -830,6 +740,96 @@ func doInit(env *jni.Env) error {
 		}
 
 		midUnderlyingNetworkTemplateToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsUnderlyingNetworkTemplate)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/net/vcn/VcnConfig")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsConfig = env.NewGlobalRef(&c.Object)
+
+		midConfigDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConfig)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConfigEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConfig)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConfigGetGatewayConnectionConfigs, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConfig)), "getGatewayConnectionConfigs", "()Ljava/util/Set;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConfigGetRestrictedUnderlyingNetworkTransports, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConfig)), "getRestrictedUnderlyingNetworkTransports", "()Ljava/util/Set;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConfigHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConfig)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConfigWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConfig)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConfigToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConfig)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/net/vcn/VcnConfig$Builder")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsConfigBuilder = env.NewGlobalRef(&c.Object)
+
+		midConfigBuilderAddGatewayConnectionConfig, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConfigBuilder)), "addGatewayConnectionConfig", "(Landroid/net/vcn/VcnGatewayConnectionConfig;)Landroid/net/vcn/VcnConfig$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConfigBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConfigBuilder)), "build", "()Landroid/net/vcn/VcnConfig;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConfigBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConfigBuilder)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

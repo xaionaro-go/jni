@@ -5,123 +5,6 @@
 package: database
 go_import: github.com/AndroidGoLab/jni/database
 classes:
-    - java_class: android.database.CharArrayBuffer
-      go_type: CharArrayBuffer
-      obtain: constructor
-      constructor_params:
-        - java_type: char[]
-          go_name: arg0
-    - java_class: android.database.MatrixCursor
-      go_type: MatrixCursor
-      obtain: constructor
-      constructor_params:
-        - java_type: java.lang.String[]
-          go_name: arg0
-      methods:
-        - java_method: addRow
-          go_name: AddRow
-          params:
-            - java_type: java.lang.Object[]
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getBlob
-          go_name: GetBlob
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: '[B'
-          error: true
-        - java_method: getColumnNames
-          go_name: GetColumnNames
-          returns: java.lang.String[]
-          error: true
-        - java_method: getCount
-          go_name: GetCount
-          returns: int
-          error: true
-        - java_method: getDouble
-          go_name: GetDouble
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: double
-          error: true
-        - java_method: getFloat
-          go_name: GetFloat
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: float
-          error: true
-        - java_method: getInt
-          go_name: GetInt
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getLong
-          go_name: GetLong
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: long
-          error: true
-        - java_method: getShort
-          go_name: GetShort
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: short
-          error: true
-        - java_method: getString
-          go_name: GetString
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: String
-          error: true
-        - java_method: getType
-          go_name: GetType
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: isNull
-          go_name: IsNull
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: newRow
-          go_name: NewRow
-          returns: android.database.MatrixCursor$RowBuilder
-          error: true
-    - java_class: android.database.MatrixCursor$RowBuilder
-      go_type: MatrixCursorRowBuilder
-      methods:
-        - java_method: add
-          go_name: Add1
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: android.database.MatrixCursor$RowBuilder
-          error: true
-        - java_method: add
-          go_name: Add2_1
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: java.lang.Object
-              go_name: arg1
-          returns: android.database.MatrixCursor$RowBuilder
-          error: true
-    - java_class: android.database.SQLException
-      go_type: SQLException
-      obtain: constructor
     - java_class: android.database.AbstractWindowedCursor
       go_type: AbstractWindowedCursor
       methods:
@@ -240,6 +123,1252 @@ classes:
               go_name: arg0
           returns: void
           error: true
+    - java_class: android.database.CrossProcessCursorWrapper
+      go_type: CrossProcessCursorWrapper
+      obtain: constructor
+      constructor_params:
+        - java_type: android.database.Cursor
+          go_name: arg0
+      methods:
+        - java_method: fillWindow
+          go_name: FillWindow
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: android.database.CursorWindow
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: getWindow
+          go_name: GetWindow
+          returns: android.database.CursorWindow
+          error: true
+        - java_method: onMove
+          go_name: OnMove
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: boolean
+          error: true
+    - java_class: android.database.CursorIndexOutOfBoundsException
+      go_type: CursorIndexOutOfBoundsException
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+        - java_type: int
+          go_name: arg1
+    - java_class: android.database.CursorJoiner
+      go_type: CursorJoiner
+      obtain: constructor
+      constructor_params:
+        - java_type: android.database.Cursor
+          go_name: arg0
+        - java_type: java.lang.String[]
+          go_name: arg1
+        - java_type: android.database.Cursor
+          go_name: arg2
+        - java_type: java.lang.String[]
+          go_name: arg3
+      methods:
+        - java_method: hasNext
+          go_name: HasNext
+          returns: boolean
+          error: true
+        - java_method: iterator
+          go_name: Iterator
+          returns: java.util.Iterator<android.database.CursorJoiner$Result>
+          error: true
+        - java_method: next
+          go_name: Next0
+          returns: android.database.CursorJoiner$Result
+          error: true
+        - java_method: remove
+          go_name: Remove
+          returns: void
+          error: true
+        - java_method: next
+          go_name: Next0_1
+          returns: java.lang.Object
+          error: true
+    - java_class: android.database.CursorJoiner$Result
+      go_type: CursorJoinerResult
+      static_methods:
+        - java_method: values
+          go_name: Values
+          returns: android.database.CursorJoiner$Result[]
+          error: true
+        - java_method: valueOf
+          go_name: ValueOf
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.database.CursorJoiner$Result
+          error: true
+    - java_class: android.database.DatabaseErrorHandler
+      go_type: ErrorHandler
+      methods:
+        - java_method: onCorruption
+          go_name: OnCorruption
+          params:
+            - java_type: android.database.sqlite.SQLiteDatabase
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.database.StaleDataException
+      go_type: StaleDataException
+      obtain: constructor
+    - java_class: android.database.AbstractCursor
+      go_type: AbstractCursor
+      methods:
+        - java_method: close
+          go_name: Close
+          returns: void
+          error: true
+        - java_method: copyStringToBuffer
+          go_name: CopyStringToBuffer
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: android.database.CharArrayBuffer
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: deactivate
+          go_name: Deactivate
+          returns: void
+          error: true
+        - java_method: fillWindow
+          go_name: FillWindow
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: android.database.CursorWindow
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: getBlob
+          go_name: GetBlob
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: '[B'
+          error: true
+        - java_method: getColumnCount
+          go_name: GetColumnCount
+          returns: int
+          error: true
+        - java_method: getColumnIndex
+          go_name: GetColumnIndex
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getColumnIndexOrThrow
+          go_name: GetColumnIndexOrThrow
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getColumnName
+          go_name: GetColumnName
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: String
+          error: true
+        - java_method: getColumnNames
+          go_name: GetColumnNames
+          returns: java.lang.String[]
+          error: true
+        - java_method: getCount
+          go_name: GetCount
+          returns: int
+          error: true
+        - java_method: getDouble
+          go_name: GetDouble
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: double
+          error: true
+        - java_method: getExtras
+          go_name: GetExtras
+          returns: android.os.Bundle
+          error: true
+        - java_method: getFloat
+          go_name: GetFloat
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: float
+          error: true
+        - java_method: getInt
+          go_name: GetInt
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getLong
+          go_name: GetLong
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: long
+          error: true
+        - java_method: getNotificationUri
+          go_name: GetNotificationUri
+          returns: android.net.Uri
+          error: true
+        - java_method: getNotificationUris
+          go_name: GetNotificationUris
+          returns: java.util.List<android.net.Uri>
+          error: true
+        - java_method: getPosition
+          go_name: GetPosition
+          returns: int
+          error: true
+        - java_method: getShort
+          go_name: GetShort
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: short
+          error: true
+        - java_method: getString
+          go_name: GetString
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: String
+          error: true
+        - java_method: getType
+          go_name: GetType
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getWantsAllOnMoveCalls
+          go_name: GetWantsAllOnMoveCalls
+          returns: boolean
+          error: true
+        - java_method: getWindow
+          go_name: GetWindow
+          returns: android.database.CursorWindow
+          error: true
+        - java_method: isAfterLast
+          go_name: IsAfterLast
+          returns: boolean
+          error: true
+        - java_method: isBeforeFirst
+          go_name: IsBeforeFirst
+          returns: boolean
+          error: true
+        - java_method: isClosed
+          go_name: IsClosed
+          returns: boolean
+          error: true
+        - java_method: isFirst
+          go_name: IsFirst
+          returns: boolean
+          error: true
+        - java_method: isLast
+          go_name: IsLast
+          returns: boolean
+          error: true
+        - java_method: isNull
+          go_name: IsNull
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: move
+          go_name: Move
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: moveToFirst
+          go_name: MoveToFirst
+          returns: boolean
+          error: true
+        - java_method: moveToLast
+          go_name: MoveToLast
+          returns: boolean
+          error: true
+        - java_method: moveToNext
+          go_name: MoveToNext
+          returns: boolean
+          error: true
+        - java_method: moveToPosition
+          go_name: MoveToPosition
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: moveToPrevious
+          go_name: MoveToPrevious
+          returns: boolean
+          error: true
+        - java_method: onMove
+          go_name: OnMove
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: registerContentObserver
+          go_name: RegisterContentObserver
+          params:
+            - java_type: android.database.ContentObserver
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: registerDataSetObserver
+          go_name: RegisterDataSetObserver
+          params:
+            - java_type: android.database.DataSetObserver
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: requery
+          go_name: Requery
+          returns: boolean
+          error: true
+        - java_method: respond
+          go_name: Respond
+          params:
+            - java_type: android.os.Bundle
+              go_name: arg0
+          returns: android.os.Bundle
+          error: true
+        - java_method: setExtras
+          go_name: SetExtras
+          params:
+            - java_type: android.os.Bundle
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setNotificationUri
+          go_name: SetNotificationUri
+          params:
+            - java_type: android.content.ContentResolver
+              go_name: arg0
+            - java_type: android.net.Uri
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: unregisterContentObserver
+          go_name: UnregisterContentObserver
+          params:
+            - java_type: android.database.ContentObserver
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: unregisterDataSetObserver
+          go_name: UnregisterDataSetObserver
+          params:
+            - java_type: android.database.DataSetObserver
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.database.AbstractCursor$SelfContentObserver
+      go_type: AbstractCursorSelfContentObserver
+      methods:
+        - java_method: deliverSelfNotifications
+          go_name: DeliverSelfNotifications
+          returns: boolean
+          error: true
+        - java_method: onChange
+          go_name: OnChange
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.database.CharArrayBuffer
+      go_type: CharArrayBuffer
+      obtain: constructor
+      constructor_params:
+        - java_type: char[]
+          go_name: arg0
+    - java_class: android.database.ContentObserver
+      go_type: ContentObserver
+      methods:
+        - java_method: deliverSelfNotifications
+          go_name: DeliverSelfNotifications
+          returns: boolean
+          error: true
+        - java_method: dispatchChange
+          go_name: DispatchChange1
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: dispatchChange
+          go_name: DispatchChange2_1
+          params:
+            - java_type: boolean
+              go_name: arg0
+            - java_type: android.net.Uri
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: dispatchChange
+          go_name: DispatchChange3_2
+          params:
+            - java_type: boolean
+              go_name: arg0
+            - java_type: android.net.Uri
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: onChange
+          go_name: OnChange1
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onChange
+          go_name: OnChange2_1
+          params:
+            - java_type: boolean
+              go_name: arg0
+            - java_type: android.net.Uri
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onChange
+          go_name: OnChange3_2
+          params:
+            - java_type: boolean
+              go_name: arg0
+            - java_type: android.net.Uri
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: void
+          error: true
+    - java_class: android.database.CursorWrapper
+      go_type: CursorWrapper
+      obtain: constructor
+      constructor_params:
+        - java_type: android.database.Cursor
+          go_name: arg0
+      methods:
+        - java_method: close
+          go_name: Close
+          returns: void
+          error: true
+        - java_method: copyStringToBuffer
+          go_name: CopyStringToBuffer
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: android.database.CharArrayBuffer
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: deactivate
+          go_name: Deactivate
+          returns: void
+          error: true
+        - java_method: getBlob
+          go_name: GetBlob
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: '[B'
+          error: true
+        - java_method: getColumnCount
+          go_name: GetColumnCount
+          returns: int
+          error: true
+        - java_method: getColumnIndex
+          go_name: GetColumnIndex
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getColumnIndexOrThrow
+          go_name: GetColumnIndexOrThrow
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getColumnName
+          go_name: GetColumnName
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: String
+          error: true
+        - java_method: getColumnNames
+          go_name: GetColumnNames
+          returns: java.lang.String[]
+          error: true
+        - java_method: getCount
+          go_name: GetCount
+          returns: int
+          error: true
+        - java_method: getDouble
+          go_name: GetDouble
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: double
+          error: true
+        - java_method: getExtras
+          go_name: GetExtras
+          returns: android.os.Bundle
+          error: true
+        - java_method: getFloat
+          go_name: GetFloat
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: float
+          error: true
+        - java_method: getInt
+          go_name: GetInt
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getLong
+          go_name: GetLong
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: long
+          error: true
+        - java_method: getNotificationUri
+          go_name: GetNotificationUri
+          returns: android.net.Uri
+          error: true
+        - java_method: getNotificationUris
+          go_name: GetNotificationUris
+          returns: java.util.List<android.net.Uri>
+          error: true
+        - java_method: getPosition
+          go_name: GetPosition
+          returns: int
+          error: true
+        - java_method: getShort
+          go_name: GetShort
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: short
+          error: true
+        - java_method: getString
+          go_name: GetString
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: String
+          error: true
+        - java_method: getType
+          go_name: GetType
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getWantsAllOnMoveCalls
+          go_name: GetWantsAllOnMoveCalls
+          returns: boolean
+          error: true
+        - java_method: getWrappedCursor
+          go_name: GetWrappedCursor
+          returns: android.database.Cursor
+          error: true
+        - java_method: isAfterLast
+          go_name: IsAfterLast
+          returns: boolean
+          error: true
+        - java_method: isBeforeFirst
+          go_name: IsBeforeFirst
+          returns: boolean
+          error: true
+        - java_method: isClosed
+          go_name: IsClosed
+          returns: boolean
+          error: true
+        - java_method: isFirst
+          go_name: IsFirst
+          returns: boolean
+          error: true
+        - java_method: isLast
+          go_name: IsLast
+          returns: boolean
+          error: true
+        - java_method: isNull
+          go_name: IsNull
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: move
+          go_name: Move
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: moveToFirst
+          go_name: MoveToFirst
+          returns: boolean
+          error: true
+        - java_method: moveToLast
+          go_name: MoveToLast
+          returns: boolean
+          error: true
+        - java_method: moveToNext
+          go_name: MoveToNext
+          returns: boolean
+          error: true
+        - java_method: moveToPosition
+          go_name: MoveToPosition
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: moveToPrevious
+          go_name: MoveToPrevious
+          returns: boolean
+          error: true
+        - java_method: registerContentObserver
+          go_name: RegisterContentObserver
+          params:
+            - java_type: android.database.ContentObserver
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: registerDataSetObserver
+          go_name: RegisterDataSetObserver
+          params:
+            - java_type: android.database.DataSetObserver
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: requery
+          go_name: Requery
+          returns: boolean
+          error: true
+        - java_method: respond
+          go_name: Respond
+          params:
+            - java_type: android.os.Bundle
+              go_name: arg0
+          returns: android.os.Bundle
+          error: true
+        - java_method: setExtras
+          go_name: SetExtras
+          params:
+            - java_type: android.os.Bundle
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setNotificationUri
+          go_name: SetNotificationUri
+          params:
+            - java_type: android.content.ContentResolver
+              go_name: arg0
+            - java_type: android.net.Uri
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: unregisterContentObserver
+          go_name: UnregisterContentObserver
+          params:
+            - java_type: android.database.ContentObserver
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: unregisterDataSetObserver
+          go_name: UnregisterDataSetObserver
+          params:
+            - java_type: android.database.DataSetObserver
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.database.ContentObservable
+      go_type: ContentObservable
+      obtain: constructor
+      methods:
+        - java_method: dispatchChange
+          go_name: DispatchChange1
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: dispatchChange
+          go_name: DispatchChange2_1
+          params:
+            - java_type: boolean
+              go_name: arg0
+            - java_type: android.net.Uri
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: notifyChange
+          go_name: NotifyChange
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: registerObserver
+          go_name: RegisterObserver1
+          params:
+            - java_type: android.database.ContentObserver
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: registerObserver
+          go_name: RegisterObserver1_1
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.database.MergeCursor
+      go_type: MergeCursor
+      obtain: constructor
+      constructor_params:
+        - java_type: android.database.Cursor[]
+          go_name: arg0
+      methods:
+        - java_method: close
+          go_name: Close
+          returns: void
+          error: true
+        - java_method: deactivate
+          go_name: Deactivate
+          returns: void
+          error: true
+        - java_method: getBlob
+          go_name: GetBlob
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: '[B'
+          error: true
+        - java_method: getColumnNames
+          go_name: GetColumnNames
+          returns: java.lang.String[]
+          error: true
+        - java_method: getCount
+          go_name: GetCount
+          returns: int
+          error: true
+        - java_method: getDouble
+          go_name: GetDouble
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: double
+          error: true
+        - java_method: getFloat
+          go_name: GetFloat
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: float
+          error: true
+        - java_method: getInt
+          go_name: GetInt
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getLong
+          go_name: GetLong
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: long
+          error: true
+        - java_method: getShort
+          go_name: GetShort
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: short
+          error: true
+        - java_method: getString
+          go_name: GetString
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: String
+          error: true
+        - java_method: getType
+          go_name: GetType
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: isNull
+          go_name: IsNull
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: onMove
+          go_name: OnMove
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: registerContentObserver
+          go_name: RegisterContentObserver
+          params:
+            - java_type: android.database.ContentObserver
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: registerDataSetObserver
+          go_name: RegisterDataSetObserver
+          params:
+            - java_type: android.database.DataSetObserver
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: requery
+          go_name: Requery
+          returns: boolean
+          error: true
+        - java_method: unregisterContentObserver
+          go_name: UnregisterContentObserver
+          params:
+            - java_type: android.database.ContentObserver
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: unregisterDataSetObserver
+          go_name: UnregisterDataSetObserver
+          params:
+            - java_type: android.database.DataSetObserver
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.database.Observable
+      go_type: Observable
+      methods:
+        - java_method: unregisterAll
+          go_name: UnregisterAll
+          returns: void
+          error: true
+    - java_class: android.database.DefaultDatabaseErrorHandler
+      go_type: DefaultDatabaseErrorHandler
+      obtain: constructor
+      methods:
+        - java_method: onCorruption
+          go_name: OnCorruption
+          params:
+            - java_type: android.database.sqlite.SQLiteDatabase
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.database.CursorWindow
+      go_type: CursorWindow
+      obtain: constructor
+      constructor_params:
+        - java_type: boolean
+          go_name: arg0
+      methods:
+        - java_method: allocRow
+          go_name: AllocRow
+          returns: boolean
+          error: true
+        - java_method: clear
+          go_name: Clear
+          returns: void
+          error: true
+        - java_method: copyStringToBuffer
+          go_name: CopyStringToBuffer
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: android.database.CharArrayBuffer
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: freeLastRow
+          go_name: FreeLastRow
+          returns: void
+          error: true
+        - java_method: getBlob
+          go_name: GetBlob
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: '[B'
+          error: true
+        - java_method: getDouble
+          go_name: GetDouble
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: double
+          error: true
+        - java_method: getFloat
+          go_name: GetFloat
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: float
+          error: true
+        - java_method: getInt
+          go_name: GetInt
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: int
+          error: true
+        - java_method: getLong
+          go_name: GetLong
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: long
+          error: true
+        - java_method: getNumRows
+          go_name: GetNumRows
+          returns: int
+          error: true
+        - java_method: getShort
+          go_name: GetShort
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: short
+          error: true
+        - java_method: getStartPosition
+          go_name: GetStartPosition
+          returns: int
+          error: true
+        - java_method: getString
+          go_name: GetString
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: String
+          error: true
+        - java_method: getType
+          go_name: GetType
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: int
+          error: true
+        - java_method: isBlob
+          go_name: IsBlob
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: isFloat
+          go_name: IsFloat
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: isLong
+          go_name: IsLong
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: isNull
+          go_name: IsNull
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: isString
+          go_name: IsString
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: putBlob
+          go_name: PutBlob
+          params:
+            - java_type: '[B'
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: boolean
+          error: true
+        - java_method: putDouble
+          go_name: PutDouble
+          params:
+            - java_type: double
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: boolean
+          error: true
+        - java_method: putLong
+          go_name: PutLong
+          params:
+            - java_type: long
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: boolean
+          error: true
+        - java_method: putNull
+          go_name: PutNull
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: putString
+          go_name: PutString
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: boolean
+          error: true
+        - java_method: setNumColumns
+          go_name: SetNumColumns
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: setStartPosition
+          go_name: SetStartPosition
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+      static_methods:
+        - java_method: newFromParcel
+          go_name: NewFromParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+          returns: android.database.CursorWindow
+          error: true
+    - java_class: android.database.DataSetObservable
+      go_type: DataSetObservable
+      obtain: constructor
+      methods:
+        - java_method: notifyChanged
+          go_name: NotifyChanged
+          returns: void
+          error: true
+        - java_method: notifyInvalidated
+          go_name: NotifyInvalidated
+          returns: void
+          error: true
+    - java_class: android.database.MatrixCursor
+      go_type: MatrixCursor
+      obtain: constructor
+      constructor_params:
+        - java_type: java.lang.String[]
+          go_name: arg0
+      methods:
+        - java_method: addRow
+          go_name: AddRow
+          params:
+            - java_type: java.lang.Object[]
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getBlob
+          go_name: GetBlob
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: '[B'
+          error: true
+        - java_method: getColumnNames
+          go_name: GetColumnNames
+          returns: java.lang.String[]
+          error: true
+        - java_method: getCount
+          go_name: GetCount
+          returns: int
+          error: true
+        - java_method: getDouble
+          go_name: GetDouble
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: double
+          error: true
+        - java_method: getFloat
+          go_name: GetFloat
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: float
+          error: true
+        - java_method: getInt
+          go_name: GetInt
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getLong
+          go_name: GetLong
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: long
+          error: true
+        - java_method: getShort
+          go_name: GetShort
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: short
+          error: true
+        - java_method: getString
+          go_name: GetString
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: String
+          error: true
+        - java_method: getType
+          go_name: GetType
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: isNull
+          go_name: IsNull
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: newRow
+          go_name: NewRow
+          returns: android.database.MatrixCursor$RowBuilder
+          error: true
+    - java_class: android.database.MatrixCursor$RowBuilder
+      go_type: MatrixCursorRowBuilder
+      methods:
+        - java_method: add
+          go_name: Add1
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: android.database.MatrixCursor$RowBuilder
+          error: true
+        - java_method: add
+          go_name: Add2_1
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: java.lang.Object
+              go_name: arg1
+          returns: android.database.MatrixCursor$RowBuilder
+          error: true
+    - java_class: android.database.SQLException
+      go_type: SQLException
+      obtain: constructor
     - java_class: android.database.CrossProcessCursor
       go_type: CrossProcessCursor
       methods:
@@ -276,9 +1405,12 @@ classes:
           go_name: OnInvalidated
           returns: void
           error: true
-    - java_class: android.database.StaleDataException
-      go_type: StaleDataException
+    - java_class: android.database.CursorWindowAllocationException
+      go_type: CursorWindowAllocationException
       obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
     - java_class: android.database.DatabaseUtils
       go_type: Utils
       obtain: constructor
@@ -852,1139 +1984,379 @@ classes:
               go_name: arg0
           returns: long
           error: true
-    - java_class: android.database.CrossProcessCursorWrapper
-      go_type: CrossProcessCursorWrapper
-      obtain: constructor
-      constructor_params:
-        - java_type: android.database.Cursor
-          go_name: arg0
+abstract_callbacks:
+    - java_class: android.database.AbstractWindowedCursor
+      go_type: AbstractWindowedCursorCallback
       methods:
-        - java_method: fillWindow
-          go_name: FillWindow
+        - java_method: copyStringToBuffer
           params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.database.CursorWindow
-              go_name: arg1
+            - int
+            - android.database.CharArrayBuffer
           returns: void
-          error: true
-        - java_method: getWindow
-          go_name: GetWindow
-          returns: android.database.CursorWindow
-          error: true
-        - java_method: onMove
-          go_name: OnMove
+          go_field: CopyStringToBuffer
+        - java_method: getBlob
           params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
+            - int
+          returns: '[B'
+          go_field: GetBlob
+        - java_method: getDouble
+          params:
+            - int
+          returns: double
+          go_field: GetDouble
+        - java_method: getFloat
+          params:
+            - int
+          returns: float
+          go_field: GetFloat
+        - java_method: getInt
+          params:
+            - int
+          returns: int
+          go_field: GetInt
+        - java_method: getLong
+          params:
+            - int
+          returns: long
+          go_field: GetLong
+        - java_method: getShort
+          params:
+            - int
+          returns: short
+          go_field: GetShort
+        - java_method: getString
+          params:
+            - int
+          returns: String
+          go_field: GetString
+        - java_method: getType
+          params:
+            - int
+          returns: int
+          go_field: GetType
+        - java_method: getWindow
+          params: []
+          returns: android.database.CursorWindow
+          go_field: GetWindow
+        - java_method: hasWindow
+          params: []
           returns: boolean
-          error: true
+          go_field: HasWindow
+        - java_method: isBlob
+          params:
+            - int
+          returns: boolean
+          go_field: IsBlob
+        - java_method: isFloat
+          params:
+            - int
+          returns: boolean
+          go_field: IsFloat
+        - java_method: isLong
+          params:
+            - int
+          returns: boolean
+          go_field: IsLong
+        - java_method: isNull
+          params:
+            - int
+          returns: boolean
+          go_field: IsNull
+        - java_method: isString
+          params:
+            - int
+          returns: boolean
+          go_field: IsString
+        - java_method: setWindow
+          params:
+            - android.database.CursorWindow
+          returns: void
+          go_field: SetWindow
+    - java_class: android.database.AbstractCursor
+      go_type: AbstractCursorCallback
+      methods:
+        - java_method: close
+          params: []
+          returns: void
+          go_field: Close
+        - java_method: copyStringToBuffer
+          params:
+            - int
+            - android.database.CharArrayBuffer
+          returns: void
+          go_field: CopyStringToBuffer
+        - java_method: deactivate
+          params: []
+          returns: void
+          go_field: Deactivate
+        - java_method: fillWindow
+          params:
+            - int
+            - android.database.CursorWindow
+          returns: void
+          go_field: FillWindow
+        - java_method: getBlob
+          params:
+            - int
+          returns: '[B'
+          go_field: GetBlob
+        - java_method: getColumnCount
+          params: []
+          returns: int
+          go_field: GetColumnCount
+        - java_method: getColumnIndex
+          params:
+            - String
+          returns: int
+          go_field: GetColumnIndex
+        - java_method: getColumnIndexOrThrow
+          params:
+            - String
+          returns: int
+          go_field: GetColumnIndexOrThrow
+        - java_method: getColumnName
+          params:
+            - int
+          returns: String
+          go_field: GetColumnName
+        - java_method: getColumnNames
+          params: []
+          returns: java.lang.String[]
+          go_field: GetColumnNames
+        - java_method: getCount
+          params: []
+          returns: int
+          go_field: GetCount
+        - java_method: getDouble
+          params:
+            - int
+          returns: double
+          go_field: GetDouble
+        - java_method: getExtras
+          params: []
+          returns: android.os.Bundle
+          go_field: GetExtras
+        - java_method: getFloat
+          params:
+            - int
+          returns: float
+          go_field: GetFloat
+        - java_method: getInt
+          params:
+            - int
+          returns: int
+          go_field: GetInt
+        - java_method: getLong
+          params:
+            - int
+          returns: long
+          go_field: GetLong
+        - java_method: getNotificationUri
+          params: []
+          returns: android.net.Uri
+          go_field: GetNotificationUri
+        - java_method: getNotificationUris
+          params: []
+          returns: java.util.List<android.net.Uri>
+          go_field: GetNotificationUris
+        - java_method: getPosition
+          params: []
+          returns: int
+          go_field: GetPosition
+        - java_method: getShort
+          params:
+            - int
+          returns: short
+          go_field: GetShort
+        - java_method: getString
+          params:
+            - int
+          returns: String
+          go_field: GetString
+        - java_method: getType
+          params:
+            - int
+          returns: int
+          go_field: GetType
+        - java_method: getWantsAllOnMoveCalls
+          params: []
+          returns: boolean
+          go_field: GetWantsAllOnMoveCalls
+        - java_method: getWindow
+          params: []
+          returns: android.database.CursorWindow
+          go_field: GetWindow
+        - java_method: isAfterLast
+          params: []
+          returns: boolean
+          go_field: IsAfterLast
+        - java_method: isBeforeFirst
+          params: []
+          returns: boolean
+          go_field: IsBeforeFirst
+        - java_method: isClosed
+          params: []
+          returns: boolean
+          go_field: IsClosed
+        - java_method: isFirst
+          params: []
+          returns: boolean
+          go_field: IsFirst
+        - java_method: isLast
+          params: []
+          returns: boolean
+          go_field: IsLast
+        - java_method: isNull
+          params:
+            - int
+          returns: boolean
+          go_field: IsNull
+        - java_method: move
+          params:
+            - int
+          returns: boolean
+          go_field: Move
+        - java_method: moveToFirst
+          params: []
+          returns: boolean
+          go_field: MoveToFirst
+        - java_method: moveToLast
+          params: []
+          returns: boolean
+          go_field: MoveToLast
+        - java_method: moveToNext
+          params: []
+          returns: boolean
+          go_field: MoveToNext
+        - java_method: moveToPosition
+          params:
+            - int
+          returns: boolean
+          go_field: MoveToPosition
+        - java_method: moveToPrevious
+          params: []
+          returns: boolean
+          go_field: MoveToPrevious
+        - java_method: onMove
+          params:
+            - int
+            - int
+          returns: boolean
+          go_field: OnMove
+        - java_method: registerContentObserver
+          params:
+            - android.database.ContentObserver
+          returns: void
+          go_field: RegisterContentObserver
+        - java_method: registerDataSetObserver
+          params:
+            - android.database.DataSetObserver
+          returns: void
+          go_field: RegisterDataSetObserver
+        - java_method: requery
+          params: []
+          returns: boolean
+          go_field: Requery
+        - java_method: respond
+          params:
+            - android.os.Bundle
+          returns: android.os.Bundle
+          go_field: Respond
+        - java_method: setExtras
+          params:
+            - android.os.Bundle
+          returns: void
+          go_field: SetExtras
+        - java_method: setNotificationUri
+          params:
+            - android.content.ContentResolver
+            - android.net.Uri
+          returns: void
+          go_field: SetNotificationUri
+        - java_method: unregisterContentObserver
+          params:
+            - android.database.ContentObserver
+          returns: void
+          go_field: UnregisterContentObserver
+        - java_method: unregisterDataSetObserver
+          params:
+            - android.database.DataSetObserver
+          returns: void
+          go_field: UnregisterDataSetObserver
     - java_class: android.database.ContentObserver
-      go_type: ContentObserver
+      go_type: ContentObserverCallback
       methods:
         - java_method: deliverSelfNotifications
-          go_name: DeliverSelfNotifications
+          params: []
           returns: boolean
-          error: true
+          go_field: DeliverSelfNotifications
         - java_method: dispatchChange
-          go_name: DispatchChange1
           params:
-            - java_type: boolean
-              go_name: arg0
+            - boolean
           returns: void
-          error: true
+          go_field: DispatchChange
         - java_method: dispatchChange
-          go_name: DispatchChange2_1
           params:
-            - java_type: boolean
-              go_name: arg0
-            - java_type: android.net.Uri
-              go_name: arg1
+            - boolean
+            - android.net.Uri
           returns: void
-          error: true
+          go_field: DispatchChange
         - java_method: dispatchChange
-          go_name: DispatchChange3_2
           params:
-            - java_type: boolean
-              go_name: arg0
-            - java_type: android.net.Uri
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
+            - boolean
+            - android.net.Uri
+            - int
           returns: void
-          error: true
+          go_field: DispatchChange
         - java_method: onChange
-          go_name: OnChange1
           params:
-            - java_type: boolean
-              go_name: arg0
+            - boolean
           returns: void
-          error: true
+          go_field: OnChange
         - java_method: onChange
-          go_name: OnChange2_1
           params:
-            - java_type: boolean
-              go_name: arg0
-            - java_type: android.net.Uri
-              go_name: arg1
+            - boolean
+            - android.net.Uri
           returns: void
-          error: true
+          go_field: OnChange
         - java_method: onChange
-          go_name: OnChange3_2
           params:
-            - java_type: boolean
-              go_name: arg0
-            - java_type: android.net.Uri
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
+            - boolean
+            - android.net.Uri
+            - int
           returns: void
-          error: true
-    - java_class: android.database.DefaultDatabaseErrorHandler
-      go_type: DefaultDatabaseErrorHandler
-      obtain: constructor
-      methods:
-        - java_method: onCorruption
-          go_name: OnCorruption
-          params:
-            - java_type: android.database.sqlite.SQLiteDatabase
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.database.ContentObservable
-      go_type: ContentObservable
-      obtain: constructor
-      methods:
-        - java_method: dispatchChange
-          go_name: DispatchChange1
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: dispatchChange
-          go_name: DispatchChange2_1
-          params:
-            - java_type: boolean
-              go_name: arg0
-            - java_type: android.net.Uri
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: notifyChange
-          go_name: NotifyChange
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: registerObserver
-          go_name: RegisterObserver1
-          params:
-            - java_type: android.database.ContentObserver
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: registerObserver
-          go_name: RegisterObserver1_1
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.database.CursorWindow
-      go_type: CursorWindow
-      obtain: constructor
-      constructor_params:
-        - java_type: boolean
-          go_name: arg0
-      methods:
-        - java_method: allocRow
-          go_name: AllocRow
-          returns: boolean
-          error: true
-        - java_method: clear
-          go_name: Clear
-          returns: void
-          error: true
-        - java_method: copyStringToBuffer
-          go_name: CopyStringToBuffer
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: android.database.CharArrayBuffer
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: freeLastRow
-          go_name: FreeLastRow
-          returns: void
-          error: true
-        - java_method: getBlob
-          go_name: GetBlob
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: '[B'
-          error: true
-        - java_method: getDouble
-          go_name: GetDouble
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: double
-          error: true
-        - java_method: getFloat
-          go_name: GetFloat
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: float
-          error: true
-        - java_method: getInt
-          go_name: GetInt
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: int
-          error: true
-        - java_method: getLong
-          go_name: GetLong
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: long
-          error: true
-        - java_method: getNumRows
-          go_name: GetNumRows
-          returns: int
-          error: true
-        - java_method: getShort
-          go_name: GetShort
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: short
-          error: true
-        - java_method: getStartPosition
-          go_name: GetStartPosition
-          returns: int
-          error: true
-        - java_method: getString
-          go_name: GetString
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: String
-          error: true
-        - java_method: getType
-          go_name: GetType
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: int
-          error: true
-        - java_method: isBlob
-          go_name: IsBlob
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: isFloat
-          go_name: IsFloat
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: isLong
-          go_name: IsLong
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: isNull
-          go_name: IsNull
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: isString
-          go_name: IsString
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: putBlob
-          go_name: PutBlob
-          params:
-            - java_type: '[B'
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: boolean
-          error: true
-        - java_method: putDouble
-          go_name: PutDouble
-          params:
-            - java_type: double
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: boolean
-          error: true
-        - java_method: putLong
-          go_name: PutLong
-          params:
-            - java_type: long
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: boolean
-          error: true
-        - java_method: putNull
-          go_name: PutNull
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: putString
-          go_name: PutString
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: boolean
-          error: true
-        - java_method: setNumColumns
-          go_name: SetNumColumns
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: setStartPosition
-          go_name: SetStartPosition
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-      static_methods:
-        - java_method: newFromParcel
-          go_name: NewFromParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-          returns: android.database.CursorWindow
-          error: true
-    - java_class: android.database.DatabaseErrorHandler
-      go_type: ErrorHandler
-      methods:
-        - java_method: onCorruption
-          go_name: OnCorruption
-          params:
-            - java_type: android.database.sqlite.SQLiteDatabase
-              go_name: arg0
-          returns: void
-          error: true
+          go_field: OnChange
     - java_class: android.database.Observable
-      go_type: Observable
+      go_type: ObservableCallback
       methods:
         - java_method: unregisterAll
-          go_name: UnregisterAll
+          params: []
           returns: void
-          error: true
-    - java_class: android.database.MergeCursor
-      go_type: MergeCursor
-      obtain: constructor
-      constructor_params:
-        - java_type: android.database.Cursor[]
-          go_name: arg0
+          go_field: UnregisterAll
+    - java_class: android.database.DataSetObserver
+      go_type: DataSetObserverCallback
       methods:
-        - java_method: close
-          go_name: Close
+        - java_method: onChanged
+          params: []
           returns: void
-          error: true
-        - java_method: deactivate
-          go_name: Deactivate
+          go_field: OnChanged
+        - java_method: onInvalidated
+          params: []
           returns: void
-          error: true
-        - java_method: getBlob
-          go_name: GetBlob
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: '[B'
-          error: true
-        - java_method: getColumnNames
-          go_name: GetColumnNames
-          returns: java.lang.String[]
-          error: true
-        - java_method: getCount
-          go_name: GetCount
-          returns: int
-          error: true
-        - java_method: getDouble
-          go_name: GetDouble
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: double
-          error: true
-        - java_method: getFloat
-          go_name: GetFloat
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: float
-          error: true
-        - java_method: getInt
-          go_name: GetInt
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getLong
-          go_name: GetLong
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: long
-          error: true
-        - java_method: getShort
-          go_name: GetShort
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: short
-          error: true
-        - java_method: getString
-          go_name: GetString
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: String
-          error: true
-        - java_method: getType
-          go_name: GetType
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: isNull
-          go_name: IsNull
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: onMove
-          go_name: OnMove
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: registerContentObserver
-          go_name: RegisterContentObserver
-          params:
-            - java_type: android.database.ContentObserver
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: registerDataSetObserver
-          go_name: RegisterDataSetObserver
-          params:
-            - java_type: android.database.DataSetObserver
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: requery
-          go_name: Requery
-          returns: boolean
-          error: true
-        - java_method: unregisterContentObserver
-          go_name: UnregisterContentObserver
-          params:
-            - java_type: android.database.ContentObserver
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: unregisterDataSetObserver
-          go_name: UnregisterDataSetObserver
-          params:
-            - java_type: android.database.DataSetObserver
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.database.AbstractCursor
-      go_type: AbstractCursor
-      methods:
-        - java_method: close
-          go_name: Close
-          returns: void
-          error: true
-        - java_method: copyStringToBuffer
-          go_name: CopyStringToBuffer
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.database.CharArrayBuffer
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: deactivate
-          go_name: Deactivate
-          returns: void
-          error: true
-        - java_method: fillWindow
-          go_name: FillWindow
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.database.CursorWindow
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: getBlob
-          go_name: GetBlob
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: '[B'
-          error: true
-        - java_method: getColumnCount
-          go_name: GetColumnCount
-          returns: int
-          error: true
-        - java_method: getColumnIndex
-          go_name: GetColumnIndex
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getColumnIndexOrThrow
-          go_name: GetColumnIndexOrThrow
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getColumnName
-          go_name: GetColumnName
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: String
-          error: true
-        - java_method: getColumnNames
-          go_name: GetColumnNames
-          returns: java.lang.String[]
-          error: true
-        - java_method: getCount
-          go_name: GetCount
-          returns: int
-          error: true
-        - java_method: getDouble
-          go_name: GetDouble
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: double
-          error: true
-        - java_method: getExtras
-          go_name: GetExtras
-          returns: android.os.Bundle
-          error: true
-        - java_method: getFloat
-          go_name: GetFloat
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: float
-          error: true
-        - java_method: getInt
-          go_name: GetInt
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getLong
-          go_name: GetLong
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: long
-          error: true
-        - java_method: getNotificationUri
-          go_name: GetNotificationUri
-          returns: android.net.Uri
-          error: true
-        - java_method: getNotificationUris
-          go_name: GetNotificationUris
-          returns: java.util.List<android.net.Uri>
-          error: true
-        - java_method: getPosition
-          go_name: GetPosition
-          returns: int
-          error: true
-        - java_method: getShort
-          go_name: GetShort
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: short
-          error: true
-        - java_method: getString
-          go_name: GetString
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: String
-          error: true
-        - java_method: getType
-          go_name: GetType
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getWantsAllOnMoveCalls
-          go_name: GetWantsAllOnMoveCalls
-          returns: boolean
-          error: true
-        - java_method: getWindow
-          go_name: GetWindow
-          returns: android.database.CursorWindow
-          error: true
-        - java_method: isAfterLast
-          go_name: IsAfterLast
-          returns: boolean
-          error: true
-        - java_method: isBeforeFirst
-          go_name: IsBeforeFirst
-          returns: boolean
-          error: true
-        - java_method: isClosed
-          go_name: IsClosed
-          returns: boolean
-          error: true
-        - java_method: isFirst
-          go_name: IsFirst
-          returns: boolean
-          error: true
-        - java_method: isLast
-          go_name: IsLast
-          returns: boolean
-          error: true
-        - java_method: isNull
-          go_name: IsNull
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: move
-          go_name: Move
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: moveToFirst
-          go_name: MoveToFirst
-          returns: boolean
-          error: true
-        - java_method: moveToLast
-          go_name: MoveToLast
-          returns: boolean
-          error: true
-        - java_method: moveToNext
-          go_name: MoveToNext
-          returns: boolean
-          error: true
-        - java_method: moveToPosition
-          go_name: MoveToPosition
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: moveToPrevious
-          go_name: MoveToPrevious
-          returns: boolean
-          error: true
-        - java_method: onMove
-          go_name: OnMove
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: registerContentObserver
-          go_name: RegisterContentObserver
-          params:
-            - java_type: android.database.ContentObserver
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: registerDataSetObserver
-          go_name: RegisterDataSetObserver
-          params:
-            - java_type: android.database.DataSetObserver
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: requery
-          go_name: Requery
-          returns: boolean
-          error: true
-        - java_method: respond
-          go_name: Respond
-          params:
-            - java_type: android.os.Bundle
-              go_name: arg0
-          returns: android.os.Bundle
-          error: true
-        - java_method: setExtras
-          go_name: SetExtras
-          params:
-            - java_type: android.os.Bundle
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setNotificationUri
-          go_name: SetNotificationUri
-          params:
-            - java_type: android.content.ContentResolver
-              go_name: arg0
-            - java_type: android.net.Uri
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: unregisterContentObserver
-          go_name: UnregisterContentObserver
-          params:
-            - java_type: android.database.ContentObserver
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: unregisterDataSetObserver
-          go_name: UnregisterDataSetObserver
-          params:
-            - java_type: android.database.DataSetObserver
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.database.AbstractCursor$SelfContentObserver
-      go_type: AbstractCursorSelfContentObserver
-      methods:
-        - java_method: deliverSelfNotifications
-          go_name: DeliverSelfNotifications
-          returns: boolean
-          error: true
-        - java_method: onChange
-          go_name: OnChange
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.database.CursorJoiner
-      go_type: CursorJoiner
-      obtain: constructor
-      constructor_params:
-        - java_type: android.database.Cursor
-          go_name: arg0
-        - java_type: java.lang.String[]
-          go_name: arg1
-        - java_type: android.database.Cursor
-          go_name: arg2
-        - java_type: java.lang.String[]
-          go_name: arg3
-      methods:
-        - java_method: hasNext
-          go_name: HasNext
-          returns: boolean
-          error: true
-        - java_method: iterator
-          go_name: Iterator
-          returns: java.util.Iterator<android.database.CursorJoiner$Result>
-          error: true
-        - java_method: next
-          go_name: Next0
-          returns: android.database.CursorJoiner$Result
-          error: true
-        - java_method: remove
-          go_name: Remove
-          returns: void
-          error: true
-        - java_method: next
-          go_name: Next0_1
-          returns: java.lang.Object
-          error: true
-    - java_class: android.database.CursorJoiner$Result
-      go_type: CursorJoinerResult
-      static_methods:
-        - java_method: values
-          go_name: Values
-          returns: android.database.CursorJoiner$Result[]
-          error: true
-        - java_method: valueOf
-          go_name: ValueOf
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.database.CursorJoiner$Result
-          error: true
-    - java_class: android.database.CursorWindowAllocationException
-      go_type: CursorWindowAllocationException
-      obtain: constructor
-      constructor_params:
-        - java_type: String
-          go_name: arg0
-    - java_class: android.database.CursorWrapper
-      go_type: CursorWrapper
-      obtain: constructor
-      constructor_params:
-        - java_type: android.database.Cursor
-          go_name: arg0
-      methods:
-        - java_method: close
-          go_name: Close
-          returns: void
-          error: true
-        - java_method: copyStringToBuffer
-          go_name: CopyStringToBuffer
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.database.CharArrayBuffer
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: deactivate
-          go_name: Deactivate
-          returns: void
-          error: true
-        - java_method: getBlob
-          go_name: GetBlob
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: '[B'
-          error: true
-        - java_method: getColumnCount
-          go_name: GetColumnCount
-          returns: int
-          error: true
-        - java_method: getColumnIndex
-          go_name: GetColumnIndex
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getColumnIndexOrThrow
-          go_name: GetColumnIndexOrThrow
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getColumnName
-          go_name: GetColumnName
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: String
-          error: true
-        - java_method: getColumnNames
-          go_name: GetColumnNames
-          returns: java.lang.String[]
-          error: true
-        - java_method: getCount
-          go_name: GetCount
-          returns: int
-          error: true
-        - java_method: getDouble
-          go_name: GetDouble
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: double
-          error: true
-        - java_method: getExtras
-          go_name: GetExtras
-          returns: android.os.Bundle
-          error: true
-        - java_method: getFloat
-          go_name: GetFloat
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: float
-          error: true
-        - java_method: getInt
-          go_name: GetInt
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getLong
-          go_name: GetLong
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: long
-          error: true
-        - java_method: getNotificationUri
-          go_name: GetNotificationUri
-          returns: android.net.Uri
-          error: true
-        - java_method: getNotificationUris
-          go_name: GetNotificationUris
-          returns: java.util.List<android.net.Uri>
-          error: true
-        - java_method: getPosition
-          go_name: GetPosition
-          returns: int
-          error: true
-        - java_method: getShort
-          go_name: GetShort
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: short
-          error: true
-        - java_method: getString
-          go_name: GetString
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: String
-          error: true
-        - java_method: getType
-          go_name: GetType
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getWantsAllOnMoveCalls
-          go_name: GetWantsAllOnMoveCalls
-          returns: boolean
-          error: true
-        - java_method: getWrappedCursor
-          go_name: GetWrappedCursor
-          returns: android.database.Cursor
-          error: true
-        - java_method: isAfterLast
-          go_name: IsAfterLast
-          returns: boolean
-          error: true
-        - java_method: isBeforeFirst
-          go_name: IsBeforeFirst
-          returns: boolean
-          error: true
-        - java_method: isClosed
-          go_name: IsClosed
-          returns: boolean
-          error: true
-        - java_method: isFirst
-          go_name: IsFirst
-          returns: boolean
-          error: true
-        - java_method: isLast
-          go_name: IsLast
-          returns: boolean
-          error: true
-        - java_method: isNull
-          go_name: IsNull
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: move
-          go_name: Move
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: moveToFirst
-          go_name: MoveToFirst
-          returns: boolean
-          error: true
-        - java_method: moveToLast
-          go_name: MoveToLast
-          returns: boolean
-          error: true
-        - java_method: moveToNext
-          go_name: MoveToNext
-          returns: boolean
-          error: true
-        - java_method: moveToPosition
-          go_name: MoveToPosition
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: moveToPrevious
-          go_name: MoveToPrevious
-          returns: boolean
-          error: true
-        - java_method: registerContentObserver
-          go_name: RegisterContentObserver
-          params:
-            - java_type: android.database.ContentObserver
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: registerDataSetObserver
-          go_name: RegisterDataSetObserver
-          params:
-            - java_type: android.database.DataSetObserver
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: requery
-          go_name: Requery
-          returns: boolean
-          error: true
-        - java_method: respond
-          go_name: Respond
-          params:
-            - java_type: android.os.Bundle
-              go_name: arg0
-          returns: android.os.Bundle
-          error: true
-        - java_method: setExtras
-          go_name: SetExtras
-          params:
-            - java_type: android.os.Bundle
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setNotificationUri
-          go_name: SetNotificationUri
-          params:
-            - java_type: android.content.ContentResolver
-              go_name: arg0
-            - java_type: android.net.Uri
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: unregisterContentObserver
-          go_name: UnregisterContentObserver
-          params:
-            - java_type: android.database.ContentObserver
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: unregisterDataSetObserver
-          go_name: UnregisterDataSetObserver
-          params:
-            - java_type: android.database.DataSetObserver
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.database.DataSetObservable
-      go_type: DataSetObservable
-      obtain: constructor
-      methods:
-        - java_method: notifyChanged
-          go_name: NotifyChanged
-          returns: void
-          error: true
-        - java_method: notifyInvalidated
-          go_name: NotifyInvalidated
-          returns: void
-          error: true
-    - java_class: android.database.CursorIndexOutOfBoundsException
-      go_type: CursorIndexOutOfBoundsException
-      obtain: constructor
-      constructor_params:
-        - java_type: int
-          go_name: arg0
-        - java_type: int
-          go_name: arg1
+          go_field: OnInvalidated
 constants:
+    - go_name: Both
+      value: "0"
+      go_type: int
+    - go_name: Left
+      value: "0"
+      go_type: int
+    - go_name: Right
+      value: "0"
+      go_type: int
+    - go_name: Creator
+      value: "0"
+      go_type: int
     - go_name: StatementAbort
       value: "6"
       go_type: int
@@ -2014,16 +2386,4 @@ constants:
       go_type: int
     - go_name: StatementUpdate
       value: "2"
-      go_type: int
-    - go_name: Creator
-      value: "0"
-      go_type: int
-    - go_name: Both
-      value: "0"
-      go_type: int
-    - go_name: Left
-      value: "0"
-      go_type: int
-    - go_name: Right
-      value: "0"
       go_type: int

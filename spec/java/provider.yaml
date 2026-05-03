@@ -5,279 +5,6 @@
 package: provider
 go_import: github.com/AndroidGoLab/jni/provider
 classes:
-    - java_class: android.provider.BlockedNumberContract
-      go_type: BlockedNumberContract
-      static_methods:
-        - java_method: canCurrentUserBlockNumbers
-          go_name: CanCurrentUserBlockNumbers
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: isBlocked
-          go_name: IsBlocked
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: unblock
-          go_name: Unblock
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-          returns: int
-          error: true
-    - java_class: android.provider.BlockedNumberContract$BlockedNumbers
-      go_type: BlockedNumberContractBlockedNumbers
-    - java_class: android.provider.Contacts
-      go_type: Contacts
-    - java_class: android.provider.Contacts$ContactMethods
-      go_type: ContactsContactMethods
-      methods:
-        - java_method: addPostalLocation
-          go_name: AddPostalLocation
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: long
-              go_name: arg1
-            - java_type: double
-              go_name: arg2
-            - java_type: double
-              go_name: arg3
-          returns: void
-          error: true
-      static_methods:
-        - java_method: decodeImProtocol
-          go_name: DecodeImProtocol
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: java.lang.Object
-          error: true
-        - java_method: encodeCustomImProtocol
-          go_name: EncodeCustomImProtocol
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: String
-          error: true
-        - java_method: encodePredefinedImProtocol
-          go_name: EncodePredefinedImProtocol
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: String
-          error: true
-        - java_method: getDisplayLabel
-          go_name: GetDisplayLabel
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: java.lang.CharSequence
-              go_name: arg3
-          returns: java.lang.CharSequence
-          error: true
-    - java_class: android.provider.Contacts$ContactMethodsColumns
-      go_type: ContactsContactMethodsColumns
-    - java_class: android.provider.Contacts$Extensions
-      go_type: ContactsExtensions
-    - java_class: android.provider.Contacts$ExtensionsColumns
-      go_type: ContactsExtensionsColumns
-    - java_class: android.provider.Contacts$GroupMembership
-      go_type: ContactsGroupMembership
-    - java_class: android.provider.Contacts$Groups
-      go_type: ContactsGroups
-    - java_class: android.provider.Contacts$GroupsColumns
-      go_type: ContactsGroupsColumns
-    - java_class: android.provider.Contacts$Intents
-      go_type: ContactsIntents
-    - java_class: android.provider.Contacts$OrganizationColumns
-      go_type: ContactsOrganizationColumns
-    - java_class: android.provider.Contacts$Organizations
-      go_type: ContactsOrganizations
-      static_methods:
-        - java_method: getDisplayLabel
-          go_name: GetDisplayLabel
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: java.lang.CharSequence
-              go_name: arg2
-          returns: java.lang.CharSequence
-          error: true
-    - java_class: android.provider.Contacts$People
-      go_type: ContactsPeople
-      static_methods:
-        - java_method: addToGroup
-          go_name: AddToGroup3
-          params:
-            - java_type: android.content.ContentResolver
-              go_name: arg0
-            - java_type: long
-              go_name: arg1
-            - java_type: String
-              go_name: arg2
-          returns: android.net.Uri
-          error: true
-        - java_method: addToGroup
-          go_name: AddToGroup3_1
-          params:
-            - java_type: android.content.ContentResolver
-              go_name: arg0
-            - java_type: long
-              go_name: arg1
-            - java_type: long
-              go_name: arg2
-          returns: android.net.Uri
-          error: true
-        - java_method: addToMyContactsGroup
-          go_name: AddToMyContactsGroup
-          params:
-            - java_type: android.content.ContentResolver
-              go_name: arg0
-            - java_type: long
-              go_name: arg1
-          returns: android.net.Uri
-          error: true
-        - java_method: createPersonInMyContactsGroup
-          go_name: CreatePersonInMyContactsGroup
-          params:
-            - java_type: android.content.ContentResolver
-              go_name: arg0
-            - java_type: android.content.ContentValues
-              go_name: arg1
-          returns: android.net.Uri
-          error: true
-        - java_method: loadContactPhoto
-          go_name: LoadContactPhoto
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.net.Uri
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: android.graphics.BitmapFactory$Options
-              go_name: arg3
-          returns: android.graphics.Bitmap
-          error: true
-        - java_method: markAsContacted
-          go_name: MarkAsContacted
-          params:
-            - java_type: android.content.ContentResolver
-              go_name: arg0
-            - java_type: long
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: openContactPhotoInputStream
-          go_name: OpenContactPhotoInputStream
-          params:
-            - java_type: android.content.ContentResolver
-              go_name: arg0
-            - java_type: android.net.Uri
-              go_name: arg1
-          returns: java.io.InputStream
-          error: true
-        - java_method: queryGroups
-          go_name: QueryGroups
-          params:
-            - java_type: android.content.ContentResolver
-              go_name: arg0
-            - java_type: long
-              go_name: arg1
-          returns: android.database.Cursor
-          error: true
-        - java_method: setPhotoData
-          go_name: SetPhotoData
-          params:
-            - java_type: android.content.ContentResolver
-              go_name: arg0
-            - java_type: android.net.Uri
-              go_name: arg1
-            - java_type: '[B'
-              go_name: arg2
-          returns: void
-          error: true
-    - java_class: android.provider.Contacts$PeopleColumns
-      go_type: ContactsPeopleColumns
-    - java_class: android.provider.Contacts$Phones
-      go_type: ContactsPhones
-      static_methods:
-        - java_method: getDisplayLabel
-          go_name: GetDisplayLabel3
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: java.lang.CharSequence
-              go_name: arg2
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: getDisplayLabel
-          go_name: GetDisplayLabel4_1
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: java.lang.CharSequence
-              go_name: arg2
-            - java_type: java.lang.CharSequence[]
-              go_name: arg3
-          returns: java.lang.CharSequence
-          error: true
-    - java_class: android.provider.Contacts$PhonesColumns
-      go_type: ContactsPhonesColumns
-    - java_class: android.provider.Contacts$Photos
-      go_type: ContactsPhotos
-    - java_class: android.provider.Contacts$PhotosColumns
-      go_type: ContactsPhotosColumns
-    - java_class: android.provider.Contacts$PresenceColumns
-      go_type: ContactsPresenceColumns
-    - java_class: android.provider.Contacts$Settings
-      go_type: ContactsSettings
-      static_methods:
-        - java_method: getSetting
-          go_name: GetSetting
-          params:
-            - java_type: android.content.ContentResolver
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-            - java_type: String
-              go_name: arg2
-          returns: String
-          error: true
-        - java_method: setSetting
-          go_name: SetSetting
-          params:
-            - java_type: android.content.ContentResolver
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-            - java_type: String
-              go_name: arg2
-            - java_type: String
-              go_name: arg3
-          returns: void
-          error: true
-    - java_class: android.provider.Contacts$SettingsColumns
-      go_type: ContactsSettingsColumns
     - java_class: android.provider.CallLog
       go_type: CallLog
       obtain: constructor
@@ -293,540 +20,6 @@ classes:
           error: true
     - java_class: android.provider.CallLog$Locations
       go_type: CallLogLocations
-    - java_class: android.provider.SyncStateContract
-      go_type: SyncStateContract
-      obtain: constructor
-    - java_class: android.provider.SyncStateContract$Columns
-      go_type: SyncStateContractColumns
-    - java_class: android.provider.SyncStateContract$Constants
-      go_type: SyncStateContractConstants
-    - java_class: android.provider.SyncStateContract$Helpers
-      go_type: SyncStateContractHelpers
-      static_methods:
-        - java_method: get
-          go_name: Get
-          params:
-            - java_type: android.content.ContentProviderClient
-              go_name: arg0
-            - java_type: android.net.Uri
-              go_name: arg1
-            - java_type: android.accounts.Account
-              go_name: arg2
-          returns: '[B'
-          error: true
-        - java_method: insert
-          go_name: Insert
-          params:
-            - java_type: android.content.ContentProviderClient
-              go_name: arg0
-            - java_type: android.net.Uri
-              go_name: arg1
-            - java_type: android.accounts.Account
-              go_name: arg2
-            - java_type: '[B'
-              go_name: arg3
-          returns: android.net.Uri
-          error: true
-        - java_method: newSetOperation
-          go_name: NewSetOperation
-          params:
-            - java_type: android.net.Uri
-              go_name: arg0
-            - java_type: android.accounts.Account
-              go_name: arg1
-            - java_type: '[B'
-              go_name: arg2
-          returns: android.content.ContentProviderOperation
-          error: true
-        - java_method: newUpdateOperation
-          go_name: NewUpdateOperation
-          params:
-            - java_type: android.net.Uri
-              go_name: arg0
-            - java_type: '[B'
-              go_name: arg1
-          returns: android.content.ContentProviderOperation
-          error: true
-        - java_method: set
-          go_name: Set
-          params:
-            - java_type: android.content.ContentProviderClient
-              go_name: arg0
-            - java_type: android.net.Uri
-              go_name: arg1
-            - java_type: android.accounts.Account
-              go_name: arg2
-            - java_type: '[B'
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: update
-          go_name: Update
-          params:
-            - java_type: android.content.ContentProviderClient
-              go_name: arg0
-            - java_type: android.net.Uri
-              go_name: arg1
-            - java_type: '[B'
-              go_name: arg2
-          returns: void
-          error: true
-    - java_class: android.provider.CloudMediaProvider
-      go_type: CloudMediaProvider
-      methods:
-        - java_method: attachInfo
-          go_name: AttachInfo
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.content.pm.ProviderInfo
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: call
-          go_name: Call
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-            - java_type: android.os.Bundle
-              go_name: arg2
-          returns: android.os.Bundle
-          error: true
-        - java_method: canonicalize
-          go_name: Canonicalize
-          params:
-            - java_type: android.net.Uri
-              go_name: arg0
-          returns: android.net.Uri
-          error: true
-        - java_method: delete
-          go_name: Delete
-          params:
-            - java_type: android.net.Uri
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-            - java_type: java.lang.String[]
-              go_name: arg2
-          returns: int
-          error: true
-        - java_method: getType
-          go_name: GetType
-          params:
-            - java_type: android.net.Uri
-              go_name: arg0
-          returns: String
-          error: true
-        - java_method: insert
-          go_name: Insert
-          params:
-            - java_type: android.net.Uri
-              go_name: arg0
-            - java_type: android.content.ContentValues
-              go_name: arg1
-          returns: android.net.Uri
-          error: true
-        - java_method: onCreateCloudMediaSurfaceController
-          go_name: OnCreateCloudMediaSurfaceController
-          params:
-            - java_type: android.os.Bundle
-              go_name: arg0
-            - java_type: android.provider.CloudMediaProvider$CloudMediaSurfaceStateChangedCallback
-              go_name: arg1
-          returns: android.provider.CloudMediaProvider$CloudMediaSurfaceController
-          error: true
-        - java_method: onGetCapabilities
-          go_name: OnGetCapabilities
-          returns: android.provider.CloudMediaProviderContract$Capabilities
-          error: true
-        - java_method: onGetMediaCollectionInfo
-          go_name: OnGetMediaCollectionInfo
-          params:
-            - java_type: android.os.Bundle
-              go_name: arg0
-          returns: android.os.Bundle
-          error: true
-        - java_method: onOpenMedia
-          go_name: OnOpenMedia
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: android.os.Bundle
-              go_name: arg1
-            - java_type: android.os.CancellationSignal
-              go_name: arg2
-          returns: android.os.ParcelFileDescriptor
-          error: true
-        - java_method: onOpenPreview
-          go_name: OnOpenPreview
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: android.graphics.Point
-              go_name: arg1
-            - java_type: android.os.Bundle
-              go_name: arg2
-            - java_type: android.os.CancellationSignal
-              go_name: arg3
-          returns: android.content.res.AssetFileDescriptor
-          error: true
-        - java_method: onQueryAlbums
-          go_name: OnQueryAlbums
-          params:
-            - java_type: android.os.Bundle
-              go_name: arg0
-          returns: android.database.Cursor
-          error: true
-        - java_method: onQueryDeletedMedia
-          go_name: OnQueryDeletedMedia
-          params:
-            - java_type: android.os.Bundle
-              go_name: arg0
-          returns: android.database.Cursor
-          error: true
-        - java_method: onQueryMedia
-          go_name: OnQueryMedia
-          params:
-            - java_type: android.os.Bundle
-              go_name: arg0
-          returns: android.database.Cursor
-          error: true
-        - java_method: onQueryMediaCategories
-          go_name: OnQueryMediaCategories
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: android.os.Bundle
-              go_name: arg1
-            - java_type: android.os.CancellationSignal
-              go_name: arg2
-          returns: android.database.Cursor
-          error: true
-        - java_method: onQueryMediaInMediaSet
-          go_name: OnQueryMediaInMediaSet
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: android.os.Bundle
-              go_name: arg1
-            - java_type: android.os.CancellationSignal
-              go_name: arg2
-          returns: android.database.Cursor
-          error: true
-        - java_method: onQueryMediaSets
-          go_name: OnQueryMediaSets
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: android.os.Bundle
-              go_name: arg1
-            - java_type: android.os.CancellationSignal
-              go_name: arg2
-          returns: android.database.Cursor
-          error: true
-        - java_method: onQuerySearchSuggestions
-          go_name: OnQuerySearchSuggestions
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: android.os.Bundle
-              go_name: arg1
-            - java_type: android.os.CancellationSignal
-              go_name: arg2
-          returns: android.database.Cursor
-          error: true
-        - java_method: onSearchMedia
-          go_name: OnSearchMedia3
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: android.os.Bundle
-              go_name: arg1
-            - java_type: android.os.CancellationSignal
-              go_name: arg2
-          returns: android.database.Cursor
-          error: true
-        - java_method: onSearchMedia
-          go_name: OnSearchMedia4_1
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-            - java_type: android.os.Bundle
-              go_name: arg2
-            - java_type: android.os.CancellationSignal
-              go_name: arg3
-          returns: android.database.Cursor
-          error: true
-        - java_method: openFile
-          go_name: OpenFile2
-          params:
-            - java_type: android.net.Uri
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-          returns: android.os.ParcelFileDescriptor
-          error: true
-        - java_method: openFile
-          go_name: OpenFile3_1
-          params:
-            - java_type: android.net.Uri
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-            - java_type: android.os.CancellationSignal
-              go_name: arg2
-          returns: android.os.ParcelFileDescriptor
-          error: true
-        - java_method: openTypedAssetFile
-          go_name: OpenTypedAssetFile3
-          params:
-            - java_type: android.net.Uri
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-            - java_type: android.os.Bundle
-              go_name: arg2
-          returns: android.content.res.AssetFileDescriptor
-          error: true
-        - java_method: openTypedAssetFile
-          go_name: OpenTypedAssetFile4_1
-          params:
-            - java_type: android.net.Uri
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-            - java_type: android.os.Bundle
-              go_name: arg2
-            - java_type: android.os.CancellationSignal
-              go_name: arg3
-          returns: android.content.res.AssetFileDescriptor
-          error: true
-        - java_method: query
-          go_name: Query4
-          params:
-            - java_type: android.net.Uri
-              go_name: arg0
-            - java_type: java.lang.String[]
-              go_name: arg1
-            - java_type: android.os.Bundle
-              go_name: arg2
-            - java_type: android.os.CancellationSignal
-              go_name: arg3
-          returns: android.database.Cursor
-          error: true
-        - java_method: query
-          go_name: Query5_1
-          params:
-            - java_type: android.net.Uri
-              go_name: arg0
-            - java_type: java.lang.String[]
-              go_name: arg1
-            - java_type: String
-              go_name: arg2
-            - java_type: java.lang.String[]
-              go_name: arg3
-            - java_type: String
-              go_name: arg4
-          returns: android.database.Cursor
-          error: true
-        - java_method: query
-          go_name: Query6_2
-          params:
-            - java_type: android.net.Uri
-              go_name: arg0
-            - java_type: java.lang.String[]
-              go_name: arg1
-            - java_type: String
-              go_name: arg2
-            - java_type: java.lang.String[]
-              go_name: arg3
-            - java_type: String
-              go_name: arg4
-            - java_type: android.os.CancellationSignal
-              go_name: arg5
-          returns: android.database.Cursor
-          error: true
-        - java_method: update
-          go_name: Update
-          params:
-            - java_type: android.net.Uri
-              go_name: arg0
-            - java_type: android.content.ContentValues
-              go_name: arg1
-            - java_type: String
-              go_name: arg2
-            - java_type: java.lang.String[]
-              go_name: arg3
-          returns: int
-          error: true
-    - java_class: android.provider.CloudMediaProvider$CloudMediaSurfaceController
-      go_type: CloudMediaProviderCloudMediaSurfaceController
-      methods:
-        - java_method: onConfigChange
-          go_name: OnConfigChange
-          params:
-            - java_type: android.os.Bundle
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onDestroy
-          go_name: OnDestroy
-          returns: void
-          error: true
-        - java_method: onMediaPause
-          go_name: OnMediaPause
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onMediaPlay
-          go_name: OnMediaPlay
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onMediaSeekTo
-          go_name: OnMediaSeekTo
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: long
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onPlayerCreate
-          go_name: OnPlayerCreate
-          returns: void
-          error: true
-        - java_method: onPlayerRelease
-          go_name: OnPlayerRelease
-          returns: void
-          error: true
-        - java_method: onSurfaceChanged
-          go_name: OnSurfaceChanged
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: onSurfaceCreated
-          go_name: OnSurfaceCreated
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.view.Surface
-              go_name: arg1
-            - java_type: String
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: onSurfaceDestroyed
-          go_name: OnSurfaceDestroyed
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.provider.CloudMediaProvider$CloudMediaSurfaceStateChangedCallback
-      go_type: CloudMediaProviderCloudMediaSurfaceStateChangedCallback
-      methods:
-        - java_method: setPlaybackState
-          go_name: SetPlaybackState
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: android.os.Bundle
-              go_name: arg2
-          returns: void
-          error: true
-    - java_class: android.provider.Telephony
-      go_type: Telephony
-    - java_class: android.provider.Telephony$BaseMmsColumns
-      go_type: TelephonyBaseMmsColumns
-    - java_class: android.provider.Telephony$CanonicalAddressesColumns
-      go_type: TelephonyCanonicalAddressesColumns
-    - java_class: android.provider.Telephony$CarrierId
-      go_type: TelephonyCarrierId
-      static_methods:
-        - java_method: getSpecificCarrierIdUriForSubscriptionId
-          go_name: GetSpecificCarrierIdUriForSubscriptionId
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.net.Uri
-          error: true
-        - java_method: getUriForSubscriptionId
-          go_name: GetUriForSubscriptionId
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.net.Uri
-          error: true
-    - java_class: android.provider.Telephony$Carriers
-      go_type: TelephonyCarriers
-    - java_class: android.provider.Telephony$Mms
-      go_type: TelephonyMms
-    - java_class: android.provider.Telephony$MmsSms
-      go_type: TelephonyMmsSms
-    - java_class: android.provider.Telephony$ServiceStateTable
-      go_type: TelephonyServiceStateTable
-      static_methods:
-        - java_method: getUriForSubscriptionId
-          go_name: GetUriForSubscriptionId
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.net.Uri
-          error: true
-        - java_method: getUriForSubscriptionIdAndField
-          go_name: GetUriForSubscriptionIdAndField
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-          returns: android.net.Uri
-          error: true
-    - java_class: android.provider.Telephony$Sms
-      go_type: TelephonySms
-      static_methods:
-        - java_method: getDefaultSmsPackage
-          go_name: GetDefaultSmsPackage
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-          returns: String
-          error: true
-    - java_class: android.provider.Telephony$TextBasedSmsColumns
-      go_type: TelephonyTextBasedSmsColumns
-    - java_class: android.provider.Telephony$Threads
-      go_type: TelephonyThreads
-      static_methods:
-        - java_method: getOrCreateThreadId
-          go_name: GetOrCreateThreadId
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-          returns: long
-          error: true
-    - java_class: android.provider.Telephony$ThreadsColumns
-      go_type: TelephonyThreadsColumns
     - java_class: android.provider.UserDictionary
       go_type: UserDictionary
       obtain: constructor
@@ -861,80 +54,147 @@ classes:
               go_name: arg4
           returns: void
           error: true
-    - java_class: android.provider.SimPhonebookContract
-      go_type: SimPhonebookContract
-    - java_class: android.provider.SimPhonebookContract$ElementaryFiles
-      go_type: SimPhonebookContractElementaryFiles
+    - java_class: android.provider.SettingsSlicesContract
+      go_type: SettingsSlicesContract
+    - java_class: android.provider.AlarmClock
+      go_type: AlarmClock
+      obtain: constructor
+    - java_class: android.provider.VoicemailContract
+      go_type: VoicemailContract
+    - java_class: android.provider.VoicemailContract$Status
+      go_type: VoicemailContractStatus
       static_methods:
-        - java_method: getItemUri
-          go_name: GetItemUri
+        - java_method: buildSourceUri
+          go_name: BuildSourceUri
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.net.Uri
+          error: true
+    - java_class: android.provider.VoicemailContract$Voicemails
+      go_type: VoicemailContractVoicemails
+      static_methods:
+        - java_method: buildSourceUri
+          go_name: BuildSourceUri
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.net.Uri
+          error: true
+    - java_class: android.provider.FontsContract
+      go_type: FontsContract
+      static_methods:
+        - java_method: buildTypeface
+          go_name: BuildTypeface
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.os.CancellationSignal
+              go_name: arg1
+            - java_type: android.provider.FontsContract$FontInfo[]
+              go_name: arg2
+          returns: android.graphics.Typeface
+          error: true
+        - java_method: fetchFonts
+          go_name: FetchFonts
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.os.CancellationSignal
+              go_name: arg1
+            - java_type: android.provider.FontRequest
+              go_name: arg2
+          returns: android.provider.FontsContract$FontFamilyResult
+          error: true
+    - java_class: android.provider.FontsContract$Columns
+      go_type: FontsContractColumns
+    - java_class: android.provider.FontsContract$FontFamilyResult
+      go_type: FontsContractFontFamilyResult
+      methods:
+        - java_method: getFonts
+          go_name: GetFonts
+          returns: android.provider.FontsContract$FontInfo[]
+          error: true
+        - java_method: getStatusCode
+          go_name: GetStatusCode
+          returns: int
+          error: true
+    - java_class: android.provider.FontsContract$FontInfo
+      go_type: FontsContractFontInfo
+      methods:
+        - java_method: getAxes
+          go_name: GetAxes
+          returns: android.graphics.fonts.FontVariationAxis[]
+          error: true
+        - java_method: getResultCode
+          go_name: GetResultCode
+          returns: int
+          error: true
+        - java_method: getTtcIndex
+          go_name: GetTtcIndex
+          returns: int
+          error: true
+        - java_method: getUri
+          go_name: GetUri
+          returns: android.net.Uri
+          error: true
+        - java_method: getWeight
+          go_name: GetWeight
+          returns: int
+          error: true
+        - java_method: isItalic
+          go_name: IsItalic
+          returns: boolean
+          error: true
+    - java_class: android.provider.FontsContract$FontRequestCallback
+      go_type: FontsContractFontRequestCallback
+      methods:
+        - java_method: onTypefaceRequestFailed
+          go_name: OnTypefaceRequestFailed
           params:
             - java_type: int
               go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: android.net.Uri
+          returns: void
           error: true
-    - java_class: android.provider.SimPhonebookContract$SimRecords
-      go_type: SimPhonebookContractSimRecords
-      static_methods:
-        - java_method: getContentUri
-          go_name: GetContentUri
+        - java_method: onTypefaceRetrieved
+          go_name: OnTypefaceRetrieved
           params:
-            - java_type: int
+            - java_type: android.graphics.Typeface
               go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: android.net.Uri
+          returns: void
           error: true
-        - java_method: getEncodedNameLength
-          go_name: GetEncodedNameLength
+    - java_class: android.provider.BlockedNumberContract
+      go_type: BlockedNumberContract
+      static_methods:
+        - java_method: canCurrentUserBlockNumbers
+          go_name: CanCurrentUserBlockNumbers
           params:
-            - java_type: android.content.ContentResolver
+            - java_type: android.content.Context
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: isBlocked
+          go_name: IsBlocked
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: unblock
+          go_name: Unblock
+          params:
+            - java_type: android.content.Context
               go_name: arg0
             - java_type: String
               go_name: arg1
           returns: int
           error: true
-        - java_method: getItemUri
-          go_name: GetItemUri
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: android.net.Uri
-          error: true
-    - java_class: android.provider.OpenableColumns
-      go_type: OpenableColumns
-    - java_class: android.provider.SearchRecentSuggestions
-      go_type: SearchRecentSuggestions
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-        - java_type: String
-          go_name: arg1
-        - java_type: int
-          go_name: arg2
-      methods:
-        - java_method: clearHistory
-          go_name: ClearHistory
-          returns: void
-          error: true
-        - java_method: saveRecentQuery
-          go_name: SaveRecentQuery
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.provider.LiveFolders
-      go_type: LiveFolders
+    - java_class: android.provider.BlockedNumberContract$BlockedNumbers
+      go_type: BlockedNumberContractBlockedNumbers
+    - java_class: android.provider.BaseColumns
+      go_type: BaseColumns
     - java_class: android.provider.DocumentsProvider
       go_type: DocumentsProvider
       methods:
@@ -1367,24 +627,162 @@ classes:
               go_name: arg3
           returns: int
           error: true
-    - java_class: android.provider.AlarmClock
-      go_type: AlarmClock
+    - java_class: android.provider.SyncStateContract
+      go_type: SyncStateContract
       obtain: constructor
-    - java_class: android.provider.Browser
-      go_type: Browser
-      obtain: constructor
+    - java_class: android.provider.SyncStateContract$Columns
+      go_type: SyncStateContractColumns
+    - java_class: android.provider.SyncStateContract$Constants
+      go_type: SyncStateContractConstants
+    - java_class: android.provider.SyncStateContract$Helpers
+      go_type: SyncStateContractHelpers
       static_methods:
-        - java_method: sendString
-          go_name: SendString
+        - java_method: get
+          go_name: Get
+          params:
+            - java_type: android.content.ContentProviderClient
+              go_name: arg0
+            - java_type: android.net.Uri
+              go_name: arg1
+            - java_type: android.accounts.Account
+              go_name: arg2
+          returns: '[B'
+          error: true
+        - java_method: insert
+          go_name: Insert
+          params:
+            - java_type: android.content.ContentProviderClient
+              go_name: arg0
+            - java_type: android.net.Uri
+              go_name: arg1
+            - java_type: android.accounts.Account
+              go_name: arg2
+            - java_type: '[B'
+              go_name: arg3
+          returns: android.net.Uri
+          error: true
+        - java_method: newSetOperation
+          go_name: NewSetOperation
+          params:
+            - java_type: android.net.Uri
+              go_name: arg0
+            - java_type: android.accounts.Account
+              go_name: arg1
+            - java_type: '[B'
+              go_name: arg2
+          returns: android.content.ContentProviderOperation
+          error: true
+        - java_method: newUpdateOperation
+          go_name: NewUpdateOperation
+          params:
+            - java_type: android.net.Uri
+              go_name: arg0
+            - java_type: '[B'
+              go_name: arg1
+          returns: android.content.ContentProviderOperation
+          error: true
+        - java_method: set
+          go_name: Set
+          params:
+            - java_type: android.content.ContentProviderClient
+              go_name: arg0
+            - java_type: android.net.Uri
+              go_name: arg1
+            - java_type: android.accounts.Account
+              go_name: arg2
+            - java_type: '[B'
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: update
+          go_name: Update
+          params:
+            - java_type: android.content.ContentProviderClient
+              go_name: arg0
+            - java_type: android.net.Uri
+              go_name: arg1
+            - java_type: '[B'
+              go_name: arg2
+          returns: void
+          error: true
+    - java_class: android.provider.LiveFolders
+      go_type: LiveFolders
+    - java_class: android.provider.Telephony
+      go_type: Telephony
+    - java_class: android.provider.Telephony$BaseMmsColumns
+      go_type: TelephonyBaseMmsColumns
+    - java_class: android.provider.Telephony$CanonicalAddressesColumns
+      go_type: TelephonyCanonicalAddressesColumns
+    - java_class: android.provider.Telephony$CarrierId
+      go_type: TelephonyCarrierId
+      static_methods:
+        - java_method: getSpecificCarrierIdUriForSubscriptionId
+          go_name: GetSpecificCarrierIdUriForSubscriptionId
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.net.Uri
+          error: true
+        - java_method: getUriForSubscriptionId
+          go_name: GetUriForSubscriptionId
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.net.Uri
+          error: true
+    - java_class: android.provider.Telephony$Carriers
+      go_type: TelephonyCarriers
+    - java_class: android.provider.Telephony$Mms
+      go_type: TelephonyMms
+    - java_class: android.provider.Telephony$MmsSms
+      go_type: TelephonyMmsSms
+    - java_class: android.provider.Telephony$ServiceStateTable
+      go_type: TelephonyServiceStateTable
+      static_methods:
+        - java_method: getUriForSubscriptionId
+          go_name: GetUriForSubscriptionId
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.net.Uri
+          error: true
+        - java_method: getUriForSubscriptionIdAndField
+          go_name: GetUriForSubscriptionIdAndField
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+          returns: android.net.Uri
+          error: true
+    - java_class: android.provider.Telephony$Sms
+      go_type: TelephonySms
+      static_methods:
+        - java_method: getDefaultSmsPackage
+          go_name: GetDefaultSmsPackage
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+          returns: String
+          error: true
+    - java_class: android.provider.Telephony$TextBasedSmsColumns
+      go_type: TelephonyTextBasedSmsColumns
+    - java_class: android.provider.Telephony$Threads
+      go_type: TelephonyThreads
+      static_methods:
+        - java_method: getOrCreateThreadId
+          go_name: GetOrCreateThreadId
           params:
             - java_type: android.content.Context
               go_name: arg0
             - java_type: String
               go_name: arg1
-          returns: void
+          returns: long
           error: true
     - java_class: android.provider.CloudMediaProviderContract
       go_type: CloudMediaProviderContract
+    - java_class: android.provider.Telephony$ThreadsColumns
+      go_type: TelephonyThreadsColumns
     - java_class: android.provider.CloudMediaProviderContract$AlbumColumns
       go_type: CloudMediaProviderContractAlbumColumns
     - java_class: android.provider.CloudMediaProviderContract$Capabilities
@@ -1674,32 +1072,301 @@ classes:
               go_name: arg1
           returns: void
           error: true
-    - java_class: android.provider.VoicemailContract
-      go_type: VoicemailContract
-    - java_class: android.provider.VoicemailContract$Status
-      go_type: VoicemailContractStatus
-      static_methods:
-        - java_method: buildSourceUri
-          go_name: BuildSourceUri
+    - java_class: android.provider.OpenableColumns
+      go_type: OpenableColumns
+    - java_class: android.provider.SearchRecentSuggestions
+      go_type: SearchRecentSuggestions
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+        - java_type: String
+          go_name: arg1
+        - java_type: int
+          go_name: arg2
+      methods:
+        - java_method: clearHistory
+          go_name: ClearHistory
+          returns: void
+          error: true
+        - java_method: saveRecentQuery
+          go_name: SaveRecentQuery
           params:
             - java_type: String
               go_name: arg0
+            - java_type: String
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.provider.SimPhonebookContract
+      go_type: SimPhonebookContract
+    - java_class: android.provider.SimPhonebookContract$ElementaryFiles
+      go_type: SimPhonebookContractElementaryFiles
+      static_methods:
+        - java_method: getItemUri
+          go_name: GetItemUri
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
           returns: android.net.Uri
           error: true
-    - java_class: android.provider.VoicemailContract$Voicemails
-      go_type: VoicemailContractVoicemails
+    - java_class: android.provider.SimPhonebookContract$SimRecords
+      go_type: SimPhonebookContractSimRecords
       static_methods:
-        - java_method: buildSourceUri
-          go_name: BuildSourceUri
+        - java_method: getContentUri
+          go_name: GetContentUri
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: android.net.Uri
+          error: true
+        - java_method: getEncodedNameLength
+          go_name: GetEncodedNameLength
+          params:
+            - java_type: android.content.ContentResolver
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+          returns: int
+          error: true
+        - java_method: getItemUri
+          go_name: GetItemUri
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: android.net.Uri
+          error: true
+    - java_class: android.provider.Browser
+      go_type: Browser
+      obtain: constructor
+      static_methods:
+        - java_method: sendString
+          go_name: SendString
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.provider.Contacts
+      go_type: Contacts
+    - java_class: android.provider.Contacts$ContactMethods
+      go_type: ContactsContactMethods
+      methods:
+        - java_method: addPostalLocation
+          go_name: AddPostalLocation
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: long
+              go_name: arg1
+            - java_type: double
+              go_name: arg2
+            - java_type: double
+              go_name: arg3
+          returns: void
+          error: true
+      static_methods:
+        - java_method: decodeImProtocol
+          go_name: DecodeImProtocol
           params:
             - java_type: String
               go_name: arg0
+          returns: java.lang.Object
+          error: true
+        - java_method: encodeCustomImProtocol
+          go_name: EncodeCustomImProtocol
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: String
+          error: true
+        - java_method: encodePredefinedImProtocol
+          go_name: EncodePredefinedImProtocol
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: String
+          error: true
+        - java_method: getDisplayLabel
+          go_name: GetDisplayLabel
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: java.lang.CharSequence
+              go_name: arg3
+          returns: java.lang.CharSequence
+          error: true
+    - java_class: android.provider.Contacts$ContactMethodsColumns
+      go_type: ContactsContactMethodsColumns
+    - java_class: android.provider.Contacts$Extensions
+      go_type: ContactsExtensions
+    - java_class: android.provider.Contacts$ExtensionsColumns
+      go_type: ContactsExtensionsColumns
+    - java_class: android.provider.Contacts$GroupMembership
+      go_type: ContactsGroupMembership
+    - java_class: android.provider.Contacts$Groups
+      go_type: ContactsGroups
+    - java_class: android.provider.Contacts$GroupsColumns
+      go_type: ContactsGroupsColumns
+    - java_class: android.provider.Contacts$Intents
+      go_type: ContactsIntents
+    - java_class: android.provider.Contacts$OrganizationColumns
+      go_type: ContactsOrganizationColumns
+    - java_class: android.provider.Contacts$Organizations
+      go_type: ContactsOrganizations
+      static_methods:
+        - java_method: getDisplayLabel
+          go_name: GetDisplayLabel
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: java.lang.CharSequence
+              go_name: arg2
+          returns: java.lang.CharSequence
+          error: true
+    - java_class: android.provider.Contacts$People
+      go_type: ContactsPeople
+      static_methods:
+        - java_method: addToGroup
+          go_name: AddToGroup3
+          params:
+            - java_type: android.content.ContentResolver
+              go_name: arg0
+            - java_type: long
+              go_name: arg1
+            - java_type: String
+              go_name: arg2
           returns: android.net.Uri
           error: true
-    - java_class: android.provider.BaseColumns
-      go_type: BaseColumns
-    - java_class: android.provider.SettingsSlicesContract
-      go_type: SettingsSlicesContract
+        - java_method: addToGroup
+          go_name: AddToGroup3_1
+          params:
+            - java_type: android.content.ContentResolver
+              go_name: arg0
+            - java_type: long
+              go_name: arg1
+            - java_type: long
+              go_name: arg2
+          returns: android.net.Uri
+          error: true
+        - java_method: addToMyContactsGroup
+          go_name: AddToMyContactsGroup
+          params:
+            - java_type: android.content.ContentResolver
+              go_name: arg0
+            - java_type: long
+              go_name: arg1
+          returns: android.net.Uri
+          error: true
+        - java_method: createPersonInMyContactsGroup
+          go_name: CreatePersonInMyContactsGroup
+          params:
+            - java_type: android.content.ContentResolver
+              go_name: arg0
+            - java_type: android.content.ContentValues
+              go_name: arg1
+          returns: android.net.Uri
+          error: true
+        - java_method: loadContactPhoto
+          go_name: LoadContactPhoto
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.net.Uri
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: android.graphics.BitmapFactory$Options
+              go_name: arg3
+          returns: android.graphics.Bitmap
+          error: true
+        - java_method: markAsContacted
+          go_name: MarkAsContacted
+          params:
+            - java_type: android.content.ContentResolver
+              go_name: arg0
+            - java_type: long
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: openContactPhotoInputStream
+          go_name: OpenContactPhotoInputStream
+          params:
+            - java_type: android.content.ContentResolver
+              go_name: arg0
+            - java_type: android.net.Uri
+              go_name: arg1
+          returns: java.io.InputStream
+          error: true
+        - java_method: queryGroups
+          go_name: QueryGroups
+          params:
+            - java_type: android.content.ContentResolver
+              go_name: arg0
+            - java_type: long
+              go_name: arg1
+          returns: android.database.Cursor
+          error: true
+        - java_method: setPhotoData
+          go_name: SetPhotoData
+          params:
+            - java_type: android.content.ContentResolver
+              go_name: arg0
+            - java_type: android.net.Uri
+              go_name: arg1
+            - java_type: '[B'
+              go_name: arg2
+          returns: void
+          error: true
+    - java_class: android.provider.Contacts$PeopleColumns
+      go_type: ContactsPeopleColumns
+    - java_class: android.provider.Contacts$Phones
+      go_type: ContactsPhones
+      static_methods:
+        - java_method: getDisplayLabel
+          go_name: GetDisplayLabel3
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: java.lang.CharSequence
+              go_name: arg2
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: getDisplayLabel
+          go_name: GetDisplayLabel4_1
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: java.lang.CharSequence
+              go_name: arg2
+            - java_type: java.lang.CharSequence[]
+              go_name: arg3
+          returns: java.lang.CharSequence
+          error: true
+    - java_class: android.provider.Contacts$PhonesColumns
+      go_type: ContactsPhonesColumns
+    - java_class: android.provider.Contacts$Photos
+      go_type: ContactsPhotos
     - java_class: android.provider.FontRequest
       go_type: FontRequest
       obtain: constructor
@@ -1731,398 +1398,957 @@ classes:
           go_name: ToString
           returns: String
           error: true
-    - java_class: android.provider.FontsContract
-      go_type: FontsContract
+    - java_class: android.provider.Contacts$PhotosColumns
+      go_type: ContactsPhotosColumns
+    - java_class: android.provider.Contacts$PresenceColumns
+      go_type: ContactsPresenceColumns
+    - java_class: android.provider.Contacts$Settings
+      go_type: ContactsSettings
       static_methods:
-        - java_method: buildTypeface
-          go_name: BuildTypeface
+        - java_method: getSetting
+          go_name: GetSetting
+          params:
+            - java_type: android.content.ContentResolver
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+            - java_type: String
+              go_name: arg2
+          returns: String
+          error: true
+        - java_method: setSetting
+          go_name: SetSetting
+          params:
+            - java_type: android.content.ContentResolver
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+            - java_type: String
+              go_name: arg2
+            - java_type: String
+              go_name: arg3
+          returns: void
+          error: true
+    - java_class: android.provider.Contacts$SettingsColumns
+      go_type: ContactsSettingsColumns
+    - java_class: android.provider.CloudMediaProvider
+      go_type: CloudMediaProvider
+      methods:
+        - java_method: attachInfo
+          go_name: AttachInfo
           params:
             - java_type: android.content.Context
               go_name: arg0
-            - java_type: android.os.CancellationSignal
+            - java_type: android.content.pm.ProviderInfo
               go_name: arg1
-            - java_type: android.provider.FontsContract$FontInfo[]
-              go_name: arg2
-          returns: android.graphics.Typeface
+          returns: void
           error: true
-        - java_method: fetchFonts
-          go_name: FetchFonts
+        - java_method: call
+          go_name: Call
           params:
-            - java_type: android.content.Context
+            - java_type: String
               go_name: arg0
-            - java_type: android.os.CancellationSignal
+            - java_type: String
               go_name: arg1
-            - java_type: android.provider.FontRequest
+            - java_type: android.os.Bundle
               go_name: arg2
-          returns: android.provider.FontsContract$FontFamilyResult
+          returns: android.os.Bundle
           error: true
-    - java_class: android.provider.FontsContract$Columns
-      go_type: FontsContractColumns
-    - java_class: android.provider.FontsContract$FontFamilyResult
-      go_type: FontsContractFontFamilyResult
-      methods:
-        - java_method: getFonts
-          go_name: GetFonts
-          returns: android.provider.FontsContract$FontInfo[]
-          error: true
-        - java_method: getStatusCode
-          go_name: GetStatusCode
-          returns: int
-          error: true
-    - java_class: android.provider.FontsContract$FontInfo
-      go_type: FontsContractFontInfo
-      methods:
-        - java_method: getAxes
-          go_name: GetAxes
-          returns: android.graphics.fonts.FontVariationAxis[]
-          error: true
-        - java_method: getResultCode
-          go_name: GetResultCode
-          returns: int
-          error: true
-        - java_method: getTtcIndex
-          go_name: GetTtcIndex
-          returns: int
-          error: true
-        - java_method: getUri
-          go_name: GetUri
+        - java_method: canonicalize
+          go_name: Canonicalize
+          params:
+            - java_type: android.net.Uri
+              go_name: arg0
           returns: android.net.Uri
           error: true
-        - java_method: getWeight
-          go_name: GetWeight
+        - java_method: delete
+          go_name: Delete
+          params:
+            - java_type: android.net.Uri
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+            - java_type: java.lang.String[]
+              go_name: arg2
           returns: int
           error: true
-        - java_method: isItalic
-          go_name: IsItalic
-          returns: boolean
+        - java_method: getType
+          go_name: GetType
+          params:
+            - java_type: android.net.Uri
+              go_name: arg0
+          returns: String
           error: true
-    - java_class: android.provider.FontsContract$FontRequestCallback
-      go_type: FontsContractFontRequestCallback
+        - java_method: insert
+          go_name: Insert
+          params:
+            - java_type: android.net.Uri
+              go_name: arg0
+            - java_type: android.content.ContentValues
+              go_name: arg1
+          returns: android.net.Uri
+          error: true
+        - java_method: onCreateCloudMediaSurfaceController
+          go_name: OnCreateCloudMediaSurfaceController
+          params:
+            - java_type: android.os.Bundle
+              go_name: arg0
+            - java_type: android.provider.CloudMediaProvider$CloudMediaSurfaceStateChangedCallback
+              go_name: arg1
+          returns: android.provider.CloudMediaProvider$CloudMediaSurfaceController
+          error: true
+        - java_method: onGetCapabilities
+          go_name: OnGetCapabilities
+          returns: android.provider.CloudMediaProviderContract$Capabilities
+          error: true
+        - java_method: onGetMediaCollectionInfo
+          go_name: OnGetMediaCollectionInfo
+          params:
+            - java_type: android.os.Bundle
+              go_name: arg0
+          returns: android.os.Bundle
+          error: true
+        - java_method: onOpenMedia
+          go_name: OnOpenMedia
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: android.os.Bundle
+              go_name: arg1
+            - java_type: android.os.CancellationSignal
+              go_name: arg2
+          returns: android.os.ParcelFileDescriptor
+          error: true
+        - java_method: onOpenPreview
+          go_name: OnOpenPreview
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: android.graphics.Point
+              go_name: arg1
+            - java_type: android.os.Bundle
+              go_name: arg2
+            - java_type: android.os.CancellationSignal
+              go_name: arg3
+          returns: android.content.res.AssetFileDescriptor
+          error: true
+        - java_method: onQueryAlbums
+          go_name: OnQueryAlbums
+          params:
+            - java_type: android.os.Bundle
+              go_name: arg0
+          returns: android.database.Cursor
+          error: true
+        - java_method: onQueryDeletedMedia
+          go_name: OnQueryDeletedMedia
+          params:
+            - java_type: android.os.Bundle
+              go_name: arg0
+          returns: android.database.Cursor
+          error: true
+        - java_method: onQueryMedia
+          go_name: OnQueryMedia
+          params:
+            - java_type: android.os.Bundle
+              go_name: arg0
+          returns: android.database.Cursor
+          error: true
+        - java_method: onQueryMediaCategories
+          go_name: OnQueryMediaCategories
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: android.os.Bundle
+              go_name: arg1
+            - java_type: android.os.CancellationSignal
+              go_name: arg2
+          returns: android.database.Cursor
+          error: true
+        - java_method: onQueryMediaInMediaSet
+          go_name: OnQueryMediaInMediaSet
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: android.os.Bundle
+              go_name: arg1
+            - java_type: android.os.CancellationSignal
+              go_name: arg2
+          returns: android.database.Cursor
+          error: true
+        - java_method: onQueryMediaSets
+          go_name: OnQueryMediaSets
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: android.os.Bundle
+              go_name: arg1
+            - java_type: android.os.CancellationSignal
+              go_name: arg2
+          returns: android.database.Cursor
+          error: true
+        - java_method: onQuerySearchSuggestions
+          go_name: OnQuerySearchSuggestions
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: android.os.Bundle
+              go_name: arg1
+            - java_type: android.os.CancellationSignal
+              go_name: arg2
+          returns: android.database.Cursor
+          error: true
+        - java_method: onSearchMedia
+          go_name: OnSearchMedia3
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: android.os.Bundle
+              go_name: arg1
+            - java_type: android.os.CancellationSignal
+              go_name: arg2
+          returns: android.database.Cursor
+          error: true
+        - java_method: onSearchMedia
+          go_name: OnSearchMedia4_1
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+            - java_type: android.os.Bundle
+              go_name: arg2
+            - java_type: android.os.CancellationSignal
+              go_name: arg3
+          returns: android.database.Cursor
+          error: true
+        - java_method: openFile
+          go_name: OpenFile2
+          params:
+            - java_type: android.net.Uri
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+          returns: android.os.ParcelFileDescriptor
+          error: true
+        - java_method: openFile
+          go_name: OpenFile3_1
+          params:
+            - java_type: android.net.Uri
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+            - java_type: android.os.CancellationSignal
+              go_name: arg2
+          returns: android.os.ParcelFileDescriptor
+          error: true
+        - java_method: openTypedAssetFile
+          go_name: OpenTypedAssetFile3
+          params:
+            - java_type: android.net.Uri
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+            - java_type: android.os.Bundle
+              go_name: arg2
+          returns: android.content.res.AssetFileDescriptor
+          error: true
+        - java_method: openTypedAssetFile
+          go_name: OpenTypedAssetFile4_1
+          params:
+            - java_type: android.net.Uri
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+            - java_type: android.os.Bundle
+              go_name: arg2
+            - java_type: android.os.CancellationSignal
+              go_name: arg3
+          returns: android.content.res.AssetFileDescriptor
+          error: true
+        - java_method: query
+          go_name: Query4
+          params:
+            - java_type: android.net.Uri
+              go_name: arg0
+            - java_type: java.lang.String[]
+              go_name: arg1
+            - java_type: android.os.Bundle
+              go_name: arg2
+            - java_type: android.os.CancellationSignal
+              go_name: arg3
+          returns: android.database.Cursor
+          error: true
+        - java_method: query
+          go_name: Query5_1
+          params:
+            - java_type: android.net.Uri
+              go_name: arg0
+            - java_type: java.lang.String[]
+              go_name: arg1
+            - java_type: String
+              go_name: arg2
+            - java_type: java.lang.String[]
+              go_name: arg3
+            - java_type: String
+              go_name: arg4
+          returns: android.database.Cursor
+          error: true
+        - java_method: query
+          go_name: Query6_2
+          params:
+            - java_type: android.net.Uri
+              go_name: arg0
+            - java_type: java.lang.String[]
+              go_name: arg1
+            - java_type: String
+              go_name: arg2
+            - java_type: java.lang.String[]
+              go_name: arg3
+            - java_type: String
+              go_name: arg4
+            - java_type: android.os.CancellationSignal
+              go_name: arg5
+          returns: android.database.Cursor
+          error: true
+        - java_method: update
+          go_name: Update
+          params:
+            - java_type: android.net.Uri
+              go_name: arg0
+            - java_type: android.content.ContentValues
+              go_name: arg1
+            - java_type: String
+              go_name: arg2
+            - java_type: java.lang.String[]
+              go_name: arg3
+          returns: int
+          error: true
+    - java_class: android.provider.CloudMediaProvider$CloudMediaSurfaceController
+      go_type: CloudMediaProviderCloudMediaSurfaceController
       methods:
-        - java_method: onTypefaceRequestFailed
-          go_name: OnTypefaceRequestFailed
+        - java_method: onConfigChange
+          go_name: OnConfigChange
+          params:
+            - java_type: android.os.Bundle
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onDestroy
+          go_name: OnDestroy
+          returns: void
+          error: true
+        - java_method: onMediaPause
+          go_name: OnMediaPause
           params:
             - java_type: int
               go_name: arg0
           returns: void
           error: true
-        - java_method: onTypefaceRetrieved
-          go_name: OnTypefaceRetrieved
+        - java_method: onMediaPlay
+          go_name: OnMediaPlay
           params:
-            - java_type: android.graphics.Typeface
+            - java_type: int
               go_name: arg0
           returns: void
           error: true
+        - java_method: onMediaSeekTo
+          go_name: OnMediaSeekTo
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: long
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onPlayerCreate
+          go_name: OnPlayerCreate
+          returns: void
+          error: true
+        - java_method: onPlayerRelease
+          go_name: OnPlayerRelease
+          returns: void
+          error: true
+        - java_method: onSurfaceChanged
+          go_name: OnSurfaceChanged
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: onSurfaceCreated
+          go_name: OnSurfaceCreated
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: android.view.Surface
+              go_name: arg1
+            - java_type: String
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: onSurfaceDestroyed
+          go_name: OnSurfaceDestroyed
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.provider.CloudMediaProvider$CloudMediaSurfaceStateChangedCallback
+      go_type: CloudMediaProviderCloudMediaSurfaceStateChangedCallback
+      methods:
+        - java_method: setPlaybackState
+          go_name: SetPlaybackState
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: android.os.Bundle
+              go_name: arg2
+          returns: void
+          error: true
+abstract_callbacks:
+    - java_class: android.provider.DocumentsProvider
+      go_type: DocumentsProviderCallback
+      methods:
+        - java_method: attachInfo
+          params:
+            - android.content.Context
+            - android.content.pm.ProviderInfo
+          returns: void
+          go_field: AttachInfo
+        - java_method: call
+          params:
+            - String
+            - String
+            - android.os.Bundle
+          returns: android.os.Bundle
+          go_field: Call
+        - java_method: canonicalize
+          params:
+            - android.net.Uri
+          returns: android.net.Uri
+          go_field: Canonicalize
+        - java_method: copyDocument
+          params:
+            - String
+            - String
+          returns: String
+          go_field: CopyDocument
+        - java_method: createDocument
+          params:
+            - String
+            - String
+            - String
+          returns: String
+          go_field: CreateDocument
+        - java_method: createWebLinkIntent
+          params:
+            - String
+            - android.os.Bundle
+          returns: android.content.IntentSender
+          go_field: CreateWebLinkIntent
+        - java_method: delete
+          params:
+            - android.net.Uri
+            - String
+            - java.lang.String[]
+          returns: int
+          go_field: Delete
+        - java_method: deleteDocument
+          params:
+            - String
+          returns: void
+          go_field: DeleteDocument
+        - java_method: ejectRoot
+          params:
+            - String
+          returns: void
+          go_field: EjectRoot
+        - java_method: findDocumentPath
+          params:
+            - String
+            - String
+          returns: android.provider.DocumentsContract$Path
+          go_field: FindDocumentPath
+        - java_method: getDocumentMetadata
+          params:
+            - String
+          returns: android.os.Bundle
+          go_field: GetDocumentMetadata
+        - java_method: getDocumentStreamTypes
+          params:
+            - String
+            - String
+          returns: java.lang.String[]
+          go_field: GetDocumentStreamTypes
+        - java_method: getDocumentType
+          params:
+            - String
+          returns: String
+          go_field: GetDocumentType
+        - java_method: getStreamTypes
+          params:
+            - android.net.Uri
+            - String
+          returns: java.lang.String[]
+          go_field: GetStreamTypes
+        - java_method: getType
+          params:
+            - android.net.Uri
+          returns: String
+          go_field: GetType
+        - java_method: getTypeAnonymous
+          params:
+            - android.net.Uri
+          returns: String
+          go_field: GetTypeAnonymous
+        - java_method: insert
+          params:
+            - android.net.Uri
+            - android.content.ContentValues
+          returns: android.net.Uri
+          go_field: Insert
+        - java_method: isChildDocument
+          params:
+            - String
+            - String
+          returns: boolean
+          go_field: IsChildDocument
+        - java_method: moveDocument
+          params:
+            - String
+            - String
+            - String
+          returns: String
+          go_field: MoveDocument
+        - java_method: openAssetFile
+          params:
+            - android.net.Uri
+            - String
+          returns: android.content.res.AssetFileDescriptor
+          go_field: OpenAssetFile
+        - java_method: openAssetFile
+          params:
+            - android.net.Uri
+            - String
+            - android.os.CancellationSignal
+          returns: android.content.res.AssetFileDescriptor
+          go_field: OpenAssetFile
+        - java_method: openDocument
+          params:
+            - String
+            - String
+            - android.os.CancellationSignal
+          returns: android.os.ParcelFileDescriptor
+          go_field: OpenDocument
+        - java_method: openDocumentThumbnail
+          params:
+            - String
+            - android.graphics.Point
+            - android.os.CancellationSignal
+          returns: android.content.res.AssetFileDescriptor
+          go_field: OpenDocumentThumbnail
+        - java_method: openFile
+          params:
+            - android.net.Uri
+            - String
+          returns: android.os.ParcelFileDescriptor
+          go_field: OpenFile
+        - java_method: openFile
+          params:
+            - android.net.Uri
+            - String
+            - android.os.CancellationSignal
+          returns: android.os.ParcelFileDescriptor
+          go_field: OpenFile
+        - java_method: openTypedAssetFile
+          params:
+            - android.net.Uri
+            - String
+            - android.os.Bundle
+          returns: android.content.res.AssetFileDescriptor
+          go_field: OpenTypedAssetFile
+        - java_method: openTypedAssetFile
+          params:
+            - android.net.Uri
+            - String
+            - android.os.Bundle
+            - android.os.CancellationSignal
+          returns: android.content.res.AssetFileDescriptor
+          go_field: OpenTypedAssetFile
+        - java_method: openTypedDocument
+          params:
+            - String
+            - String
+            - android.os.Bundle
+            - android.os.CancellationSignal
+          returns: android.content.res.AssetFileDescriptor
+          go_field: OpenTypedDocument
+        - java_method: query
+          params:
+            - android.net.Uri
+            - java.lang.String[]
+            - android.os.Bundle
+            - android.os.CancellationSignal
+          returns: android.database.Cursor
+          go_field: Query
+        - java_method: query
+          params:
+            - android.net.Uri
+            - java.lang.String[]
+            - String
+            - java.lang.String[]
+            - String
+          returns: android.database.Cursor
+          go_field: Query
+        - java_method: query
+          params:
+            - android.net.Uri
+            - java.lang.String[]
+            - String
+            - java.lang.String[]
+            - String
+            - android.os.CancellationSignal
+          returns: android.database.Cursor
+          go_field: Query
+        - java_method: queryChildDocuments
+          params:
+            - String
+            - java.lang.String[]
+            - android.os.Bundle
+          returns: android.database.Cursor
+          go_field: QueryChildDocuments
+        - java_method: queryChildDocuments
+          params:
+            - String
+            - java.lang.String[]
+            - String
+          returns: android.database.Cursor
+          go_field: QueryChildDocuments
+        - java_method: queryDocument
+          params:
+            - String
+            - java.lang.String[]
+          returns: android.database.Cursor
+          go_field: QueryDocument
+        - java_method: queryRecentDocuments
+          params:
+            - String
+            - java.lang.String[]
+          returns: android.database.Cursor
+          go_field: QueryRecentDocuments
+        - java_method: queryRecentDocuments
+          params:
+            - String
+            - java.lang.String[]
+            - android.os.Bundle
+            - android.os.CancellationSignal
+          returns: android.database.Cursor
+          go_field: QueryRecentDocuments
+        - java_method: queryRoots
+          params:
+            - java.lang.String[]
+          returns: android.database.Cursor
+          go_field: QueryRoots
+        - java_method: querySearchDocuments
+          params:
+            - String
+            - String
+            - java.lang.String[]
+          returns: android.database.Cursor
+          go_field: QuerySearchDocuments
+        - java_method: querySearchDocuments
+          params:
+            - String
+            - java.lang.String[]
+            - android.os.Bundle
+          returns: android.database.Cursor
+          go_field: QuerySearchDocuments
+        - java_method: removeDocument
+          params:
+            - String
+            - String
+          returns: void
+          go_field: RemoveDocument
+        - java_method: renameDocument
+          params:
+            - String
+            - String
+          returns: String
+          go_field: RenameDocument
+        - java_method: revokeDocumentPermission
+          params:
+            - String
+          returns: void
+          go_field: RevokeDocumentPermission
+        - java_method: update
+          params:
+            - android.net.Uri
+            - android.content.ContentValues
+            - String
+            - java.lang.String[]
+          returns: int
+          go_field: Update
+    - java_class: android.provider.CloudMediaProvider
+      go_type: CloudMediaProviderCallback
+      methods:
+        - java_method: attachInfo
+          params:
+            - android.content.Context
+            - android.content.pm.ProviderInfo
+          returns: void
+          go_field: AttachInfo
+        - java_method: call
+          params:
+            - String
+            - String
+            - android.os.Bundle
+          returns: android.os.Bundle
+          go_field: Call
+        - java_method: canonicalize
+          params:
+            - android.net.Uri
+          returns: android.net.Uri
+          go_field: Canonicalize
+        - java_method: delete
+          params:
+            - android.net.Uri
+            - String
+            - java.lang.String[]
+          returns: int
+          go_field: Delete
+        - java_method: getType
+          params:
+            - android.net.Uri
+          returns: String
+          go_field: GetType
+        - java_method: insert
+          params:
+            - android.net.Uri
+            - android.content.ContentValues
+          returns: android.net.Uri
+          go_field: Insert
+        - java_method: onCreateCloudMediaSurfaceController
+          params:
+            - android.os.Bundle
+            - android.provider.CloudMediaProvider$CloudMediaSurfaceStateChangedCallback
+          returns: android.provider.CloudMediaProvider$CloudMediaSurfaceController
+          go_field: OnCreateCloudMediaSurfaceController
+        - java_method: onGetCapabilities
+          params: []
+          returns: android.provider.CloudMediaProviderContract$Capabilities
+          go_field: OnGetCapabilities
+        - java_method: onGetMediaCollectionInfo
+          params:
+            - android.os.Bundle
+          returns: android.os.Bundle
+          go_field: OnGetMediaCollectionInfo
+        - java_method: onOpenMedia
+          params:
+            - String
+            - android.os.Bundle
+            - android.os.CancellationSignal
+          returns: android.os.ParcelFileDescriptor
+          go_field: OnOpenMedia
+        - java_method: onOpenPreview
+          params:
+            - String
+            - android.graphics.Point
+            - android.os.Bundle
+            - android.os.CancellationSignal
+          returns: android.content.res.AssetFileDescriptor
+          go_field: OnOpenPreview
+        - java_method: onQueryAlbums
+          params:
+            - android.os.Bundle
+          returns: android.database.Cursor
+          go_field: OnQueryAlbums
+        - java_method: onQueryDeletedMedia
+          params:
+            - android.os.Bundle
+          returns: android.database.Cursor
+          go_field: OnQueryDeletedMedia
+        - java_method: onQueryMedia
+          params:
+            - android.os.Bundle
+          returns: android.database.Cursor
+          go_field: OnQueryMedia
+        - java_method: onQueryMediaCategories
+          params:
+            - String
+            - android.os.Bundle
+            - android.os.CancellationSignal
+          returns: android.database.Cursor
+          go_field: OnQueryMediaCategories
+        - java_method: onQueryMediaInMediaSet
+          params:
+            - String
+            - android.os.Bundle
+            - android.os.CancellationSignal
+          returns: android.database.Cursor
+          go_field: OnQueryMediaInMediaSet
+        - java_method: onQueryMediaSets
+          params:
+            - String
+            - android.os.Bundle
+            - android.os.CancellationSignal
+          returns: android.database.Cursor
+          go_field: OnQueryMediaSets
+        - java_method: onQuerySearchSuggestions
+          params:
+            - String
+            - android.os.Bundle
+            - android.os.CancellationSignal
+          returns: android.database.Cursor
+          go_field: OnQuerySearchSuggestions
+        - java_method: onSearchMedia
+          params:
+            - String
+            - android.os.Bundle
+            - android.os.CancellationSignal
+          returns: android.database.Cursor
+          go_field: OnSearchMedia
+        - java_method: onSearchMedia
+          params:
+            - String
+            - String
+            - android.os.Bundle
+            - android.os.CancellationSignal
+          returns: android.database.Cursor
+          go_field: OnSearchMedia
+        - java_method: openFile
+          params:
+            - android.net.Uri
+            - String
+          returns: android.os.ParcelFileDescriptor
+          go_field: OpenFile
+        - java_method: openFile
+          params:
+            - android.net.Uri
+            - String
+            - android.os.CancellationSignal
+          returns: android.os.ParcelFileDescriptor
+          go_field: OpenFile
+        - java_method: openTypedAssetFile
+          params:
+            - android.net.Uri
+            - String
+            - android.os.Bundle
+          returns: android.content.res.AssetFileDescriptor
+          go_field: OpenTypedAssetFile
+        - java_method: openTypedAssetFile
+          params:
+            - android.net.Uri
+            - String
+            - android.os.Bundle
+            - android.os.CancellationSignal
+          returns: android.content.res.AssetFileDescriptor
+          go_field: OpenTypedAssetFile
+        - java_method: query
+          params:
+            - android.net.Uri
+            - java.lang.String[]
+            - android.os.Bundle
+            - android.os.CancellationSignal
+          returns: android.database.Cursor
+          go_field: Query
+        - java_method: query
+          params:
+            - android.net.Uri
+            - java.lang.String[]
+            - String
+            - java.lang.String[]
+            - String
+          returns: android.database.Cursor
+          go_field: Query
+        - java_method: query
+          params:
+            - android.net.Uri
+            - java.lang.String[]
+            - String
+            - java.lang.String[]
+            - String
+            - android.os.CancellationSignal
+          returns: android.database.Cursor
+          go_field: Query
+        - java_method: update
+          params:
+            - android.net.Uri
+            - android.content.ContentValues
+            - String
+            - java.lang.String[]
+          returns: int
+          go_field: Update
+    - java_class: android.provider.CloudMediaProvider$CloudMediaSurfaceController
+      go_type: CloudMediaProviderCloudMediaSurfaceControllerCallback
+      methods:
+        - java_method: onConfigChange
+          params:
+            - android.os.Bundle
+          returns: void
+          go_field: OnConfigChange
+        - java_method: onDestroy
+          params: []
+          returns: void
+          go_field: OnDestroy
+        - java_method: onMediaPause
+          params:
+            - int
+          returns: void
+          go_field: OnMediaPause
+        - java_method: onMediaPlay
+          params:
+            - int
+          returns: void
+          go_field: OnMediaPlay
+        - java_method: onMediaSeekTo
+          params:
+            - int
+            - long
+          returns: void
+          go_field: OnMediaSeekTo
+        - java_method: onPlayerCreate
+          params: []
+          returns: void
+          go_field: OnPlayerCreate
+        - java_method: onPlayerRelease
+          params: []
+          returns: void
+          go_field: OnPlayerRelease
+        - java_method: onSurfaceChanged
+          params:
+            - int
+            - int
+            - int
+            - int
+          returns: void
+          go_field: OnSurfaceChanged
+        - java_method: onSurfaceCreated
+          params:
+            - int
+            - android.view.Surface
+            - String
+          returns: void
+          go_field: OnSurfaceCreated
+        - java_method: onSurfaceDestroyed
+          params:
+            - int
+          returns: void
+          go_field: OnSurfaceDestroyed
 constants:
     - go_name: Authority
-      value: '"com.android.blockednumber"'
-      go_type: string
-    - go_name: AuthorityUri
-      value: "0"
-      go_type: int
-    - go_name: ColumnE164Number
-      value: '"e164_number"'
-      go_type: string
-    - go_name: ColumnId
-      value: '"_id"'
-      go_type: string
-    - go_name: ColumnOriginalNumber
-      value: '"original_number"'
-      go_type: string
-    - go_name: ContentItemType
-      value: '"vnd.android.cursor.item/blocked_number"'
-      go_type: string
-    - go_name: ContentType
-      value: '"vnd.android.cursor.dir/blocked_number"'
+      value: '"call_log"'
       go_type: string
     - go_name: ContentUri
       value: "0"
       go_type: int
-    - go_name: KindEmail
-      value: "1"
-      go_type: int
-    - go_name: KindIm
-      value: "3"
-      go_type: int
-    - go_name: KindOrganization
-      value: "4"
-      go_type: int
-    - go_name: KindPhone
-      value: "5"
-      go_type: int
-    - go_name: KindPostal
-      value: "2"
-      go_type: int
-    - go_name: ContentEmailItemType
-      value: '"vnd.android.cursor.item/email"'
-      go_type: string
-    - go_name: ContentEmailType
-      value: '"vnd.android.cursor.dir/email"'
-      go_type: string
-    - go_name: ContentEmailUri
-      value: "0"
-      go_type: int
-    - go_name: ContentImItemType
-      value: '"vnd.android.cursor.item/jabber-im"'
-      go_type: string
-    - go_name: ContentPostalItemType
-      value: '"vnd.android.cursor.item/postal-address"'
-      go_type: string
-    - go_name: ContentPostalType
-      value: '"vnd.android.cursor.dir/postal-address"'
-      go_type: string
-    - go_name: DefaultSortOrder
-      value: '"name ASC"'
-      go_type: string
-    - go_name: PersonId
-      value: '"person"'
-      go_type: string
-    - go_name: PostalLocationLatitude
-      value: '"data"'
-      go_type: string
-    - go_name: PostalLocationLongitude
-      value: '"aux_data"'
-      go_type: string
-    - go_name: ProtocolAim
-      value: "0"
-      go_type: int
-    - go_name: ProtocolGoogleTalk
-      value: "5"
-      go_type: int
-    - go_name: ProtocolIcq
-      value: "6"
-      go_type: int
-    - go_name: ProtocolJabber
-      value: "7"
-      go_type: int
-    - go_name: ProtocolMsn
-      value: "1"
-      go_type: int
-    - go_name: ProtocolQq
-      value: "4"
-      go_type: int
-    - go_name: ProtocolSkype
-      value: "3"
-      go_type: int
-    - go_name: ProtocolYahoo
-      value: "2"
-      go_type: int
-    - go_name: AuxData
-      value: '"aux_data"'
-      go_type: string
-    - go_name: Data
-      value: '"data"'
-      go_type: string
-    - go_name: Isprimary
-      value: '"isprimary"'
-      go_type: string
-    - go_name: Kind
-      value: '"kind"'
-      go_type: string
-    - go_name: Label
-      value: '"label"'
-      go_type: string
-    - go_name: Type
-      value: '"type"'
-      go_type: string
-    - go_name: TypeCustom
-      value: "0"
-      go_type: int
-    - go_name: TypeHome
-      value: "1"
-      go_type: int
-    - go_name: TypeOther
-      value: "3"
-      go_type: int
-    - go_name: TypeWork
-      value: "2"
-      go_type: int
-    - go_name: Name
-      value: '"name"'
-      go_type: string
-    - go_name: Value
-      value: '"value"'
-      go_type: string
-    - go_name: ContentDirectory
-      value: '"groupmembership"'
-      go_type: string
-    - go_name: GroupId
-      value: '"group_id"'
-      go_type: string
-    - go_name: GroupSyncAccount
-      value: '"group_sync_account"'
-      go_type: string
-    - go_name: GroupSyncAccountType
-      value: '"group_sync_account_type"'
-      go_type: string
-    - go_name: GroupSyncId
-      value: '"group_sync_id"'
-      go_type: string
-    - go_name: RawContentUri
-      value: "0"
-      go_type: int
-    - go_name: DeletedContentUri
-      value: "0"
-      go_type: int
-    - go_name: GroupAndroidStarred
-      value: '"Starred in Android"'
-      go_type: string
-    - go_name: GroupMyContacts
-      value: '"Contacts"'
-      go_type: string
-    - go_name: Notes
-      value: '"notes"'
-      go_type: string
-    - go_name: ShouldSync
-      value: '"should_sync"'
-      go_type: string
-    - go_name: SystemId
-      value: '"system_id"'
-      go_type: string
-    - go_name: AttachImage
-      value: '"com.android.contacts.action.ATTACH_IMAGE"'
-      go_type: string
-    - go_name: ExtraCreateDescription
-      value: '"com.android.contacts.action.CREATE_DESCRIPTION"'
-      go_type: string
-    - go_name: ExtraForceCreate
-      value: '"com.android.contacts.action.FORCE_CREATE"'
-      go_type: string
-    - go_name: SearchSuggestionClicked
-      value: '"android.provider.Contacts.SEARCH_SUGGESTION_CLICKED"'
-      go_type: string
-    - go_name: SearchSuggestionCreateContactClicked
-      value: '"android.provider.Contacts.SEARCH_SUGGESTION_CREATE_CONTACT_CLICKED"'
-      go_type: string
-    - go_name: SearchSuggestionDialNumberClicked
-      value: '"android.provider.Contacts.SEARCH_SUGGESTION_DIAL_NUMBER_CLICKED"'
-      go_type: string
-    - go_name: ShowOrCreateContact
-      value: '"com.android.contacts.action.SHOW_OR_CREATE_CONTACT"'
-      go_type: string
-    - go_name: Company
-      value: '"company"'
-      go_type: string
-    - go_name: Title
-      value: '"title"'
-      go_type: string
-    - go_name: ContentFilterUri
-      value: "0"
-      go_type: int
-    - go_name: PrimaryEmailId
-      value: '"primary_email"'
-      go_type: string
-    - go_name: PrimaryOrganizationId
-      value: '"primary_organization"'
-      go_type: string
-    - go_name: PrimaryPhoneId
-      value: '"primary_phone"'
-      go_type: string
-    - go_name: CustomRingtone
-      value: '"custom_ringtone"'
-      go_type: string
-    - go_name: DisplayName
-      value: '"display_name"'
-      go_type: string
-    - go_name: LastTimeContacted
-      value: '"last_time_contacted"'
-      go_type: string
-    - go_name: PhoneticName
-      value: '"phonetic_name"'
-      go_type: string
-    - go_name: PhotoVersion
-      value: '"photo_version"'
-      go_type: string
-    - go_name: SendToVoicemail
-      value: '"send_to_voicemail"'
-      go_type: string
-    - go_name: Starred
-      value: '"starred"'
-      go_type: string
-    - go_name: TimesContacted
-      value: '"times_contacted"'
-      go_type: string
-    - go_name: ContentFilterUrl
-      value: "0"
-      go_type: int
-    - go_name: Number
-      value: '"number"'
-      go_type: string
-    - go_name: NumberKey
-      value: '"number_key"'
-      go_type: string
-    - go_name: TypeFaxHome
-      value: "5"
-      go_type: int
-    - go_name: TypeFaxWork
-      value: "4"
-      go_type: int
-    - go_name: TypeMobile
-      value: "2"
-      go_type: int
-    - go_name: TypePager
-      value: "6"
-      go_type: int
-    - go_name: DownloadRequired
-      value: '"download_required"'
-      go_type: string
-    - go_name: ExistsOnServer
-      value: '"exists_on_server"'
-      go_type: string
-    - go_name: LocalVersion
-      value: '"local_version"'
-      go_type: string
-    - go_name: SyncError
-      value: '"sync_error"'
-      go_type: string
-    - go_name: Available
-      value: "5"
-      go_type: int
-    - go_name: Away
-      value: "2"
-      go_type: int
-    - go_name: DoNotDisturb
-      value: "4"
-      go_type: int
-    - go_name: Idle
-      value: "3"
-      go_type: int
-    - go_name: ImAccount
-      value: '"im_account"'
-      go_type: string
-    - go_name: ImHandle
-      value: '"im_handle"'
-      go_type: string
-    - go_name: ImProtocol
-      value: '"im_protocol"'
-      go_type: string
-    - go_name: Invisible
-      value: "1"
-      go_type: int
-    - go_name: Offline
-      value: "0"
-      go_type: int
-    - go_name: PresenceCustomStatus
-      value: '"status"'
-      go_type: string
-    - go_name: PresenceStatus
-      value: '"mode"'
-      go_type: string
-    - go_name: Priority
-      value: '"priority"'
-      go_type: string
-    - go_name: SyncEverything
-      value: '"syncEverything"'
-      go_type: string
-    - go_name: Key
-      value: '"key"'
-      go_type: string
-    - go_name: SyncAccount
-      value: '"_sync_account"'
-      go_type: string
-    - go_name: SyncAccountType
-      value: '"_sync_account_type"'
-      go_type: string
     - go_name: AnsweredExternallyType
       value: "7"
       go_type: int
@@ -2204,6 +2430,15 @@ constants:
     - go_name: ComposerPhotoUri
       value: '"composer_photo_uri"'
       go_type: string
+    - go_name: ContentFilterUri
+      value: "0"
+      go_type: int
+    - go_name: ContentItemType
+      value: '"vnd.android.cursor.item/calls"'
+      go_type: string
+    - go_name: ContentType
+      value: '"vnd.android.cursor.dir/calls"'
+      go_type: string
     - go_name: ContentUriWithVoicemail
       value: "0"
       go_type: int
@@ -2215,6 +2450,9 @@ constants:
       go_type: string
     - go_name: Date
       value: '"date"'
+      go_type: string
+    - go_name: DefaultSortOrder
+      value: '"date DESC"'
       go_type: string
     - go_name: Duration
       value: '"duration"'
@@ -2279,6 +2517,9 @@ constants:
     - go_name: New
       value: '"new"'
       go_type: string
+    - go_name: Number
+      value: '"number"'
+      go_type: string
     - go_name: NumberPresentation
       value: '"presentation"'
       go_type: string
@@ -2312,6 +2553,9 @@ constants:
     - go_name: PresentationUnknown
       value: "3"
       go_type: int
+    - go_name: Priority
+      value: '"priority"'
+      go_type: string
     - go_name: PriorityNormal
       value: "0"
       go_type: int
@@ -2326,6 +2570,9 @@ constants:
       go_type: string
     - go_name: Transcription
       value: '"transcription"'
+      go_type: string
+    - go_name: Type
+      value: '"type"'
       go_type: string
     - go_name: UserMissedCallFiltersTimeout
       value: "4194304"
@@ -2363,36 +2610,381 @@ constants:
     - go_name: Longitude
       value: '"longitude"'
       go_type: string
+    - go_name: AppId
+      value: '"appid"'
+      go_type: string
+    - go_name: Frequency
+      value: '"frequency"'
+      go_type: string
+    - go_name: Locale
+      value: '"locale"'
+      go_type: string
+    - go_name: LocaleTypeAll
+      value: "0"
+      go_type: int
+    - go_name: LocaleTypeCurrent
+      value: "1"
+      go_type: int
+    - go_name: Shortcut
+      value: '"shortcut"'
+      go_type: string
+    - go_name: Word
+      value: '"word"'
+      go_type: string
+    - go_name: Id
+      value: '"_id"'
+      go_type: string
+    - go_name: BaseUri
+      value: "0"
+      go_type: int
+    - go_name: KeyAirplaneMode
+      value: '"airplane_mode"'
+      go_type: string
+    - go_name: KeyBatterySaver
+      value: '"battery_saver"'
+      go_type: string
+    - go_name: KeyBluetooth
+      value: '"bluetooth"'
+      go_type: string
+    - go_name: KeyLocation
+      value: '"location"'
+      go_type: string
+    - go_name: KeyWifi
+      value: '"wifi"'
+      go_type: string
+    - go_name: PathSettingAction
+      value: '"action"'
+      go_type: string
+    - go_name: PathSettingIntent
+      value: '"intent"'
+      go_type: string
+    - go_name: ActionDismissAlarm
+      value: '"android.intent.action.DISMISS_ALARM"'
+      go_type: string
+    - go_name: ActionDismissTimer
+      value: '"android.intent.action.DISMISS_TIMER"'
+      go_type: string
+    - go_name: ActionSetAlarm
+      value: '"android.intent.action.SET_ALARM"'
+      go_type: string
+    - go_name: ActionSetTimer
+      value: '"android.intent.action.SET_TIMER"'
+      go_type: string
+    - go_name: ActionShowAlarms
+      value: '"android.intent.action.SHOW_ALARMS"'
+      go_type: string
+    - go_name: ActionShowTimers
+      value: '"android.intent.action.SHOW_TIMERS"'
+      go_type: string
+    - go_name: ActionSnoozeAlarm
+      value: '"android.intent.action.SNOOZE_ALARM"'
+      go_type: string
+    - go_name: AlarmSearchModeAll
+      value: '"android.all"'
+      go_type: string
+    - go_name: AlarmSearchModeLabel
+      value: '"android.label"'
+      go_type: string
+    - go_name: AlarmSearchModeNext
+      value: '"android.next"'
+      go_type: string
+    - go_name: AlarmSearchModeTime
+      value: '"android.time"'
+      go_type: string
+    - go_name: ExtraAlarmSearchMode
+      value: '"android.intent.extra.alarm.SEARCH_MODE"'
+      go_type: string
+    - go_name: ExtraAlarmSnoozeDuration
+      value: '"android.intent.extra.alarm.SNOOZE_DURATION"'
+      go_type: string
+    - go_name: ExtraDays
+      value: '"android.intent.extra.alarm.DAYS"'
+      go_type: string
+    - go_name: ExtraHour
+      value: '"android.intent.extra.alarm.HOUR"'
+      go_type: string
+    - go_name: ExtraIsPm
+      value: '"android.intent.extra.alarm.IS_PM"'
+      go_type: string
+    - go_name: ExtraLength
+      value: '"android.intent.extra.alarm.LENGTH"'
+      go_type: string
+    - go_name: ExtraMessage
+      value: '"android.intent.extra.alarm.MESSAGE"'
+      go_type: string
+    - go_name: ExtraMinutes
+      value: '"android.intent.extra.alarm.MINUTES"'
+      go_type: string
+    - go_name: ExtraRingtone
+      value: '"android.intent.extra.alarm.RINGTONE"'
+      go_type: string
+    - go_name: ExtraSkipUi
+      value: '"android.intent.extra.alarm.SKIP_UI"'
+      go_type: string
+    - go_name: ExtraVibrate
+      value: '"android.intent.extra.alarm.VIBRATE"'
+      go_type: string
+    - go_name: ValueRingtoneSilent
+      value: '"silent"'
+      go_type: string
+    - go_name: ActionFetchVoicemail
+      value: '"android.intent.action.FETCH_VOICEMAIL"'
+      go_type: string
+    - go_name: ActionNewVoicemail
+      value: '"android.intent.action.NEW_VOICEMAIL"'
+      go_type: string
+    - go_name: ActionSyncVoicemail
+      value: '"android.provider.action.SYNC_VOICEMAIL"'
+      go_type: string
+    - go_name: ExtraPhoneAccountHandle
+      value: '"android.provider.extra.PHONE_ACCOUNT_HANDLE"'
+      go_type: string
+    - go_name: ExtraSelfChange
+      value: '"com.android.voicemail.extra.SELF_CHANGE"'
+      go_type: string
+    - go_name: ParamKeySourcePackage
+      value: '"source_package"'
+      go_type: string
+    - go_name: ConfigurationState
+      value: '"configuration_state"'
+      go_type: string
+    - go_name: ConfigurationStateCanBeConfigured
+      value: "2"
+      go_type: int
+    - go_name: ConfigurationStateConfiguring
+      value: "3"
+      go_type: int
+    - go_name: ConfigurationStateDisabled
+      value: "5"
+      go_type: int
+    - go_name: ConfigurationStateFailed
+      value: "4"
+      go_type: int
+    - go_name: ConfigurationStateNotConfigured
+      value: "1"
+      go_type: int
+    - go_name: ConfigurationStateOk
+      value: "0"
+      go_type: int
+    - go_name: DataChannelState
+      value: '"data_channel_state"'
+      go_type: string
+    - go_name: DataChannelStateBadConfiguration
+      value: "3"
+      go_type: int
+    - go_name: DataChannelStateCommunicationError
+      value: "4"
+      go_type: int
+    - go_name: DataChannelStateNoConnection
+      value: "1"
+      go_type: int
+    - go_name: DataChannelStateNoConnectionCellularRequired
+      value: "2"
+      go_type: int
+    - go_name: DataChannelStateOk
+      value: "0"
+      go_type: int
+    - go_name: DataChannelStateServerConnectionError
+      value: "6"
+      go_type: int
+    - go_name: DataChannelStateServerError
+      value: "5"
+      go_type: int
+    - go_name: DirType
+      value: '"vnd.android.cursor.dir/voicemail.source.status"'
+      go_type: string
+    - go_name: ItemType
+      value: '"vnd.android.cursor.item/voicemail.source.status"'
+      go_type: string
+    - go_name: NotificationChannelState
+      value: '"notification_channel_state"'
+      go_type: string
+    - go_name: NotificationChannelStateMessageWaiting
+      value: "2"
+      go_type: int
+    - go_name: NotificationChannelStateNoConnection
+      value: "1"
+      go_type: int
+    - go_name: NotificationChannelStateOk
+      value: "0"
+      go_type: int
+    - go_name: QuotaOccupied
+      value: '"quota_occupied"'
+      go_type: string
+    - go_name: QuotaTotal
+      value: '"quota_total"'
+      go_type: string
+    - go_name: QuotaUnavailable
+      value: "-1"
+      go_type: int
+    - go_name: SettingsUri
+      value: '"settings_uri"'
+      go_type: string
+    - go_name: SourcePackage
+      value: '"source_package"'
+      go_type: string
+    - go_name: SourceType
+      value: '"source_type"'
+      go_type: string
+    - go_name: VoicemailAccessUri
+      value: '"voicemail_access_uri"'
+      go_type: string
+    - go_name: Archived
+      value: '"archived"'
+      go_type: string
+    - go_name: BackedUp
+      value: '"backed_up"'
+      go_type: string
+    - go_name: Deleted
+      value: '"deleted"'
+      go_type: string
+    - go_name: Dirty
+      value: '"dirty"'
+      go_type: string
+    - go_name: DirtyRetain
+      value: "-1"
+      go_type: int
+    - go_name: HasContent
+      value: '"has_content"'
+      go_type: string
+    - go_name: IsOmtpVoicemail
+      value: '"is_omtp_voicemail"'
+      go_type: string
+    - go_name: MimeType
+      value: '"mime_type"'
+      go_type: string
+    - go_name: Restored
+      value: '"restored"'
+      go_type: string
+    - go_name: SourceData
+      value: '"source_data"'
+      go_type: string
+    - go_name: FileId
+      value: '"file_id"'
+      go_type: string
+    - go_name: Italic
+      value: '"font_italic"'
+      go_type: string
+    - go_name: ResultCode
+      value: '"result_code"'
+      go_type: string
+    - go_name: ResultCodeFontNotFound
+      value: "1"
+      go_type: int
+    - go_name: ResultCodeFontUnavailable
+      value: "2"
+      go_type: int
+    - go_name: ResultCodeMalformedQuery
+      value: "3"
+      go_type: int
+    - go_name: ResultCodeOk
+      value: "0"
+      go_type: int
+    - go_name: TtcIndex
+      value: '"font_ttc_index"'
+      go_type: string
+    - go_name: VariationSettings
+      value: '"font_variation_settings"'
+      go_type: string
+    - go_name: Weight
+      value: '"font_weight"'
+      go_type: string
+    - go_name: StatusOk
+      value: "0"
+      go_type: int
+    - go_name: StatusRejected
+      value: "3"
+      go_type: int
+    - go_name: StatusUnexpectedDataProvided
+      value: "2"
+      go_type: int
+    - go_name: StatusWrongCertificates
+      value: "1"
+      go_type: int
+    - go_name: FailReasonFontLoadError
+      value: "-3"
+      go_type: int
+    - go_name: FailReasonFontNotFound
+      value: "1"
+      go_type: int
+    - go_name: FailReasonFontUnavailable
+      value: "2"
+      go_type: int
+    - go_name: FailReasonMalformedQuery
+      value: "3"
+      go_type: int
+    - go_name: FailReasonProviderNotFound
+      value: "-1"
+      go_type: int
+    - go_name: FailReasonWrongCertificates
+      value: "-2"
+      go_type: int
+    - go_name: AuthorityUri
+      value: "0"
+      go_type: int
+    - go_name: ColumnE164Number
+      value: '"e164_number"'
+      go_type: string
+    - go_name: ColumnId
+      value: '"_id"'
+      go_type: string
+    - go_name: ColumnOriginalNumber
+      value: '"original_number"'
+      go_type: string
+    - go_name: Count
+      value: '"_count"'
+      go_type: string
     - go_name: AccountName
       value: '"account_name"'
       go_type: string
     - go_name: AccountType
       value: '"account_type"'
       go_type: string
-    - go_name: PlaybackStateBuffering
+    - go_name: Data
+      value: '"data"'
+      go_type: string
+    - go_name: ContentDirectory
+      value: '"syncstate"'
+      go_type: string
+    - go_name: ActionCreateLiveFolder
+      value: '"android.intent.action.CREATE_LIVE_FOLDER"'
+      go_type: string
+    - go_name: Description
+      value: '"description"'
+      go_type: string
+    - go_name: DisplayModeGrid
       value: "1"
       go_type: int
-    - go_name: PlaybackStateCompleted
-      value: "5"
-      go_type: int
-    - go_name: PlaybackStateErrorPermanentFailure
-      value: "7"
-      go_type: int
-    - go_name: PlaybackStateErrorRetriableFailure
-      value: "6"
-      go_type: int
-    - go_name: PlaybackStateMediaSizeChanged
-      value: "8"
-      go_type: int
-    - go_name: PlaybackStatePaused
-      value: "4"
-      go_type: int
-    - go_name: PlaybackStateReady
+    - go_name: DisplayModeList
       value: "2"
       go_type: int
-    - go_name: PlaybackStateStarted
-      value: "3"
-      go_type: int
+    - go_name: ExtraLiveFolderBaseIntent
+      value: '"android.intent.extra.livefolder.BASE_INTENT"'
+      go_type: string
+    - go_name: ExtraLiveFolderDisplayMode
+      value: '"android.intent.extra.livefolder.DISPLAY_MODE"'
+      go_type: string
+    - go_name: ExtraLiveFolderIcon
+      value: '"android.intent.extra.livefolder.ICON"'
+      go_type: string
+    - go_name: ExtraLiveFolderName
+      value: '"android.intent.extra.livefolder.NAME"'
+      go_type: string
+    - go_name: IconBitmap
+      value: '"icon_bitmap"'
+      go_type: string
+    - go_name: IconPackage
+      value: '"icon_package"'
+      go_type: string
+    - go_name: IconResource
+      value: '"icon_resource"'
+      go_type: string
+    - go_name: Intent
+      value: '"intent"'
+      go_type: string
+    - go_name: Name
+      value: '"name"'
+      go_type: string
     - go_name: ContentClass
       value: '"ct_cls"'
       go_type: string
@@ -2729,231 +3321,6 @@ constants:
     - go_name: ObsoleteThreadsUri
       value: "0"
       go_type: int
-    - go_name: Archived
-      value: '"archived"'
-      go_type: string
-    - go_name: Error
-      value: '"error"'
-      go_type: string
-    - go_name: HasAttachment
-      value: '"has_attachment"'
-      go_type: string
-    - go_name: MessageCount
-      value: '"message_count"'
-      go_type: string
-    - go_name: RecipientIds
-      value: '"recipient_ids"'
-      go_type: string
-    - go_name: Snippet
-      value: '"snippet"'
-      go_type: string
-    - go_name: SnippetCharset
-      value: '"snippet_cs"'
-      go_type: string
-    - go_name: AppId
-      value: '"appid"'
-      go_type: string
-    - go_name: Frequency
-      value: '"frequency"'
-      go_type: string
-    - go_name: Locale
-      value: '"locale"'
-      go_type: string
-    - go_name: LocaleTypeAll
-      value: "0"
-      go_type: int
-    - go_name: LocaleTypeCurrent
-      value: "1"
-      go_type: int
-    - go_name: Shortcut
-      value: '"shortcut"'
-      go_type: string
-    - go_name: Word
-      value: '"word"'
-      go_type: string
-    - go_name: Id
-      value: '"_id"'
-      go_type: string
-    - go_name: EfAdn
-      value: "1"
-      go_type: int
-    - go_name: EfFdn
-      value: "2"
-      go_type: int
-    - go_name: EfSdn
-      value: "3"
-      go_type: int
-    - go_name: EfType
-      value: '"ef_type"'
-      go_type: string
-    - go_name: EfUnknown
-      value: "0"
-      go_type: int
-    - go_name: MaxRecords
-      value: '"max_records"'
-      go_type: string
-    - go_name: NameMaxLength
-      value: '"name_max_length"'
-      go_type: string
-    - go_name: PhoneNumberMaxLength
-      value: '"phone_number_max_length"'
-      go_type: string
-    - go_name: RecordCount
-      value: '"record_count"'
-      go_type: string
-    - go_name: SlotIndex
-      value: '"slot_index"'
-      go_type: string
-    - go_name: ElementaryFileType
-      value: '"elementary_file_type"'
-      go_type: string
-    - go_name: ErrorNameUnsupported
-      value: "-1"
-      go_type: int
-    - go_name: PhoneNumber
-      value: '"phone_number"'
-      go_type: string
-    - go_name: RecordNumber
-      value: '"record_number"'
-      go_type: string
-    - go_name: Size
-      value: '"_size"'
-      go_type: string
-    - go_name: QueriesProjection1line
-      value: "0"
-      go_type: int
-    - go_name: QueriesProjection2line
-      value: "0"
-      go_type: int
-    - go_name: QueriesProjectionDateIndex
-      value: "1"
-      go_type: int
-    - go_name: QueriesProjectionDisplay1Index
-      value: "3"
-      go_type: int
-    - go_name: QueriesProjectionDisplay2Index
-      value: "4"
-      go_type: int
-    - go_name: QueriesProjectionQueryIndex
-      value: "2"
-      go_type: int
-    - go_name: ActionCreateLiveFolder
-      value: '"android.intent.action.CREATE_LIVE_FOLDER"'
-      go_type: string
-    - go_name: Description
-      value: '"description"'
-      go_type: string
-    - go_name: DisplayModeGrid
-      value: "1"
-      go_type: int
-    - go_name: DisplayModeList
-      value: "2"
-      go_type: int
-    - go_name: ExtraLiveFolderBaseIntent
-      value: '"android.intent.extra.livefolder.BASE_INTENT"'
-      go_type: string
-    - go_name: ExtraLiveFolderDisplayMode
-      value: '"android.intent.extra.livefolder.DISPLAY_MODE"'
-      go_type: string
-    - go_name: ExtraLiveFolderIcon
-      value: '"android.intent.extra.livefolder.ICON"'
-      go_type: string
-    - go_name: ExtraLiveFolderName
-      value: '"android.intent.extra.livefolder.NAME"'
-      go_type: string
-    - go_name: IconBitmap
-      value: '"icon_bitmap"'
-      go_type: string
-    - go_name: IconPackage
-      value: '"icon_package"'
-      go_type: string
-    - go_name: IconResource
-      value: '"icon_resource"'
-      go_type: string
-    - go_name: Intent
-      value: '"intent"'
-      go_type: string
-    - go_name: ActionDismissAlarm
-      value: '"android.intent.action.DISMISS_ALARM"'
-      go_type: string
-    - go_name: ActionDismissTimer
-      value: '"android.intent.action.DISMISS_TIMER"'
-      go_type: string
-    - go_name: ActionSetAlarm
-      value: '"android.intent.action.SET_ALARM"'
-      go_type: string
-    - go_name: ActionSetTimer
-      value: '"android.intent.action.SET_TIMER"'
-      go_type: string
-    - go_name: ActionShowAlarms
-      value: '"android.intent.action.SHOW_ALARMS"'
-      go_type: string
-    - go_name: ActionShowTimers
-      value: '"android.intent.action.SHOW_TIMERS"'
-      go_type: string
-    - go_name: ActionSnoozeAlarm
-      value: '"android.intent.action.SNOOZE_ALARM"'
-      go_type: string
-    - go_name: AlarmSearchModeAll
-      value: '"android.all"'
-      go_type: string
-    - go_name: AlarmSearchModeLabel
-      value: '"android.label"'
-      go_type: string
-    - go_name: AlarmSearchModeNext
-      value: '"android.next"'
-      go_type: string
-    - go_name: AlarmSearchModeTime
-      value: '"android.time"'
-      go_type: string
-    - go_name: ExtraAlarmSearchMode
-      value: '"android.intent.extra.alarm.SEARCH_MODE"'
-      go_type: string
-    - go_name: ExtraAlarmSnoozeDuration
-      value: '"android.intent.extra.alarm.SNOOZE_DURATION"'
-      go_type: string
-    - go_name: ExtraDays
-      value: '"android.intent.extra.alarm.DAYS"'
-      go_type: string
-    - go_name: ExtraHour
-      value: '"android.intent.extra.alarm.HOUR"'
-      go_type: string
-    - go_name: ExtraIsPm
-      value: '"android.intent.extra.alarm.IS_PM"'
-      go_type: string
-    - go_name: ExtraLength
-      value: '"android.intent.extra.alarm.LENGTH"'
-      go_type: string
-    - go_name: ExtraMessage
-      value: '"android.intent.extra.alarm.MESSAGE"'
-      go_type: string
-    - go_name: ExtraMinutes
-      value: '"android.intent.extra.alarm.MINUTES"'
-      go_type: string
-    - go_name: ExtraRingtone
-      value: '"android.intent.extra.alarm.RINGTONE"'
-      go_type: string
-    - go_name: ExtraSkipUi
-      value: '"android.intent.extra.alarm.SKIP_UI"'
-      go_type: string
-    - go_name: ExtraVibrate
-      value: '"android.intent.extra.alarm.VIBRATE"'
-      go_type: string
-    - go_name: ValueRingtoneSilent
-      value: '"silent"'
-      go_type: string
-    - go_name: ExtraApplicationId
-      value: '"com.android.browser.application_id"'
-      go_type: string
-    - go_name: ExtraCreateNewTab
-      value: '"create_new_tab"'
-      go_type: string
-    - go_name: ExtraHeaders
-      value: '"com.android.browser.headers"'
-      go_type: string
-    - go_name: InitialZoomLevel
-      value: '"browser.initialZoomLevel"'
-      go_type: string
     - go_name: ExtraAlbumId
       value: '"android.provider.extra.ALBUM_ID"'
       go_type: string
@@ -3008,8 +3375,29 @@ constants:
     - go_name: SortOrderDescDateTaken
       value: "1"
       go_type: int
+    - go_name: Error
+      value: '"error"'
+      go_type: string
+    - go_name: HasAttachment
+      value: '"has_attachment"'
+      go_type: string
+    - go_name: MessageCount
+      value: '"message_count"'
+      go_type: string
+    - go_name: RecipientIds
+      value: '"recipient_ids"'
+      go_type: string
+    - go_name: Snippet
+      value: '"snippet"'
+      go_type: string
+    - go_name: SnippetCharset
+      value: '"snippet_cs"'
+      go_type: string
     - go_name: DateTakenMillis
       value: '"date_taken_millis"'
+      go_type: string
+    - go_name: DisplayName
+      value: '"display_name"'
       go_type: string
     - go_name: MediaCount
       value: '"album_media_count"'
@@ -3053,9 +3441,6 @@ constants:
     - go_name: MediaStoreUri
       value: '"media_store_uri"'
       go_type: string
-    - go_name: MimeType
-      value: '"mime_type"'
-      go_type: string
     - go_name: Orientation
       value: '"orientation"'
       go_type: string
@@ -3098,216 +3483,360 @@ constants:
     - go_name: VerificationStateVerified
       value: "2"
       go_type: int
-    - go_name: ActionFetchVoicemail
-      value: '"android.intent.action.FETCH_VOICEMAIL"'
+    - go_name: Size
+      value: '"_size"'
       go_type: string
-    - go_name: ActionNewVoicemail
-      value: '"android.intent.action.NEW_VOICEMAIL"'
-      go_type: string
-    - go_name: ActionSyncVoicemail
-      value: '"android.provider.action.SYNC_VOICEMAIL"'
-      go_type: string
-    - go_name: ExtraPhoneAccountHandle
-      value: '"android.provider.extra.PHONE_ACCOUNT_HANDLE"'
-      go_type: string
-    - go_name: ExtraSelfChange
-      value: '"com.android.voicemail.extra.SELF_CHANGE"'
-      go_type: string
-    - go_name: ParamKeySourcePackage
-      value: '"source_package"'
-      go_type: string
-    - go_name: ConfigurationState
-      value: '"configuration_state"'
-      go_type: string
-    - go_name: ConfigurationStateCanBeConfigured
-      value: "2"
+    - go_name: QueriesProjection1line
+      value: "0"
       go_type: int
-    - go_name: ConfigurationStateConfiguring
+    - go_name: QueriesProjection2line
+      value: "0"
+      go_type: int
+    - go_name: QueriesProjectionDateIndex
+      value: "1"
+      go_type: int
+    - go_name: QueriesProjectionDisplay1Index
       value: "3"
       go_type: int
-    - go_name: ConfigurationStateDisabled
+    - go_name: QueriesProjectionDisplay2Index
+      value: "4"
+      go_type: int
+    - go_name: QueriesProjectionQueryIndex
+      value: "2"
+      go_type: int
+    - go_name: EfAdn
+      value: "1"
+      go_type: int
+    - go_name: EfFdn
+      value: "2"
+      go_type: int
+    - go_name: EfSdn
+      value: "3"
+      go_type: int
+    - go_name: EfType
+      value: '"ef_type"'
+      go_type: string
+    - go_name: EfUnknown
+      value: "0"
+      go_type: int
+    - go_name: MaxRecords
+      value: '"max_records"'
+      go_type: string
+    - go_name: NameMaxLength
+      value: '"name_max_length"'
+      go_type: string
+    - go_name: PhoneNumberMaxLength
+      value: '"phone_number_max_length"'
+      go_type: string
+    - go_name: RecordCount
+      value: '"record_count"'
+      go_type: string
+    - go_name: SlotIndex
+      value: '"slot_index"'
+      go_type: string
+    - go_name: ElementaryFileType
+      value: '"elementary_file_type"'
+      go_type: string
+    - go_name: ErrorNameUnsupported
+      value: "-1"
+      go_type: int
+    - go_name: PhoneNumber
+      value: '"phone_number"'
+      go_type: string
+    - go_name: RecordNumber
+      value: '"record_number"'
+      go_type: string
+    - go_name: ExtraApplicationId
+      value: '"com.android.browser.application_id"'
+      go_type: string
+    - go_name: ExtraCreateNewTab
+      value: '"create_new_tab"'
+      go_type: string
+    - go_name: ExtraHeaders
+      value: '"com.android.browser.headers"'
+      go_type: string
+    - go_name: InitialZoomLevel
+      value: '"browser.initialZoomLevel"'
+      go_type: string
+    - go_name: KindEmail
+      value: "1"
+      go_type: int
+    - go_name: KindIm
+      value: "3"
+      go_type: int
+    - go_name: KindOrganization
+      value: "4"
+      go_type: int
+    - go_name: KindPhone
       value: "5"
       go_type: int
-    - go_name: ConfigurationStateFailed
-      value: "4"
-      go_type: int
-    - go_name: ConfigurationStateNotConfigured
-      value: "1"
-      go_type: int
-    - go_name: ConfigurationStateOk
-      value: "0"
-      go_type: int
-    - go_name: DataChannelState
-      value: '"data_channel_state"'
-      go_type: string
-    - go_name: DataChannelStateBadConfiguration
-      value: "3"
-      go_type: int
-    - go_name: DataChannelStateCommunicationError
-      value: "4"
-      go_type: int
-    - go_name: DataChannelStateNoConnection
-      value: "1"
-      go_type: int
-    - go_name: DataChannelStateNoConnectionCellularRequired
+    - go_name: KindPostal
       value: "2"
       go_type: int
-    - go_name: DataChannelStateOk
+    - go_name: ContentEmailItemType
+      value: '"vnd.android.cursor.item/email"'
+      go_type: string
+    - go_name: ContentEmailType
+      value: '"vnd.android.cursor.dir/email"'
+      go_type: string
+    - go_name: ContentEmailUri
       value: "0"
       go_type: int
-    - go_name: DataChannelStateServerConnectionError
+    - go_name: ContentImItemType
+      value: '"vnd.android.cursor.item/jabber-im"'
+      go_type: string
+    - go_name: ContentPostalItemType
+      value: '"vnd.android.cursor.item/postal-address"'
+      go_type: string
+    - go_name: ContentPostalType
+      value: '"vnd.android.cursor.dir/postal-address"'
+      go_type: string
+    - go_name: PersonId
+      value: '"person"'
+      go_type: string
+    - go_name: PostalLocationLatitude
+      value: '"data"'
+      go_type: string
+    - go_name: PostalLocationLongitude
+      value: '"aux_data"'
+      go_type: string
+    - go_name: ProtocolAim
+      value: "0"
+      go_type: int
+    - go_name: ProtocolGoogleTalk
+      value: "5"
+      go_type: int
+    - go_name: ProtocolIcq
       value: "6"
       go_type: int
-    - go_name: DataChannelStateServerError
+    - go_name: ProtocolJabber
+      value: "7"
+      go_type: int
+    - go_name: ProtocolMsn
+      value: "1"
+      go_type: int
+    - go_name: ProtocolQq
+      value: "4"
+      go_type: int
+    - go_name: ProtocolSkype
+      value: "3"
+      go_type: int
+    - go_name: ProtocolYahoo
+      value: "2"
+      go_type: int
+    - go_name: AuxData
+      value: '"aux_data"'
+      go_type: string
+    - go_name: Isprimary
+      value: '"isprimary"'
+      go_type: string
+    - go_name: Kind
+      value: '"kind"'
+      go_type: string
+    - go_name: Label
+      value: '"label"'
+      go_type: string
+    - go_name: TypeCustom
+      value: "0"
+      go_type: int
+    - go_name: TypeHome
+      value: "1"
+      go_type: int
+    - go_name: TypeOther
+      value: "3"
+      go_type: int
+    - go_name: TypeWork
+      value: "2"
+      go_type: int
+    - go_name: Value
+      value: '"value"'
+      go_type: string
+    - go_name: GroupId
+      value: '"group_id"'
+      go_type: string
+    - go_name: GroupSyncAccount
+      value: '"group_sync_account"'
+      go_type: string
+    - go_name: GroupSyncAccountType
+      value: '"group_sync_account_type"'
+      go_type: string
+    - go_name: GroupSyncId
+      value: '"group_sync_id"'
+      go_type: string
+    - go_name: RawContentUri
+      value: "0"
+      go_type: int
+    - go_name: DeletedContentUri
+      value: "0"
+      go_type: int
+    - go_name: GroupAndroidStarred
+      value: '"Starred in Android"'
+      go_type: string
+    - go_name: GroupMyContacts
+      value: '"Contacts"'
+      go_type: string
+    - go_name: Notes
+      value: '"notes"'
+      go_type: string
+    - go_name: ShouldSync
+      value: '"should_sync"'
+      go_type: string
+    - go_name: SystemId
+      value: '"system_id"'
+      go_type: string
+    - go_name: AttachImage
+      value: '"com.android.contacts.action.ATTACH_IMAGE"'
+      go_type: string
+    - go_name: ExtraCreateDescription
+      value: '"com.android.contacts.action.CREATE_DESCRIPTION"'
+      go_type: string
+    - go_name: ExtraForceCreate
+      value: '"com.android.contacts.action.FORCE_CREATE"'
+      go_type: string
+    - go_name: SearchSuggestionClicked
+      value: '"android.provider.Contacts.SEARCH_SUGGESTION_CLICKED"'
+      go_type: string
+    - go_name: SearchSuggestionCreateContactClicked
+      value: '"android.provider.Contacts.SEARCH_SUGGESTION_CREATE_CONTACT_CLICKED"'
+      go_type: string
+    - go_name: SearchSuggestionDialNumberClicked
+      value: '"android.provider.Contacts.SEARCH_SUGGESTION_DIAL_NUMBER_CLICKED"'
+      go_type: string
+    - go_name: ShowOrCreateContact
+      value: '"com.android.contacts.action.SHOW_OR_CREATE_CONTACT"'
+      go_type: string
+    - go_name: Company
+      value: '"company"'
+      go_type: string
+    - go_name: Title
+      value: '"title"'
+      go_type: string
+    - go_name: PrimaryEmailId
+      value: '"primary_email"'
+      go_type: string
+    - go_name: PrimaryOrganizationId
+      value: '"primary_organization"'
+      go_type: string
+    - go_name: PrimaryPhoneId
+      value: '"primary_phone"'
+      go_type: string
+    - go_name: CustomRingtone
+      value: '"custom_ringtone"'
+      go_type: string
+    - go_name: LastTimeContacted
+      value: '"last_time_contacted"'
+      go_type: string
+    - go_name: PhoneticName
+      value: '"phonetic_name"'
+      go_type: string
+    - go_name: PhotoVersion
+      value: '"photo_version"'
+      go_type: string
+    - go_name: SendToVoicemail
+      value: '"send_to_voicemail"'
+      go_type: string
+    - go_name: Starred
+      value: '"starred"'
+      go_type: string
+    - go_name: TimesContacted
+      value: '"times_contacted"'
+      go_type: string
+    - go_name: ContentFilterUrl
+      value: "0"
+      go_type: int
+    - go_name: NumberKey
+      value: '"number_key"'
+      go_type: string
+    - go_name: TypeFaxHome
       value: "5"
       go_type: int
-    - go_name: DirType
-      value: '"vnd.android.cursor.dir/voicemail.source.status"'
-      go_type: string
-    - go_name: ItemType
-      value: '"vnd.android.cursor.item/voicemail.source.status"'
-      go_type: string
-    - go_name: NotificationChannelState
-      value: '"notification_channel_state"'
-      go_type: string
-    - go_name: NotificationChannelStateMessageWaiting
+    - go_name: TypeFaxWork
+      value: "4"
+      go_type: int
+    - go_name: TypeMobile
       value: "2"
       go_type: int
-    - go_name: NotificationChannelStateNoConnection
-      value: "1"
+    - go_name: TypePager
+      value: "6"
       go_type: int
-    - go_name: NotificationChannelStateOk
-      value: "0"
+    - go_name: DownloadRequired
+      value: '"download_required"'
+      go_type: string
+    - go_name: ExistsOnServer
+      value: '"exists_on_server"'
+      go_type: string
+    - go_name: LocalVersion
+      value: '"local_version"'
+      go_type: string
+    - go_name: SyncError
+      value: '"sync_error"'
+      go_type: string
+    - go_name: Available
+      value: "5"
       go_type: int
-    - go_name: QuotaOccupied
-      value: '"quota_occupied"'
-      go_type: string
-    - go_name: QuotaTotal
-      value: '"quota_total"'
-      go_type: string
-    - go_name: QuotaUnavailable
-      value: "-1"
-      go_type: int
-    - go_name: SettingsUri
-      value: '"settings_uri"'
-      go_type: string
-    - go_name: SourcePackage
-      value: '"source_package"'
-      go_type: string
-    - go_name: SourceType
-      value: '"source_type"'
-      go_type: string
-    - go_name: VoicemailAccessUri
-      value: '"voicemail_access_uri"'
-      go_type: string
-    - go_name: BackedUp
-      value: '"backed_up"'
-      go_type: string
-    - go_name: Deleted
-      value: '"deleted"'
-      go_type: string
-    - go_name: Dirty
-      value: '"dirty"'
-      go_type: string
-    - go_name: DirtyRetain
-      value: "-1"
-      go_type: int
-    - go_name: HasContent
-      value: '"has_content"'
-      go_type: string
-    - go_name: IsOmtpVoicemail
-      value: '"is_omtp_voicemail"'
-      go_type: string
-    - go_name: Restored
-      value: '"restored"'
-      go_type: string
-    - go_name: SourceData
-      value: '"source_data"'
-      go_type: string
-    - go_name: Count
-      value: '"_count"'
-      go_type: string
-    - go_name: BaseUri
-      value: "0"
-      go_type: int
-    - go_name: KeyAirplaneMode
-      value: '"airplane_mode"'
-      go_type: string
-    - go_name: KeyBatterySaver
-      value: '"battery_saver"'
-      go_type: string
-    - go_name: KeyBluetooth
-      value: '"bluetooth"'
-      go_type: string
-    - go_name: KeyLocation
-      value: '"location"'
-      go_type: string
-    - go_name: KeyWifi
-      value: '"wifi"'
-      go_type: string
-    - go_name: PathSettingAction
-      value: '"action"'
-      go_type: string
-    - go_name: PathSettingIntent
-      value: '"intent"'
-      go_type: string
-    - go_name: FileId
-      value: '"file_id"'
-      go_type: string
-    - go_name: Italic
-      value: '"font_italic"'
-      go_type: string
-    - go_name: ResultCode
-      value: '"result_code"'
-      go_type: string
-    - go_name: ResultCodeFontNotFound
-      value: "1"
-      go_type: int
-    - go_name: ResultCodeFontUnavailable
+    - go_name: Away
       value: "2"
       go_type: int
-    - go_name: ResultCodeMalformedQuery
+    - go_name: DoNotDisturb
+      value: "4"
+      go_type: int
+    - go_name: Idle
       value: "3"
       go_type: int
-    - go_name: ResultCodeOk
-      value: "0"
-      go_type: int
-    - go_name: TtcIndex
-      value: '"font_ttc_index"'
+    - go_name: ImAccount
+      value: '"im_account"'
       go_type: string
-    - go_name: VariationSettings
-      value: '"font_variation_settings"'
+    - go_name: ImHandle
+      value: '"im_handle"'
       go_type: string
-    - go_name: Weight
-      value: '"font_weight"'
+    - go_name: ImProtocol
+      value: '"im_protocol"'
       go_type: string
-    - go_name: StatusOk
-      value: "0"
-      go_type: int
-    - go_name: StatusRejected
-      value: "3"
-      go_type: int
-    - go_name: StatusUnexpectedDataProvided
-      value: "2"
-      go_type: int
-    - go_name: StatusWrongCertificates
+    - go_name: Invisible
       value: "1"
       go_type: int
-    - go_name: FailReasonFontLoadError
-      value: "-3"
+    - go_name: Offline
+      value: "0"
       go_type: int
-    - go_name: FailReasonFontNotFound
+    - go_name: PresenceCustomStatus
+      value: '"status"'
+      go_type: string
+    - go_name: PresenceStatus
+      value: '"mode"'
+      go_type: string
+    - go_name: SyncEverything
+      value: '"syncEverything"'
+      go_type: string
+    - go_name: Key
+      value: '"key"'
+      go_type: string
+    - go_name: SyncAccount
+      value: '"_sync_account"'
+      go_type: string
+    - go_name: SyncAccountType
+      value: '"_sync_account_type"'
+      go_type: string
+    - go_name: PlaybackStateBuffering
       value: "1"
       go_type: int
-    - go_name: FailReasonFontUnavailable
+    - go_name: PlaybackStateCompleted
+      value: "5"
+      go_type: int
+    - go_name: PlaybackStateErrorPermanentFailure
+      value: "7"
+      go_type: int
+    - go_name: PlaybackStateErrorRetriableFailure
+      value: "6"
+      go_type: int
+    - go_name: PlaybackStateMediaSizeChanged
+      value: "8"
+      go_type: int
+    - go_name: PlaybackStatePaused
+      value: "4"
+      go_type: int
+    - go_name: PlaybackStateReady
       value: "2"
       go_type: int
-    - go_name: FailReasonMalformedQuery
+    - go_name: PlaybackStateStarted
       value: "3"
-      go_type: int
-    - go_name: FailReasonProviderNotFound
-      value: "-1"
-      go_type: int
-    - go_name: FailReasonWrongCertificates
-      value: "-2"
       go_type: int

@@ -23,25 +23,6 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsHomeSp                         *jni.GlobalRef
-	midHomeSpCtor                     jni.MethodID
-	midHomeSpDescribeContents         jni.MethodID
-	midHomeSpEquals                   jni.MethodID
-	midHomeSpGetFqdn                  jni.MethodID
-	midHomeSpGetFriendlyName          jni.MethodID
-	midHomeSpGetMatchAllOis           jni.MethodID
-	midHomeSpGetMatchAnyOis           jni.MethodID
-	midHomeSpGetOtherHomePartnersList jni.MethodID
-	midHomeSpGetRoamingConsortiumOis  jni.MethodID
-	midHomeSpHashCode                 jni.MethodID
-	midHomeSpSetFqdn                  jni.MethodID
-	midHomeSpSetFriendlyName          jni.MethodID
-	midHomeSpSetMatchAllOis           jni.MethodID
-	midHomeSpSetMatchAnyOis           jni.MethodID
-	midHomeSpSetRoamingConsortiumOis  jni.MethodID
-	midHomeSpToString                 jni.MethodID
-	midHomeSpWriteToParcel            jni.MethodID
-
 	clsCredential                          *jni.GlobalRef
 	midCredentialCtor                      jni.MethodID
 	midCredentialDescribeContents          jni.MethodID
@@ -102,6 +83,25 @@ var (
 	midCredentialUserCredentialSetUsername          jni.MethodID
 	midCredentialUserCredentialToString             jni.MethodID
 	midCredentialUserCredentialWriteToParcel        jni.MethodID
+
+	clsHomeSp                         *jni.GlobalRef
+	midHomeSpCtor                     jni.MethodID
+	midHomeSpDescribeContents         jni.MethodID
+	midHomeSpEquals                   jni.MethodID
+	midHomeSpGetFqdn                  jni.MethodID
+	midHomeSpGetFriendlyName          jni.MethodID
+	midHomeSpGetMatchAllOis           jni.MethodID
+	midHomeSpGetMatchAnyOis           jni.MethodID
+	midHomeSpGetOtherHomePartnersList jni.MethodID
+	midHomeSpGetRoamingConsortiumOis  jni.MethodID
+	midHomeSpHashCode                 jni.MethodID
+	midHomeSpSetFqdn                  jni.MethodID
+	midHomeSpSetFriendlyName          jni.MethodID
+	midHomeSpSetMatchAllOis           jni.MethodID
+	midHomeSpSetMatchAnyOis           jni.MethodID
+	midHomeSpSetRoamingConsortiumOis  jni.MethodID
+	midHomeSpToString                 jni.MethodID
+	midHomeSpWriteToParcel            jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -121,132 +121,6 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
-
-	c, err = env.FindClass("android/net/wifi/hotspot2/pps/HomeSp")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsHomeSp = env.NewGlobalRef(&c.Object)
-		midHomeSpCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHomeSp)), "<init>", "()V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midHomeSpDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHomeSp)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHomeSpEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHomeSp)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHomeSpGetFqdn, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHomeSp)), "getFqdn", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHomeSpGetFriendlyName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHomeSp)), "getFriendlyName", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHomeSpGetMatchAllOis, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHomeSp)), "getMatchAllOis", "()[J")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHomeSpGetMatchAnyOis, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHomeSp)), "getMatchAnyOis", "()[J")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHomeSpGetOtherHomePartnersList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHomeSp)), "getOtherHomePartnersList", "()Ljava/util/Collection;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHomeSpGetRoamingConsortiumOis, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHomeSp)), "getRoamingConsortiumOis", "()[J")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHomeSpHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHomeSp)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHomeSpSetFqdn, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHomeSp)), "setFqdn", "(Ljava/lang/String;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHomeSpSetFriendlyName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHomeSp)), "setFriendlyName", "(Ljava/lang/String;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHomeSpSetMatchAllOis, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHomeSp)), "setMatchAllOis", "([J)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHomeSpSetMatchAnyOis, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHomeSp)), "setMatchAnyOis", "([J)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHomeSpSetRoamingConsortiumOis, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHomeSp)), "setRoamingConsortiumOis", "([J)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHomeSpToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHomeSp)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midHomeSpWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHomeSp)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
 
 	c, err = env.FindClass("android/net/wifi/hotspot2/pps/Credential")
 	if err != nil {
@@ -648,6 +522,132 @@ func doInit(env *jni.Env) error {
 		}
 
 		midCredentialUserCredentialWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCredentialUserCredential)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/net/wifi/hotspot2/pps/HomeSp")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsHomeSp = env.NewGlobalRef(&c.Object)
+		midHomeSpCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHomeSp)), "<init>", "()V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midHomeSpDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHomeSp)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHomeSpEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHomeSp)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHomeSpGetFqdn, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHomeSp)), "getFqdn", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHomeSpGetFriendlyName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHomeSp)), "getFriendlyName", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHomeSpGetMatchAllOis, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHomeSp)), "getMatchAllOis", "()[J")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHomeSpGetMatchAnyOis, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHomeSp)), "getMatchAnyOis", "()[J")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHomeSpGetOtherHomePartnersList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHomeSp)), "getOtherHomePartnersList", "()Ljava/util/Collection;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHomeSpGetRoamingConsortiumOis, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHomeSp)), "getRoamingConsortiumOis", "()[J")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHomeSpHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHomeSp)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHomeSpSetFqdn, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHomeSp)), "setFqdn", "(Ljava/lang/String;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHomeSpSetFriendlyName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHomeSp)), "setFriendlyName", "(Ljava/lang/String;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHomeSpSetMatchAllOis, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHomeSp)), "setMatchAllOis", "([J)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHomeSpSetMatchAnyOis, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHomeSp)), "setMatchAnyOis", "([J)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHomeSpSetRoamingConsortiumOis, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHomeSp)), "setRoamingConsortiumOis", "([J)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHomeSpToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHomeSp)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midHomeSpWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsHomeSp)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

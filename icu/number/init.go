@@ -23,48 +23,18 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsLocalizedNumberFormatter              *jni.GlobalRef
-	midLocalizedNumberFormatterFormat1       jni.MethodID
-	midLocalizedNumberFormatterFormat1_1     jni.MethodID
-	midLocalizedNumberFormatterFormat1_2     jni.MethodID
-	midLocalizedNumberFormatterFormat1_3     jni.MethodID
-	midLocalizedNumberFormatterToFormat      jni.MethodID
-	midLocalizedNumberFormatterWithoutLocale jni.MethodID
-	midLocalizedNumberFormatterToString      jni.MethodID
+	clsRangeFormatterSettings         *jni.GlobalRef
+	midRangeFormatterSettingsEquals   jni.MethodID
+	midRangeFormatterSettingsHashCode jni.MethodID
+	midRangeFormatterSettingsToString jni.MethodID
 
-	clsScientificNotation                        *jni.GlobalRef
-	midScientificNotationWithExponentSignDisplay jni.MethodID
-	midScientificNotationWithMinExponentDigits   jni.MethodID
-	midScientificNotationToString                jni.MethodID
-
-	clsUnlocalizedNumberRangeFormatter          *jni.GlobalRef
-	midUnlocalizedNumberRangeFormatterLocale1   jni.MethodID
-	midUnlocalizedNumberRangeFormatterLocale1_1 jni.MethodID
-	midUnlocalizedNumberRangeFormatterToString  jni.MethodID
-
-	clsSimpleNotation         *jni.GlobalRef
-	midSimpleNotationToString jni.MethodID
+	clsCompactNotation         *jni.GlobalRef
+	midCompactNotationToString jni.MethodID
 
 	clsIntegerWidth           *jni.GlobalRef
 	midIntegerWidthTruncateAt jni.MethodID
 	midIntegerWidthToString   jni.MethodID
 	midIntegerWidthZeroFillTo jni.MethodID
-
-	clsPrecision                        *jni.GlobalRef
-	midPrecisionTrailingZeroDisplay     jni.MethodID
-	midPrecisionToString                jni.MethodID
-	midPrecisionCurrency                jni.MethodID
-	midPrecisionFixedFraction           jni.MethodID
-	midPrecisionFixedSignificantDigits  jni.MethodID
-	midPrecisionIncrement               jni.MethodID
-	midPrecisionInteger                 jni.MethodID
-	midPrecisionMaxFraction             jni.MethodID
-	midPrecisionMaxSignificantDigits    jni.MethodID
-	midPrecisionMinFraction             jni.MethodID
-	midPrecisionMinMaxFraction          jni.MethodID
-	midPrecisionMinMaxSignificantDigits jni.MethodID
-	midPrecisionMinSignificantDigits    jni.MethodID
-	midPrecisionUnlimited               jni.MethodID
 
 	clsFormattedNumber                    *jni.GlobalRef
 	midFormattedNumberCharAt              jni.MethodID
@@ -77,32 +47,6 @@ var (
 	midFormattedNumberToCharacterIterator jni.MethodID
 	midFormattedNumberToString            jni.MethodID
 
-	clsRangeFormatter              *jni.GlobalRef
-	midRangeFormatterToString      jni.MethodID
-	midRangeFormatterWith          jni.MethodID
-	midRangeFormatterWithLocale1   jni.MethodID
-	midRangeFormatterWithLocale1_1 jni.MethodID
-
-	clsRangeFormatterRangeCollapse         *jni.GlobalRef
-	midRangeFormatterRangeCollapseToString jni.MethodID
-	midRangeFormatterRangeCollapseValues   jni.MethodID
-	midRangeFormatterRangeCollapseValueOf  jni.MethodID
-
-	clsRangeFormatterRangeIdentityFallback         *jni.GlobalRef
-	midRangeFormatterRangeIdentityFallbackToString jni.MethodID
-	midRangeFormatterRangeIdentityFallbackValues   jni.MethodID
-	midRangeFormatterRangeIdentityFallbackValueOf  jni.MethodID
-
-	clsRangeFormatterRangeIdentityResult         *jni.GlobalRef
-	midRangeFormatterRangeIdentityResultToString jni.MethodID
-	midRangeFormatterRangeIdentityResultValues   jni.MethodID
-	midRangeFormatterRangeIdentityResultValueOf  jni.MethodID
-
-	clsRangeFormatterSettings         *jni.GlobalRef
-	midRangeFormatterSettingsEquals   jni.MethodID
-	midRangeFormatterSettingsHashCode jni.MethodID
-	midRangeFormatterSettingsToString jni.MethodID
-
 	clsLocalizedNumberRangeFormatter               *jni.GlobalRef
 	midLocalizedNumberRangeFormatterFormatRange2   jni.MethodID
 	midLocalizedNumberRangeFormatterFormatRange2_1 jni.MethodID
@@ -110,48 +54,19 @@ var (
 	midLocalizedNumberRangeFormatterWithoutLocale  jni.MethodID
 	midLocalizedNumberRangeFormatterToString       jni.MethodID
 
-	clsFormattedNumberRange                    *jni.GlobalRef
-	midFormattedNumberRangeCharAt              jni.MethodID
-	midFormattedNumberRangeEquals              jni.MethodID
-	midFormattedNumberRangeGetFirstBigDecimal  jni.MethodID
-	midFormattedNumberRangeGetIdentityResult   jni.MethodID
-	midFormattedNumberRangeGetSecondBigDecimal jni.MethodID
-	midFormattedNumberRangeHashCode            jni.MethodID
-	midFormattedNumberRangeLength              jni.MethodID
-	midFormattedNumberRangeNextPosition        jni.MethodID
-	midFormattedNumberRangeSubSequence         jni.MethodID
-	midFormattedNumberRangeToCharacterIterator jni.MethodID
-	midFormattedNumberRangeToString            jni.MethodID
-
-	clsFormatterSettings         *jni.GlobalRef
-	midFormatterSettingsEquals   jni.MethodID
-	midFormatterSettingsHashCode jni.MethodID
-	midFormatterSettingsToString jni.MethodID
-
-	clsCurrencyPrecision             *jni.GlobalRef
-	midCurrencyPrecisionWithCurrency jni.MethodID
-	midCurrencyPrecisionToString     jni.MethodID
-
-	clsNotation             *jni.GlobalRef
-	midNotationToString     jni.MethodID
-	midNotationCompactLong  jni.MethodID
-	midNotationCompactShort jni.MethodID
-	midNotationEngineering  jni.MethodID
-	midNotationScientific   jni.MethodID
-	midNotationSimple       jni.MethodID
-
-	clsScale                      *jni.GlobalRef
-	midScaleToString              jni.MethodID
-	midScaleByBigDecimal          jni.MethodID
-	midScaleByDouble              jni.MethodID
-	midScaleByDoubleAndPowerOfTen jni.MethodID
-	midScaleNone                  jni.MethodID
-	midScalePowerOfTen            jni.MethodID
+	clsScientificNotation                        *jni.GlobalRef
+	midScientificNotationWithExponentSignDisplay jni.MethodID
+	midScientificNotationWithMinExponentDigits   jni.MethodID
+	midScientificNotationToString                jni.MethodID
 
 	clsUnlocalizedNumberFormatter          *jni.GlobalRef
 	midUnlocalizedNumberFormatterLocale1   jni.MethodID
 	midUnlocalizedNumberFormatterLocale1_1 jni.MethodID
 	midUnlocalizedNumberFormatterToString  jni.MethodID
+
+	clsCurrencyPrecision             *jni.GlobalRef
+	midCurrencyPrecisionWithCurrency jni.MethodID
+	midCurrencyPrecisionToString     jni.MethodID
 
 	clsFormatter              *jni.GlobalRef
 	midFormatterToString      jni.MethodID
@@ -189,14 +104,99 @@ var (
 	midFormatterUnitWidthValues   jni.MethodID
 	midFormatterUnitWidthValueOf  jni.MethodID
 
-	clsCompactNotation         *jni.GlobalRef
-	midCompactNotationToString jni.MethodID
+	clsFormatterSettings         *jni.GlobalRef
+	midFormatterSettingsEquals   jni.MethodID
+	midFormatterSettingsHashCode jni.MethodID
+	midFormatterSettingsToString jni.MethodID
+
+	clsNotation             *jni.GlobalRef
+	midNotationToString     jni.MethodID
+	midNotationCompactLong  jni.MethodID
+	midNotationCompactShort jni.MethodID
+	midNotationEngineering  jni.MethodID
+	midNotationScientific   jni.MethodID
+	midNotationSimple       jni.MethodID
+
+	clsPrecision                        *jni.GlobalRef
+	midPrecisionTrailingZeroDisplay     jni.MethodID
+	midPrecisionToString                jni.MethodID
+	midPrecisionCurrency                jni.MethodID
+	midPrecisionFixedFraction           jni.MethodID
+	midPrecisionFixedSignificantDigits  jni.MethodID
+	midPrecisionIncrement               jni.MethodID
+	midPrecisionInteger                 jni.MethodID
+	midPrecisionMaxFraction             jni.MethodID
+	midPrecisionMaxSignificantDigits    jni.MethodID
+	midPrecisionMinFraction             jni.MethodID
+	midPrecisionMinMaxFraction          jni.MethodID
+	midPrecisionMinMaxSignificantDigits jni.MethodID
+	midPrecisionMinSignificantDigits    jni.MethodID
+	midPrecisionUnlimited               jni.MethodID
+
+	clsFormattedNumberRange                    *jni.GlobalRef
+	midFormattedNumberRangeCharAt              jni.MethodID
+	midFormattedNumberRangeEquals              jni.MethodID
+	midFormattedNumberRangeGetFirstBigDecimal  jni.MethodID
+	midFormattedNumberRangeGetIdentityResult   jni.MethodID
+	midFormattedNumberRangeGetSecondBigDecimal jni.MethodID
+	midFormattedNumberRangeHashCode            jni.MethodID
+	midFormattedNumberRangeLength              jni.MethodID
+	midFormattedNumberRangeNextPosition        jni.MethodID
+	midFormattedNumberRangeSubSequence         jni.MethodID
+	midFormattedNumberRangeToCharacterIterator jni.MethodID
+	midFormattedNumberRangeToString            jni.MethodID
+
+	clsUnlocalizedNumberRangeFormatter          *jni.GlobalRef
+	midUnlocalizedNumberRangeFormatterLocale1   jni.MethodID
+	midUnlocalizedNumberRangeFormatterLocale1_1 jni.MethodID
+	midUnlocalizedNumberRangeFormatterToString  jni.MethodID
 
 	clsFractionPrecision                      *jni.GlobalRef
 	midFractionPrecisionWithMaxDigits         jni.MethodID
 	midFractionPrecisionWithMinDigits         jni.MethodID
 	midFractionPrecisionWithSignificantDigits jni.MethodID
 	midFractionPrecisionToString              jni.MethodID
+
+	clsSimpleNotation         *jni.GlobalRef
+	midSimpleNotationToString jni.MethodID
+
+	clsLocalizedNumberFormatter              *jni.GlobalRef
+	midLocalizedNumberFormatterFormat1       jni.MethodID
+	midLocalizedNumberFormatterFormat1_1     jni.MethodID
+	midLocalizedNumberFormatterFormat1_2     jni.MethodID
+	midLocalizedNumberFormatterFormat1_3     jni.MethodID
+	midLocalizedNumberFormatterToFormat      jni.MethodID
+	midLocalizedNumberFormatterWithoutLocale jni.MethodID
+	midLocalizedNumberFormatterToString      jni.MethodID
+
+	clsScale                      *jni.GlobalRef
+	midScaleToString              jni.MethodID
+	midScaleByBigDecimal          jni.MethodID
+	midScaleByDouble              jni.MethodID
+	midScaleByDoubleAndPowerOfTen jni.MethodID
+	midScaleNone                  jni.MethodID
+	midScalePowerOfTen            jni.MethodID
+
+	clsRangeFormatter              *jni.GlobalRef
+	midRangeFormatterToString      jni.MethodID
+	midRangeFormatterWith          jni.MethodID
+	midRangeFormatterWithLocale1   jni.MethodID
+	midRangeFormatterWithLocale1_1 jni.MethodID
+
+	clsRangeFormatterRangeCollapse         *jni.GlobalRef
+	midRangeFormatterRangeCollapseToString jni.MethodID
+	midRangeFormatterRangeCollapseValues   jni.MethodID
+	midRangeFormatterRangeCollapseValueOf  jni.MethodID
+
+	clsRangeFormatterRangeIdentityFallback         *jni.GlobalRef
+	midRangeFormatterRangeIdentityFallbackToString jni.MethodID
+	midRangeFormatterRangeIdentityFallbackValues   jni.MethodID
+	midRangeFormatterRangeIdentityFallbackValueOf  jni.MethodID
+
+	clsRangeFormatterRangeIdentityResult         *jni.GlobalRef
+	midRangeFormatterRangeIdentityResultToString jni.MethodID
+	midRangeFormatterRangeIdentityResultValues   jni.MethodID
+	midRangeFormatterRangeIdentityResultValueOf  jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -217,57 +217,29 @@ func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
 
-	c, err = env.FindClass("android/icu/number/LocalizedNumberFormatter")
+	c, err = env.FindClass("android/icu/number/NumberRangeFormatterSettings")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsLocalizedNumberFormatter = env.NewGlobalRef(&c.Object)
+		clsRangeFormatterSettings = env.NewGlobalRef(&c.Object)
 
-		midLocalizedNumberFormatterFormat1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLocalizedNumberFormatter)), "format", "(Landroid/icu/util/Measure;)Landroid/icu/number/FormattedNumber;")
+		midRangeFormatterSettingsEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRangeFormatterSettings)), "equals", "(Ljava/lang/Object;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midLocalizedNumberFormatterFormat1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLocalizedNumberFormatter)), "format", "(D)Landroid/icu/number/FormattedNumber;")
+		midRangeFormatterSettingsHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRangeFormatterSettings)), "hashCode", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midLocalizedNumberFormatterFormat1_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLocalizedNumberFormatter)), "format", "(Ljava/lang/Number;)Landroid/icu/number/FormattedNumber;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLocalizedNumberFormatterFormat1_3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLocalizedNumberFormatter)), "format", "(J)Landroid/icu/number/FormattedNumber;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLocalizedNumberFormatterToFormat, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLocalizedNumberFormatter)), "toFormat", "()Ljava/text/Format;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLocalizedNumberFormatterWithoutLocale, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLocalizedNumberFormatter)), "withoutLocale", "()Landroid/icu/number/UnlocalizedNumberFormatter;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midLocalizedNumberFormatterToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLocalizedNumberFormatter)), "toString", "()Ljava/lang/String;")
+		midRangeFormatterSettingsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRangeFormatterSettings)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -276,77 +248,15 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/icu/number/ScientificNotation")
+	c, err = env.FindClass("android/icu/number/CompactNotation")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsScientificNotation = env.NewGlobalRef(&c.Object)
+		clsCompactNotation = env.NewGlobalRef(&c.Object)
 
-		midScientificNotationWithExponentSignDisplay, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsScientificNotation)), "withExponentSignDisplay", "(Landroid/icu/number/NumberFormatter$SignDisplay;)Landroid/icu/number/ScientificNotation;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midScientificNotationWithMinExponentDigits, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsScientificNotation)), "withMinExponentDigits", "(I)Landroid/icu/number/ScientificNotation;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midScientificNotationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsScientificNotation)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/icu/number/UnlocalizedNumberRangeFormatter")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsUnlocalizedNumberRangeFormatter = env.NewGlobalRef(&c.Object)
-
-		midUnlocalizedNumberRangeFormatterLocale1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsUnlocalizedNumberRangeFormatter)), "locale", "(Landroid/icu/util/ULocale;)Landroid/icu/number/LocalizedNumberRangeFormatter;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midUnlocalizedNumberRangeFormatterLocale1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsUnlocalizedNumberRangeFormatter)), "locale", "(Ljava/util/Locale;)Landroid/icu/number/LocalizedNumberRangeFormatter;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midUnlocalizedNumberRangeFormatterToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsUnlocalizedNumberRangeFormatter)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/icu/number/SimpleNotation")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsSimpleNotation = env.NewGlobalRef(&c.Object)
-
-		midSimpleNotationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSimpleNotation)), "toString", "()Ljava/lang/String;")
+		midCompactNotationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompactNotation)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -378,114 +288,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midIntegerWidthZeroFillTo, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsIntegerWidth)), "zeroFillTo", "(I)Landroid/icu/number/IntegerWidth;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/icu/number/Precision")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsPrecision = env.NewGlobalRef(&c.Object)
-
-		midPrecisionTrailingZeroDisplay, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPrecision)), "trailingZeroDisplay", "(Landroid/icu/number/NumberFormatter$TrailingZeroDisplay;)Landroid/icu/number/Precision;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPrecisionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPrecision)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPrecisionCurrency, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPrecision)), "currency", "(Landroid/icu/util/Currency$CurrencyUsage;)Landroid/icu/number/CurrencyPrecision;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPrecisionFixedFraction, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPrecision)), "fixedFraction", "(I)Landroid/icu/number/FractionPrecision;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPrecisionFixedSignificantDigits, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPrecision)), "fixedSignificantDigits", "(I)Landroid/icu/number/Precision;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPrecisionIncrement, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPrecision)), "increment", "(Ljava/math/BigDecimal;)Landroid/icu/number/Precision;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPrecisionInteger, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPrecision)), "integer", "()Landroid/icu/number/FractionPrecision;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPrecisionMaxFraction, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPrecision)), "maxFraction", "(I)Landroid/icu/number/FractionPrecision;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPrecisionMaxSignificantDigits, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPrecision)), "maxSignificantDigits", "(I)Landroid/icu/number/Precision;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPrecisionMinFraction, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPrecision)), "minFraction", "(I)Landroid/icu/number/FractionPrecision;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPrecisionMinMaxFraction, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPrecision)), "minMaxFraction", "(II)Landroid/icu/number/FractionPrecision;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPrecisionMinMaxSignificantDigits, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPrecision)), "minMaxSignificantDigits", "(II)Landroid/icu/number/Precision;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPrecisionMinSignificantDigits, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPrecision)), "minSignificantDigits", "(I)Landroid/icu/number/Precision;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPrecisionUnlimited, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPrecision)), "unlimited", "()Landroid/icu/number/Precision;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -567,168 +369,6 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/icu/number/NumberRangeFormatter")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsRangeFormatter = env.NewGlobalRef(&c.Object)
-
-		midRangeFormatterToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRangeFormatter)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRangeFormatterWith, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRangeFormatter)), "with", "()Landroid/icu/number/UnlocalizedNumberRangeFormatter;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRangeFormatterWithLocale1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRangeFormatter)), "withLocale", "(Landroid/icu/util/ULocale;)Landroid/icu/number/LocalizedNumberRangeFormatter;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRangeFormatterWithLocale1_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRangeFormatter)), "withLocale", "(Ljava/util/Locale;)Landroid/icu/number/LocalizedNumberRangeFormatter;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/icu/number/NumberRangeFormatter$RangeCollapse")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsRangeFormatterRangeCollapse = env.NewGlobalRef(&c.Object)
-
-		midRangeFormatterRangeCollapseToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRangeFormatterRangeCollapse)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRangeFormatterRangeCollapseValues, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRangeFormatterRangeCollapse)), "values", "()[Landroid/icu/number/NumberRangeFormatter$RangeCollapse;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRangeFormatterRangeCollapseValueOf, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRangeFormatterRangeCollapse)), "valueOf", "(Ljava/lang/String;)Landroid/icu/number/NumberRangeFormatter$RangeCollapse;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/icu/number/NumberRangeFormatter$RangeIdentityFallback")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsRangeFormatterRangeIdentityFallback = env.NewGlobalRef(&c.Object)
-
-		midRangeFormatterRangeIdentityFallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRangeFormatterRangeIdentityFallback)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRangeFormatterRangeIdentityFallbackValues, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRangeFormatterRangeIdentityFallback)), "values", "()[Landroid/icu/number/NumberRangeFormatter$RangeIdentityFallback;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRangeFormatterRangeIdentityFallbackValueOf, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRangeFormatterRangeIdentityFallback)), "valueOf", "(Ljava/lang/String;)Landroid/icu/number/NumberRangeFormatter$RangeIdentityFallback;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/icu/number/NumberRangeFormatter$RangeIdentityResult")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsRangeFormatterRangeIdentityResult = env.NewGlobalRef(&c.Object)
-
-		midRangeFormatterRangeIdentityResultToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRangeFormatterRangeIdentityResult)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRangeFormatterRangeIdentityResultValues, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRangeFormatterRangeIdentityResult)), "values", "()[Landroid/icu/number/NumberRangeFormatter$RangeIdentityResult;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRangeFormatterRangeIdentityResultValueOf, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRangeFormatterRangeIdentityResult)), "valueOf", "(Ljava/lang/String;)Landroid/icu/number/NumberRangeFormatter$RangeIdentityResult;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/icu/number/NumberRangeFormatterSettings")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsRangeFormatterSettings = env.NewGlobalRef(&c.Object)
-
-		midRangeFormatterSettingsEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRangeFormatterSettings)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRangeFormatterSettingsHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRangeFormatterSettings)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midRangeFormatterSettingsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRangeFormatterSettings)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
 	c, err = env.FindClass("android/icu/number/LocalizedNumberRangeFormatter")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -774,244 +414,29 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/icu/number/FormattedNumberRange")
+	c, err = env.FindClass("android/icu/number/ScientificNotation")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsFormattedNumberRange = env.NewGlobalRef(&c.Object)
+		clsScientificNotation = env.NewGlobalRef(&c.Object)
 
-		midFormattedNumberRangeCharAt, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFormattedNumberRange)), "charAt", "(I)C")
+		midScientificNotationWithExponentSignDisplay, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsScientificNotation)), "withExponentSignDisplay", "(Landroid/icu/number/NumberFormatter$SignDisplay;)Landroid/icu/number/ScientificNotation;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midFormattedNumberRangeEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFormattedNumberRange)), "equals", "(Ljava/lang/Object;)Z")
+		midScientificNotationWithMinExponentDigits, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsScientificNotation)), "withMinExponentDigits", "(I)Landroid/icu/number/ScientificNotation;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midFormattedNumberRangeGetFirstBigDecimal, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFormattedNumberRange)), "getFirstBigDecimal", "()Ljava/math/BigDecimal;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFormattedNumberRangeGetIdentityResult, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFormattedNumberRange)), "getIdentityResult", "()Landroid/icu/number/NumberRangeFormatter$RangeIdentityResult;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFormattedNumberRangeGetSecondBigDecimal, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFormattedNumberRange)), "getSecondBigDecimal", "()Ljava/math/BigDecimal;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFormattedNumberRangeHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFormattedNumberRange)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFormattedNumberRangeLength, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFormattedNumberRange)), "length", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFormattedNumberRangeNextPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFormattedNumberRange)), "nextPosition", "(Landroid/icu/text/ConstrainedFieldPosition;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFormattedNumberRangeSubSequence, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFormattedNumberRange)), "subSequence", "(II)Ljava/lang/CharSequence;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFormattedNumberRangeToCharacterIterator, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFormattedNumberRange)), "toCharacterIterator", "()Ljava/text/AttributedCharacterIterator;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFormattedNumberRangeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFormattedNumberRange)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/icu/number/NumberFormatterSettings")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsFormatterSettings = env.NewGlobalRef(&c.Object)
-
-		midFormatterSettingsEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFormatterSettings)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFormatterSettingsHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFormatterSettings)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midFormatterSettingsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFormatterSettings)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/icu/number/CurrencyPrecision")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsCurrencyPrecision = env.NewGlobalRef(&c.Object)
-
-		midCurrencyPrecisionWithCurrency, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCurrencyPrecision)), "withCurrency", "(Landroid/icu/util/Currency;)Landroid/icu/number/Precision;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midCurrencyPrecisionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCurrencyPrecision)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/icu/number/Notation")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsNotation = env.NewGlobalRef(&c.Object)
-
-		midNotationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsNotation)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midNotationCompactLong, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsNotation)), "compactLong", "()Landroid/icu/number/CompactNotation;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midNotationCompactShort, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsNotation)), "compactShort", "()Landroid/icu/number/CompactNotation;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midNotationEngineering, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsNotation)), "engineering", "()Landroid/icu/number/ScientificNotation;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midNotationScientific, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsNotation)), "scientific", "()Landroid/icu/number/ScientificNotation;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midNotationSimple, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsNotation)), "simple", "()Landroid/icu/number/SimpleNotation;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/icu/number/Scale")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsScale = env.NewGlobalRef(&c.Object)
-
-		midScaleToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsScale)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midScaleByBigDecimal, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsScale)), "byBigDecimal", "(Ljava/math/BigDecimal;)Landroid/icu/number/Scale;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midScaleByDouble, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsScale)), "byDouble", "(D)Landroid/icu/number/Scale;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midScaleByDoubleAndPowerOfTen, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsScale)), "byDoubleAndPowerOfTen", "(DI)Landroid/icu/number/Scale;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midScaleNone, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsScale)), "none", "()Landroid/icu/number/Scale;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midScalePowerOfTen, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsScale)), "powerOfTen", "(I)Landroid/icu/number/Scale;")
+		midScientificNotationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsScientificNotation)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1043,6 +468,30 @@ func doInit(env *jni.Env) error {
 		}
 
 		midUnlocalizedNumberFormatterToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsUnlocalizedNumberFormatter)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/icu/number/CurrencyPrecision")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsCurrencyPrecision = env.NewGlobalRef(&c.Object)
+
+		midCurrencyPrecisionWithCurrency, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCurrencyPrecision)), "withCurrency", "(Landroid/icu/util/Currency;)Landroid/icu/number/Precision;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midCurrencyPrecisionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCurrencyPrecision)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1275,15 +724,307 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/icu/number/CompactNotation")
+	c, err = env.FindClass("android/icu/number/NumberFormatterSettings")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsCompactNotation = env.NewGlobalRef(&c.Object)
+		clsFormatterSettings = env.NewGlobalRef(&c.Object)
 
-		midCompactNotationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCompactNotation)), "toString", "()Ljava/lang/String;")
+		midFormatterSettingsEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFormatterSettings)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFormatterSettingsHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFormatterSettings)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFormatterSettingsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFormatterSettings)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/icu/number/Notation")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsNotation = env.NewGlobalRef(&c.Object)
+
+		midNotationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsNotation)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midNotationCompactLong, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsNotation)), "compactLong", "()Landroid/icu/number/CompactNotation;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midNotationCompactShort, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsNotation)), "compactShort", "()Landroid/icu/number/CompactNotation;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midNotationEngineering, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsNotation)), "engineering", "()Landroid/icu/number/ScientificNotation;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midNotationScientific, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsNotation)), "scientific", "()Landroid/icu/number/ScientificNotation;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midNotationSimple, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsNotation)), "simple", "()Landroid/icu/number/SimpleNotation;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/icu/number/Precision")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsPrecision = env.NewGlobalRef(&c.Object)
+
+		midPrecisionTrailingZeroDisplay, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPrecision)), "trailingZeroDisplay", "(Landroid/icu/number/NumberFormatter$TrailingZeroDisplay;)Landroid/icu/number/Precision;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPrecisionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPrecision)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPrecisionCurrency, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPrecision)), "currency", "(Landroid/icu/util/Currency$CurrencyUsage;)Landroid/icu/number/CurrencyPrecision;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPrecisionFixedFraction, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPrecision)), "fixedFraction", "(I)Landroid/icu/number/FractionPrecision;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPrecisionFixedSignificantDigits, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPrecision)), "fixedSignificantDigits", "(I)Landroid/icu/number/Precision;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPrecisionIncrement, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPrecision)), "increment", "(Ljava/math/BigDecimal;)Landroid/icu/number/Precision;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPrecisionInteger, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPrecision)), "integer", "()Landroid/icu/number/FractionPrecision;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPrecisionMaxFraction, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPrecision)), "maxFraction", "(I)Landroid/icu/number/FractionPrecision;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPrecisionMaxSignificantDigits, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPrecision)), "maxSignificantDigits", "(I)Landroid/icu/number/Precision;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPrecisionMinFraction, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPrecision)), "minFraction", "(I)Landroid/icu/number/FractionPrecision;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPrecisionMinMaxFraction, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPrecision)), "minMaxFraction", "(II)Landroid/icu/number/FractionPrecision;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPrecisionMinMaxSignificantDigits, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPrecision)), "minMaxSignificantDigits", "(II)Landroid/icu/number/Precision;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPrecisionMinSignificantDigits, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPrecision)), "minSignificantDigits", "(I)Landroid/icu/number/Precision;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPrecisionUnlimited, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsPrecision)), "unlimited", "()Landroid/icu/number/Precision;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/icu/number/FormattedNumberRange")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsFormattedNumberRange = env.NewGlobalRef(&c.Object)
+
+		midFormattedNumberRangeCharAt, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFormattedNumberRange)), "charAt", "(I)C")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFormattedNumberRangeEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFormattedNumberRange)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFormattedNumberRangeGetFirstBigDecimal, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFormattedNumberRange)), "getFirstBigDecimal", "()Ljava/math/BigDecimal;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFormattedNumberRangeGetIdentityResult, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFormattedNumberRange)), "getIdentityResult", "()Landroid/icu/number/NumberRangeFormatter$RangeIdentityResult;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFormattedNumberRangeGetSecondBigDecimal, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFormattedNumberRange)), "getSecondBigDecimal", "()Ljava/math/BigDecimal;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFormattedNumberRangeHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFormattedNumberRange)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFormattedNumberRangeLength, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFormattedNumberRange)), "length", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFormattedNumberRangeNextPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFormattedNumberRange)), "nextPosition", "(Landroid/icu/text/ConstrainedFieldPosition;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFormattedNumberRangeSubSequence, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFormattedNumberRange)), "subSequence", "(II)Ljava/lang/CharSequence;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFormattedNumberRangeToCharacterIterator, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFormattedNumberRange)), "toCharacterIterator", "()Ljava/text/AttributedCharacterIterator;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midFormattedNumberRangeToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFormattedNumberRange)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/icu/number/UnlocalizedNumberRangeFormatter")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsUnlocalizedNumberRangeFormatter = env.NewGlobalRef(&c.Object)
+
+		midUnlocalizedNumberRangeFormatterLocale1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsUnlocalizedNumberRangeFormatter)), "locale", "(Landroid/icu/util/ULocale;)Landroid/icu/number/LocalizedNumberRangeFormatter;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midUnlocalizedNumberRangeFormatterLocale1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsUnlocalizedNumberRangeFormatter)), "locale", "(Ljava/util/Locale;)Landroid/icu/number/LocalizedNumberRangeFormatter;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midUnlocalizedNumberRangeFormatterToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsUnlocalizedNumberRangeFormatter)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1322,6 +1063,265 @@ func doInit(env *jni.Env) error {
 		}
 
 		midFractionPrecisionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsFractionPrecision)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/icu/number/SimpleNotation")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSimpleNotation = env.NewGlobalRef(&c.Object)
+
+		midSimpleNotationToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSimpleNotation)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/icu/number/LocalizedNumberFormatter")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsLocalizedNumberFormatter = env.NewGlobalRef(&c.Object)
+
+		midLocalizedNumberFormatterFormat1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLocalizedNumberFormatter)), "format", "(Landroid/icu/util/Measure;)Landroid/icu/number/FormattedNumber;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLocalizedNumberFormatterFormat1_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLocalizedNumberFormatter)), "format", "(D)Landroid/icu/number/FormattedNumber;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLocalizedNumberFormatterFormat1_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLocalizedNumberFormatter)), "format", "(Ljava/lang/Number;)Landroid/icu/number/FormattedNumber;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLocalizedNumberFormatterFormat1_3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLocalizedNumberFormatter)), "format", "(J)Landroid/icu/number/FormattedNumber;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLocalizedNumberFormatterToFormat, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLocalizedNumberFormatter)), "toFormat", "()Ljava/text/Format;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLocalizedNumberFormatterWithoutLocale, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLocalizedNumberFormatter)), "withoutLocale", "()Landroid/icu/number/UnlocalizedNumberFormatter;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midLocalizedNumberFormatterToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsLocalizedNumberFormatter)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/icu/number/Scale")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsScale = env.NewGlobalRef(&c.Object)
+
+		midScaleToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsScale)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midScaleByBigDecimal, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsScale)), "byBigDecimal", "(Ljava/math/BigDecimal;)Landroid/icu/number/Scale;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midScaleByDouble, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsScale)), "byDouble", "(D)Landroid/icu/number/Scale;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midScaleByDoubleAndPowerOfTen, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsScale)), "byDoubleAndPowerOfTen", "(DI)Landroid/icu/number/Scale;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midScaleNone, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsScale)), "none", "()Landroid/icu/number/Scale;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midScalePowerOfTen, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsScale)), "powerOfTen", "(I)Landroid/icu/number/Scale;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/icu/number/NumberRangeFormatter")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsRangeFormatter = env.NewGlobalRef(&c.Object)
+
+		midRangeFormatterToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRangeFormatter)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRangeFormatterWith, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRangeFormatter)), "with", "()Landroid/icu/number/UnlocalizedNumberRangeFormatter;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRangeFormatterWithLocale1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRangeFormatter)), "withLocale", "(Landroid/icu/util/ULocale;)Landroid/icu/number/LocalizedNumberRangeFormatter;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRangeFormatterWithLocale1_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRangeFormatter)), "withLocale", "(Ljava/util/Locale;)Landroid/icu/number/LocalizedNumberRangeFormatter;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/icu/number/NumberRangeFormatter$RangeCollapse")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsRangeFormatterRangeCollapse = env.NewGlobalRef(&c.Object)
+
+		midRangeFormatterRangeCollapseToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRangeFormatterRangeCollapse)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRangeFormatterRangeCollapseValues, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRangeFormatterRangeCollapse)), "values", "()[Landroid/icu/number/NumberRangeFormatter$RangeCollapse;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRangeFormatterRangeCollapseValueOf, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRangeFormatterRangeCollapse)), "valueOf", "(Ljava/lang/String;)Landroid/icu/number/NumberRangeFormatter$RangeCollapse;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/icu/number/NumberRangeFormatter$RangeIdentityFallback")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsRangeFormatterRangeIdentityFallback = env.NewGlobalRef(&c.Object)
+
+		midRangeFormatterRangeIdentityFallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRangeFormatterRangeIdentityFallback)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRangeFormatterRangeIdentityFallbackValues, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRangeFormatterRangeIdentityFallback)), "values", "()[Landroid/icu/number/NumberRangeFormatter$RangeIdentityFallback;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRangeFormatterRangeIdentityFallbackValueOf, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRangeFormatterRangeIdentityFallback)), "valueOf", "(Ljava/lang/String;)Landroid/icu/number/NumberRangeFormatter$RangeIdentityFallback;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/icu/number/NumberRangeFormatter$RangeIdentityResult")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsRangeFormatterRangeIdentityResult = env.NewGlobalRef(&c.Object)
+
+		midRangeFormatterRangeIdentityResultToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsRangeFormatterRangeIdentityResult)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRangeFormatterRangeIdentityResultValues, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRangeFormatterRangeIdentityResult)), "values", "()[Landroid/icu/number/NumberRangeFormatter$RangeIdentityResult;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midRangeFormatterRangeIdentityResultValueOf, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsRangeFormatterRangeIdentityResult)), "valueOf", "(Ljava/lang/String;)Landroid/icu/number/NumberRangeFormatter$RangeIdentityResult;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

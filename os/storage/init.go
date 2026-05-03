@@ -23,10 +23,6 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsOnObbStateChangeListener                 *jni.GlobalRef
-	midOnObbStateChangeListenerOnObbStateChange jni.MethodID
-	midOnObbStateChangeListenerToString         jni.MethodID
-
 	clsVolume                             *jni.GlobalRef
 	midVolumeCreateAccessIntent           jni.MethodID
 	midVolumeCreateOpenDocumentTreeIntent jni.MethodID
@@ -45,6 +41,10 @@ var (
 	midVolumeIsRemovable                  jni.MethodID
 	midVolumeToString                     jni.MethodID
 	midVolumeWriteToParcel                jni.MethodID
+
+	clsOnObbStateChangeListener                 *jni.GlobalRef
+	midOnObbStateChangeListenerOnObbStateChange jni.MethodID
+	midOnObbStateChangeListenerToString         jni.MethodID
 
 	clsManager                                         *jni.GlobalRef
 	midManagerAllocateBytes2                           jni.MethodID
@@ -97,30 +97,6 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
-
-	c, err = env.FindClass("android/os/storage/OnObbStateChangeListener")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsOnObbStateChangeListener = env.NewGlobalRef(&c.Object)
-
-		midOnObbStateChangeListenerOnObbStateChange, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnObbStateChangeListener)), "onObbStateChange", "(Ljava/lang/String;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midOnObbStateChangeListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnObbStateChangeListener)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
 
 	c, err = env.FindClass("android/os/storage/StorageVolume")
 	if err != nil {
@@ -243,6 +219,30 @@ func doInit(env *jni.Env) error {
 		}
 
 		midVolumeWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVolume)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/os/storage/OnObbStateChangeListener")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsOnObbStateChangeListener = env.NewGlobalRef(&c.Object)
+
+		midOnObbStateChangeListenerOnObbStateChange, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnObbStateChangeListener)), "onObbStateChange", "(Ljava/lang/String;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midOnObbStateChangeListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsOnObbStateChangeListener)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

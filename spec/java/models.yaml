@@ -5,160 +5,6 @@
 package: models
 go_import: github.com/AndroidGoLab/jni/graphics/pdf/models
 classes:
-    - java_class: android.graphics.pdf.models.FormEditRecord
-      go_type: FormEditRecord
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getClickPoint
-          go_name: GetClickPoint
-          returns: android.graphics.Point
-          error: true
-        - java_method: getPageNumber
-          go_name: GetPageNumber
-          returns: int
-          error: true
-        - java_method: getSelectedIndices
-          go_name: GetSelectedIndices
-          returns: '[I'
-          error: true
-        - java_method: getText
-          go_name: GetText
-          returns: String
-          error: true
-        - java_method: getType
-          go_name: GetType
-          returns: int
-          error: true
-        - java_method: getWidgetIndex
-          go_name: GetWidgetIndex
-          returns: int
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.graphics.pdf.models.FormEditRecord$Builder
-      go_type: FormEditRecordBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.graphics.pdf.models.FormEditRecord
-          error: true
-        - java_method: setClickPoint
-          go_name: SetClickPoint
-          params:
-            - java_type: android.graphics.Point
-              go_name: arg0
-          returns: android.graphics.pdf.models.FormEditRecord$Builder
-          error: true
-        - java_method: setSelectedIndices
-          go_name: SetSelectedIndices
-          params:
-            - java_type: '[I'
-              go_name: arg0
-          returns: android.graphics.pdf.models.FormEditRecord$Builder
-          error: true
-        - java_method: setText
-          go_name: SetText
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.graphics.pdf.models.FormEditRecord$Builder
-          error: true
-    - java_class: android.graphics.pdf.models.PageMatchBounds
-      go_type: PageMatchBounds
-      obtain: constructor
-      constructor_params:
-        - java_type: java.util.List<android.graphics.RectF>
-          go_name: arg0
-        - java_type: int
-          go_name: arg1
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getBounds
-          go_name: GetBounds
-          returns: java.util.List<android.graphics.RectF>
-          error: true
-        - java_method: getTextStartIndex
-          go_name: GetTextStartIndex
-          returns: int
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.graphics.pdf.models.ListItem
-      go_type: ListItem
-      obtain: constructor
-      constructor_params:
-        - java_type: String
-          go_name: arg0
-        - java_type: boolean
-          go_name: arg1
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getLabel
-          go_name: GetLabel
-          returns: String
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: isSelected
-          go_name: IsSelected
-          returns: boolean
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
     - java_class: android.graphics.pdf.models.FormWidgetInfo
       go_type: FormWidgetInfo
       methods:
@@ -287,18 +133,163 @@ classes:
               go_name: arg0
           returns: android.graphics.pdf.models.FormWidgetInfo$Builder
           error: true
+    - java_class: android.graphics.pdf.models.ListItem
+      go_type: ListItem
+      obtain: constructor
+      constructor_params:
+        - java_type: String
+          go_name: arg0
+        - java_type: boolean
+          go_name: arg1
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getLabel
+          go_name: GetLabel
+          returns: String
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: isSelected
+          go_name: IsSelected
+          returns: boolean
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.graphics.pdf.models.PageMatchBounds
+      go_type: PageMatchBounds
+      obtain: constructor
+      constructor_params:
+        - java_type: java.util.List<android.graphics.RectF>
+          go_name: arg0
+        - java_type: int
+          go_name: arg1
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getBounds
+          go_name: GetBounds
+          returns: java.util.List<android.graphics.RectF>
+          error: true
+        - java_method: getTextStartIndex
+          go_name: GetTextStartIndex
+          returns: int
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.graphics.pdf.models.FormEditRecord
+      go_type: FormEditRecord
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getClickPoint
+          go_name: GetClickPoint
+          returns: android.graphics.Point
+          error: true
+        - java_method: getPageNumber
+          go_name: GetPageNumber
+          returns: int
+          error: true
+        - java_method: getSelectedIndices
+          go_name: GetSelectedIndices
+          returns: '[I'
+          error: true
+        - java_method: getText
+          go_name: GetText
+          returns: String
+          error: true
+        - java_method: getType
+          go_name: GetType
+          returns: int
+          error: true
+        - java_method: getWidgetIndex
+          go_name: GetWidgetIndex
+          returns: int
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.graphics.pdf.models.FormEditRecord$Builder
+      go_type: FormEditRecordBuilder
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.graphics.pdf.models.FormEditRecord
+          error: true
+        - java_method: setClickPoint
+          go_name: SetClickPoint
+          params:
+            - java_type: android.graphics.Point
+              go_name: arg0
+          returns: android.graphics.pdf.models.FormEditRecord$Builder
+          error: true
+        - java_method: setSelectedIndices
+          go_name: SetSelectedIndices
+          params:
+            - java_type: '[I'
+              go_name: arg0
+          returns: android.graphics.pdf.models.FormEditRecord$Builder
+          error: true
+        - java_method: setText
+          go_name: SetText
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.graphics.pdf.models.FormEditRecord$Builder
+          error: true
 constants:
     - go_name: Creator
       value: "0"
-      go_type: int
-    - go_name: EditTypeClick
-      value: "0"
-      go_type: int
-    - go_name: EditTypeSetIndices
-      value: "1"
-      go_type: int
-    - go_name: EditTypeSetText
-      value: "2"
       go_type: int
     - go_name: WidgetTypeCheckbox
       value: "2"
@@ -323,4 +314,13 @@ constants:
       go_type: int
     - go_name: WidgetTypeUnknown
       value: "0"
+      go_type: int
+    - go_name: EditTypeClick
+      value: "0"
+      go_type: int
+    - go_name: EditTypeSetIndices
+      value: "1"
+      go_type: int
+    - go_name: EditTypeSetText
+      value: "2"
       go_type: int

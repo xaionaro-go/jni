@@ -3,16 +3,16 @@
 package consts
 
 const (
-	Infinite           int = -1
-	Restart            int = 1
-	Reverse            int = 2
+	DurationInfinite int64 = -1
+)
+
+const (
 	Appearing          int = 2
 	ChangeAppearing    int = 0
 	ChangeDisappearing int = 1
 	Changing           int = 4
 	Disappearing       int = 3
-)
-
-const (
-	DurationInfinite int64 = -1
+	Infinite           int = -1
+	Restart            int = 1
+	Reverse            int = 2
 )

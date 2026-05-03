@@ -3,19 +3,6 @@
 package consts
 
 const (
-	ActionKeychainChanged   string = "android.security.action.KEYCHAIN_CHANGED"
-	ActionKeyAccessChanged  string = "android.security.action.KEY_ACCESS_CHANGED"
-	ActionStorageChanged    string = "android.security.STORAGE_CHANGED"
-	ActionTrustStoreChanged string = "android.security.action.TRUST_STORE_CHANGED"
-	ExtraCertificate        string = "CERT"
-	ExtraKeyAccessible      string = "android.security.extra.KEY_ACCESSIBLE"
-	ExtraKeyAlias           string = "android.security.extra.KEY_ALIAS"
-	ExtraName               string = "name"
-	ExtraPkcs12             string = "PKCS12"
-	KeyAliasSelectionDenied string = "android:alias-selection-denied"
-)
-
-const (
 	ErrorAttestationChallengeTooLarge int = 9
 	ErrorAttestationKeysUnavailable   int = 16
 	ErrorIdAttestationFailure         int = 8
@@ -37,4 +24,17 @@ const (
 	RetryWhenConnectivityAvailable    int = 3
 	RetryWithExponentialBackoff       int = 2
 	Creator                           int = 0
+)
+
+const (
+	ActionKeychainChanged   string = "android.security.action.KEYCHAIN_CHANGED"
+	ActionKeyAccessChanged  string = "android.security.action.KEY_ACCESS_CHANGED"
+	ActionStorageChanged    string = "android.security.STORAGE_CHANGED"
+	ActionTrustStoreChanged string = "android.security.action.TRUST_STORE_CHANGED"
+	ExtraCertificate        string = "CERT"
+	ExtraKeyAccessible      string = "android.security.extra.KEY_ACCESSIBLE"
+	ExtraKeyAlias           string = "android.security.extra.KEY_ALIAS"
+	ExtraName               string = "name"
+	ExtraPkcs12             string = "PKCS12"
+	KeyAliasSelectionDenied string = "android:alias-selection-denied"
 )

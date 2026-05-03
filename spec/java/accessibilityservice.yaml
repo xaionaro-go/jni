@@ -145,172 +145,87 @@ classes:
               go_name: arg0
           returns: String
           error: true
-    - java_class: android.accessibilityservice.AccessibilityButtonController
-      go_type: AccessibilityButtonController
+    - java_class: android.accessibilityservice.MagnificationConfig
+      go_type: MagnificationConfig
       methods:
-        - java_method: isAccessibilityButtonAvailable
-          go_name: IsAccessibilityButtonAvailable
-          returns: boolean
-          error: true
-        - java_method: registerAccessibilityButtonCallback
-          go_name: RegisterAccessibilityButtonCallback
-          params:
-            - java_type: android.accessibilityservice.AccessibilityButtonController$AccessibilityButtonCallback
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: unregisterAccessibilityButtonCallback
-          go_name: UnregisterAccessibilityButtonCallback
-          params:
-            - java_type: android.accessibilityservice.AccessibilityButtonController$AccessibilityButtonCallback
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.accessibilityservice.AccessibilityButtonController$AccessibilityButtonCallback
-      go_type: AccessibilityButtonControllerAccessibilityButtonCallback
-      methods:
-        - java_method: onAvailabilityChanged
-          go_name: OnAvailabilityChanged
-          params:
-            - java_type: android.accessibilityservice.AccessibilityButtonController
-              go_name: arg0
-            - java_type: boolean
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onClicked
-          go_name: OnClicked
-          params:
-            - java_type: android.accessibilityservice.AccessibilityButtonController
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.accessibilityservice.InputMethod
-      go_type: InputMethod
-      obtain: constructor
-      constructor_params:
-        - java_type: android.accessibilityservice.AccessibilityService
-          go_name: arg0
-      methods:
-        - java_method: getCurrentInputConnection
-          go_name: GetCurrentInputConnection
-          returns: android.accessibilityservice.InputMethod$AccessibilityInputConnection
-          error: true
-        - java_method: getCurrentInputEditorInfo
-          go_name: GetCurrentInputEditorInfo
-          returns: android.view.inputmethod.EditorInfo
-          error: true
-        - java_method: getCurrentInputStarted
-          go_name: GetCurrentInputStarted
-          returns: boolean
-          error: true
-        - java_method: onFinishInput
-          go_name: OnFinishInput
-          returns: void
-          error: true
-        - java_method: onStartInput
-          go_name: OnStartInput
-          params:
-            - java_type: android.view.inputmethod.EditorInfo
-              go_name: arg0
-            - java_type: boolean
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onUpdateSelection
-          go_name: OnUpdateSelection
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-            - java_type: int
-              go_name: arg4
-            - java_type: int
-              go_name: arg5
-          returns: void
-          error: true
-    - java_class: android.accessibilityservice.InputMethod$AccessibilityInputConnection
-      go_type: InputMethodAccessibilityInputConnection
-      methods:
-        - java_method: clearMetaKeyStates
-          go_name: ClearMetaKeyStates
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: commitText
-          go_name: CommitText
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: android.view.inputmethod.TextAttribute
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: deleteSurroundingText
-          go_name: DeleteSurroundingText
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: getCursorCapsMode
-          go_name: GetCursorCapsMode
-          params:
-            - java_type: int
-              go_name: arg0
+        - java_method: describeContents
+          go_name: DescribeContents
           returns: int
           error: true
-        - java_method: getSurroundingText
-          go_name: GetSurroundingText
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: android.view.inputmethod.SurroundingText
+        - java_method: getCenterX
+          go_name: GetCenterX
+          returns: float
           error: true
-        - java_method: performContextMenuAction
-          go_name: PerformContextMenuAction
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
+        - java_method: getCenterY
+          go_name: GetCenterY
+          returns: float
           error: true
-        - java_method: performEditorAction
-          go_name: PerformEditorAction
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
+        - java_method: getMode
+          go_name: GetMode
+          returns: int
           error: true
-        - java_method: sendKeyEvent
-          go_name: SendKeyEvent
-          params:
-            - java_type: android.view.KeyEvent
-              go_name: arg0
-          returns: void
+        - java_method: getScale
+          go_name: GetScale
+          returns: float
           error: true
-        - java_method: setSelection
-          go_name: SetSelection
+        - java_method: isActivated
+          go_name: IsActivated
+          returns: boolean
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
           params:
-            - java_type: int
+            - java_type: android.os.Parcel
               go_name: arg0
             - java_type: int
               go_name: arg1
           returns: void
+          error: true
+    - java_class: android.accessibilityservice.MagnificationConfig$Builder
+      go_type: MagnificationConfigBuilder
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.accessibilityservice.MagnificationConfig
+          error: true
+        - java_method: setActivated
+          go_name: SetActivated
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.accessibilityservice.MagnificationConfig$Builder
+          error: true
+        - java_method: setCenterX
+          go_name: SetCenterX
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: android.accessibilityservice.MagnificationConfig$Builder
+          error: true
+        - java_method: setCenterY
+          go_name: SetCenterY
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: android.accessibilityservice.MagnificationConfig$Builder
+          error: true
+        - java_method: setMode
+          go_name: SetMode
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.accessibilityservice.MagnificationConfig$Builder
+          error: true
+        - java_method: setScale
+          go_name: SetScale
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: android.accessibilityservice.MagnificationConfig$Builder
           error: true
     - java_class: android.accessibilityservice.AccessibilityService
       go_type: AccessibilityService
@@ -759,199 +674,6 @@ classes:
               go_name: arg0
           returns: void
           error: true
-    - java_class: android.accessibilityservice.FingerprintGestureController
-      go_type: FingerprintGestureController
-      methods:
-        - java_method: isGestureDetectionAvailable
-          go_name: IsGestureDetectionAvailable
-          returns: boolean
-          error: true
-        - java_method: unregisterFingerprintGestureCallback
-          go_name: UnregisterFingerprintGestureCallback
-          params:
-            - java_type: android.accessibilityservice.FingerprintGestureController$FingerprintGestureCallback
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.accessibilityservice.FingerprintGestureController$FingerprintGestureCallback
-      go_type: FingerprintGestureControllerFingerprintGestureCallback
-      methods:
-        - java_method: onGestureDetected
-          go_name: OnGestureDetected
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onGestureDetectionAvailabilityChanged
-          go_name: OnGestureDetectionAvailabilityChanged
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.accessibilityservice.MagnificationConfig
-      go_type: MagnificationConfig
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getCenterX
-          go_name: GetCenterX
-          returns: float
-          error: true
-        - java_method: getCenterY
-          go_name: GetCenterY
-          returns: float
-          error: true
-        - java_method: getMode
-          go_name: GetMode
-          returns: int
-          error: true
-        - java_method: getScale
-          go_name: GetScale
-          returns: float
-          error: true
-        - java_method: isActivated
-          go_name: IsActivated
-          returns: boolean
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.accessibilityservice.MagnificationConfig$Builder
-      go_type: MagnificationConfigBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.accessibilityservice.MagnificationConfig
-          error: true
-        - java_method: setActivated
-          go_name: SetActivated
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.accessibilityservice.MagnificationConfig$Builder
-          error: true
-        - java_method: setCenterX
-          go_name: SetCenterX
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: android.accessibilityservice.MagnificationConfig$Builder
-          error: true
-        - java_method: setCenterY
-          go_name: SetCenterY
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: android.accessibilityservice.MagnificationConfig$Builder
-          error: true
-        - java_method: setMode
-          go_name: SetMode
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.accessibilityservice.MagnificationConfig$Builder
-          error: true
-        - java_method: setScale
-          go_name: SetScale
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: android.accessibilityservice.MagnificationConfig$Builder
-          error: true
-    - java_class: android.accessibilityservice.GestureDescription
-      go_type: GestureDescription
-      methods:
-        - java_method: getDisplayId
-          go_name: GetDisplayId
-          returns: int
-          error: true
-        - java_method: getStroke
-          go_name: GetStroke
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.accessibilityservice.GestureDescription$StrokeDescription
-          error: true
-        - java_method: getStrokeCount
-          go_name: GetStrokeCount
-          returns: int
-          error: true
-      static_methods:
-        - java_method: getMaxGestureDuration
-          go_name: GetMaxGestureDuration
-          returns: long
-          error: true
-        - java_method: getMaxStrokeCount
-          go_name: GetMaxStrokeCount
-          returns: int
-          error: true
-    - java_class: android.accessibilityservice.GestureDescription$Builder
-      go_type: GestureDescriptionBuilder
-      methods:
-        - java_method: addStroke
-          go_name: AddStroke
-          params:
-            - java_type: android.accessibilityservice.GestureDescription$StrokeDescription
-              go_name: arg0
-          returns: android.accessibilityservice.GestureDescription$Builder
-          error: true
-        - java_method: build
-          go_name: Build
-          returns: android.accessibilityservice.GestureDescription
-          error: true
-        - java_method: setDisplayId
-          go_name: SetDisplayId
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.accessibilityservice.GestureDescription$Builder
-          error: true
-    - java_class: android.accessibilityservice.GestureDescription$StrokeDescription
-      go_type: GestureDescriptionStrokeDescription
-      methods:
-        - java_method: continueStroke
-          go_name: ContinueStroke
-          params:
-            - java_type: android.graphics.Path
-              go_name: arg0
-            - java_type: long
-              go_name: arg1
-            - java_type: long
-              go_name: arg2
-            - java_type: boolean
-              go_name: arg3
-          returns: android.accessibilityservice.GestureDescription$StrokeDescription
-          error: true
-        - java_method: getDuration
-          go_name: GetDuration
-          returns: long
-          error: true
-        - java_method: getPath
-          go_name: GetPath
-          returns: android.graphics.Path
-          error: true
-        - java_method: getStartTime
-          go_name: GetStartTime
-          returns: long
-          error: true
-        - java_method: willContinue
-          go_name: WillContinue
-          returns: boolean
-          error: true
     - java_class: android.accessibilityservice.AccessibilityGestureEvent
       go_type: AccessibilityGestureEvent
       obtain: constructor
@@ -999,6 +721,89 @@ classes:
             - java_type: int
               go_name: arg0
           returns: String
+          error: true
+    - java_class: android.accessibilityservice.TouchInteractionController
+      go_type: TouchInteractionController
+      methods:
+        - java_method: getDisplayId
+          go_name: GetDisplayId
+          returns: int
+          error: true
+        - java_method: getMaxPointerCount
+          go_name: GetMaxPointerCount
+          returns: int
+          error: true
+        - java_method: getState
+          go_name: GetState
+          returns: int
+          error: true
+        - java_method: performClick
+          go_name: PerformClick
+          returns: void
+          error: true
+        - java_method: performLongClickAndStartDrag
+          go_name: PerformLongClickAndStartDrag
+          returns: void
+          error: true
+        - java_method: registerCallback
+          go_name: RegisterCallback
+          params:
+            - java_type: java.util.concurrent.Executor
+              go_name: arg0
+            - java_type: android.accessibilityservice.TouchInteractionController$Callback
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: requestDelegating
+          go_name: RequestDelegating
+          returns: void
+          error: true
+        - java_method: requestDragging
+          go_name: RequestDragging
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: requestTouchExploration
+          go_name: RequestTouchExploration
+          returns: void
+          error: true
+        - java_method: unregisterAllCallbacks
+          go_name: UnregisterAllCallbacks
+          returns: void
+          error: true
+        - java_method: unregisterCallback
+          go_name: UnregisterCallback
+          params:
+            - java_type: android.accessibilityservice.TouchInteractionController$Callback
+              go_name: arg0
+          returns: boolean
+          error: true
+      static_methods:
+        - java_method: stateToString
+          go_name: StateToString
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: String
+          error: true
+    - java_class: android.accessibilityservice.TouchInteractionController$Callback
+      go_type: TouchInteractionControllerCallback
+      methods:
+        - java_method: onMotionEvent
+          go_name: OnMotionEvent
+          params:
+            - java_type: android.view.MotionEvent
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onStateChanged
+          go_name: OnStateChanged
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
           error: true
     - java_class: android.accessibilityservice.BrailleDisplayController
       go_type: BrailleDisplayController
@@ -1086,89 +891,533 @@ classes:
               go_name: arg0
           returns: void
           error: true
-    - java_class: android.accessibilityservice.TouchInteractionController
-      go_type: TouchInteractionController
+    - java_class: android.accessibilityservice.InputMethod
+      go_type: InputMethod
+      obtain: constructor
+      constructor_params:
+        - java_type: android.accessibilityservice.AccessibilityService
+          go_name: arg0
+      methods:
+        - java_method: getCurrentInputConnection
+          go_name: GetCurrentInputConnection
+          returns: android.accessibilityservice.InputMethod$AccessibilityInputConnection
+          error: true
+        - java_method: getCurrentInputEditorInfo
+          go_name: GetCurrentInputEditorInfo
+          returns: android.view.inputmethod.EditorInfo
+          error: true
+        - java_method: getCurrentInputStarted
+          go_name: GetCurrentInputStarted
+          returns: boolean
+          error: true
+        - java_method: onFinishInput
+          go_name: OnFinishInput
+          returns: void
+          error: true
+        - java_method: onStartInput
+          go_name: OnStartInput
+          params:
+            - java_type: android.view.inputmethod.EditorInfo
+              go_name: arg0
+            - java_type: boolean
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onUpdateSelection
+          go_name: OnUpdateSelection
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+            - java_type: int
+              go_name: arg4
+            - java_type: int
+              go_name: arg5
+          returns: void
+          error: true
+    - java_class: android.accessibilityservice.FingerprintGestureController
+      go_type: FingerprintGestureController
+      methods:
+        - java_method: isGestureDetectionAvailable
+          go_name: IsGestureDetectionAvailable
+          returns: boolean
+          error: true
+        - java_method: unregisterFingerprintGestureCallback
+          go_name: UnregisterFingerprintGestureCallback
+          params:
+            - java_type: android.accessibilityservice.FingerprintGestureController$FingerprintGestureCallback
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.accessibilityservice.InputMethod$AccessibilityInputConnection
+      go_type: InputMethodAccessibilityInputConnection
+      methods:
+        - java_method: clearMetaKeyStates
+          go_name: ClearMetaKeyStates
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: commitText
+          go_name: CommitText
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: android.view.inputmethod.TextAttribute
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: deleteSurroundingText
+          go_name: DeleteSurroundingText
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: getCursorCapsMode
+          go_name: GetCursorCapsMode
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getSurroundingText
+          go_name: GetSurroundingText
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: android.view.inputmethod.SurroundingText
+          error: true
+        - java_method: performContextMenuAction
+          go_name: PerformContextMenuAction
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: performEditorAction
+          go_name: PerformEditorAction
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: sendKeyEvent
+          go_name: SendKeyEvent
+          params:
+            - java_type: android.view.KeyEvent
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setSelection
+          go_name: SetSelection
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.accessibilityservice.FingerprintGestureController$FingerprintGestureCallback
+      go_type: FingerprintGestureControllerFingerprintGestureCallback
+      methods:
+        - java_method: onGestureDetected
+          go_name: OnGestureDetected
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onGestureDetectionAvailabilityChanged
+          go_name: OnGestureDetectionAvailabilityChanged
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.accessibilityservice.AccessibilityButtonController
+      go_type: AccessibilityButtonController
+      methods:
+        - java_method: isAccessibilityButtonAvailable
+          go_name: IsAccessibilityButtonAvailable
+          returns: boolean
+          error: true
+        - java_method: registerAccessibilityButtonCallback
+          go_name: RegisterAccessibilityButtonCallback
+          params:
+            - java_type: android.accessibilityservice.AccessibilityButtonController$AccessibilityButtonCallback
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: unregisterAccessibilityButtonCallback
+          go_name: UnregisterAccessibilityButtonCallback
+          params:
+            - java_type: android.accessibilityservice.AccessibilityButtonController$AccessibilityButtonCallback
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.accessibilityservice.AccessibilityButtonController$AccessibilityButtonCallback
+      go_type: AccessibilityButtonControllerAccessibilityButtonCallback
+      methods:
+        - java_method: onAvailabilityChanged
+          go_name: OnAvailabilityChanged
+          params:
+            - java_type: android.accessibilityservice.AccessibilityButtonController
+              go_name: arg0
+            - java_type: boolean
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onClicked
+          go_name: OnClicked
+          params:
+            - java_type: android.accessibilityservice.AccessibilityButtonController
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.accessibilityservice.GestureDescription
+      go_type: GestureDescription
       methods:
         - java_method: getDisplayId
           go_name: GetDisplayId
           returns: int
           error: true
-        - java_method: getMaxPointerCount
-          go_name: GetMaxPointerCount
-          returns: int
-          error: true
-        - java_method: getState
-          go_name: GetState
-          returns: int
-          error: true
-        - java_method: performClick
-          go_name: PerformClick
-          returns: void
-          error: true
-        - java_method: performLongClickAndStartDrag
-          go_name: PerformLongClickAndStartDrag
-          returns: void
-          error: true
-        - java_method: registerCallback
-          go_name: RegisterCallback
-          params:
-            - java_type: java.util.concurrent.Executor
-              go_name: arg0
-            - java_type: android.accessibilityservice.TouchInteractionController$Callback
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: requestDelegating
-          go_name: RequestDelegating
-          returns: void
-          error: true
-        - java_method: requestDragging
-          go_name: RequestDragging
+        - java_method: getStroke
+          go_name: GetStroke
           params:
             - java_type: int
               go_name: arg0
-          returns: void
+          returns: android.accessibilityservice.GestureDescription$StrokeDescription
           error: true
-        - java_method: requestTouchExploration
-          go_name: RequestTouchExploration
-          returns: void
-          error: true
-        - java_method: unregisterAllCallbacks
-          go_name: UnregisterAllCallbacks
-          returns: void
-          error: true
-        - java_method: unregisterCallback
-          go_name: UnregisterCallback
-          params:
-            - java_type: android.accessibilityservice.TouchInteractionController$Callback
-              go_name: arg0
-          returns: boolean
+        - java_method: getStrokeCount
+          go_name: GetStrokeCount
+          returns: int
           error: true
       static_methods:
-        - java_method: stateToString
-          go_name: StateToString
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: String
+        - java_method: getMaxGestureDuration
+          go_name: GetMaxGestureDuration
+          returns: long
           error: true
-    - java_class: android.accessibilityservice.TouchInteractionController$Callback
-      go_type: TouchInteractionControllerCallback
+        - java_method: getMaxStrokeCount
+          go_name: GetMaxStrokeCount
+          returns: int
+          error: true
+    - java_class: android.accessibilityservice.GestureDescription$Builder
+      go_type: GestureDescriptionBuilder
       methods:
-        - java_method: onMotionEvent
-          go_name: OnMotionEvent
+        - java_method: addStroke
+          go_name: AddStroke
           params:
-            - java_type: android.view.MotionEvent
+            - java_type: android.accessibilityservice.GestureDescription$StrokeDescription
               go_name: arg0
-          returns: void
+          returns: android.accessibilityservice.GestureDescription$Builder
           error: true
-        - java_method: onStateChanged
-          go_name: OnStateChanged
+        - java_method: build
+          go_name: Build
+          returns: android.accessibilityservice.GestureDescription
+          error: true
+        - java_method: setDisplayId
+          go_name: SetDisplayId
           params:
             - java_type: int
               go_name: arg0
-          returns: void
+          returns: android.accessibilityservice.GestureDescription$Builder
           error: true
+    - java_class: android.accessibilityservice.GestureDescription$StrokeDescription
+      go_type: GestureDescriptionStrokeDescription
+      methods:
+        - java_method: continueStroke
+          go_name: ContinueStroke
+          params:
+            - java_type: android.graphics.Path
+              go_name: arg0
+            - java_type: long
+              go_name: arg1
+            - java_type: long
+              go_name: arg2
+            - java_type: boolean
+              go_name: arg3
+          returns: android.accessibilityservice.GestureDescription$StrokeDescription
+          error: true
+        - java_method: getDuration
+          go_name: GetDuration
+          returns: long
+          error: true
+        - java_method: getPath
+          go_name: GetPath
+          returns: android.graphics.Path
+          error: true
+        - java_method: getStartTime
+          go_name: GetStartTime
+          returns: long
+          error: true
+        - java_method: willContinue
+          go_name: WillContinue
+          returns: boolean
+          error: true
+abstract_callbacks:
+    - java_class: android.accessibilityservice.AccessibilityService
+      go_type: AccessibilityServiceCallback
+      methods:
+        - java_method: attachAccessibilityOverlayToDisplay
+          params:
+            - int
+            - android.view.SurfaceControl
+          returns: void
+          go_field: AttachAccessibilityOverlayToDisplay
+        - java_method: attachAccessibilityOverlayToWindow
+          params:
+            - int
+            - android.view.SurfaceControl
+          returns: void
+          go_field: AttachAccessibilityOverlayToWindow
+        - java_method: clearCache
+          params: []
+          returns: boolean
+          go_field: ClearCache
+        - java_method: clearCachedSubtree
+          params:
+            - android.view.accessibility.AccessibilityNodeInfo
+          returns: boolean
+          go_field: ClearCachedSubtree
+        - java_method: createDisplayContext
+          params:
+            - android.view.Display
+          returns: android.content.Context
+          go_field: CreateDisplayContext
+        - java_method: createWindowContext
+          params:
+            - android.view.Display
+            - int
+            - android.os.Bundle
+          returns: android.content.Context
+          go_field: CreateWindowContext
+        - java_method: createWindowContext
+          params:
+            - int
+            - android.os.Bundle
+          returns: android.content.Context
+          go_field: CreateWindowContext
+        - java_method: disableSelf
+          params: []
+          returns: void
+          go_field: DisableSelf
+        - java_method: findFocus
+          params:
+            - int
+          returns: android.view.accessibility.AccessibilityNodeInfo
+          go_field: FindFocus
+        - java_method: getAccessibilityButtonController
+          params: []
+          returns: android.accessibilityservice.AccessibilityButtonController
+          go_field: GetAccessibilityButtonController
+        - java_method: getAccessibilityButtonController
+          params:
+            - int
+          returns: android.accessibilityservice.AccessibilityButtonController
+          go_field: GetAccessibilityButtonController
+        - java_method: getBrailleDisplayController
+          params: []
+          returns: android.accessibilityservice.BrailleDisplayController
+          go_field: GetBrailleDisplayController
+        - java_method: getFingerprintGestureController
+          params: []
+          returns: android.accessibilityservice.FingerprintGestureController
+          go_field: GetFingerprintGestureController
+        - java_method: getInputMethod
+          params: []
+          returns: android.accessibilityservice.InputMethod
+          go_field: GetInputMethod
+        - java_method: getMagnificationController
+          params: []
+          returns: android.accessibilityservice.AccessibilityService$MagnificationController
+          go_field: GetMagnificationController
+        - java_method: getRootInActiveWindow
+          params: []
+          returns: android.view.accessibility.AccessibilityNodeInfo
+          go_field: GetRootInActiveWindow
+        - java_method: getRootInActiveWindow
+          params:
+            - int
+          returns: android.view.accessibility.AccessibilityNodeInfo
+          go_field: GetRootInActiveWindow
+        - java_method: getServiceInfo
+          params: []
+          returns: android.accessibilityservice.AccessibilityServiceInfo
+          go_field: GetServiceInfo
+        - java_method: getSoftKeyboardController
+          params: []
+          returns: android.accessibilityservice.AccessibilityService$SoftKeyboardController
+          go_field: GetSoftKeyboardController
+        - java_method: getSystemActions
+          params: []
+          returns: java.util.List<android.view.accessibility.AccessibilityNodeInfo$AccessibilityAction>
+          go_field: GetSystemActions
+        - java_method: getSystemService
+          params:
+            - String
+          returns: java.lang.Object
+          go_field: GetSystemService
+        - java_method: getTouchInteractionController
+          params:
+            - int
+          returns: android.accessibilityservice.TouchInteractionController
+          go_field: GetTouchInteractionController
+        - java_method: getWindows
+          params: []
+          returns: java.util.List<android.view.accessibility.AccessibilityWindowInfo>
+          go_field: GetWindows
+        - java_method: getWindowsOnAllDisplays
+          params: []
+          returns: android.util.SparseArray<java.util.List<android.view.accessibility.AccessibilityWindowInfo>>
+          go_field: GetWindowsOnAllDisplays
+        - java_method: isCacheEnabled
+          params: []
+          returns: boolean
+          go_field: IsCacheEnabled
+        - java_method: isNodeInCache
+          params:
+            - android.view.accessibility.AccessibilityNodeInfo
+          returns: boolean
+          go_field: IsNodeInCache
+        - java_method: onAccessibilityEvent
+          params:
+            - android.view.accessibility.AccessibilityEvent
+          returns: void
+          go_field: OnAccessibilityEvent
+        - java_method: onBind
+          params:
+            - android.content.Intent
+          returns: android.os.IBinder
+          go_field: OnBind
+        - java_method: onCreateInputMethod
+          params: []
+          returns: android.accessibilityservice.InputMethod
+          go_field: OnCreateInputMethod
+        - java_method: onGesture
+          params:
+            - android.accessibilityservice.AccessibilityGestureEvent
+          returns: boolean
+          go_field: OnGesture
+        - java_method: onInterrupt
+          params: []
+          returns: void
+          go_field: OnInterrupt
+        - java_method: onMotionEvent
+          params:
+            - android.view.MotionEvent
+          returns: void
+          go_field: OnMotionEvent
+        - java_method: onSystemActionsChanged
+          params: []
+          returns: void
+          go_field: OnSystemActionsChanged
+        - java_method: performGlobalAction
+          params:
+            - int
+          returns: boolean
+          go_field: PerformGlobalAction
+        - java_method: setAccessibilityFocusAppearance
+          params:
+            - int
+            - int
+          returns: void
+          go_field: SetAccessibilityFocusAppearance
+        - java_method: setAnimationScale
+          params:
+            - float
+          returns: void
+          go_field: SetAnimationScale
+        - java_method: setCacheEnabled
+          params:
+            - boolean
+          returns: boolean
+          go_field: SetCacheEnabled
+        - java_method: setGestureDetectionPassthroughRegion
+          params:
+            - int
+            - android.graphics.Region
+          returns: void
+          go_field: SetGestureDetectionPassthroughRegion
+        - java_method: setServiceInfo
+          params:
+            - android.accessibilityservice.AccessibilityServiceInfo
+          returns: void
+          go_field: SetServiceInfo
+        - java_method: setTouchExplorationPassthroughRegion
+          params:
+            - int
+            - android.graphics.Region
+          returns: void
+          go_field: SetTouchExplorationPassthroughRegion
+        - java_method: takeScreenshot
+          params:
+            - int
+            - java.util.concurrent.Executor
+            - android.accessibilityservice.AccessibilityService$TakeScreenshotCallback
+          returns: void
+          go_field: TakeScreenshot
+        - java_method: takeScreenshotOfWindow
+          params:
+            - int
+            - java.util.concurrent.Executor
+            - android.accessibilityservice.AccessibilityService$TakeScreenshotCallback
+          returns: void
+          go_field: TakeScreenshotOfWindow
+    - java_class: android.accessibilityservice.AccessibilityService$GestureResultCallback
+      go_type: AccessibilityServiceGestureResultCallbackCallback
+      methods:
+        - java_method: onCancelled
+          params:
+            - android.accessibilityservice.GestureDescription
+          returns: void
+          go_field: OnCancelled
+        - java_method: onCompleted
+          params:
+            - android.accessibilityservice.GestureDescription
+          returns: void
+          go_field: OnCompleted
+    - java_class: android.accessibilityservice.FingerprintGestureController$FingerprintGestureCallback
+      go_type: FingerprintGestureControllerFingerprintGestureCallbackCallback
+      methods:
+        - java_method: onGestureDetected
+          params:
+            - int
+          returns: void
+          go_field: OnGestureDetected
+        - java_method: onGestureDetectionAvailabilityChanged
+          params:
+            - boolean
+          returns: void
+          go_field: OnGestureDetectionAvailabilityChanged
+    - java_class: android.accessibilityservice.AccessibilityButtonController$AccessibilityButtonCallback
+      go_type: AccessibilityButtonControllerAccessibilityButtonCallbackCallback
+      methods:
+        - java_method: onAvailabilityChanged
+          params:
+            - android.accessibilityservice.AccessibilityButtonController
+            - boolean
+          returns: void
+          go_field: OnAvailabilityChanged
+        - java_method: onClicked
+          params:
+            - android.accessibilityservice.AccessibilityButtonController
+          returns: void
+          go_field: OnClicked
 constants:
     - go_name: CapabilityCanControlMagnification
       value: "16"
@@ -1265,6 +1514,15 @@ constants:
       go_type: int
     - go_name: FlagServiceHandlesDoubleTap
       value: "2048"
+      go_type: int
+    - go_name: MagnificationModeDefault
+      value: "0"
+      go_type: int
+    - go_name: MagnificationModeFullscreen
+      value: "1"
+      go_type: int
+    - go_name: MagnificationModeWindow
+      value: "2"
       go_type: int
     - go_name: ErrorTakeScreenshotInternalError
       value: "1"
@@ -1512,33 +1770,6 @@ constants:
     - go_name: EnableImeSuccess
       value: "0"
       go_type: int
-    - go_name: FingerprintGestureSwipeDown
-      value: "8"
-      go_type: int
-    - go_name: FingerprintGestureSwipeLeft
-      value: "2"
-      go_type: int
-    - go_name: FingerprintGestureSwipeRight
-      value: "1"
-      go_type: int
-    - go_name: FingerprintGestureSwipeUp
-      value: "4"
-      go_type: int
-    - go_name: MagnificationModeDefault
-      value: "0"
-      go_type: int
-    - go_name: MagnificationModeFullscreen
-      value: "1"
-      go_type: int
-    - go_name: MagnificationModeWindow
-      value: "2"
-      go_type: int
-    - go_name: FlagErrorBrailleDisplayNotFound
-      value: "2"
-      go_type: int
-    - go_name: FlagErrorCannotAccess
-      value: "1"
-      go_type: int
     - go_name: StateClear
       value: "0"
       go_type: int
@@ -1553,4 +1784,22 @@ constants:
       go_type: int
     - go_name: StateTouchInteracting
       value: "1"
+      go_type: int
+    - go_name: FlagErrorBrailleDisplayNotFound
+      value: "2"
+      go_type: int
+    - go_name: FlagErrorCannotAccess
+      value: "1"
+      go_type: int
+    - go_name: FingerprintGestureSwipeDown
+      value: "8"
+      go_type: int
+    - go_name: FingerprintGestureSwipeLeft
+      value: "2"
+      go_type: int
+    - go_name: FingerprintGestureSwipeRight
+      value: "1"
+      go_type: int
+    - go_name: FingerprintGestureSwipeUp
+      value: "4"
       go_type: int

@@ -5,182 +5,6 @@
 package: pdf
 go_import: github.com/AndroidGoLab/jni/graphics/pdf
 classes:
-    - java_class: android.graphics.Typeface
-      go_type: Typeface
-      methods:
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getStyle
-          go_name: GetStyle
-          returns: int
-          error: true
-        - java_method: getSystemFontFamilyName
-          go_name: GetSystemFontFamilyName
-          returns: String
-          error: true
-        - java_method: getWeight
-          go_name: GetWeight
-          returns: int
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: isBold
-          go_name: IsBold
-          returns: boolean
-          error: true
-        - java_method: isItalic
-          go_name: IsItalic
-          returns: boolean
-          error: true
-      static_methods:
-        - java_method: create
-          go_name: Create2
-          params:
-            - java_type: android.graphics.Typeface
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: android.graphics.Typeface
-          error: true
-        - java_method: create
-          go_name: Create3_1
-          params:
-            - java_type: android.graphics.Typeface
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: boolean
-              go_name: arg2
-          returns: android.graphics.Typeface
-          error: true
-        - java_method: create
-          go_name: Create2_2
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: android.graphics.Typeface
-          error: true
-        - java_method: createFromAsset
-          go_name: CreateFromAsset
-          params:
-            - java_type: android.content.res.AssetManager
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-          returns: android.graphics.Typeface
-          error: true
-        - java_method: createFromFile
-          go_name: CreateFromFile1
-          params:
-            - java_type: java.io.File
-              go_name: arg0
-          returns: android.graphics.Typeface
-          error: true
-        - java_method: createFromFile
-          go_name: CreateFromFile1_1
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.graphics.Typeface
-          error: true
-        - java_method: defaultFromStyle
-          go_name: DefaultFromStyle
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.graphics.Typeface
-          error: true
-    - java_class: android.graphics.Typeface$Builder
-      go_type: TypefaceBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.graphics.Typeface
-          error: true
-        - java_method: setFallback
-          go_name: SetFallback
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.graphics.Typeface$Builder
-          error: true
-        - java_method: setFontVariationSettings
-          go_name: SetFontVariationSettings1
-          params:
-            - java_type: android.graphics.fonts.FontVariationAxis[]
-              go_name: arg0
-          returns: android.graphics.Typeface$Builder
-          error: true
-        - java_method: setFontVariationSettings
-          go_name: SetFontVariationSettings1_1
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.graphics.Typeface$Builder
-          error: true
-        - java_method: setItalic
-          go_name: SetItalic
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.graphics.Typeface$Builder
-          error: true
-        - java_method: setTtcIndex
-          go_name: SetTtcIndex
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.graphics.Typeface$Builder
-          error: true
-        - java_method: setWeight
-          go_name: SetWeight
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.graphics.Typeface$Builder
-          error: true
-    - java_class: android.graphics.Typeface$CustomFallbackBuilder
-      go_type: TypefaceCustomFallbackBuilder
-      methods:
-        - java_method: addCustomFallback
-          go_name: AddCustomFallback
-          params:
-            - java_type: android.graphics.fonts.FontFamily
-              go_name: arg0
-          returns: android.graphics.Typeface$CustomFallbackBuilder
-          error: true
-        - java_method: build
-          go_name: Build
-          returns: android.graphics.Typeface
-          error: true
-        - java_method: setStyle
-          go_name: SetStyle
-          params:
-            - java_type: android.graphics.fonts.FontStyle
-              go_name: arg0
-          returns: android.graphics.Typeface$CustomFallbackBuilder
-          error: true
-        - java_method: setSystemFallback
-          go_name: SetSystemFallback
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.graphics.Typeface$CustomFallbackBuilder
-          error: true
-      static_methods:
-        - java_method: getMaxCustomFallbackCount
-          go_name: GetMaxCustomFallbackCount
-          returns: int
-          error: true
     - java_class: android.graphics.pdf.PdfDocument
       go_type: Document
       obtain: constructor
@@ -214,6 +38,45 @@ classes:
               go_name: arg0
           returns: void
           error: true
+    - java_class: android.graphics.pdf.PdfRendererPreV
+      go_type: RendererPreV
+      obtain: constructor
+      constructor_params:
+        - java_type: android.os.ParcelFileDescriptor
+          go_name: arg0
+      methods:
+        - java_method: close
+          go_name: Close
+          returns: void
+          error: true
+        - java_method: getDocumentLinearizationType
+          go_name: GetDocumentLinearizationType
+          returns: int
+          error: true
+        - java_method: getPageCount
+          go_name: GetPageCount
+          returns: int
+          error: true
+        - java_method: getPdfFormType
+          go_name: GetPdfFormType
+          returns: int
+          error: true
+        - java_method: openPage
+          go_name: OpenPage
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.graphics.pdf.PdfRendererPreV$Page
+          error: true
+        - java_method: write
+          go_name: Write
+          params:
+            - java_type: android.os.ParcelFileDescriptor
+              go_name: arg0
+            - java_type: boolean
+              go_name: arg1
+          returns: void
+          error: true
     - java_class: android.graphics.pdf.PdfDocument$Page
       go_type: DocumentPage
       methods:
@@ -224,6 +87,104 @@ classes:
         - java_method: getInfo
           go_name: GetInfo
           returns: android.graphics.pdf.PdfDocument$PageInfo
+          error: true
+    - java_class: android.graphics.pdf.PdfRendererPreV$Page
+      go_type: RendererPreVPage
+      methods:
+        - java_method: applyEdit
+          go_name: ApplyEdit
+          params:
+            - java_type: android.graphics.pdf.models.FormEditRecord
+              go_name: arg0
+          returns: java.util.List<android.graphics.Rect>
+          error: true
+        - java_method: close
+          go_name: Close
+          returns: void
+          error: true
+        - java_method: getFormWidgetInfoAtIndex
+          go_name: GetFormWidgetInfoAtIndex
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.graphics.pdf.models.FormWidgetInfo
+          error: true
+        - java_method: getFormWidgetInfoAtPosition
+          go_name: GetFormWidgetInfoAtPosition
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: android.graphics.pdf.models.FormWidgetInfo
+          error: true
+        - java_method: getFormWidgetInfos
+          go_name: GetFormWidgetInfos0
+          returns: java.util.List<android.graphics.pdf.models.FormWidgetInfo>
+          error: true
+        - java_method: getFormWidgetInfos
+          go_name: GetFormWidgetInfos1_1
+          params:
+            - java_type: '[I'
+              go_name: arg0
+          returns: java.util.List<android.graphics.pdf.models.FormWidgetInfo>
+          error: true
+        - java_method: getGotoLinks
+          go_name: GetGotoLinks
+          returns: java.util.List<android.graphics.pdf.content.PdfPageGotoLinkContent>
+          error: true
+        - java_method: getHeight
+          go_name: GetHeight
+          returns: int
+          error: true
+        - java_method: getImageContents
+          go_name: GetImageContents
+          returns: java.util.List<android.graphics.pdf.content.PdfPageImageContent>
+          error: true
+        - java_method: getIndex
+          go_name: GetIndex
+          returns: int
+          error: true
+        - java_method: getLinkContents
+          go_name: GetLinkContents
+          returns: java.util.List<android.graphics.pdf.content.PdfPageLinkContent>
+          error: true
+        - java_method: getTextContents
+          go_name: GetTextContents
+          returns: java.util.List<android.graphics.pdf.content.PdfPageTextContent>
+          error: true
+        - java_method: getWidth
+          go_name: GetWidth
+          returns: int
+          error: true
+        - java_method: render
+          go_name: Render
+          params:
+            - java_type: android.graphics.Bitmap
+              go_name: arg0
+            - java_type: android.graphics.Rect
+              go_name: arg1
+            - java_type: android.graphics.Matrix
+              go_name: arg2
+            - java_type: android.graphics.pdf.RenderParams
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: searchText
+          go_name: SearchText
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: java.util.List<android.graphics.pdf.models.PageMatchBounds>
+          error: true
+        - java_method: selectContent
+          go_name: SelectContent
+          params:
+            - java_type: android.graphics.pdf.models.selection.SelectionBoundary
+              go_name: arg0
+            - java_type: android.graphics.pdf.models.selection.SelectionBoundary
+              go_name: arg1
+          returns: android.graphics.pdf.models.selection.PageSelection
           error: true
     - java_class: android.graphics.pdf.PdfDocument$PageInfo
       go_type: DocumentPageInfo
@@ -244,12 +205,1930 @@ classes:
           go_name: GetPageWidth
           returns: int
           error: true
+    - java_class: android.graphics.Paint
+      go_type: Paint
+      obtain: constructor
+      methods:
+        - java_method: ascent
+          go_name: Ascent
+          returns: float
+          error: true
+        - java_method: breakText
+          go_name: BreakText5
+          params:
+            - java_type: char[]
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: float
+              go_name: arg3
+            - java_type: float[]
+              go_name: arg4
+          returns: int
+          error: true
+        - java_method: breakText
+          go_name: BreakText6_1
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: boolean
+              go_name: arg3
+            - java_type: float
+              go_name: arg4
+            - java_type: float[]
+              go_name: arg5
+          returns: int
+          error: true
+        - java_method: breakText
+          go_name: BreakText4_2
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: boolean
+              go_name: arg1
+            - java_type: float
+              go_name: arg2
+            - java_type: float[]
+              go_name: arg3
+          returns: int
+          error: true
+        - java_method: clearShadowLayer
+          go_name: ClearShadowLayer
+          returns: void
+          error: true
+        - java_method: descent
+          go_name: Descent
+          returns: float
+          error: true
+        - java_method: equalsForTextMeasurement
+          go_name: EqualsForTextMeasurement
+          params:
+            - java_type: android.graphics.Paint
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getAlpha
+          go_name: GetAlpha
+          returns: int
+          error: true
+        - java_method: getBlendMode
+          go_name: GetBlendMode
+          returns: android.graphics.BlendMode
+          error: true
+        - java_method: getColor
+          go_name: GetColor
+          returns: int
+          error: true
+        - java_method: getColorFilter
+          go_name: GetColorFilter
+          returns: android.graphics.ColorFilter
+          error: true
+        - java_method: getColorLong
+          go_name: GetColorLong
+          returns: long
+          error: true
+        - java_method: getEndHyphenEdit
+          go_name: GetEndHyphenEdit
+          returns: int
+          error: true
+        - java_method: getFillPath
+          go_name: GetFillPath
+          params:
+            - java_type: android.graphics.Path
+              go_name: arg0
+            - java_type: android.graphics.Path
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: getFlags
+          go_name: GetFlags
+          returns: int
+          error: true
+        - java_method: getFontFeatureSettings
+          go_name: GetFontFeatureSettings
+          returns: String
+          error: true
+        - java_method: getFontMetrics
+          go_name: GetFontMetrics0
+          returns: android.graphics.Paint$FontMetrics
+          error: true
+        - java_method: getFontMetrics
+          go_name: GetFontMetrics1_1
+          params:
+            - java_type: android.graphics.Paint$FontMetrics
+              go_name: arg0
+          returns: float
+          error: true
+        - java_method: getFontMetricsForLocale
+          go_name: GetFontMetricsForLocale
+          params:
+            - java_type: android.graphics.Paint$FontMetrics
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getFontMetricsInt
+          go_name: GetFontMetricsInt0
+          returns: android.graphics.Paint$FontMetricsInt
+          error: true
+        - java_method: getFontMetricsInt
+          go_name: GetFontMetricsInt1_1
+          params:
+            - java_type: android.graphics.Paint$FontMetricsInt
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getFontMetricsInt
+          go_name: GetFontMetricsInt7_2
+          params:
+            - java_type: char[]
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+            - java_type: int
+              go_name: arg4
+            - java_type: boolean
+              go_name: arg5
+            - java_type: android.graphics.Paint$FontMetricsInt
+              go_name: arg6
+          returns: void
+          error: true
+        - java_method: getFontMetricsInt
+          go_name: GetFontMetricsInt7_3
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+            - java_type: int
+              go_name: arg4
+            - java_type: boolean
+              go_name: arg5
+            - java_type: android.graphics.Paint$FontMetricsInt
+              go_name: arg6
+          returns: void
+          error: true
+        - java_method: getFontMetricsIntForLocale
+          go_name: GetFontMetricsIntForLocale
+          params:
+            - java_type: android.graphics.Paint$FontMetricsInt
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: getFontSpacing
+          go_name: GetFontSpacing
+          returns: float
+          error: true
+        - java_method: getFontVariationSettings
+          go_name: GetFontVariationSettings
+          returns: String
+          error: true
+        - java_method: getHinting
+          go_name: GetHinting
+          returns: int
+          error: true
+        - java_method: getLetterSpacing
+          go_name: GetLetterSpacing
+          returns: float
+          error: true
+        - java_method: getMaskFilter
+          go_name: GetMaskFilter
+          returns: android.graphics.MaskFilter
+          error: true
+        - java_method: getOffsetForAdvance
+          go_name: GetOffsetForAdvance7
+          params:
+            - java_type: char[]
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+            - java_type: int
+              go_name: arg4
+            - java_type: boolean
+              go_name: arg5
+            - java_type: float
+              go_name: arg6
+          returns: int
+          error: true
+        - java_method: getOffsetForAdvance
+          go_name: GetOffsetForAdvance7_1
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+            - java_type: int
+              go_name: arg4
+            - java_type: boolean
+              go_name: arg5
+            - java_type: float
+              go_name: arg6
+          returns: int
+          error: true
+        - java_method: getPathEffect
+          go_name: GetPathEffect
+          returns: android.graphics.PathEffect
+          error: true
+        - java_method: getRunAdvance
+          go_name: GetRunAdvance7
+          params:
+            - java_type: char[]
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+            - java_type: int
+              go_name: arg4
+            - java_type: boolean
+              go_name: arg5
+            - java_type: int
+              go_name: arg6
+          returns: float
+          error: true
+        - java_method: getRunAdvance
+          go_name: GetRunAdvance7_1
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+            - java_type: int
+              go_name: arg4
+            - java_type: boolean
+              go_name: arg5
+            - java_type: int
+              go_name: arg6
+          returns: float
+          error: true
+        - java_method: getRunCharacterAdvance
+          go_name: GetRunCharacterAdvance9
+          params:
+            - java_type: char[]
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+            - java_type: int
+              go_name: arg4
+            - java_type: boolean
+              go_name: arg5
+            - java_type: int
+              go_name: arg6
+            - java_type: float[]
+              go_name: arg7
+            - java_type: int
+              go_name: arg8
+          returns: float
+          error: true
+        - java_method: getRunCharacterAdvance
+          go_name: GetRunCharacterAdvance9_1
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+            - java_type: int
+              go_name: arg4
+            - java_type: boolean
+              go_name: arg5
+            - java_type: int
+              go_name: arg6
+            - java_type: float[]
+              go_name: arg7
+            - java_type: int
+              go_name: arg8
+          returns: float
+          error: true
+        - java_method: getShader
+          go_name: GetShader
+          returns: android.graphics.Shader
+          error: true
+        - java_method: getShadowLayerColor
+          go_name: GetShadowLayerColor
+          returns: int
+          error: true
+        - java_method: getShadowLayerColorLong
+          go_name: GetShadowLayerColorLong
+          returns: long
+          error: true
+        - java_method: getShadowLayerDx
+          go_name: GetShadowLayerDx
+          returns: float
+          error: true
+        - java_method: getShadowLayerDy
+          go_name: GetShadowLayerDy
+          returns: float
+          error: true
+        - java_method: getShadowLayerRadius
+          go_name: GetShadowLayerRadius
+          returns: float
+          error: true
+        - java_method: getStartHyphenEdit
+          go_name: GetStartHyphenEdit
+          returns: int
+          error: true
+        - java_method: getStrikeThruPosition
+          go_name: GetStrikeThruPosition
+          returns: float
+          error: true
+        - java_method: getStrikeThruThickness
+          go_name: GetStrikeThruThickness
+          returns: float
+          error: true
+        - java_method: getStrokeCap
+          go_name: GetStrokeCap
+          returns: android.graphics.Paint$Cap
+          error: true
+        - java_method: getStrokeJoin
+          go_name: GetStrokeJoin
+          returns: android.graphics.Paint$Join
+          error: true
+        - java_method: getStrokeMiter
+          go_name: GetStrokeMiter
+          returns: float
+          error: true
+        - java_method: getStrokeWidth
+          go_name: GetStrokeWidth
+          returns: float
+          error: true
+        - java_method: getStyle
+          go_name: GetStyle
+          returns: android.graphics.Paint$Style
+          error: true
+        - java_method: getTextAlign
+          go_name: GetTextAlign
+          returns: android.graphics.Paint$Align
+          error: true
+        - java_method: getTextBounds
+          go_name: GetTextBounds4
+          params:
+            - java_type: char[]
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: android.graphics.Rect
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: getTextBounds
+          go_name: GetTextBounds4_1
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: android.graphics.Rect
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: getTextBounds
+          go_name: GetTextBounds4_2
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: android.graphics.Rect
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: getTextLocale
+          go_name: GetTextLocale
+          returns: java.util.Locale
+          error: true
+        - java_method: getTextLocales
+          go_name: GetTextLocales
+          returns: android.os.LocaleList
+          error: true
+        - java_method: getTextPath
+          go_name: GetTextPath6
+          params:
+            - java_type: char[]
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: float
+              go_name: arg3
+            - java_type: float
+              go_name: arg4
+            - java_type: android.graphics.Path
+              go_name: arg5
+          returns: void
+          error: true
+        - java_method: getTextPath
+          go_name: GetTextPath6_1
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: float
+              go_name: arg3
+            - java_type: float
+              go_name: arg4
+            - java_type: android.graphics.Path
+              go_name: arg5
+          returns: void
+          error: true
+        - java_method: getTextRunAdvances
+          go_name: GetTextRunAdvances
+          params:
+            - java_type: char[]
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+            - java_type: int
+              go_name: arg4
+            - java_type: boolean
+              go_name: arg5
+            - java_type: float[]
+              go_name: arg6
+            - java_type: int
+              go_name: arg7
+          returns: float
+          error: true
+        - java_method: getTextRunCursor
+          go_name: GetTextRunCursor6
+          params:
+            - java_type: char[]
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: boolean
+              go_name: arg3
+            - java_type: int
+              go_name: arg4
+            - java_type: int
+              go_name: arg5
+          returns: int
+          error: true
+        - java_method: getTextRunCursor
+          go_name: GetTextRunCursor6_1
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: boolean
+              go_name: arg3
+            - java_type: int
+              go_name: arg4
+            - java_type: int
+              go_name: arg5
+          returns: int
+          error: true
+        - java_method: getTextScaleX
+          go_name: GetTextScaleX
+          returns: float
+          error: true
+        - java_method: getTextSize
+          go_name: GetTextSize
+          returns: float
+          error: true
+        - java_method: getTextSkewX
+          go_name: GetTextSkewX
+          returns: float
+          error: true
+        - java_method: getTextWidths
+          go_name: GetTextWidths4
+          params:
+            - java_type: char[]
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: float[]
+              go_name: arg3
+          returns: int
+          error: true
+        - java_method: getTextWidths
+          go_name: GetTextWidths4_1
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: float[]
+              go_name: arg3
+          returns: int
+          error: true
+        - java_method: getTextWidths
+          go_name: GetTextWidths2_2
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: float[]
+              go_name: arg1
+          returns: int
+          error: true
+        - java_method: getTextWidths
+          go_name: GetTextWidths4_3
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: float[]
+              go_name: arg3
+          returns: int
+          error: true
+        - java_method: getTypeface
+          go_name: GetTypeface
+          returns: android.graphics.Typeface
+          error: true
+        - java_method: getUnderlinePosition
+          go_name: GetUnderlinePosition
+          returns: float
+          error: true
+        - java_method: getUnderlineThickness
+          go_name: GetUnderlineThickness
+          returns: float
+          error: true
+        - java_method: getWordSpacing
+          go_name: GetWordSpacing
+          returns: float
+          error: true
+        - java_method: getXfermode
+          go_name: GetXfermode
+          returns: android.graphics.Xfermode
+          error: true
+        - java_method: hasGlyph
+          go_name: HasGlyph
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: isAntiAlias
+          go_name: IsAntiAlias
+          returns: boolean
+          error: true
+        - java_method: isDither
+          go_name: IsDither
+          returns: boolean
+          error: true
+        - java_method: isElegantTextHeight
+          go_name: IsElegantTextHeight
+          returns: boolean
+          error: true
+        - java_method: isFakeBoldText
+          go_name: IsFakeBoldText
+          returns: boolean
+          error: true
+        - java_method: isFilterBitmap
+          go_name: IsFilterBitmap
+          returns: boolean
+          error: true
+        - java_method: isLinearText
+          go_name: IsLinearText
+          returns: boolean
+          error: true
+        - java_method: isStrikeThruText
+          go_name: IsStrikeThruText
+          returns: boolean
+          error: true
+        - java_method: isSubpixelText
+          go_name: IsSubpixelText
+          returns: boolean
+          error: true
+        - java_method: isUnderlineText
+          go_name: IsUnderlineText
+          returns: boolean
+          error: true
+        - java_method: measureText
+          go_name: MeasureText3
+          params:
+            - java_type: char[]
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: float
+          error: true
+        - java_method: measureText
+          go_name: MeasureText3_1
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: float
+          error: true
+        - java_method: measureText
+          go_name: MeasureText1_2
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: float
+          error: true
+        - java_method: measureText
+          go_name: MeasureText3_3
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: float
+          error: true
+        - java_method: reset
+          go_name: Reset
+          returns: void
+          error: true
+        - java_method: set
+          go_name: Set
+          params:
+            - java_type: android.graphics.Paint
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setARGB
+          go_name: SetARGB
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: setAlpha
+          go_name: SetAlpha
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setAntiAlias
+          go_name: SetAntiAlias
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setBlendMode
+          go_name: SetBlendMode
+          params:
+            - java_type: android.graphics.BlendMode
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setColor
+          go_name: SetColor1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setColor
+          go_name: SetColor1_1
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setColorFilter
+          go_name: SetColorFilter
+          params:
+            - java_type: android.graphics.ColorFilter
+              go_name: arg0
+          returns: android.graphics.ColorFilter
+          error: true
+        - java_method: setDither
+          go_name: SetDither
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setElegantTextHeight
+          go_name: SetElegantTextHeight
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setEndHyphenEdit
+          go_name: SetEndHyphenEdit
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setFakeBoldText
+          go_name: SetFakeBoldText
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setFilterBitmap
+          go_name: SetFilterBitmap
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setFlags
+          go_name: SetFlags
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setFontFeatureSettings
+          go_name: SetFontFeatureSettings
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setFontVariationSettings
+          go_name: SetFontVariationSettings
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: setHinting
+          go_name: SetHinting
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setLetterSpacing
+          go_name: SetLetterSpacing
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setLinearText
+          go_name: SetLinearText
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setMaskFilter
+          go_name: SetMaskFilter
+          params:
+            - java_type: android.graphics.MaskFilter
+              go_name: arg0
+          returns: android.graphics.MaskFilter
+          error: true
+        - java_method: setPathEffect
+          go_name: SetPathEffect
+          params:
+            - java_type: android.graphics.PathEffect
+              go_name: arg0
+          returns: android.graphics.PathEffect
+          error: true
+        - java_method: setShader
+          go_name: SetShader
+          params:
+            - java_type: android.graphics.Shader
+              go_name: arg0
+          returns: android.graphics.Shader
+          error: true
+        - java_method: setShadowLayer
+          go_name: SetShadowLayer4
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+            - java_type: float
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: setShadowLayer
+          go_name: SetShadowLayer4_1
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+            - java_type: float
+              go_name: arg2
+            - java_type: long
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: setStartHyphenEdit
+          go_name: SetStartHyphenEdit
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setStrikeThruText
+          go_name: SetStrikeThruText
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setStrokeCap
+          go_name: SetStrokeCap
+          params:
+            - java_type: android.graphics.Paint$Cap
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setStrokeJoin
+          go_name: SetStrokeJoin
+          params:
+            - java_type: android.graphics.Paint$Join
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setStrokeMiter
+          go_name: SetStrokeMiter
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setStrokeWidth
+          go_name: SetStrokeWidth
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setStyle
+          go_name: SetStyle
+          params:
+            - java_type: android.graphics.Paint$Style
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setSubpixelText
+          go_name: SetSubpixelText
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setTextAlign
+          go_name: SetTextAlign
+          params:
+            - java_type: android.graphics.Paint$Align
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setTextLocale
+          go_name: SetTextLocale
+          params:
+            - java_type: java.util.Locale
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setTextLocales
+          go_name: SetTextLocales
+          params:
+            - java_type: android.os.LocaleList
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setTextScaleX
+          go_name: SetTextScaleX
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setTextSize
+          go_name: SetTextSize
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setTextSkewX
+          go_name: SetTextSkewX
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setTypeface
+          go_name: SetTypeface
+          params:
+            - java_type: android.graphics.Typeface
+              go_name: arg0
+          returns: android.graphics.Typeface
+          error: true
+        - java_method: setUnderlineText
+          go_name: SetUnderlineText
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setWordSpacing
+          go_name: SetWordSpacing
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setXfermode
+          go_name: SetXfermode
+          params:
+            - java_type: android.graphics.Xfermode
+              go_name: arg0
+          returns: android.graphics.Xfermode
+          error: true
+    - java_class: android.graphics.Paint$Align
+      go_type: PaintAlign
+      static_methods:
+        - java_method: values
+          go_name: Values
+          returns: android.graphics.Paint$Align[]
+          error: true
+        - java_method: valueOf
+          go_name: ValueOf
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.graphics.Paint$Align
+          error: true
+    - java_class: android.graphics.Paint$Cap
+      go_type: PaintCap
+      static_methods:
+        - java_method: values
+          go_name: Values
+          returns: android.graphics.Paint$Cap[]
+          error: true
+        - java_method: valueOf
+          go_name: ValueOf
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.graphics.Paint$Cap
+          error: true
+    - java_class: android.graphics.Paint$FontMetrics
+      go_type: PaintFontMetrics
+      methods:
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+    - java_class: android.graphics.Paint$FontMetricsInt
+      go_type: PaintFontMetricsInt
+      methods:
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: set
+          go_name: Set1
+          params:
+            - java_type: android.graphics.Paint$FontMetrics
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: set
+          go_name: Set1_1
+          params:
+            - java_type: android.graphics.Paint$FontMetricsInt
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+    - java_class: android.graphics.Paint$Join
+      go_type: PaintJoin
+      static_methods:
+        - java_method: values
+          go_name: Values
+          returns: android.graphics.Paint$Join[]
+          error: true
+        - java_method: valueOf
+          go_name: ValueOf
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.graphics.Paint$Join
+          error: true
+    - java_class: android.graphics.Paint$Style
+      go_type: PaintStyle
+      static_methods:
+        - java_method: values
+          go_name: Values
+          returns: android.graphics.Paint$Style[]
+          error: true
+        - java_method: valueOf
+          go_name: ValueOf
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.graphics.Paint$Style
+          error: true
+    - java_class: android.os.ParcelFileDescriptor
+      go_type: ParcelFileDescriptor
+      obtain: constructor
+      constructor_params:
+        - java_type: android.os.ParcelFileDescriptor
+          go_name: arg0
+      methods:
+        - java_method: canDetectErrors
+          go_name: CanDetectErrors
+          returns: boolean
+          error: true
+        - java_method: checkError
+          go_name: CheckError
+          returns: void
+          error: true
+        - java_method: close
+          go_name: Close
+          returns: void
+          error: true
+        - java_method: closeWithError
+          go_name: CloseWithError
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: detachFd
+          go_name: DetachFd
+          returns: int
+          error: true
+        - java_method: dup
+          go_name: Dup0
+          returns: android.os.ParcelFileDescriptor
+          error: true
+        - java_method: getFd
+          go_name: GetFd
+          returns: int
+          error: true
+        - java_method: getFileDescriptor
+          go_name: GetFileDescriptor
+          returns: java.io.FileDescriptor
+          error: true
+        - java_method: getStatSize
+          go_name: GetStatSize
+          returns: long
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+      static_methods:
+        - java_method: adoptFd
+          go_name: AdoptFd
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.os.ParcelFileDescriptor
+          error: true
+        - java_method: createPipe
+          go_name: CreatePipe
+          returns: android.os.ParcelFileDescriptor[]
+          error: true
+        - java_method: createReliablePipe
+          go_name: CreateReliablePipe
+          returns: android.os.ParcelFileDescriptor[]
+          error: true
+        - java_method: createReliableSocketPair
+          go_name: CreateReliableSocketPair
+          returns: android.os.ParcelFileDescriptor[]
+          error: true
+        - java_method: createSocketPair
+          go_name: CreateSocketPair
+          returns: android.os.ParcelFileDescriptor[]
+          error: true
+        - java_method: dup
+          go_name: Dup1_1
+          params:
+            - java_type: java.io.FileDescriptor
+              go_name: arg0
+          returns: android.os.ParcelFileDescriptor
+          error: true
+        - java_method: fromDatagramSocket
+          go_name: FromDatagramSocket
+          params:
+            - java_type: java.net.DatagramSocket
+              go_name: arg0
+          returns: android.os.ParcelFileDescriptor
+          error: true
+        - java_method: fromFd
+          go_name: FromFd
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.os.ParcelFileDescriptor
+          error: true
+        - java_method: fromSocket
+          go_name: FromSocket
+          params:
+            - java_type: java.net.Socket
+              go_name: arg0
+          returns: android.os.ParcelFileDescriptor
+          error: true
+        - java_method: open
+          go_name: Open
+          params:
+            - java_type: java.io.File
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: android.os.ParcelFileDescriptor
+          error: true
+        - java_method: parseMode
+          go_name: ParseMode
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: int
+          error: true
+    - java_class: android.os.ParcelFileDescriptor$AutoCloseInputStream
+      go_type: ParcelFileDescriptorAutoCloseInputStream
+      methods:
+        - java_method: close
+          go_name: Close
+          returns: void
+          error: true
+        - java_method: read
+          go_name: Read0
+          returns: int
+          error: true
+        - java_method: read
+          go_name: Read1_1
+          params:
+            - java_type: '[B'
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: read
+          go_name: Read3_2
+          params:
+            - java_type: '[B'
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: int
+          error: true
+    - java_class: android.os.ParcelFileDescriptor$AutoCloseOutputStream
+      go_type: ParcelFileDescriptorAutoCloseOutputStream
+      methods:
+        - java_method: close
+          go_name: Close
+          returns: void
+          error: true
+    - java_class: android.os.ParcelFileDescriptor$FileDescriptorDetachedException
+      go_type: ParcelFileDescriptorFileDescriptorDetachedException
+    - java_class: android.graphics.pdf.LoadParams
+      go_type: LoadParams
+      methods:
+        - java_method: getPassword
+          go_name: GetPassword
+          returns: String
+          error: true
+    - java_class: android.os.ParcelFileDescriptor$OnCloseListener
+      go_type: ParcelFileDescriptorOnCloseListener
+      methods:
+        - java_method: onClose
+          go_name: OnClose
+          params:
+            - java_type: java.io.IOException
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.graphics.pdf.LoadParams$Builder
+      go_type: LoadParamsBuilder
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.graphics.pdf.LoadParams
+          error: true
+        - java_method: setPassword
+          go_name: SetPassword
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.graphics.pdf.LoadParams$Builder
+          error: true
+    - java_class: android.graphics.Bitmap
+      go_type: Bitmap
+      methods:
+        - java_method: asShared
+          go_name: AsShared
+          returns: android.graphics.Bitmap
+          error: true
+        - java_method: compress
+          go_name: Compress
+          params:
+            - java_type: android.graphics.Bitmap$CompressFormat
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: java.io.OutputStream
+              go_name: arg2
+          returns: boolean
+          error: true
+        - java_method: copy
+          go_name: Copy
+          params:
+            - java_type: android.graphics.Bitmap$Config
+              go_name: arg0
+            - java_type: boolean
+              go_name: arg1
+          returns: android.graphics.Bitmap
+          error: true
+        - java_method: copyPixelsFromBuffer
+          go_name: CopyPixelsFromBuffer
+          params:
+            - java_type: java.nio.Buffer
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: copyPixelsToBuffer
+          go_name: CopyPixelsToBuffer
+          params:
+            - java_type: java.nio.Buffer
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: eraseColor
+          go_name: EraseColor1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: eraseColor
+          go_name: EraseColor1_1
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: extractAlpha
+          go_name: ExtractAlpha0
+          returns: android.graphics.Bitmap
+          error: true
+        - java_method: extractAlpha
+          go_name: ExtractAlpha2_1
+          params:
+            - java_type: android.graphics.Paint
+              go_name: arg0
+            - java_type: '[I'
+              go_name: arg1
+          returns: android.graphics.Bitmap
+          error: true
+        - java_method: getAllocationByteCount
+          go_name: GetAllocationByteCount
+          returns: int
+          error: true
+        - java_method: getByteCount
+          go_name: GetByteCount
+          returns: int
+          error: true
+        - java_method: getColor
+          go_name: GetColor
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: android.graphics.Color
+          error: true
+        - java_method: getColorSpace
+          go_name: GetColorSpace
+          returns: android.graphics.ColorSpace
+          error: true
+        - java_method: getConfig
+          go_name: GetConfig
+          returns: android.graphics.Bitmap$Config
+          error: true
+        - java_method: getDensity
+          go_name: GetDensity
+          returns: int
+          error: true
+        - java_method: getGainmap
+          go_name: GetGainmap
+          returns: android.graphics.Gainmap
+          error: true
+        - java_method: getGenerationId
+          go_name: GetGenerationId
+          returns: int
+          error: true
+        - java_method: getHardwareBuffer
+          go_name: GetHardwareBuffer
+          returns: android.hardware.HardwareBuffer
+          error: true
+        - java_method: getHeight
+          go_name: GetHeight
+          returns: int
+          error: true
+        - java_method: getNinePatchChunk
+          go_name: GetNinePatchChunk
+          returns: '[B'
+          error: true
+        - java_method: getPixel
+          go_name: GetPixel
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: int
+          error: true
+        - java_method: getPixels
+          go_name: GetPixels
+          params:
+            - java_type: '[I'
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+            - java_type: int
+              go_name: arg4
+            - java_type: int
+              go_name: arg5
+            - java_type: int
+              go_name: arg6
+          returns: void
+          error: true
+        - java_method: getRowBytes
+          go_name: GetRowBytes
+          returns: int
+          error: true
+        - java_method: getScaledHeight
+          go_name: GetScaledHeight1
+          params:
+            - java_type: android.graphics.Canvas
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getScaledHeight
+          go_name: GetScaledHeight1_1
+          params:
+            - java_type: android.util.DisplayMetrics
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getScaledHeight
+          go_name: GetScaledHeight1_2
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getScaledWidth
+          go_name: GetScaledWidth1
+          params:
+            - java_type: android.graphics.Canvas
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getScaledWidth
+          go_name: GetScaledWidth1_1
+          params:
+            - java_type: android.util.DisplayMetrics
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getScaledWidth
+          go_name: GetScaledWidth1_2
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getWidth
+          go_name: GetWidth
+          returns: int
+          error: true
+        - java_method: hasAlpha
+          go_name: HasAlpha
+          returns: boolean
+          error: true
+        - java_method: hasGainmap
+          go_name: HasGainmap
+          returns: boolean
+          error: true
+        - java_method: hasMipMap
+          go_name: HasMipMap
+          returns: boolean
+          error: true
+        - java_method: isMutable
+          go_name: IsMutable
+          returns: boolean
+          error: true
+        - java_method: isPremultiplied
+          go_name: IsPremultiplied
+          returns: boolean
+          error: true
+        - java_method: isRecycled
+          go_name: IsRecycled
+          returns: boolean
+          error: true
+        - java_method: prepareToDraw
+          go_name: PrepareToDraw
+          returns: void
+          error: true
+        - java_method: reconfigure
+          go_name: Reconfigure
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: android.graphics.Bitmap$Config
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: recycle
+          go_name: Recycle
+          returns: void
+          error: true
+        - java_method: sameAs
+          go_name: SameAs
+          params:
+            - java_type: android.graphics.Bitmap
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: setColorSpace
+          go_name: SetColorSpace
+          params:
+            - java_type: android.graphics.ColorSpace
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setConfig
+          go_name: SetConfig
+          params:
+            - java_type: android.graphics.Bitmap$Config
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setDensity
+          go_name: SetDensity
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setGainmap
+          go_name: SetGainmap
+          params:
+            - java_type: android.graphics.Gainmap
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setHasAlpha
+          go_name: SetHasAlpha
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setHasMipMap
+          go_name: SetHasMipMap
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setHeight
+          go_name: SetHeight
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setPixel
+          go_name: SetPixel
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: setPixels
+          go_name: SetPixels
+          params:
+            - java_type: '[I'
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+            - java_type: int
+              go_name: arg4
+            - java_type: int
+              go_name: arg5
+            - java_type: int
+              go_name: arg6
+          returns: void
+          error: true
+        - java_method: setPremultiplied
+          go_name: SetPremultiplied
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setWidth
+          go_name: SetWidth
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+      static_methods:
+        - java_method: createBitmap
+          go_name: CreateBitmap1
+          params:
+            - java_type: android.graphics.Bitmap
+              go_name: arg0
+          returns: android.graphics.Bitmap
+          error: true
+        - java_method: createBitmap
+          go_name: CreateBitmap5_1
+          params:
+            - java_type: android.graphics.Bitmap
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+            - java_type: int
+              go_name: arg4
+          returns: android.graphics.Bitmap
+          error: true
+        - java_method: createBitmap
+          go_name: CreateBitmap7_2
+          params:
+            - java_type: android.graphics.Bitmap
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+            - java_type: int
+              go_name: arg4
+            - java_type: android.graphics.Matrix
+              go_name: arg5
+            - java_type: boolean
+              go_name: arg6
+          returns: android.graphics.Bitmap
+          error: true
+        - java_method: createBitmap
+          go_name: CreateBitmap1_3
+          params:
+            - java_type: android.graphics.Picture
+              go_name: arg0
+          returns: android.graphics.Bitmap
+          error: true
+        - java_method: createBitmap
+          go_name: CreateBitmap4_4
+          params:
+            - java_type: android.graphics.Picture
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: android.graphics.Bitmap$Config
+              go_name: arg3
+          returns: android.graphics.Bitmap
+          error: true
+        - java_method: createBitmap
+          go_name: CreateBitmap4_5
+          params:
+            - java_type: android.util.DisplayMetrics
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: android.graphics.Bitmap$Config
+              go_name: arg3
+          returns: android.graphics.Bitmap
+          error: true
+        - java_method: createBitmap
+          go_name: CreateBitmap5_6
+          params:
+            - java_type: android.util.DisplayMetrics
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: android.graphics.Bitmap$Config
+              go_name: arg3
+            - java_type: boolean
+              go_name: arg4
+          returns: android.graphics.Bitmap
+          error: true
+        - java_method: createBitmap
+          go_name: CreateBitmap6_7
+          params:
+            - java_type: android.util.DisplayMetrics
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: android.graphics.Bitmap$Config
+              go_name: arg3
+            - java_type: boolean
+              go_name: arg4
+            - java_type: android.graphics.ColorSpace
+              go_name: arg5
+          returns: android.graphics.Bitmap
+          error: true
+        - java_method: createBitmap
+          go_name: CreateBitmap5_8
+          params:
+            - java_type: android.util.DisplayMetrics
+              go_name: arg0
+            - java_type: '[I'
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+            - java_type: android.graphics.Bitmap$Config
+              go_name: arg4
+          returns: android.graphics.Bitmap
+          error: true
+        - java_method: createBitmap
+          go_name: CreateBitmap7_9
+          params:
+            - java_type: android.util.DisplayMetrics
+              go_name: arg0
+            - java_type: '[I'
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+            - java_type: int
+              go_name: arg4
+            - java_type: int
+              go_name: arg5
+            - java_type: android.graphics.Bitmap$Config
+              go_name: arg6
+          returns: android.graphics.Bitmap
+          error: true
+        - java_method: createBitmap
+          go_name: CreateBitmap3_10
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: android.graphics.Bitmap$Config
+              go_name: arg2
+          returns: android.graphics.Bitmap
+          error: true
+        - java_method: createBitmap
+          go_name: CreateBitmap4_11
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: android.graphics.Bitmap$Config
+              go_name: arg2
+            - java_type: boolean
+              go_name: arg3
+          returns: android.graphics.Bitmap
+          error: true
+        - java_method: createBitmap
+          go_name: CreateBitmap5_12
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: android.graphics.Bitmap$Config
+              go_name: arg2
+            - java_type: boolean
+              go_name: arg3
+            - java_type: android.graphics.ColorSpace
+              go_name: arg4
+          returns: android.graphics.Bitmap
+          error: true
+        - java_method: createBitmap
+          go_name: CreateBitmap4_13
+          params:
+            - java_type: '[I'
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: android.graphics.Bitmap$Config
+              go_name: arg3
+          returns: android.graphics.Bitmap
+          error: true
+        - java_method: createBitmap
+          go_name: CreateBitmap6_14
+          params:
+            - java_type: '[I'
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+            - java_type: int
+              go_name: arg4
+            - java_type: android.graphics.Bitmap$Config
+              go_name: arg5
+          returns: android.graphics.Bitmap
+          error: true
+        - java_method: createScaledBitmap
+          go_name: CreateScaledBitmap
+          params:
+            - java_type: android.graphics.Bitmap
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: boolean
+              go_name: arg3
+          returns: android.graphics.Bitmap
+          error: true
+        - java_method: wrapHardwareBuffer
+          go_name: WrapHardwareBuffer
+          params:
+            - java_type: android.hardware.HardwareBuffer
+              go_name: arg0
+            - java_type: android.graphics.ColorSpace
+              go_name: arg1
+          returns: android.graphics.Bitmap
+          error: true
+    - java_class: android.graphics.Bitmap$CompressFormat
+      go_type: BitmapCompressFormat
+      static_methods:
+        - java_method: values
+          go_name: Values
+          returns: android.graphics.Bitmap$CompressFormat[]
+          error: true
+        - java_method: valueOf
+          go_name: ValueOf
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.graphics.Bitmap$CompressFormat
+          error: true
+    - java_class: android.graphics.Bitmap$Config
+      go_type: BitmapConfig
+      static_methods:
+        - java_method: values
+          go_name: Values
+          returns: android.graphics.Bitmap$Config[]
+          error: true
+        - java_method: valueOf
+          go_name: ValueOf
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.graphics.Bitmap$Config
+          error: true
     - java_class: android.graphics.Canvas
       go_type: Canvas
       obtain: constructor
-      constructor_params:
-        - java_type: android.graphics.Bitmap
-          go_name: arg0
       methods:
         - java_method: clipOutPath
           go_name: ClipOutPath
@@ -1529,774 +3408,215 @@ classes:
               go_name: arg0
           returns: android.graphics.Canvas$VertexMode
           error: true
-    - java_class: android.graphics.pdf.PdfRendererPreV
-      go_type: RendererPreV
-      obtain: constructor
-      constructor_params:
-        - java_type: android.os.ParcelFileDescriptor
-          go_name: arg0
+    - java_class: android.graphics.pdf.RenderParams
+      go_type: RenderParams
       methods:
-        - java_method: close
-          go_name: Close
-          returns: void
-          error: true
-        - java_method: getDocumentLinearizationType
-          go_name: GetDocumentLinearizationType
+        - java_method: getRenderFlags
+          go_name: GetRenderFlags
           returns: int
           error: true
-        - java_method: getPageCount
-          go_name: GetPageCount
+        - java_method: getRenderMode
+          go_name: GetRenderMode
           returns: int
           error: true
-        - java_method: getPdfFormType
-          go_name: GetPdfFormType
-          returns: int
-          error: true
-        - java_method: openPage
-          go_name: OpenPage
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.graphics.pdf.PdfRendererPreV$Page
-          error: true
-        - java_method: write
-          go_name: Write
-          params:
-            - java_type: android.os.ParcelFileDescriptor
-              go_name: arg0
-            - java_type: boolean
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.graphics.pdf.PdfRendererPreV$Page
-      go_type: RendererPreVPage
-      methods:
-        - java_method: applyEdit
-          go_name: ApplyEdit
-          params:
-            - java_type: android.graphics.pdf.models.FormEditRecord
-              go_name: arg0
-          returns: java.util.List<android.graphics.Rect>
-          error: true
-        - java_method: close
-          go_name: Close
-          returns: void
-          error: true
-        - java_method: getFormWidgetInfoAtIndex
-          go_name: GetFormWidgetInfoAtIndex
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.graphics.pdf.models.FormWidgetInfo
-          error: true
-        - java_method: getFormWidgetInfoAtPosition
-          go_name: GetFormWidgetInfoAtPosition
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: android.graphics.pdf.models.FormWidgetInfo
-          error: true
-        - java_method: getFormWidgetInfos
-          go_name: GetFormWidgetInfos0
-          returns: java.util.List<android.graphics.pdf.models.FormWidgetInfo>
-          error: true
-        - java_method: getFormWidgetInfos
-          go_name: GetFormWidgetInfos1_1
-          params:
-            - java_type: '[I'
-              go_name: arg0
-          returns: java.util.List<android.graphics.pdf.models.FormWidgetInfo>
-          error: true
-        - java_method: getGotoLinks
-          go_name: GetGotoLinks
-          returns: java.util.List<android.graphics.pdf.content.PdfPageGotoLinkContent>
-          error: true
-        - java_method: getHeight
-          go_name: GetHeight
-          returns: int
-          error: true
-        - java_method: getImageContents
-          go_name: GetImageContents
-          returns: java.util.List<android.graphics.pdf.content.PdfPageImageContent>
-          error: true
-        - java_method: getIndex
-          go_name: GetIndex
-          returns: int
-          error: true
-        - java_method: getLinkContents
-          go_name: GetLinkContents
-          returns: java.util.List<android.graphics.pdf.content.PdfPageLinkContent>
-          error: true
-        - java_method: getTextContents
-          go_name: GetTextContents
-          returns: java.util.List<android.graphics.pdf.content.PdfPageTextContent>
-          error: true
-        - java_method: getWidth
-          go_name: GetWidth
-          returns: int
-          error: true
-        - java_method: render
-          go_name: Render
-          params:
-            - java_type: android.graphics.Bitmap
-              go_name: arg0
-            - java_type: android.graphics.Rect
-              go_name: arg1
-            - java_type: android.graphics.Matrix
-              go_name: arg2
-            - java_type: android.graphics.pdf.RenderParams
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: searchText
-          go_name: SearchText
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: java.util.List<android.graphics.pdf.models.PageMatchBounds>
-          error: true
-        - java_method: selectContent
-          go_name: SelectContent
-          params:
-            - java_type: android.graphics.pdf.models.selection.SelectionBoundary
-              go_name: arg0
-            - java_type: android.graphics.pdf.models.selection.SelectionBoundary
-              go_name: arg1
-          returns: android.graphics.pdf.models.selection.PageSelection
-          error: true
-    - java_class: android.graphics.Bitmap
-      go_type: Bitmap
-      methods:
-        - java_method: asShared
-          go_name: AsShared
-          returns: android.graphics.Bitmap
-          error: true
-        - java_method: compress
-          go_name: Compress
-          params:
-            - java_type: android.graphics.Bitmap$CompressFormat
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: java.io.OutputStream
-              go_name: arg2
-          returns: boolean
-          error: true
-        - java_method: copy
-          go_name: Copy
-          params:
-            - java_type: android.graphics.Bitmap$Config
-              go_name: arg0
-            - java_type: boolean
-              go_name: arg1
-          returns: android.graphics.Bitmap
-          error: true
-        - java_method: copyPixelsFromBuffer
-          go_name: CopyPixelsFromBuffer
-          params:
-            - java_type: java.nio.Buffer
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: copyPixelsToBuffer
-          go_name: CopyPixelsToBuffer
-          params:
-            - java_type: java.nio.Buffer
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: eraseColor
-          go_name: EraseColor1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: eraseColor
-          go_name: EraseColor1_1
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: extractAlpha
-          go_name: ExtractAlpha0
-          returns: android.graphics.Bitmap
-          error: true
-        - java_method: extractAlpha
-          go_name: ExtractAlpha2_1
-          params:
-            - java_type: android.graphics.Paint
-              go_name: arg0
-            - java_type: '[I'
-              go_name: arg1
-          returns: android.graphics.Bitmap
-          error: true
-        - java_method: getAllocationByteCount
-          go_name: GetAllocationByteCount
-          returns: int
-          error: true
-        - java_method: getByteCount
-          go_name: GetByteCount
-          returns: int
-          error: true
-        - java_method: getColor
-          go_name: GetColor
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: android.graphics.Color
-          error: true
-        - java_method: getColorSpace
-          go_name: GetColorSpace
-          returns: android.graphics.ColorSpace
-          error: true
-        - java_method: getConfig
-          go_name: GetConfig
-          returns: android.graphics.Bitmap$Config
-          error: true
-        - java_method: getDensity
-          go_name: GetDensity
-          returns: int
-          error: true
-        - java_method: getGainmap
-          go_name: GetGainmap
-          returns: android.graphics.Gainmap
-          error: true
-        - java_method: getGenerationId
-          go_name: GetGenerationId
-          returns: int
-          error: true
-        - java_method: getHardwareBuffer
-          go_name: GetHardwareBuffer
-          returns: android.hardware.HardwareBuffer
-          error: true
-        - java_method: getHeight
-          go_name: GetHeight
-          returns: int
-          error: true
-        - java_method: getNinePatchChunk
-          go_name: GetNinePatchChunk
-          returns: '[B'
-          error: true
-        - java_method: getPixel
-          go_name: GetPixel
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: int
-          error: true
-        - java_method: getPixels
-          go_name: GetPixels
-          params:
-            - java_type: '[I'
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-            - java_type: int
-              go_name: arg4
-            - java_type: int
-              go_name: arg5
-            - java_type: int
-              go_name: arg6
-          returns: void
-          error: true
-        - java_method: getRowBytes
-          go_name: GetRowBytes
-          returns: int
-          error: true
-        - java_method: getScaledHeight
-          go_name: GetScaledHeight1
-          params:
-            - java_type: android.graphics.Canvas
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getScaledHeight
-          go_name: GetScaledHeight1_1
-          params:
-            - java_type: android.util.DisplayMetrics
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getScaledHeight
-          go_name: GetScaledHeight1_2
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getScaledWidth
-          go_name: GetScaledWidth1
-          params:
-            - java_type: android.graphics.Canvas
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getScaledWidth
-          go_name: GetScaledWidth1_1
-          params:
-            - java_type: android.util.DisplayMetrics
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getScaledWidth
-          go_name: GetScaledWidth1_2
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getWidth
-          go_name: GetWidth
-          returns: int
-          error: true
-        - java_method: hasAlpha
-          go_name: HasAlpha
-          returns: boolean
-          error: true
-        - java_method: hasGainmap
-          go_name: HasGainmap
-          returns: boolean
-          error: true
-        - java_method: hasMipMap
-          go_name: HasMipMap
-          returns: boolean
-          error: true
-        - java_method: isMutable
-          go_name: IsMutable
-          returns: boolean
-          error: true
-        - java_method: isPremultiplied
-          go_name: IsPremultiplied
-          returns: boolean
-          error: true
-        - java_method: isRecycled
-          go_name: IsRecycled
-          returns: boolean
-          error: true
-        - java_method: prepareToDraw
-          go_name: PrepareToDraw
-          returns: void
-          error: true
-        - java_method: reconfigure
-          go_name: Reconfigure
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: android.graphics.Bitmap$Config
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: recycle
-          go_name: Recycle
-          returns: void
-          error: true
-        - java_method: sameAs
-          go_name: SameAs
-          params:
-            - java_type: android.graphics.Bitmap
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: setColorSpace
-          go_name: SetColorSpace
-          params:
-            - java_type: android.graphics.ColorSpace
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setConfig
-          go_name: SetConfig
-          params:
-            - java_type: android.graphics.Bitmap$Config
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setDensity
-          go_name: SetDensity
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setGainmap
-          go_name: SetGainmap
-          params:
-            - java_type: android.graphics.Gainmap
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setHasAlpha
-          go_name: SetHasAlpha
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setHasMipMap
-          go_name: SetHasMipMap
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setHeight
-          go_name: SetHeight
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setPixel
-          go_name: SetPixel
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: setPixels
-          go_name: SetPixels
-          params:
-            - java_type: '[I'
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-            - java_type: int
-              go_name: arg4
-            - java_type: int
-              go_name: arg5
-            - java_type: int
-              go_name: arg6
-          returns: void
-          error: true
-        - java_method: setPremultiplied
-          go_name: SetPremultiplied
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setWidth
-          go_name: SetWidth
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-      static_methods:
-        - java_method: createBitmap
-          go_name: CreateBitmap1
-          params:
-            - java_type: android.graphics.Bitmap
-              go_name: arg0
-          returns: android.graphics.Bitmap
-          error: true
-        - java_method: createBitmap
-          go_name: CreateBitmap5_1
-          params:
-            - java_type: android.graphics.Bitmap
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-            - java_type: int
-              go_name: arg4
-          returns: android.graphics.Bitmap
-          error: true
-        - java_method: createBitmap
-          go_name: CreateBitmap7_2
-          params:
-            - java_type: android.graphics.Bitmap
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-            - java_type: int
-              go_name: arg4
-            - java_type: android.graphics.Matrix
-              go_name: arg5
-            - java_type: boolean
-              go_name: arg6
-          returns: android.graphics.Bitmap
-          error: true
-        - java_method: createBitmap
-          go_name: CreateBitmap1_3
-          params:
-            - java_type: android.graphics.Picture
-              go_name: arg0
-          returns: android.graphics.Bitmap
-          error: true
-        - java_method: createBitmap
-          go_name: CreateBitmap4_4
-          params:
-            - java_type: android.graphics.Picture
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: android.graphics.Bitmap$Config
-              go_name: arg3
-          returns: android.graphics.Bitmap
-          error: true
-        - java_method: createBitmap
-          go_name: CreateBitmap4_5
-          params:
-            - java_type: android.util.DisplayMetrics
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: android.graphics.Bitmap$Config
-              go_name: arg3
-          returns: android.graphics.Bitmap
-          error: true
-        - java_method: createBitmap
-          go_name: CreateBitmap5_6
-          params:
-            - java_type: android.util.DisplayMetrics
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: android.graphics.Bitmap$Config
-              go_name: arg3
-            - java_type: boolean
-              go_name: arg4
-          returns: android.graphics.Bitmap
-          error: true
-        - java_method: createBitmap
-          go_name: CreateBitmap6_7
-          params:
-            - java_type: android.util.DisplayMetrics
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: android.graphics.Bitmap$Config
-              go_name: arg3
-            - java_type: boolean
-              go_name: arg4
-            - java_type: android.graphics.ColorSpace
-              go_name: arg5
-          returns: android.graphics.Bitmap
-          error: true
-        - java_method: createBitmap
-          go_name: CreateBitmap5_8
-          params:
-            - java_type: android.util.DisplayMetrics
-              go_name: arg0
-            - java_type: '[I'
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-            - java_type: android.graphics.Bitmap$Config
-              go_name: arg4
-          returns: android.graphics.Bitmap
-          error: true
-        - java_method: createBitmap
-          go_name: CreateBitmap7_9
-          params:
-            - java_type: android.util.DisplayMetrics
-              go_name: arg0
-            - java_type: '[I'
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-            - java_type: int
-              go_name: arg4
-            - java_type: int
-              go_name: arg5
-            - java_type: android.graphics.Bitmap$Config
-              go_name: arg6
-          returns: android.graphics.Bitmap
-          error: true
-        - java_method: createBitmap
-          go_name: CreateBitmap3_10
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: android.graphics.Bitmap$Config
-              go_name: arg2
-          returns: android.graphics.Bitmap
-          error: true
-        - java_method: createBitmap
-          go_name: CreateBitmap4_11
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: android.graphics.Bitmap$Config
-              go_name: arg2
-            - java_type: boolean
-              go_name: arg3
-          returns: android.graphics.Bitmap
-          error: true
-        - java_method: createBitmap
-          go_name: CreateBitmap5_12
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: android.graphics.Bitmap$Config
-              go_name: arg2
-            - java_type: boolean
-              go_name: arg3
-            - java_type: android.graphics.ColorSpace
-              go_name: arg4
-          returns: android.graphics.Bitmap
-          error: true
-        - java_method: createBitmap
-          go_name: CreateBitmap4_13
-          params:
-            - java_type: '[I'
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: android.graphics.Bitmap$Config
-              go_name: arg3
-          returns: android.graphics.Bitmap
-          error: true
-        - java_method: createBitmap
-          go_name: CreateBitmap6_14
-          params:
-            - java_type: '[I'
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-            - java_type: int
-              go_name: arg4
-            - java_type: android.graphics.Bitmap$Config
-              go_name: arg5
-          returns: android.graphics.Bitmap
-          error: true
-        - java_method: createScaledBitmap
-          go_name: CreateScaledBitmap
-          params:
-            - java_type: android.graphics.Bitmap
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: boolean
-              go_name: arg3
-          returns: android.graphics.Bitmap
-          error: true
-        - java_method: wrapHardwareBuffer
-          go_name: WrapHardwareBuffer
-          params:
-            - java_type: android.hardware.HardwareBuffer
-              go_name: arg0
-            - java_type: android.graphics.ColorSpace
-              go_name: arg1
-          returns: android.graphics.Bitmap
-          error: true
-    - java_class: android.graphics.Bitmap$CompressFormat
-      go_type: BitmapCompressFormat
-      static_methods:
-        - java_method: values
-          go_name: Values
-          returns: android.graphics.Bitmap$CompressFormat[]
-          error: true
-        - java_method: valueOf
-          go_name: ValueOf
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.graphics.Bitmap$CompressFormat
-          error: true
-    - java_class: android.graphics.Bitmap$Config
-      go_type: BitmapConfig
-      static_methods:
-        - java_method: values
-          go_name: Values
-          returns: android.graphics.Bitmap$Config[]
-          error: true
-        - java_method: valueOf
-          go_name: ValueOf
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.graphics.Bitmap$Config
-          error: true
-    - java_class: android.graphics.pdf.LoadParams
-      go_type: LoadParams
-      methods:
-        - java_method: getPassword
-          go_name: GetPassword
-          returns: String
-          error: true
-    - java_class: android.graphics.pdf.LoadParams$Builder
-      go_type: LoadParamsBuilder
+    - java_class: android.graphics.pdf.RenderParams$Builder
+      go_type: RenderParamsBuilder
       methods:
         - java_method: build
           go_name: Build
-          returns: android.graphics.pdf.LoadParams
+          returns: android.graphics.pdf.RenderParams
           error: true
-        - java_method: setPassword
-          go_name: SetPassword
+        - java_method: setRenderFlags
+          go_name: SetRenderFlags1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.graphics.pdf.RenderParams$Builder
+          error: true
+        - java_method: setRenderFlags
+          go_name: SetRenderFlags2_1
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: android.graphics.pdf.RenderParams$Builder
+          error: true
+    - java_class: android.graphics.Typeface
+      go_type: Typeface
+      methods:
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getStyle
+          go_name: GetStyle
+          returns: int
+          error: true
+        - java_method: getSystemFontFamilyName
+          go_name: GetSystemFontFamilyName
+          returns: String
+          error: true
+        - java_method: getWeight
+          go_name: GetWeight
+          returns: int
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: isBold
+          go_name: IsBold
+          returns: boolean
+          error: true
+        - java_method: isItalic
+          go_name: IsItalic
+          returns: boolean
+          error: true
+      static_methods:
+        - java_method: create
+          go_name: Create2
+          params:
+            - java_type: android.graphics.Typeface
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: android.graphics.Typeface
+          error: true
+        - java_method: create
+          go_name: Create3_1
+          params:
+            - java_type: android.graphics.Typeface
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: boolean
+              go_name: arg2
+          returns: android.graphics.Typeface
+          error: true
+        - java_method: create
+          go_name: Create2_2
           params:
             - java_type: String
               go_name: arg0
-          returns: android.graphics.pdf.LoadParams$Builder
+            - java_type: int
+              go_name: arg1
+          returns: android.graphics.Typeface
+          error: true
+        - java_method: createFromAsset
+          go_name: CreateFromAsset
+          params:
+            - java_type: android.content.res.AssetManager
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+          returns: android.graphics.Typeface
+          error: true
+        - java_method: createFromFile
+          go_name: CreateFromFile1
+          params:
+            - java_type: java.io.File
+              go_name: arg0
+          returns: android.graphics.Typeface
+          error: true
+        - java_method: createFromFile
+          go_name: CreateFromFile1_1
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.graphics.Typeface
+          error: true
+        - java_method: defaultFromStyle
+          go_name: DefaultFromStyle
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.graphics.Typeface
+          error: true
+    - java_class: android.graphics.Typeface$Builder
+      go_type: TypefaceBuilder
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.graphics.Typeface
+          error: true
+        - java_method: setFallback
+          go_name: SetFallback
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.graphics.Typeface$Builder
+          error: true
+        - java_method: setFontVariationSettings
+          go_name: SetFontVariationSettings1
+          params:
+            - java_type: android.graphics.fonts.FontVariationAxis[]
+              go_name: arg0
+          returns: android.graphics.Typeface$Builder
+          error: true
+        - java_method: setFontVariationSettings
+          go_name: SetFontVariationSettings1_1
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.graphics.Typeface$Builder
+          error: true
+        - java_method: setItalic
+          go_name: SetItalic
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.graphics.Typeface$Builder
+          error: true
+        - java_method: setTtcIndex
+          go_name: SetTtcIndex
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.graphics.Typeface$Builder
+          error: true
+        - java_method: setWeight
+          go_name: SetWeight
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.graphics.Typeface$Builder
+          error: true
+    - java_class: android.graphics.Typeface$CustomFallbackBuilder
+      go_type: TypefaceCustomFallbackBuilder
+      methods:
+        - java_method: addCustomFallback
+          go_name: AddCustomFallback
+          params:
+            - java_type: android.graphics.fonts.FontFamily
+              go_name: arg0
+          returns: android.graphics.Typeface$CustomFallbackBuilder
+          error: true
+        - java_method: build
+          go_name: Build
+          returns: android.graphics.Typeface
+          error: true
+        - java_method: setStyle
+          go_name: SetStyle
+          params:
+            - java_type: android.graphics.fonts.FontStyle
+              go_name: arg0
+          returns: android.graphics.Typeface$CustomFallbackBuilder
+          error: true
+        - java_method: setSystemFallback
+          go_name: SetSystemFallback
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.graphics.Typeface$CustomFallbackBuilder
+          error: true
+      static_methods:
+        - java_method: getMaxCustomFallbackCount
+          go_name: GetMaxCustomFallbackCount
+          returns: int
           error: true
     - java_class: android.graphics.pdf.PdfRenderer
       go_type: Renderer
@@ -2452,1375 +3772,7 @@ classes:
               go_name: arg1
           returns: android.graphics.pdf.models.selection.PageSelection
           error: true
-    - java_class: android.os.ParcelFileDescriptor
-      go_type: ParcelFileDescriptor
-      obtain: constructor
-      constructor_params:
-        - java_type: android.os.ParcelFileDescriptor
-          go_name: arg0
-      methods:
-        - java_method: canDetectErrors
-          go_name: CanDetectErrors
-          returns: boolean
-          error: true
-        - java_method: checkError
-          go_name: CheckError
-          returns: void
-          error: true
-        - java_method: close
-          go_name: Close
-          returns: void
-          error: true
-        - java_method: closeWithError
-          go_name: CloseWithError
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: detachFd
-          go_name: DetachFd
-          returns: int
-          error: true
-        - java_method: dup
-          go_name: Dup0
-          returns: android.os.ParcelFileDescriptor
-          error: true
-        - java_method: getFd
-          go_name: GetFd
-          returns: int
-          error: true
-        - java_method: getFileDescriptor
-          go_name: GetFileDescriptor
-          returns: java.io.FileDescriptor
-          error: true
-        - java_method: getStatSize
-          go_name: GetStatSize
-          returns: long
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-      static_methods:
-        - java_method: adoptFd
-          go_name: AdoptFd
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.os.ParcelFileDescriptor
-          error: true
-        - java_method: createPipe
-          go_name: CreatePipe
-          returns: android.os.ParcelFileDescriptor[]
-          error: true
-        - java_method: createReliablePipe
-          go_name: CreateReliablePipe
-          returns: android.os.ParcelFileDescriptor[]
-          error: true
-        - java_method: createReliableSocketPair
-          go_name: CreateReliableSocketPair
-          returns: android.os.ParcelFileDescriptor[]
-          error: true
-        - java_method: createSocketPair
-          go_name: CreateSocketPair
-          returns: android.os.ParcelFileDescriptor[]
-          error: true
-        - java_method: dup
-          go_name: Dup1_1
-          params:
-            - java_type: java.io.FileDescriptor
-              go_name: arg0
-          returns: android.os.ParcelFileDescriptor
-          error: true
-        - java_method: fromDatagramSocket
-          go_name: FromDatagramSocket
-          params:
-            - java_type: java.net.DatagramSocket
-              go_name: arg0
-          returns: android.os.ParcelFileDescriptor
-          error: true
-        - java_method: fromFd
-          go_name: FromFd
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.os.ParcelFileDescriptor
-          error: true
-        - java_method: fromSocket
-          go_name: FromSocket
-          params:
-            - java_type: java.net.Socket
-              go_name: arg0
-          returns: android.os.ParcelFileDescriptor
-          error: true
-        - java_method: open
-          go_name: Open
-          params:
-            - java_type: java.io.File
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: android.os.ParcelFileDescriptor
-          error: true
-        - java_method: parseMode
-          go_name: ParseMode
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: int
-          error: true
-    - java_class: android.os.ParcelFileDescriptor$AutoCloseInputStream
-      go_type: ParcelFileDescriptorAutoCloseInputStream
-      methods:
-        - java_method: close
-          go_name: Close
-          returns: void
-          error: true
-        - java_method: read
-          go_name: Read0
-          returns: int
-          error: true
-        - java_method: read
-          go_name: Read1_1
-          params:
-            - java_type: '[B'
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: read
-          go_name: Read3_2
-          params:
-            - java_type: '[B'
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: int
-          error: true
-    - java_class: android.os.ParcelFileDescriptor$AutoCloseOutputStream
-      go_type: ParcelFileDescriptorAutoCloseOutputStream
-      methods:
-        - java_method: close
-          go_name: Close
-          returns: void
-          error: true
-    - java_class: android.os.ParcelFileDescriptor$FileDescriptorDetachedException
-      go_type: ParcelFileDescriptorFileDescriptorDetachedException
-    - java_class: android.os.ParcelFileDescriptor$OnCloseListener
-      go_type: ParcelFileDescriptorOnCloseListener
-      methods:
-        - java_method: onClose
-          go_name: OnClose
-          params:
-            - java_type: java.io.IOException
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.graphics.pdf.RenderParams
-      go_type: RenderParams
-      methods:
-        - java_method: getRenderFlags
-          go_name: GetRenderFlags
-          returns: int
-          error: true
-        - java_method: getRenderMode
-          go_name: GetRenderMode
-          returns: int
-          error: true
-    - java_class: android.graphics.pdf.RenderParams$Builder
-      go_type: RenderParamsBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.graphics.pdf.RenderParams
-          error: true
-        - java_method: setRenderFlags
-          go_name: SetRenderFlags1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.graphics.pdf.RenderParams$Builder
-          error: true
-        - java_method: setRenderFlags
-          go_name: SetRenderFlags2_1
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: android.graphics.pdf.RenderParams$Builder
-          error: true
-    - java_class: android.graphics.Paint
-      go_type: Paint
-      obtain: constructor
-      methods:
-        - java_method: ascent
-          go_name: Ascent
-          returns: float
-          error: true
-        - java_method: breakText
-          go_name: BreakText5
-          params:
-            - java_type: char[]
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: float
-              go_name: arg3
-            - java_type: float[]
-              go_name: arg4
-          returns: int
-          error: true
-        - java_method: breakText
-          go_name: BreakText6_1
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: boolean
-              go_name: arg3
-            - java_type: float
-              go_name: arg4
-            - java_type: float[]
-              go_name: arg5
-          returns: int
-          error: true
-        - java_method: breakText
-          go_name: BreakText4_2
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: boolean
-              go_name: arg1
-            - java_type: float
-              go_name: arg2
-            - java_type: float[]
-              go_name: arg3
-          returns: int
-          error: true
-        - java_method: clearShadowLayer
-          go_name: ClearShadowLayer
-          returns: void
-          error: true
-        - java_method: descent
-          go_name: Descent
-          returns: float
-          error: true
-        - java_method: equalsForTextMeasurement
-          go_name: EqualsForTextMeasurement
-          params:
-            - java_type: android.graphics.Paint
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getAlpha
-          go_name: GetAlpha
-          returns: int
-          error: true
-        - java_method: getBlendMode
-          go_name: GetBlendMode
-          returns: android.graphics.BlendMode
-          error: true
-        - java_method: getColor
-          go_name: GetColor
-          returns: int
-          error: true
-        - java_method: getColorFilter
-          go_name: GetColorFilter
-          returns: android.graphics.ColorFilter
-          error: true
-        - java_method: getColorLong
-          go_name: GetColorLong
-          returns: long
-          error: true
-        - java_method: getEndHyphenEdit
-          go_name: GetEndHyphenEdit
-          returns: int
-          error: true
-        - java_method: getFillPath
-          go_name: GetFillPath
-          params:
-            - java_type: android.graphics.Path
-              go_name: arg0
-            - java_type: android.graphics.Path
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: getFlags
-          go_name: GetFlags
-          returns: int
-          error: true
-        - java_method: getFontFeatureSettings
-          go_name: GetFontFeatureSettings
-          returns: String
-          error: true
-        - java_method: getFontMetrics
-          go_name: GetFontMetrics0
-          returns: android.graphics.Paint$FontMetrics
-          error: true
-        - java_method: getFontMetrics
-          go_name: GetFontMetrics1_1
-          params:
-            - java_type: android.graphics.Paint$FontMetrics
-              go_name: arg0
-          returns: float
-          error: true
-        - java_method: getFontMetricsForLocale
-          go_name: GetFontMetricsForLocale
-          params:
-            - java_type: android.graphics.Paint$FontMetrics
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getFontMetricsInt
-          go_name: GetFontMetricsInt0
-          returns: android.graphics.Paint$FontMetricsInt
-          error: true
-        - java_method: getFontMetricsInt
-          go_name: GetFontMetricsInt1_1
-          params:
-            - java_type: android.graphics.Paint$FontMetricsInt
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getFontMetricsInt
-          go_name: GetFontMetricsInt7_2
-          params:
-            - java_type: char[]
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-            - java_type: int
-              go_name: arg4
-            - java_type: boolean
-              go_name: arg5
-            - java_type: android.graphics.Paint$FontMetricsInt
-              go_name: arg6
-          returns: void
-          error: true
-        - java_method: getFontMetricsInt
-          go_name: GetFontMetricsInt7_3
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-            - java_type: int
-              go_name: arg4
-            - java_type: boolean
-              go_name: arg5
-            - java_type: android.graphics.Paint$FontMetricsInt
-              go_name: arg6
-          returns: void
-          error: true
-        - java_method: getFontMetricsIntForLocale
-          go_name: GetFontMetricsIntForLocale
-          params:
-            - java_type: android.graphics.Paint$FontMetricsInt
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: getFontSpacing
-          go_name: GetFontSpacing
-          returns: float
-          error: true
-        - java_method: getFontVariationSettings
-          go_name: GetFontVariationSettings
-          returns: String
-          error: true
-        - java_method: getHinting
-          go_name: GetHinting
-          returns: int
-          error: true
-        - java_method: getLetterSpacing
-          go_name: GetLetterSpacing
-          returns: float
-          error: true
-        - java_method: getMaskFilter
-          go_name: GetMaskFilter
-          returns: android.graphics.MaskFilter
-          error: true
-        - java_method: getOffsetForAdvance
-          go_name: GetOffsetForAdvance7
-          params:
-            - java_type: char[]
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-            - java_type: int
-              go_name: arg4
-            - java_type: boolean
-              go_name: arg5
-            - java_type: float
-              go_name: arg6
-          returns: int
-          error: true
-        - java_method: getOffsetForAdvance
-          go_name: GetOffsetForAdvance7_1
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-            - java_type: int
-              go_name: arg4
-            - java_type: boolean
-              go_name: arg5
-            - java_type: float
-              go_name: arg6
-          returns: int
-          error: true
-        - java_method: getPathEffect
-          go_name: GetPathEffect
-          returns: android.graphics.PathEffect
-          error: true
-        - java_method: getRunAdvance
-          go_name: GetRunAdvance7
-          params:
-            - java_type: char[]
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-            - java_type: int
-              go_name: arg4
-            - java_type: boolean
-              go_name: arg5
-            - java_type: int
-              go_name: arg6
-          returns: float
-          error: true
-        - java_method: getRunAdvance
-          go_name: GetRunAdvance7_1
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-            - java_type: int
-              go_name: arg4
-            - java_type: boolean
-              go_name: arg5
-            - java_type: int
-              go_name: arg6
-          returns: float
-          error: true
-        - java_method: getRunCharacterAdvance
-          go_name: GetRunCharacterAdvance9
-          params:
-            - java_type: char[]
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-            - java_type: int
-              go_name: arg4
-            - java_type: boolean
-              go_name: arg5
-            - java_type: int
-              go_name: arg6
-            - java_type: float[]
-              go_name: arg7
-            - java_type: int
-              go_name: arg8
-          returns: float
-          error: true
-        - java_method: getRunCharacterAdvance
-          go_name: GetRunCharacterAdvance9_1
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-            - java_type: int
-              go_name: arg4
-            - java_type: boolean
-              go_name: arg5
-            - java_type: int
-              go_name: arg6
-            - java_type: float[]
-              go_name: arg7
-            - java_type: int
-              go_name: arg8
-          returns: float
-          error: true
-        - java_method: getShader
-          go_name: GetShader
-          returns: android.graphics.Shader
-          error: true
-        - java_method: getShadowLayerColor
-          go_name: GetShadowLayerColor
-          returns: int
-          error: true
-        - java_method: getShadowLayerColorLong
-          go_name: GetShadowLayerColorLong
-          returns: long
-          error: true
-        - java_method: getShadowLayerDx
-          go_name: GetShadowLayerDx
-          returns: float
-          error: true
-        - java_method: getShadowLayerDy
-          go_name: GetShadowLayerDy
-          returns: float
-          error: true
-        - java_method: getShadowLayerRadius
-          go_name: GetShadowLayerRadius
-          returns: float
-          error: true
-        - java_method: getStartHyphenEdit
-          go_name: GetStartHyphenEdit
-          returns: int
-          error: true
-        - java_method: getStrikeThruPosition
-          go_name: GetStrikeThruPosition
-          returns: float
-          error: true
-        - java_method: getStrikeThruThickness
-          go_name: GetStrikeThruThickness
-          returns: float
-          error: true
-        - java_method: getStrokeCap
-          go_name: GetStrokeCap
-          returns: android.graphics.Paint$Cap
-          error: true
-        - java_method: getStrokeJoin
-          go_name: GetStrokeJoin
-          returns: android.graphics.Paint$Join
-          error: true
-        - java_method: getStrokeMiter
-          go_name: GetStrokeMiter
-          returns: float
-          error: true
-        - java_method: getStrokeWidth
-          go_name: GetStrokeWidth
-          returns: float
-          error: true
-        - java_method: getStyle
-          go_name: GetStyle
-          returns: android.graphics.Paint$Style
-          error: true
-        - java_method: getTextAlign
-          go_name: GetTextAlign
-          returns: android.graphics.Paint$Align
-          error: true
-        - java_method: getTextBounds
-          go_name: GetTextBounds4
-          params:
-            - java_type: char[]
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: android.graphics.Rect
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: getTextBounds
-          go_name: GetTextBounds4_1
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: android.graphics.Rect
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: getTextBounds
-          go_name: GetTextBounds4_2
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: android.graphics.Rect
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: getTextLocale
-          go_name: GetTextLocale
-          returns: java.util.Locale
-          error: true
-        - java_method: getTextLocales
-          go_name: GetTextLocales
-          returns: android.os.LocaleList
-          error: true
-        - java_method: getTextPath
-          go_name: GetTextPath6
-          params:
-            - java_type: char[]
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: float
-              go_name: arg3
-            - java_type: float
-              go_name: arg4
-            - java_type: android.graphics.Path
-              go_name: arg5
-          returns: void
-          error: true
-        - java_method: getTextPath
-          go_name: GetTextPath6_1
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: float
-              go_name: arg3
-            - java_type: float
-              go_name: arg4
-            - java_type: android.graphics.Path
-              go_name: arg5
-          returns: void
-          error: true
-        - java_method: getTextRunAdvances
-          go_name: GetTextRunAdvances
-          params:
-            - java_type: char[]
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-            - java_type: int
-              go_name: arg4
-            - java_type: boolean
-              go_name: arg5
-            - java_type: float[]
-              go_name: arg6
-            - java_type: int
-              go_name: arg7
-          returns: float
-          error: true
-        - java_method: getTextRunCursor
-          go_name: GetTextRunCursor6
-          params:
-            - java_type: char[]
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: boolean
-              go_name: arg3
-            - java_type: int
-              go_name: arg4
-            - java_type: int
-              go_name: arg5
-          returns: int
-          error: true
-        - java_method: getTextRunCursor
-          go_name: GetTextRunCursor6_1
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: boolean
-              go_name: arg3
-            - java_type: int
-              go_name: arg4
-            - java_type: int
-              go_name: arg5
-          returns: int
-          error: true
-        - java_method: getTextScaleX
-          go_name: GetTextScaleX
-          returns: float
-          error: true
-        - java_method: getTextSize
-          go_name: GetTextSize
-          returns: float
-          error: true
-        - java_method: getTextSkewX
-          go_name: GetTextSkewX
-          returns: float
-          error: true
-        - java_method: getTextWidths
-          go_name: GetTextWidths4
-          params:
-            - java_type: char[]
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: float[]
-              go_name: arg3
-          returns: int
-          error: true
-        - java_method: getTextWidths
-          go_name: GetTextWidths4_1
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: float[]
-              go_name: arg3
-          returns: int
-          error: true
-        - java_method: getTextWidths
-          go_name: GetTextWidths2_2
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: float[]
-              go_name: arg1
-          returns: int
-          error: true
-        - java_method: getTextWidths
-          go_name: GetTextWidths4_3
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: float[]
-              go_name: arg3
-          returns: int
-          error: true
-        - java_method: getTypeface
-          go_name: GetTypeface
-          returns: android.graphics.Typeface
-          error: true
-        - java_method: getUnderlinePosition
-          go_name: GetUnderlinePosition
-          returns: float
-          error: true
-        - java_method: getUnderlineThickness
-          go_name: GetUnderlineThickness
-          returns: float
-          error: true
-        - java_method: getWordSpacing
-          go_name: GetWordSpacing
-          returns: float
-          error: true
-        - java_method: getXfermode
-          go_name: GetXfermode
-          returns: android.graphics.Xfermode
-          error: true
-        - java_method: hasGlyph
-          go_name: HasGlyph
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: isAntiAlias
-          go_name: IsAntiAlias
-          returns: boolean
-          error: true
-        - java_method: isDither
-          go_name: IsDither
-          returns: boolean
-          error: true
-        - java_method: isElegantTextHeight
-          go_name: IsElegantTextHeight
-          returns: boolean
-          error: true
-        - java_method: isFakeBoldText
-          go_name: IsFakeBoldText
-          returns: boolean
-          error: true
-        - java_method: isFilterBitmap
-          go_name: IsFilterBitmap
-          returns: boolean
-          error: true
-        - java_method: isLinearText
-          go_name: IsLinearText
-          returns: boolean
-          error: true
-        - java_method: isStrikeThruText
-          go_name: IsStrikeThruText
-          returns: boolean
-          error: true
-        - java_method: isSubpixelText
-          go_name: IsSubpixelText
-          returns: boolean
-          error: true
-        - java_method: isUnderlineText
-          go_name: IsUnderlineText
-          returns: boolean
-          error: true
-        - java_method: measureText
-          go_name: MeasureText3
-          params:
-            - java_type: char[]
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: float
-          error: true
-        - java_method: measureText
-          go_name: MeasureText3_1
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: float
-          error: true
-        - java_method: measureText
-          go_name: MeasureText1_2
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: float
-          error: true
-        - java_method: measureText
-          go_name: MeasureText3_3
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: float
-          error: true
-        - java_method: reset
-          go_name: Reset
-          returns: void
-          error: true
-        - java_method: set
-          go_name: Set
-          params:
-            - java_type: android.graphics.Paint
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setARGB
-          go_name: SetARGB
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: setAlpha
-          go_name: SetAlpha
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setAntiAlias
-          go_name: SetAntiAlias
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setBlendMode
-          go_name: SetBlendMode
-          params:
-            - java_type: android.graphics.BlendMode
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setColor
-          go_name: SetColor1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setColor
-          go_name: SetColor1_1
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setColorFilter
-          go_name: SetColorFilter
-          params:
-            - java_type: android.graphics.ColorFilter
-              go_name: arg0
-          returns: android.graphics.ColorFilter
-          error: true
-        - java_method: setDither
-          go_name: SetDither
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setElegantTextHeight
-          go_name: SetElegantTextHeight
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setEndHyphenEdit
-          go_name: SetEndHyphenEdit
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setFakeBoldText
-          go_name: SetFakeBoldText
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setFilterBitmap
-          go_name: SetFilterBitmap
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setFlags
-          go_name: SetFlags
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setFontFeatureSettings
-          go_name: SetFontFeatureSettings
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setFontVariationSettings
-          go_name: SetFontVariationSettings
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: setHinting
-          go_name: SetHinting
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setLetterSpacing
-          go_name: SetLetterSpacing
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setLinearText
-          go_name: SetLinearText
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setMaskFilter
-          go_name: SetMaskFilter
-          params:
-            - java_type: android.graphics.MaskFilter
-              go_name: arg0
-          returns: android.graphics.MaskFilter
-          error: true
-        - java_method: setPathEffect
-          go_name: SetPathEffect
-          params:
-            - java_type: android.graphics.PathEffect
-              go_name: arg0
-          returns: android.graphics.PathEffect
-          error: true
-        - java_method: setShader
-          go_name: SetShader
-          params:
-            - java_type: android.graphics.Shader
-              go_name: arg0
-          returns: android.graphics.Shader
-          error: true
-        - java_method: setShadowLayer
-          go_name: SetShadowLayer4
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-            - java_type: float
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: setShadowLayer
-          go_name: SetShadowLayer4_1
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-            - java_type: float
-              go_name: arg2
-            - java_type: long
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: setStartHyphenEdit
-          go_name: SetStartHyphenEdit
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setStrikeThruText
-          go_name: SetStrikeThruText
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setStrokeCap
-          go_name: SetStrokeCap
-          params:
-            - java_type: android.graphics.Paint$Cap
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setStrokeJoin
-          go_name: SetStrokeJoin
-          params:
-            - java_type: android.graphics.Paint$Join
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setStrokeMiter
-          go_name: SetStrokeMiter
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setStrokeWidth
-          go_name: SetStrokeWidth
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setStyle
-          go_name: SetStyle
-          params:
-            - java_type: android.graphics.Paint$Style
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setSubpixelText
-          go_name: SetSubpixelText
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setTextAlign
-          go_name: SetTextAlign
-          params:
-            - java_type: android.graphics.Paint$Align
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setTextLocale
-          go_name: SetTextLocale
-          params:
-            - java_type: java.util.Locale
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setTextLocales
-          go_name: SetTextLocales
-          params:
-            - java_type: android.os.LocaleList
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setTextScaleX
-          go_name: SetTextScaleX
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setTextSize
-          go_name: SetTextSize
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setTextSkewX
-          go_name: SetTextSkewX
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setTypeface
-          go_name: SetTypeface
-          params:
-            - java_type: android.graphics.Typeface
-              go_name: arg0
-          returns: android.graphics.Typeface
-          error: true
-        - java_method: setUnderlineText
-          go_name: SetUnderlineText
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setWordSpacing
-          go_name: SetWordSpacing
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setXfermode
-          go_name: SetXfermode
-          params:
-            - java_type: android.graphics.Xfermode
-              go_name: arg0
-          returns: android.graphics.Xfermode
-          error: true
-    - java_class: android.graphics.Paint$Align
-      go_type: PaintAlign
-      static_methods:
-        - java_method: values
-          go_name: Values
-          returns: android.graphics.Paint$Align[]
-          error: true
-        - java_method: valueOf
-          go_name: ValueOf
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.graphics.Paint$Align
-          error: true
-    - java_class: android.graphics.Paint$Cap
-      go_type: PaintCap
-      static_methods:
-        - java_method: values
-          go_name: Values
-          returns: android.graphics.Paint$Cap[]
-          error: true
-        - java_method: valueOf
-          go_name: ValueOf
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.graphics.Paint$Cap
-          error: true
-    - java_class: android.graphics.Paint$FontMetrics
-      go_type: PaintFontMetrics
-      methods:
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-    - java_class: android.graphics.Paint$FontMetricsInt
-      go_type: PaintFontMetricsInt
-      methods:
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: set
-          go_name: Set1
-          params:
-            - java_type: android.graphics.Paint$FontMetrics
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: set
-          go_name: Set1_1
-          params:
-            - java_type: android.graphics.Paint$FontMetricsInt
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-    - java_class: android.graphics.Paint$Join
-      go_type: PaintJoin
-      static_methods:
-        - java_method: values
-          go_name: Values
-          returns: android.graphics.Paint$Join[]
-          error: true
-        - java_method: valueOf
-          go_name: ValueOf
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.graphics.Paint$Join
-          error: true
-    - java_class: android.graphics.Paint$Style
-      go_type: PaintStyle
-      static_methods:
-        - java_method: values
-          go_name: Values
-          returns: android.graphics.Paint$Style[]
-          error: true
-        - java_method: valueOf
-          go_name: ValueOf
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.graphics.Paint$Style
-          error: true
 constants:
-    - go_name: Bold
-      value: "1"
-      go_type: int
-    - go_name: BoldItalic
-      value: "3"
-      go_type: int
-    - go_name: Default
-      value: "0"
-      go_type: int
-    - go_name: DefaultBold
-      value: "0"
-      go_type: int
-    - go_name: Italic
-      value: "2"
-      go_type: int
-    - go_name: Monospace
-      value: "0"
-      go_type: int
-    - go_name: Normal
-      value: "0"
-      go_type: int
-    - go_name: SansSerif
-      value: "0"
-      go_type: int
-    - go_name: Serif
-      value: "0"
-      go_type: int
-    - go_name: AllSaveFlag
-      value: "31"
-      go_type: int
-    - go_name: Aa
-      value: "0"
-      go_type: int
-    - go_name: Bw
-      value: "0"
-      go_type: int
-    - go_name: Triangles
-      value: "0"
-      go_type: int
-    - go_name: TriangleFan
-      value: "0"
-      go_type: int
-    - go_name: TriangleStrip
-      value: "0"
-      go_type: int
     - go_name: DocumentLinearizedTypeLinearized
       value: "1"
       go_type: int
@@ -3837,84 +3789,6 @@ constants:
       value: "3"
       go_type: int
     - go_name: PdfFormTypeXfaFull
-      value: "2"
-      go_type: int
-    - go_name: Creator
-      value: "0"
-      go_type: int
-    - go_name: DensityNone
-      value: "0"
-      go_type: int
-    - go_name: Jpeg
-      value: "0"
-      go_type: int
-    - go_name: Png
-      value: "0"
-      go_type: int
-    - go_name: Webp
-      value: "0"
-      go_type: int
-    - go_name: WebpLossless
-      value: "0"
-      go_type: int
-    - go_name: WebpLossy
-      value: "0"
-      go_type: int
-    - go_name: Alpha8
-      value: "0"
-      go_type: int
-    - go_name: Argb4444
-      value: "0"
-      go_type: int
-    - go_name: Argb8888
-      value: "0"
-      go_type: int
-    - go_name: Hardware
-      value: "0"
-      go_type: int
-    - go_name: Rgba1010102
-      value: "0"
-      go_type: int
-    - go_name: RgbaF16
-      value: "0"
-      go_type: int
-    - go_name: Rgb565
-      value: "0"
-      go_type: int
-    - go_name: RenderModeForDisplay
-      value: "1"
-      go_type: int
-    - go_name: RenderModeForPrint
-      value: "2"
-      go_type: int
-    - go_name: ModeAppend
-      value: "33554432"
-      go_type: int
-    - go_name: ModeCreate
-      value: "134217728"
-      go_type: int
-    - go_name: ModeReadOnly
-      value: "268435456"
-      go_type: int
-    - go_name: ModeReadWrite
-      value: "805306368"
-      go_type: int
-    - go_name: ModeTruncate
-      value: "67108864"
-      go_type: int
-    - go_name: ModeWorldReadable
-      value: "1"
-      go_type: int
-    - go_name: ModeWorldWriteable
-      value: "2"
-      go_type: int
-    - go_name: ModeWriteOnly
-      value: "536870912"
-      go_type: int
-    - go_name: FlagRenderHighlightAnnotations
-      value: "4"
-      go_type: int
-    - go_name: FlagRenderTextAnnotations
       value: "2"
       go_type: int
     - go_name: AntiAliasFlag
@@ -4038,5 +3912,128 @@ constants:
       value: "0"
       go_type: int
     - go_name: Stroke
+      value: "0"
+      go_type: int
+    - go_name: Creator
+      value: "0"
+      go_type: int
+    - go_name: ModeAppend
+      value: "33554432"
+      go_type: int
+    - go_name: ModeCreate
+      value: "134217728"
+      go_type: int
+    - go_name: ModeReadOnly
+      value: "268435456"
+      go_type: int
+    - go_name: ModeReadWrite
+      value: "805306368"
+      go_type: int
+    - go_name: ModeTruncate
+      value: "67108864"
+      go_type: int
+    - go_name: ModeWorldReadable
+      value: "1"
+      go_type: int
+    - go_name: ModeWorldWriteable
+      value: "2"
+      go_type: int
+    - go_name: ModeWriteOnly
+      value: "536870912"
+      go_type: int
+    - go_name: DensityNone
+      value: "0"
+      go_type: int
+    - go_name: Jpeg
+      value: "0"
+      go_type: int
+    - go_name: Png
+      value: "0"
+      go_type: int
+    - go_name: Webp
+      value: "0"
+      go_type: int
+    - go_name: WebpLossless
+      value: "0"
+      go_type: int
+    - go_name: WebpLossy
+      value: "0"
+      go_type: int
+    - go_name: Alpha8
+      value: "0"
+      go_type: int
+    - go_name: Argb4444
+      value: "0"
+      go_type: int
+    - go_name: Argb8888
+      value: "0"
+      go_type: int
+    - go_name: Hardware
+      value: "0"
+      go_type: int
+    - go_name: Rgba1010102
+      value: "0"
+      go_type: int
+    - go_name: RgbaF16
+      value: "0"
+      go_type: int
+    - go_name: Rgb565
+      value: "0"
+      go_type: int
+    - go_name: AllSaveFlag
+      value: "31"
+      go_type: int
+    - go_name: Aa
+      value: "0"
+      go_type: int
+    - go_name: Bw
+      value: "0"
+      go_type: int
+    - go_name: Triangles
+      value: "0"
+      go_type: int
+    - go_name: TriangleFan
+      value: "0"
+      go_type: int
+    - go_name: TriangleStrip
+      value: "0"
+      go_type: int
+    - go_name: FlagRenderHighlightAnnotations
+      value: "4"
+      go_type: int
+    - go_name: FlagRenderTextAnnotations
+      value: "2"
+      go_type: int
+    - go_name: RenderModeForDisplay
+      value: "1"
+      go_type: int
+    - go_name: RenderModeForPrint
+      value: "2"
+      go_type: int
+    - go_name: Bold
+      value: "1"
+      go_type: int
+    - go_name: BoldItalic
+      value: "3"
+      go_type: int
+    - go_name: Default
+      value: "0"
+      go_type: int
+    - go_name: DefaultBold
+      value: "0"
+      go_type: int
+    - go_name: Italic
+      value: "2"
+      go_type: int
+    - go_name: Monospace
+      value: "0"
+      go_type: int
+    - go_name: Normal
+      value: "0"
+      go_type: int
+    - go_name: SansSerif
+      value: "0"
+      go_type: int
+    - go_name: Serif
       value: "0"
       go_type: int

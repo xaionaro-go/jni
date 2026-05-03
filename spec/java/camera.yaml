@@ -182,3 +182,53 @@ classes:
               go_name: arg1
           returns: void
           error: true
+abstract_callbacks:
+    - java_class: android.hardware.camera2.CameraManager$AvailabilityCallback
+      go_type: ManagerAvailabilityCallbackCallback
+      methods:
+        - java_method: onCameraAccessPrioritiesChanged
+          params: []
+          returns: void
+          go_field: OnCameraAccessPrioritiesChanged
+        - java_method: onCameraAvailable
+          params:
+            - String
+          returns: void
+          go_field: OnCameraAvailable
+        - java_method: onCameraUnavailable
+          params:
+            - String
+          returns: void
+          go_field: OnCameraUnavailable
+        - java_method: onPhysicalCameraAvailable
+          params:
+            - String
+            - String
+          returns: void
+          go_field: OnPhysicalCameraAvailable
+        - java_method: onPhysicalCameraUnavailable
+          params:
+            - String
+            - String
+          returns: void
+          go_field: OnPhysicalCameraUnavailable
+    - java_class: android.hardware.camera2.CameraManager$TorchCallback
+      go_type: ManagerTorchCallbackCallback
+      methods:
+        - java_method: onTorchModeChanged
+          params:
+            - String
+            - boolean
+          returns: void
+          go_field: OnTorchModeChanged
+        - java_method: onTorchModeUnavailable
+          params:
+            - String
+          returns: void
+          go_field: OnTorchModeUnavailable
+        - java_method: onTorchStrengthLevelChanged
+          params:
+            - String
+            - int
+          returns: void
+          go_field: OnTorchStrengthLevelChanged

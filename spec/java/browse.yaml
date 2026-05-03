@@ -182,6 +182,34 @@ classes:
               go_name: arg1
           returns: void
           error: true
+abstract_callbacks:
+    - java_class: android.media.browse.MediaBrowser$ItemCallback
+      go_type: MediaBrowserItemCallbackCallback
+      methods:
+        - java_method: onError
+          params:
+            - String
+          returns: void
+          go_field: OnError
+        - java_method: onItemLoaded
+          params:
+            - android.media.browse.MediaBrowser$MediaItem
+          returns: void
+          go_field: OnItemLoaded
+    - java_class: android.media.browse.MediaBrowser$SubscriptionCallback
+      go_type: MediaBrowserSubscriptionCallbackCallback
+      methods:
+        - java_method: onError
+          params:
+            - String
+          returns: void
+          go_field: OnError
+        - java_method: onError
+          params:
+            - String
+            - android.os.Bundle
+          returns: void
+          go_field: OnError
 constants:
     - go_name: ExtraPage
       value: '"android.media.browse.extra.PAGE"'

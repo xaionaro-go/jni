@@ -23,16 +23,6 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsSpec                 *jni.GlobalRef
-	midSpecCtor             jni.MethodID
-	midSpecCanRender        jni.MethodID
-	midSpecDescribeContents jni.MethodID
-	midSpecEquals           jni.MethodID
-	midSpecGetRevision      jni.MethodID
-	midSpecGetType          jni.MethodID
-	midSpecToString         jni.MethodID
-	midSpecWriteToParcel    jni.MethodID
-
 	clsSlice                 *jni.GlobalRef
 	midSliceDescribeContents jni.MethodID
 	midSliceGetHints         jni.MethodID
@@ -50,22 +40,33 @@ var (
 	midBuilderSetCallerNeeded jni.MethodID
 	midBuilderToString        jni.MethodID
 
-	clsProvider                          *jni.GlobalRef
-	midProviderAttachInfo                jni.MethodID
-	midProviderCall                      jni.MethodID
-	midProviderDelete                    jni.MethodID
-	midProviderGetType                   jni.MethodID
-	midProviderInsert                    jni.MethodID
-	midProviderOnCreatePermissionRequest jni.MethodID
-	midProviderOnGetSliceDescendants     jni.MethodID
-	midProviderOnMapIntentToUri          jni.MethodID
-	midProviderOnSlicePinned             jni.MethodID
-	midProviderOnSliceUnpinned           jni.MethodID
-	midProviderQuery4                    jni.MethodID
-	midProviderQuery5_1                  jni.MethodID
-	midProviderQuery6_2                  jni.MethodID
-	midProviderUpdate                    jni.MethodID
-	midProviderToString                  jni.MethodID
+	clsManager                      *jni.GlobalRef
+	midManagerCheckSlicePermission  jni.MethodID
+	midManagerGetPinnedSlices       jni.MethodID
+	midManagerGetPinnedSpecs        jni.MethodID
+	midManagerGetSliceDescendants   jni.MethodID
+	midManagerGrantSlicePermission  jni.MethodID
+	midManagerMapIntentToUri        jni.MethodID
+	midManagerRevokeSlicePermission jni.MethodID
+	midManagerUnpinSlice            jni.MethodID
+	midManagerToString              jni.MethodID
+
+	clsMetrics           *jni.GlobalRef
+	midMetricsCtor       jni.MethodID
+	midMetricsLogHidden  jni.MethodID
+	midMetricsLogTouch   jni.MethodID
+	midMetricsLogVisible jni.MethodID
+	midMetricsToString   jni.MethodID
+
+	clsSpec                 *jni.GlobalRef
+	midSpecCtor             jni.MethodID
+	midSpecCanRender        jni.MethodID
+	midSpecDescribeContents jni.MethodID
+	midSpecEquals           jni.MethodID
+	midSpecGetRevision      jni.MethodID
+	midSpecGetType          jni.MethodID
+	midSpecToString         jni.MethodID
+	midSpecWriteToParcel    jni.MethodID
 
 	clsItem                 *jni.GlobalRef
 	midItemDescribeContents jni.MethodID
@@ -84,23 +85,22 @@ var (
 	midItemWriteToParcel    jni.MethodID
 	midItemToString         jni.MethodID
 
-	clsMetrics           *jni.GlobalRef
-	midMetricsCtor       jni.MethodID
-	midMetricsLogHidden  jni.MethodID
-	midMetricsLogTouch   jni.MethodID
-	midMetricsLogVisible jni.MethodID
-	midMetricsToString   jni.MethodID
-
-	clsManager                      *jni.GlobalRef
-	midManagerCheckSlicePermission  jni.MethodID
-	midManagerGetPinnedSlices       jni.MethodID
-	midManagerGetPinnedSpecs        jni.MethodID
-	midManagerGetSliceDescendants   jni.MethodID
-	midManagerGrantSlicePermission  jni.MethodID
-	midManagerMapIntentToUri        jni.MethodID
-	midManagerRevokeSlicePermission jni.MethodID
-	midManagerUnpinSlice            jni.MethodID
-	midManagerToString              jni.MethodID
+	clsProvider                          *jni.GlobalRef
+	midProviderAttachInfo                jni.MethodID
+	midProviderCall                      jni.MethodID
+	midProviderDelete                    jni.MethodID
+	midProviderGetType                   jni.MethodID
+	midProviderInsert                    jni.MethodID
+	midProviderOnCreatePermissionRequest jni.MethodID
+	midProviderOnGetSliceDescendants     jni.MethodID
+	midProviderOnMapIntentToUri          jni.MethodID
+	midProviderOnSlicePinned             jni.MethodID
+	midProviderOnSliceUnpinned           jni.MethodID
+	midProviderQuery4                    jni.MethodID
+	midProviderQuery5_1                  jni.MethodID
+	midProviderQuery6_2                  jni.MethodID
+	midProviderUpdate                    jni.MethodID
+	midProviderToString                  jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -120,69 +120,6 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
-
-	c, err = env.FindClass("android/app/slice/SliceSpec")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsSpec = env.NewGlobalRef(&c.Object)
-		midSpecCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSpec)), "<init>", "(Ljava/lang/String;I)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midSpecCanRender, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSpec)), "canRender", "(Landroid/app/slice/SliceSpec;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSpecDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSpec)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSpecEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSpec)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSpecGetRevision, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSpec)), "getRevision", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSpecGetType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSpec)), "getType", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSpecToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSpec)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSpecWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSpec)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
 
 	c, err = env.FindClass("android/app/slice/Slice")
 	if err != nil {
@@ -295,113 +232,176 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/app/slice/SliceProvider")
+	c, err = env.FindClass("android/app/slice/SliceManager")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsProvider = env.NewGlobalRef(&c.Object)
+		clsManager = env.NewGlobalRef(&c.Object)
 
-		midProviderAttachInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProvider)), "attachInfo", "(Landroid/content/Context;Landroid/content/pm/ProviderInfo;)V")
+		midManagerCheckSlicePermission, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "checkSlicePermission", "(Landroid/net/Uri;II)I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midProviderCall, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProvider)), "call", "(Ljava/lang/String;Ljava/lang/String;Landroid/os/Bundle;)Landroid/os/Bundle;")
+		midManagerGetPinnedSlices, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "getPinnedSlices", "()Ljava/util/List;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midProviderDelete, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProvider)), "delete", "(Landroid/net/Uri;Ljava/lang/String;[Ljava/lang/String;)I")
+		midManagerGetPinnedSpecs, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "getPinnedSpecs", "(Landroid/net/Uri;)Ljava/util/Set;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midProviderGetType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProvider)), "getType", "(Landroid/net/Uri;)Ljava/lang/String;")
+		midManagerGetSliceDescendants, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "getSliceDescendants", "(Landroid/net/Uri;)Ljava/util/Collection;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midProviderInsert, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProvider)), "insert", "(Landroid/net/Uri;Landroid/content/ContentValues;)Landroid/net/Uri;")
+		midManagerGrantSlicePermission, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "grantSlicePermission", "(Ljava/lang/String;Landroid/net/Uri;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midProviderOnCreatePermissionRequest, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProvider)), "onCreatePermissionRequest", "(Landroid/net/Uri;)Landroid/app/PendingIntent;")
+		midManagerMapIntentToUri, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "mapIntentToUri", "(Landroid/content/Intent;)Landroid/net/Uri;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midProviderOnGetSliceDescendants, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProvider)), "onGetSliceDescendants", "(Landroid/net/Uri;)Ljava/util/Collection;")
+		midManagerRevokeSlicePermission, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "revokeSlicePermission", "(Ljava/lang/String;Landroid/net/Uri;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midProviderOnMapIntentToUri, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProvider)), "onMapIntentToUri", "(Landroid/content/Intent;)Landroid/net/Uri;")
+		midManagerUnpinSlice, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "unpinSlice", "(Landroid/net/Uri;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midProviderOnSlicePinned, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProvider)), "onSlicePinned", "(Landroid/net/Uri;)V")
+		midManagerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midProviderOnSliceUnpinned, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProvider)), "onSliceUnpinned", "(Landroid/net/Uri;)V")
+	}
+
+	c, err = env.FindClass("android/app/slice/SliceMetrics")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsMetrics = env.NewGlobalRef(&c.Object)
+		midMetricsCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMetrics)), "<init>", "(Landroid/content/Context;Landroid/net/Uri;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midMetricsLogHidden, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMetrics)), "logHidden", "()V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midProviderQuery4, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProvider)), "query", "(Landroid/net/Uri;[Ljava/lang/String;Landroid/os/Bundle;Landroid/os/CancellationSignal;)Landroid/database/Cursor;")
+		midMetricsLogTouch, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMetrics)), "logTouch", "(ILandroid/net/Uri;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midProviderQuery5_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProvider)), "query", "(Landroid/net/Uri;[Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;Ljava/lang/String;)Landroid/database/Cursor;")
+		midMetricsLogVisible, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMetrics)), "logVisible", "()V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midProviderQuery6_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProvider)), "query", "(Landroid/net/Uri;[Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;Ljava/lang/String;Landroid/os/CancellationSignal;)Landroid/database/Cursor;")
+		midMetricsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMetrics)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midProviderUpdate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProvider)), "update", "(Landroid/net/Uri;Landroid/content/ContentValues;Ljava/lang/String;[Ljava/lang/String;)I")
+	}
+
+	c, err = env.FindClass("android/app/slice/SliceSpec")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSpec = env.NewGlobalRef(&c.Object)
+		midSpecCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSpec)), "<init>", "(Ljava/lang/String;I)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midSpecCanRender, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSpec)), "canRender", "(Landroid/app/slice/SliceSpec;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midProviderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProvider)), "toString", "()Ljava/lang/String;")
+		midSpecDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSpec)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSpecEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSpec)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSpecGetRevision, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSpec)), "getRevision", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSpecGetType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSpec)), "getType", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSpecToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSpec)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSpecWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSpec)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -525,113 +525,113 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/app/slice/SliceMetrics")
+	c, err = env.FindClass("android/app/slice/SliceProvider")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsMetrics = env.NewGlobalRef(&c.Object)
-		midMetricsCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMetrics)), "<init>", "(Landroid/content/Context;Landroid/net/Uri;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
+		clsProvider = env.NewGlobalRef(&c.Object)
 
-		midMetricsLogHidden, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMetrics)), "logHidden", "()V")
+		midProviderAttachInfo, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProvider)), "attachInfo", "(Landroid/content/Context;Landroid/content/pm/ProviderInfo;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMetricsLogTouch, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMetrics)), "logTouch", "(ILandroid/net/Uri;)V")
+		midProviderCall, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProvider)), "call", "(Ljava/lang/String;Ljava/lang/String;Landroid/os/Bundle;)Landroid/os/Bundle;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMetricsLogVisible, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMetrics)), "logVisible", "()V")
+		midProviderDelete, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProvider)), "delete", "(Landroid/net/Uri;Ljava/lang/String;[Ljava/lang/String;)I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midMetricsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMetrics)), "toString", "()Ljava/lang/String;")
+		midProviderGetType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProvider)), "getType", "(Landroid/net/Uri;)Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-	}
-
-	c, err = env.FindClass("android/app/slice/SliceManager")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsManager = env.NewGlobalRef(&c.Object)
-
-		midManagerCheckSlicePermission, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "checkSlicePermission", "(Landroid/net/Uri;II)I")
+		midProviderInsert, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProvider)), "insert", "(Landroid/net/Uri;Landroid/content/ContentValues;)Landroid/net/Uri;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midManagerGetPinnedSlices, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "getPinnedSlices", "()Ljava/util/List;")
+		midProviderOnCreatePermissionRequest, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProvider)), "onCreatePermissionRequest", "(Landroid/net/Uri;)Landroid/app/PendingIntent;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midManagerGetPinnedSpecs, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "getPinnedSpecs", "(Landroid/net/Uri;)Ljava/util/Set;")
+		midProviderOnGetSliceDescendants, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProvider)), "onGetSliceDescendants", "(Landroid/net/Uri;)Ljava/util/Collection;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midManagerGetSliceDescendants, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "getSliceDescendants", "(Landroid/net/Uri;)Ljava/util/Collection;")
+		midProviderOnMapIntentToUri, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProvider)), "onMapIntentToUri", "(Landroid/content/Intent;)Landroid/net/Uri;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midManagerGrantSlicePermission, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "grantSlicePermission", "(Ljava/lang/String;Landroid/net/Uri;)V")
+		midProviderOnSlicePinned, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProvider)), "onSlicePinned", "(Landroid/net/Uri;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midManagerMapIntentToUri, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "mapIntentToUri", "(Landroid/content/Intent;)Landroid/net/Uri;")
+		midProviderOnSliceUnpinned, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProvider)), "onSliceUnpinned", "(Landroid/net/Uri;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midManagerRevokeSlicePermission, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "revokeSlicePermission", "(Ljava/lang/String;Landroid/net/Uri;)V")
+		midProviderQuery4, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProvider)), "query", "(Landroid/net/Uri;[Ljava/lang/String;Landroid/os/Bundle;Landroid/os/CancellationSignal;)Landroid/database/Cursor;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midManagerUnpinSlice, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "unpinSlice", "(Landroid/net/Uri;)V")
+		midProviderQuery5_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProvider)), "query", "(Landroid/net/Uri;[Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;Ljava/lang/String;)Landroid/database/Cursor;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midManagerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManager)), "toString", "()Ljava/lang/String;")
+		midProviderQuery6_2, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProvider)), "query", "(Landroid/net/Uri;[Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;Ljava/lang/String;Landroid/os/CancellationSignal;)Landroid/database/Cursor;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midProviderUpdate, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProvider)), "update", "(Landroid/net/Uri;Landroid/content/ContentValues;Ljava/lang/String;[Ljava/lang/String;)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midProviderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsProvider)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

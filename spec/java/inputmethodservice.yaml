@@ -5,525 +5,6 @@
 package: inputmethodservice
 go_import: github.com/AndroidGoLab/jni/inputmethodservice
 classes:
-    - java_class: android.inputmethodservice.KeyboardView
-      go_type: KeyboardView
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-        - java_type: android.util.AttributeSet
-          go_name: arg1
-      methods:
-        - java_method: closing
-          go_name: Closing
-          returns: void
-          error: true
-        - java_method: getKeyboard
-          go_name: GetKeyboard
-          returns: android.inputmethodservice.Keyboard
-          error: true
-        - java_method: handleBack
-          go_name: HandleBack
-          returns: boolean
-          error: true
-        - java_method: invalidateAllKeys
-          go_name: InvalidateAllKeys
-          returns: void
-          error: true
-        - java_method: invalidateKey
-          go_name: InvalidateKey
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: isPreviewEnabled
-          go_name: IsPreviewEnabled
-          returns: boolean
-          error: true
-        - java_method: isProximityCorrectionEnabled
-          go_name: IsProximityCorrectionEnabled
-          returns: boolean
-          error: true
-        - java_method: isShifted
-          go_name: IsShifted
-          returns: boolean
-          error: true
-        - java_method: onClick
-          go_name: OnClick
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onDetachedFromWindow
-          go_name: OnDetachedFromWindow
-          returns: void
-          error: true
-        - java_method: onDraw
-          go_name: OnDraw
-          params:
-            - java_type: android.graphics.Canvas
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onHoverEvent
-          go_name: OnHoverEvent
-          params:
-            - java_type: android.view.MotionEvent
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: onMeasure
-          go_name: OnMeasure
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onSizeChanged
-          go_name: OnSizeChanged
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: onTouchEvent
-          go_name: OnTouchEvent
-          params:
-            - java_type: android.view.MotionEvent
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: setKeyboard
-          go_name: SetKeyboard
-          params:
-            - java_type: android.inputmethodservice.Keyboard
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setOnKeyboardActionListener
-          go_name: SetOnKeyboardActionListener
-          params:
-            - java_type: android.inputmethodservice.KeyboardView$OnKeyboardActionListener
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setPopupOffset
-          go_name: SetPopupOffset
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: setPopupParent
-          go_name: SetPopupParent
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setPreviewEnabled
-          go_name: SetPreviewEnabled
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setProximityCorrectionEnabled
-          go_name: SetProximityCorrectionEnabled
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setShifted
-          go_name: SetShifted
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: setVerticalCorrection
-          go_name: SetVerticalCorrection
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.inputmethodservice.KeyboardView$OnKeyboardActionListener
-      go_type: KeyboardViewOnKeyboardActionListener
-      methods:
-        - java_method: onKey
-          go_name: OnKey
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: '[I'
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onPress
-          go_name: OnPress
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onRelease
-          go_name: OnRelease
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onText
-          go_name: OnText
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: swipeDown
-          go_name: SwipeDown
-          returns: void
-          error: true
-        - java_method: swipeLeft
-          go_name: SwipeLeft
-          returns: void
-          error: true
-        - java_method: swipeRight
-          go_name: SwipeRight
-          returns: void
-          error: true
-        - java_method: swipeUp
-          go_name: SwipeUp
-          returns: void
-          error: true
-    - java_class: android.inputmethodservice.Keyboard
-      go_type: Keyboard
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-        - java_type: int
-          go_name: arg1
-      methods:
-        - java_method: getHeight
-          go_name: GetHeight
-          returns: int
-          error: true
-        - java_method: getKeys
-          go_name: GetKeys
-          returns: java.util.List<android.inputmethodservice.Keyboard$Key>
-          error: true
-        - java_method: getMinWidth
-          go_name: GetMinWidth
-          returns: int
-          error: true
-        - java_method: getModifierKeys
-          go_name: GetModifierKeys
-          returns: java.util.List<android.inputmethodservice.Keyboard$Key>
-          error: true
-        - java_method: getNearestKeys
-          go_name: GetNearestKeys
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: '[I'
-          error: true
-        - java_method: getShiftKeyIndex
-          go_name: GetShiftKeyIndex
-          returns: int
-          error: true
-        - java_method: isShifted
-          go_name: IsShifted
-          returns: boolean
-          error: true
-        - java_method: setShifted
-          go_name: SetShifted
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: boolean
-          error: true
-    - java_class: android.inputmethodservice.Keyboard$Key
-      go_type: KeyboardKey
-      methods:
-        - java_method: getCurrentDrawableState
-          go_name: GetCurrentDrawableState
-          returns: '[I'
-          error: true
-        - java_method: isInside
-          go_name: IsInside
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: onPressed
-          go_name: OnPressed
-          returns: void
-          error: true
-        - java_method: onReleased
-          go_name: OnReleased
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: squaredDistanceFrom
-          go_name: SquaredDistanceFrom
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: int
-          error: true
-    - java_class: android.inputmethodservice.Keyboard$Row
-      go_type: KeyboardRow
-    - java_class: android.inputmethodservice.ExtractEditText
-      go_type: ExtractEditText
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-      methods:
-        - java_method: finishInternalChanges
-          go_name: FinishInternalChanges
-          returns: void
-          error: true
-        - java_method: hasFocus
-          go_name: HasFocus
-          returns: boolean
-          error: true
-        - java_method: hasVerticalScrollBar
-          go_name: HasVerticalScrollBar
-          returns: boolean
-          error: true
-        - java_method: hasWindowFocus
-          go_name: HasWindowFocus
-          returns: boolean
-          error: true
-        - java_method: isFocused
-          go_name: IsFocused
-          returns: boolean
-          error: true
-        - java_method: isInputMethodTarget
-          go_name: IsInputMethodTarget
-          returns: boolean
-          error: true
-        - java_method: onTextContextMenuItem
-          go_name: OnTextContextMenuItem
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: performClick
-          go_name: PerformClick
-          returns: boolean
-          error: true
-        - java_method: setExtractedText
-          go_name: SetExtractedText
-          params:
-            - java_type: android.view.inputmethod.ExtractedText
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: startInternalChanges
-          go_name: StartInternalChanges
-          returns: void
-          error: true
-    - java_class: android.inputmethodservice.AbstractInputMethodService
-      go_type: AbstractInputMethodService
-      methods:
-        - java_method: getKeyDispatcherState
-          go_name: GetKeyDispatcherState
-          returns: android.view.KeyEvent$DispatcherState
-          error: true
-        - java_method: getSystemService
-          go_name: GetSystemService
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: java.lang.Object
-          error: true
-        - java_method: onBind
-          go_name: OnBind
-          params:
-            - java_type: android.content.Intent
-              go_name: arg0
-          returns: android.os.IBinder
-          error: true
-        - java_method: onConfigurationChanged
-          go_name: OnConfigurationChanged
-          params:
-            - java_type: android.content.res.Configuration
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onCreateInputMethodInterface
-          go_name: OnCreateInputMethodInterface
-          returns: android.inputmethodservice.AbstractInputMethodService$AbstractInputMethodImpl
-          error: true
-        - java_method: onCreateInputMethodSessionInterface
-          go_name: OnCreateInputMethodSessionInterface
-          returns: android.inputmethodservice.AbstractInputMethodService$AbstractInputMethodSessionImpl
-          error: true
-        - java_method: onDestroy
-          go_name: OnDestroy
-          returns: void
-          error: true
-        - java_method: onGenericMotionEvent
-          go_name: OnGenericMotionEvent
-          params:
-            - java_type: android.view.MotionEvent
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: onLowMemory
-          go_name: OnLowMemory
-          returns: void
-          error: true
-        - java_method: onShouldVerifyKeyEvent
-          go_name: OnShouldVerifyKeyEvent
-          params:
-            - java_type: android.view.KeyEvent
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: onTrackballEvent
-          go_name: OnTrackballEvent
-          params:
-            - java_type: android.view.MotionEvent
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: onTrimMemory
-          go_name: OnTrimMemory
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: registerComponentCallbacks
-          go_name: RegisterComponentCallbacks
-          params:
-            - java_type: android.content.ComponentCallbacks
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: unregisterComponentCallbacks
-          go_name: UnregisterComponentCallbacks
-          params:
-            - java_type: android.content.ComponentCallbacks
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.inputmethodservice.AbstractInputMethodService$AbstractInputMethodImpl
-      go_type: AbstractInputMethodServiceAbstractInputMethodImpl
-      methods:
-        - java_method: createSession
-          go_name: CreateSession
-          params:
-            - java_type: android.view.inputmethod.InputMethod$SessionCallback
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: revokeSession
-          go_name: RevokeSession
-          params:
-            - java_type: android.view.inputmethod.InputMethodSession
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setSessionEnabled
-          go_name: SetSessionEnabled
-          params:
-            - java_type: android.view.inputmethod.InputMethodSession
-              go_name: arg0
-            - java_type: boolean
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.inputmethodservice.AbstractInputMethodService$AbstractInputMethodSessionImpl
-      go_type: AbstractInputMethodServiceAbstractInputMethodSessionImpl
-      methods:
-        - java_method: dispatchGenericMotionEvent
-          go_name: DispatchGenericMotionEvent
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.view.MotionEvent
-              go_name: arg1
-            - java_type: android.view.inputmethod.InputMethodSession$EventCallback
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: dispatchKeyEvent
-          go_name: DispatchKeyEvent
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.view.KeyEvent
-              go_name: arg1
-            - java_type: android.view.inputmethod.InputMethodSession$EventCallback
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: dispatchTrackballEvent
-          go_name: DispatchTrackballEvent
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.view.MotionEvent
-              go_name: arg1
-            - java_type: android.view.inputmethod.InputMethodSession$EventCallback
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: isEnabled
-          go_name: IsEnabled
-          returns: boolean
-          error: true
-        - java_method: isRevoked
-          go_name: IsRevoked
-          returns: boolean
-          error: true
-        - java_method: onShouldVerifyKeyEvent
-          go_name: OnShouldVerifyKeyEvent
-          params:
-            - java_type: android.view.KeyEvent
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: revokeSelf
-          go_name: RevokeSelf
-          returns: void
-          error: true
-        - java_method: setEnabled
-          go_name: SetEnabled
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
     - java_class: android.inputmethodservice.InputMethodService
       go_type: InputMethodService
       obtain: constructor
@@ -1212,6 +693,55 @@ classes:
           go_name: UnbindInput
           returns: void
           error: true
+    - java_class: android.inputmethodservice.Keyboard
+      go_type: Keyboard
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+        - java_type: int
+          go_name: arg1
+      methods:
+        - java_method: getHeight
+          go_name: GetHeight
+          returns: int
+          error: true
+        - java_method: getKeys
+          go_name: GetKeys
+          returns: java.util.List<android.inputmethodservice.Keyboard$Key>
+          error: true
+        - java_method: getMinWidth
+          go_name: GetMinWidth
+          returns: int
+          error: true
+        - java_method: getModifierKeys
+          go_name: GetModifierKeys
+          returns: java.util.List<android.inputmethodservice.Keyboard$Key>
+          error: true
+        - java_method: getNearestKeys
+          go_name: GetNearestKeys
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: '[I'
+          error: true
+        - java_method: getShiftKeyIndex
+          go_name: GetShiftKeyIndex
+          returns: int
+          error: true
+        - java_method: isShifted
+          go_name: IsShifted
+          returns: boolean
+          error: true
+        - java_method: setShifted
+          go_name: SetShifted
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: boolean
+          error: true
     - java_class: android.inputmethodservice.InputMethodService$InputMethodSessionImpl
       go_type: InputMethodServiceInputMethodSessionImpl
       methods:
@@ -1291,9 +821,625 @@ classes:
               go_name: arg0
           returns: void
           error: true
+    - java_class: android.inputmethodservice.Keyboard$Key
+      go_type: KeyboardKey
+      methods:
+        - java_method: getCurrentDrawableState
+          go_name: GetCurrentDrawableState
+          returns: '[I'
+          error: true
+        - java_method: isInside
+          go_name: IsInside
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: onPressed
+          go_name: OnPressed
+          returns: void
+          error: true
+        - java_method: onReleased
+          go_name: OnReleased
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: squaredDistanceFrom
+          go_name: SquaredDistanceFrom
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: int
+          error: true
     - java_class: android.inputmethodservice.InputMethodService$Insets
       go_type: InputMethodServiceInsets
+    - java_class: android.inputmethodservice.Keyboard$Row
+      go_type: KeyboardRow
+    - java_class: android.inputmethodservice.ExtractEditText
+      go_type: ExtractEditText
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+      methods:
+        - java_method: finishInternalChanges
+          go_name: FinishInternalChanges
+          returns: void
+          error: true
+        - java_method: hasFocus
+          go_name: HasFocus
+          returns: boolean
+          error: true
+        - java_method: hasVerticalScrollBar
+          go_name: HasVerticalScrollBar
+          returns: boolean
+          error: true
+        - java_method: hasWindowFocus
+          go_name: HasWindowFocus
+          returns: boolean
+          error: true
+        - java_method: isFocused
+          go_name: IsFocused
+          returns: boolean
+          error: true
+        - java_method: isInputMethodTarget
+          go_name: IsInputMethodTarget
+          returns: boolean
+          error: true
+        - java_method: onTextContextMenuItem
+          go_name: OnTextContextMenuItem
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: performClick
+          go_name: PerformClick
+          returns: boolean
+          error: true
+        - java_method: setExtractedText
+          go_name: SetExtractedText
+          params:
+            - java_type: android.view.inputmethod.ExtractedText
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: startInternalChanges
+          go_name: StartInternalChanges
+          returns: void
+          error: true
+    - java_class: android.inputmethodservice.AbstractInputMethodService
+      go_type: AbstractInputMethodService
+      methods:
+        - java_method: getKeyDispatcherState
+          go_name: GetKeyDispatcherState
+          returns: android.view.KeyEvent$DispatcherState
+          error: true
+        - java_method: getSystemService
+          go_name: GetSystemService
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: java.lang.Object
+          error: true
+        - java_method: onBind
+          go_name: OnBind
+          params:
+            - java_type: android.content.Intent
+              go_name: arg0
+          returns: android.os.IBinder
+          error: true
+        - java_method: onConfigurationChanged
+          go_name: OnConfigurationChanged
+          params:
+            - java_type: android.content.res.Configuration
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onCreateInputMethodInterface
+          go_name: OnCreateInputMethodInterface
+          returns: android.inputmethodservice.AbstractInputMethodService$AbstractInputMethodImpl
+          error: true
+        - java_method: onCreateInputMethodSessionInterface
+          go_name: OnCreateInputMethodSessionInterface
+          returns: android.inputmethodservice.AbstractInputMethodService$AbstractInputMethodSessionImpl
+          error: true
+        - java_method: onDestroy
+          go_name: OnDestroy
+          returns: void
+          error: true
+        - java_method: onGenericMotionEvent
+          go_name: OnGenericMotionEvent
+          params:
+            - java_type: android.view.MotionEvent
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: onLowMemory
+          go_name: OnLowMemory
+          returns: void
+          error: true
+        - java_method: onShouldVerifyKeyEvent
+          go_name: OnShouldVerifyKeyEvent
+          params:
+            - java_type: android.view.KeyEvent
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: onTrackballEvent
+          go_name: OnTrackballEvent
+          params:
+            - java_type: android.view.MotionEvent
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: onTrimMemory
+          go_name: OnTrimMemory
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: registerComponentCallbacks
+          go_name: RegisterComponentCallbacks
+          params:
+            - java_type: android.content.ComponentCallbacks
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: unregisterComponentCallbacks
+          go_name: UnregisterComponentCallbacks
+          params:
+            - java_type: android.content.ComponentCallbacks
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.inputmethodservice.AbstractInputMethodService$AbstractInputMethodImpl
+      go_type: AbstractInputMethodServiceAbstractInputMethodImpl
+      methods:
+        - java_method: createSession
+          go_name: CreateSession
+          params:
+            - java_type: android.view.inputmethod.InputMethod$SessionCallback
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: revokeSession
+          go_name: RevokeSession
+          params:
+            - java_type: android.view.inputmethod.InputMethodSession
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setSessionEnabled
+          go_name: SetSessionEnabled
+          params:
+            - java_type: android.view.inputmethod.InputMethodSession
+              go_name: arg0
+            - java_type: boolean
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.inputmethodservice.AbstractInputMethodService$AbstractInputMethodSessionImpl
+      go_type: AbstractInputMethodServiceAbstractInputMethodSessionImpl
+      methods:
+        - java_method: dispatchGenericMotionEvent
+          go_name: DispatchGenericMotionEvent
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: android.view.MotionEvent
+              go_name: arg1
+            - java_type: android.view.inputmethod.InputMethodSession$EventCallback
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: dispatchKeyEvent
+          go_name: DispatchKeyEvent
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: android.view.KeyEvent
+              go_name: arg1
+            - java_type: android.view.inputmethod.InputMethodSession$EventCallback
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: dispatchTrackballEvent
+          go_name: DispatchTrackballEvent
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: android.view.MotionEvent
+              go_name: arg1
+            - java_type: android.view.inputmethod.InputMethodSession$EventCallback
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: isEnabled
+          go_name: IsEnabled
+          returns: boolean
+          error: true
+        - java_method: isRevoked
+          go_name: IsRevoked
+          returns: boolean
+          error: true
+        - java_method: onShouldVerifyKeyEvent
+          go_name: OnShouldVerifyKeyEvent
+          params:
+            - java_type: android.view.KeyEvent
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: revokeSelf
+          go_name: RevokeSelf
+          returns: void
+          error: true
+        - java_method: setEnabled
+          go_name: SetEnabled
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.inputmethodservice.KeyboardView
+      go_type: KeyboardView
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+        - java_type: android.util.AttributeSet
+          go_name: arg1
+      methods:
+        - java_method: closing
+          go_name: Closing
+          returns: void
+          error: true
+        - java_method: getKeyboard
+          go_name: GetKeyboard
+          returns: android.inputmethodservice.Keyboard
+          error: true
+        - java_method: handleBack
+          go_name: HandleBack
+          returns: boolean
+          error: true
+        - java_method: invalidateAllKeys
+          go_name: InvalidateAllKeys
+          returns: void
+          error: true
+        - java_method: invalidateKey
+          go_name: InvalidateKey
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: isPreviewEnabled
+          go_name: IsPreviewEnabled
+          returns: boolean
+          error: true
+        - java_method: isProximityCorrectionEnabled
+          go_name: IsProximityCorrectionEnabled
+          returns: boolean
+          error: true
+        - java_method: isShifted
+          go_name: IsShifted
+          returns: boolean
+          error: true
+        - java_method: onClick
+          go_name: OnClick
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onDetachedFromWindow
+          go_name: OnDetachedFromWindow
+          returns: void
+          error: true
+        - java_method: onDraw
+          go_name: OnDraw
+          params:
+            - java_type: android.graphics.Canvas
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onHoverEvent
+          go_name: OnHoverEvent
+          params:
+            - java_type: android.view.MotionEvent
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: onMeasure
+          go_name: OnMeasure
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onSizeChanged
+          go_name: OnSizeChanged
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: onTouchEvent
+          go_name: OnTouchEvent
+          params:
+            - java_type: android.view.MotionEvent
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: setKeyboard
+          go_name: SetKeyboard
+          params:
+            - java_type: android.inputmethodservice.Keyboard
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setOnKeyboardActionListener
+          go_name: SetOnKeyboardActionListener
+          params:
+            - java_type: android.inputmethodservice.KeyboardView$OnKeyboardActionListener
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setPopupOffset
+          go_name: SetPopupOffset
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: setPopupParent
+          go_name: SetPopupParent
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setPreviewEnabled
+          go_name: SetPreviewEnabled
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setProximityCorrectionEnabled
+          go_name: SetProximityCorrectionEnabled
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setShifted
+          go_name: SetShifted
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: setVerticalCorrection
+          go_name: SetVerticalCorrection
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.inputmethodservice.KeyboardView$OnKeyboardActionListener
+      go_type: KeyboardViewOnKeyboardActionListener
+      methods:
+        - java_method: onKey
+          go_name: OnKey
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: '[I'
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onPress
+          go_name: OnPress
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onRelease
+          go_name: OnRelease
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onText
+          go_name: OnText
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: swipeDown
+          go_name: SwipeDown
+          returns: void
+          error: true
+        - java_method: swipeLeft
+          go_name: SwipeLeft
+          returns: void
+          error: true
+        - java_method: swipeRight
+          go_name: SwipeRight
+          returns: void
+          error: true
+        - java_method: swipeUp
+          go_name: SwipeUp
+          returns: void
+          error: true
+abstract_callbacks:
+    - java_class: android.inputmethodservice.AbstractInputMethodService
+      go_type: AbstractInputMethodServiceCallback
+      methods:
+        - java_method: getKeyDispatcherState
+          params: []
+          returns: android.view.KeyEvent$DispatcherState
+          go_field: GetKeyDispatcherState
+        - java_method: getSystemService
+          params:
+            - String
+          returns: java.lang.Object
+          go_field: GetSystemService
+        - java_method: onBind
+          params:
+            - android.content.Intent
+          returns: android.os.IBinder
+          go_field: OnBind
+        - java_method: onConfigurationChanged
+          params:
+            - android.content.res.Configuration
+          returns: void
+          go_field: OnConfigurationChanged
+        - java_method: onCreateInputMethodInterface
+          params: []
+          returns: android.inputmethodservice.AbstractInputMethodService$AbstractInputMethodImpl
+          go_field: OnCreateInputMethodInterface
+        - java_method: onCreateInputMethodSessionInterface
+          params: []
+          returns: android.inputmethodservice.AbstractInputMethodService$AbstractInputMethodSessionImpl
+          go_field: OnCreateInputMethodSessionInterface
+        - java_method: onDestroy
+          params: []
+          returns: void
+          go_field: OnDestroy
+        - java_method: onGenericMotionEvent
+          params:
+            - android.view.MotionEvent
+          returns: boolean
+          go_field: OnGenericMotionEvent
+        - java_method: onLowMemory
+          params: []
+          returns: void
+          go_field: OnLowMemory
+        - java_method: onShouldVerifyKeyEvent
+          params:
+            - android.view.KeyEvent
+          returns: boolean
+          go_field: OnShouldVerifyKeyEvent
+        - java_method: onTrackballEvent
+          params:
+            - android.view.MotionEvent
+          returns: boolean
+          go_field: OnTrackballEvent
+        - java_method: onTrimMemory
+          params:
+            - int
+          returns: void
+          go_field: OnTrimMemory
+        - java_method: registerComponentCallbacks
+          params:
+            - android.content.ComponentCallbacks
+          returns: void
+          go_field: RegisterComponentCallbacks
+        - java_method: unregisterComponentCallbacks
+          params:
+            - android.content.ComponentCallbacks
+          returns: void
+          go_field: UnregisterComponentCallbacks
+    - java_class: android.inputmethodservice.AbstractInputMethodService$AbstractInputMethodImpl
+      go_type: AbstractInputMethodServiceAbstractInputMethodImplCallback
+      methods:
+        - java_method: createSession
+          params:
+            - android.view.inputmethod.InputMethod$SessionCallback
+          returns: void
+          go_field: CreateSession
+        - java_method: revokeSession
+          params:
+            - android.view.inputmethod.InputMethodSession
+          returns: void
+          go_field: RevokeSession
+        - java_method: setSessionEnabled
+          params:
+            - android.view.inputmethod.InputMethodSession
+            - boolean
+          returns: void
+          go_field: SetSessionEnabled
+    - java_class: android.inputmethodservice.AbstractInputMethodService$AbstractInputMethodSessionImpl
+      go_type: AbstractInputMethodServiceAbstractInputMethodSessionImplCallback
+      methods:
+        - java_method: dispatchGenericMotionEvent
+          params:
+            - int
+            - android.view.MotionEvent
+            - android.view.inputmethod.InputMethodSession$EventCallback
+          returns: void
+          go_field: DispatchGenericMotionEvent
+        - java_method: dispatchKeyEvent
+          params:
+            - int
+            - android.view.KeyEvent
+            - android.view.inputmethod.InputMethodSession$EventCallback
+          returns: void
+          go_field: DispatchKeyEvent
+        - java_method: dispatchTrackballEvent
+          params:
+            - int
+            - android.view.MotionEvent
+            - android.view.inputmethod.InputMethodSession$EventCallback
+          returns: void
+          go_field: DispatchTrackballEvent
+        - java_method: isEnabled
+          params: []
+          returns: boolean
+          go_field: IsEnabled
+        - java_method: isRevoked
+          params: []
+          returns: boolean
+          go_field: IsRevoked
+        - java_method: onShouldVerifyKeyEvent
+          params:
+            - android.view.KeyEvent
+          returns: boolean
+          go_field: OnShouldVerifyKeyEvent
+        - java_method: revokeSelf
+          params: []
+          returns: void
+          go_field: RevokeSelf
+        - java_method: setEnabled
+          params:
+            - boolean
+          returns: void
+          go_field: SetEnabled
 constants:
+    - go_name: BackDispositionAdjustNothing
+      value: "3"
+      go_type: int
+    - go_name: BackDispositionDefault
+      value: "0"
+      go_type: int
+    - go_name: BackDispositionWillDismiss
+      value: "2"
+      go_type: int
+    - go_name: BackDispositionWillNotDismiss
+      value: "1"
+      go_type: int
     - go_name: EdgeBottom
       value: "8"
       go_type: int
@@ -1323,18 +1469,6 @@ constants:
       go_type: int
     - go_name: KeycodeShift
       value: "-1"
-      go_type: int
-    - go_name: BackDispositionAdjustNothing
-      value: "3"
-      go_type: int
-    - go_name: BackDispositionDefault
-      value: "0"
-      go_type: int
-    - go_name: BackDispositionWillDismiss
-      value: "2"
-      go_type: int
-    - go_name: BackDispositionWillNotDismiss
-      value: "1"
       go_type: int
     - go_name: TouchableInsetsContent
       value: "1"

@@ -32,10 +32,9 @@ const (
 	StreamPriorityLow           int = 2
 	StreamPriorityLowest        int = 1
 	StreamPriorityMedium        int = 3
-	HttpCacheDisabled           int = 0
-	HttpCacheDisk               int = 3
-	HttpCacheDiskNoHttp         int = 2
-	HttpCacheInMemory           int = 1
+	DnsOptionDisabled           int = 2
+	DnsOptionEnabled            int = 1
+	DnsOptionUnspecified        int = 0
 	ErrorAddressUnreachable     int = 9
 	ErrorConnectionClosed       int = 5
 	ErrorConnectionRefused      int = 7
@@ -54,7 +53,8 @@ const (
 	SslMaxError                 int = 6
 	SslNotyetvalid              int = 0
 	SslUntrusted                int = 3
-	DnsOptionDisabled           int = 2
-	DnsOptionEnabled            int = 1
-	DnsOptionUnspecified        int = 0
+	HttpCacheDisabled           int = 0
+	HttpCacheDisk               int = 3
+	HttpCacheDiskNoHttp         int = 2
+	HttpCacheInMemory           int = 1
 )

@@ -10,13 +10,13 @@ const (
 )
 
 const (
+	KeyHasSetDefaultValues      = consts.KeyHasSetDefaultValues
+	MetadataKeyPreferences      = consts.MetadataKeyPreferences
 	ExtraNoHeaders              = consts.ExtraNoHeaders
 	ExtraShowFragment           = consts.ExtraShowFragment
 	ExtraShowFragmentArguments  = consts.ExtraShowFragmentArguments
 	ExtraShowFragmentShortTitle = consts.ExtraShowFragmentShortTitle
 	ExtraShowFragmentTitle      = consts.ExtraShowFragmentTitle
-	KeyHasSetDefaultValues      = consts.KeyHasSetDefaultValues
-	MetadataKeyPreferences      = consts.MetadataKeyPreferences
 )
 
 const (

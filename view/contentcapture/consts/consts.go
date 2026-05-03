@@ -3,10 +3,10 @@
 package consts
 
 const (
+	Creator                          int = 0
+	FlagIsPrefix                     int = 1
 	DataShareErrorConcurrentRequest  int = 2
 	DataShareErrorTimeoutInterrupted int = 3
 	DataShareErrorUnknown            int = 1
-	Creator                          int = 0
 	FlagIsRegex                      int = 2
-	FlagIsPrefix                     int = 1
 )

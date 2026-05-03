@@ -5,67 +5,22 @@
 package: admin
 go_import: github.com/AndroidGoLab/jni/app/admin
 classes:
-    - java_class: android.app.admin.DeviceAdminService
-      go_type: DeviceAdminService
-      obtain: constructor
+    - java_class: android.app.admin.TargetUser
+      go_type: TargetUser
       methods:
-        - java_method: onBind
-          go_name: OnBind
+        - java_method: equals
+          go_name: Equals
           params:
-            - java_type: android.content.Intent
+            - java_type: java.lang.Object
               go_name: arg0
-          returns: android.os.IBinder
+          returns: boolean
           error: true
-    - java_class: android.app.admin.FreezePeriod
-      go_type: FreezePeriod
-      obtain: constructor
-      constructor_params:
-        - java_type: java.time.MonthDay
-          go_name: arg0
-        - java_type: java.time.MonthDay
-          go_name: arg1
-      methods:
-        - java_method: getEnd
-          go_name: GetEnd
-          returns: java.time.MonthDay
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
           error: true
-        - java_method: getStart
-          go_name: GetStart
-          returns: java.time.MonthDay
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-    - java_class: android.app.admin.DevicePolicyResourcesManager
-      go_type: DevicePolicyResourcesManager
-      methods:
-        - java_method: getDrawableAsIcon
-          go_name: GetDrawableAsIcon3
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-            - java_type: android.graphics.drawable.Icon
-              go_name: arg2
-          returns: android.graphics.drawable.Icon
-          error: true
-        - java_method: getDrawableAsIcon
-          go_name: GetDrawableAsIcon4_1
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-            - java_type: String
-              go_name: arg2
-            - java_type: android.graphics.drawable.Icon
-              go_name: arg3
-          returns: android.graphics.drawable.Icon
-          error: true
-    - java_class: android.app.admin.PackagePolicy
-      go_type: PackagePolicy
+    - java_class: android.app.admin.ManagedSubscriptionsPolicy
+      go_type: ManagedSubscriptionsPolicy
       obtain: constructor
       constructor_params:
         - java_type: int
@@ -82,13 +37,409 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
-        - java_method: getPackageNames
-          go_name: GetPackageNames
-          returns: java.util.Set<java.lang.String>
+        - java_method: getPolicyType
+          go_name: GetPolicyType
+          returns: int
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.app.admin.PolicyUpdateResult
+      go_type: PolicyUpdateResult
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+      methods:
+        - java_method: getResultCode
+          go_name: GetResultCode
+          returns: int
+          error: true
+    - java_class: android.app.admin.DeviceAdminReceiver
+      go_type: DeviceAdminReceiver
+      obtain: constructor
+      methods:
+        - java_method: getManager
+          go_name: GetManager
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+          returns: android.app.admin.DevicePolicyManager
+          error: true
+        - java_method: getWho
+          go_name: GetWho
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+          returns: android.content.ComponentName
+          error: true
+        - java_method: onBugreportFailed
+          go_name: OnBugreportFailed
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.content.Intent
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: onBugreportShared
+          go_name: OnBugreportShared
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.content.Intent
+              go_name: arg1
+            - java_type: String
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: onBugreportSharingDeclined
+          go_name: OnBugreportSharingDeclined
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.content.Intent
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onChoosePrivateKeyAlias
+          go_name: OnChoosePrivateKeyAlias
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.content.Intent
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: android.net.Uri
+              go_name: arg3
+            - java_type: String
+              go_name: arg4
+          returns: String
+          error: true
+        - java_method: onComplianceAcknowledgementRequired
+          go_name: OnComplianceAcknowledgementRequired
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.content.Intent
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onDisableRequested
+          go_name: OnDisableRequested
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.content.Intent
+              go_name: arg1
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: onDisabled
+          go_name: OnDisabled
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.content.Intent
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onEnabled
+          go_name: OnEnabled
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.content.Intent
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onLockTaskModeEntering
+          go_name: OnLockTaskModeEntering
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.content.Intent
+              go_name: arg1
+            - java_type: String
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: onLockTaskModeExiting
+          go_name: OnLockTaskModeExiting
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.content.Intent
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onNetworkLogsAvailable
+          go_name: OnNetworkLogsAvailable
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.content.Intent
+              go_name: arg1
+            - java_type: long
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: onOperationSafetyStateChanged
+          go_name: OnOperationSafetyStateChanged
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: boolean
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: onPasswordChanged
+          go_name: OnPasswordChanged2
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.content.Intent
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onPasswordChanged
+          go_name: OnPasswordChanged3_1
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.content.Intent
+              go_name: arg1
+            - java_type: android.os.UserHandle
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: onPasswordExpiring
+          go_name: OnPasswordExpiring2
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.content.Intent
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onPasswordExpiring
+          go_name: OnPasswordExpiring3_1
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.content.Intent
+              go_name: arg1
+            - java_type: android.os.UserHandle
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: onPasswordFailed
+          go_name: OnPasswordFailed2
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.content.Intent
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onPasswordFailed
+          go_name: OnPasswordFailed3_1
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.content.Intent
+              go_name: arg1
+            - java_type: android.os.UserHandle
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: onPasswordSucceeded
+          go_name: OnPasswordSucceeded2
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.content.Intent
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onPasswordSucceeded
+          go_name: OnPasswordSucceeded3_1
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.content.Intent
+              go_name: arg1
+            - java_type: android.os.UserHandle
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: onProfileProvisioningComplete
+          go_name: OnProfileProvisioningComplete
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.content.Intent
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onReadyForUserInitialization
+          go_name: OnReadyForUserInitialization
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.content.Intent
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onReceive
+          go_name: OnReceive
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.content.Intent
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onSecurityLogsAvailable
+          go_name: OnSecurityLogsAvailable
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.content.Intent
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onSystemUpdatePending
+          go_name: OnSystemUpdatePending
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.content.Intent
+              go_name: arg1
+            - java_type: long
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: onTransferAffiliatedProfileOwnershipComplete
+          go_name: OnTransferAffiliatedProfileOwnershipComplete
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.os.UserHandle
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onTransferOwnershipComplete
+          go_name: OnTransferOwnershipComplete
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.os.PersistableBundle
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onUserAdded
+          go_name: OnUserAdded
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.content.Intent
+              go_name: arg1
+            - java_type: android.os.UserHandle
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: onUserRemoved
+          go_name: OnUserRemoved
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.content.Intent
+              go_name: arg1
+            - java_type: android.os.UserHandle
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: onUserStarted
+          go_name: OnUserStarted
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.content.Intent
+              go_name: arg1
+            - java_type: android.os.UserHandle
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: onUserStopped
+          go_name: OnUserStopped
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.content.Intent
+              go_name: arg1
+            - java_type: android.os.UserHandle
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: onUserSwitched
+          go_name: OnUserSwitched
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.content.Intent
+              go_name: arg1
+            - java_type: android.os.UserHandle
+              go_name: arg2
+          returns: void
+          error: true
+    - java_class: android.app.admin.WifiSsidPolicy
+      go_type: WifiSsidPolicy
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+        - java_type: java.util.Set<android.net.wifi.WifiSsid>
+          go_name: arg1
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
           error: true
         - java_method: getPolicyType
           go_name: GetPolicyType
           returns: int
+          error: true
+        - java_method: getSsids
+          go_name: GetSsids
+          returns: java.util.Set<android.net.wifi.WifiSsid>
           error: true
         - java_method: hashCode
           go_name: HashCode
@@ -102,6 +453,76 @@ classes:
             - java_type: int
               go_name: arg1
           returns: void
+          error: true
+    - java_class: android.app.admin.ConnectEvent
+      go_type: ConnectEvent
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getInetAddress
+          go_name: GetInetAddress
+          returns: java.net.InetAddress
+          error: true
+        - java_method: getPort
+          go_name: GetPort
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.app.admin.FactoryResetProtectionPolicy
+      go_type: FactoryResetProtectionPolicy
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getFactoryResetProtectionAccounts
+          go_name: GetFactoryResetProtectionAccounts
+          returns: java.util.List<java.lang.String>
+          error: true
+        - java_method: isFactoryResetProtectionEnabled
+          go_name: IsFactoryResetProtectionEnabled
+          returns: boolean
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.app.admin.FactoryResetProtectionPolicy$Builder
+      go_type: FactoryResetProtectionPolicyBuilder
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.app.admin.FactoryResetProtectionPolicy
+          error: true
+        - java_method: setFactoryResetProtectionEnabled
+          go_name: SetFactoryResetProtectionEnabled
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.app.admin.FactoryResetProtectionPolicy$Builder
           error: true
     - java_class: android.app.admin.PreferentialNetworkServiceConfig
       go_type: PreferentialNetworkServiceConfig
@@ -207,28 +628,31 @@ classes:
               go_name: arg0
           returns: android.app.admin.PreferentialNetworkServiceConfig$Builder
           error: true
-    - java_class: android.app.admin.DnsEvent
-      go_type: DnsEvent
+    - java_class: android.app.admin.DeviceAdminService
+      go_type: DeviceAdminService
+      obtain: constructor
+      methods:
+        - java_method: onBind
+          go_name: OnBind
+          params:
+            - java_type: android.content.Intent
+              go_name: arg0
+          returns: android.os.IBinder
+          error: true
+    - java_class: android.app.admin.UnsafeStateException
+      go_type: UnsafeStateException
       methods:
         - java_method: describeContents
           go_name: DescribeContents
           returns: int
           error: true
-        - java_method: getHostname
-          go_name: GetHostname
+        - java_method: getMessage
+          go_name: GetMessage
           returns: String
           error: true
-        - java_method: getInetAddresses
-          go_name: GetInetAddresses
-          returns: java.util.List<java.net.InetAddress>
-          error: true
-        - java_method: getTotalResolvedAddressCount
-          go_name: GetTotalResolvedAddressCount
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
+        - java_method: getReasons
+          go_name: GetReasons
+          returns: java.util.List<java.lang.Integer>
           error: true
         - java_method: writeToParcel
           go_name: WriteToParcel
@@ -238,6 +662,186 @@ classes:
             - java_type: int
               go_name: arg1
           returns: void
+          error: true
+    - java_class: android.app.admin.DevicePolicyResources
+      go_type: DevicePolicyResources
+    - java_class: android.app.admin.NetworkEvent
+      go_type: NetworkEvent
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getId
+          go_name: GetId
+          returns: long
+          error: true
+        - java_method: getPackageName
+          go_name: GetPackageName
+          returns: String
+          error: true
+        - java_method: getTimestamp
+          go_name: GetTimestamp
+          returns: long
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.app.admin.DevicePolicyIdentifiers
+      go_type: DevicePolicyIdentifiers
+      static_methods:
+        - java_method: getIdentifierForUserRestriction
+          go_name: GetIdentifierForUserRestriction
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: String
+          error: true
+    - java_class: android.app.admin.PolicyUpdateReceiver
+      go_type: PolicyUpdateReceiver
+      methods:
+        - java_method: onPolicyChanged
+          go_name: OnPolicyChanged
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+            - java_type: android.os.Bundle
+              go_name: arg2
+            - java_type: android.app.admin.TargetUser
+              go_name: arg3
+            - java_type: android.app.admin.PolicyUpdateResult
+              go_name: arg4
+          returns: void
+          error: true
+        - java_method: onPolicySetResult
+          go_name: OnPolicySetResult
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+            - java_type: android.os.Bundle
+              go_name: arg2
+            - java_type: android.app.admin.TargetUser
+              go_name: arg3
+            - java_type: android.app.admin.PolicyUpdateResult
+              go_name: arg4
+          returns: void
+          error: true
+        - java_method: onReceive
+          go_name: OnReceive
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.content.Intent
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.app.admin.SecurityLog
+      go_type: SecurityLog
+      obtain: constructor
+    - java_class: android.app.admin.SecurityLog$SecurityEvent
+      go_type: SecurityLogSecurityEvent
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getData
+          go_name: GetData
+          returns: java.lang.Object
+          error: true
+        - java_method: getId
+          go_name: GetId
+          returns: long
+          error: true
+        - java_method: getLogLevel
+          go_name: GetLogLevel
+          returns: int
+          error: true
+        - java_method: getTag
+          go_name: GetTag
+          returns: int
+          error: true
+        - java_method: getTimeNanos
+          go_name: GetTimeNanos
+          returns: long
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.app.admin.FreezePeriod
+      go_type: FreezePeriod
+      obtain: constructor
+      constructor_params:
+        - java_type: java.time.MonthDay
+          go_name: arg0
+        - java_type: java.time.MonthDay
+          go_name: arg1
+      methods:
+        - java_method: getEnd
+          go_name: GetEnd
+          returns: java.time.MonthDay
+          error: true
+        - java_method: getStart
+          go_name: GetStart
+          returns: java.time.MonthDay
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+    - java_class: android.app.admin.DevicePolicyResourcesManager
+      go_type: DevicePolicyResourcesManager
+      methods:
+        - java_method: getDrawableAsIcon
+          go_name: GetDrawableAsIcon3
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+            - java_type: android.graphics.drawable.Icon
+              go_name: arg2
+          returns: android.graphics.drawable.Icon
+          error: true
+        - java_method: getDrawableAsIcon
+          go_name: GetDrawableAsIcon4_1
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+            - java_type: String
+              go_name: arg2
+            - java_type: android.graphics.drawable.Icon
+              go_name: arg3
+          returns: android.graphics.drawable.Icon
           error: true
     - java_class: android.app.admin.SystemUpdateInfo
       go_type: SystemUpdateInfo
@@ -278,20 +882,24 @@ classes:
               go_name: arg1
           returns: void
           error: true
-    - java_class: android.app.admin.FactoryResetProtectionPolicy
-      go_type: FactoryResetProtectionPolicy
+    - java_class: android.app.admin.DnsEvent
+      go_type: DnsEvent
       methods:
         - java_method: describeContents
           go_name: DescribeContents
           returns: int
           error: true
-        - java_method: getFactoryResetProtectionAccounts
-          go_name: GetFactoryResetProtectionAccounts
-          returns: java.util.List<java.lang.String>
+        - java_method: getHostname
+          go_name: GetHostname
+          returns: String
           error: true
-        - java_method: isFactoryResetProtectionEnabled
-          go_name: IsFactoryResetProtectionEnabled
-          returns: boolean
+        - java_method: getInetAddresses
+          go_name: GetInetAddresses
+          returns: java.util.List<java.net.InetAddress>
+          error: true
+        - java_method: getTotalResolvedAddressCount
+          go_name: GetTotalResolvedAddressCount
+          returns: int
           error: true
         - java_method: toString
           go_name: ToString
@@ -306,19 +914,129 @@ classes:
               go_name: arg1
           returns: void
           error: true
-    - java_class: android.app.admin.FactoryResetProtectionPolicy$Builder
-      go_type: FactoryResetProtectionPolicyBuilder
+    - java_class: android.app.admin.DelegatedAdminReceiver
+      go_type: DelegatedAdminReceiver
+      obtain: constructor
       methods:
-        - java_method: build
-          go_name: Build
-          returns: android.app.admin.FactoryResetProtectionPolicy
-          error: true
-        - java_method: setFactoryResetProtectionEnabled
-          go_name: SetFactoryResetProtectionEnabled
+        - java_method: onChoosePrivateKeyAlias
+          go_name: OnChoosePrivateKeyAlias
           params:
-            - java_type: boolean
+            - java_type: android.content.Context
               go_name: arg0
-          returns: android.app.admin.FactoryResetProtectionPolicy$Builder
+            - java_type: android.content.Intent
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: android.net.Uri
+              go_name: arg3
+            - java_type: String
+              go_name: arg4
+          returns: String
+          error: true
+        - java_method: onNetworkLogsAvailable
+          go_name: OnNetworkLogsAvailable
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.content.Intent
+              go_name: arg1
+            - java_type: long
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: onReceive
+          go_name: OnReceive
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.content.Intent
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onSecurityLogsAvailable
+          go_name: OnSecurityLogsAvailable
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.content.Intent
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.app.admin.SystemUpdatePolicy
+      go_type: SystemUpdatePolicy
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getFreezePeriods
+          go_name: GetFreezePeriods
+          returns: java.util.List<android.app.admin.FreezePeriod>
+          error: true
+        - java_method: getInstallWindowEnd
+          go_name: GetInstallWindowEnd
+          returns: int
+          error: true
+        - java_method: getInstallWindowStart
+          go_name: GetInstallWindowStart
+          returns: int
+          error: true
+        - java_method: getPolicyType
+          go_name: GetPolicyType
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+      static_methods:
+        - java_method: createAutomaticInstallPolicy
+          go_name: CreateAutomaticInstallPolicy
+          returns: android.app.admin.SystemUpdatePolicy
+          error: true
+        - java_method: createPostponeInstallPolicy
+          go_name: CreatePostponeInstallPolicy
+          returns: android.app.admin.SystemUpdatePolicy
+          error: true
+        - java_method: createWindowedInstallPolicy
+          go_name: CreateWindowedInstallPolicy
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: android.app.admin.SystemUpdatePolicy
+          error: true
+    - java_class: android.app.admin.SystemUpdatePolicy$ValidationFailedException
+      go_type: SystemUpdatePolicyValidationFailedException
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getErrorCode
+          go_name: GetErrorCode
+          returns: int
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
           error: true
     - java_class: android.app.admin.DevicePolicyManager
       go_type: DevicePolicyManager
@@ -2506,661 +3224,6 @@ classes:
               go_name: arg1
           returns: void
           error: true
-    - java_class: android.app.admin.SecurityLog
-      go_type: SecurityLog
-      obtain: constructor
-    - java_class: android.app.admin.SecurityLog$SecurityEvent
-      go_type: SecurityLogSecurityEvent
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getData
-          go_name: GetData
-          returns: java.lang.Object
-          error: true
-        - java_method: getId
-          go_name: GetId
-          returns: long
-          error: true
-        - java_method: getLogLevel
-          go_name: GetLogLevel
-          returns: int
-          error: true
-        - java_method: getTag
-          go_name: GetTag
-          returns: int
-          error: true
-        - java_method: getTimeNanos
-          go_name: GetTimeNanos
-          returns: long
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.app.admin.ManagedSubscriptionsPolicy
-      go_type: ManagedSubscriptionsPolicy
-      obtain: constructor
-      constructor_params:
-        - java_type: int
-          go_name: arg0
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getPolicyType
-          go_name: GetPolicyType
-          returns: int
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.app.admin.PolicyUpdateReceiver
-      go_type: PolicyUpdateReceiver
-      methods:
-        - java_method: onPolicyChanged
-          go_name: OnPolicyChanged
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-            - java_type: android.os.Bundle
-              go_name: arg2
-            - java_type: android.app.admin.TargetUser
-              go_name: arg3
-            - java_type: android.app.admin.PolicyUpdateResult
-              go_name: arg4
-          returns: void
-          error: true
-        - java_method: onPolicySetResult
-          go_name: OnPolicySetResult
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-            - java_type: android.os.Bundle
-              go_name: arg2
-            - java_type: android.app.admin.TargetUser
-              go_name: arg3
-            - java_type: android.app.admin.PolicyUpdateResult
-              go_name: arg4
-          returns: void
-          error: true
-        - java_method: onReceive
-          go_name: OnReceive
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.app.admin.PolicyUpdateResult
-      go_type: PolicyUpdateResult
-      obtain: constructor
-      constructor_params:
-        - java_type: int
-          go_name: arg0
-      methods:
-        - java_method: getResultCode
-          go_name: GetResultCode
-          returns: int
-          error: true
-    - java_class: android.app.admin.DeviceAdminReceiver
-      go_type: DeviceAdminReceiver
-      obtain: constructor
-      methods:
-        - java_method: getManager
-          go_name: GetManager
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-          returns: android.app.admin.DevicePolicyManager
-          error: true
-        - java_method: getWho
-          go_name: GetWho
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-          returns: android.content.ComponentName
-          error: true
-        - java_method: onBugreportFailed
-          go_name: OnBugreportFailed
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: onBugreportShared
-          go_name: OnBugreportShared
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-            - java_type: String
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: onBugreportSharingDeclined
-          go_name: OnBugreportSharingDeclined
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onChoosePrivateKeyAlias
-          go_name: OnChoosePrivateKeyAlias
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: android.net.Uri
-              go_name: arg3
-            - java_type: String
-              go_name: arg4
-          returns: String
-          error: true
-        - java_method: onComplianceAcknowledgementRequired
-          go_name: OnComplianceAcknowledgementRequired
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onDisableRequested
-          go_name: OnDisableRequested
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: onDisabled
-          go_name: OnDisabled
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onEnabled
-          go_name: OnEnabled
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onLockTaskModeEntering
-          go_name: OnLockTaskModeEntering
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-            - java_type: String
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: onLockTaskModeExiting
-          go_name: OnLockTaskModeExiting
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onNetworkLogsAvailable
-          go_name: OnNetworkLogsAvailable
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-            - java_type: long
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: onOperationSafetyStateChanged
-          go_name: OnOperationSafetyStateChanged
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: boolean
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: onPasswordChanged
-          go_name: OnPasswordChanged2
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onPasswordChanged
-          go_name: OnPasswordChanged3_1
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-            - java_type: android.os.UserHandle
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: onPasswordExpiring
-          go_name: OnPasswordExpiring2
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onPasswordExpiring
-          go_name: OnPasswordExpiring3_1
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-            - java_type: android.os.UserHandle
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: onPasswordFailed
-          go_name: OnPasswordFailed2
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onPasswordFailed
-          go_name: OnPasswordFailed3_1
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-            - java_type: android.os.UserHandle
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: onPasswordSucceeded
-          go_name: OnPasswordSucceeded2
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onPasswordSucceeded
-          go_name: OnPasswordSucceeded3_1
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-            - java_type: android.os.UserHandle
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: onProfileProvisioningComplete
-          go_name: OnProfileProvisioningComplete
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onReadyForUserInitialization
-          go_name: OnReadyForUserInitialization
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onReceive
-          go_name: OnReceive
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onSecurityLogsAvailable
-          go_name: OnSecurityLogsAvailable
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onSystemUpdatePending
-          go_name: OnSystemUpdatePending
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-            - java_type: long
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: onTransferAffiliatedProfileOwnershipComplete
-          go_name: OnTransferAffiliatedProfileOwnershipComplete
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.os.UserHandle
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onTransferOwnershipComplete
-          go_name: OnTransferOwnershipComplete
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.os.PersistableBundle
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onUserAdded
-          go_name: OnUserAdded
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-            - java_type: android.os.UserHandle
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: onUserRemoved
-          go_name: OnUserRemoved
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-            - java_type: android.os.UserHandle
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: onUserStarted
-          go_name: OnUserStarted
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-            - java_type: android.os.UserHandle
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: onUserStopped
-          go_name: OnUserStopped
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-            - java_type: android.os.UserHandle
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: onUserSwitched
-          go_name: OnUserSwitched
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-            - java_type: android.os.UserHandle
-              go_name: arg2
-          returns: void
-          error: true
-    - java_class: android.app.admin.UnsafeStateException
-      go_type: UnsafeStateException
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getMessage
-          go_name: GetMessage
-          returns: String
-          error: true
-        - java_method: getReasons
-          go_name: GetReasons
-          returns: java.util.List<java.lang.Integer>
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.app.admin.DelegatedAdminReceiver
-      go_type: DelegatedAdminReceiver
-      obtain: constructor
-      methods:
-        - java_method: onChoosePrivateKeyAlias
-          go_name: OnChoosePrivateKeyAlias
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: android.net.Uri
-              go_name: arg3
-            - java_type: String
-              go_name: arg4
-          returns: String
-          error: true
-        - java_method: onNetworkLogsAvailable
-          go_name: OnNetworkLogsAvailable
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-            - java_type: long
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: onReceive
-          go_name: OnReceive
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onSecurityLogsAvailable
-          go_name: OnSecurityLogsAvailable
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.app.admin.TargetUser
-      go_type: TargetUser
-      methods:
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-    - java_class: android.app.admin.WifiSsidPolicy
-      go_type: WifiSsidPolicy
-      obtain: constructor
-      constructor_params:
-        - java_type: int
-          go_name: arg0
-        - java_type: java.util.Set<android.net.wifi.WifiSsid>
-          go_name: arg1
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getPolicyType
-          go_name: GetPolicyType
-          returns: int
-          error: true
-        - java_method: getSsids
-          go_name: GetSsids
-          returns: java.util.Set<android.net.wifi.WifiSsid>
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.app.admin.DevicePolicyIdentifiers
-      go_type: DevicePolicyIdentifiers
-      static_methods:
-        - java_method: getIdentifierForUserRestriction
-          go_name: GetIdentifierForUserRestriction
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: String
-          error: true
-    - java_class: android.app.admin.DevicePolicyResources
-      go_type: DevicePolicyResources
-    - java_class: android.app.admin.ConnectEvent
-      go_type: ConnectEvent
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getInetAddress
-          go_name: GetInetAddress
-          returns: java.net.InetAddress
-          error: true
-        - java_method: getPort
-          go_name: GetPort
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
     - java_class: android.app.admin.DeviceAdminInfo
       go_type: DeviceAdminInfo
       obtain: constructor
@@ -3259,60 +3322,35 @@ classes:
               go_name: arg1
           returns: void
           error: true
-    - java_class: android.app.admin.NetworkEvent
-      go_type: NetworkEvent
+    - java_class: android.app.admin.PackagePolicy
+      go_type: PackagePolicy
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
       methods:
         - java_method: describeContents
           go_name: DescribeContents
           returns: int
           error: true
-        - java_method: getId
-          go_name: GetId
-          returns: long
-          error: true
-        - java_method: getPackageName
-          go_name: GetPackageName
-          returns: String
-          error: true
-        - java_method: getTimestamp
-          go_name: GetTimestamp
-          returns: long
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
+        - java_method: equals
+          go_name: Equals
           params:
-            - java_type: android.os.Parcel
+            - java_type: java.lang.Object
               go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
+          returns: boolean
           error: true
-    - java_class: android.app.admin.SystemUpdatePolicy
-      go_type: SystemUpdatePolicy
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getFreezePeriods
-          go_name: GetFreezePeriods
-          returns: java.util.List<android.app.admin.FreezePeriod>
-          error: true
-        - java_method: getInstallWindowEnd
-          go_name: GetInstallWindowEnd
-          returns: int
-          error: true
-        - java_method: getInstallWindowStart
-          go_name: GetInstallWindowStart
-          returns: int
+        - java_method: getPackageNames
+          go_name: GetPackageNames
+          returns: java.util.Set<java.lang.String>
           error: true
         - java_method: getPolicyType
           go_name: GetPolicyType
           returns: int
           error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
           error: true
         - java_method: writeToParcel
           go_name: WriteToParcel
@@ -3323,55 +3361,169 @@ classes:
               go_name: arg1
           returns: void
           error: true
-      static_methods:
-        - java_method: createAutomaticInstallPolicy
-          go_name: CreateAutomaticInstallPolicy
-          returns: android.app.admin.SystemUpdatePolicy
-          error: true
-        - java_method: createPostponeInstallPolicy
-          go_name: CreatePostponeInstallPolicy
-          returns: android.app.admin.SystemUpdatePolicy
-          error: true
-        - java_method: createWindowedInstallPolicy
-          go_name: CreateWindowedInstallPolicy
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: android.app.admin.SystemUpdatePolicy
-          error: true
-    - java_class: android.app.admin.SystemUpdatePolicy$ValidationFailedException
-      go_type: SystemUpdatePolicyValidationFailedException
+abstract_callbacks:
+    - java_class: android.app.admin.NetworkEvent
+      go_type: NetworkEventCallback
       methods:
         - java_method: describeContents
-          go_name: DescribeContents
+          params: []
           returns: int
-          error: true
-        - java_method: getErrorCode
-          go_name: GetErrorCode
-          returns: int
-          error: true
+          go_field: DescribeContents
+        - java_method: getId
+          params: []
+          returns: long
+          go_field: GetId
+        - java_method: getPackageName
+          params: []
+          returns: String
+          go_field: GetPackageName
+        - java_method: getTimestamp
+          params: []
+          returns: long
+          go_field: GetTimestamp
         - java_method: writeToParcel
-          go_name: WriteToParcel
           params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
+            - android.os.Parcel
+            - int
           returns: void
-          error: true
+          go_field: WriteToParcel
+    - java_class: android.app.admin.PolicyUpdateReceiver
+      go_type: PolicyUpdateReceiverCallback
+      methods:
+        - java_method: onPolicyChanged
+          params:
+            - android.content.Context
+            - String
+            - android.os.Bundle
+            - android.app.admin.TargetUser
+            - android.app.admin.PolicyUpdateResult
+          returns: void
+          go_field: OnPolicyChanged
+        - java_method: onPolicySetResult
+          params:
+            - android.content.Context
+            - String
+            - android.os.Bundle
+            - android.app.admin.TargetUser
+            - android.app.admin.PolicyUpdateResult
+          returns: void
+          go_field: OnPolicySetResult
+        - java_method: onReceive
+          params:
+            - android.content.Context
+            - android.content.Intent
+          returns: void
+          go_field: OnReceive
+    - java_class: android.app.admin.DevicePolicyManager$InstallSystemUpdateCallback
+      go_type: DevicePolicyManagerInstallSystemUpdateCallbackCallback
+      methods:
+        - java_method: onInstallUpdateError
+          params:
+            - int
+            - String
+          returns: void
+          go_field: OnInstallUpdateError
 constants:
+    - go_name: Global
+      value: "0"
+      go_type: int
+    - go_name: LocalUser
+      value: "0"
+      go_type: int
+    - go_name: ParentUser
+      value: "0"
+      go_type: int
+    - go_name: UnknownUser
+      value: "0"
+      go_type: int
     - go_name: Creator
       value: "0"
       go_type: int
-    - go_name: PackagePolicyAllowlist
+    - go_name: TypeAllManagedSubscriptions
+      value: "1"
+      go_type: int
+    - go_name: TypeAllPersonalSubscriptions
+      value: "0"
+      go_type: int
+    - go_name: ResultFailureConflictingAdminPolicy
+      value: "1"
+      go_type: int
+    - go_name: ResultFailureHardwareLimitation
+      value: "4"
+      go_type: int
+    - go_name: ResultFailureStorageLimitReached
       value: "3"
       go_type: int
-    - go_name: PackagePolicyAllowlistAndSystem
+    - go_name: ResultFailureUnknown
+      value: "-1"
+      go_type: int
+    - go_name: ResultPolicyCleared
       value: "2"
       go_type: int
-    - go_name: PackagePolicyBlocklist
+    - go_name: ResultPolicySet
+      value: "0"
+      go_type: int
+    - go_name: ActionChoosePrivateKeyAlias
+      value: '"android.app.action.CHOOSE_PRIVATE_KEY_ALIAS"'
+      go_type: string
+    - go_name: ActionDeviceAdminDisabled
+      value: '"android.app.action.DEVICE_ADMIN_DISABLED"'
+      go_type: string
+    - go_name: ActionDeviceAdminDisableRequested
+      value: '"android.app.action.DEVICE_ADMIN_DISABLE_REQUESTED"'
+      go_type: string
+    - go_name: ActionDeviceAdminEnabled
+      value: '"android.app.action.DEVICE_ADMIN_ENABLED"'
+      go_type: string
+    - go_name: ActionLockTaskEntering
+      value: '"android.app.action.LOCK_TASK_ENTERING"'
+      go_type: string
+    - go_name: ActionLockTaskExiting
+      value: '"android.app.action.LOCK_TASK_EXITING"'
+      go_type: string
+    - go_name: ActionNetworkLogsAvailable
+      value: '"android.app.action.NETWORK_LOGS_AVAILABLE"'
+      go_type: string
+    - go_name: ActionPasswordChanged
+      value: '"android.app.action.ACTION_PASSWORD_CHANGED"'
+      go_type: string
+    - go_name: ActionPasswordExpiring
+      value: '"android.app.action.ACTION_PASSWORD_EXPIRING"'
+      go_type: string
+    - go_name: ActionPasswordFailed
+      value: '"android.app.action.ACTION_PASSWORD_FAILED"'
+      go_type: string
+    - go_name: ActionPasswordSucceeded
+      value: '"android.app.action.ACTION_PASSWORD_SUCCEEDED"'
+      go_type: string
+    - go_name: ActionProfileProvisioningComplete
+      value: '"android.app.action.PROFILE_PROVISIONING_COMPLETE"'
+      go_type: string
+    - go_name: ActionSecurityLogsAvailable
+      value: '"android.app.action.SECURITY_LOGS_AVAILABLE"'
+      go_type: string
+    - go_name: BugreportFailureFailedCompleting
+      value: "0"
+      go_type: int
+    - go_name: BugreportFailureFileNoLongerAvailable
+      value: "1"
+      go_type: int
+    - go_name: DeviceAdminMetaData
+      value: '"android.app.device_admin"'
+      go_type: string
+    - go_name: ExtraDisableWarning
+      value: '"android.app.extra.DISABLE_WARNING"'
+      go_type: string
+    - go_name: ExtraLockTaskPackage
+      value: '"android.app.extra.LOCK_TASK_PACKAGE"'
+      go_type: string
+    - go_name: ExtraTransferOwnershipAdminExtrasBundle
+      value: '"android.app.extra.TRANSFER_OWNERSHIP_ADMIN_EXTRAS_BUNDLE"'
+      go_type: string
+    - go_name: WifiSsidPolicyTypeAllowlist
+      value: "0"
+      go_type: int
+    - go_name: WifiSsidPolicyTypeDenylist
       value: "1"
       go_type: int
     - go_name: PreferentialNetworkId1
@@ -3389,6 +3541,237 @@ constants:
     - go_name: PreferentialNetworkId5
       value: "5"
       go_type: int
+    - go_name: Undefined
+      value: '"UNDEFINED"'
+      go_type: string
+    - go_name: AccountManagementDisabledPolicy
+      value: '"accountManagementDisabled"'
+      go_type: string
+    - go_name: ApplicationHiddenPolicy
+      value: '"applicationHidden"'
+      go_type: string
+    - go_name: ApplicationRestrictionsPolicy
+      value: '"applicationRestrictions"'
+      go_type: string
+    - go_name: AppFunctionsPolicy
+      value: '"appFunctions"'
+      go_type: string
+    - go_name: AutoTimezonePolicy
+      value: '"autoTimezone"'
+      go_type: string
+    - go_name: AutoTimePolicy
+      value: '"autoTime"'
+      go_type: string
+    - go_name: BackupServicePolicy
+      value: '"backupService"'
+      go_type: string
+    - go_name: CameraDisabledPolicy
+      value: '"cameraDisabled"'
+      go_type: string
+    - go_name: ContentProtectionPolicy
+      value: '"contentProtection"'
+      go_type: string
+    - go_name: KeyguardDisabledFeaturesPolicy
+      value: '"keyguardDisabledFeatures"'
+      go_type: string
+    - go_name: LockTaskPolicy
+      value: '"lockTask"'
+      go_type: string
+    - go_name: PackagesSuspendedPolicy
+      value: '"packagesSuspended"'
+      go_type: string
+    - go_name: PackageUninstallBlockedPolicy
+      value: '"packageUninstallBlocked"'
+      go_type: string
+    - go_name: PasswordComplexityPolicy
+      value: '"passwordComplexity"'
+      go_type: string
+    - go_name: PermissionGrantPolicy
+      value: '"permissionGrant"'
+      go_type: string
+    - go_name: PersistentPreferredActivityPolicy
+      value: '"persistentPreferredActivity"'
+      go_type: string
+    - go_name: ResetPasswordTokenPolicy
+      value: '"resetPasswordToken"'
+      go_type: string
+    - go_name: SecurityLoggingPolicy
+      value: '"securityLogging"'
+      go_type: string
+    - go_name: StatusBarDisabledPolicy
+      value: '"statusBarDisabled"'
+      go_type: string
+    - go_name: UsbDataSignalingPolicy
+      value: '"usbDataSignaling"'
+      go_type: string
+    - go_name: UserControlDisabledPackagesPolicy
+      value: '"userControlDisabledPackages"'
+      go_type: string
+    - go_name: ActionDevicePolicyChanged
+      value: '"android.app.admin.action.DEVICE_POLICY_CHANGED"'
+      go_type: string
+    - go_name: ActionDevicePolicySetResult
+      value: '"android.app.admin.action.DEVICE_POLICY_SET_RESULT"'
+      go_type: string
+    - go_name: ExtraAccountType
+      value: '"android.app.admin.extra.ACCOUNT_TYPE"'
+      go_type: string
+    - go_name: ExtraIntentFilter
+      value: '"android.app.admin.extra.INTENT_FILTER"'
+      go_type: string
+    - go_name: ExtraPackageName
+      value: '"android.app.admin.extra.PACKAGE_NAME"'
+      go_type: string
+    - go_name: ExtraPermissionName
+      value: '"android.app.admin.extra.PERMISSION_NAME"'
+      go_type: string
+    - go_name: LevelError
+      value: "3"
+      go_type: int
+    - go_name: LevelInfo
+      value: "1"
+      go_type: int
+    - go_name: LevelWarning
+      value: "2"
+      go_type: int
+    - go_name: TagAdbShellCmd
+      value: "210002"
+      go_type: int
+    - go_name: TagAdbShellInteractive
+      value: "210001"
+      go_type: int
+    - go_name: TagAppProcessStart
+      value: "210005"
+      go_type: int
+    - go_name: TagBackupServiceToggled
+      value: "210044"
+      go_type: int
+    - go_name: TagBluetoothConnection
+      value: "210039"
+      go_type: int
+    - go_name: TagBluetoothDisconnection
+      value: "210040"
+      go_type: int
+    - go_name: TagCameraPolicySet
+      value: "210034"
+      go_type: int
+    - go_name: TagCertAuthorityInstalled
+      value: "210029"
+      go_type: int
+    - go_name: TagCertAuthorityRemoved
+      value: "210030"
+      go_type: int
+    - go_name: TagCertValidationFailure
+      value: "210033"
+      go_type: int
+    - go_name: TagCryptoSelfTestCompleted
+      value: "210031"
+      go_type: int
+    - go_name: TagKeyguardDisabledFeaturesSet
+      value: "210021"
+      go_type: int
+    - go_name: TagKeyguardDismissed
+      value: "210006"
+      go_type: int
+    - go_name: TagKeyguardDismissAuthAttempt
+      value: "210007"
+      go_type: int
+    - go_name: TagKeyguardSecured
+      value: "210008"
+      go_type: int
+    - go_name: TagKeyDestruction
+      value: "210026"
+      go_type: int
+    - go_name: TagKeyGenerated
+      value: "210024"
+      go_type: int
+    - go_name: TagKeyImport
+      value: "210025"
+      go_type: int
+    - go_name: TagKeyIntegrityViolation
+      value: "210032"
+      go_type: int
+    - go_name: TagLoggingStarted
+      value: "210011"
+      go_type: int
+    - go_name: TagLoggingStopped
+      value: "210012"
+      go_type: int
+    - go_name: TagLogBufferSizeCritical
+      value: "210015"
+      go_type: int
+    - go_name: TagMaxPasswordAttemptsSet
+      value: "210020"
+      go_type: int
+    - go_name: TagMaxScreenLockTimeoutSet
+      value: "210019"
+      go_type: int
+    - go_name: TagMediaMount
+      value: "210013"
+      go_type: int
+    - go_name: TagMediaUnmount
+      value: "210014"
+      go_type: int
+    - go_name: TagNfcDisabled
+      value: "210046"
+      go_type: int
+    - go_name: TagNfcEnabled
+      value: "210045"
+      go_type: int
+    - go_name: TagOsShutdown
+      value: "210010"
+      go_type: int
+    - go_name: TagOsStartup
+      value: "210009"
+      go_type: int
+    - go_name: TagPackageInstalled
+      value: "210041"
+      go_type: int
+    - go_name: TagPackageUninstalled
+      value: "210043"
+      go_type: int
+    - go_name: TagPackageUpdated
+      value: "210042"
+      go_type: int
+    - go_name: TagPasswordChanged
+      value: "210036"
+      go_type: int
+    - go_name: TagPasswordComplexityRequired
+      value: "210035"
+      go_type: int
+    - go_name: TagPasswordComplexitySet
+      value: "210017"
+      go_type: int
+    - go_name: TagPasswordExpirationSet
+      value: "210016"
+      go_type: int
+    - go_name: TagPasswordHistoryLengthSet
+      value: "210018"
+      go_type: int
+    - go_name: TagRemoteLock
+      value: "210022"
+      go_type: int
+    - go_name: TagSyncRecvFile
+      value: "210003"
+      go_type: int
+    - go_name: TagSyncSendFile
+      value: "210004"
+      go_type: int
+    - go_name: TagUserRestrictionAdded
+      value: "210027"
+      go_type: int
+    - go_name: TagUserRestrictionRemoved
+      value: "210028"
+      go_type: int
+    - go_name: TagWifiConnection
+      value: "210037"
+      go_type: int
+    - go_name: TagWifiDisconnection
+      value: "210038"
+      go_type: int
+    - go_name: TagWipeFailure
+      value: "210023"
+      go_type: int
     - go_name: SecurityPatchStateFalse
       value: "1"
       go_type: int
@@ -3397,6 +3780,33 @@ constants:
       go_type: int
     - go_name: SecurityPatchStateUnknown
       value: "0"
+      go_type: int
+    - go_name: TypeInstallAutomatic
+      value: "1"
+      go_type: int
+    - go_name: TypeInstallWindowed
+      value: "2"
+      go_type: int
+    - go_name: TypePostpone
+      value: "3"
+      go_type: int
+    - go_name: ErrorCombinedFreezePeriodTooClose
+      value: "6"
+      go_type: int
+    - go_name: ErrorCombinedFreezePeriodTooLong
+      value: "5"
+      go_type: int
+    - go_name: ErrorDuplicateOrOverlap
+      value: "2"
+      go_type: int
+    - go_name: ErrorNewFreezePeriodTooClose
+      value: "4"
+      go_type: int
+    - go_name: ErrorNewFreezePeriodTooLong
+      value: "3"
+      go_type: int
+    - go_name: ErrorUnknown
+      value: "1"
       go_type: int
     - go_name: ActionAddDeviceAdmin
       value: '"android.app.action.ADD_DEVICE_ADMIN"'
@@ -3983,336 +4393,6 @@ constants:
     - go_name: UpdateErrorUpdateFileInvalid
       value: "3"
       go_type: int
-    - go_name: LevelError
-      value: "3"
-      go_type: int
-    - go_name: LevelInfo
-      value: "1"
-      go_type: int
-    - go_name: LevelWarning
-      value: "2"
-      go_type: int
-    - go_name: TagAdbShellCmd
-      value: "210002"
-      go_type: int
-    - go_name: TagAdbShellInteractive
-      value: "210001"
-      go_type: int
-    - go_name: TagAppProcessStart
-      value: "210005"
-      go_type: int
-    - go_name: TagBackupServiceToggled
-      value: "210044"
-      go_type: int
-    - go_name: TagBluetoothConnection
-      value: "210039"
-      go_type: int
-    - go_name: TagBluetoothDisconnection
-      value: "210040"
-      go_type: int
-    - go_name: TagCameraPolicySet
-      value: "210034"
-      go_type: int
-    - go_name: TagCertAuthorityInstalled
-      value: "210029"
-      go_type: int
-    - go_name: TagCertAuthorityRemoved
-      value: "210030"
-      go_type: int
-    - go_name: TagCertValidationFailure
-      value: "210033"
-      go_type: int
-    - go_name: TagCryptoSelfTestCompleted
-      value: "210031"
-      go_type: int
-    - go_name: TagKeyguardDisabledFeaturesSet
-      value: "210021"
-      go_type: int
-    - go_name: TagKeyguardDismissed
-      value: "210006"
-      go_type: int
-    - go_name: TagKeyguardDismissAuthAttempt
-      value: "210007"
-      go_type: int
-    - go_name: TagKeyguardSecured
-      value: "210008"
-      go_type: int
-    - go_name: TagKeyDestruction
-      value: "210026"
-      go_type: int
-    - go_name: TagKeyGenerated
-      value: "210024"
-      go_type: int
-    - go_name: TagKeyImport
-      value: "210025"
-      go_type: int
-    - go_name: TagKeyIntegrityViolation
-      value: "210032"
-      go_type: int
-    - go_name: TagLoggingStarted
-      value: "210011"
-      go_type: int
-    - go_name: TagLoggingStopped
-      value: "210012"
-      go_type: int
-    - go_name: TagLogBufferSizeCritical
-      value: "210015"
-      go_type: int
-    - go_name: TagMaxPasswordAttemptsSet
-      value: "210020"
-      go_type: int
-    - go_name: TagMaxScreenLockTimeoutSet
-      value: "210019"
-      go_type: int
-    - go_name: TagMediaMount
-      value: "210013"
-      go_type: int
-    - go_name: TagMediaUnmount
-      value: "210014"
-      go_type: int
-    - go_name: TagNfcDisabled
-      value: "210046"
-      go_type: int
-    - go_name: TagNfcEnabled
-      value: "210045"
-      go_type: int
-    - go_name: TagOsShutdown
-      value: "210010"
-      go_type: int
-    - go_name: TagOsStartup
-      value: "210009"
-      go_type: int
-    - go_name: TagPackageInstalled
-      value: "210041"
-      go_type: int
-    - go_name: TagPackageUninstalled
-      value: "210043"
-      go_type: int
-    - go_name: TagPackageUpdated
-      value: "210042"
-      go_type: int
-    - go_name: TagPasswordChanged
-      value: "210036"
-      go_type: int
-    - go_name: TagPasswordComplexityRequired
-      value: "210035"
-      go_type: int
-    - go_name: TagPasswordComplexitySet
-      value: "210017"
-      go_type: int
-    - go_name: TagPasswordExpirationSet
-      value: "210016"
-      go_type: int
-    - go_name: TagPasswordHistoryLengthSet
-      value: "210018"
-      go_type: int
-    - go_name: TagRemoteLock
-      value: "210022"
-      go_type: int
-    - go_name: TagSyncRecvFile
-      value: "210003"
-      go_type: int
-    - go_name: TagSyncSendFile
-      value: "210004"
-      go_type: int
-    - go_name: TagUserRestrictionAdded
-      value: "210027"
-      go_type: int
-    - go_name: TagUserRestrictionRemoved
-      value: "210028"
-      go_type: int
-    - go_name: TagWifiConnection
-      value: "210037"
-      go_type: int
-    - go_name: TagWifiDisconnection
-      value: "210038"
-      go_type: int
-    - go_name: TagWipeFailure
-      value: "210023"
-      go_type: int
-    - go_name: TypeAllManagedSubscriptions
-      value: "1"
-      go_type: int
-    - go_name: TypeAllPersonalSubscriptions
-      value: "0"
-      go_type: int
-    - go_name: ActionDevicePolicyChanged
-      value: '"android.app.admin.action.DEVICE_POLICY_CHANGED"'
-      go_type: string
-    - go_name: ActionDevicePolicySetResult
-      value: '"android.app.admin.action.DEVICE_POLICY_SET_RESULT"'
-      go_type: string
-    - go_name: ExtraAccountType
-      value: '"android.app.admin.extra.ACCOUNT_TYPE"'
-      go_type: string
-    - go_name: ExtraIntentFilter
-      value: '"android.app.admin.extra.INTENT_FILTER"'
-      go_type: string
-    - go_name: ExtraPackageName
-      value: '"android.app.admin.extra.PACKAGE_NAME"'
-      go_type: string
-    - go_name: ExtraPermissionName
-      value: '"android.app.admin.extra.PERMISSION_NAME"'
-      go_type: string
-    - go_name: ResultFailureConflictingAdminPolicy
-      value: "1"
-      go_type: int
-    - go_name: ResultFailureHardwareLimitation
-      value: "4"
-      go_type: int
-    - go_name: ResultFailureStorageLimitReached
-      value: "3"
-      go_type: int
-    - go_name: ResultFailureUnknown
-      value: "-1"
-      go_type: int
-    - go_name: ResultPolicyCleared
-      value: "2"
-      go_type: int
-    - go_name: ResultPolicySet
-      value: "0"
-      go_type: int
-    - go_name: ActionChoosePrivateKeyAlias
-      value: '"android.app.action.CHOOSE_PRIVATE_KEY_ALIAS"'
-      go_type: string
-    - go_name: ActionDeviceAdminDisabled
-      value: '"android.app.action.DEVICE_ADMIN_DISABLED"'
-      go_type: string
-    - go_name: ActionDeviceAdminDisableRequested
-      value: '"android.app.action.DEVICE_ADMIN_DISABLE_REQUESTED"'
-      go_type: string
-    - go_name: ActionDeviceAdminEnabled
-      value: '"android.app.action.DEVICE_ADMIN_ENABLED"'
-      go_type: string
-    - go_name: ActionLockTaskEntering
-      value: '"android.app.action.LOCK_TASK_ENTERING"'
-      go_type: string
-    - go_name: ActionLockTaskExiting
-      value: '"android.app.action.LOCK_TASK_EXITING"'
-      go_type: string
-    - go_name: ActionNetworkLogsAvailable
-      value: '"android.app.action.NETWORK_LOGS_AVAILABLE"'
-      go_type: string
-    - go_name: ActionPasswordChanged
-      value: '"android.app.action.ACTION_PASSWORD_CHANGED"'
-      go_type: string
-    - go_name: ActionPasswordExpiring
-      value: '"android.app.action.ACTION_PASSWORD_EXPIRING"'
-      go_type: string
-    - go_name: ActionPasswordFailed
-      value: '"android.app.action.ACTION_PASSWORD_FAILED"'
-      go_type: string
-    - go_name: ActionPasswordSucceeded
-      value: '"android.app.action.ACTION_PASSWORD_SUCCEEDED"'
-      go_type: string
-    - go_name: ActionProfileProvisioningComplete
-      value: '"android.app.action.PROFILE_PROVISIONING_COMPLETE"'
-      go_type: string
-    - go_name: ActionSecurityLogsAvailable
-      value: '"android.app.action.SECURITY_LOGS_AVAILABLE"'
-      go_type: string
-    - go_name: BugreportFailureFailedCompleting
-      value: "0"
-      go_type: int
-    - go_name: BugreportFailureFileNoLongerAvailable
-      value: "1"
-      go_type: int
-    - go_name: DeviceAdminMetaData
-      value: '"android.app.device_admin"'
-      go_type: string
-    - go_name: ExtraDisableWarning
-      value: '"android.app.extra.DISABLE_WARNING"'
-      go_type: string
-    - go_name: ExtraLockTaskPackage
-      value: '"android.app.extra.LOCK_TASK_PACKAGE"'
-      go_type: string
-    - go_name: ExtraTransferOwnershipAdminExtrasBundle
-      value: '"android.app.extra.TRANSFER_OWNERSHIP_ADMIN_EXTRAS_BUNDLE"'
-      go_type: string
-    - go_name: Global
-      value: "0"
-      go_type: int
-    - go_name: LocalUser
-      value: "0"
-      go_type: int
-    - go_name: ParentUser
-      value: "0"
-      go_type: int
-    - go_name: UnknownUser
-      value: "0"
-      go_type: int
-    - go_name: WifiSsidPolicyTypeAllowlist
-      value: "0"
-      go_type: int
-    - go_name: WifiSsidPolicyTypeDenylist
-      value: "1"
-      go_type: int
-    - go_name: AccountManagementDisabledPolicy
-      value: '"accountManagementDisabled"'
-      go_type: string
-    - go_name: ApplicationHiddenPolicy
-      value: '"applicationHidden"'
-      go_type: string
-    - go_name: ApplicationRestrictionsPolicy
-      value: '"applicationRestrictions"'
-      go_type: string
-    - go_name: AppFunctionsPolicy
-      value: '"appFunctions"'
-      go_type: string
-    - go_name: AutoTimezonePolicy
-      value: '"autoTimezone"'
-      go_type: string
-    - go_name: AutoTimePolicy
-      value: '"autoTime"'
-      go_type: string
-    - go_name: BackupServicePolicy
-      value: '"backupService"'
-      go_type: string
-    - go_name: CameraDisabledPolicy
-      value: '"cameraDisabled"'
-      go_type: string
-    - go_name: ContentProtectionPolicy
-      value: '"contentProtection"'
-      go_type: string
-    - go_name: KeyguardDisabledFeaturesPolicy
-      value: '"keyguardDisabledFeatures"'
-      go_type: string
-    - go_name: LockTaskPolicy
-      value: '"lockTask"'
-      go_type: string
-    - go_name: PackagesSuspendedPolicy
-      value: '"packagesSuspended"'
-      go_type: string
-    - go_name: PackageUninstallBlockedPolicy
-      value: '"packageUninstallBlocked"'
-      go_type: string
-    - go_name: PasswordComplexityPolicy
-      value: '"passwordComplexity"'
-      go_type: string
-    - go_name: PermissionGrantPolicy
-      value: '"permissionGrant"'
-      go_type: string
-    - go_name: PersistentPreferredActivityPolicy
-      value: '"persistentPreferredActivity"'
-      go_type: string
-    - go_name: ResetPasswordTokenPolicy
-      value: '"resetPasswordToken"'
-      go_type: string
-    - go_name: SecurityLoggingPolicy
-      value: '"securityLogging"'
-      go_type: string
-    - go_name: StatusBarDisabledPolicy
-      value: '"statusBarDisabled"'
-      go_type: string
-    - go_name: UsbDataSignalingPolicy
-      value: '"usbDataSignaling"'
-      go_type: string
-    - go_name: UserControlDisabledPackagesPolicy
-      value: '"userControlDisabledPackages"'
-      go_type: string
-    - go_name: Undefined
-      value: '"UNDEFINED"'
-      go_type: string
     - go_name: HeadlessDeviceOwnerModeAffiliated
       value: "1"
       go_type: int
@@ -4349,30 +4429,12 @@ constants:
     - go_name: UsesPolicyWipeData
       value: "4"
       go_type: int
-    - go_name: TypeInstallAutomatic
-      value: "1"
-      go_type: int
-    - go_name: TypeInstallWindowed
-      value: "2"
-      go_type: int
-    - go_name: TypePostpone
+    - go_name: PackagePolicyAllowlist
       value: "3"
       go_type: int
-    - go_name: ErrorCombinedFreezePeriodTooClose
-      value: "6"
-      go_type: int
-    - go_name: ErrorCombinedFreezePeriodTooLong
-      value: "5"
-      go_type: int
-    - go_name: ErrorDuplicateOrOverlap
+    - go_name: PackagePolicyAllowlistAndSystem
       value: "2"
       go_type: int
-    - go_name: ErrorNewFreezePeriodTooClose
-      value: "4"
-      go_type: int
-    - go_name: ErrorNewFreezePeriodTooLong
-      value: "3"
-      go_type: int
-    - go_name: ErrorUnknown
+    - go_name: PackagePolicyBlocklist
       value: "1"
       go_type: int

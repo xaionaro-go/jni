@@ -5,6 +5,45 @@
 package: input
 go_import: github.com/AndroidGoLab/jni/hardware/input
 classes:
+    - java_class: android.hardware.input.HostUsiVersion
+      go_type: HostUsiVersion
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getMajorVersion
+          go_name: GetMajorVersion
+          returns: int
+          error: true
+        - java_method: getMinorVersion
+          go_name: GetMinorVersion
+          returns: int
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
     - java_class: android.hardware.input.InputManager
       go_type: Manager
       obtain: system_service
@@ -82,52 +121,13 @@ classes:
               go_name: arg0
           returns: void
           error: true
-    - java_class: android.hardware.input.HostUsiVersion
-      go_type: HostUsiVersion
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getMajorVersion
-          go_name: GetMajorVersion
-          returns: int
-          error: true
-        - java_method: getMinorVersion
-          go_name: GetMinorVersion
-          returns: int
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
 constants:
+    - go_name: Creator
+      value: "0"
+      go_type: int
     - go_name: ActionQueryKeyboardLayouts
       value: '"android.hardware.input.action.QUERY_KEYBOARD_LAYOUTS"'
       go_type: string
     - go_name: MetaDataKeyboardLayouts
       value: '"android.hardware.input.metadata.KEYBOARD_LAYOUTS"'
       go_type: string
-    - go_name: Creator
-      value: "0"
-      go_type: int

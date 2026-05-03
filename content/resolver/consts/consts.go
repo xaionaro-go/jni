@@ -3,11 +3,8 @@
 package consts
 
 const (
-	FieldTypeBlob                  int = 4
-	FieldTypeFloat                 int = 2
-	FieldTypeInteger               int = 1
-	FieldTypeNull                  int = 0
-	FieldTypeString                int = 3
+	Creator                        int = 0
+	Empty                          int = 0
 	NotifyDelete                   int = 16
 	NotifyInsert                   int = 4
 	NotifySkipNotifyForDescendants int = 2
@@ -18,8 +15,11 @@ const (
 	SyncObserverTypeActive         int = 4
 	SyncObserverTypePending        int = 2
 	SyncObserverTypeSettings       int = 1
-	Creator                        int = 0
-	Empty                          int = 0
+	FieldTypeBlob                  int = 4
+	FieldTypeFloat                 int = 2
+	FieldTypeInteger               int = 1
+	FieldTypeNull                  int = 0
+	FieldTypeString                int = 3
 )
 
 const (

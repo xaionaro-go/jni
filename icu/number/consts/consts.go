@@ -3,18 +3,8 @@
 package consts
 
 const (
-	All                        int = 0
-	Auto                       int = 0
-	None                       int = 0
-	Unit                       int = 0
-	Approximately              int = 0
-	ApproximatelyOrSingleValue int = 0
-	Range                      int = 0
-	SingleValue                int = 0
-	EqualAfterRounding         int = 0
-	EqualBeforeRounding        int = 0
-	NotEqual                   int = 0
 	Always                     int = 0
+	Auto                       int = 0
 	Min2                       int = 0
 	Off                        int = 0
 	OnAligned                  int = 0
@@ -36,4 +26,14 @@ const (
 	Narrow                     int = 0
 	Short                      int = 0
 	Variant                    int = 0
+	All                        int = 0
+	None                       int = 0
+	Unit                       int = 0
+	Approximately              int = 0
+	ApproximatelyOrSingleValue int = 0
+	Range                      int = 0
+	SingleValue                int = 0
+	EqualAfterRounding         int = 0
+	EqualBeforeRounding        int = 0
+	NotEqual                   int = 0
 )

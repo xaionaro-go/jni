@@ -5,188 +5,6 @@
 package: appwidget
 go_import: github.com/AndroidGoLab/jni/appwidget
 classes:
-    - java_class: android.appwidget.AppWidgetProvider
-      go_type: AppWidgetProvider
-      obtain: constructor
-      methods:
-        - java_method: onAppWidgetOptionsChanged
-          go_name: OnAppWidgetOptionsChanged
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.appwidget.AppWidgetManager
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: android.os.Bundle
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: onDeleted
-          go_name: OnDeleted
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: '[I'
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onDisabled
-          go_name: OnDisabled
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onEnabled
-          go_name: OnEnabled
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onReceive
-          go_name: OnReceive
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.content.Intent
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onRestored
-          go_name: OnRestored
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: '[I'
-              go_name: arg1
-            - java_type: '[I'
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: onUpdate
-          go_name: OnUpdate
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.appwidget.AppWidgetManager
-              go_name: arg1
-            - java_type: '[I'
-              go_name: arg2
-          returns: void
-          error: true
-    - java_class: android.appwidget.AppWidgetHostView
-      go_type: AppWidgetHostView
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-      methods:
-        - java_method: generateLayoutParams
-          go_name: GenerateLayoutParams1
-          params:
-            - java_type: android.util.AttributeSet
-              go_name: arg0
-          returns: android.widget.FrameLayout$LayoutParams
-          error: true
-        - java_method: getAppWidgetId
-          go_name: GetAppWidgetId
-          returns: int
-          error: true
-        - java_method: getAppWidgetInfo
-          go_name: GetAppWidgetInfo
-          returns: android.appwidget.AppWidgetProviderInfo
-          error: true
-        - java_method: onWindowFocusChanged
-          go_name: OnWindowFocusChanged
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: resetColorResources
-          go_name: ResetColorResources
-          returns: void
-          error: true
-        - java_method: setAppWidget
-          go_name: SetAppWidget
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.appwidget.AppWidgetProviderInfo
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: setColorResources
-          go_name: SetColorResources
-          params:
-            - java_type: android.util.SparseIntArray
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setExecutor
-          go_name: SetExecutor
-          params:
-            - java_type: java.util.concurrent.Executor
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setOnLightBackground
-          go_name: SetOnLightBackground
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: updateAppWidget
-          go_name: UpdateAppWidget
-          params:
-            - java_type: android.widget.RemoteViews
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: updateAppWidgetOptions
-          go_name: UpdateAppWidgetOptions
-          params:
-            - java_type: android.os.Bundle
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: updateAppWidgetSize
-          go_name: UpdateAppWidgetSize
-          params:
-            - java_type: android.os.Bundle
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-            - java_type: int
-              go_name: arg4
-          returns: void
-          error: true
-        - java_method: generateLayoutParams
-          go_name: GenerateLayoutParams1_1
-          params:
-            - java_type: android.util.AttributeSet
-              go_name: arg0
-          returns: android.view.ViewGroup$LayoutParams
-          error: true
-      static_methods:
-        - java_method: getDefaultPaddingForWidget
-          go_name: GetDefaultPaddingForWidget
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: android.content.ComponentName
-              go_name: arg1
-            - java_type: android.graphics.Rect
-              go_name: arg2
-          returns: android.graphics.Rect
-          error: true
     - java_class: android.appwidget.AppWidgetHost
       go_type: AppWidgetHost
       obtain: constructor
@@ -475,6 +293,188 @@ classes:
             - java_type: android.content.Context
               go_name: arg0
           returns: android.appwidget.AppWidgetManager
+          error: true
+    - java_class: android.appwidget.AppWidgetHostView
+      go_type: AppWidgetHostView
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+      methods:
+        - java_method: generateLayoutParams
+          go_name: GenerateLayoutParams1
+          params:
+            - java_type: android.util.AttributeSet
+              go_name: arg0
+          returns: android.widget.FrameLayout$LayoutParams
+          error: true
+        - java_method: getAppWidgetId
+          go_name: GetAppWidgetId
+          returns: int
+          error: true
+        - java_method: getAppWidgetInfo
+          go_name: GetAppWidgetInfo
+          returns: android.appwidget.AppWidgetProviderInfo
+          error: true
+        - java_method: onWindowFocusChanged
+          go_name: OnWindowFocusChanged
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: resetColorResources
+          go_name: ResetColorResources
+          returns: void
+          error: true
+        - java_method: setAppWidget
+          go_name: SetAppWidget
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: android.appwidget.AppWidgetProviderInfo
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: setColorResources
+          go_name: SetColorResources
+          params:
+            - java_type: android.util.SparseIntArray
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setExecutor
+          go_name: SetExecutor
+          params:
+            - java_type: java.util.concurrent.Executor
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setOnLightBackground
+          go_name: SetOnLightBackground
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: updateAppWidget
+          go_name: UpdateAppWidget
+          params:
+            - java_type: android.widget.RemoteViews
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: updateAppWidgetOptions
+          go_name: UpdateAppWidgetOptions
+          params:
+            - java_type: android.os.Bundle
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: updateAppWidgetSize
+          go_name: UpdateAppWidgetSize
+          params:
+            - java_type: android.os.Bundle
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+            - java_type: int
+              go_name: arg4
+          returns: void
+          error: true
+        - java_method: generateLayoutParams
+          go_name: GenerateLayoutParams1_1
+          params:
+            - java_type: android.util.AttributeSet
+              go_name: arg0
+          returns: android.view.ViewGroup$LayoutParams
+          error: true
+      static_methods:
+        - java_method: getDefaultPaddingForWidget
+          go_name: GetDefaultPaddingForWidget
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.content.ComponentName
+              go_name: arg1
+            - java_type: android.graphics.Rect
+              go_name: arg2
+          returns: android.graphics.Rect
+          error: true
+    - java_class: android.appwidget.AppWidgetProvider
+      go_type: AppWidgetProvider
+      obtain: constructor
+      methods:
+        - java_method: onAppWidgetOptionsChanged
+          go_name: OnAppWidgetOptionsChanged
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.appwidget.AppWidgetManager
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: android.os.Bundle
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: onDeleted
+          go_name: OnDeleted
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: '[I'
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onDisabled
+          go_name: OnDisabled
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onEnabled
+          go_name: OnEnabled
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onReceive
+          go_name: OnReceive
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.content.Intent
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onRestored
+          go_name: OnRestored
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: '[I'
+              go_name: arg1
+            - java_type: '[I'
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: onUpdate
+          go_name: OnUpdate
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: android.appwidget.AppWidgetManager
+              go_name: arg1
+            - java_type: '[I'
+              go_name: arg2
+          returns: void
           error: true
     - java_class: android.appwidget.AppWidgetProviderInfo
       go_type: AppWidgetProviderInfo

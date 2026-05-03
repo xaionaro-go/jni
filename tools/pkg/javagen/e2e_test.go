@@ -47,8 +47,15 @@ func TestAllJavaSpecs_LoadAndMerge(t *testing.T) {
 
 	t.Logf("found %d spec files", len(specs))
 
-	if len(specs) != 238 {
-		t.Errorf("expected 238 spec files, got %d", len(specs))
+	// The exact spec count grows with each cycle that adds AAR-sourced
+	// classes. The magic number is updated alongside the regeneration so
+	// drift in the spec corpus is visible in code review. Cycle 7 expanded
+	// the corpus to 425 (cycle 6 baseline 238 + ~187 specs walked from
+	// AAR classes.jars under .aar-cache/extracted, minus kotlin/jetbrains
+	// runtime entries excluded by DefaultJarSkipPrefixes).
+	const expectedSpecCount = 425
+	if len(specs) != expectedSpecCount {
+		t.Errorf("expected %d spec files, got %d", expectedSpecCount, len(specs))
 	}
 
 	for _, specPath := range specs {

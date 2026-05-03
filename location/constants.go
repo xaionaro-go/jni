@@ -6,6 +6,9 @@ import "github.com/AndroidGoLab/jni/location/consts"
 
 const (
 	Creator                       = consts.Creator
+	FormatDegrees                 = consts.FormatDegrees
+	FormatMinutes                 = consts.FormatMinutes
+	FormatSeconds                 = consts.FormatSeconds
 	StatusParityPassed            = consts.StatusParityPassed
 	StatusParityRebuilt           = consts.StatusParityRebuilt
 	StatusUnknown                 = consts.StatusUnknown
@@ -29,27 +32,15 @@ const (
 	StatusLocationDisabled        = consts.StatusLocationDisabled
 	StatusNotSupported            = consts.StatusNotSupported
 	StatusReady                   = consts.StatusReady
-	Available                     = consts.Available
-	OutOfService                  = consts.OutOfService
-	TemporarilyUnavailable        = consts.TemporarilyUnavailable
-	AccuracyCoarse                = consts.AccuracyCoarse
-	AccuracyFine                  = consts.AccuracyFine
-	AccuracyHigh                  = consts.AccuracyHigh
-	AccuracyLow                   = consts.AccuracyLow
-	AccuracyMedium                = consts.AccuracyMedium
-	NoRequirement                 = consts.NoRequirement
-	PowerHigh                     = consts.PowerHigh
-	PowerLow                      = consts.PowerLow
-	PowerMedium                   = consts.PowerMedium
-	PassiveInterval               = consts.PassiveInterval
-	FormatDegrees                 = consts.FormatDegrees
-	FormatMinutes                 = consts.FormatMinutes
-	FormatSeconds                 = consts.FormatSeconds
-	StatusNotAllowed              = consts.StatusNotAllowed
 	GpsEventFirstFix              = consts.GpsEventFirstFix
 	GpsEventSatelliteStatus       = consts.GpsEventSatelliteStatus
 	GpsEventStarted               = consts.GpsEventStarted
 	GpsEventStopped               = consts.GpsEventStopped
+	PassiveInterval               = consts.PassiveInterval
+	StatusNotAllowed              = consts.StatusNotAllowed
+	Available                     = consts.Available
+	OutOfService                  = consts.OutOfService
+	TemporarilyUnavailable        = consts.TemporarilyUnavailable
 	ConstellationBeidou           = consts.ConstellationBeidou
 	ConstellationGalileo          = consts.ConstellationGalileo
 	ConstellationGlonass          = consts.ConstellationGlonass
@@ -85,15 +76,28 @@ const (
 	StateTowDecoded               = consts.StateTowDecoded
 	StateTowKnown                 = consts.StateTowKnown
 	StateUnknown                  = consts.StateUnknown
-	CapabilitySupported           = consts.CapabilitySupported
-	CapabilityUnknown             = consts.CapabilityUnknown
-	CapabilityUnsupported         = consts.CapabilityUnsupported
 	QualityBalancedPowerAccuracy  = consts.QualityBalancedPowerAccuracy
 	QualityHighAccuracy           = consts.QualityHighAccuracy
 	QualityLowPower               = consts.QualityLowPower
+	CapabilitySupported           = consts.CapabilitySupported
+	CapabilityUnknown             = consts.CapabilityUnknown
+	CapabilityUnsupported         = consts.CapabilityUnsupported
+	AccuracyCoarse                = consts.AccuracyCoarse
+	AccuracyFine                  = consts.AccuracyFine
+	AccuracyHigh                  = consts.AccuracyHigh
+	AccuracyLow                   = consts.AccuracyLow
+	AccuracyMedium                = consts.AccuracyMedium
+	NoRequirement                 = consts.NoRequirement
+	PowerHigh                     = consts.PowerHigh
+	PowerLow                      = consts.PowerLow
+	PowerMedium                   = consts.PowerMedium
 )
 
 const (
+	ActionInjectedSettingChanged  = consts.ActionInjectedSettingChanged
+	ActionServiceIntent           = consts.ActionServiceIntent
+	AttributesName                = consts.AttributesName
+	MetaDataName                  = consts.MetaDataName
 	ActionGnssCapabilitiesChanged = consts.ActionGnssCapabilitiesChanged
 	ExtraGnssCapabilities         = consts.ExtraGnssCapabilities
 	ExtraLocationEnabled          = consts.ExtraLocationEnabled
@@ -111,8 +115,4 @@ const (
 	NetworkProvider               = consts.NetworkProvider
 	PassiveProvider               = consts.PassiveProvider
 	ProvidersChangedAction        = consts.ProvidersChangedAction
-	ActionInjectedSettingChanged  = consts.ActionInjectedSettingChanged
-	ActionServiceIntent           = consts.ActionServiceIntent
-	AttributesName                = consts.AttributesName
-	MetaDataName                  = consts.MetaDataName
 )

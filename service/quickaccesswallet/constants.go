@@ -6,10 +6,10 @@ import "github.com/AndroidGoLab/jni/service/quickaccesswallet/consts"
 
 const (
 	Creator               = consts.Creator
+	TypeNfcPaymentStarted = consts.TypeNfcPaymentStarted
 	CardTypeNonPayment    = consts.CardTypeNonPayment
 	CardTypePayment       = consts.CardTypePayment
 	CardTypeUnknown       = consts.CardTypeUnknown
-	TypeNfcPaymentStarted = consts.TypeNfcPaymentStarted
 )
 
 const (

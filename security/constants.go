@@ -5,19 +5,6 @@ package security
 import "github.com/AndroidGoLab/jni/security/consts"
 
 const (
-	ActionKeychainChanged   = consts.ActionKeychainChanged
-	ActionKeyAccessChanged  = consts.ActionKeyAccessChanged
-	ActionStorageChanged    = consts.ActionStorageChanged
-	ActionTrustStoreChanged = consts.ActionTrustStoreChanged
-	ExtraCertificate        = consts.ExtraCertificate
-	ExtraKeyAccessible      = consts.ExtraKeyAccessible
-	ExtraKeyAlias           = consts.ExtraKeyAlias
-	ExtraName               = consts.ExtraName
-	ExtraPkcs12             = consts.ExtraPkcs12
-	KeyAliasSelectionDenied = consts.KeyAliasSelectionDenied
-)
-
-const (
 	ErrorAttestationChallengeTooLarge = consts.ErrorAttestationChallengeTooLarge
 	ErrorAttestationKeysUnavailable   = consts.ErrorAttestationKeysUnavailable
 	ErrorIdAttestationFailure         = consts.ErrorIdAttestationFailure
@@ -39,4 +26,17 @@ const (
 	RetryWhenConnectivityAvailable    = consts.RetryWhenConnectivityAvailable
 	RetryWithExponentialBackoff       = consts.RetryWithExponentialBackoff
 	Creator                           = consts.Creator
+)
+
+const (
+	ActionKeychainChanged   = consts.ActionKeychainChanged
+	ActionKeyAccessChanged  = consts.ActionKeyAccessChanged
+	ActionStorageChanged    = consts.ActionStorageChanged
+	ActionTrustStoreChanged = consts.ActionTrustStoreChanged
+	ExtraCertificate        = consts.ExtraCertificate
+	ExtraKeyAccessible      = consts.ExtraKeyAccessible
+	ExtraKeyAlias           = consts.ExtraKeyAlias
+	ExtraName               = consts.ExtraName
+	ExtraPkcs12             = consts.ExtraPkcs12
+	KeyAliasSelectionDenied = consts.KeyAliasSelectionDenied
 )

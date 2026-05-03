@@ -5,41 +5,6 @@
 package: preferences
 go_import: github.com/AndroidGoLab/jni/service/settings/preferences
 classes:
-    - java_class: android.service.settings.preferences.SetValueRequest
-      go_type: SetValueRequest
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getPreferenceKey
-          go_name: GetPreferenceKey
-          returns: String
-          error: true
-        - java_method: getPreferenceValue
-          go_name: GetPreferenceValue
-          returns: android.service.settings.preferences.SettingsPreferenceValue
-          error: true
-        - java_method: getScreenKey
-          go_name: GetScreenKey
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.service.settings.preferences.SetValueRequest$Builder
-      go_type: SetValueRequestBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.service.settings.preferences.SetValueRequest
-          error: true
     - java_class: android.service.settings.preferences.GetValueRequest
       go_type: GetValueRequest
       methods:
@@ -71,35 +36,32 @@ classes:
           go_name: Build
           returns: android.service.settings.preferences.GetValueRequest
           error: true
-    - java_class: android.service.settings.preferences.SettingsPreferenceValue
-      go_type: SettingsPreferenceValue
+    - java_class: android.service.settings.preferences.SettingsPreferenceServiceClient
+      go_type: SettingsPreferenceServiceClient
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+        - java_type: String
+          go_name: arg1
+        - java_type: java.util.concurrent.Executor
+          go_name: arg2
+        - java_type: android.os.OutcomeReceiver<android.service.settings.preferences.SettingsPreferenceServiceClient, java.lang.Exception>
+          go_name: arg3
+      methods:
+        - java_method: close
+          go_name: Close
+          returns: void
+          error: true
+    - java_class: android.service.settings.preferences.SetValueResult
+      go_type: SetValueResult
       methods:
         - java_method: describeContents
           go_name: DescribeContents
           returns: int
           error: true
-        - java_method: getBooleanValue
-          go_name: GetBooleanValue
-          returns: boolean
-          error: true
-        - java_method: getDoubleValue
-          go_name: GetDoubleValue
-          returns: double
-          error: true
-        - java_method: getIntValue
-          go_name: GetIntValue
-          returns: int
-          error: true
-        - java_method: getLongValue
-          go_name: GetLongValue
-          returns: long
-          error: true
-        - java_method: getStringValue
-          go_name: GetStringValue
-          returns: String
-          error: true
-        - java_method: getType
-          go_name: GetType
+        - java_method: getResultCode
+          go_name: GetResultCode
           returns: int
           error: true
         - java_method: writeToParcel
@@ -111,47 +73,12 @@ classes:
               go_name: arg1
           returns: void
           error: true
-    - java_class: android.service.settings.preferences.SettingsPreferenceValue$Builder
-      go_type: SettingsPreferenceValueBuilder
+    - java_class: android.service.settings.preferences.SetValueResult$Builder
+      go_type: SetValueResultBuilder
       methods:
         - java_method: build
           go_name: Build
-          returns: android.service.settings.preferences.SettingsPreferenceValue
-          error: true
-        - java_method: setBooleanValue
-          go_name: SetBooleanValue
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.service.settings.preferences.SettingsPreferenceValue$Builder
-          error: true
-        - java_method: setDoubleValue
-          go_name: SetDoubleValue
-          params:
-            - java_type: double
-              go_name: arg0
-          returns: android.service.settings.preferences.SettingsPreferenceValue$Builder
-          error: true
-        - java_method: setIntValue
-          go_name: SetIntValue
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.service.settings.preferences.SettingsPreferenceValue$Builder
-          error: true
-        - java_method: setLongValue
-          go_name: SetLongValue
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: android.service.settings.preferences.SettingsPreferenceValue$Builder
-          error: true
-        - java_method: setStringValue
-          go_name: SetStringValue
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.service.settings.preferences.SettingsPreferenceValue$Builder
+          returns: android.service.settings.preferences.SetValueResult
           error: true
     - java_class: android.service.settings.preferences.SettingsPreferenceMetadata
       go_type: SettingsPreferenceMetadata
@@ -291,6 +218,129 @@ classes:
               go_name: arg0
           returns: android.service.settings.preferences.SettingsPreferenceMetadata$Builder
           error: true
+    - java_class: android.service.settings.preferences.MetadataResult
+      go_type: MetadataResult
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getMetadataList
+          go_name: GetMetadataList
+          returns: java.util.List<android.service.settings.preferences.SettingsPreferenceMetadata>
+          error: true
+        - java_method: getResultCode
+          go_name: GetResultCode
+          returns: int
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.service.settings.preferences.MetadataResult$Builder
+      go_type: MetadataResultBuilder
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.service.settings.preferences.MetadataResult
+          error: true
+    - java_class: android.service.settings.preferences.SettingsPreferenceValue
+      go_type: SettingsPreferenceValue
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getBooleanValue
+          go_name: GetBooleanValue
+          returns: boolean
+          error: true
+        - java_method: getDoubleValue
+          go_name: GetDoubleValue
+          returns: double
+          error: true
+        - java_method: getIntValue
+          go_name: GetIntValue
+          returns: int
+          error: true
+        - java_method: getLongValue
+          go_name: GetLongValue
+          returns: long
+          error: true
+        - java_method: getStringValue
+          go_name: GetStringValue
+          returns: String
+          error: true
+        - java_method: getType
+          go_name: GetType
+          returns: int
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.service.settings.preferences.SettingsPreferenceValue$Builder
+      go_type: SettingsPreferenceValueBuilder
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.service.settings.preferences.SettingsPreferenceValue
+          error: true
+        - java_method: setBooleanValue
+          go_name: SetBooleanValue
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.service.settings.preferences.SettingsPreferenceValue$Builder
+          error: true
+        - java_method: setDoubleValue
+          go_name: SetDoubleValue
+          params:
+            - java_type: double
+              go_name: arg0
+          returns: android.service.settings.preferences.SettingsPreferenceValue$Builder
+          error: true
+        - java_method: setIntValue
+          go_name: SetIntValue
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.service.settings.preferences.SettingsPreferenceValue$Builder
+          error: true
+        - java_method: setLongValue
+          go_name: SetLongValue
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: android.service.settings.preferences.SettingsPreferenceValue$Builder
+          error: true
+        - java_method: setStringValue
+          go_name: SetStringValue
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.service.settings.preferences.SettingsPreferenceValue$Builder
+          error: true
+    - java_class: android.service.settings.preferences.SettingsPreferenceService
+      go_type: SettingsPreferenceService
+      methods:
+        - java_method: onBind
+          go_name: OnBind
+          params:
+            - java_type: android.content.Intent
+              go_name: arg0
+          returns: android.os.IBinder
+          error: true
     - java_class: android.service.settings.preferences.MetadataRequest
       go_type: MetadataRequest
       methods:
@@ -314,16 +364,24 @@ classes:
           go_name: Build
           returns: android.service.settings.preferences.MetadataRequest
           error: true
-    - java_class: android.service.settings.preferences.SetValueResult
-      go_type: SetValueResult
+    - java_class: android.service.settings.preferences.SetValueRequest
+      go_type: SetValueRequest
       methods:
         - java_method: describeContents
           go_name: DescribeContents
           returns: int
           error: true
-        - java_method: getResultCode
-          go_name: GetResultCode
-          returns: int
+        - java_method: getPreferenceKey
+          go_name: GetPreferenceKey
+          returns: String
+          error: true
+        - java_method: getPreferenceValue
+          go_name: GetPreferenceValue
+          returns: android.service.settings.preferences.SettingsPreferenceValue
+          error: true
+        - java_method: getScreenKey
+          go_name: GetScreenKey
+          returns: String
           error: true
         - java_method: writeToParcel
           go_name: WriteToParcel
@@ -334,12 +392,12 @@ classes:
               go_name: arg1
           returns: void
           error: true
-    - java_class: android.service.settings.preferences.SetValueResult$Builder
-      go_type: SetValueResultBuilder
+    - java_class: android.service.settings.preferences.SetValueRequest$Builder
+      go_type: SetValueRequestBuilder
       methods:
         - java_method: build
           go_name: Build
-          returns: android.service.settings.preferences.SetValueResult
+          returns: android.service.settings.preferences.SetValueRequest
           error: true
     - java_class: android.service.settings.preferences.GetValueResult
       go_type: GetValueResult
@@ -390,93 +448,17 @@ classes:
               go_name: arg0
           returns: android.service.settings.preferences.GetValueResult$Builder
           error: true
-    - java_class: android.service.settings.preferences.MetadataResult
-      go_type: MetadataResult
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getMetadataList
-          go_name: GetMetadataList
-          returns: java.util.List<android.service.settings.preferences.SettingsPreferenceMetadata>
-          error: true
-        - java_method: getResultCode
-          go_name: GetResultCode
-          returns: int
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.service.settings.preferences.MetadataResult$Builder
-      go_type: MetadataResultBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.service.settings.preferences.MetadataResult
-          error: true
-    - java_class: android.service.settings.preferences.SettingsPreferenceServiceClient
-      go_type: SettingsPreferenceServiceClient
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-        - java_type: String
-          go_name: arg1
-        - java_type: java.util.concurrent.Executor
-          go_name: arg2
-        - java_type: android.os.OutcomeReceiver<android.service.settings.preferences.SettingsPreferenceServiceClient, java.lang.Exception>
-          go_name: arg3
-      methods:
-        - java_method: close
-          go_name: Close
-          returns: void
-          error: true
+abstract_callbacks:
     - java_class: android.service.settings.preferences.SettingsPreferenceService
-      go_type: SettingsPreferenceService
+      go_type: SettingsPreferenceServiceCallback
       methods:
         - java_method: onBind
-          go_name: OnBind
           params:
-            - java_type: android.content.Intent
-              go_name: arg0
+            - android.content.Intent
           returns: android.os.IBinder
-          error: true
+          go_field: OnBind
 constants:
     - go_name: Creator
-      value: "0"
-      go_type: int
-    - go_name: TypeBoolean
-      value: "0"
-      go_type: int
-    - go_name: TypeDouble
-      value: "2"
-      go_type: int
-    - go_name: TypeInt
-      value: "4"
-      go_type: int
-    - go_name: TypeLong
-      value: "1"
-      go_type: int
-    - go_name: TypeString
-      value: "3"
-      go_type: int
-    - go_name: DeeplinkOnly
-      value: "2"
-      go_type: int
-    - go_name: ExpectPostConfirmation
-      value: "1"
-      go_type: int
-    - go_name: NoDirectAccess
-      value: "3"
-      go_type: int
-    - go_name: NoSensitivity
       value: "0"
       go_type: int
     - go_name: ResultDisabled
@@ -508,6 +490,33 @@ constants:
       go_type: int
     - go_name: ResultUnsupported
       value: "1"
+      go_type: int
+    - go_name: DeeplinkOnly
+      value: "2"
+      go_type: int
+    - go_name: ExpectPostConfirmation
+      value: "1"
+      go_type: int
+    - go_name: NoDirectAccess
+      value: "3"
+      go_type: int
+    - go_name: NoSensitivity
+      value: "0"
+      go_type: int
+    - go_name: TypeBoolean
+      value: "0"
+      go_type: int
+    - go_name: TypeDouble
+      value: "2"
+      go_type: int
+    - go_name: TypeInt
+      value: "4"
+      go_type: int
+    - go_name: TypeLong
+      value: "1"
+      go_type: int
+    - go_name: TypeString
+      value: "3"
       go_type: int
     - go_name: ActionPreferenceService
       value: '"android.service.settings.preferences.action.PREFERENCE_SERVICE"'

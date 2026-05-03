@@ -5,11 +5,8 @@ package resolver
 import "github.com/AndroidGoLab/jni/content/resolver/consts"
 
 const (
-	FieldTypeBlob                  = consts.FieldTypeBlob
-	FieldTypeFloat                 = consts.FieldTypeFloat
-	FieldTypeInteger               = consts.FieldTypeInteger
-	FieldTypeNull                  = consts.FieldTypeNull
-	FieldTypeString                = consts.FieldTypeString
+	Creator                        = consts.Creator
+	Empty                          = consts.Empty
 	NotifyDelete                   = consts.NotifyDelete
 	NotifyInsert                   = consts.NotifyInsert
 	NotifySkipNotifyForDescendants = consts.NotifySkipNotifyForDescendants
@@ -20,8 +17,11 @@ const (
 	SyncObserverTypeActive         = consts.SyncObserverTypeActive
 	SyncObserverTypePending        = consts.SyncObserverTypePending
 	SyncObserverTypeSettings       = consts.SyncObserverTypeSettings
-	Creator                        = consts.Creator
-	Empty                          = consts.Empty
+	FieldTypeBlob                  = consts.FieldTypeBlob
+	FieldTypeFloat                 = consts.FieldTypeFloat
+	FieldTypeInteger               = consts.FieldTypeInteger
+	FieldTypeNull                  = consts.FieldTypeNull
+	FieldTypeString                = consts.FieldTypeString
 )
 
 const (

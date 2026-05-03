@@ -23,22 +23,6 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
-    - java_class: android.media.effect.EffectContext
-      go_type: Context
-      methods:
-        - java_method: getFactory
-          go_name: GetFactory
-          returns: android.media.effect.EffectFactory
-          error: true
-        - java_method: release
-          go_name: Release
-          returns: void
-          error: true
-      static_methods:
-        - java_method: createWithCurrentGlContext
-          go_name: CreateWithCurrentGlContext
-          returns: android.media.effect.EffectContext
-          error: true
     - java_class: android.media.effect.Effect
       go_type: Effect
       methods:
@@ -91,6 +75,53 @@ classes:
               go_name: arg1
           returns: void
           error: true
+    - java_class: android.media.effect.EffectContext
+      go_type: Context
+      methods:
+        - java_method: getFactory
+          go_name: GetFactory
+          returns: android.media.effect.EffectFactory
+          error: true
+        - java_method: release
+          go_name: Release
+          returns: void
+          error: true
+      static_methods:
+        - java_method: createWithCurrentGlContext
+          go_name: CreateWithCurrentGlContext
+          returns: android.media.effect.EffectContext
+          error: true
+abstract_callbacks:
+    - java_class: android.media.effect.Effect
+      go_type: EffectCallback
+      methods:
+        - java_method: apply
+          params:
+            - int
+            - int
+            - int
+            - int
+          returns: void
+          go_field: Apply
+        - java_method: getName
+          params: []
+          returns: String
+          go_field: GetName
+        - java_method: release
+          params: []
+          returns: void
+          go_field: Release
+        - java_method: setParameter
+          params:
+            - String
+            - java.lang.Object
+          returns: void
+          go_field: SetParameter
+        - java_method: setUpdateListener
+          params:
+            - android.media.effect.EffectUpdateListener
+          returns: void
+          go_field: SetUpdateListener
 constants:
     - go_name: EffectAutofix
       value: '"android.media.effect.effects.AutoFixEffect"'

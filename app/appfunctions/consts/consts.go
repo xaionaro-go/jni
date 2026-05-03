@@ -8,6 +8,9 @@ const (
 )
 
 const (
+	AppFunctionStateDefault         int = 0
+	AppFunctionStateDisabled        int = 2
+	AppFunctionStateEnabled         int = 1
 	Creator                         int = 0
 	ErrorAppUnknownError            int = 3000
 	ErrorCancelled                  int = 2001
@@ -21,7 +24,4 @@ const (
 	ErrorFunctionNotFound           int = 1003
 	ErrorInvalidArgument            int = 1001
 	ErrorSystemError                int = 2000
-	AppFunctionStateDefault         int = 0
-	AppFunctionStateDisabled        int = 2
-	AppFunctionStateEnabled         int = 1
 )

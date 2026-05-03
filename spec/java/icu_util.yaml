@@ -5,26 +5,327 @@
 package: util
 go_import: github.com/AndroidGoLab/jni/icu/util
 classes:
-    - java_class: android.icu.util.CurrencyAmount
-      go_type: CurrencyAmount
-      obtain: constructor
-      constructor_params:
-        - java_type: double
-          go_name: arg0
-        - java_type: android.icu.util.Currency
-          go_name: arg1
+    - java_class: android.icu.util.MeasureUnit
+      go_type: MeasureUnit
       methods:
-        - java_method: getCurrency
-          go_name: GetCurrency
-          returns: android.icu.util.Currency
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
           error: true
-    - java_class: android.icu.util.IndianCalendar
-      go_type: IndianCalendar
-      obtain: constructor
-      methods:
+        - java_method: getComplexity
+          go_name: GetComplexity
+          returns: android.icu.util.MeasureUnit$Complexity
+          error: true
+        - java_method: getDimensionality
+          go_name: GetDimensionality
+          returns: int
+          error: true
+        - java_method: getIdentifier
+          go_name: GetIdentifier
+          returns: String
+          error: true
+        - java_method: getPrefix
+          go_name: GetPrefix
+          returns: android.icu.util.MeasureUnit$MeasurePrefix
+          error: true
+        - java_method: getSubtype
+          go_name: GetSubtype
+          returns: String
+          error: true
         - java_method: getType
           go_name: GetType
           returns: String
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: product
+          go_name: Product
+          params:
+            - java_type: android.icu.util.MeasureUnit
+              go_name: arg0
+          returns: android.icu.util.MeasureUnit
+          error: true
+        - java_method: reciprocal
+          go_name: Reciprocal
+          returns: android.icu.util.MeasureUnit
+          error: true
+        - java_method: splitToSingleUnits
+          go_name: SplitToSingleUnits
+          returns: java.util.List<android.icu.util.MeasureUnit>
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: withDimensionality
+          go_name: WithDimensionality
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.icu.util.MeasureUnit
+          error: true
+        - java_method: withPrefix
+          go_name: WithPrefix
+          params:
+            - java_type: android.icu.util.MeasureUnit$MeasurePrefix
+              go_name: arg0
+          returns: android.icu.util.MeasureUnit
+          error: true
+      static_methods:
+        - java_method: forIdentifier
+          go_name: ForIdentifier
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.icu.util.MeasureUnit
+          error: true
+        - java_method: getAvailable
+          go_name: GetAvailable
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: java.util.Set<android.icu.util.MeasureUnit>
+          error: true
+        - java_method: getAvailableTypes
+          go_name: GetAvailableTypes
+          returns: java.util.Set<java.lang.String>
+          error: true
+    - java_class: android.icu.util.MeasureUnit$Complexity
+      go_type: MeasureUnitComplexity
+      static_methods:
+        - java_method: values
+          go_name: Values
+          returns: android.icu.util.MeasureUnit$Complexity[]
+          error: true
+        - java_method: valueOf
+          go_name: ValueOf
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.icu.util.MeasureUnit$Complexity
+          error: true
+    - java_class: android.icu.util.MeasureUnit$MeasurePrefix
+      go_type: MeasureUnitMeasurePrefix
+      methods:
+        - java_method: getBase
+          go_name: GetBase
+          returns: int
+          error: true
+        - java_method: getPower
+          go_name: GetPower
+          returns: int
+          error: true
+      static_methods:
+        - java_method: values
+          go_name: Values
+          returns: android.icu.util.MeasureUnit$MeasurePrefix[]
+          error: true
+        - java_method: valueOf
+          go_name: ValueOf
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.icu.util.MeasureUnit$MeasurePrefix
+          error: true
+    - java_class: android.icu.util.EthiopicCalendar
+      go_type: EthiopicCalendar
+      obtain: constructor
+      methods:
+        - java_method: getTemporalMonthCode
+          go_name: GetTemporalMonthCode
+          returns: String
+          error: true
+        - java_method: getType
+          go_name: GetType
+          returns: String
+          error: true
+        - java_method: isAmeteAlemEra
+          go_name: IsAmeteAlemEra
+          returns: boolean
+          error: true
+        - java_method: setAmeteAlemEra
+          go_name: SetAmeteAlemEra
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setTemporalMonthCode
+          go_name: SetTemporalMonthCode
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.icu.util.HebrewCalendar
+      go_type: HebrewCalendar
+      obtain: constructor
+      methods:
+        - java_method: add
+          go_name: Add
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: getTemporalMonthCode
+          go_name: GetTemporalMonthCode
+          returns: String
+          error: true
+        - java_method: getType
+          go_name: GetType
+          returns: String
+          error: true
+        - java_method: inTemporalLeapYear
+          go_name: InTemporalLeapYear
+          returns: boolean
+          error: true
+        - java_method: roll
+          go_name: Roll
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: setTemporalMonthCode
+          go_name: SetTemporalMonthCode
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.icu.util.GregorianCalendar
+      go_type: GregorianCalendar
+      obtain: constructor
+      methods:
+        - java_method: getActualMaximum
+          go_name: GetActualMaximum
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getActualMinimum
+          go_name: GetActualMinimum
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getGregorianChange
+          go_name: GetGregorianChange
+          returns: java.util.Date
+          error: true
+        - java_method: getType
+          go_name: GetType
+          returns: String
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: isEquivalentTo
+          go_name: IsEquivalentTo
+          params:
+            - java_type: android.icu.util.Calendar
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: isLeapYear
+          go_name: IsLeapYear
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: roll
+          go_name: Roll
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: setGregorianChange
+          go_name: SetGregorianChange
+          params:
+            - java_type: java.util.Date
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.icu.util.LocaleData
+      go_type: LocaleData
+      methods:
+        - java_method: getDelimiter
+          go_name: GetDelimiter
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: String
+          error: true
+        - java_method: getNoSubstitute
+          go_name: GetNoSubstitute
+          returns: boolean
+          error: true
+        - java_method: setNoSubstitute
+          go_name: SetNoSubstitute
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+      static_methods:
+        - java_method: getCLDRVersion
+          go_name: GetCLDRVersion
+          returns: android.icu.util.VersionInfo
+          error: true
+        - java_method: getInstance
+          go_name: GetInstance0
+          returns: android.icu.util.LocaleData
+          error: true
+        - java_method: getInstance
+          go_name: GetInstance1_1
+          params:
+            - java_type: android.icu.util.ULocale
+              go_name: arg0
+          returns: android.icu.util.LocaleData
+          error: true
+        - java_method: getMeasurementSystem
+          go_name: GetMeasurementSystem
+          params:
+            - java_type: android.icu.util.ULocale
+              go_name: arg0
+          returns: android.icu.util.LocaleData$MeasurementSystem
+          error: true
+        - java_method: getPaperSize
+          go_name: GetPaperSize
+          params:
+            - java_type: android.icu.util.ULocale
+              go_name: arg0
+          returns: android.icu.util.LocaleData$PaperSize
+          error: true
+    - java_class: android.icu.util.LocaleData$MeasurementSystem
+      go_type: LocaleDataMeasurementSystem
+    - java_class: android.icu.util.LocaleData$PaperSize
+      go_type: LocaleDataPaperSize
+      methods:
+        - java_method: getHeight
+          go_name: GetHeight
+          returns: int
+          error: true
+        - java_method: getWidth
+          go_name: GetWidth
+          returns: int
           error: true
     - java_class: android.icu.util.Output
       go_type: Output
@@ -41,6 +342,141 @@ classes:
         - java_method: getErrorIndex
           go_name: GetErrorIndex
           returns: int
+          error: true
+    - java_class: android.icu.util.ChineseCalendar
+      go_type: ChineseCalendar
+      obtain: constructor
+      methods:
+        - java_method: add
+          go_name: Add
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: getTemporalMonthCode
+          go_name: GetTemporalMonthCode
+          returns: String
+          error: true
+        - java_method: getType
+          go_name: GetType
+          returns: String
+          error: true
+        - java_method: inTemporalLeapYear
+          go_name: InTemporalLeapYear
+          returns: boolean
+          error: true
+        - java_method: roll
+          go_name: Roll
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: setTemporalMonthCode
+          go_name: SetTemporalMonthCode
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.icu.util.CopticCalendar
+      go_type: CopticCalendar
+      obtain: constructor
+      methods:
+        - java_method: getTemporalMonthCode
+          go_name: GetTemporalMonthCode
+          returns: String
+          error: true
+        - java_method: getType
+          go_name: GetType
+          returns: String
+          error: true
+        - java_method: setTemporalMonthCode
+          go_name: SetTemporalMonthCode
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.icu.util.UniversalTimeScale
+      go_type: UniversalTimeScale
+      static_methods:
+        - java_method: bigDecimalFrom
+          go_name: BigDecimalFrom2
+          params:
+            - java_type: android.icu.math.BigDecimal
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: android.icu.math.BigDecimal
+          error: true
+        - java_method: bigDecimalFrom
+          go_name: BigDecimalFrom2_1
+          params:
+            - java_type: double
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: android.icu.math.BigDecimal
+          error: true
+        - java_method: bigDecimalFrom
+          go_name: BigDecimalFrom2_2
+          params:
+            - java_type: long
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: android.icu.math.BigDecimal
+          error: true
+        - java_method: from
+          go_name: From
+          params:
+            - java_type: long
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: long
+          error: true
+        - java_method: getTimeScaleValue
+          go_name: GetTimeScaleValue
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: long
+          error: true
+        - java_method: toBigDecimal
+          go_name: ToBigDecimal2
+          params:
+            - java_type: android.icu.math.BigDecimal
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: android.icu.math.BigDecimal
+          error: true
+        - java_method: toBigDecimal
+          go_name: ToBigDecimal2_1
+          params:
+            - java_type: long
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: android.icu.math.BigDecimal
+          error: true
+        - java_method: toLong
+          go_name: ToLong
+          params:
+            - java_type: long
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: long
           error: true
     - java_class: android.icu.util.VersionInfo
       go_type: VersionInfo
@@ -137,6 +573,75 @@ classes:
             - java_type: String
               go_name: arg0
           returns: android.icu.util.VersionInfo
+          error: true
+    - java_class: android.icu.util.Measure
+      go_type: Measure
+      obtain: constructor
+      constructor_params:
+        - java_type: java.lang.Number
+          go_name: arg0
+        - java_type: android.icu.util.MeasureUnit
+          go_name: arg1
+      methods:
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getNumber
+          go_name: GetNumber
+          returns: java.lang.Number
+          error: true
+        - java_method: getUnit
+          go_name: GetUnit
+          returns: android.icu.util.MeasureUnit
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+    - java_class: android.icu.util.IslamicCalendar
+      go_type: IslamicCalendar
+      obtain: constructor
+      methods:
+        - java_method: getCalculationType
+          go_name: GetCalculationType
+          returns: android.icu.util.IslamicCalendar$CalculationType
+          error: true
+        - java_method: getType
+          go_name: GetType
+          returns: String
+          error: true
+        - java_method: inTemporalLeapYear
+          go_name: InTemporalLeapYear
+          returns: boolean
+          error: true
+        - java_method: setCalculationType
+          go_name: SetCalculationType
+          params:
+            - java_type: android.icu.util.IslamicCalendar$CalculationType
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.icu.util.IslamicCalendar$CalculationType
+      go_type: IslamicCalendarCalculationType
+      static_methods:
+        - java_method: values
+          go_name: Values
+          returns: android.icu.util.IslamicCalendar$CalculationType[]
+          error: true
+        - java_method: valueOf
+          go_name: ValueOf
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.icu.util.IslamicCalendar$CalculationType
           error: true
     - java_class: android.icu.util.Calendar
       go_type: Calendar
@@ -603,152 +1108,6 @@ classes:
           go_name: ToString
           returns: String
           error: true
-    - java_class: android.icu.util.MeasureUnit
-      go_type: MeasureUnit
-      methods:
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getComplexity
-          go_name: GetComplexity
-          returns: android.icu.util.MeasureUnit$Complexity
-          error: true
-        - java_method: getDimensionality
-          go_name: GetDimensionality
-          returns: int
-          error: true
-        - java_method: getIdentifier
-          go_name: GetIdentifier
-          returns: String
-          error: true
-        - java_method: getPrefix
-          go_name: GetPrefix
-          returns: android.icu.util.MeasureUnit$MeasurePrefix
-          error: true
-        - java_method: getSubtype
-          go_name: GetSubtype
-          returns: String
-          error: true
-        - java_method: getType
-          go_name: GetType
-          returns: String
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: product
-          go_name: Product
-          params:
-            - java_type: android.icu.util.MeasureUnit
-              go_name: arg0
-          returns: android.icu.util.MeasureUnit
-          error: true
-        - java_method: reciprocal
-          go_name: Reciprocal
-          returns: android.icu.util.MeasureUnit
-          error: true
-        - java_method: splitToSingleUnits
-          go_name: SplitToSingleUnits
-          returns: java.util.List<android.icu.util.MeasureUnit>
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: withDimensionality
-          go_name: WithDimensionality
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.icu.util.MeasureUnit
-          error: true
-        - java_method: withPrefix
-          go_name: WithPrefix
-          params:
-            - java_type: android.icu.util.MeasureUnit$MeasurePrefix
-              go_name: arg0
-          returns: android.icu.util.MeasureUnit
-          error: true
-      static_methods:
-        - java_method: forIdentifier
-          go_name: ForIdentifier
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.icu.util.MeasureUnit
-          error: true
-        - java_method: getAvailable
-          go_name: GetAvailable
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: java.util.Set<android.icu.util.MeasureUnit>
-          error: true
-        - java_method: getAvailableTypes
-          go_name: GetAvailableTypes
-          returns: java.util.Set<java.lang.String>
-          error: true
-    - java_class: android.icu.util.MeasureUnit$Complexity
-      go_type: MeasureUnitComplexity
-      static_methods:
-        - java_method: values
-          go_name: Values
-          returns: android.icu.util.MeasureUnit$Complexity[]
-          error: true
-        - java_method: valueOf
-          go_name: ValueOf
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.icu.util.MeasureUnit$Complexity
-          error: true
-    - java_class: android.icu.util.MeasureUnit$MeasurePrefix
-      go_type: MeasureUnitMeasurePrefix
-      methods:
-        - java_method: getBase
-          go_name: GetBase
-          returns: int
-          error: true
-        - java_method: getPower
-          go_name: GetPower
-          returns: int
-          error: true
-      static_methods:
-        - java_method: values
-          go_name: Values
-          returns: android.icu.util.MeasureUnit$MeasurePrefix[]
-          error: true
-        - java_method: valueOf
-          go_name: ValueOf
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.icu.util.MeasureUnit$MeasurePrefix
-          error: true
-    - java_class: android.icu.util.CopticCalendar
-      go_type: CopticCalendar
-      obtain: constructor
-      methods:
-        - java_method: getTemporalMonthCode
-          go_name: GetTemporalMonthCode
-          returns: String
-          error: true
-        - java_method: getType
-          go_name: GetType
-          returns: String
-          error: true
-        - java_method: setTemporalMonthCode
-          go_name: SetTemporalMonthCode
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
     - java_class: android.icu.util.BuddhistCalendar
       go_type: BuddhistCalendar
       obtain: constructor
@@ -757,271 +1116,75 @@ classes:
           go_name: GetType
           returns: String
           error: true
-    - java_class: android.icu.util.ChineseCalendar
-      go_type: ChineseCalendar
+    - java_class: android.icu.util.DateInterval
+      go_type: DateInterval
       obtain: constructor
+      constructor_params:
+        - java_type: long
+          go_name: arg0
+        - java_type: long
+          go_name: arg1
       methods:
-        - java_method: add
-          go_name: Add
+        - java_method: equals
+          go_name: Equals
           params:
-            - java_type: int
+            - java_type: java.lang.Object
               go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
+          returns: boolean
           error: true
-        - java_method: getTemporalMonthCode
-          go_name: GetTemporalMonthCode
+        - java_method: getFromDate
+          go_name: GetFromDate
+          returns: long
+          error: true
+        - java_method: getToDate
+          go_name: GetToDate
+          returns: long
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
           returns: String
           error: true
+    - java_class: android.icu.util.Freezable
+      go_type: Freezable
+      methods:
+        - java_method: isFrozen
+          go_name: IsFrozen
+          returns: boolean
+          error: true
+    - java_class: android.icu.util.TaiwanCalendar
+      go_type: TaiwanCalendar
+      obtain: constructor
+      methods:
         - java_method: getType
           go_name: GetType
           returns: String
           error: true
-        - java_method: inTemporalLeapYear
-          go_name: InTemporalLeapYear
+    - java_class: android.icu.util.RangeValueIterator
+      go_type: RangeValueIterator
+      methods:
+        - java_method: next
+          go_name: Next
+          params:
+            - java_type: android.icu.util.RangeValueIterator$Element
+              go_name: arg0
           returns: boolean
           error: true
-        - java_method: roll
-          go_name: Roll
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
+        - java_method: reset
+          go_name: Reset
           returns: void
           error: true
-        - java_method: setTemporalMonthCode
-          go_name: SetTemporalMonthCode
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.icu.util.UniversalTimeScale
-      go_type: UniversalTimeScale
+    - java_class: android.icu.util.RangeValueIterator$Element
+      go_type: RangeValueIteratorElement
+    - java_class: android.icu.util.TimeUnit
+      go_type: TimeUnit
       static_methods:
-        - java_method: bigDecimalFrom
-          go_name: BigDecimalFrom2
-          params:
-            - java_type: android.icu.math.BigDecimal
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: android.icu.math.BigDecimal
-          error: true
-        - java_method: bigDecimalFrom
-          go_name: BigDecimalFrom2_1
-          params:
-            - java_type: double
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: android.icu.math.BigDecimal
-          error: true
-        - java_method: bigDecimalFrom
-          go_name: BigDecimalFrom2_2
-          params:
-            - java_type: long
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: android.icu.math.BigDecimal
-          error: true
-        - java_method: from
-          go_name: From
-          params:
-            - java_type: long
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: long
-          error: true
-        - java_method: getTimeScaleValue
-          go_name: GetTimeScaleValue
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: long
-          error: true
-        - java_method: toBigDecimal
-          go_name: ToBigDecimal2
-          params:
-            - java_type: android.icu.math.BigDecimal
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: android.icu.math.BigDecimal
-          error: true
-        - java_method: toBigDecimal
-          go_name: ToBigDecimal2_1
-          params:
-            - java_type: long
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: android.icu.math.BigDecimal
-          error: true
-        - java_method: toLong
-          go_name: ToLong
-          params:
-            - java_type: long
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: long
-          error: true
-    - java_class: android.icu.util.JapaneseCalendar
-      go_type: JapaneseCalendar
-      obtain: constructor
-      methods:
-        - java_method: getActualMaximum
-          go_name: GetActualMaximum
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getType
-          go_name: GetType
-          returns: String
-          error: true
-    - java_class: android.icu.util.LocaleData
-      go_type: LocaleData
-      methods:
-        - java_method: getDelimiter
-          go_name: GetDelimiter
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: String
-          error: true
-        - java_method: getNoSubstitute
-          go_name: GetNoSubstitute
-          returns: boolean
-          error: true
-        - java_method: setNoSubstitute
-          go_name: SetNoSubstitute
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-      static_methods:
-        - java_method: getCLDRVersion
-          go_name: GetCLDRVersion
-          returns: android.icu.util.VersionInfo
-          error: true
-        - java_method: getInstance
-          go_name: GetInstance0
-          returns: android.icu.util.LocaleData
-          error: true
-        - java_method: getInstance
-          go_name: GetInstance1_1
-          params:
-            - java_type: android.icu.util.ULocale
-              go_name: arg0
-          returns: android.icu.util.LocaleData
-          error: true
-        - java_method: getMeasurementSystem
-          go_name: GetMeasurementSystem
-          params:
-            - java_type: android.icu.util.ULocale
-              go_name: arg0
-          returns: android.icu.util.LocaleData$MeasurementSystem
-          error: true
-        - java_method: getPaperSize
-          go_name: GetPaperSize
-          params:
-            - java_type: android.icu.util.ULocale
-              go_name: arg0
-          returns: android.icu.util.LocaleData$PaperSize
-          error: true
-    - java_class: android.icu.util.LocaleData$MeasurementSystem
-      go_type: LocaleDataMeasurementSystem
-    - java_class: android.icu.util.LocaleData$PaperSize
-      go_type: LocaleDataPaperSize
-      methods:
-        - java_method: getHeight
-          go_name: GetHeight
-          returns: int
-          error: true
-        - java_method: getWidth
-          go_name: GetWidth
-          returns: int
-          error: true
-    - java_class: android.icu.util.HebrewCalendar
-      go_type: HebrewCalendar
-      obtain: constructor
-      methods:
-        - java_method: add
-          go_name: Add
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: getTemporalMonthCode
-          go_name: GetTemporalMonthCode
-          returns: String
-          error: true
-        - java_method: getType
-          go_name: GetType
-          returns: String
-          error: true
-        - java_method: inTemporalLeapYear
-          go_name: InTemporalLeapYear
-          returns: boolean
-          error: true
-        - java_method: roll
-          go_name: Roll
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: setTemporalMonthCode
-          go_name: SetTemporalMonthCode
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.icu.util.EthiopicCalendar
-      go_type: EthiopicCalendar
-      obtain: constructor
-      methods:
-        - java_method: getTemporalMonthCode
-          go_name: GetTemporalMonthCode
-          returns: String
-          error: true
-        - java_method: getType
-          go_name: GetType
-          returns: String
-          error: true
-        - java_method: isAmeteAlemEra
-          go_name: IsAmeteAlemEra
-          returns: boolean
-          error: true
-        - java_method: setAmeteAlemEra
-          go_name: SetAmeteAlemEra
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setTemporalMonthCode
-          go_name: SetTemporalMonthCode
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
+        - java_method: values
+          go_name: Values
+          returns: android.icu.util.TimeUnit[]
           error: true
     - java_class: android.icu.util.TimeZone
       go_type: TimeZone
@@ -1329,383 +1492,6 @@ classes:
             - java_type: String
               go_name: arg0
           returns: android.icu.util.TimeZone$SystemTimeZoneType
-          error: true
-    - java_class: android.icu.util.ICUUncheckedIOException
-      go_type: ICUUncheckedIOException
-      obtain: constructor
-    - java_class: android.icu.util.Freezable
-      go_type: Freezable
-      methods:
-        - java_method: isFrozen
-          go_name: IsFrozen
-          returns: boolean
-          error: true
-    - java_class: android.icu.util.Currency
-      go_type: Currency
-      methods:
-        - java_method: getCurrencyCode
-          go_name: GetCurrencyCode
-          returns: String
-          error: true
-        - java_method: getDefaultFractionDigits
-          go_name: GetDefaultFractionDigits0
-          returns: int
-          error: true
-        - java_method: getDefaultFractionDigits
-          go_name: GetDefaultFractionDigits1_1
-          params:
-            - java_type: android.icu.util.Currency$CurrencyUsage
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getDisplayName
-          go_name: GetDisplayName0
-          returns: String
-          error: true
-        - java_method: getDisplayName
-          go_name: GetDisplayName1_1
-          params:
-            - java_type: java.util.Locale
-              go_name: arg0
-          returns: String
-          error: true
-        - java_method: getName
-          go_name: GetName3
-          params:
-            - java_type: android.icu.util.ULocale
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: boolean[]
-              go_name: arg2
-          returns: String
-          error: true
-        - java_method: getName
-          go_name: GetName4_1
-          params:
-            - java_type: android.icu.util.ULocale
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: String
-              go_name: arg2
-            - java_type: boolean[]
-              go_name: arg3
-          returns: String
-          error: true
-        - java_method: getName
-          go_name: GetName3_2
-          params:
-            - java_type: java.util.Locale
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: boolean[]
-              go_name: arg2
-          returns: String
-          error: true
-        - java_method: getName
-          go_name: GetName4_3
-          params:
-            - java_type: java.util.Locale
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: String
-              go_name: arg2
-            - java_type: boolean[]
-              go_name: arg3
-          returns: String
-          error: true
-        - java_method: getNumericCode
-          go_name: GetNumericCode
-          returns: int
-          error: true
-        - java_method: getRoundingIncrement
-          go_name: GetRoundingIncrement0
-          returns: double
-          error: true
-        - java_method: getRoundingIncrement
-          go_name: GetRoundingIncrement1_1
-          params:
-            - java_type: android.icu.util.Currency$CurrencyUsage
-              go_name: arg0
-          returns: double
-          error: true
-        - java_method: getSymbol
-          go_name: GetSymbol0
-          returns: String
-          error: true
-        - java_method: getSymbol
-          go_name: GetSymbol1_1
-          params:
-            - java_type: android.icu.util.ULocale
-              go_name: arg0
-          returns: String
-          error: true
-        - java_method: getSymbol
-          go_name: GetSymbol1_2
-          params:
-            - java_type: java.util.Locale
-              go_name: arg0
-          returns: String
-          error: true
-        - java_method: toJavaCurrency
-          go_name: ToJavaCurrency
-          returns: java.util.Currency
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-      static_methods:
-        - java_method: fromJavaCurrency
-          go_name: FromJavaCurrency
-          params:
-            - java_type: java.util.Currency
-              go_name: arg0
-          returns: android.icu.util.Currency
-          error: true
-        - java_method: getAvailableCurrencies
-          go_name: GetAvailableCurrencies
-          returns: java.util.Set<android.icu.util.Currency>
-          error: true
-        - java_method: getAvailableCurrencyCodes
-          go_name: GetAvailableCurrencyCodes2
-          params:
-            - java_type: android.icu.util.ULocale
-              go_name: arg0
-            - java_type: java.util.Date
-              go_name: arg1
-          returns: java.lang.String[]
-          error: true
-        - java_method: getAvailableCurrencyCodes
-          go_name: GetAvailableCurrencyCodes2_1
-          params:
-            - java_type: java.util.Locale
-              go_name: arg0
-            - java_type: java.util.Date
-              go_name: arg1
-          returns: java.lang.String[]
-          error: true
-        - java_method: getAvailableLocales
-          go_name: GetAvailableLocales
-          returns: java.util.Locale[]
-          error: true
-        - java_method: getAvailableULocales
-          go_name: GetAvailableULocales
-          returns: android.icu.util.ULocale[]
-          error: true
-        - java_method: getInstance
-          go_name: GetInstance1
-          params:
-            - java_type: android.icu.util.ULocale
-              go_name: arg0
-          returns: android.icu.util.Currency
-          error: true
-        - java_method: getInstance
-          go_name: GetInstance1_1
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.icu.util.Currency
-          error: true
-        - java_method: getInstance
-          go_name: GetInstance1_2
-          params:
-            - java_type: java.util.Locale
-              go_name: arg0
-          returns: android.icu.util.Currency
-          error: true
-        - java_method: getKeywordValuesForLocale
-          go_name: GetKeywordValuesForLocale
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: android.icu.util.ULocale
-              go_name: arg1
-            - java_type: boolean
-              go_name: arg2
-          returns: java.lang.String[]
-          error: true
-        - java_method: isAvailable
-          go_name: IsAvailable
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: java.util.Date
-              go_name: arg1
-            - java_type: java.util.Date
-              go_name: arg2
-          returns: boolean
-          error: true
-    - java_class: android.icu.util.Currency$CurrencyUsage
-      go_type: CurrencyCurrencyUsage
-      static_methods:
-        - java_method: values
-          go_name: Values
-          returns: android.icu.util.Currency$CurrencyUsage[]
-          error: true
-        - java_method: valueOf
-          go_name: ValueOf
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.icu.util.Currency$CurrencyUsage
-          error: true
-    - java_class: android.icu.util.ValueIterator
-      go_type: ValueIterator
-      methods:
-        - java_method: next
-          go_name: Next
-          params:
-            - java_type: android.icu.util.ValueIterator$Element
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: reset
-          go_name: Reset
-          returns: void
-          error: true
-        - java_method: setRange
-          go_name: SetRange
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.icu.util.ValueIterator$Element
-      go_type: ValueIteratorElement
-    - java_class: android.icu.util.IslamicCalendar
-      go_type: IslamicCalendar
-      obtain: constructor
-      methods:
-        - java_method: getCalculationType
-          go_name: GetCalculationType
-          returns: android.icu.util.IslamicCalendar$CalculationType
-          error: true
-        - java_method: getType
-          go_name: GetType
-          returns: String
-          error: true
-        - java_method: inTemporalLeapYear
-          go_name: InTemporalLeapYear
-          returns: boolean
-          error: true
-        - java_method: setCalculationType
-          go_name: SetCalculationType
-          params:
-            - java_type: android.icu.util.IslamicCalendar$CalculationType
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.icu.util.IslamicCalendar$CalculationType
-      go_type: IslamicCalendarCalculationType
-      static_methods:
-        - java_method: values
-          go_name: Values
-          returns: android.icu.util.IslamicCalendar$CalculationType[]
-          error: true
-        - java_method: valueOf
-          go_name: ValueOf
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.icu.util.IslamicCalendar$CalculationType
-          error: true
-    - java_class: android.icu.util.Measure
-      go_type: Measure
-      obtain: constructor
-      constructor_params:
-        - java_type: java.lang.Number
-          go_name: arg0
-        - java_type: android.icu.util.MeasureUnit
-          go_name: arg1
-      methods:
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getNumber
-          go_name: GetNumber
-          returns: java.lang.Number
-          error: true
-        - java_method: getUnit
-          go_name: GetUnit
-          returns: android.icu.util.MeasureUnit
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-    - java_class: android.icu.util.GregorianCalendar
-      go_type: GregorianCalendar
-      obtain: constructor
-      methods:
-        - java_method: getActualMaximum
-          go_name: GetActualMaximum
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getActualMinimum
-          go_name: GetActualMinimum
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getGregorianChange
-          go_name: GetGregorianChange
-          returns: java.util.Date
-          error: true
-        - java_method: getType
-          go_name: GetType
-          returns: String
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: isEquivalentTo
-          go_name: IsEquivalentTo
-          params:
-            - java_type: android.icu.util.Calendar
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: isLeapYear
-          go_name: IsLeapYear
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: roll
-          go_name: Roll
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: setGregorianChange
-          go_name: SetGregorianChange
-          params:
-            - java_type: java.util.Date
-              go_name: arg0
-          returns: void
           error: true
     - java_class: android.icu.util.ULocale
       go_type: ULocale
@@ -2474,53 +2260,265 @@ classes:
               go_name: arg0
           returns: android.icu.util.ULocale$Category
           error: true
-    - java_class: android.icu.util.DateInterval
-      go_type: DateInterval
+    - java_class: android.icu.util.ICUUncheckedIOException
+      go_type: ICUUncheckedIOException
       obtain: constructor
-      constructor_params:
-        - java_type: long
-          go_name: arg0
-        - java_type: long
-          go_name: arg1
+    - java_class: android.icu.util.Currency
+      go_type: Currency
       methods:
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
+        - java_method: getCurrencyCode
+          go_name: GetCurrencyCode
+          returns: String
           error: true
-        - java_method: getFromDate
-          go_name: GetFromDate
-          returns: long
-          error: true
-        - java_method: getToDate
-          go_name: GetToDate
-          returns: long
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
+        - java_method: getDefaultFractionDigits
+          go_name: GetDefaultFractionDigits0
           returns: int
+          error: true
+        - java_method: getDefaultFractionDigits
+          go_name: GetDefaultFractionDigits1_1
+          params:
+            - java_type: android.icu.util.Currency$CurrencyUsage
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getDisplayName
+          go_name: GetDisplayName0
+          returns: String
+          error: true
+        - java_method: getDisplayName
+          go_name: GetDisplayName1_1
+          params:
+            - java_type: java.util.Locale
+              go_name: arg0
+          returns: String
+          error: true
+        - java_method: getName
+          go_name: GetName3
+          params:
+            - java_type: android.icu.util.ULocale
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: boolean[]
+              go_name: arg2
+          returns: String
+          error: true
+        - java_method: getName
+          go_name: GetName4_1
+          params:
+            - java_type: android.icu.util.ULocale
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: String
+              go_name: arg2
+            - java_type: boolean[]
+              go_name: arg3
+          returns: String
+          error: true
+        - java_method: getName
+          go_name: GetName3_2
+          params:
+            - java_type: java.util.Locale
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: boolean[]
+              go_name: arg2
+          returns: String
+          error: true
+        - java_method: getName
+          go_name: GetName4_3
+          params:
+            - java_type: java.util.Locale
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: String
+              go_name: arg2
+            - java_type: boolean[]
+              go_name: arg3
+          returns: String
+          error: true
+        - java_method: getNumericCode
+          go_name: GetNumericCode
+          returns: int
+          error: true
+        - java_method: getRoundingIncrement
+          go_name: GetRoundingIncrement0
+          returns: double
+          error: true
+        - java_method: getRoundingIncrement
+          go_name: GetRoundingIncrement1_1
+          params:
+            - java_type: android.icu.util.Currency$CurrencyUsage
+              go_name: arg0
+          returns: double
+          error: true
+        - java_method: getSymbol
+          go_name: GetSymbol0
+          returns: String
+          error: true
+        - java_method: getSymbol
+          go_name: GetSymbol1_1
+          params:
+            - java_type: android.icu.util.ULocale
+              go_name: arg0
+          returns: String
+          error: true
+        - java_method: getSymbol
+          go_name: GetSymbol1_2
+          params:
+            - java_type: java.util.Locale
+              go_name: arg0
+          returns: String
+          error: true
+        - java_method: toJavaCurrency
+          go_name: ToJavaCurrency
+          returns: java.util.Currency
           error: true
         - java_method: toString
           go_name: ToString
           returns: String
           error: true
-    - java_class: android.icu.util.TaiwanCalendar
-      go_type: TaiwanCalendar
+      static_methods:
+        - java_method: fromJavaCurrency
+          go_name: FromJavaCurrency
+          params:
+            - java_type: java.util.Currency
+              go_name: arg0
+          returns: android.icu.util.Currency
+          error: true
+        - java_method: getAvailableCurrencies
+          go_name: GetAvailableCurrencies
+          returns: java.util.Set<android.icu.util.Currency>
+          error: true
+        - java_method: getAvailableCurrencyCodes
+          go_name: GetAvailableCurrencyCodes2
+          params:
+            - java_type: android.icu.util.ULocale
+              go_name: arg0
+            - java_type: java.util.Date
+              go_name: arg1
+          returns: java.lang.String[]
+          error: true
+        - java_method: getAvailableCurrencyCodes
+          go_name: GetAvailableCurrencyCodes2_1
+          params:
+            - java_type: java.util.Locale
+              go_name: arg0
+            - java_type: java.util.Date
+              go_name: arg1
+          returns: java.lang.String[]
+          error: true
+        - java_method: getAvailableLocales
+          go_name: GetAvailableLocales
+          returns: java.util.Locale[]
+          error: true
+        - java_method: getAvailableULocales
+          go_name: GetAvailableULocales
+          returns: android.icu.util.ULocale[]
+          error: true
+        - java_method: getInstance
+          go_name: GetInstance1
+          params:
+            - java_type: android.icu.util.ULocale
+              go_name: arg0
+          returns: android.icu.util.Currency
+          error: true
+        - java_method: getInstance
+          go_name: GetInstance1_1
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.icu.util.Currency
+          error: true
+        - java_method: getInstance
+          go_name: GetInstance1_2
+          params:
+            - java_type: java.util.Locale
+              go_name: arg0
+          returns: android.icu.util.Currency
+          error: true
+        - java_method: getKeywordValuesForLocale
+          go_name: GetKeywordValuesForLocale
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: android.icu.util.ULocale
+              go_name: arg1
+            - java_type: boolean
+              go_name: arg2
+          returns: java.lang.String[]
+          error: true
+        - java_method: isAvailable
+          go_name: IsAvailable
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: java.util.Date
+              go_name: arg1
+            - java_type: java.util.Date
+              go_name: arg2
+          returns: boolean
+          error: true
+    - java_class: android.icu.util.Currency$CurrencyUsage
+      go_type: CurrencyCurrencyUsage
+      static_methods:
+        - java_method: values
+          go_name: Values
+          returns: android.icu.util.Currency$CurrencyUsage[]
+          error: true
+        - java_method: valueOf
+          go_name: ValueOf
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.icu.util.Currency$CurrencyUsage
+          error: true
+    - java_class: android.icu.util.IndianCalendar
+      go_type: IndianCalendar
       obtain: constructor
       methods:
         - java_method: getType
           go_name: GetType
           returns: String
           error: true
-    - java_class: android.icu.util.RangeValueIterator
-      go_type: RangeValueIterator
+    - java_class: android.icu.util.CurrencyAmount
+      go_type: CurrencyAmount
+      obtain: constructor
+      constructor_params:
+        - java_type: double
+          go_name: arg0
+        - java_type: android.icu.util.Currency
+          go_name: arg1
+      methods:
+        - java_method: getCurrency
+          go_name: GetCurrency
+          returns: android.icu.util.Currency
+          error: true
+    - java_class: android.icu.util.JapaneseCalendar
+      go_type: JapaneseCalendar
+      obtain: constructor
+      methods:
+        - java_method: getActualMaximum
+          go_name: GetActualMaximum
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getType
+          go_name: GetType
+          returns: String
+          error: true
+    - java_class: android.icu.util.ValueIterator
+      go_type: ValueIterator
       methods:
         - java_method: next
           go_name: Next
           params:
-            - java_type: android.icu.util.RangeValueIterator$Element
+            - java_type: android.icu.util.ValueIterator$Element
               go_name: arg0
           returns: boolean
           error: true
@@ -2528,319 +2526,436 @@ classes:
           go_name: Reset
           returns: void
           error: true
-    - java_class: android.icu.util.RangeValueIterator$Element
-      go_type: RangeValueIteratorElement
-    - java_class: android.icu.util.TimeUnit
-      go_type: TimeUnit
-      static_methods:
-        - java_method: values
-          go_name: Values
-          returns: android.icu.util.TimeUnit[]
+        - java_method: setRange
+          go_name: SetRange
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
           error: true
+    - java_class: android.icu.util.ValueIterator$Element
+      go_type: ValueIteratorElement
+abstract_callbacks:
+    - java_class: android.icu.util.Calendar
+      go_type: CalendarCallback
+      methods:
+        - java_method: add
+          params:
+            - int
+            - int
+          returns: void
+          go_field: Add
+        - java_method: after
+          params:
+            - java.lang.Object
+          returns: boolean
+          go_field: After
+        - java_method: before
+          params:
+            - java.lang.Object
+          returns: boolean
+          go_field: Before
+        - java_method: clear
+          params: []
+          returns: void
+          go_field: Clear
+        - java_method: clear
+          params:
+            - int
+          returns: void
+          go_field: Clear
+        - java_method: clone
+          params: []
+          returns: java.lang.Object
+          go_field: Clone
+        - java_method: compareTo
+          params:
+            - android.icu.util.Calendar
+          returns: int
+          go_field: CompareTo
+        - java_method: equals
+          params:
+            - java.lang.Object
+          returns: boolean
+          go_field: Equals
+        - java_method: fieldDifference
+          params:
+            - java.util.Date
+            - int
+          returns: int
+          go_field: FieldDifference
+        - java_method: get
+          params:
+            - int
+          returns: int
+          go_field: Get
+        - java_method: getActualMaximum
+          params:
+            - int
+          returns: int
+          go_field: GetActualMaximum
+        - java_method: getActualMinimum
+          params:
+            - int
+          returns: int
+          go_field: GetActualMinimum
+        - java_method: getDateTimeFormat
+          params:
+            - int
+            - int
+            - android.icu.util.ULocale
+          returns: android.icu.text.DateFormat
+          go_field: GetDateTimeFormat
+        - java_method: getDateTimeFormat
+          params:
+            - int
+            - int
+            - java.util.Locale
+          returns: android.icu.text.DateFormat
+          go_field: GetDateTimeFormat
+        - java_method: getDisplayName
+          params:
+            - android.icu.util.ULocale
+          returns: String
+          go_field: GetDisplayName
+        - java_method: getDisplayName
+          params:
+            - java.util.Locale
+          returns: String
+          go_field: GetDisplayName
+        - java_method: getFieldCount
+          params: []
+          returns: int
+          go_field: GetFieldCount
+        - java_method: getFirstDayOfWeek
+          params: []
+          returns: int
+          go_field: GetFirstDayOfWeek
+        - java_method: getGreatestMinimum
+          params:
+            - int
+          returns: int
+          go_field: GetGreatestMinimum
+        - java_method: getLeastMaximum
+          params:
+            - int
+          returns: int
+          go_field: GetLeastMaximum
+        - java_method: getMaximum
+          params:
+            - int
+          returns: int
+          go_field: GetMaximum
+        - java_method: getMinimalDaysInFirstWeek
+          params: []
+          returns: int
+          go_field: GetMinimalDaysInFirstWeek
+        - java_method: getMinimum
+          params:
+            - int
+          returns: int
+          go_field: GetMinimum
+        - java_method: getRepeatedWallTimeOption
+          params: []
+          returns: int
+          go_field: GetRepeatedWallTimeOption
+        - java_method: getSkippedWallTimeOption
+          params: []
+          returns: int
+          go_field: GetSkippedWallTimeOption
+        - java_method: getTemporalMonthCode
+          params: []
+          returns: String
+          go_field: GetTemporalMonthCode
+        - java_method: getTime
+          params: []
+          returns: java.util.Date
+          go_field: GetTime
+        - java_method: getTimeInMillis
+          params: []
+          returns: long
+          go_field: GetTimeInMillis
+        - java_method: getTimeZone
+          params: []
+          returns: android.icu.util.TimeZone
+          go_field: GetTimeZone
+        - java_method: getType
+          params: []
+          returns: String
+          go_field: GetType
+        - java_method: getWeekData
+          params: []
+          returns: android.icu.util.Calendar$WeekData
+          go_field: GetWeekData
+        - java_method: hashCode
+          params: []
+          returns: int
+          go_field: HashCode
+        - java_method: inTemporalLeapYear
+          params: []
+          returns: boolean
+          go_field: InTemporalLeapYear
+        - java_method: isEquivalentTo
+          params:
+            - android.icu.util.Calendar
+          returns: boolean
+          go_field: IsEquivalentTo
+        - java_method: isLenient
+          params: []
+          returns: boolean
+          go_field: IsLenient
+        - java_method: isSet
+          params:
+            - int
+          returns: boolean
+          go_field: IsSet
+        - java_method: isWeekend
+          params: []
+          returns: boolean
+          go_field: IsWeekend
+        - java_method: isWeekend
+          params:
+            - java.util.Date
+          returns: boolean
+          go_field: IsWeekend
+        - java_method: roll
+          params:
+            - int
+            - boolean
+          returns: void
+          go_field: Roll
+        - java_method: roll
+          params:
+            - int
+            - int
+          returns: void
+          go_field: Roll
+        - java_method: set
+          params:
+            - int
+            - int
+          returns: void
+          go_field: Set
+        - java_method: set
+          params:
+            - int
+            - int
+            - int
+          returns: void
+          go_field: Set
+        - java_method: set
+          params:
+            - int
+            - int
+            - int
+            - int
+            - int
+          returns: void
+          go_field: Set
+        - java_method: set
+          params:
+            - int
+            - int
+            - int
+            - int
+            - int
+            - int
+          returns: void
+          go_field: Set
+        - java_method: setFirstDayOfWeek
+          params:
+            - int
+          returns: void
+          go_field: SetFirstDayOfWeek
+        - java_method: setLenient
+          params:
+            - boolean
+          returns: void
+          go_field: SetLenient
+        - java_method: setMinimalDaysInFirstWeek
+          params:
+            - int
+          returns: void
+          go_field: SetMinimalDaysInFirstWeek
+        - java_method: setRepeatedWallTimeOption
+          params:
+            - int
+          returns: void
+          go_field: SetRepeatedWallTimeOption
+        - java_method: setSkippedWallTimeOption
+          params:
+            - int
+          returns: void
+          go_field: SetSkippedWallTimeOption
+        - java_method: setTemporalMonthCode
+          params:
+            - String
+          returns: void
+          go_field: SetTemporalMonthCode
+        - java_method: setTime
+          params:
+            - java.util.Date
+          returns: void
+          go_field: SetTime
+        - java_method: setTimeInMillis
+          params:
+            - long
+          returns: void
+          go_field: SetTimeInMillis
+        - java_method: setTimeZone
+          params:
+            - android.icu.util.TimeZone
+          returns: void
+          go_field: SetTimeZone
+        - java_method: setWeekData
+          params:
+            - android.icu.util.Calendar$WeekData
+          returns: android.icu.util.Calendar
+          go_field: SetWeekData
+        - java_method: toString
+          params: []
+          returns: String
+          go_field: ToString
+        - java_method: compareTo
+          params:
+            - java.lang.Object
+          returns: int
+          go_field: CompareTo
+    - java_class: android.icu.util.TimeZone
+      go_type: TimeZoneCallback
+      methods:
+        - java_method: clone
+          params: []
+          returns: java.lang.Object
+          go_field: Clone
+        - java_method: cloneAsThawed
+          params: []
+          returns: android.icu.util.TimeZone
+          go_field: CloneAsThawed
+        - java_method: equals
+          params:
+            - java.lang.Object
+          returns: boolean
+          go_field: Equals
+        - java_method: freeze
+          params: []
+          returns: android.icu.util.TimeZone
+          go_field: Freeze
+        - java_method: getDSTSavings
+          params: []
+          returns: int
+          go_field: GetDSTSavings
+        - java_method: getDisplayName
+          params: []
+          returns: String
+          go_field: GetDisplayName
+        - java_method: getDisplayName
+          params:
+            - android.icu.util.ULocale
+          returns: String
+          go_field: GetDisplayName
+        - java_method: getDisplayName
+          params:
+            - boolean
+            - int
+          returns: String
+          go_field: GetDisplayName
+        - java_method: getDisplayName
+          params:
+            - boolean
+            - int
+            - android.icu.util.ULocale
+          returns: String
+          go_field: GetDisplayName
+        - java_method: getDisplayName
+          params:
+            - boolean
+            - int
+            - java.util.Locale
+          returns: String
+          go_field: GetDisplayName
+        - java_method: getDisplayName
+          params:
+            - java.util.Locale
+          returns: String
+          go_field: GetDisplayName
+        - java_method: getID
+          params: []
+          returns: String
+          go_field: GetID
+        - java_method: getOffset
+          params:
+            - int
+            - int
+            - int
+            - int
+            - int
+            - int
+          returns: int
+          go_field: GetOffset
+        - java_method: getOffset
+          params:
+            - long
+          returns: int
+          go_field: GetOffset
+        - java_method: getOffset
+          params:
+            - long
+            - boolean
+            - '[I'
+          returns: void
+          go_field: GetOffset
+        - java_method: getRawOffset
+          params: []
+          returns: int
+          go_field: GetRawOffset
+        - java_method: hasSameRules
+          params:
+            - android.icu.util.TimeZone
+          returns: boolean
+          go_field: HasSameRules
+        - java_method: hashCode
+          params: []
+          returns: int
+          go_field: HashCode
+        - java_method: inDaylightTime
+          params:
+            - java.util.Date
+          returns: boolean
+          go_field: InDaylightTime
+        - java_method: isFrozen
+          params: []
+          returns: boolean
+          go_field: IsFrozen
+        - java_method: observesDaylightTime
+          params: []
+          returns: boolean
+          go_field: ObservesDaylightTime
+        - java_method: setID
+          params:
+            - String
+          returns: void
+          go_field: SetID
+        - java_method: setRawOffset
+          params:
+            - int
+          returns: void
+          go_field: SetRawOffset
+        - java_method: useDaylightTime
+          params: []
+          returns: boolean
+          go_field: UseDaylightTime
+        - java_method: freeze
+          params: []
+          returns: java.lang.Object
+          go_field: Freeze
+        - java_method: cloneAsThawed
+          params: []
+          returns: java.lang.Object
+          go_field: CloneAsThawed
 constants:
-    - go_name: Agrahayana
-      value: "8"
-      go_type: int
-    - go_name: Asadha
-      value: "3"
-      go_type: int
-    - go_name: Asvina
-      value: "6"
-      go_type: int
-    - go_name: Bhadra
-      value: "5"
-      go_type: int
-    - go_name: Chaitra
-      value: "0"
-      go_type: int
-    - go_name: Ie
-      value: "0"
-      go_type: int
-    - go_name: Jyaistha
-      value: "2"
-      go_type: int
-    - go_name: Kartika
-      value: "7"
-      go_type: int
-    - go_name: Magha
-      value: "10"
-      go_type: int
-    - go_name: Pausa
-      value: "9"
-      go_type: int
-    - go_name: Phalguna
-      value: "11"
-      go_type: int
-    - go_name: Sravana
-      value: "4"
-      go_type: int
-    - go_name: Vaisakha
-      value: "1"
-      go_type: int
-    - go_name: IcuVersion
-      value: "0"
-      go_type: int
-    - go_name: UcolBuilderVersion
-      value: "0"
-      go_type: int
-    - go_name: UcolRuntimeVersion
-      value: "0"
-      go_type: int
-    - go_name: Unicode100
-      value: "0"
-      go_type: int
-    - go_name: Unicode110
-      value: "0"
-      go_type: int
-    - go_name: Unicode120
-      value: "0"
-      go_type: int
-    - go_name: Unicode121
-      value: "0"
-      go_type: int
-    - go_name: Unicode130
-      value: "0"
-      go_type: int
-    - go_name: Unicode140
-      value: "0"
-      go_type: int
-    - go_name: Unicode150
-      value: "0"
-      go_type: int
-    - go_name: Unicode151
-      value: "0"
-      go_type: int
-    - go_name: Unicode160
-      value: "0"
-      go_type: int
-    - go_name: Unicode10
-      value: "0"
-      go_type: int
-    - go_name: Unicode101
-      value: "0"
-      go_type: int
-    - go_name: Unicode115
-      value: "0"
-      go_type: int
-    - go_name: Unicode20
-      value: "0"
-      go_type: int
-    - go_name: Unicode212
-      value: "0"
-      go_type: int
-    - go_name: Unicode215
-      value: "0"
-      go_type: int
-    - go_name: Unicode218
-      value: "0"
-      go_type: int
-    - go_name: Unicode219
-      value: "0"
-      go_type: int
-    - go_name: Unicode30
-      value: "0"
-      go_type: int
-    - go_name: Unicode301
-      value: "0"
-      go_type: int
-    - go_name: Unicode310
-      value: "0"
-      go_type: int
-    - go_name: Unicode311
-      value: "0"
-      go_type: int
-    - go_name: Unicode32
-      value: "0"
-      go_type: int
-    - go_name: Unicode40
-      value: "0"
-      go_type: int
-    - go_name: Unicode401
-      value: "0"
-      go_type: int
-    - go_name: Unicode41
-      value: "0"
-      go_type: int
-    - go_name: Unicode50
-      value: "0"
-      go_type: int
-    - go_name: Unicode51
-      value: "0"
-      go_type: int
-    - go_name: Unicode52
-      value: "0"
-      go_type: int
-    - go_name: Unicode60
-      value: "0"
-      go_type: int
-    - go_name: Unicode61
-      value: "0"
-      go_type: int
-    - go_name: Unicode62
-      value: "0"
-      go_type: int
-    - go_name: Unicode63
-      value: "0"
-      go_type: int
-    - go_name: Unicode70
-      value: "0"
-      go_type: int
-    - go_name: Unicode80
-      value: "0"
-      go_type: int
-    - go_name: Unicode90
-      value: "0"
-      go_type: int
-    - go_name: Am
-      value: "0"
-      go_type: int
-    - go_name: AmPm
-      value: "9"
-      go_type: int
-    - go_name: April
-      value: "3"
-      go_type: int
-    - go_name: August
-      value: "7"
-      go_type: int
-    - go_name: Date
-      value: "5"
-      go_type: int
-    - go_name: DayOfMonth
-      value: "5"
-      go_type: int
-    - go_name: DayOfWeek
-      value: "7"
-      go_type: int
-    - go_name: DayOfWeekInMonth
-      value: "8"
-      go_type: int
-    - go_name: DayOfYear
-      value: "6"
-      go_type: int
-    - go_name: December
-      value: "11"
-      go_type: int
-    - go_name: DowLocal
-      value: "18"
-      go_type: int
-    - go_name: DstOffset
-      value: "16"
-      go_type: int
-    - go_name: Era
-      value: "0"
-      go_type: int
-    - go_name: ExtendedYear
-      value: "19"
-      go_type: int
-    - go_name: February
-      value: "1"
-      go_type: int
-    - go_name: Friday
-      value: "6"
-      go_type: int
-    - go_name: Hour
-      value: "10"
-      go_type: int
-    - go_name: HourOfDay
-      value: "11"
-      go_type: int
-    - go_name: IsLeapMonth
-      value: "22"
-      go_type: int
-    - go_name: January
-      value: "0"
-      go_type: int
-    - go_name: JulianDay
-      value: "20"
-      go_type: int
-    - go_name: July
-      value: "6"
-      go_type: int
-    - go_name: June
-      value: "5"
-      go_type: int
-    - go_name: March
-      value: "2"
-      go_type: int
-    - go_name: May
-      value: "4"
-      go_type: int
-    - go_name: Millisecond
-      value: "14"
-      go_type: int
-    - go_name: MillisecondsInDay
-      value: "21"
-      go_type: int
-    - go_name: Minute
-      value: "12"
-      go_type: int
-    - go_name: Monday
-      value: "2"
-      go_type: int
-    - go_name: Month
-      value: "2"
-      go_type: int
-    - go_name: November
-      value: "10"
-      go_type: int
-    - go_name: October
-      value: "9"
-      go_type: int
-    - go_name: OrdinalMonth
-      value: "23"
-      go_type: int
-    - go_name: Pm
-      value: "1"
-      go_type: int
-    - go_name: Saturday
-      value: "7"
-      go_type: int
-    - go_name: Second
-      value: "13"
-      go_type: int
-    - go_name: September
-      value: "8"
-      go_type: int
-    - go_name: Sunday
-      value: "1"
-      go_type: int
-    - go_name: Thursday
-      value: "5"
-      go_type: int
-    - go_name: Tuesday
-      value: "3"
-      go_type: int
-    - go_name: Undecimber
-      value: "12"
-      go_type: int
-    - go_name: WalltimeFirst
-      value: "1"
-      go_type: int
-    - go_name: WalltimeLast
-      value: "0"
-      go_type: int
-    - go_name: WalltimeNextValid
-      value: "2"
-      go_type: int
-    - go_name: Wednesday
-      value: "4"
-      go_type: int
-    - go_name: WeekOfMonth
-      value: "4"
-      go_type: int
-    - go_name: WeekOfYear
-      value: "3"
-      go_type: int
-    - go_name: Year
-      value: "1"
-      go_type: int
-    - go_name: YearWoy
-      value: "17"
-      go_type: int
-    - go_name: ZoneOffset
-      value: "15"
-      go_type: int
     - go_name: Acre
       value: "0"
       go_type: int
@@ -3012,6 +3127,9 @@ constants:
     - go_name: Horsepower
       value: "0"
       go_type: int
+    - go_name: Hour
+      value: "0"
+      go_type: int
     - go_name: Inch
       value: "0"
       go_type: int
@@ -3165,7 +3283,16 @@ constants:
     - go_name: MillimolePerLiter
       value: "0"
       go_type: int
+    - go_name: Millisecond
+      value: "0"
+      go_type: int
     - go_name: Milliwatt
+      value: "0"
+      go_type: int
+    - go_name: Minute
+      value: "0"
+      go_type: int
+    - go_name: Month
       value: "0"
       go_type: int
     - go_name: Nanometer
@@ -3240,6 +3367,9 @@ constants:
     - go_name: RevolutionAngle
       value: "0"
       go_type: int
+    - go_name: Second
+      value: "0"
+      go_type: int
     - go_name: SquareCentimeter
       value: "0"
       go_type: int
@@ -3292,6 +3422,9 @@ constants:
       value: "0"
       go_type: int
     - go_name: Yard
+      value: "0"
+      go_type: int
+    - go_name: Year
       value: "0"
       go_type: int
     - go_name: Compound
@@ -3390,6 +3523,108 @@ constants:
     - go_name: Zetta
       value: "0"
       go_type: int
+    - go_name: Genbot
+      value: "8"
+      go_type: int
+    - go_name: Hamle
+      value: "10"
+      go_type: int
+    - go_name: Hedar
+      value: "2"
+      go_type: int
+    - go_name: Meskerem
+      value: "0"
+      go_type: int
+    - go_name: Miazia
+      value: "7"
+      go_type: int
+    - go_name: Nehasse
+      value: "11"
+      go_type: int
+    - go_name: Pagumen
+      value: "12"
+      go_type: int
+    - go_name: Sene
+      value: "9"
+      go_type: int
+    - go_name: Tahsas
+      value: "3"
+      go_type: int
+    - go_name: Tekemt
+      value: "1"
+      go_type: int
+    - go_name: Ter
+      value: "4"
+      go_type: int
+    - go_name: Yekatit
+      value: "5"
+      go_type: int
+    - go_name: Adar
+      value: "6"
+      go_type: int
+    - go_name: Adar1
+      value: "5"
+      go_type: int
+    - go_name: Av
+      value: "11"
+      go_type: int
+    - go_name: Elul
+      value: "12"
+      go_type: int
+    - go_name: Heshvan
+      value: "1"
+      go_type: int
+    - go_name: Iyar
+      value: "8"
+      go_type: int
+    - go_name: Kislev
+      value: "2"
+      go_type: int
+    - go_name: Nisan
+      value: "7"
+      go_type: int
+    - go_name: Shevat
+      value: "4"
+      go_type: int
+    - go_name: Sivan
+      value: "9"
+      go_type: int
+    - go_name: Tamuz
+      value: "10"
+      go_type: int
+    - go_name: Tevet
+      value: "3"
+      go_type: int
+    - go_name: Tishri
+      value: "0"
+      go_type: int
+    - go_name: Ad
+      value: "1"
+      go_type: int
+    - go_name: Bc
+      value: "0"
+      go_type: int
+    - go_name: AltQuotationEnd
+      value: "3"
+      go_type: int
+    - go_name: AltQuotationStart
+      value: "2"
+      go_type: int
+    - go_name: QuotationEnd
+      value: "1"
+      go_type: int
+    - go_name: QuotationStart
+      value: "0"
+      go_type: int
+    - go_name: Si
+      value: "0"
+      go_type: int
+    - go_name: Uk
+      value: "0"
+      go_type: int
+    - go_name: Us
+      value: "0"
+      go_type: int
     - go_name: Amshir
       value: "5"
       go_type: int
@@ -3427,9 +3662,6 @@ constants:
       value: "4"
       go_type: int
     - go_name: Tout
-      value: "0"
-      go_type: int
-    - go_name: Be
       value: "0"
       go_type: int
     - go_name: Db2Time
@@ -3486,187 +3718,118 @@ constants:
     - go_name: WindowsFileTime
       value: "3"
       go_type: int
-    - go_name: Heisei
+    - go_name: IcuVersion
       value: "0"
       go_type: int
-    - go_name: Meiji
+    - go_name: UcolBuilderVersion
       value: "0"
       go_type: int
-    - go_name: Reiwa
+    - go_name: UcolRuntimeVersion
       value: "0"
       go_type: int
-    - go_name: Showa
+    - go_name: Unicode100
       value: "0"
       go_type: int
-    - go_name: Taisho
+    - go_name: Unicode110
       value: "0"
       go_type: int
-    - go_name: AltQuotationEnd
-      value: "3"
-      go_type: int
-    - go_name: AltQuotationStart
-      value: "2"
-      go_type: int
-    - go_name: QuotationEnd
-      value: "1"
-      go_type: int
-    - go_name: QuotationStart
+    - go_name: Unicode120
       value: "0"
       go_type: int
-    - go_name: Si
+    - go_name: Unicode121
       value: "0"
       go_type: int
-    - go_name: Uk
+    - go_name: Unicode130
       value: "0"
       go_type: int
-    - go_name: Us
+    - go_name: Unicode140
       value: "0"
       go_type: int
-    - go_name: Adar
-      value: "6"
-      go_type: int
-    - go_name: Adar1
-      value: "5"
-      go_type: int
-    - go_name: Av
-      value: "11"
-      go_type: int
-    - go_name: Elul
-      value: "12"
-      go_type: int
-    - go_name: Heshvan
-      value: "1"
-      go_type: int
-    - go_name: Iyar
-      value: "8"
-      go_type: int
-    - go_name: Kislev
-      value: "2"
-      go_type: int
-    - go_name: Nisan
-      value: "7"
-      go_type: int
-    - go_name: Shevat
-      value: "4"
-      go_type: int
-    - go_name: Sivan
-      value: "9"
-      go_type: int
-    - go_name: Tamuz
-      value: "10"
-      go_type: int
-    - go_name: Tevet
-      value: "3"
-      go_type: int
-    - go_name: Tishri
+    - go_name: Unicode150
       value: "0"
       go_type: int
-    - go_name: Genbot
-      value: "8"
-      go_type: int
-    - go_name: Hamle
-      value: "10"
-      go_type: int
-    - go_name: Hedar
-      value: "2"
-      go_type: int
-    - go_name: Meskerem
+    - go_name: Unicode151
       value: "0"
       go_type: int
-    - go_name: Miazia
-      value: "7"
-      go_type: int
-    - go_name: Nehasse
-      value: "11"
-      go_type: int
-    - go_name: Pagumen
-      value: "12"
-      go_type: int
-    - go_name: Sene
-      value: "9"
-      go_type: int
-    - go_name: Tahsas
-      value: "3"
-      go_type: int
-    - go_name: Tekemt
-      value: "1"
-      go_type: int
-    - go_name: Ter
-      value: "4"
-      go_type: int
-    - go_name: Yekatit
-      value: "5"
-      go_type: int
-    - go_name: GenericLocation
-      value: "7"
-      go_type: int
-    - go_name: GmtZone
+    - go_name: Unicode160
       value: "0"
       go_type: int
-    - go_name: Long
-      value: "1"
-      go_type: int
-    - go_name: LongGeneric
-      value: "3"
-      go_type: int
-    - go_name: LongGmt
-      value: "5"
-      go_type: int
-    - go_name: Short
+    - go_name: Unicode10
       value: "0"
       go_type: int
-    - go_name: ShortCommonlyUsed
-      value: "6"
-      go_type: int
-    - go_name: ShortGeneric
-      value: "2"
-      go_type: int
-    - go_name: ShortGmt
-      value: "4"
-      go_type: int
-    - go_name: TimezoneIcu
+    - go_name: Unicode101
       value: "0"
       go_type: int
-    - go_name: TimezoneJdk
-      value: "1"
-      go_type: int
-    - go_name: UnknownZone
+    - go_name: Unicode115
       value: "0"
       go_type: int
-    - go_name: UnknownZoneId
-      value: '"Etc/Unknown"'
-      go_type: string
-    - go_name: Any
+    - go_name: Unicode20
       value: "0"
       go_type: int
-    - go_name: Canonical
+    - go_name: Unicode212
       value: "0"
       go_type: int
-    - go_name: CanonicalLocation
+    - go_name: Unicode215
       value: "0"
       go_type: int
-    - go_name: FormalSymbolName
-      value: "4"
-      go_type: int
-    - go_name: LongName
-      value: "1"
-      go_type: int
-    - go_name: NarrowSymbolName
-      value: "3"
-      go_type: int
-    - go_name: PluralLongName
-      value: "2"
-      go_type: int
-    - go_name: SymbolName
+    - go_name: Unicode218
       value: "0"
       go_type: int
-    - go_name: VariantSymbolName
-      value: "5"
-      go_type: int
-    - go_name: Cash
+    - go_name: Unicode219
       value: "0"
       go_type: int
-    - go_name: Standard
+    - go_name: Unicode30
+      value: "0"
+      go_type: int
+    - go_name: Unicode301
+      value: "0"
+      go_type: int
+    - go_name: Unicode310
+      value: "0"
+      go_type: int
+    - go_name: Unicode311
+      value: "0"
+      go_type: int
+    - go_name: Unicode32
+      value: "0"
+      go_type: int
+    - go_name: Unicode40
+      value: "0"
+      go_type: int
+    - go_name: Unicode401
+      value: "0"
+      go_type: int
+    - go_name: Unicode41
+      value: "0"
+      go_type: int
+    - go_name: Unicode50
+      value: "0"
+      go_type: int
+    - go_name: Unicode51
+      value: "0"
+      go_type: int
+    - go_name: Unicode52
+      value: "0"
+      go_type: int
+    - go_name: Unicode60
+      value: "0"
+      go_type: int
+    - go_name: Unicode61
+      value: "0"
+      go_type: int
+    - go_name: Unicode62
+      value: "0"
+      go_type: int
+    - go_name: Unicode63
+      value: "0"
+      go_type: int
+    - go_name: Unicode70
+      value: "0"
+      go_type: int
+    - go_name: Unicode80
+      value: "0"
+      go_type: int
+    - go_name: Unicode90
       value: "0"
       go_type: int
     - go_name: DhuAlHijjah
@@ -3717,10 +3880,193 @@ constants:
     - go_name: IslamicUmalqura
       value: "0"
       go_type: int
-    - go_name: Ad
+    - go_name: Am
+      value: "0"
+      go_type: int
+    - go_name: AmPm
+      value: "9"
+      go_type: int
+    - go_name: April
+      value: "3"
+      go_type: int
+    - go_name: August
+      value: "7"
+      go_type: int
+    - go_name: Date
+      value: "5"
+      go_type: int
+    - go_name: DayOfMonth
+      value: "5"
+      go_type: int
+    - go_name: DayOfWeek
+      value: "7"
+      go_type: int
+    - go_name: DayOfWeekInMonth
+      value: "8"
+      go_type: int
+    - go_name: DayOfYear
+      value: "6"
+      go_type: int
+    - go_name: December
+      value: "11"
+      go_type: int
+    - go_name: DowLocal
+      value: "18"
+      go_type: int
+    - go_name: DstOffset
+      value: "16"
+      go_type: int
+    - go_name: Era
+      value: "0"
+      go_type: int
+    - go_name: ExtendedYear
+      value: "19"
+      go_type: int
+    - go_name: February
       value: "1"
       go_type: int
-    - go_name: Bc
+    - go_name: Friday
+      value: "6"
+      go_type: int
+    - go_name: HourOfDay
+      value: "11"
+      go_type: int
+    - go_name: IsLeapMonth
+      value: "22"
+      go_type: int
+    - go_name: January
+      value: "0"
+      go_type: int
+    - go_name: JulianDay
+      value: "20"
+      go_type: int
+    - go_name: July
+      value: "6"
+      go_type: int
+    - go_name: June
+      value: "5"
+      go_type: int
+    - go_name: March
+      value: "2"
+      go_type: int
+    - go_name: May
+      value: "4"
+      go_type: int
+    - go_name: MillisecondsInDay
+      value: "21"
+      go_type: int
+    - go_name: Monday
+      value: "2"
+      go_type: int
+    - go_name: November
+      value: "10"
+      go_type: int
+    - go_name: October
+      value: "9"
+      go_type: int
+    - go_name: OrdinalMonth
+      value: "23"
+      go_type: int
+    - go_name: Pm
+      value: "1"
+      go_type: int
+    - go_name: Saturday
+      value: "7"
+      go_type: int
+    - go_name: September
+      value: "8"
+      go_type: int
+    - go_name: Sunday
+      value: "1"
+      go_type: int
+    - go_name: Thursday
+      value: "5"
+      go_type: int
+    - go_name: Tuesday
+      value: "3"
+      go_type: int
+    - go_name: Undecimber
+      value: "12"
+      go_type: int
+    - go_name: WalltimeFirst
+      value: "1"
+      go_type: int
+    - go_name: WalltimeLast
+      value: "0"
+      go_type: int
+    - go_name: WalltimeNextValid
+      value: "2"
+      go_type: int
+    - go_name: Wednesday
+      value: "4"
+      go_type: int
+    - go_name: WeekOfMonth
+      value: "4"
+      go_type: int
+    - go_name: WeekOfYear
+      value: "3"
+      go_type: int
+    - go_name: YearWoy
+      value: "17"
+      go_type: int
+    - go_name: ZoneOffset
+      value: "15"
+      go_type: int
+    - go_name: Be
+      value: "0"
+      go_type: int
+    - go_name: BeforeMinguo
+      value: "0"
+      go_type: int
+    - go_name: Minguo
+      value: "1"
+      go_type: int
+    - go_name: GenericLocation
+      value: "7"
+      go_type: int
+    - go_name: GmtZone
+      value: "0"
+      go_type: int
+    - go_name: Long
+      value: "1"
+      go_type: int
+    - go_name: LongGeneric
+      value: "3"
+      go_type: int
+    - go_name: LongGmt
+      value: "5"
+      go_type: int
+    - go_name: Short
+      value: "0"
+      go_type: int
+    - go_name: ShortCommonlyUsed
+      value: "6"
+      go_type: int
+    - go_name: ShortGeneric
+      value: "2"
+      go_type: int
+    - go_name: ShortGmt
+      value: "4"
+      go_type: int
+    - go_name: TimezoneIcu
+      value: "0"
+      go_type: int
+    - go_name: TimezoneJdk
+      value: "1"
+      go_type: int
+    - go_name: UnknownZone
+      value: "0"
+      go_type: int
+    - go_name: UnknownZoneId
+      value: '"Etc/Unknown"'
+      go_type: string
+    - go_name: Any
+      value: "0"
+      go_type: int
+    - go_name: Canonical
+      value: "0"
+      go_type: int
+    - go_name: CanonicalLocation
       value: "0"
       go_type: int
     - go_name: Canada
@@ -3804,9 +4150,81 @@ constants:
     - go_name: Format
       value: "0"
       go_type: int
-    - go_name: BeforeMinguo
+    - go_name: FormalSymbolName
+      value: "4"
+      go_type: int
+    - go_name: LongName
+      value: "1"
+      go_type: int
+    - go_name: NarrowSymbolName
+      value: "3"
+      go_type: int
+    - go_name: PluralLongName
+      value: "2"
+      go_type: int
+    - go_name: SymbolName
       value: "0"
       go_type: int
-    - go_name: Minguo
+    - go_name: VariantSymbolName
+      value: "5"
+      go_type: int
+    - go_name: Cash
+      value: "0"
+      go_type: int
+    - go_name: Standard
+      value: "0"
+      go_type: int
+    - go_name: Agrahayana
+      value: "8"
+      go_type: int
+    - go_name: Asadha
+      value: "3"
+      go_type: int
+    - go_name: Asvina
+      value: "6"
+      go_type: int
+    - go_name: Bhadra
+      value: "5"
+      go_type: int
+    - go_name: Chaitra
+      value: "0"
+      go_type: int
+    - go_name: Ie
+      value: "0"
+      go_type: int
+    - go_name: Jyaistha
+      value: "2"
+      go_type: int
+    - go_name: Kartika
+      value: "7"
+      go_type: int
+    - go_name: Magha
+      value: "10"
+      go_type: int
+    - go_name: Pausa
+      value: "9"
+      go_type: int
+    - go_name: Phalguna
+      value: "11"
+      go_type: int
+    - go_name: Sravana
+      value: "4"
+      go_type: int
+    - go_name: Vaisakha
       value: "1"
+      go_type: int
+    - go_name: Heisei
+      value: "0"
+      go_type: int
+    - go_name: Meiji
+      value: "0"
+      go_type: int
+    - go_name: Reiwa
+      value: "0"
+      go_type: int
+    - go_name: Showa
+      value: "0"
+      go_type: int
+    - go_name: Taisho
+      value: "0"
       go_type: int

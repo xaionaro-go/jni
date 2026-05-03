@@ -5,6 +5,222 @@
 package: format
 go_import: github.com/AndroidGoLab/jni/text/format
 classes:
+    - java_class: android.text.format.DateUtils
+      go_type: DateUtils
+      obtain: constructor
+      static_methods:
+        - java_method: formatDateRange
+          go_name: FormatDateRange5
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: java.util.Formatter
+              go_name: arg1
+            - java_type: long
+              go_name: arg2
+            - java_type: long
+              go_name: arg3
+            - java_type: int
+              go_name: arg4
+          returns: java.util.Formatter
+          error: true
+        - java_method: formatDateRange
+          go_name: FormatDateRange6_1
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: java.util.Formatter
+              go_name: arg1
+            - java_type: long
+              go_name: arg2
+            - java_type: long
+              go_name: arg3
+            - java_type: int
+              go_name: arg4
+            - java_type: String
+              go_name: arg5
+          returns: java.util.Formatter
+          error: true
+        - java_method: formatDateRange
+          go_name: FormatDateRange4_2
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: long
+              go_name: arg1
+            - java_type: long
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+          returns: String
+          error: true
+        - java_method: formatDateTime
+          go_name: FormatDateTime
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: long
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: String
+          error: true
+        - java_method: formatElapsedTime
+          go_name: FormatElapsedTime2
+          params:
+            - java_type: java.lang.StringBuilder
+              go_name: arg0
+            - java_type: long
+              go_name: arg1
+          returns: String
+          error: true
+        - java_method: formatElapsedTime
+          go_name: FormatElapsedTime1_1
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: String
+          error: true
+        - java_method: formatSameDayTime
+          go_name: FormatSameDayTime
+          params:
+            - java_type: long
+              go_name: arg0
+            - java_type: long
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: getAMPMString
+          go_name: GetAMPMString
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: String
+          error: true
+        - java_method: getDayOfWeekString
+          go_name: GetDayOfWeekString
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: String
+          error: true
+        - java_method: getMonthString
+          go_name: GetMonthString
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: String
+          error: true
+        - java_method: getRelativeDateTimeString
+          go_name: GetRelativeDateTimeString
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: long
+              go_name: arg1
+            - java_type: long
+              go_name: arg2
+            - java_type: long
+              go_name: arg3
+            - java_type: int
+              go_name: arg4
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: getRelativeTimeSpanString
+          go_name: GetRelativeTimeSpanString2
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: long
+              go_name: arg1
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: getRelativeTimeSpanString
+          go_name: GetRelativeTimeSpanString3_1
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: long
+              go_name: arg1
+            - java_type: boolean
+              go_name: arg2
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: getRelativeTimeSpanString
+          go_name: GetRelativeTimeSpanString1_2
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: getRelativeTimeSpanString
+          go_name: GetRelativeTimeSpanString3_3
+          params:
+            - java_type: long
+              go_name: arg0
+            - java_type: long
+              go_name: arg1
+            - java_type: long
+              go_name: arg2
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: getRelativeTimeSpanString
+          go_name: GetRelativeTimeSpanString4_4
+          params:
+            - java_type: long
+              go_name: arg0
+            - java_type: long
+              go_name: arg1
+            - java_type: long
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: isToday
+          go_name: IsToday
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: boolean
+          error: true
+    - java_class: android.text.format.Formatter
+      go_type: ter
+      obtain: constructor
+      static_methods:
+        - java_method: formatFileSize
+          go_name: FormatFileSize
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: long
+              go_name: arg1
+          returns: String
+          error: true
+        - java_method: formatIpAddress
+          go_name: FormatIpAddress
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: String
+          error: true
+        - java_method: formatShortFileSize
+          go_name: FormatShortFileSize
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: long
+              go_name: arg1
+          returns: String
+          error: true
     - java_class: android.text.format.Time
       go_type: Time
       obtain: constructor
@@ -197,35 +413,6 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
-    - java_class: android.text.format.Formatter
-      go_type: ter
-      obtain: constructor
-      static_methods:
-        - java_method: formatFileSize
-          go_name: FormatFileSize
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: long
-              go_name: arg1
-          returns: String
-          error: true
-        - java_method: formatIpAddress
-          go_name: FormatIpAddress
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: String
-          error: true
-        - java_method: formatShortFileSize
-          go_name: FormatShortFileSize
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: long
-              go_name: arg1
-          returns: String
-          error: true
     - java_class: android.text.format.DateFormat
       go_type: DateFormat
       obtain: constructor
@@ -308,251 +495,7 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
-    - java_class: android.text.format.DateUtils
-      go_type: DateUtils
-      obtain: constructor
-      static_methods:
-        - java_method: formatDateRange
-          go_name: FormatDateRange5
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: java.util.Formatter
-              go_name: arg1
-            - java_type: long
-              go_name: arg2
-            - java_type: long
-              go_name: arg3
-            - java_type: int
-              go_name: arg4
-          returns: java.util.Formatter
-          error: true
-        - java_method: formatDateRange
-          go_name: FormatDateRange6_1
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: java.util.Formatter
-              go_name: arg1
-            - java_type: long
-              go_name: arg2
-            - java_type: long
-              go_name: arg3
-            - java_type: int
-              go_name: arg4
-            - java_type: String
-              go_name: arg5
-          returns: java.util.Formatter
-          error: true
-        - java_method: formatDateRange
-          go_name: FormatDateRange4_2
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: long
-              go_name: arg1
-            - java_type: long
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-          returns: String
-          error: true
-        - java_method: formatDateTime
-          go_name: FormatDateTime
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: long
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: String
-          error: true
-        - java_method: formatElapsedTime
-          go_name: FormatElapsedTime2
-          params:
-            - java_type: java.lang.StringBuilder
-              go_name: arg0
-            - java_type: long
-              go_name: arg1
-          returns: String
-          error: true
-        - java_method: formatElapsedTime
-          go_name: FormatElapsedTime1_1
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: String
-          error: true
-        - java_method: formatSameDayTime
-          go_name: FormatSameDayTime
-          params:
-            - java_type: long
-              go_name: arg0
-            - java_type: long
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: getAMPMString
-          go_name: GetAMPMString
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: String
-          error: true
-        - java_method: getDayOfWeekString
-          go_name: GetDayOfWeekString
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: String
-          error: true
-        - java_method: getMonthString
-          go_name: GetMonthString
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: String
-          error: true
-        - java_method: getRelativeDateTimeString
-          go_name: GetRelativeDateTimeString
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: long
-              go_name: arg1
-            - java_type: long
-              go_name: arg2
-            - java_type: long
-              go_name: arg3
-            - java_type: int
-              go_name: arg4
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: getRelativeTimeSpanString
-          go_name: GetRelativeTimeSpanString2
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: long
-              go_name: arg1
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: getRelativeTimeSpanString
-          go_name: GetRelativeTimeSpanString3_1
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: long
-              go_name: arg1
-            - java_type: boolean
-              go_name: arg2
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: getRelativeTimeSpanString
-          go_name: GetRelativeTimeSpanString1_2
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: getRelativeTimeSpanString
-          go_name: GetRelativeTimeSpanString3_3
-          params:
-            - java_type: long
-              go_name: arg0
-            - java_type: long
-              go_name: arg1
-            - java_type: long
-              go_name: arg2
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: getRelativeTimeSpanString
-          go_name: GetRelativeTimeSpanString4_4
-          params:
-            - java_type: long
-              go_name: arg0
-            - java_type: long
-              go_name: arg1
-            - java_type: long
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: isToday
-          go_name: IsToday
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: boolean
-          error: true
 constants:
-    - go_name: EpochJulianDay
-      value: "2440588"
-      go_type: int
-    - go_name: Friday
-      value: "5"
-      go_type: int
-    - go_name: Hour
-      value: "3"
-      go_type: int
-    - go_name: Minute
-      value: "2"
-      go_type: int
-    - go_name: Monday
-      value: "1"
-      go_type: int
-    - go_name: MondayBeforeJulianEpoch
-      value: "2440585"
-      go_type: int
-    - go_name: Month
-      value: "5"
-      go_type: int
-    - go_name: MonthDay
-      value: "4"
-      go_type: int
-    - go_name: Saturday
-      value: "6"
-      go_type: int
-    - go_name: Second
-      value: "1"
-      go_type: int
-    - go_name: Sunday
-      value: "0"
-      go_type: int
-    - go_name: Thursday
-      value: "4"
-      go_type: int
-    - go_name: TimezoneUtc
-      value: '"UTC"'
-      go_type: string
-    - go_name: Tuesday
-      value: "2"
-      go_type: int
-    - go_name: Wednesday
-      value: "3"
-      go_type: int
-    - go_name: WeekDay
-      value: "7"
-      go_type: int
-    - go_name: WeekNum
-      value: "9"
-      go_type: int
-    - go_name: Year
-      value: "6"
-      go_type: int
-    - go_name: YearDay
-      value: "8"
-      go_type: int
     - go_name: AbbrevMonthFormat
       value: '"%b"'
       go_type: string
@@ -684,4 +627,61 @@ constants:
       go_type: int
     - go_name: Sameyeartable
       value: "0"
+      go_type: int
+    - go_name: EpochJulianDay
+      value: "2440588"
+      go_type: int
+    - go_name: Friday
+      value: "5"
+      go_type: int
+    - go_name: Hour
+      value: "3"
+      go_type: int
+    - go_name: Minute
+      value: "2"
+      go_type: int
+    - go_name: Monday
+      value: "1"
+      go_type: int
+    - go_name: MondayBeforeJulianEpoch
+      value: "2440585"
+      go_type: int
+    - go_name: Month
+      value: "5"
+      go_type: int
+    - go_name: MonthDay
+      value: "4"
+      go_type: int
+    - go_name: Saturday
+      value: "6"
+      go_type: int
+    - go_name: Second
+      value: "1"
+      go_type: int
+    - go_name: Sunday
+      value: "0"
+      go_type: int
+    - go_name: Thursday
+      value: "4"
+      go_type: int
+    - go_name: TimezoneUtc
+      value: '"UTC"'
+      go_type: string
+    - go_name: Tuesday
+      value: "2"
+      go_type: int
+    - go_name: Wednesday
+      value: "3"
+      go_type: int
+    - go_name: WeekDay
+      value: "7"
+      go_type: int
+    - go_name: WeekNum
+      value: "9"
+      go_type: int
+    - go_name: Year
+      value: "6"
+      go_type: int
+    - go_name: YearDay
+      value: "8"
       go_type: int

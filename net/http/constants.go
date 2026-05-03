@@ -34,10 +34,9 @@ const (
 	StreamPriorityLow           = consts.StreamPriorityLow
 	StreamPriorityLowest        = consts.StreamPriorityLowest
 	StreamPriorityMedium        = consts.StreamPriorityMedium
-	HttpCacheDisabled           = consts.HttpCacheDisabled
-	HttpCacheDisk               = consts.HttpCacheDisk
-	HttpCacheDiskNoHttp         = consts.HttpCacheDiskNoHttp
-	HttpCacheInMemory           = consts.HttpCacheInMemory
+	DnsOptionDisabled           = consts.DnsOptionDisabled
+	DnsOptionEnabled            = consts.DnsOptionEnabled
+	DnsOptionUnspecified        = consts.DnsOptionUnspecified
 	ErrorAddressUnreachable     = consts.ErrorAddressUnreachable
 	ErrorConnectionClosed       = consts.ErrorConnectionClosed
 	ErrorConnectionRefused      = consts.ErrorConnectionRefused
@@ -56,7 +55,8 @@ const (
 	SslMaxError                 = consts.SslMaxError
 	SslNotyetvalid              = consts.SslNotyetvalid
 	SslUntrusted                = consts.SslUntrusted
-	DnsOptionDisabled           = consts.DnsOptionDisabled
-	DnsOptionEnabled            = consts.DnsOptionEnabled
-	DnsOptionUnspecified        = consts.DnsOptionUnspecified
+	HttpCacheDisabled           = consts.HttpCacheDisabled
+	HttpCacheDisk               = consts.HttpCacheDisk
+	HttpCacheDiskNoHttp         = consts.HttpCacheDiskNoHttp
+	HttpCacheInMemory           = consts.HttpCacheInMemory
 )

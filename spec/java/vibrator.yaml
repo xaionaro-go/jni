@@ -223,6 +223,112 @@ classes:
               go_name: arg2
           returns: void
           error: true
+abstract_callbacks:
+    - java_class: android.os.Vibrator
+      go_type: VibratorCallback
+      methods:
+        - java_method: areAllEffectsSupported
+          params:
+            - int...
+          returns: int
+          go_field: AreAllEffectsSupported
+        - java_method: areAllPrimitivesSupported
+          params:
+            - int...
+          returns: boolean
+          go_field: AreAllPrimitivesSupported
+        - java_method: areEffectsSupported
+          params:
+            - int...
+          returns: '[I'
+          go_field: AreEffectsSupported
+        - java_method: areEnvelopeEffectsSupported
+          params: []
+          returns: boolean
+          go_field: AreEnvelopeEffectsSupported
+        - java_method: arePrimitivesSupported
+          params:
+            - int...
+          returns: boolean[]
+          go_field: ArePrimitivesSupported
+        - java_method: cancel
+          params: []
+          returns: void
+          go_field: Cancel
+        - java_method: getEnvelopeEffectInfo
+          params: []
+          returns: android.os.vibrator.VibratorEnvelopeEffectInfo
+          go_field: GetEnvelopeEffectInfo
+        - java_method: getFrequencyProfile
+          params: []
+          returns: android.os.vibrator.VibratorFrequencyProfile
+          go_field: GetFrequencyProfile
+        - java_method: getId
+          params: []
+          returns: int
+          go_field: GetId
+        - java_method: getPrimitiveDurations
+          params:
+            - int...
+          returns: '[I'
+          go_field: GetPrimitiveDurations
+        - java_method: getQFactor
+          params: []
+          returns: float
+          go_field: GetQFactor
+        - java_method: getResonantFrequency
+          params: []
+          returns: float
+          go_field: GetResonantFrequency
+        - java_method: hasAmplitudeControl
+          params: []
+          returns: boolean
+          go_field: HasAmplitudeControl
+        - java_method: hasVibrator
+          params: []
+          returns: boolean
+          go_field: HasVibrator
+        - java_method: vibrate
+          params:
+            - android.os.VibrationEffect
+          returns: void
+          go_field: Vibrate
+        - java_method: vibrate
+          params:
+            - android.os.VibrationEffect
+            - android.media.AudioAttributes
+          returns: void
+          go_field: Vibrate
+        - java_method: vibrate
+          params:
+            - android.os.VibrationEffect
+            - android.os.VibrationAttributes
+          returns: void
+          go_field: Vibrate
+        - java_method: vibrate
+          params:
+            - long
+          returns: void
+          go_field: Vibrate
+        - java_method: vibrate
+          params:
+            - long
+            - android.media.AudioAttributes
+          returns: void
+          go_field: Vibrate
+        - java_method: vibrate
+          params:
+            - '[J'
+            - int
+          returns: void
+          go_field: Vibrate
+        - java_method: vibrate
+          params:
+            - '[J'
+            - int
+            - android.media.AudioAttributes
+          returns: void
+          go_field: Vibrate
 constants:
     - go_name: Creator
       value: "0"

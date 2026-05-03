@@ -5,11 +5,11 @@ package data
 import "github.com/AndroidGoLab/jni/telephony/data/consts"
 
 const (
-	Creator                                         = consts.Creator
 	AuthTypeChap                                    = consts.AuthTypeChap
 	AuthTypeNone                                    = consts.AuthTypeNone
 	AuthTypePap                                     = consts.AuthTypePap
 	AuthTypePapOrChap                               = consts.AuthTypePapOrChap
+	Creator                                         = consts.Creator
 	MvnoTypeGid                                     = consts.MvnoTypeGid
 	MvnoTypeIccid                                   = consts.MvnoTypeIccid
 	MvnoTypeImsi                                    = consts.MvnoTypeImsi

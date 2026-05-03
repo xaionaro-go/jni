@@ -5,35 +5,6 @@ package interactive
 import "github.com/AndroidGoLab/jni/media/tv/interactive/consts"
 
 const (
-	Creator                             = consts.Creator
-	InteractiveAppTypeAtsc              = consts.InteractiveAppTypeAtsc
-	InteractiveAppTypeGinga             = consts.InteractiveAppTypeGinga
-	InteractiveAppTypeHbbtv             = consts.InteractiveAppTypeHbbtv
-	InteractiveAppTypeOther             = consts.InteractiveAppTypeOther
-	InteractiveAppTypeTargetedAd        = consts.InteractiveAppTypeTargetedAd
-	ErrorBlocked                        = consts.ErrorBlocked
-	ErrorEncrypted                      = consts.ErrorEncrypted
-	ErrorNone                           = consts.ErrorNone
-	ErrorNotSupported                   = consts.ErrorNotSupported
-	ErrorResourceUnavailable            = consts.ErrorResourceUnavailable
-	ErrorUnknown                        = consts.ErrorUnknown
-	ErrorUnknownChannel                 = consts.ErrorUnknownChannel
-	ErrorWeakSignal                     = consts.ErrorWeakSignal
-	InteractiveAppStateError            = consts.InteractiveAppStateError
-	InteractiveAppStateRunning          = consts.InteractiveAppStateRunning
-	InteractiveAppStateStopped          = consts.InteractiveAppStateStopped
-	ServiceStateError                   = consts.ServiceStateError
-	ServiceStatePreparing               = consts.ServiceStatePreparing
-	ServiceStateReady                   = consts.ServiceStateReady
-	ServiceStateUnrealized              = consts.ServiceStateUnrealized
-	TeletextAppStateError               = consts.TeletextAppStateError
-	TeletextAppStateHide                = consts.TeletextAppStateHide
-	TeletextAppStateShow                = consts.TeletextAppStateShow
-	CommandParameterValueStopModeBlank  = consts.CommandParameterValueStopModeBlank
-	CommandParameterValueStopModeFreeze = consts.CommandParameterValueStopModeFreeze
-)
-
-const (
 	BiInteractiveAppKeyAlias                 = consts.BiInteractiveAppKeyAlias
 	BiInteractiveAppKeyCertificate           = consts.BiInteractiveAppKeyCertificate
 	BiInteractiveAppKeyHttpAdditionalHeaders = consts.BiInteractiveAppKeyHttpAdditionalHeaders
@@ -77,4 +48,33 @@ const (
 	TimeShiftCommandTypeSeekTo               = consts.TimeShiftCommandTypeSeekTo
 	TimeShiftCommandTypeSetMode              = consts.TimeShiftCommandTypeSetMode
 	TimeShiftCommandTypeSetPlaybackParams    = consts.TimeShiftCommandTypeSetPlaybackParams
+)
+
+const (
+	Creator                             = consts.Creator
+	InteractiveAppTypeAtsc              = consts.InteractiveAppTypeAtsc
+	InteractiveAppTypeGinga             = consts.InteractiveAppTypeGinga
+	InteractiveAppTypeHbbtv             = consts.InteractiveAppTypeHbbtv
+	InteractiveAppTypeOther             = consts.InteractiveAppTypeOther
+	InteractiveAppTypeTargetedAd        = consts.InteractiveAppTypeTargetedAd
+	ErrorBlocked                        = consts.ErrorBlocked
+	ErrorEncrypted                      = consts.ErrorEncrypted
+	ErrorNone                           = consts.ErrorNone
+	ErrorNotSupported                   = consts.ErrorNotSupported
+	ErrorResourceUnavailable            = consts.ErrorResourceUnavailable
+	ErrorUnknown                        = consts.ErrorUnknown
+	ErrorUnknownChannel                 = consts.ErrorUnknownChannel
+	ErrorWeakSignal                     = consts.ErrorWeakSignal
+	InteractiveAppStateError            = consts.InteractiveAppStateError
+	InteractiveAppStateRunning          = consts.InteractiveAppStateRunning
+	InteractiveAppStateStopped          = consts.InteractiveAppStateStopped
+	ServiceStateError                   = consts.ServiceStateError
+	ServiceStatePreparing               = consts.ServiceStatePreparing
+	ServiceStateReady                   = consts.ServiceStateReady
+	ServiceStateUnrealized              = consts.ServiceStateUnrealized
+	TeletextAppStateError               = consts.TeletextAppStateError
+	TeletextAppStateHide                = consts.TeletextAppStateHide
+	TeletextAppStateShow                = consts.TeletextAppStateShow
+	CommandParameterValueStopModeBlank  = consts.CommandParameterValueStopModeBlank
+	CommandParameterValueStopModeFreeze = consts.CommandParameterValueStopModeFreeze
 )

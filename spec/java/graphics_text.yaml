@@ -5,342 +5,6 @@
 package: text
 go_import: github.com/AndroidGoLab/jni/graphics/text
 classes:
-    - java_class: android.graphics.text.LineBreakConfig
-      go_type: LineBreakConfig
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getHyphenation
-          go_name: GetHyphenation
-          returns: int
-          error: true
-        - java_method: getLineBreakStyle
-          go_name: GetLineBreakStyle
-          returns: int
-          error: true
-        - java_method: getLineBreakWordStyle
-          go_name: GetLineBreakWordStyle
-          returns: int
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: merge
-          go_name: Merge
-          params:
-            - java_type: android.graphics.text.LineBreakConfig
-              go_name: arg0
-          returns: android.graphics.text.LineBreakConfig
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.graphics.text.LineBreakConfig$Builder
-      go_type: LineBreakConfigBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.graphics.text.LineBreakConfig
-          error: true
-        - java_method: merge
-          go_name: Merge
-          params:
-            - java_type: android.graphics.text.LineBreakConfig
-              go_name: arg0
-          returns: android.graphics.text.LineBreakConfig$Builder
-          error: true
-        - java_method: setHyphenation
-          go_name: SetHyphenation
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.graphics.text.LineBreakConfig$Builder
-          error: true
-        - java_method: setLineBreakStyle
-          go_name: SetLineBreakStyle
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.graphics.text.LineBreakConfig$Builder
-          error: true
-        - java_method: setLineBreakWordStyle
-          go_name: SetLineBreakWordStyle
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.graphics.text.LineBreakConfig$Builder
-          error: true
-    - java_class: android.graphics.text.MeasuredText
-      go_type: MeasuredText
-      methods:
-        - java_method: getBounds
-          go_name: GetBounds
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: android.graphics.Rect
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: getCharWidthAt
-          go_name: GetCharWidthAt
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: float
-          error: true
-        - java_method: getFontMetricsInt
-          go_name: GetFontMetricsInt
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: android.graphics.Paint$FontMetricsInt
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: getWidth
-          go_name: GetWidth
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: float
-          error: true
-    - java_class: android.graphics.text.MeasuredText$Builder
-      go_type: MeasuredTextBuilder
-      methods:
-        - java_method: appendReplacementRun
-          go_name: AppendReplacementRun
-          params:
-            - java_type: android.graphics.Paint
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: float
-              go_name: arg2
-          returns: android.graphics.text.MeasuredText$Builder
-          error: true
-        - java_method: appendStyleRun
-          go_name: AppendStyleRun4
-          params:
-            - java_type: android.graphics.Paint
-              go_name: arg0
-            - java_type: android.graphics.text.LineBreakConfig
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: boolean
-              go_name: arg3
-          returns: android.graphics.text.MeasuredText$Builder
-          error: true
-        - java_method: appendStyleRun
-          go_name: AppendStyleRun3_1
-          params:
-            - java_type: android.graphics.Paint
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: boolean
-              go_name: arg2
-          returns: android.graphics.text.MeasuredText$Builder
-          error: true
-        - java_method: build
-          go_name: Build
-          returns: android.graphics.text.MeasuredText
-          error: true
-        - java_method: setComputeHyphenation
-          go_name: SetComputeHyphenation1
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.graphics.text.MeasuredText$Builder
-          error: true
-        - java_method: setComputeHyphenation
-          go_name: SetComputeHyphenation1_1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.graphics.text.MeasuredText$Builder
-          error: true
-        - java_method: setComputeLayout
-          go_name: SetComputeLayout
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.graphics.text.MeasuredText$Builder
-          error: true
-    - java_class: android.graphics.text.TextRunShaper
-      go_type: RunShaper
-      static_methods:
-        - java_method: shapeTextRun
-          go_name: ShapeTextRun9
-          params:
-            - java_type: char[]
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-            - java_type: int
-              go_name: arg4
-            - java_type: float
-              go_name: arg5
-            - java_type: float
-              go_name: arg6
-            - java_type: boolean
-              go_name: arg7
-            - java_type: android.graphics.Paint
-              go_name: arg8
-          returns: android.graphics.text.PositionedGlyphs
-          error: true
-        - java_method: shapeTextRun
-          go_name: ShapeTextRun9_1
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-            - java_type: int
-              go_name: arg4
-            - java_type: float
-              go_name: arg5
-            - java_type: float
-              go_name: arg6
-            - java_type: boolean
-              go_name: arg7
-            - java_type: android.graphics.Paint
-              go_name: arg8
-          returns: android.graphics.text.PositionedGlyphs
-          error: true
-    - java_class: android.graphics.text.PositionedGlyphs
-      go_type: PositionedGlyphs
-      methods:
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getAdvance
-          go_name: GetAdvance
-          returns: float
-          error: true
-        - java_method: getAscent
-          go_name: GetAscent
-          returns: float
-          error: true
-        - java_method: getDescent
-          go_name: GetDescent
-          returns: float
-          error: true
-        - java_method: getFakeBold
-          go_name: GetFakeBold
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getFakeItalic
-          go_name: GetFakeItalic
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getFont
-          go_name: GetFont
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.graphics.fonts.Font
-          error: true
-        - java_method: getGlyphId
-          go_name: GetGlyphId
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getGlyphX
-          go_name: GetGlyphX
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: float
-          error: true
-        - java_method: getGlyphY
-          go_name: GetGlyphY
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: float
-          error: true
-        - java_method: getItalicOverride
-          go_name: GetItalicOverride
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: float
-          error: true
-        - java_method: getOffsetX
-          go_name: GetOffsetX
-          returns: float
-          error: true
-        - java_method: getOffsetY
-          go_name: GetOffsetY
-          returns: float
-          error: true
-        - java_method: getWeightOverride
-          go_name: GetWeightOverride
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: float
-          error: true
-        - java_method: glyphCount
-          go_name: GlyphCount
-          returns: int
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
     - java_class: android.graphics.text.LineBreaker
       go_type: LineBreaker
       methods:
@@ -501,7 +165,382 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
+    - java_class: android.graphics.text.MeasuredText
+      go_type: MeasuredText
+      methods:
+        - java_method: getBounds
+          go_name: GetBounds
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: android.graphics.Rect
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: getCharWidthAt
+          go_name: GetCharWidthAt
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: float
+          error: true
+        - java_method: getFontMetricsInt
+          go_name: GetFontMetricsInt
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: android.graphics.Paint$FontMetricsInt
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: getWidth
+          go_name: GetWidth
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: float
+          error: true
+    - java_class: android.graphics.text.MeasuredText$Builder
+      go_type: MeasuredTextBuilder
+      methods:
+        - java_method: appendReplacementRun
+          go_name: AppendReplacementRun
+          params:
+            - java_type: android.graphics.Paint
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: float
+              go_name: arg2
+          returns: android.graphics.text.MeasuredText$Builder
+          error: true
+        - java_method: appendStyleRun
+          go_name: AppendStyleRun4
+          params:
+            - java_type: android.graphics.Paint
+              go_name: arg0
+            - java_type: android.graphics.text.LineBreakConfig
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: boolean
+              go_name: arg3
+          returns: android.graphics.text.MeasuredText$Builder
+          error: true
+        - java_method: appendStyleRun
+          go_name: AppendStyleRun3_1
+          params:
+            - java_type: android.graphics.Paint
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: boolean
+              go_name: arg2
+          returns: android.graphics.text.MeasuredText$Builder
+          error: true
+        - java_method: build
+          go_name: Build
+          returns: android.graphics.text.MeasuredText
+          error: true
+        - java_method: setComputeHyphenation
+          go_name: SetComputeHyphenation1
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.graphics.text.MeasuredText$Builder
+          error: true
+        - java_method: setComputeHyphenation
+          go_name: SetComputeHyphenation1_1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.graphics.text.MeasuredText$Builder
+          error: true
+        - java_method: setComputeLayout
+          go_name: SetComputeLayout
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.graphics.text.MeasuredText$Builder
+          error: true
+    - java_class: android.graphics.text.PositionedGlyphs
+      go_type: PositionedGlyphs
+      methods:
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getAdvance
+          go_name: GetAdvance
+          returns: float
+          error: true
+        - java_method: getAscent
+          go_name: GetAscent
+          returns: float
+          error: true
+        - java_method: getDescent
+          go_name: GetDescent
+          returns: float
+          error: true
+        - java_method: getFakeBold
+          go_name: GetFakeBold
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getFakeItalic
+          go_name: GetFakeItalic
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getFont
+          go_name: GetFont
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.graphics.fonts.Font
+          error: true
+        - java_method: getGlyphId
+          go_name: GetGlyphId
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getGlyphX
+          go_name: GetGlyphX
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: float
+          error: true
+        - java_method: getGlyphY
+          go_name: GetGlyphY
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: float
+          error: true
+        - java_method: getItalicOverride
+          go_name: GetItalicOverride
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: float
+          error: true
+        - java_method: getOffsetX
+          go_name: GetOffsetX
+          returns: float
+          error: true
+        - java_method: getOffsetY
+          go_name: GetOffsetY
+          returns: float
+          error: true
+        - java_method: getWeightOverride
+          go_name: GetWeightOverride
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: float
+          error: true
+        - java_method: glyphCount
+          go_name: GlyphCount
+          returns: int
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+    - java_class: android.graphics.text.LineBreakConfig
+      go_type: LineBreakConfig
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getHyphenation
+          go_name: GetHyphenation
+          returns: int
+          error: true
+        - java_method: getLineBreakStyle
+          go_name: GetLineBreakStyle
+          returns: int
+          error: true
+        - java_method: getLineBreakWordStyle
+          go_name: GetLineBreakWordStyle
+          returns: int
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: merge
+          go_name: Merge
+          params:
+            - java_type: android.graphics.text.LineBreakConfig
+              go_name: arg0
+          returns: android.graphics.text.LineBreakConfig
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.graphics.text.LineBreakConfig$Builder
+      go_type: LineBreakConfigBuilder
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.graphics.text.LineBreakConfig
+          error: true
+        - java_method: merge
+          go_name: Merge
+          params:
+            - java_type: android.graphics.text.LineBreakConfig
+              go_name: arg0
+          returns: android.graphics.text.LineBreakConfig$Builder
+          error: true
+        - java_method: setHyphenation
+          go_name: SetHyphenation
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.graphics.text.LineBreakConfig$Builder
+          error: true
+        - java_method: setLineBreakStyle
+          go_name: SetLineBreakStyle
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.graphics.text.LineBreakConfig$Builder
+          error: true
+        - java_method: setLineBreakWordStyle
+          go_name: SetLineBreakWordStyle
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.graphics.text.LineBreakConfig$Builder
+          error: true
+    - java_class: android.graphics.text.TextRunShaper
+      go_type: RunShaper
+      static_methods:
+        - java_method: shapeTextRun
+          go_name: ShapeTextRun9
+          params:
+            - java_type: char[]
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+            - java_type: int
+              go_name: arg4
+            - java_type: float
+              go_name: arg5
+            - java_type: float
+              go_name: arg6
+            - java_type: boolean
+              go_name: arg7
+            - java_type: android.graphics.Paint
+              go_name: arg8
+          returns: android.graphics.text.PositionedGlyphs
+          error: true
+        - java_method: shapeTextRun
+          go_name: ShapeTextRun9_1
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+            - java_type: int
+              go_name: arg4
+            - java_type: float
+              go_name: arg5
+            - java_type: float
+              go_name: arg6
+            - java_type: boolean
+              go_name: arg7
+            - java_type: android.graphics.Paint
+              go_name: arg8
+          returns: android.graphics.text.PositionedGlyphs
+          error: true
 constants:
+    - go_name: BreakStrategyBalanced
+      value: "2"
+      go_type: int
+    - go_name: BreakStrategyHighQuality
+      value: "1"
+      go_type: int
+    - go_name: BreakStrategySimple
+      value: "0"
+      go_type: int
+    - go_name: HyphenationFrequencyFull
+      value: "2"
+      go_type: int
+    - go_name: HyphenationFrequencyNone
+      value: "0"
+      go_type: int
+    - go_name: HyphenationFrequencyNormal
+      value: "1"
+      go_type: int
+    - go_name: JustificationModeInterCharacter
+      value: "2"
+      go_type: int
+    - go_name: JustificationModeInterWord
+      value: "1"
+      go_type: int
+    - go_name: JustificationModeNone
+      value: "0"
+      go_type: int
+    - go_name: HyphenationModeFast
+      value: "2"
+      go_type: int
+    - go_name: HyphenationModeNone
+      value: "0"
+      go_type: int
+    - go_name: HyphenationModeNormal
+      value: "1"
+      go_type: int
+    - go_name: NoOverride
+      value: "1.4E-45"
+      go_type: float32
     - go_name: Creator
       value: "0"
       go_type: int
@@ -546,43 +585,4 @@ constants:
       go_type: int
     - go_name: LineBreakWordStyleUnspecified
       value: "-1"
-      go_type: int
-    - go_name: HyphenationModeFast
-      value: "2"
-      go_type: int
-    - go_name: HyphenationModeNone
-      value: "0"
-      go_type: int
-    - go_name: HyphenationModeNormal
-      value: "1"
-      go_type: int
-    - go_name: NoOverride
-      value: "1.4E-45"
-      go_type: float32
-    - go_name: BreakStrategyBalanced
-      value: "2"
-      go_type: int
-    - go_name: BreakStrategyHighQuality
-      value: "1"
-      go_type: int
-    - go_name: BreakStrategySimple
-      value: "0"
-      go_type: int
-    - go_name: HyphenationFrequencyFull
-      value: "2"
-      go_type: int
-    - go_name: HyphenationFrequencyNone
-      value: "0"
-      go_type: int
-    - go_name: HyphenationFrequencyNormal
-      value: "1"
-      go_type: int
-    - go_name: JustificationModeInterCharacter
-      value: "2"
-      go_type: int
-    - go_name: JustificationModeInterWord
-      value: "1"
-      go_type: int
-    - go_name: JustificationModeNone
-      value: "0"
       go_type: int

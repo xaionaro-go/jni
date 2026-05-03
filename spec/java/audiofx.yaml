@@ -5,15 +5,45 @@
 package: audiofx
 go_import: github.com/AndroidGoLab/jni/media/audiofx
 classes:
-    - java_class: android.media.audiofx.AutomaticGainControl
-      go_type: AutomaticGainControl
+    - java_class: android.media.audiofx.AcousticEchoCanceler
+      go_type: AcousticEchoCanceler
       static_methods:
         - java_method: create
           go_name: Create
           params:
             - java_type: int
               go_name: arg0
-          returns: android.media.audiofx.AutomaticGainControl
+          returns: android.media.audiofx.AcousticEchoCanceler
+          error: true
+        - java_method: isAvailable
+          go_name: IsAvailable
+          returns: boolean
+          error: true
+    - java_class: android.media.audiofx.HapticGenerator
+      go_type: HapticGenerator
+      methods:
+        - java_method: close
+          go_name: Close
+          returns: void
+          error: true
+        - java_method: release
+          go_name: Release
+          returns: void
+          error: true
+        - java_method: setEnabled
+          go_name: SetEnabled
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: int
+          error: true
+      static_methods:
+        - java_method: create
+          go_name: Create
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.media.audiofx.HapticGenerator
           error: true
         - java_method: isAvailable
           go_name: IsAvailable
@@ -80,19 +110,335 @@ classes:
           go_name: ToString
           returns: String
           error: true
-    - java_class: android.media.audiofx.AcousticEchoCanceler
-      go_type: AcousticEchoCanceler
-      static_methods:
-        - java_method: create
-          go_name: Create
+    - java_class: android.media.audiofx.Virtualizer
+      go_type: Virtualizer
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+        - java_type: int
+          go_name: arg1
+      methods:
+        - java_method: canVirtualize
+          go_name: CanVirtualize
           params:
             - java_type: int
               go_name: arg0
-          returns: android.media.audiofx.AcousticEchoCanceler
-          error: true
-        - java_method: isAvailable
-          go_name: IsAvailable
+            - java_type: int
+              go_name: arg1
           returns: boolean
+          error: true
+        - java_method: forceVirtualizationMode
+          go_name: ForceVirtualizationMode
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getProperties
+          go_name: GetProperties
+          returns: android.media.audiofx.Virtualizer$Settings
+          error: true
+        - java_method: getRoundedStrength
+          go_name: GetRoundedStrength
+          returns: short
+          error: true
+        - java_method: getSpeakerAngles
+          go_name: GetSpeakerAngles
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: '[I'
+              go_name: arg2
+          returns: boolean
+          error: true
+        - java_method: getStrengthSupported
+          go_name: GetStrengthSupported
+          returns: boolean
+          error: true
+        - java_method: getVirtualizationMode
+          go_name: GetVirtualizationMode
+          returns: int
+          error: true
+        - java_method: setParameterListener
+          go_name: SetParameterListener
+          params:
+            - java_type: android.media.audiofx.Virtualizer$OnParameterChangeListener
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setProperties
+          go_name: SetProperties
+          params:
+            - java_type: android.media.audiofx.Virtualizer$Settings
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setStrength
+          go_name: SetStrength
+          params:
+            - java_type: short
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.media.audiofx.Virtualizer$OnParameterChangeListener
+      go_type: VirtualizerOnParameterChangeListener
+      methods:
+        - java_method: onParameterChange
+          go_name: OnParameterChange
+          params:
+            - java_type: android.media.audiofx.Virtualizer
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: short
+              go_name: arg3
+          returns: void
+          error: true
+    - java_class: android.media.audiofx.Virtualizer$Settings
+      go_type: VirtualizerSettings
+      methods:
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+    - java_class: android.media.audiofx.Visualizer
+      go_type: Visualizer
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+      methods:
+        - java_method: getCaptureSize
+          go_name: GetCaptureSize
+          returns: int
+          error: true
+        - java_method: getEnabled
+          go_name: GetEnabled
+          returns: boolean
+          error: true
+        - java_method: getFft
+          go_name: GetFft
+          params:
+            - java_type: '[B'
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getMeasurementMode
+          go_name: GetMeasurementMode
+          returns: int
+          error: true
+        - java_method: getMeasurementPeakRms
+          go_name: GetMeasurementPeakRms
+          params:
+            - java_type: android.media.audiofx.Visualizer$MeasurementPeakRms
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getSamplingRate
+          go_name: GetSamplingRate
+          returns: int
+          error: true
+        - java_method: getScalingMode
+          go_name: GetScalingMode
+          returns: int
+          error: true
+        - java_method: getWaveForm
+          go_name: GetWaveForm
+          params:
+            - java_type: '[B'
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: release
+          go_name: Release
+          returns: void
+          error: true
+        - java_method: setCaptureSize
+          go_name: SetCaptureSize
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: setDataCaptureListener
+          go_name: SetDataCaptureListener
+          params:
+            - java_type: android.media.audiofx.Visualizer$OnDataCaptureListener
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: boolean
+              go_name: arg2
+            - java_type: boolean
+              go_name: arg3
+          returns: int
+          error: true
+        - java_method: setEnabled
+          go_name: SetEnabled
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: setMeasurementMode
+          go_name: SetMeasurementMode
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: setScalingMode
+          go_name: SetScalingMode
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+      static_methods:
+        - java_method: getCaptureSizeRange
+          go_name: GetCaptureSizeRange
+          returns: '[I'
+          error: true
+        - java_method: getMaxCaptureRate
+          go_name: GetMaxCaptureRate
+          returns: int
+          error: true
+    - java_class: android.media.audiofx.Visualizer$MeasurementPeakRms
+      go_type: VisualizerMeasurementPeakRms
+    - java_class: android.media.audiofx.Visualizer$OnDataCaptureListener
+      go_type: VisualizerOnDataCaptureListener
+      methods:
+        - java_method: onFftDataCapture
+          go_name: OnFftDataCapture
+          params:
+            - java_type: android.media.audiofx.Visualizer
+              go_name: arg0
+            - java_type: '[B'
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: onWaveFormDataCapture
+          go_name: OnWaveFormDataCapture
+          params:
+            - java_type: android.media.audiofx.Visualizer
+              go_name: arg0
+            - java_type: '[B'
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: void
+          error: true
+    - java_class: android.media.audiofx.AudioEffect
+      go_type: AudioEffect
+      methods:
+        - java_method: getDescriptor
+          go_name: GetDescriptor
+          returns: android.media.audiofx.AudioEffect$Descriptor
+          error: true
+        - java_method: getEnabled
+          go_name: GetEnabled
+          returns: boolean
+          error: true
+        - java_method: getId
+          go_name: GetId
+          returns: int
+          error: true
+        - java_method: hasControl
+          go_name: HasControl
+          returns: boolean
+          error: true
+        - java_method: release
+          go_name: Release
+          returns: void
+          error: true
+        - java_method: setControlStatusListener
+          go_name: SetControlStatusListener
+          params:
+            - java_type: android.media.audiofx.AudioEffect$OnControlStatusChangeListener
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setEnableStatusListener
+          go_name: SetEnableStatusListener
+          params:
+            - java_type: android.media.audiofx.AudioEffect$OnEnableStatusChangeListener
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setEnabled
+          go_name: SetEnabled
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: int
+          error: true
+      static_methods:
+        - java_method: queryEffects
+          go_name: QueryEffects
+          returns: android.media.audiofx.AudioEffect$Descriptor[]
+          error: true
+    - java_class: android.media.audiofx.AudioEffect$Descriptor
+      go_type: AudioEffectDescriptor
+      methods:
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+    - java_class: android.media.audiofx.AudioEffect$OnControlStatusChangeListener
+      go_type: AudioEffectOnControlStatusChangeListener
+      methods:
+        - java_method: onControlStatusChange
+          go_name: OnControlStatusChange
+          params:
+            - java_type: android.media.audiofx.AudioEffect
+              go_name: arg0
+            - java_type: boolean
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.media.audiofx.AudioEffect$OnEnableStatusChangeListener
+      go_type: AudioEffectOnEnableStatusChangeListener
+      methods:
+        - java_method: onEnableStatusChange
+          go_name: OnEnableStatusChange
+          params:
+            - java_type: android.media.audiofx.AudioEffect
+              go_name: arg0
+            - java_type: boolean
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.media.audiofx.LoudnessEnhancer
+      go_type: LoudnessEnhancer
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+      methods:
+        - java_method: getTargetGain
+          go_name: GetTargetGain
+          returns: float
+          error: true
+        - java_method: setTargetGain
+          go_name: SetTargetGain
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
           error: true
     - java_class: android.media.audiofx.EnvironmentalReverb
       go_type: EnvironmentalReverb
@@ -253,20 +599,6 @@ classes:
         - java_method: toString
           go_name: ToString
           returns: String
-          error: true
-    - java_class: android.media.audiofx.NoiseSuppressor
-      go_type: NoiseSuppressor
-      static_methods:
-        - java_method: create
-          go_name: Create
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.media.audiofx.NoiseSuppressor
-          error: true
-        - java_method: isAvailable
-          go_name: IsAvailable
-          returns: boolean
           error: true
     - java_class: android.media.audiofx.DynamicsProcessing
       go_type: DynamicsProcessing
@@ -1063,6 +1395,100 @@ classes:
           go_name: ToString
           returns: String
           error: true
+    - java_class: android.media.audiofx.Equalizer
+      go_type: Equalizer
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+        - java_type: int
+          go_name: arg1
+      methods:
+        - java_method: getBand
+          go_name: GetBand
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: short
+          error: true
+        - java_method: getBandFreqRange
+          go_name: GetBandFreqRange
+          params:
+            - java_type: short
+              go_name: arg0
+          returns: '[I'
+          error: true
+        - java_method: getBandLevel
+          go_name: GetBandLevel
+          params:
+            - java_type: short
+              go_name: arg0
+          returns: short
+          error: true
+        - java_method: getBandLevelRange
+          go_name: GetBandLevelRange
+          returns: short[]
+          error: true
+        - java_method: getCenterFreq
+          go_name: GetCenterFreq
+          params:
+            - java_type: short
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getCurrentPreset
+          go_name: GetCurrentPreset
+          returns: short
+          error: true
+        - java_method: getNumberOfBands
+          go_name: GetNumberOfBands
+          returns: short
+          error: true
+        - java_method: getNumberOfPresets
+          go_name: GetNumberOfPresets
+          returns: short
+          error: true
+        - java_method: getPresetName
+          go_name: GetPresetName
+          params:
+            - java_type: short
+              go_name: arg0
+          returns: String
+          error: true
+        - java_method: getProperties
+          go_name: GetProperties
+          returns: android.media.audiofx.Equalizer$Settings
+          error: true
+        - java_method: setBandLevel
+          go_name: SetBandLevel
+          params:
+            - java_type: short
+              go_name: arg0
+            - java_type: short
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: setParameterListener
+          go_name: SetParameterListener
+          params:
+            - java_type: android.media.audiofx.Equalizer$OnParameterChangeListener
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setProperties
+          go_name: SetProperties
+          params:
+            - java_type: android.media.audiofx.Equalizer$Settings
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: usePreset
+          go_name: UsePreset
+          params:
+            - java_type: short
+              go_name: arg0
+          returns: void
+          error: true
     - java_class: android.media.audiofx.DynamicsProcessing$MbcBand
       go_type: DynamicsProcessingMbcBand
       methods:
@@ -1169,6 +1595,31 @@ classes:
           go_name: ToString
           returns: String
           error: true
+    - java_class: android.media.audiofx.Equalizer$OnParameterChangeListener
+      go_type: EqualizerOnParameterChangeListener
+      methods:
+        - java_method: onParameterChange
+          go_name: OnParameterChange
+          params:
+            - java_type: android.media.audiofx.Equalizer
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+            - java_type: int
+              go_name: arg4
+          returns: void
+          error: true
+    - java_class: android.media.audiofx.Equalizer$Settings
+      go_type: EqualizerSettings
+      methods:
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
     - java_class: android.media.audiofx.DynamicsProcessing$Stage
       go_type: DynamicsProcessingStage
       methods:
@@ -1190,6 +1641,34 @@ classes:
         - java_method: toString
           go_name: ToString
           returns: String
+          error: true
+    - java_class: android.media.audiofx.NoiseSuppressor
+      go_type: NoiseSuppressor
+      static_methods:
+        - java_method: create
+          go_name: Create
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.media.audiofx.NoiseSuppressor
+          error: true
+        - java_method: isAvailable
+          go_name: IsAvailable
+          returns: boolean
+          error: true
+    - java_class: android.media.audiofx.AutomaticGainControl
+      go_type: AutomaticGainControl
+      static_methods:
+        - java_method: create
+          go_name: Create
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.media.audiofx.AutomaticGainControl
+          error: true
+        - java_method: isAvailable
+          go_name: IsAvailable
+          returns: boolean
           error: true
     - java_class: android.media.audiofx.BassBoost
       go_type: BassBoost
@@ -1256,485 +1735,6 @@ classes:
           go_name: ToString
           returns: String
           error: true
-    - java_class: android.media.audiofx.HapticGenerator
-      go_type: HapticGenerator
-      methods:
-        - java_method: close
-          go_name: Close
-          returns: void
-          error: true
-        - java_method: release
-          go_name: Release
-          returns: void
-          error: true
-        - java_method: setEnabled
-          go_name: SetEnabled
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: int
-          error: true
-      static_methods:
-        - java_method: create
-          go_name: Create
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.media.audiofx.HapticGenerator
-          error: true
-        - java_method: isAvailable
-          go_name: IsAvailable
-          returns: boolean
-          error: true
-    - java_class: android.media.audiofx.LoudnessEnhancer
-      go_type: LoudnessEnhancer
-      obtain: constructor
-      constructor_params:
-        - java_type: int
-          go_name: arg0
-      methods:
-        - java_method: getTargetGain
-          go_name: GetTargetGain
-          returns: float
-          error: true
-        - java_method: setTargetGain
-          go_name: SetTargetGain
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.media.audiofx.AudioEffect
-      go_type: AudioEffect
-      methods:
-        - java_method: getDescriptor
-          go_name: GetDescriptor
-          returns: android.media.audiofx.AudioEffect$Descriptor
-          error: true
-        - java_method: getEnabled
-          go_name: GetEnabled
-          returns: boolean
-          error: true
-        - java_method: getId
-          go_name: GetId
-          returns: int
-          error: true
-        - java_method: hasControl
-          go_name: HasControl
-          returns: boolean
-          error: true
-        - java_method: release
-          go_name: Release
-          returns: void
-          error: true
-        - java_method: setControlStatusListener
-          go_name: SetControlStatusListener
-          params:
-            - java_type: android.media.audiofx.AudioEffect$OnControlStatusChangeListener
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setEnableStatusListener
-          go_name: SetEnableStatusListener
-          params:
-            - java_type: android.media.audiofx.AudioEffect$OnEnableStatusChangeListener
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setEnabled
-          go_name: SetEnabled
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: int
-          error: true
-      static_methods:
-        - java_method: queryEffects
-          go_name: QueryEffects
-          returns: android.media.audiofx.AudioEffect$Descriptor[]
-          error: true
-    - java_class: android.media.audiofx.AudioEffect$Descriptor
-      go_type: AudioEffectDescriptor
-      methods:
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-    - java_class: android.media.audiofx.AudioEffect$OnControlStatusChangeListener
-      go_type: AudioEffectOnControlStatusChangeListener
-      methods:
-        - java_method: onControlStatusChange
-          go_name: OnControlStatusChange
-          params:
-            - java_type: android.media.audiofx.AudioEffect
-              go_name: arg0
-            - java_type: boolean
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.media.audiofx.AudioEffect$OnEnableStatusChangeListener
-      go_type: AudioEffectOnEnableStatusChangeListener
-      methods:
-        - java_method: onEnableStatusChange
-          go_name: OnEnableStatusChange
-          params:
-            - java_type: android.media.audiofx.AudioEffect
-              go_name: arg0
-            - java_type: boolean
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.media.audiofx.Equalizer
-      go_type: Equalizer
-      obtain: constructor
-      constructor_params:
-        - java_type: int
-          go_name: arg0
-        - java_type: int
-          go_name: arg1
-      methods:
-        - java_method: getBand
-          go_name: GetBand
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: short
-          error: true
-        - java_method: getBandFreqRange
-          go_name: GetBandFreqRange
-          params:
-            - java_type: short
-              go_name: arg0
-          returns: '[I'
-          error: true
-        - java_method: getBandLevel
-          go_name: GetBandLevel
-          params:
-            - java_type: short
-              go_name: arg0
-          returns: short
-          error: true
-        - java_method: getBandLevelRange
-          go_name: GetBandLevelRange
-          returns: short[]
-          error: true
-        - java_method: getCenterFreq
-          go_name: GetCenterFreq
-          params:
-            - java_type: short
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getCurrentPreset
-          go_name: GetCurrentPreset
-          returns: short
-          error: true
-        - java_method: getNumberOfBands
-          go_name: GetNumberOfBands
-          returns: short
-          error: true
-        - java_method: getNumberOfPresets
-          go_name: GetNumberOfPresets
-          returns: short
-          error: true
-        - java_method: getPresetName
-          go_name: GetPresetName
-          params:
-            - java_type: short
-              go_name: arg0
-          returns: String
-          error: true
-        - java_method: getProperties
-          go_name: GetProperties
-          returns: android.media.audiofx.Equalizer$Settings
-          error: true
-        - java_method: setBandLevel
-          go_name: SetBandLevel
-          params:
-            - java_type: short
-              go_name: arg0
-            - java_type: short
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: setParameterListener
-          go_name: SetParameterListener
-          params:
-            - java_type: android.media.audiofx.Equalizer$OnParameterChangeListener
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setProperties
-          go_name: SetProperties
-          params:
-            - java_type: android.media.audiofx.Equalizer$Settings
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: usePreset
-          go_name: UsePreset
-          params:
-            - java_type: short
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.media.audiofx.Equalizer$OnParameterChangeListener
-      go_type: EqualizerOnParameterChangeListener
-      methods:
-        - java_method: onParameterChange
-          go_name: OnParameterChange
-          params:
-            - java_type: android.media.audiofx.Equalizer
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-            - java_type: int
-              go_name: arg4
-          returns: void
-          error: true
-    - java_class: android.media.audiofx.Equalizer$Settings
-      go_type: EqualizerSettings
-      methods:
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-    - java_class: android.media.audiofx.Visualizer
-      go_type: Visualizer
-      obtain: constructor
-      constructor_params:
-        - java_type: int
-          go_name: arg0
-      methods:
-        - java_method: getCaptureSize
-          go_name: GetCaptureSize
-          returns: int
-          error: true
-        - java_method: getEnabled
-          go_name: GetEnabled
-          returns: boolean
-          error: true
-        - java_method: getFft
-          go_name: GetFft
-          params:
-            - java_type: '[B'
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getMeasurementMode
-          go_name: GetMeasurementMode
-          returns: int
-          error: true
-        - java_method: getMeasurementPeakRms
-          go_name: GetMeasurementPeakRms
-          params:
-            - java_type: android.media.audiofx.Visualizer$MeasurementPeakRms
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getSamplingRate
-          go_name: GetSamplingRate
-          returns: int
-          error: true
-        - java_method: getScalingMode
-          go_name: GetScalingMode
-          returns: int
-          error: true
-        - java_method: getWaveForm
-          go_name: GetWaveForm
-          params:
-            - java_type: '[B'
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: release
-          go_name: Release
-          returns: void
-          error: true
-        - java_method: setCaptureSize
-          go_name: SetCaptureSize
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: setDataCaptureListener
-          go_name: SetDataCaptureListener
-          params:
-            - java_type: android.media.audiofx.Visualizer$OnDataCaptureListener
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: boolean
-              go_name: arg2
-            - java_type: boolean
-              go_name: arg3
-          returns: int
-          error: true
-        - java_method: setEnabled
-          go_name: SetEnabled
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: setMeasurementMode
-          go_name: SetMeasurementMode
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: setScalingMode
-          go_name: SetScalingMode
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-      static_methods:
-        - java_method: getCaptureSizeRange
-          go_name: GetCaptureSizeRange
-          returns: '[I'
-          error: true
-        - java_method: getMaxCaptureRate
-          go_name: GetMaxCaptureRate
-          returns: int
-          error: true
-    - java_class: android.media.audiofx.Visualizer$MeasurementPeakRms
-      go_type: VisualizerMeasurementPeakRms
-    - java_class: android.media.audiofx.Visualizer$OnDataCaptureListener
-      go_type: VisualizerOnDataCaptureListener
-      methods:
-        - java_method: onFftDataCapture
-          go_name: OnFftDataCapture
-          params:
-            - java_type: android.media.audiofx.Visualizer
-              go_name: arg0
-            - java_type: '[B'
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: onWaveFormDataCapture
-          go_name: OnWaveFormDataCapture
-          params:
-            - java_type: android.media.audiofx.Visualizer
-              go_name: arg0
-            - java_type: '[B'
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: void
-          error: true
-    - java_class: android.media.audiofx.Virtualizer
-      go_type: Virtualizer
-      obtain: constructor
-      constructor_params:
-        - java_type: int
-          go_name: arg0
-        - java_type: int
-          go_name: arg1
-      methods:
-        - java_method: canVirtualize
-          go_name: CanVirtualize
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: forceVirtualizationMode
-          go_name: ForceVirtualizationMode
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getProperties
-          go_name: GetProperties
-          returns: android.media.audiofx.Virtualizer$Settings
-          error: true
-        - java_method: getRoundedStrength
-          go_name: GetRoundedStrength
-          returns: short
-          error: true
-        - java_method: getSpeakerAngles
-          go_name: GetSpeakerAngles
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: '[I'
-              go_name: arg2
-          returns: boolean
-          error: true
-        - java_method: getStrengthSupported
-          go_name: GetStrengthSupported
-          returns: boolean
-          error: true
-        - java_method: getVirtualizationMode
-          go_name: GetVirtualizationMode
-          returns: int
-          error: true
-        - java_method: setParameterListener
-          go_name: SetParameterListener
-          params:
-            - java_type: android.media.audiofx.Virtualizer$OnParameterChangeListener
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setProperties
-          go_name: SetProperties
-          params:
-            - java_type: android.media.audiofx.Virtualizer$Settings
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setStrength
-          go_name: SetStrength
-          params:
-            - java_type: short
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.media.audiofx.Virtualizer$OnParameterChangeListener
-      go_type: VirtualizerOnParameterChangeListener
-      methods:
-        - java_method: onParameterChange
-          go_name: OnParameterChange
-          params:
-            - java_type: android.media.audiofx.Virtualizer
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: short
-              go_name: arg3
-          returns: void
-          error: true
-    - java_class: android.media.audiofx.Virtualizer$Settings
-      go_type: VirtualizerSettings
-      methods:
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
 constants:
     - go_name: ParamPreset
       value: "0"
@@ -1760,49 +1760,67 @@ constants:
     - go_name: PresetSmallroom
       value: "1"
       go_type: int
-    - go_name: ParamDecayHfRatio
-      value: "3"
-      go_type: int
-    - go_name: ParamDecayTime
-      value: "2"
-      go_type: int
-    - go_name: ParamDensity
-      value: "9"
-      go_type: int
-    - go_name: ParamDiffusion
-      value: "8"
-      go_type: int
-    - go_name: ParamReflectionsDelay
-      value: "5"
-      go_type: int
-    - go_name: ParamReflectionsLevel
-      value: "4"
-      go_type: int
-    - go_name: ParamReverbDelay
-      value: "7"
-      go_type: int
-    - go_name: ParamReverbLevel
-      value: "6"
-      go_type: int
-    - go_name: ParamRoomHfLevel
-      value: "1"
-      go_type: int
-    - go_name: ParamRoomLevel
-      value: "0"
-      go_type: int
-    - go_name: VariantFavorFrequencyResolution
-      value: "0"
-      go_type: int
-    - go_name: VariantFavorTimeResolution
-      value: "1"
-      go_type: int
     - go_name: ParamStrength
       value: "1"
       go_type: int
     - go_name: ParamStrengthSupported
       value: "0"
       go_type: int
-    - go_name: ParamTargetGainMb
+    - go_name: VirtualizationModeAuto
+      value: "1"
+      go_type: int
+    - go_name: VirtualizationModeBinaural
+      value: "2"
+      go_type: int
+    - go_name: VirtualizationModeOff
+      value: "0"
+      go_type: int
+    - go_name: VirtualizationModeTransaural
+      value: "3"
+      go_type: int
+    - go_name: AlreadyExists
+      value: "-2"
+      go_type: int
+    - go_name: Error
+      value: "-1"
+      go_type: int
+    - go_name: ErrorBadValue
+      value: "-4"
+      go_type: int
+    - go_name: ErrorDeadObject
+      value: "-7"
+      go_type: int
+    - go_name: ErrorInvalidOperation
+      value: "-5"
+      go_type: int
+    - go_name: ErrorNoInit
+      value: "-3"
+      go_type: int
+    - go_name: ErrorNoMemory
+      value: "-6"
+      go_type: int
+    - go_name: MeasurementModeNone
+      value: "0"
+      go_type: int
+    - go_name: MeasurementModePeakRms
+      value: "1"
+      go_type: int
+    - go_name: ScalingModeAsPlayed
+      value: "1"
+      go_type: int
+    - go_name: ScalingModeNormalized
+      value: "0"
+      go_type: int
+    - go_name: StateEnabled
+      value: "2"
+      go_type: int
+    - go_name: StateInitialized
+      value: "1"
+      go_type: int
+    - go_name: StateUninitialized
+      value: "0"
+      go_type: int
+    - go_name: Success
       value: "0"
       go_type: int
     - go_name: ActionCloseAudioEffectControlSession
@@ -1814,9 +1832,6 @@ constants:
     - go_name: ActionOpenAudioEffectControlSession
       value: '"android.media.action.OPEN_AUDIO_EFFECT_CONTROL_SESSION"'
       go_type: string
-    - go_name: AlreadyExists
-      value: "-2"
-      go_type: int
     - go_name: ContentTypeGame
       value: "2"
       go_type: int
@@ -1874,24 +1889,6 @@ constants:
     - go_name: EffectTypeVirtualizer
       value: "0"
       go_type: int
-    - go_name: Error
-      value: "-1"
-      go_type: int
-    - go_name: ErrorBadValue
-      value: "-4"
-      go_type: int
-    - go_name: ErrorDeadObject
-      value: "-7"
-      go_type: int
-    - go_name: ErrorInvalidOperation
-      value: "-5"
-      go_type: int
-    - go_name: ErrorNoInit
-      value: "-3"
-      go_type: int
-    - go_name: ErrorNoMemory
-      value: "-6"
-      go_type: int
     - go_name: ExtraAudioSession
       value: '"android.media.extra.AUDIO_SESSION"'
       go_type: string
@@ -1901,8 +1898,44 @@ constants:
     - go_name: ExtraPackageName
       value: '"android.media.extra.PACKAGE_NAME"'
       go_type: string
-    - go_name: Success
+    - go_name: ParamTargetGainMb
       value: "0"
+      go_type: int
+    - go_name: ParamDecayHfRatio
+      value: "3"
+      go_type: int
+    - go_name: ParamDecayTime
+      value: "2"
+      go_type: int
+    - go_name: ParamDensity
+      value: "9"
+      go_type: int
+    - go_name: ParamDiffusion
+      value: "8"
+      go_type: int
+    - go_name: ParamReflectionsDelay
+      value: "5"
+      go_type: int
+    - go_name: ParamReflectionsLevel
+      value: "4"
+      go_type: int
+    - go_name: ParamReverbDelay
+      value: "7"
+      go_type: int
+    - go_name: ParamReverbLevel
+      value: "6"
+      go_type: int
+    - go_name: ParamRoomHfLevel
+      value: "1"
+      go_type: int
+    - go_name: ParamRoomLevel
+      value: "0"
+      go_type: int
+    - go_name: VariantFavorFrequencyResolution
+      value: "0"
+      go_type: int
+    - go_name: VariantFavorTimeResolution
+      value: "1"
       go_type: int
     - go_name: ParamBandFreqRange
       value: "4"
@@ -1933,37 +1966,4 @@ constants:
       go_type: int
     - go_name: ParamStringSizeMax
       value: "32"
-      go_type: int
-    - go_name: MeasurementModeNone
-      value: "0"
-      go_type: int
-    - go_name: MeasurementModePeakRms
-      value: "1"
-      go_type: int
-    - go_name: ScalingModeAsPlayed
-      value: "1"
-      go_type: int
-    - go_name: ScalingModeNormalized
-      value: "0"
-      go_type: int
-    - go_name: StateEnabled
-      value: "2"
-      go_type: int
-    - go_name: StateInitialized
-      value: "1"
-      go_type: int
-    - go_name: StateUninitialized
-      value: "0"
-      go_type: int
-    - go_name: VirtualizationModeAuto
-      value: "1"
-      go_type: int
-    - go_name: VirtualizationModeBinaural
-      value: "2"
-      go_type: int
-    - go_name: VirtualizationModeOff
-      value: "0"
-      go_type: int
-    - go_name: VirtualizationModeTransaural
-      value: "3"
       go_type: int

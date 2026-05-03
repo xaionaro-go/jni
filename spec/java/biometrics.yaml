@@ -7,73 +7,8 @@ go_import: github.com/AndroidGoLab/jni/hardware/biometrics
 classes:
     - java_class: android.hardware.biometrics.PromptContentItem
       go_type: PromptContentItem
-    - java_class: android.hardware.biometrics.PromptVerticalListContentView
-      go_type: PromptVerticalListContentView
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getDescription
-          go_name: GetDescription
-          returns: String
-          error: true
-        - java_method: getListItems
-          go_name: GetListItems
-          returns: java.util.List<android.hardware.biometrics.PromptContentItem>
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-      static_methods:
-        - java_method: getMaxEachItemCharacterNumber
-          go_name: GetMaxEachItemCharacterNumber
-          returns: int
-          error: true
-        - java_method: getMaxItemCount
-          go_name: GetMaxItemCount
-          returns: int
-          error: true
-    - java_class: android.hardware.biometrics.PromptVerticalListContentView$Builder
-      go_type: PromptVerticalListContentViewBuilder
-      methods:
-        - java_method: addListItem
-          go_name: AddListItem1
-          params:
-            - java_type: android.hardware.biometrics.PromptContentItem
-              go_name: arg0
-          returns: android.hardware.biometrics.PromptVerticalListContentView$Builder
-          error: true
-        - java_method: addListItem
-          go_name: AddListItem2_1
-          params:
-            - java_type: android.hardware.biometrics.PromptContentItem
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: android.hardware.biometrics.PromptVerticalListContentView$Builder
-          error: true
-        - java_method: build
-          go_name: Build
-          returns: android.hardware.biometrics.PromptVerticalListContentView
-          error: true
-        - java_method: setDescription
-          go_name: SetDescription
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.hardware.biometrics.PromptVerticalListContentView$Builder
-          error: true
-    - java_class: android.hardware.biometrics.PromptContentView
-      go_type: PromptContentView
-    - java_class: android.hardware.biometrics.PromptContentItemBulletedText
-      go_type: PromptContentItemBulletedText
+    - java_class: android.hardware.biometrics.PromptContentItemPlainText
+      go_type: PromptContentItemPlainText
       obtain: constructor
       constructor_params:
         - java_type: String
@@ -92,8 +27,10 @@ classes:
               go_name: arg1
           returns: void
           error: true
-    - java_class: android.hardware.biometrics.PromptContentItemPlainText
-      go_type: PromptContentItemPlainText
+    - java_class: android.hardware.biometrics.PromptContentView
+      go_type: PromptContentView
+    - java_class: android.hardware.biometrics.PromptContentItemBulletedText
+      go_type: PromptContentItemBulletedText
       obtain: constructor
       constructor_params:
         - java_type: String
@@ -158,6 +95,69 @@ classes:
             - java_type: android.content.DialogInterface$OnClickListener
               go_name: arg1
           returns: android.hardware.biometrics.PromptContentViewWithMoreOptionsButton$Builder
+          error: true
+    - java_class: android.hardware.biometrics.PromptVerticalListContentView
+      go_type: PromptVerticalListContentView
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getDescription
+          go_name: GetDescription
+          returns: String
+          error: true
+        - java_method: getListItems
+          go_name: GetListItems
+          returns: java.util.List<android.hardware.biometrics.PromptContentItem>
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+      static_methods:
+        - java_method: getMaxEachItemCharacterNumber
+          go_name: GetMaxEachItemCharacterNumber
+          returns: int
+          error: true
+        - java_method: getMaxItemCount
+          go_name: GetMaxItemCount
+          returns: int
+          error: true
+    - java_class: android.hardware.biometrics.PromptVerticalListContentView$Builder
+      go_type: PromptVerticalListContentViewBuilder
+      methods:
+        - java_method: addListItem
+          go_name: AddListItem1
+          params:
+            - java_type: android.hardware.biometrics.PromptContentItem
+              go_name: arg0
+          returns: android.hardware.biometrics.PromptVerticalListContentView$Builder
+          error: true
+        - java_method: addListItem
+          go_name: AddListItem2_1
+          params:
+            - java_type: android.hardware.biometrics.PromptContentItem
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: android.hardware.biometrics.PromptVerticalListContentView$Builder
+          error: true
+        - java_method: build
+          go_name: Build
+          returns: android.hardware.biometrics.PromptVerticalListContentView
+          error: true
+        - java_method: setDescription
+          go_name: SetDescription
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.hardware.biometrics.PromptVerticalListContentView$Builder
           error: true
 constants:
     - go_name: Creator

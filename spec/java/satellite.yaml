@@ -5,16 +5,6 @@
 package: satellite
 go_import: github.com/AndroidGoLab/jni/telephony/satellite
 classes:
-    - java_class: android.telephony.satellite.SatelliteStateChangeListener
-      go_type: StateChangeListener
-      methods:
-        - java_method: onEnabledStateChanged
-          go_name: OnEnabledStateChanged
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
     - java_class: android.telephony.satellite.SatelliteManager
       go_type: Manager
       obtain: system_service
@@ -34,6 +24,16 @@ classes:
           go_name: UnregisterStateChangeListener
           params:
             - java_type: android.telephony.satellite.SatelliteStateChangeListener
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.telephony.satellite.SatelliteStateChangeListener
+      go_type: StateChangeListener
+      methods:
+        - java_method: onEnabledStateChanged
+          go_name: OnEnabledStateChanged
+          params:
+            - java_type: boolean
               go_name: arg0
           returns: void
           error: true

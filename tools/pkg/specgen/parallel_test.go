@@ -77,7 +77,7 @@ func TestGenerateFromSources_ParallelWorkerSafety(t *testing.T) {
 
 	// Empty extraClassPath skips LoadServiceNames (which requires javac and
 	// android.jar) and isolates the test to the parallel work-loop path.
-	if err := GenerateFromSources(refDir, jarsDir, "", outputDir, "github.com/example/test"); err != nil {
+	if err := GenerateFromSources(refDir, jarsDir, "", outputDir, "github.com/example/test", nil); err != nil {
 		t.Fatalf("GenerateFromSources returned error: %v", err)
 	}
 

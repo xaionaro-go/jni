@@ -5,7 +5,29 @@ package notification
 import "github.com/AndroidGoLab/jni/service/notification/consts"
 
 const (
+	ConversationSendersAnyone          = consts.ConversationSendersAnyone
+	ConversationSendersImportant       = consts.ConversationSendersImportant
+	ConversationSendersNone            = consts.ConversationSendersNone
+	ConversationSendersUnset           = consts.ConversationSendersUnset
 	Creator                            = consts.Creator
+	PeopleTypeAnyone                   = consts.PeopleTypeAnyone
+	PeopleTypeContacts                 = consts.PeopleTypeContacts
+	PeopleTypeNone                     = consts.PeopleTypeNone
+	PeopleTypeStarred                  = consts.PeopleTypeStarred
+	PeopleTypeUnset                    = consts.PeopleTypeUnset
+	StateAllow                         = consts.StateAllow
+	StateDisallow                      = consts.StateDisallow
+	StateUnset                         = consts.StateUnset
+	FlagRelevantAlways                 = consts.FlagRelevantAlways
+	FlagRelevantNow                    = consts.FlagRelevantNow
+	SourceContext                      = consts.SourceContext
+	SourceSchedule                     = consts.SourceSchedule
+	SourceUnknown                      = consts.SourceUnknown
+	SourceUserAction                   = consts.SourceUserAction
+	StateError                         = consts.StateError
+	StateFalse                         = consts.StateFalse
+	StateTrue                          = consts.StateTrue
+	StateUnknown                       = consts.StateUnknown
 	FlagFilterTypeAlerting             = consts.FlagFilterTypeAlerting
 	FlagFilterTypeConversations        = consts.FlagFilterTypeConversations
 	FlagFilterTypeOngoing              = consts.FlagFilterTypeOngoing
@@ -50,31 +72,10 @@ const (
 	UserSentimentNeutral               = consts.UserSentimentNeutral
 	UserSentimentPositive              = consts.UserSentimentPositive
 	VisibilityNoOverride               = consts.VisibilityNoOverride
-	FlagRelevantAlways                 = consts.FlagRelevantAlways
-	FlagRelevantNow                    = consts.FlagRelevantNow
-	SourceContext                      = consts.SourceContext
-	SourceSchedule                     = consts.SourceSchedule
-	SourceUnknown                      = consts.SourceUnknown
-	SourceUserAction                   = consts.SourceUserAction
-	StateError                         = consts.StateError
-	StateFalse                         = consts.StateFalse
-	StateTrue                          = consts.StateTrue
-	StateUnknown                       = consts.StateUnknown
-	ConversationSendersAnyone          = consts.ConversationSendersAnyone
-	ConversationSendersImportant       = consts.ConversationSendersImportant
-	ConversationSendersNone            = consts.ConversationSendersNone
-	ConversationSendersUnset           = consts.ConversationSendersUnset
-	PeopleTypeAnyone                   = consts.PeopleTypeAnyone
-	PeopleTypeContacts                 = consts.PeopleTypeContacts
-	PeopleTypeNone                     = consts.PeopleTypeNone
-	PeopleTypeStarred                  = consts.PeopleTypeStarred
-	PeopleTypeUnset                    = consts.PeopleTypeUnset
-	StateAllow                         = consts.StateAllow
-	StateDisallow                      = consts.StateDisallow
-	StateUnset                         = consts.StateUnset
 )
 
 const (
+	Scheme                        = consts.Scheme
 	ActionSettingsHome            = consts.ActionSettingsHome
 	MetaDataDefaultAutobind       = consts.MetaDataDefaultAutobind
 	MetaDataDefaultFilterTypes    = consts.MetaDataDefaultFilterTypes
@@ -84,5 +85,4 @@ const (
 	MetaDataConfigurationActivity = consts.MetaDataConfigurationActivity
 	MetaDataRuleInstanceLimit     = consts.MetaDataRuleInstanceLimit
 	MetaDataRuleType              = consts.MetaDataRuleType
-	Scheme                        = consts.Scheme
 )

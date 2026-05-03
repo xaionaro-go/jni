@@ -6,23 +6,23 @@ import "github.com/AndroidGoLab/jni/view/translation/consts"
 
 const (
 	Creator                             = consts.Creator
-	StateAvailableToDownload            = consts.StateAvailableToDownload
-	StateDownloading                    = consts.StateDownloading
-	StateNotAvailable                   = consts.StateNotAvailable
-	StateOnDevice                       = consts.StateOnDevice
-	FlagDefinitions                     = consts.FlagDefinitions
-	FlagLowLatency                      = consts.FlagLowLatency
-	FlagTransliteration                 = consts.FlagTransliteration
-	TranslationStatusContextUnsupported = consts.TranslationStatusContextUnsupported
-	TranslationStatusSuccess            = consts.TranslationStatusSuccess
-	TranslationStatusUnknownError       = consts.TranslationStatusUnknownError
+	DataFormatText                      = consts.DataFormatText
 	FlagDictionaryResult                = consts.FlagDictionaryResult
 	FlagPartialResponses                = consts.FlagPartialResponses
 	FlagTranslationResult               = consts.FlagTranslationResult
 	FlagTransliterationResult           = consts.FlagTransliterationResult
+	StateAvailableToDownload            = consts.StateAvailableToDownload
+	StateDownloading                    = consts.StateDownloading
+	StateNotAvailable                   = consts.StateNotAvailable
+	StateOnDevice                       = consts.StateOnDevice
+	TranslationStatusContextUnsupported = consts.TranslationStatusContextUnsupported
+	TranslationStatusSuccess            = consts.TranslationStatusSuccess
+	TranslationStatusUnknownError       = consts.TranslationStatusUnknownError
+	FlagDefinitions                     = consts.FlagDefinitions
+	FlagLowLatency                      = consts.FlagLowLatency
+	FlagTransliteration                 = consts.FlagTransliteration
 	StatusError                         = consts.StatusError
 	StatusSuccess                       = consts.StatusSuccess
-	DataFormatText                      = consts.DataFormatText
 )
 
 const (

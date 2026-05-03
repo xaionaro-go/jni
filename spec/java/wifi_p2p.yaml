@@ -5,6 +5,87 @@
 package: wifi_p2p
 go_import: github.com/AndroidGoLab/jni/net/wifi/p2p
 classes:
+    - java_class: android.net.wifi.p2p.WifiP2pUsdBasedServiceDiscoveryConfig
+      go_type: WifiP2pUsdBasedServiceDiscoveryConfig
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getBand
+          go_name: GetBand
+          returns: int
+          error: true
+        - java_method: getFrequenciesMhz
+          go_name: GetFrequenciesMhz
+          returns: '[I'
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.net.wifi.p2p.WifiP2pUsdBasedServiceDiscoveryConfig$Builder
+      go_type: WifiP2pUsdBasedServiceDiscoveryConfigBuilder
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.net.wifi.p2p.WifiP2pUsdBasedServiceDiscoveryConfig
+          error: true
+        - java_method: setBand
+          go_name: SetBand
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.net.wifi.p2p.WifiP2pUsdBasedServiceDiscoveryConfig$Builder
+          error: true
+        - java_method: setFrequenciesMhz
+          go_name: SetFrequenciesMhz
+          params:
+            - java_type: '[I'
+              go_name: arg0
+          returns: android.net.wifi.p2p.WifiP2pUsdBasedServiceDiscoveryConfig$Builder
+          error: true
+    - java_class: android.net.wifi.p2p.WifiP2pDeviceList
+      go_type: WifiP2pDeviceList
+      obtain: constructor
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: get
+          go_name: Get
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.net.wifi.p2p.WifiP2pDevice
+          error: true
+        - java_method: getDeviceList
+          go_name: GetDeviceList
+          returns: java.util.Collection<android.net.wifi.p2p.WifiP2pDevice>
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
     - java_class: android.net.wifi.p2p.WifiP2pConfig
       go_type: WifiP2pConfig
       obtain: constructor
@@ -145,144 +226,6 @@ classes:
             - java_type: int
               go_name: arg0
           returns: android.net.wifi.p2p.WifiP2pConfig$Builder
-          error: true
-    - java_class: android.net.wifi.p2p.WifiP2pUsdBasedLocalServiceAdvertisementConfig
-      go_type: WifiP2pUsdBasedLocalServiceAdvertisementConfig
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getFrequencyMhz
-          go_name: GetFrequencyMhz
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.net.wifi.p2p.WifiP2pUsdBasedLocalServiceAdvertisementConfig$Builder
-      go_type: WifiP2pUsdBasedLocalServiceAdvertisementConfigBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.net.wifi.p2p.WifiP2pUsdBasedLocalServiceAdvertisementConfig
-          error: true
-        - java_method: setFrequencyMhz
-          go_name: SetFrequencyMhz
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.net.wifi.p2p.WifiP2pUsdBasedLocalServiceAdvertisementConfig$Builder
-          error: true
-    - java_class: android.net.wifi.p2p.WifiP2pDiscoveryConfig
-      go_type: WifiP2pDiscoveryConfig
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getFrequencyMhz
-          go_name: GetFrequencyMhz
-          returns: int
-          error: true
-        - java_method: getScanType
-          go_name: GetScanType
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.net.wifi.p2p.WifiP2pDiscoveryConfig$Builder
-      go_type: WifiP2pDiscoveryConfigBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.net.wifi.p2p.WifiP2pDiscoveryConfig
-          error: true
-        - java_method: setFrequencyMhz
-          go_name: SetFrequencyMhz
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.net.wifi.p2p.WifiP2pDiscoveryConfig$Builder
-          error: true
-    - java_class: android.net.wifi.p2p.WifiP2pPairingBootstrappingConfig
-      go_type: WifiP2pPairingBootstrappingConfig
-      obtain: constructor
-      constructor_params:
-        - java_type: int
-          go_name: arg0
-        - java_type: String
-          go_name: arg1
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.net.wifi.p2p.WifiP2pDeviceList
-      go_type: WifiP2pDeviceList
-      obtain: constructor
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: get
-          go_name: Get
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.net.wifi.p2p.WifiP2pDevice
-          error: true
-        - java_method: getDeviceList
-          go_name: GetDeviceList
-          returns: java.util.Collection<android.net.wifi.p2p.WifiP2pDevice>
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
           error: true
     - java_class: android.net.wifi.p2p.WifiP2pDevice
       go_type: WifiP2pDevice
@@ -507,76 +450,6 @@ classes:
               go_name: arg1
           returns: void
           error: true
-    - java_class: android.net.wifi.p2p.WifiP2pInfo
-      go_type: WifiP2pInfo
-      obtain: constructor
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.net.wifi.p2p.WifiP2pUsdBasedServiceDiscoveryConfig
-      go_type: WifiP2pUsdBasedServiceDiscoveryConfig
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getBand
-          go_name: GetBand
-          returns: int
-          error: true
-        - java_method: getFrequenciesMhz
-          go_name: GetFrequenciesMhz
-          returns: '[I'
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.net.wifi.p2p.WifiP2pUsdBasedServiceDiscoveryConfig$Builder
-      go_type: WifiP2pUsdBasedServiceDiscoveryConfigBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.net.wifi.p2p.WifiP2pUsdBasedServiceDiscoveryConfig
-          error: true
-        - java_method: setBand
-          go_name: SetBand
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.net.wifi.p2p.WifiP2pUsdBasedServiceDiscoveryConfig$Builder
-          error: true
-        - java_method: setFrequenciesMhz
-          go_name: SetFrequenciesMhz
-          params:
-            - java_type: '[I'
-              go_name: arg0
-          returns: android.net.wifi.p2p.WifiP2pUsdBasedServiceDiscoveryConfig$Builder
-          error: true
     - java_class: android.net.wifi.p2p.WifiP2pGroup
       go_type: WifiP2pGroup
       obtain: constructor
@@ -638,32 +511,55 @@ classes:
               go_name: arg1
           returns: void
           error: true
-    - java_class: android.net.wifi.p2p.WifiP2pDirInfo
-      go_type: WifiP2pDirInfo
-      obtain: constructor
-      constructor_params:
-        - java_type: android.net.MacAddress
-          go_name: arg0
-        - java_type: '[B'
-          go_name: arg1
-        - java_type: '[B'
-          go_name: arg2
+    - java_class: android.net.wifi.p2p.WifiP2pDiscoveryConfig
+      go_type: WifiP2pDiscoveryConfig
       methods:
         - java_method: describeContents
           go_name: DescribeContents
           returns: int
           error: true
-        - java_method: getDirTag
-          go_name: GetDirTag
-          returns: '[B'
+        - java_method: getFrequencyMhz
+          go_name: GetFrequencyMhz
+          returns: int
           error: true
-        - java_method: getMacAddress
-          go_name: GetMacAddress
-          returns: android.net.MacAddress
+        - java_method: getScanType
+          go_name: GetScanType
+          returns: int
           error: true
-        - java_method: getNonce
-          go_name: GetNonce
-          returns: '[B'
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.net.wifi.p2p.WifiP2pDiscoveryConfig$Builder
+      go_type: WifiP2pDiscoveryConfigBuilder
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.net.wifi.p2p.WifiP2pDiscoveryConfig
+          error: true
+        - java_method: setFrequencyMhz
+          go_name: SetFrequencyMhz
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.net.wifi.p2p.WifiP2pDiscoveryConfig$Builder
+          error: true
+    - java_class: android.net.wifi.p2p.WifiP2pInfo
+      go_type: WifiP2pInfo
+      obtain: constructor
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
           error: true
         - java_method: toString
           go_name: ToString
@@ -1286,6 +1182,110 @@ classes:
       go_type: WifiP2pManagerUpnpServiceResponseListener
     - java_class: android.net.wifi.p2p.WifiP2pManager$WifiP2pListener
       go_type: WifiP2pManagerWifiP2pListener
+    - java_class: android.net.wifi.p2p.WifiP2pDirInfo
+      go_type: WifiP2pDirInfo
+      obtain: constructor
+      constructor_params:
+        - java_type: android.net.MacAddress
+          go_name: arg0
+        - java_type: '[B'
+          go_name: arg1
+        - java_type: '[B'
+          go_name: arg2
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getDirTag
+          go_name: GetDirTag
+          returns: '[B'
+          error: true
+        - java_method: getMacAddress
+          go_name: GetMacAddress
+          returns: android.net.MacAddress
+          error: true
+        - java_method: getNonce
+          go_name: GetNonce
+          returns: '[B'
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.net.wifi.p2p.WifiP2pUsdBasedLocalServiceAdvertisementConfig
+      go_type: WifiP2pUsdBasedLocalServiceAdvertisementConfig
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getFrequencyMhz
+          go_name: GetFrequencyMhz
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.net.wifi.p2p.WifiP2pUsdBasedLocalServiceAdvertisementConfig$Builder
+      go_type: WifiP2pUsdBasedLocalServiceAdvertisementConfigBuilder
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.net.wifi.p2p.WifiP2pUsdBasedLocalServiceAdvertisementConfig
+          error: true
+        - java_method: setFrequencyMhz
+          go_name: SetFrequencyMhz
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.net.wifi.p2p.WifiP2pUsdBasedLocalServiceAdvertisementConfig$Builder
+          error: true
+    - java_class: android.net.wifi.p2p.WifiP2pPairingBootstrappingConfig
+      go_type: WifiP2pPairingBootstrappingConfig
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+        - java_type: String
+          go_name: arg1
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
 constants:
     - go_name: Creator
       value: "0"
@@ -1331,24 +1331,6 @@ constants:
       go_type: int
     - go_name: PccModeConnectionTypeR2Only
       value: "2"
-      go_type: int
-    - go_name: PairingBootstrappingMethodDisplayPassphrase
-      value: "4"
-      go_type: int
-    - go_name: PairingBootstrappingMethodDisplayPincode
-      value: "2"
-      go_type: int
-    - go_name: PairingBootstrappingMethodKeypadPassphrase
-      value: "16"
-      go_type: int
-    - go_name: PairingBootstrappingMethodKeypadPincode
-      value: "8"
-      go_type: int
-    - go_name: PairingBootstrappingMethodOpportunistic
-      value: "1"
-      go_type: int
-    - go_name: PairingBootstrappingMethodOutOfBand
-      value: "32"
       go_type: int
     - go_name: Available
       value: "3"
@@ -1580,4 +1562,22 @@ constants:
       go_type: int
     - go_name: RequestTypeNegotiation
       value: "0"
+      go_type: int
+    - go_name: PairingBootstrappingMethodDisplayPassphrase
+      value: "4"
+      go_type: int
+    - go_name: PairingBootstrappingMethodDisplayPincode
+      value: "2"
+      go_type: int
+    - go_name: PairingBootstrappingMethodKeypadPassphrase
+      value: "16"
+      go_type: int
+    - go_name: PairingBootstrappingMethodKeypadPincode
+      value: "8"
+      go_type: int
+    - go_name: PairingBootstrappingMethodOpportunistic
+      value: "1"
+      go_type: int
+    - go_name: PairingBootstrappingMethodOutOfBand
+      value: "32"
       go_type: int

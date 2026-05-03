@@ -5,357 +5,6 @@
 package: ad
 go_import: github.com/AndroidGoLab/jni/media/tv/ad
 classes:
-    - java_class: android.media.tv.ad.TvAdServiceInfo
-      go_type: TvAdServiceInfo
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-        - java_type: android.content.ComponentName
-          go_name: arg1
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getId
-          go_name: GetId
-          returns: String
-          error: true
-        - java_method: getServiceInfo
-          go_name: GetServiceInfo
-          returns: android.content.pm.ServiceInfo
-          error: true
-        - java_method: getSupportedTypes
-          go_name: GetSupportedTypes
-          returns: java.util.List<java.lang.String>
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.media.tv.ad.TvAdView
-      go_type: TvAdView
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-      methods:
-        - java_method: clearCallback
-          go_name: ClearCallback
-          returns: void
-          error: true
-        - java_method: clearOnUnhandledInputEventListener
-          go_name: ClearOnUnhandledInputEventListener
-          returns: void
-          error: true
-        - java_method: dispatchKeyEvent
-          go_name: DispatchKeyEvent
-          params:
-            - java_type: android.view.KeyEvent
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: dispatchUnhandledInputEvent
-          go_name: DispatchUnhandledInputEvent
-          params:
-            - java_type: android.view.InputEvent
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getOnUnhandledInputEventListener
-          go_name: GetOnUnhandledInputEventListener
-          returns: android.media.tv.ad.TvAdView$OnUnhandledInputEventListener
-          error: true
-        - java_method: notifyError
-          go_name: NotifyError
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: android.os.Bundle
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: notifyTvMessage
-          go_name: NotifyTvMessage
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.os.Bundle
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onAttachedToWindow
-          go_name: OnAttachedToWindow
-          returns: void
-          error: true
-        - java_method: onDetachedFromWindow
-          go_name: OnDetachedFromWindow
-          returns: void
-          error: true
-        - java_method: onLayout
-          go_name: OnLayout
-          params:
-            - java_type: boolean
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-            - java_type: int
-              go_name: arg4
-          returns: void
-          error: true
-        - java_method: onMeasure
-          go_name: OnMeasure
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onUnhandledInputEvent
-          go_name: OnUnhandledInputEvent
-          params:
-            - java_type: android.view.InputEvent
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: onVisibilityChanged
-          go_name: OnVisibilityChanged
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: prepareAdService
-          go_name: PrepareAdService
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: reset
-          go_name: Reset
-          returns: void
-          error: true
-        - java_method: resetAdService
-          go_name: ResetAdService
-          returns: void
-          error: true
-        - java_method: sendCurrentChannelUri
-          go_name: SendCurrentChannelUri
-          params:
-            - java_type: android.net.Uri
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: sendCurrentTvInputId
-          go_name: SendCurrentTvInputId
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: sendCurrentVideoBounds
-          go_name: SendCurrentVideoBounds
-          params:
-            - java_type: android.graphics.Rect
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: sendSigningResult
-          go_name: SendSigningResult
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: '[B'
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: setCallback
-          go_name: SetCallback
-          params:
-            - java_type: java.util.concurrent.Executor
-              go_name: arg0
-            - java_type: android.media.tv.ad.TvAdView$TvAdCallback
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: setOnUnhandledInputEventListener
-          go_name: SetOnUnhandledInputEventListener
-          params:
-            - java_type: android.media.tv.ad.TvAdView$OnUnhandledInputEventListener
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setTvView
-          go_name: SetTvView
-          params:
-            - java_type: android.media.tv.TvView
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: setZOrderMediaOverlay
-          go_name: SetZOrderMediaOverlay
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setZOrderOnTop
-          go_name: SetZOrderOnTop
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: startAdService
-          go_name: StartAdService
-          returns: void
-          error: true
-        - java_method: stopAdService
-          go_name: StopAdService
-          returns: void
-          error: true
-    - java_class: android.media.tv.ad.TvAdView$OnUnhandledInputEventListener
-      go_type: TvAdViewOnUnhandledInputEventListener
-      methods:
-        - java_method: onUnhandledInputEvent
-          go_name: OnUnhandledInputEvent
-          params:
-            - java_type: android.view.InputEvent
-              go_name: arg0
-          returns: boolean
-          error: true
-    - java_class: android.media.tv.ad.TvAdView$TvAdCallback
-      go_type: TvAdViewTvAdCallback
-      methods:
-        - java_method: onRequestCurrentChannelUri
-          go_name: OnRequestCurrentChannelUri
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onRequestCurrentTvInputId
-          go_name: OnRequestCurrentTvInputId
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onRequestCurrentVideoBounds
-          go_name: OnRequestCurrentVideoBounds
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onRequestSigning
-          go_name: OnRequestSigning
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-            - java_type: String
-              go_name: arg2
-            - java_type: String
-              go_name: arg3
-            - java_type: '[B'
-              go_name: arg4
-          returns: void
-          error: true
-        - java_method: onRequestTrackInfoList
-          go_name: OnRequestTrackInfoList
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onStateChanged
-          go_name: OnStateChanged
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: void
-          error: true
-    - java_class: android.media.tv.ad.TvAdManager
-      go_type: TvAdManager
-      obtain: system_service
-      service_name: tv_ad
-      close: true
-      methods:
-        - java_method: getTvAdServiceList
-          go_name: GetTvAdServiceList
-          returns: java.util.List<android.media.tv.ad.TvAdServiceInfo>
-          error: true
-        - java_method: registerCallback
-          go_name: RegisterCallback
-          params:
-            - java_type: java.util.concurrent.Executor
-              go_name: arg0
-            - java_type: android.media.tv.ad.TvAdManager$TvAdServiceCallback
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: sendAppLinkCommand
-          go_name: SendAppLinkCommand
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: android.os.Bundle
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: unregisterCallback
-          go_name: UnregisterCallback
-          params:
-            - java_type: android.media.tv.ad.TvAdManager$TvAdServiceCallback
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.media.tv.ad.TvAdManager$TvAdServiceCallback
-      go_type: TvAdManagerTvAdServiceCallback
-      methods:
-        - java_method: onAdServiceAdded
-          go_name: OnAdServiceAdded
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onAdServiceRemoved
-          go_name: OnAdServiceRemoved
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onAdServiceUpdated
-          go_name: OnAdServiceUpdated
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: void
-          error: true
     - java_class: android.media.tv.ad.TvAdService
       go_type: TvAdService
       methods:
@@ -619,16 +268,623 @@ classes:
               go_name: arg0
           returns: void
           error: true
+    - java_class: android.media.tv.ad.TvAdView
+      go_type: TvAdView
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+      methods:
+        - java_method: clearCallback
+          go_name: ClearCallback
+          returns: void
+          error: true
+        - java_method: clearOnUnhandledInputEventListener
+          go_name: ClearOnUnhandledInputEventListener
+          returns: void
+          error: true
+        - java_method: dispatchKeyEvent
+          go_name: DispatchKeyEvent
+          params:
+            - java_type: android.view.KeyEvent
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: dispatchUnhandledInputEvent
+          go_name: DispatchUnhandledInputEvent
+          params:
+            - java_type: android.view.InputEvent
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getOnUnhandledInputEventListener
+          go_name: GetOnUnhandledInputEventListener
+          returns: android.media.tv.ad.TvAdView$OnUnhandledInputEventListener
+          error: true
+        - java_method: notifyError
+          go_name: NotifyError
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: android.os.Bundle
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: notifyTvMessage
+          go_name: NotifyTvMessage
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: android.os.Bundle
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onAttachedToWindow
+          go_name: OnAttachedToWindow
+          returns: void
+          error: true
+        - java_method: onDetachedFromWindow
+          go_name: OnDetachedFromWindow
+          returns: void
+          error: true
+        - java_method: onLayout
+          go_name: OnLayout
+          params:
+            - java_type: boolean
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+            - java_type: int
+              go_name: arg4
+          returns: void
+          error: true
+        - java_method: onMeasure
+          go_name: OnMeasure
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onUnhandledInputEvent
+          go_name: OnUnhandledInputEvent
+          params:
+            - java_type: android.view.InputEvent
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: onVisibilityChanged
+          go_name: OnVisibilityChanged
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: prepareAdService
+          go_name: PrepareAdService
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: reset
+          go_name: Reset
+          returns: void
+          error: true
+        - java_method: resetAdService
+          go_name: ResetAdService
+          returns: void
+          error: true
+        - java_method: sendCurrentChannelUri
+          go_name: SendCurrentChannelUri
+          params:
+            - java_type: android.net.Uri
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: sendCurrentTvInputId
+          go_name: SendCurrentTvInputId
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: sendCurrentVideoBounds
+          go_name: SendCurrentVideoBounds
+          params:
+            - java_type: android.graphics.Rect
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: sendSigningResult
+          go_name: SendSigningResult
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: '[B'
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: setCallback
+          go_name: SetCallback
+          params:
+            - java_type: java.util.concurrent.Executor
+              go_name: arg0
+            - java_type: android.media.tv.ad.TvAdView$TvAdCallback
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: setOnUnhandledInputEventListener
+          go_name: SetOnUnhandledInputEventListener
+          params:
+            - java_type: android.media.tv.ad.TvAdView$OnUnhandledInputEventListener
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setTvView
+          go_name: SetTvView
+          params:
+            - java_type: android.media.tv.TvView
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: setZOrderMediaOverlay
+          go_name: SetZOrderMediaOverlay
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setZOrderOnTop
+          go_name: SetZOrderOnTop
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: startAdService
+          go_name: StartAdService
+          returns: void
+          error: true
+        - java_method: stopAdService
+          go_name: StopAdService
+          returns: void
+          error: true
+    - java_class: android.media.tv.ad.TvAdView$OnUnhandledInputEventListener
+      go_type: TvAdViewOnUnhandledInputEventListener
+      methods:
+        - java_method: onUnhandledInputEvent
+          go_name: OnUnhandledInputEvent
+          params:
+            - java_type: android.view.InputEvent
+              go_name: arg0
+          returns: boolean
+          error: true
+    - java_class: android.media.tv.ad.TvAdView$TvAdCallback
+      go_type: TvAdViewTvAdCallback
+      methods:
+        - java_method: onRequestCurrentChannelUri
+          go_name: OnRequestCurrentChannelUri
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onRequestCurrentTvInputId
+          go_name: OnRequestCurrentTvInputId
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onRequestCurrentVideoBounds
+          go_name: OnRequestCurrentVideoBounds
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onRequestSigning
+          go_name: OnRequestSigning
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+            - java_type: String
+              go_name: arg2
+            - java_type: String
+              go_name: arg3
+            - java_type: '[B'
+              go_name: arg4
+          returns: void
+          error: true
+        - java_method: onRequestTrackInfoList
+          go_name: OnRequestTrackInfoList
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onStateChanged
+          go_name: OnStateChanged
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: void
+          error: true
+    - java_class: android.media.tv.ad.TvAdServiceInfo
+      go_type: TvAdServiceInfo
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+        - java_type: android.content.ComponentName
+          go_name: arg1
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getId
+          go_name: GetId
+          returns: String
+          error: true
+        - java_method: getServiceInfo
+          go_name: GetServiceInfo
+          returns: android.content.pm.ServiceInfo
+          error: true
+        - java_method: getSupportedTypes
+          go_name: GetSupportedTypes
+          returns: java.util.List<java.lang.String>
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.media.tv.ad.TvAdManager
+      go_type: TvAdManager
+      obtain: system_service
+      service_name: tv_ad
+      close: true
+      methods:
+        - java_method: getTvAdServiceList
+          go_name: GetTvAdServiceList
+          returns: java.util.List<android.media.tv.ad.TvAdServiceInfo>
+          error: true
+        - java_method: registerCallback
+          go_name: RegisterCallback
+          params:
+            - java_type: java.util.concurrent.Executor
+              go_name: arg0
+            - java_type: android.media.tv.ad.TvAdManager$TvAdServiceCallback
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: sendAppLinkCommand
+          go_name: SendAppLinkCommand
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: android.os.Bundle
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: unregisterCallback
+          go_name: UnregisterCallback
+          params:
+            - java_type: android.media.tv.ad.TvAdManager$TvAdServiceCallback
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.media.tv.ad.TvAdManager$TvAdServiceCallback
+      go_type: TvAdManagerTvAdServiceCallback
+      methods:
+        - java_method: onAdServiceAdded
+          go_name: OnAdServiceAdded
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onAdServiceRemoved
+          go_name: OnAdServiceRemoved
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onAdServiceUpdated
+          go_name: OnAdServiceUpdated
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: void
+          error: true
+abstract_callbacks:
+    - java_class: android.media.tv.ad.TvAdService
+      go_type: TvAdServiceCallback
+      methods:
+        - java_method: onAppLinkCommand
+          params:
+            - android.os.Bundle
+          returns: void
+          go_field: OnAppLinkCommand
+        - java_method: onBind
+          params:
+            - android.content.Intent
+          returns: android.os.IBinder
+          go_field: OnBind
+        - java_method: onCreateSession
+          params:
+            - String
+            - String
+          returns: android.media.tv.ad.TvAdService$Session
+          go_field: OnCreateSession
+    - java_class: android.media.tv.ad.TvAdService$Session
+      go_type: TvAdServiceSessionCallback
+      methods:
+        - java_method: isMediaViewEnabled
+          params: []
+          returns: boolean
+          go_field: IsMediaViewEnabled
+        - java_method: layoutSurface
+          params:
+            - int
+            - int
+            - int
+            - int
+          returns: void
+          go_field: LayoutSurface
+        - java_method: notifySessionStateChanged
+          params:
+            - int
+            - int
+          returns: void
+          go_field: NotifySessionStateChanged
+        - java_method: onCreateMediaView
+          params: []
+          returns: android.view.View
+          go_field: OnCreateMediaView
+        - java_method: onCurrentChannelUri
+          params:
+            - android.net.Uri
+          returns: void
+          go_field: OnCurrentChannelUri
+        - java_method: onCurrentTvInputId
+          params:
+            - String
+          returns: void
+          go_field: OnCurrentTvInputId
+        - java_method: onCurrentVideoBounds
+          params:
+            - android.graphics.Rect
+          returns: void
+          go_field: OnCurrentVideoBounds
+        - java_method: onError
+          params:
+            - String
+            - android.os.Bundle
+          returns: void
+          go_field: OnError
+        - java_method: onGenericMotionEvent
+          params:
+            - android.view.MotionEvent
+          returns: boolean
+          go_field: OnGenericMotionEvent
+        - java_method: onKeyDown
+          params:
+            - int
+            - android.view.KeyEvent
+          returns: boolean
+          go_field: OnKeyDown
+        - java_method: onKeyLongPress
+          params:
+            - int
+            - android.view.KeyEvent
+          returns: boolean
+          go_field: OnKeyLongPress
+        - java_method: onKeyMultiple
+          params:
+            - int
+            - int
+            - android.view.KeyEvent
+          returns: boolean
+          go_field: OnKeyMultiple
+        - java_method: onKeyUp
+          params:
+            - int
+            - android.view.KeyEvent
+          returns: boolean
+          go_field: OnKeyUp
+        - java_method: onMediaViewSizeChanged
+          params:
+            - int
+            - int
+          returns: void
+          go_field: OnMediaViewSizeChanged
+        - java_method: onRelease
+          params: []
+          returns: void
+          go_field: OnRelease
+        - java_method: onResetAdService
+          params: []
+          returns: void
+          go_field: OnResetAdService
+        - java_method: onSetSurface
+          params:
+            - android.view.Surface
+          returns: boolean
+          go_field: OnSetSurface
+        - java_method: onSigningResult
+          params:
+            - String
+            - '[B'
+          returns: void
+          go_field: OnSigningResult
+        - java_method: onStartAdService
+          params: []
+          returns: void
+          go_field: OnStartAdService
+        - java_method: onStopAdService
+          params: []
+          returns: void
+          go_field: OnStopAdService
+        - java_method: onSurfaceChanged
+          params:
+            - int
+            - int
+            - int
+          returns: void
+          go_field: OnSurfaceChanged
+        - java_method: onTouchEvent
+          params:
+            - android.view.MotionEvent
+          returns: boolean
+          go_field: OnTouchEvent
+        - java_method: onTrackballEvent
+          params:
+            - android.view.MotionEvent
+          returns: boolean
+          go_field: OnTrackballEvent
+        - java_method: onTvInputSessionData
+          params:
+            - String
+            - android.os.Bundle
+          returns: void
+          go_field: OnTvInputSessionData
+        - java_method: onTvMessage
+          params:
+            - int
+            - android.os.Bundle
+          returns: void
+          go_field: OnTvMessage
+        - java_method: requestCurrentChannelUri
+          params: []
+          returns: void
+          go_field: RequestCurrentChannelUri
+        - java_method: requestCurrentTvInputId
+          params: []
+          returns: void
+          go_field: RequestCurrentTvInputId
+        - java_method: requestCurrentVideoBounds
+          params: []
+          returns: void
+          go_field: RequestCurrentVideoBounds
+        - java_method: requestSigning
+          params:
+            - String
+            - String
+            - String
+            - '[B'
+          returns: void
+          go_field: RequestSigning
+        - java_method: requestTrackInfoList
+          params: []
+          returns: void
+          go_field: RequestTrackInfoList
+        - java_method: sendTvAdSessionData
+          params:
+            - String
+            - android.os.Bundle
+          returns: void
+          go_field: SendTvAdSessionData
+        - java_method: setMediaViewEnabled
+          params:
+            - boolean
+          returns: void
+          go_field: SetMediaViewEnabled
+    - java_class: android.media.tv.ad.TvAdView$TvAdCallback
+      go_type: TvAdViewTvAdCallbackCallback
+      methods:
+        - java_method: onRequestCurrentChannelUri
+          params:
+            - String
+          returns: void
+          go_field: OnRequestCurrentChannelUri
+        - java_method: onRequestCurrentTvInputId
+          params:
+            - String
+          returns: void
+          go_field: OnRequestCurrentTvInputId
+        - java_method: onRequestCurrentVideoBounds
+          params:
+            - String
+          returns: void
+          go_field: OnRequestCurrentVideoBounds
+        - java_method: onRequestSigning
+          params:
+            - String
+            - String
+            - String
+            - String
+            - '[B'
+          returns: void
+          go_field: OnRequestSigning
+        - java_method: onRequestTrackInfoList
+          params:
+            - String
+          returns: void
+          go_field: OnRequestTrackInfoList
+        - java_method: onStateChanged
+          params:
+            - String
+            - int
+            - int
+          returns: void
+          go_field: OnStateChanged
+    - java_class: android.media.tv.ad.TvAdManager$TvAdServiceCallback
+      go_type: TvAdManagerTvAdServiceCallbackCallback
+      methods:
+        - java_method: onAdServiceAdded
+          params:
+            - String
+          returns: void
+          go_field: OnAdServiceAdded
+        - java_method: onAdServiceRemoved
+          params:
+            - String
+          returns: void
+          go_field: OnAdServiceRemoved
+        - java_method: onAdServiceUpdated
+          params:
+            - String
+          returns: void
+          go_field: OnAdServiceUpdated
 constants:
-    - go_name: Creator
-      value: "0"
-      go_type: int
+    - go_name: ServiceInterface
+      value: '"android.media.tv.ad.TvAdService"'
+      go_type: string
+    - go_name: ServiceMetaData
+      value: '"android.media.tv.ad.service"'
+      go_type: string
     - go_name: ErrorKeyErrorCode
       value: '"error_code"'
       go_type: string
     - go_name: ErrorKeyMethodName
       value: '"method_name"'
       go_type: string
+    - go_name: Creator
+      value: "0"
+      go_type: int
     - go_name: ActionAppLinkCommand
       value: '"android.media.tv.ad.action.APP_LINK_COMMAND"'
       go_type: string
@@ -716,9 +972,3 @@ constants:
     - go_name: SessionStateStopped
       value: "1"
       go_type: int
-    - go_name: ServiceInterface
-      value: '"android.media.tv.ad.TvAdService"'
-      go_type: string
-    - go_name: ServiceMetaData
-      value: '"android.media.tv.ad.service"'
-      go_type: string

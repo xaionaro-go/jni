@@ -7,6 +7,8 @@ const (
 	FlagHandlesTransportControls int = 2
 	Creator                      int = 0
 	UnknownId                    int = -1
+	PlaybackTypeLocal            int = 1
+	PlaybackTypeRemote           int = 2
 	StateBuffering               int = 6
 	StateConnecting              int = 8
 	StateError                   int = 7
@@ -19,8 +21,6 @@ const (
 	StateSkippingToPrevious      int = 9
 	StateSkippingToQueueItem     int = 11
 	StateStopped                 int = 1
-	PlaybackTypeLocal            int = 1
-	PlaybackTypeRemote           int = 2
 )
 
 const (

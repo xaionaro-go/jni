@@ -5,6 +5,22 @@
 package: animation
 go_import: github.com/AndroidGoLab/jni/view/animation
 classes:
+    - java_class: android.view.animation.PathInterpolator
+      go_type: PathInterpolator
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+        - java_type: android.util.AttributeSet
+          go_name: arg1
+      methods:
+        - java_method: getInterpolation
+          go_name: GetInterpolation
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: float
+          error: true
     - java_class: android.view.animation.GridLayoutAnimationController
       go_type: GridLayoutAnimationController
       obtain: constructor
@@ -64,8 +80,24 @@ classes:
           error: true
     - java_class: android.view.animation.GridLayoutAnimationController$AnimationParameters
       go_type: GridLayoutAnimationControllerAnimationParameters
-    - java_class: android.view.animation.RotateAnimation
-      go_type: RotateAnimation
+    - java_class: android.view.animation.BounceInterpolator
+      go_type: BounceInterpolator
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+        - java_type: android.util.AttributeSet
+          go_name: arg1
+      methods:
+        - java_method: getInterpolation
+          go_name: GetInterpolation
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: float
+          error: true
+    - java_class: android.view.animation.ScaleAnimation
+      go_type: ScaleAnimation
       obtain: constructor
       constructor_params:
         - java_type: android.content.Context
@@ -85,160 +117,6 @@ classes:
             - java_type: int
               go_name: arg3
           returns: void
-          error: true
-    - java_class: android.view.animation.CycleInterpolator
-      go_type: CycleInterpolator
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-        - java_type: android.util.AttributeSet
-          go_name: arg1
-      methods:
-        - java_method: getInterpolation
-          go_name: GetInterpolation
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: float
-          error: true
-    - java_class: android.view.animation.AnimationSet
-      go_type: Set
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-        - java_type: android.util.AttributeSet
-          go_name: arg1
-      methods:
-        - java_method: addAnimation
-          go_name: AddAnimation
-          params:
-            - java_type: android.view.animation.Animation
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: computeDurationHint
-          go_name: ComputeDurationHint
-          returns: long
-          error: true
-        - java_method: getAnimations
-          go_name: GetAnimations
-          returns: java.util.List<android.view.animation.Animation>
-          error: true
-        - java_method: getDuration
-          go_name: GetDuration
-          returns: long
-          error: true
-        - java_method: getStartTime
-          go_name: GetStartTime
-          returns: long
-          error: true
-        - java_method: getTransformation
-          go_name: GetTransformation
-          params:
-            - java_type: long
-              go_name: arg0
-            - java_type: android.view.animation.Transformation
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: initialize
-          go_name: Initialize
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: reset
-          go_name: Reset
-          returns: void
-          error: true
-        - java_method: restrictDuration
-          go_name: RestrictDuration
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: scaleCurrentDuration
-          go_name: ScaleCurrentDuration
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setDuration
-          go_name: SetDuration
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setFillAfter
-          go_name: SetFillAfter
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setFillBefore
-          go_name: SetFillBefore
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setRepeatMode
-          go_name: SetRepeatMode
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setStartOffset
-          go_name: SetStartOffset
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setStartTime
-          go_name: SetStartTime
-          params:
-            - java_type: long
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: willChangeBounds
-          go_name: WillChangeBounds
-          returns: boolean
-          error: true
-        - java_method: willChangeTransformationMatrix
-          go_name: WillChangeTransformationMatrix
-          returns: boolean
-          error: true
-    - java_class: android.view.animation.DecelerateInterpolator
-      go_type: DecelerateInterpolator
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-        - java_type: android.util.AttributeSet
-          go_name: arg1
-      methods:
-        - java_method: getInterpolation
-          go_name: GetInterpolation
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: float
           error: true
     - java_class: android.view.animation.Transformation
       go_type: Transformation
@@ -296,8 +174,8 @@ classes:
           go_name: ToString
           returns: String
           error: true
-    - java_class: android.view.animation.OvershootInterpolator
-      go_type: OvershootInterpolator
+    - java_class: android.view.animation.DecelerateInterpolator
+      go_type: DecelerateInterpolator
       obtain: constructor
       constructor_params:
         - java_type: android.content.Context
@@ -372,8 +250,46 @@ classes:
               go_name: arg1
           returns: android.view.animation.Animation
           error: true
-    - java_class: android.view.animation.PathInterpolator
-      go_type: PathInterpolator
+    - java_class: android.view.animation.AnticipateOvershootInterpolator
+      go_type: AnticipateOvershootInterpolator
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+        - java_type: android.util.AttributeSet
+          go_name: arg1
+      methods:
+        - java_method: getInterpolation
+          go_name: GetInterpolation
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: float
+          error: true
+    - java_class: android.view.animation.RotateAnimation
+      go_type: RotateAnimation
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+        - java_type: android.util.AttributeSet
+          go_name: arg1
+      methods:
+        - java_method: initialize
+          go_name: Initialize
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+          returns: void
+          error: true
+    - java_class: android.view.animation.OvershootInterpolator
+      go_type: OvershootInterpolator
       obtain: constructor
       constructor_params:
         - java_type: android.content.Context
@@ -406,218 +322,6 @@ classes:
         - java_method: willChangeTransformationMatrix
           go_name: WillChangeTransformationMatrix
           returns: boolean
-          error: true
-    - java_class: android.view.animation.BounceInterpolator
-      go_type: BounceInterpolator
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-        - java_type: android.util.AttributeSet
-          go_name: arg1
-      methods:
-        - java_method: getInterpolation
-          go_name: GetInterpolation
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: float
-          error: true
-    - java_class: android.view.animation.LinearInterpolator
-      go_type: LinearInterpolator
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-        - java_type: android.util.AttributeSet
-          go_name: arg1
-      methods:
-        - java_method: getInterpolation
-          go_name: GetInterpolation
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: float
-          error: true
-    - java_class: android.view.animation.AnticipateOvershootInterpolator
-      go_type: AnticipateOvershootInterpolator
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-        - java_type: android.util.AttributeSet
-          go_name: arg1
-      methods:
-        - java_method: getInterpolation
-          go_name: GetInterpolation
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: float
-          error: true
-    - java_class: android.view.animation.Interpolator
-      go_type: Interpolator
-    - java_class: android.view.animation.AnticipateInterpolator
-      go_type: AnticipateInterpolator
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-        - java_type: android.util.AttributeSet
-          go_name: arg1
-      methods:
-        - java_method: getInterpolation
-          go_name: GetInterpolation
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: float
-          error: true
-    - java_class: android.view.animation.ScaleAnimation
-      go_type: ScaleAnimation
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-        - java_type: android.util.AttributeSet
-          go_name: arg1
-      methods:
-        - java_method: initialize
-          go_name: Initialize
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-          returns: void
-          error: true
-    - java_class: android.view.animation.LayoutAnimationController
-      go_type: LayoutAnimationController
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-        - java_type: android.util.AttributeSet
-          go_name: arg1
-      methods:
-        - java_method: getAnimation
-          go_name: GetAnimation
-          returns: android.view.animation.Animation
-          error: true
-        - java_method: getAnimationForView
-          go_name: GetAnimationForView
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-          returns: android.view.animation.Animation
-          error: true
-        - java_method: getDelay
-          go_name: GetDelay
-          returns: float
-          error: true
-        - java_method: getInterpolator
-          go_name: GetInterpolator
-          returns: android.view.animation.Interpolator
-          error: true
-        - java_method: getOrder
-          go_name: GetOrder
-          returns: int
-          error: true
-        - java_method: isDone
-          go_name: IsDone
-          returns: boolean
-          error: true
-        - java_method: setAnimation
-          go_name: SetAnimation2
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: setAnimation
-          go_name: SetAnimation1_1
-          params:
-            - java_type: android.view.animation.Animation
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setDelay
-          go_name: SetDelay
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setInterpolator
-          go_name: SetInterpolator2
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: setInterpolator
-          go_name: SetInterpolator1_1
-          params:
-            - java_type: android.view.animation.Interpolator
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setOrder
-          go_name: SetOrder
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: start
-          go_name: Start
-          returns: void
-          error: true
-        - java_method: willOverlap
-          go_name: WillOverlap
-          returns: boolean
-          error: true
-    - java_class: android.view.animation.LayoutAnimationController$AnimationParameters
-      go_type: LayoutAnimationControllerAnimationParameters
-    - java_class: android.view.animation.AccelerateDecelerateInterpolator
-      go_type: AccelerateDecelerateInterpolator
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-        - java_type: android.util.AttributeSet
-          go_name: arg1
-      methods:
-        - java_method: getInterpolation
-          go_name: GetInterpolation
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: float
-          error: true
-    - java_class: android.view.animation.AccelerateInterpolator
-      go_type: AccelerateInterpolator
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-        - java_type: android.util.AttributeSet
-          go_name: arg1
-      methods:
-        - java_method: getInterpolation
-          go_name: GetInterpolation
-          params:
-            - java_type: float
-              go_name: arg0
-          returns: float
           error: true
     - java_class: android.view.animation.Animation
       go_type: Animation
@@ -905,6 +609,302 @@ classes:
           error: true
     - java_class: android.view.animation.Animation$Description
       go_type: Description
+    - java_class: android.view.animation.AnticipateInterpolator
+      go_type: AnticipateInterpolator
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+        - java_type: android.util.AttributeSet
+          go_name: arg1
+      methods:
+        - java_method: getInterpolation
+          go_name: GetInterpolation
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: float
+          error: true
+    - java_class: android.view.animation.AnimationSet
+      go_type: Set
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+        - java_type: android.util.AttributeSet
+          go_name: arg1
+      methods:
+        - java_method: addAnimation
+          go_name: AddAnimation
+          params:
+            - java_type: android.view.animation.Animation
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: computeDurationHint
+          go_name: ComputeDurationHint
+          returns: long
+          error: true
+        - java_method: getAnimations
+          go_name: GetAnimations
+          returns: java.util.List<android.view.animation.Animation>
+          error: true
+        - java_method: getDuration
+          go_name: GetDuration
+          returns: long
+          error: true
+        - java_method: getStartTime
+          go_name: GetStartTime
+          returns: long
+          error: true
+        - java_method: getTransformation
+          go_name: GetTransformation
+          params:
+            - java_type: long
+              go_name: arg0
+            - java_type: android.view.animation.Transformation
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: initialize
+          go_name: Initialize
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: reset
+          go_name: Reset
+          returns: void
+          error: true
+        - java_method: restrictDuration
+          go_name: RestrictDuration
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: scaleCurrentDuration
+          go_name: ScaleCurrentDuration
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setDuration
+          go_name: SetDuration
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setFillAfter
+          go_name: SetFillAfter
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setFillBefore
+          go_name: SetFillBefore
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setRepeatMode
+          go_name: SetRepeatMode
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setStartOffset
+          go_name: SetStartOffset
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setStartTime
+          go_name: SetStartTime
+          params:
+            - java_type: long
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: willChangeBounds
+          go_name: WillChangeBounds
+          returns: boolean
+          error: true
+        - java_method: willChangeTransformationMatrix
+          go_name: WillChangeTransformationMatrix
+          returns: boolean
+          error: true
+    - java_class: android.view.animation.CycleInterpolator
+      go_type: CycleInterpolator
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+        - java_type: android.util.AttributeSet
+          go_name: arg1
+      methods:
+        - java_method: getInterpolation
+          go_name: GetInterpolation
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: float
+          error: true
+    - java_class: android.view.animation.AccelerateInterpolator
+      go_type: AccelerateInterpolator
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+        - java_type: android.util.AttributeSet
+          go_name: arg1
+      methods:
+        - java_method: getInterpolation
+          go_name: GetInterpolation
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: float
+          error: true
+    - java_class: android.view.animation.LinearInterpolator
+      go_type: LinearInterpolator
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+        - java_type: android.util.AttributeSet
+          go_name: arg1
+      methods:
+        - java_method: getInterpolation
+          go_name: GetInterpolation
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: float
+          error: true
+    - java_class: android.view.animation.LayoutAnimationController
+      go_type: LayoutAnimationController
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+        - java_type: android.util.AttributeSet
+          go_name: arg1
+      methods:
+        - java_method: getAnimation
+          go_name: GetAnimation
+          returns: android.view.animation.Animation
+          error: true
+        - java_method: getAnimationForView
+          go_name: GetAnimationForView
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+          returns: android.view.animation.Animation
+          error: true
+        - java_method: getDelay
+          go_name: GetDelay
+          returns: float
+          error: true
+        - java_method: getInterpolator
+          go_name: GetInterpolator
+          returns: android.view.animation.Interpolator
+          error: true
+        - java_method: getOrder
+          go_name: GetOrder
+          returns: int
+          error: true
+        - java_method: isDone
+          go_name: IsDone
+          returns: boolean
+          error: true
+        - java_method: setAnimation
+          go_name: SetAnimation2
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: setAnimation
+          go_name: SetAnimation1_1
+          params:
+            - java_type: android.view.animation.Animation
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setDelay
+          go_name: SetDelay
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setInterpolator
+          go_name: SetInterpolator2
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: setInterpolator
+          go_name: SetInterpolator1_1
+          params:
+            - java_type: android.view.animation.Interpolator
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setOrder
+          go_name: SetOrder
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: start
+          go_name: Start
+          returns: void
+          error: true
+        - java_method: willOverlap
+          go_name: WillOverlap
+          returns: boolean
+          error: true
+    - java_class: android.view.animation.LayoutAnimationController$AnimationParameters
+      go_type: LayoutAnimationControllerAnimationParameters
+    - java_class: android.view.animation.Interpolator
+      go_type: Interpolator
+    - java_class: android.view.animation.AccelerateDecelerateInterpolator
+      go_type: AccelerateDecelerateInterpolator
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+        - java_type: android.util.AttributeSet
+          go_name: arg1
+      methods:
+        - java_method: getInterpolation
+          go_name: GetInterpolation
+          params:
+            - java_type: float
+              go_name: arg0
+          returns: float
+          error: true
     - java_class: android.view.animation.TranslateAnimation
       go_type: TranslateAnimation
       obtain: constructor
@@ -927,6 +927,218 @@ classes:
               go_name: arg3
           returns: void
           error: true
+abstract_callbacks:
+    - java_class: android.view.animation.Animation
+      go_type: AnimationCallback
+      methods:
+        - java_method: cancel
+          params: []
+          returns: void
+          go_field: Cancel
+        - java_method: computeDurationHint
+          params: []
+          returns: long
+          go_field: ComputeDurationHint
+        - java_method: getBackdropColor
+          params: []
+          returns: int
+          go_field: GetBackdropColor
+        - java_method: getBackgroundColor
+          params: []
+          returns: int
+          go_field: GetBackgroundColor
+        - java_method: getDetachWallpaper
+          params: []
+          returns: boolean
+          go_field: GetDetachWallpaper
+        - java_method: getDuration
+          params: []
+          returns: long
+          go_field: GetDuration
+        - java_method: getFillAfter
+          params: []
+          returns: boolean
+          go_field: GetFillAfter
+        - java_method: getFillBefore
+          params: []
+          returns: boolean
+          go_field: GetFillBefore
+        - java_method: getInterpolator
+          params: []
+          returns: android.view.animation.Interpolator
+          go_field: GetInterpolator
+        - java_method: getRepeatCount
+          params: []
+          returns: int
+          go_field: GetRepeatCount
+        - java_method: getRepeatMode
+          params: []
+          returns: int
+          go_field: GetRepeatMode
+        - java_method: getShowBackdrop
+          params: []
+          returns: boolean
+          go_field: GetShowBackdrop
+        - java_method: getStartOffset
+          params: []
+          returns: long
+          go_field: GetStartOffset
+        - java_method: getStartTime
+          params: []
+          returns: long
+          go_field: GetStartTime
+        - java_method: getTransformation
+          params:
+            - long
+            - android.view.animation.Transformation
+          returns: boolean
+          go_field: GetTransformation
+        - java_method: getTransformation
+          params:
+            - long
+            - android.view.animation.Transformation
+            - float
+          returns: boolean
+          go_field: GetTransformation
+        - java_method: getZAdjustment
+          params: []
+          returns: int
+          go_field: GetZAdjustment
+        - java_method: hasEnded
+          params: []
+          returns: boolean
+          go_field: HasEnded
+        - java_method: hasStarted
+          params: []
+          returns: boolean
+          go_field: HasStarted
+        - java_method: initialize
+          params:
+            - int
+            - int
+            - int
+            - int
+          returns: void
+          go_field: Initialize
+        - java_method: isFillEnabled
+          params: []
+          returns: boolean
+          go_field: IsFillEnabled
+        - java_method: isInitialized
+          params: []
+          returns: boolean
+          go_field: IsInitialized
+        - java_method: reset
+          params: []
+          returns: void
+          go_field: Reset
+        - java_method: restrictDuration
+          params:
+            - long
+          returns: void
+          go_field: RestrictDuration
+        - java_method: scaleCurrentDuration
+          params:
+            - float
+          returns: void
+          go_field: ScaleCurrentDuration
+        - java_method: setAnimationListener
+          params:
+            - android.view.animation.Animation$AnimationListener
+          returns: void
+          go_field: SetAnimationListener
+        - java_method: setBackdropColor
+          params:
+            - int
+          returns: void
+          go_field: SetBackdropColor
+        - java_method: setBackgroundColor
+          params:
+            - int
+          returns: void
+          go_field: SetBackgroundColor
+        - java_method: setDetachWallpaper
+          params:
+            - boolean
+          returns: void
+          go_field: SetDetachWallpaper
+        - java_method: setDuration
+          params:
+            - long
+          returns: void
+          go_field: SetDuration
+        - java_method: setFillAfter
+          params:
+            - boolean
+          returns: void
+          go_field: SetFillAfter
+        - java_method: setFillBefore
+          params:
+            - boolean
+          returns: void
+          go_field: SetFillBefore
+        - java_method: setFillEnabled
+          params:
+            - boolean
+          returns: void
+          go_field: SetFillEnabled
+        - java_method: setInterpolator
+          params:
+            - android.content.Context
+            - int
+          returns: void
+          go_field: SetInterpolator
+        - java_method: setInterpolator
+          params:
+            - android.view.animation.Interpolator
+          returns: void
+          go_field: SetInterpolator
+        - java_method: setRepeatCount
+          params:
+            - int
+          returns: void
+          go_field: SetRepeatCount
+        - java_method: setRepeatMode
+          params:
+            - int
+          returns: void
+          go_field: SetRepeatMode
+        - java_method: setShowBackdrop
+          params:
+            - boolean
+          returns: void
+          go_field: SetShowBackdrop
+        - java_method: setStartOffset
+          params:
+            - long
+          returns: void
+          go_field: SetStartOffset
+        - java_method: setStartTime
+          params:
+            - long
+          returns: void
+          go_field: SetStartTime
+        - java_method: setZAdjustment
+          params:
+            - int
+          returns: void
+          go_field: SetZAdjustment
+        - java_method: start
+          params: []
+          returns: void
+          go_field: Start
+        - java_method: startNow
+          params: []
+          returns: void
+          go_field: StartNow
+        - java_method: willChangeBounds
+          params: []
+          returns: boolean
+          go_field: WillChangeBounds
+        - java_method: willChangeTransformationMatrix
+          params: []
+          returns: boolean
+          go_field: WillChangeTransformationMatrix
 constants:
     - go_name: DirectionBottomToTop
       value: "2"
@@ -967,15 +1179,6 @@ constants:
     - go_name: TypeMatrix
       value: "2"
       go_type: int
-    - go_name: OrderNormal
-      value: "0"
-      go_type: int
-    - go_name: OrderRandom
-      value: "2"
-      go_type: int
-    - go_name: OrderReverse
-      value: "1"
-      go_type: int
     - go_name: Absolute
       value: "0"
       go_type: int
@@ -1004,5 +1207,14 @@ constants:
       value: "0"
       go_type: int
     - go_name: ZorderTop
+      value: "1"
+      go_type: int
+    - go_name: OrderNormal
+      value: "0"
+      go_type: int
+    - go_name: OrderRandom
+      value: "2"
+      go_type: int
+    - go_name: OrderReverse
       value: "1"
       go_type: int

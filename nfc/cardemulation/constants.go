@@ -5,8 +5,19 @@ package cardemulation
 import "github.com/AndroidGoLab/jni/nfc/cardemulation/consts"
 
 const (
-	DeactivationLinkLoss              = consts.DeactivationLinkLoss
+	ServiceInterface                = consts.ServiceInterface
+	ServiceMetaData                 = consts.ServiceMetaData
+	ActionChangeDefault             = consts.ActionChangeDefault
+	CategoryOther                   = consts.CategoryOther
+	CategoryPayment                 = consts.CategoryPayment
+	ExtraCategory                   = consts.ExtraCategory
+	ExtraServiceComponent           = consts.ExtraServiceComponent
+	PropertyAllowSharedRolePriority = consts.PropertyAllowSharedRolePriority
+)
+
+const (
 	DeactivationDeselected            = consts.DeactivationDeselected
+	DeactivationLinkLoss              = consts.DeactivationLinkLoss
 	NfcInternalErrorCommandTimeout    = consts.NfcInternalErrorCommandTimeout
 	NfcInternalErrorNfcCrashRestart   = consts.NfcInternalErrorNfcCrashRestart
 	NfcInternalErrorNfcHardwareError  = consts.NfcInternalErrorNfcHardwareError
@@ -26,15 +37,4 @@ const (
 	PollingLoopTypeOff                = consts.PollingLoopTypeOff
 	PollingLoopTypeOn                 = consts.PollingLoopTypeOn
 	PollingLoopTypeUnknown            = consts.PollingLoopTypeUnknown
-)
-
-const (
-	ServiceInterface                = consts.ServiceInterface
-	ServiceMetaData                 = consts.ServiceMetaData
-	ActionChangeDefault             = consts.ActionChangeDefault
-	CategoryOther                   = consts.CategoryOther
-	CategoryPayment                 = consts.CategoryPayment
-	ExtraCategory                   = consts.ExtraCategory
-	ExtraServiceComponent           = consts.ExtraServiceComponent
-	PropertyAllowSharedRolePriority = consts.PropertyAllowSharedRolePriority
 )

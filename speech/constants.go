@@ -5,13 +5,13 @@ package speech
 import "github.com/AndroidGoLab/jni/speech/consts"
 
 const (
-	Creator                                         = consts.Creator
 	ConfidenceLevelHigh                             = consts.ConfidenceLevelHigh
 	ConfidenceLevelLow                              = consts.ConfidenceLevelLow
 	ConfidenceLevelMedium                           = consts.ConfidenceLevelMedium
 	ConfidenceLevelMediumHigh                       = consts.ConfidenceLevelMediumHigh
 	ConfidenceLevelMediumLow                        = consts.ConfidenceLevelMediumLow
 	ConfidenceLevelUnknown                          = consts.ConfidenceLevelUnknown
+	Creator                                         = consts.Creator
 	ErrorAudio                                      = consts.ErrorAudio
 	ErrorCannotCheckSupport                         = consts.ErrorCannotCheckSupport
 	ErrorCannotListenToDownloadEvents               = consts.ErrorCannotListenToDownloadEvents
@@ -64,6 +64,8 @@ const (
 )
 
 const (
+	ServiceInterface                                    = consts.ServiceInterface
+	ServiceMetaData                                     = consts.ServiceMetaData
 	ConfidenceScores                                    = consts.ConfidenceScores
 	DetectedLanguage                                    = consts.DetectedLanguage
 	LanguageDetectionConfidenceLevel                    = consts.LanguageDetectionConfidenceLevel
@@ -72,15 +74,6 @@ const (
 	ResultsAlternatives                                 = consts.ResultsAlternatives
 	ResultsRecognition                                  = consts.ResultsRecognition
 	TopLocaleAlternatives                               = consts.TopLocaleAlternatives
-	ServiceInterface                                    = consts.ServiceInterface
-	ServiceMetaData                                     = consts.ServiceMetaData
-	ActionVoiceSearchResults                            = consts.ActionVoiceSearchResults
-	ExtraVoiceSearchResultHtml                          = consts.ExtraVoiceSearchResultHtml
-	ExtraVoiceSearchResultHtmlBaseUrls                  = consts.ExtraVoiceSearchResultHtmlBaseUrls
-	ExtraVoiceSearchResultHttpHeaders                   = consts.ExtraVoiceSearchResultHttpHeaders
-	ExtraVoiceSearchResultStrings                       = consts.ExtraVoiceSearchResultStrings
-	ExtraVoiceSearchResultUrls                          = consts.ExtraVoiceSearchResultUrls
-	UriSchemeInline                                     = consts.UriSchemeInline
 	ActionGetLanguageDetails                            = consts.ActionGetLanguageDetails
 	ActionRecognizeSpeech                               = consts.ActionRecognizeSpeech
 	ActionVoiceSearchHandsFree                          = consts.ActionVoiceSearchHandsFree
@@ -132,6 +125,13 @@ const (
 	LanguageSwitchBalanced                              = consts.LanguageSwitchBalanced
 	LanguageSwitchHighPrecision                         = consts.LanguageSwitchHighPrecision
 	LanguageSwitchQuickResponse                         = consts.LanguageSwitchQuickResponse
+	ActionVoiceSearchResults                            = consts.ActionVoiceSearchResults
+	ExtraVoiceSearchResultHtml                          = consts.ExtraVoiceSearchResultHtml
+	ExtraVoiceSearchResultHtmlBaseUrls                  = consts.ExtraVoiceSearchResultHtmlBaseUrls
+	ExtraVoiceSearchResultHttpHeaders                   = consts.ExtraVoiceSearchResultHttpHeaders
+	ExtraVoiceSearchResultStrings                       = consts.ExtraVoiceSearchResultStrings
+	ExtraVoiceSearchResultUrls                          = consts.ExtraVoiceSearchResultUrls
+	UriSchemeInline                                     = consts.UriSchemeInline
 	ActionTtsQueueProcessingCompleted                   = consts.ActionTtsQueueProcessingCompleted
 	ActionCheckTtsData                                  = consts.ActionCheckTtsData
 	ActionGetSampleText                                 = consts.ActionGetSampleText

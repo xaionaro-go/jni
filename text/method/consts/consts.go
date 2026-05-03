@@ -3,13 +3,13 @@
 package consts
 
 const (
+	Characters    int = 0
 	MetaAltLocked int = 512
 	MetaAltOn     int = 2
 	MetaCapLocked int = 256
 	MetaShiftOn   int = 1
 	MetaSymLocked int = 1024
 	MetaSymOn     int = 4
-	Characters    int = 0
 	None          int = 0
 	Sentences     int = 0
 	Words         int = 0

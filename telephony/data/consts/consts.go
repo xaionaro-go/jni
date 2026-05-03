@@ -3,11 +3,11 @@
 package consts
 
 const (
-	Creator                                         int = 0
 	AuthTypeChap                                    int = 2
 	AuthTypeNone                                    int = 0
 	AuthTypePap                                     int = 1
 	AuthTypePapOrChap                               int = 3
+	Creator                                         int = 0
 	MvnoTypeGid                                     int = 2
 	MvnoTypeIccid                                   int = 3
 	MvnoTypeImsi                                    int = 1

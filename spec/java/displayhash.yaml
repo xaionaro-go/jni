@@ -5,6 +5,23 @@
 package: displayhash
 go_import: github.com/AndroidGoLab/jni/view/displayhash
 classes:
+    - java_class: android.view.displayhash.DisplayHashManager
+      go_type: DisplayHashManager
+      obtain: system_service
+      service_name: display_hash
+      close: true
+      methods:
+        - java_method: getSupportedHashAlgorithms
+          go_name: GetSupportedHashAlgorithms
+          returns: java.util.Set<java.lang.String>
+          error: true
+        - java_method: verifyDisplayHash
+          go_name: VerifyDisplayHash
+          params:
+            - java_type: android.view.displayhash.DisplayHash
+              go_name: arg0
+          returns: android.view.displayhash.VerifiedDisplayHash
+          error: true
     - java_class: android.view.displayhash.VerifiedDisplayHash
       go_type: VerifiedDisplayHash
       obtain: constructor
@@ -51,6 +68,23 @@ classes:
               go_name: arg1
           returns: void
           error: true
+    - java_class: android.view.displayhash.DisplayHashResultCallback
+      go_type: DisplayHashResultCallback
+      methods:
+        - java_method: onDisplayHashError
+          go_name: OnDisplayHashError
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onDisplayHashResult
+          go_name: OnDisplayHashResult
+          params:
+            - java_type: android.view.displayhash.DisplayHash
+              go_name: arg0
+          returns: void
+          error: true
     - java_class: android.view.displayhash.DisplayHash
       go_type: DisplayHash
       methods:
@@ -70,40 +104,6 @@ classes:
             - java_type: int
               go_name: arg1
           returns: void
-          error: true
-    - java_class: android.view.displayhash.DisplayHashResultCallback
-      go_type: DisplayHashResultCallback
-      methods:
-        - java_method: onDisplayHashError
-          go_name: OnDisplayHashError
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onDisplayHashResult
-          go_name: OnDisplayHashResult
-          params:
-            - java_type: android.view.displayhash.DisplayHash
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.view.displayhash.DisplayHashManager
-      go_type: DisplayHashManager
-      obtain: system_service
-      service_name: display_hash
-      close: true
-      methods:
-        - java_method: getSupportedHashAlgorithms
-          go_name: GetSupportedHashAlgorithms
-          returns: java.util.Set<java.lang.String>
-          error: true
-        - java_method: verifyDisplayHash
-          go_name: VerifyDisplayHash
-          params:
-            - java_type: android.view.displayhash.DisplayHash
-              go_name: arg0
-          returns: android.view.displayhash.VerifiedDisplayHash
           error: true
 constants:
     - go_name: Creator

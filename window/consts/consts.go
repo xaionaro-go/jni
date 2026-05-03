@@ -3,13 +3,13 @@
 package consts
 
 const (
-	EdgeLeft                         int = 0
-	EdgeNone                         int = 2
-	EdgeRight                        int = 1
 	PriorityDefault                  int = 0
 	PriorityOverlay                  int = 1000000
 	PrioritySystemNavigationObserver int = -2
+	Creator                          int = 0
+	EdgeLeft                         int = 0
+	EdgeNone                         int = 2
+	EdgeRight                        int = 1
 	SplashScreenStyleIcon            int = 1
 	SplashScreenStyleSolidColor      int = 0
-	Creator                          int = 0
 )

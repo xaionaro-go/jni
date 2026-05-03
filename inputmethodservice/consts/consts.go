@@ -3,6 +3,10 @@
 package consts
 
 const (
+	BackDispositionAdjustNothing  int = 3
+	BackDispositionDefault        int = 0
+	BackDispositionWillDismiss    int = 2
+	BackDispositionWillNotDismiss int = 1
 	EdgeBottom                    int = 8
 	EdgeLeft                      int = 1
 	EdgeRight                     int = 2
@@ -13,10 +17,6 @@ const (
 	KeycodeDone                   int = -4
 	KeycodeModeChange             int = -2
 	KeycodeShift                  int = -1
-	BackDispositionAdjustNothing  int = 3
-	BackDispositionDefault        int = 0
-	BackDispositionWillDismiss    int = 2
-	BackDispositionWillNotDismiss int = 1
 	TouchableInsetsContent        int = 1
 	TouchableInsetsFrame          int = 0
 	TouchableInsetsRegion         int = 3

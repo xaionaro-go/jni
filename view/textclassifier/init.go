@@ -23,100 +23,6 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsTextClassificationSessionId                 *jni.GlobalRef
-	midTextClassificationSessionIdDescribeContents jni.MethodID
-	midTextClassificationSessionIdEquals           jni.MethodID
-	midTextClassificationSessionIdGetValue         jni.MethodID
-	midTextClassificationSessionIdHashCode         jni.MethodID
-	midTextClassificationSessionIdToString         jni.MethodID
-	midTextClassificationSessionIdWriteToParcel    jni.MethodID
-
-	clsTextClassifier         *jni.GlobalRef
-	midTextClassifierToString jni.MethodID
-
-	clsTextClassifierEntityConfig                                     *jni.GlobalRef
-	midTextClassifierEntityConfigDescribeContents                     jni.MethodID
-	midTextClassifierEntityConfigGetHints                             jni.MethodID
-	midTextClassifierEntityConfigShouldIncludeTypesFromTextClassifier jni.MethodID
-	midTextClassifierEntityConfigWriteToParcel                        jni.MethodID
-	midTextClassifierEntityConfigToString                             jni.MethodID
-
-	clsConversationAction                   *jni.GlobalRef
-	midConversationActionDescribeContents   jni.MethodID
-	midConversationActionGetAction          jni.MethodID
-	midConversationActionGetConfidenceScore jni.MethodID
-	midConversationActionGetExtras          jni.MethodID
-	midConversationActionGetTextReply       jni.MethodID
-	midConversationActionGetType            jni.MethodID
-	midConversationActionWriteToParcel      jni.MethodID
-	midConversationActionToString           jni.MethodID
-
-	clsConversationActionBuilder                   *jni.GlobalRef
-	midConversationActionBuilderBuild              jni.MethodID
-	midConversationActionBuilderSetAction          jni.MethodID
-	midConversationActionBuilderSetConfidenceScore jni.MethodID
-	midConversationActionBuilderSetExtras          jni.MethodID
-	midConversationActionBuilderSetTextReply       jni.MethodID
-	midConversationActionBuilderToString           jni.MethodID
-
-	clsTextClassificationSessionFactory                                *jni.GlobalRef
-	midTextClassificationSessionFactoryCreateTextClassificationSession jni.MethodID
-	midTextClassificationSessionFactoryToString                        jni.MethodID
-
-	clsTextClassificationContext                 *jni.GlobalRef
-	midTextClassificationContextDescribeContents jni.MethodID
-	midTextClassificationContextGetPackageName   jni.MethodID
-	midTextClassificationContextGetWidgetType    jni.MethodID
-	midTextClassificationContextGetWidgetVersion jni.MethodID
-	midTextClassificationContextToString         jni.MethodID
-	midTextClassificationContextWriteToParcel    jni.MethodID
-
-	clsTextClassificationContextBuilder                 *jni.GlobalRef
-	midTextClassificationContextBuilderBuild            jni.MethodID
-	midTextClassificationContextBuilderSetWidgetVersion jni.MethodID
-	midTextClassificationContextBuilderToString         jni.MethodID
-
-	clsTextLinks                 *jni.GlobalRef
-	midTextLinksDescribeContents jni.MethodID
-	midTextLinksGetExtras        jni.MethodID
-	midTextLinksGetLinks         jni.MethodID
-	midTextLinksGetText          jni.MethodID
-	midTextLinksToString         jni.MethodID
-	midTextLinksWriteToParcel    jni.MethodID
-
-	clsTextLinksBuilder               *jni.GlobalRef
-	midTextLinksBuilderBuild          jni.MethodID
-	midTextLinksBuilderClearTextLinks jni.MethodID
-	midTextLinksBuilderSetExtras      jni.MethodID
-	midTextLinksBuilderToString       jni.MethodID
-
-	clsTextLinksRequest                      *jni.GlobalRef
-	midTextLinksRequestDescribeContents      jni.MethodID
-	midTextLinksRequestGetCallingPackageName jni.MethodID
-	midTextLinksRequestGetDefaultLocales     jni.MethodID
-	midTextLinksRequestGetEntityConfig       jni.MethodID
-	midTextLinksRequestGetExtras             jni.MethodID
-	midTextLinksRequestGetReferenceTime      jni.MethodID
-	midTextLinksRequestGetText               jni.MethodID
-	midTextLinksRequestWriteToParcel         jni.MethodID
-	midTextLinksRequestToString              jni.MethodID
-
-	clsTextLinksTextLink                   *jni.GlobalRef
-	midTextLinksTextLinkDescribeContents   jni.MethodID
-	midTextLinksTextLinkGetConfidenceScore jni.MethodID
-	midTextLinksTextLinkGetEnd             jni.MethodID
-	midTextLinksTextLinkGetEntity          jni.MethodID
-	midTextLinksTextLinkGetEntityCount     jni.MethodID
-	midTextLinksTextLinkGetExtras          jni.MethodID
-	midTextLinksTextLinkGetStart           jni.MethodID
-	midTextLinksTextLinkToString           jni.MethodID
-	midTextLinksTextLinkWriteToParcel      jni.MethodID
-
-	clsTextLinksTextLinkSpan            *jni.GlobalRef
-	midTextLinksTextLinkSpanGetTextLink jni.MethodID
-	midTextLinksTextLinkSpanOnClick     jni.MethodID
-	midTextLinksTextLinkSpanToString    jni.MethodID
-
 	clsTextClassifierEvent                 *jni.GlobalRef
 	midTextClassifierEventDescribeContents jni.MethodID
 	midTextClassifierEventGetActionIndices jni.MethodID
@@ -178,6 +84,198 @@ var (
 	midTextLanguageRequestWriteToParcel         jni.MethodID
 	midTextLanguageRequestToString              jni.MethodID
 
+	clsTextSelection                       *jni.GlobalRef
+	midTextSelectionDescribeContents       jni.MethodID
+	midTextSelectionGetConfidenceScore     jni.MethodID
+	midTextSelectionGetEntity              jni.MethodID
+	midTextSelectionGetEntityCount         jni.MethodID
+	midTextSelectionGetExtras              jni.MethodID
+	midTextSelectionGetId                  jni.MethodID
+	midTextSelectionGetSelectionEndIndex   jni.MethodID
+	midTextSelectionGetSelectionStartIndex jni.MethodID
+	midTextSelectionGetTextClassification  jni.MethodID
+	midTextSelectionToString               jni.MethodID
+	midTextSelectionWriteToParcel          jni.MethodID
+
+	clsTextSelectionBuilder                      *jni.GlobalRef
+	midTextSelectionBuilderBuild                 jni.MethodID
+	midTextSelectionBuilderSetEntityType         jni.MethodID
+	midTextSelectionBuilderSetExtras             jni.MethodID
+	midTextSelectionBuilderSetId                 jni.MethodID
+	midTextSelectionBuilderSetTextClassification jni.MethodID
+	midTextSelectionBuilderToString              jni.MethodID
+
+	clsTextSelectionRequest                                *jni.GlobalRef
+	midTextSelectionRequestDescribeContents                jni.MethodID
+	midTextSelectionRequestGetCallingPackageName           jni.MethodID
+	midTextSelectionRequestGetDefaultLocales               jni.MethodID
+	midTextSelectionRequestGetEndIndex                     jni.MethodID
+	midTextSelectionRequestGetExtras                       jni.MethodID
+	midTextSelectionRequestGetStartIndex                   jni.MethodID
+	midTextSelectionRequestGetText                         jni.MethodID
+	midTextSelectionRequestShouldIncludeTextClassification jni.MethodID
+	midTextSelectionRequestWriteToParcel                   jni.MethodID
+	midTextSelectionRequestToString                        jni.MethodID
+
+	clsConversationActions                       *jni.GlobalRef
+	midConversationActionsCtor                   jni.MethodID
+	midConversationActionsDescribeContents       jni.MethodID
+	midConversationActionsGetConversationActions jni.MethodID
+	midConversationActionsGetId                  jni.MethodID
+	midConversationActionsWriteToParcel          jni.MethodID
+	midConversationActionsToString               jni.MethodID
+
+	clsConversationActionsMessage                 *jni.GlobalRef
+	midConversationActionsMessageDescribeContents jni.MethodID
+	midConversationActionsMessageGetAuthor        jni.MethodID
+	midConversationActionsMessageGetExtras        jni.MethodID
+	midConversationActionsMessageGetReferenceTime jni.MethodID
+	midConversationActionsMessageGetText          jni.MethodID
+	midConversationActionsMessageWriteToParcel    jni.MethodID
+	midConversationActionsMessageToString         jni.MethodID
+
+	clsSelectionEvent                                *jni.GlobalRef
+	midSelectionEventDescribeContents                jni.MethodID
+	midSelectionEventEquals                          jni.MethodID
+	midSelectionEventGetDurationSincePreviousEvent   jni.MethodID
+	midSelectionEventGetDurationSinceSessionStart    jni.MethodID
+	midSelectionEventGetEnd                          jni.MethodID
+	midSelectionEventGetEntityType                   jni.MethodID
+	midSelectionEventGetEventIndex                   jni.MethodID
+	midSelectionEventGetEventTime                    jni.MethodID
+	midSelectionEventGetEventType                    jni.MethodID
+	midSelectionEventGetInvocationMethod             jni.MethodID
+	midSelectionEventGetPackageName                  jni.MethodID
+	midSelectionEventGetResultId                     jni.MethodID
+	midSelectionEventGetSessionId                    jni.MethodID
+	midSelectionEventGetSmartEnd                     jni.MethodID
+	midSelectionEventGetSmartStart                   jni.MethodID
+	midSelectionEventGetStart                        jni.MethodID
+	midSelectionEventGetWidgetType                   jni.MethodID
+	midSelectionEventGetWidgetVersion                jni.MethodID
+	midSelectionEventHashCode                        jni.MethodID
+	midSelectionEventToString                        jni.MethodID
+	midSelectionEventWriteToParcel                   jni.MethodID
+	midSelectionEventCreateSelectionActionEvent3     jni.MethodID
+	midSelectionEventCreateSelectionActionEvent4_1   jni.MethodID
+	midSelectionEventCreateSelectionModifiedEvent2   jni.MethodID
+	midSelectionEventCreateSelectionModifiedEvent3_1 jni.MethodID
+	midSelectionEventCreateSelectionModifiedEvent3_2 jni.MethodID
+	midSelectionEventCreateSelectionStartedEvent     jni.MethodID
+	midSelectionEventIsTerminal                      jni.MethodID
+
+	clsConversationActionsRequest                      *jni.GlobalRef
+	midConversationActionsRequestDescribeContents      jni.MethodID
+	midConversationActionsRequestGetCallingPackageName jni.MethodID
+	midConversationActionsRequestGetConversation       jni.MethodID
+	midConversationActionsRequestGetExtras             jni.MethodID
+	midConversationActionsRequestGetHints              jni.MethodID
+	midConversationActionsRequestGetMaxSuggestions     jni.MethodID
+	midConversationActionsRequestGetTypeConfig         jni.MethodID
+	midConversationActionsRequestWriteToParcel         jni.MethodID
+	midConversationActionsRequestToString              jni.MethodID
+
+	clsTextClassificationSessionFactory                                *jni.GlobalRef
+	midTextClassificationSessionFactoryCreateTextClassificationSession jni.MethodID
+	midTextClassificationSessionFactoryToString                        jni.MethodID
+
+	clsTextClassificationManager                                    *jni.GlobalRef
+	midTextClassificationManagerCreateTextClassificationSession     jni.MethodID
+	midTextClassificationManagerGetTextClassifier                   jni.MethodID
+	midTextClassificationManagerSetTextClassificationSessionFactory jni.MethodID
+	midTextClassificationManagerSetTextClassifier                   jni.MethodID
+	midTextClassificationManagerToString                            jni.MethodID
+
+	clsTextClassifier         *jni.GlobalRef
+	midTextClassifierToString jni.MethodID
+
+	clsTextClassifierEntityConfig                                     *jni.GlobalRef
+	midTextClassifierEntityConfigDescribeContents                     jni.MethodID
+	midTextClassifierEntityConfigGetHints                             jni.MethodID
+	midTextClassifierEntityConfigShouldIncludeTypesFromTextClassifier jni.MethodID
+	midTextClassifierEntityConfigWriteToParcel                        jni.MethodID
+	midTextClassifierEntityConfigToString                             jni.MethodID
+
+	clsConversationAction                   *jni.GlobalRef
+	midConversationActionDescribeContents   jni.MethodID
+	midConversationActionGetAction          jni.MethodID
+	midConversationActionGetConfidenceScore jni.MethodID
+	midConversationActionGetExtras          jni.MethodID
+	midConversationActionGetTextReply       jni.MethodID
+	midConversationActionGetType            jni.MethodID
+	midConversationActionWriteToParcel      jni.MethodID
+	midConversationActionToString           jni.MethodID
+
+	clsConversationActionBuilder                   *jni.GlobalRef
+	midConversationActionBuilderBuild              jni.MethodID
+	midConversationActionBuilderSetAction          jni.MethodID
+	midConversationActionBuilderSetConfidenceScore jni.MethodID
+	midConversationActionBuilderSetExtras          jni.MethodID
+	midConversationActionBuilderSetTextReply       jni.MethodID
+	midConversationActionBuilderToString           jni.MethodID
+
+	clsTextLinks                 *jni.GlobalRef
+	midTextLinksDescribeContents jni.MethodID
+	midTextLinksGetExtras        jni.MethodID
+	midTextLinksGetLinks         jni.MethodID
+	midTextLinksGetText          jni.MethodID
+	midTextLinksToString         jni.MethodID
+	midTextLinksWriteToParcel    jni.MethodID
+
+	clsTextLinksBuilder               *jni.GlobalRef
+	midTextLinksBuilderBuild          jni.MethodID
+	midTextLinksBuilderClearTextLinks jni.MethodID
+	midTextLinksBuilderSetExtras      jni.MethodID
+	midTextLinksBuilderToString       jni.MethodID
+
+	clsTextLinksRequest                      *jni.GlobalRef
+	midTextLinksRequestDescribeContents      jni.MethodID
+	midTextLinksRequestGetCallingPackageName jni.MethodID
+	midTextLinksRequestGetDefaultLocales     jni.MethodID
+	midTextLinksRequestGetEntityConfig       jni.MethodID
+	midTextLinksRequestGetExtras             jni.MethodID
+	midTextLinksRequestGetReferenceTime      jni.MethodID
+	midTextLinksRequestGetText               jni.MethodID
+	midTextLinksRequestWriteToParcel         jni.MethodID
+	midTextLinksRequestToString              jni.MethodID
+
+	clsTextLinksTextLink                   *jni.GlobalRef
+	midTextLinksTextLinkDescribeContents   jni.MethodID
+	midTextLinksTextLinkGetConfidenceScore jni.MethodID
+	midTextLinksTextLinkGetEnd             jni.MethodID
+	midTextLinksTextLinkGetEntity          jni.MethodID
+	midTextLinksTextLinkGetEntityCount     jni.MethodID
+	midTextLinksTextLinkGetExtras          jni.MethodID
+	midTextLinksTextLinkGetStart           jni.MethodID
+	midTextLinksTextLinkToString           jni.MethodID
+	midTextLinksTextLinkWriteToParcel      jni.MethodID
+
+	clsTextLinksTextLinkSpan            *jni.GlobalRef
+	midTextLinksTextLinkSpanGetTextLink jni.MethodID
+	midTextLinksTextLinkSpanOnClick     jni.MethodID
+	midTextLinksTextLinkSpanToString    jni.MethodID
+
+	clsTextClassificationContext                 *jni.GlobalRef
+	midTextClassificationContextDescribeContents jni.MethodID
+	midTextClassificationContextGetPackageName   jni.MethodID
+	midTextClassificationContextGetWidgetType    jni.MethodID
+	midTextClassificationContextGetWidgetVersion jni.MethodID
+	midTextClassificationContextToString         jni.MethodID
+	midTextClassificationContextWriteToParcel    jni.MethodID
+
+	clsTextClassificationContextBuilder                 *jni.GlobalRef
+	midTextClassificationContextBuilderBuild            jni.MethodID
+	midTextClassificationContextBuilderSetWidgetVersion jni.MethodID
+	midTextClassificationContextBuilderToString         jni.MethodID
+
+	clsTextClassificationSessionId                 *jni.GlobalRef
+	midTextClassificationSessionIdDescribeContents jni.MethodID
+	midTextClassificationSessionIdEquals           jni.MethodID
+	midTextClassificationSessionIdGetValue         jni.MethodID
+	midTextClassificationSessionIdHashCode         jni.MethodID
+	midTextClassificationSessionIdToString         jni.MethodID
+	midTextClassificationSessionIdWriteToParcel    jni.MethodID
+
 	clsTextClassification                   *jni.GlobalRef
 	midTextClassificationDescribeContents   jni.MethodID
 	midTextClassificationGetActions         jni.MethodID
@@ -218,104 +316,6 @@ var (
 	midTextClassificationRequestGetText               jni.MethodID
 	midTextClassificationRequestWriteToParcel         jni.MethodID
 	midTextClassificationRequestToString              jni.MethodID
-
-	clsTextClassificationManager                                    *jni.GlobalRef
-	midTextClassificationManagerCreateTextClassificationSession     jni.MethodID
-	midTextClassificationManagerGetTextClassifier                   jni.MethodID
-	midTextClassificationManagerSetTextClassificationSessionFactory jni.MethodID
-	midTextClassificationManagerSetTextClassifier                   jni.MethodID
-	midTextClassificationManagerToString                            jni.MethodID
-
-	clsConversationActions                       *jni.GlobalRef
-	midConversationActionsCtor                   jni.MethodID
-	midConversationActionsDescribeContents       jni.MethodID
-	midConversationActionsGetConversationActions jni.MethodID
-	midConversationActionsGetId                  jni.MethodID
-	midConversationActionsWriteToParcel          jni.MethodID
-	midConversationActionsToString               jni.MethodID
-
-	clsConversationActionsMessage                 *jni.GlobalRef
-	midConversationActionsMessageDescribeContents jni.MethodID
-	midConversationActionsMessageGetAuthor        jni.MethodID
-	midConversationActionsMessageGetExtras        jni.MethodID
-	midConversationActionsMessageGetReferenceTime jni.MethodID
-	midConversationActionsMessageGetText          jni.MethodID
-	midConversationActionsMessageWriteToParcel    jni.MethodID
-	midConversationActionsMessageToString         jni.MethodID
-
-	clsConversationActionsRequest                      *jni.GlobalRef
-	midConversationActionsRequestDescribeContents      jni.MethodID
-	midConversationActionsRequestGetCallingPackageName jni.MethodID
-	midConversationActionsRequestGetConversation       jni.MethodID
-	midConversationActionsRequestGetExtras             jni.MethodID
-	midConversationActionsRequestGetHints              jni.MethodID
-	midConversationActionsRequestGetMaxSuggestions     jni.MethodID
-	midConversationActionsRequestGetTypeConfig         jni.MethodID
-	midConversationActionsRequestWriteToParcel         jni.MethodID
-	midConversationActionsRequestToString              jni.MethodID
-
-	clsTextSelection                       *jni.GlobalRef
-	midTextSelectionDescribeContents       jni.MethodID
-	midTextSelectionGetConfidenceScore     jni.MethodID
-	midTextSelectionGetEntity              jni.MethodID
-	midTextSelectionGetEntityCount         jni.MethodID
-	midTextSelectionGetExtras              jni.MethodID
-	midTextSelectionGetId                  jni.MethodID
-	midTextSelectionGetSelectionEndIndex   jni.MethodID
-	midTextSelectionGetSelectionStartIndex jni.MethodID
-	midTextSelectionGetTextClassification  jni.MethodID
-	midTextSelectionToString               jni.MethodID
-	midTextSelectionWriteToParcel          jni.MethodID
-
-	clsTextSelectionBuilder                      *jni.GlobalRef
-	midTextSelectionBuilderBuild                 jni.MethodID
-	midTextSelectionBuilderSetEntityType         jni.MethodID
-	midTextSelectionBuilderSetExtras             jni.MethodID
-	midTextSelectionBuilderSetId                 jni.MethodID
-	midTextSelectionBuilderSetTextClassification jni.MethodID
-	midTextSelectionBuilderToString              jni.MethodID
-
-	clsTextSelectionRequest                                *jni.GlobalRef
-	midTextSelectionRequestDescribeContents                jni.MethodID
-	midTextSelectionRequestGetCallingPackageName           jni.MethodID
-	midTextSelectionRequestGetDefaultLocales               jni.MethodID
-	midTextSelectionRequestGetEndIndex                     jni.MethodID
-	midTextSelectionRequestGetExtras                       jni.MethodID
-	midTextSelectionRequestGetStartIndex                   jni.MethodID
-	midTextSelectionRequestGetText                         jni.MethodID
-	midTextSelectionRequestShouldIncludeTextClassification jni.MethodID
-	midTextSelectionRequestWriteToParcel                   jni.MethodID
-	midTextSelectionRequestToString                        jni.MethodID
-
-	clsSelectionEvent                                *jni.GlobalRef
-	midSelectionEventDescribeContents                jni.MethodID
-	midSelectionEventEquals                          jni.MethodID
-	midSelectionEventGetDurationSincePreviousEvent   jni.MethodID
-	midSelectionEventGetDurationSinceSessionStart    jni.MethodID
-	midSelectionEventGetEnd                          jni.MethodID
-	midSelectionEventGetEntityType                   jni.MethodID
-	midSelectionEventGetEventIndex                   jni.MethodID
-	midSelectionEventGetEventTime                    jni.MethodID
-	midSelectionEventGetEventType                    jni.MethodID
-	midSelectionEventGetInvocationMethod             jni.MethodID
-	midSelectionEventGetPackageName                  jni.MethodID
-	midSelectionEventGetResultId                     jni.MethodID
-	midSelectionEventGetSessionId                    jni.MethodID
-	midSelectionEventGetSmartEnd                     jni.MethodID
-	midSelectionEventGetSmartStart                   jni.MethodID
-	midSelectionEventGetStart                        jni.MethodID
-	midSelectionEventGetWidgetType                   jni.MethodID
-	midSelectionEventGetWidgetVersion                jni.MethodID
-	midSelectionEventHashCode                        jni.MethodID
-	midSelectionEventToString                        jni.MethodID
-	midSelectionEventWriteToParcel                   jni.MethodID
-	midSelectionEventCreateSelectionActionEvent3     jni.MethodID
-	midSelectionEventCreateSelectionActionEvent4_1   jni.MethodID
-	midSelectionEventCreateSelectionModifiedEvent2   jni.MethodID
-	midSelectionEventCreateSelectionModifiedEvent3_1 jni.MethodID
-	midSelectionEventCreateSelectionModifiedEvent3_2 jni.MethodID
-	midSelectionEventCreateSelectionStartedEvent     jni.MethodID
-	midSelectionEventIsTerminal                      jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -335,612 +335,6 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
-
-	c, err = env.FindClass("android/view/textclassifier/TextClassificationSessionId")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsTextClassificationSessionId = env.NewGlobalRef(&c.Object)
-
-		midTextClassificationSessionIdDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassificationSessionId)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextClassificationSessionIdEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassificationSessionId)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextClassificationSessionIdGetValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassificationSessionId)), "getValue", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextClassificationSessionIdHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassificationSessionId)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextClassificationSessionIdToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassificationSessionId)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextClassificationSessionIdWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassificationSessionId)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/view/textclassifier/TextClassifier")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsTextClassifier = env.NewGlobalRef(&c.Object)
-
-		midTextClassifierToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassifier)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/view/textclassifier/TextClassifier$EntityConfig")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsTextClassifierEntityConfig = env.NewGlobalRef(&c.Object)
-
-		midTextClassifierEntityConfigDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassifierEntityConfig)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextClassifierEntityConfigGetHints, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassifierEntityConfig)), "getHints", "()Ljava/util/Collection;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextClassifierEntityConfigShouldIncludeTypesFromTextClassifier, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassifierEntityConfig)), "shouldIncludeTypesFromTextClassifier", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextClassifierEntityConfigWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassifierEntityConfig)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextClassifierEntityConfigToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassifierEntityConfig)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/view/textclassifier/ConversationAction")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsConversationAction = env.NewGlobalRef(&c.Object)
-
-		midConversationActionDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationAction)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConversationActionGetAction, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationAction)), "getAction", "()Landroid/app/RemoteAction;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConversationActionGetConfidenceScore, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationAction)), "getConfidenceScore", "()F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConversationActionGetExtras, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationAction)), "getExtras", "()Landroid/os/Bundle;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConversationActionGetTextReply, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationAction)), "getTextReply", "()Ljava/lang/CharSequence;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConversationActionGetType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationAction)), "getType", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConversationActionWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationAction)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConversationActionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationAction)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/view/textclassifier/ConversationAction$Builder")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsConversationActionBuilder = env.NewGlobalRef(&c.Object)
-
-		midConversationActionBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActionBuilder)), "build", "()Landroid/view/textclassifier/ConversationAction;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConversationActionBuilderSetAction, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActionBuilder)), "setAction", "(Landroid/app/RemoteAction;)Landroid/view/textclassifier/ConversationAction$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConversationActionBuilderSetConfidenceScore, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActionBuilder)), "setConfidenceScore", "(F)Landroid/view/textclassifier/ConversationAction$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConversationActionBuilderSetExtras, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActionBuilder)), "setExtras", "(Landroid/os/Bundle;)Landroid/view/textclassifier/ConversationAction$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConversationActionBuilderSetTextReply, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActionBuilder)), "setTextReply", "(Ljava/lang/CharSequence;)Landroid/view/textclassifier/ConversationAction$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConversationActionBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActionBuilder)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/view/textclassifier/TextClassificationSessionFactory")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsTextClassificationSessionFactory = env.NewGlobalRef(&c.Object)
-
-		midTextClassificationSessionFactoryCreateTextClassificationSession, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassificationSessionFactory)), "createTextClassificationSession", "(Landroid/view/textclassifier/TextClassificationContext;)Landroid/view/textclassifier/TextClassifier;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextClassificationSessionFactoryToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassificationSessionFactory)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/view/textclassifier/TextClassificationContext")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsTextClassificationContext = env.NewGlobalRef(&c.Object)
-
-		midTextClassificationContextDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassificationContext)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextClassificationContextGetPackageName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassificationContext)), "getPackageName", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextClassificationContextGetWidgetType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassificationContext)), "getWidgetType", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextClassificationContextGetWidgetVersion, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassificationContext)), "getWidgetVersion", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextClassificationContextToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassificationContext)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextClassificationContextWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassificationContext)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/view/textclassifier/TextClassificationContext$Builder")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsTextClassificationContextBuilder = env.NewGlobalRef(&c.Object)
-
-		midTextClassificationContextBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassificationContextBuilder)), "build", "()Landroid/view/textclassifier/TextClassificationContext;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextClassificationContextBuilderSetWidgetVersion, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassificationContextBuilder)), "setWidgetVersion", "(Ljava/lang/String;)Landroid/view/textclassifier/TextClassificationContext$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextClassificationContextBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassificationContextBuilder)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/view/textclassifier/TextLinks")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsTextLinks = env.NewGlobalRef(&c.Object)
-
-		midTextLinksDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinks)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextLinksGetExtras, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinks)), "getExtras", "()Landroid/os/Bundle;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextLinksGetLinks, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinks)), "getLinks", "()Ljava/util/Collection;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextLinksGetText, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinks)), "getText", "()Ljava/lang/CharSequence;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextLinksToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinks)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextLinksWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinks)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/view/textclassifier/TextLinks$Builder")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsTextLinksBuilder = env.NewGlobalRef(&c.Object)
-
-		midTextLinksBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinksBuilder)), "build", "()Landroid/view/textclassifier/TextLinks;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextLinksBuilderClearTextLinks, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinksBuilder)), "clearTextLinks", "()Landroid/view/textclassifier/TextLinks$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextLinksBuilderSetExtras, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinksBuilder)), "setExtras", "(Landroid/os/Bundle;)Landroid/view/textclassifier/TextLinks$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextLinksBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinksBuilder)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/view/textclassifier/TextLinks$Request")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsTextLinksRequest = env.NewGlobalRef(&c.Object)
-
-		midTextLinksRequestDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinksRequest)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextLinksRequestGetCallingPackageName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinksRequest)), "getCallingPackageName", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextLinksRequestGetDefaultLocales, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinksRequest)), "getDefaultLocales", "()Landroid/os/LocaleList;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextLinksRequestGetEntityConfig, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinksRequest)), "getEntityConfig", "()Landroid/view/textclassifier/TextClassifier$EntityConfig;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextLinksRequestGetExtras, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinksRequest)), "getExtras", "()Landroid/os/Bundle;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextLinksRequestGetReferenceTime, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinksRequest)), "getReferenceTime", "()Ljava/time/ZonedDateTime;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextLinksRequestGetText, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinksRequest)), "getText", "()Ljava/lang/CharSequence;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextLinksRequestWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinksRequest)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextLinksRequestToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinksRequest)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/view/textclassifier/TextLinks$TextLink")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsTextLinksTextLink = env.NewGlobalRef(&c.Object)
-
-		midTextLinksTextLinkDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinksTextLink)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextLinksTextLinkGetConfidenceScore, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinksTextLink)), "getConfidenceScore", "(Ljava/lang/String;)F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextLinksTextLinkGetEnd, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinksTextLink)), "getEnd", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextLinksTextLinkGetEntity, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinksTextLink)), "getEntity", "(I)Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextLinksTextLinkGetEntityCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinksTextLink)), "getEntityCount", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextLinksTextLinkGetExtras, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinksTextLink)), "getExtras", "()Landroid/os/Bundle;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextLinksTextLinkGetStart, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinksTextLink)), "getStart", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextLinksTextLinkToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinksTextLink)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextLinksTextLinkWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinksTextLink)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/view/textclassifier/TextLinks$TextLinkSpan")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsTextLinksTextLinkSpan = env.NewGlobalRef(&c.Object)
-
-		midTextLinksTextLinkSpanGetTextLink, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinksTextLinkSpan)), "getTextLink", "()Landroid/view/textclassifier/TextLinks$TextLink;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextLinksTextLinkSpanOnClick, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinksTextLinkSpan)), "onClick", "(Landroid/view/View;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextLinksTextLinkSpanToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinksTextLinkSpan)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
 
 	c, err = env.FindClass("android/view/textclassifier/TextClassifierEvent")
 	if err != nil {
@@ -1333,6 +727,1263 @@ func doInit(env *jni.Env) error {
 
 	}
 
+	c, err = env.FindClass("android/view/textclassifier/TextSelection")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsTextSelection = env.NewGlobalRef(&c.Object)
+
+		midTextSelectionDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextSelection)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextSelectionGetConfidenceScore, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextSelection)), "getConfidenceScore", "(Ljava/lang/String;)F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextSelectionGetEntity, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextSelection)), "getEntity", "(I)Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextSelectionGetEntityCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextSelection)), "getEntityCount", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextSelectionGetExtras, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextSelection)), "getExtras", "()Landroid/os/Bundle;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextSelectionGetId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextSelection)), "getId", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextSelectionGetSelectionEndIndex, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextSelection)), "getSelectionEndIndex", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextSelectionGetSelectionStartIndex, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextSelection)), "getSelectionStartIndex", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextSelectionGetTextClassification, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextSelection)), "getTextClassification", "()Landroid/view/textclassifier/TextClassification;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextSelectionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextSelection)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextSelectionWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextSelection)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/view/textclassifier/TextSelection$Builder")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsTextSelectionBuilder = env.NewGlobalRef(&c.Object)
+
+		midTextSelectionBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextSelectionBuilder)), "build", "()Landroid/view/textclassifier/TextSelection;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextSelectionBuilderSetEntityType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextSelectionBuilder)), "setEntityType", "(Ljava/lang/String;F)Landroid/view/textclassifier/TextSelection$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextSelectionBuilderSetExtras, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextSelectionBuilder)), "setExtras", "(Landroid/os/Bundle;)Landroid/view/textclassifier/TextSelection$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextSelectionBuilderSetId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextSelectionBuilder)), "setId", "(Ljava/lang/String;)Landroid/view/textclassifier/TextSelection$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextSelectionBuilderSetTextClassification, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextSelectionBuilder)), "setTextClassification", "(Landroid/view/textclassifier/TextClassification;)Landroid/view/textclassifier/TextSelection$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextSelectionBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextSelectionBuilder)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/view/textclassifier/TextSelection$Request")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsTextSelectionRequest = env.NewGlobalRef(&c.Object)
+
+		midTextSelectionRequestDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextSelectionRequest)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextSelectionRequestGetCallingPackageName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextSelectionRequest)), "getCallingPackageName", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextSelectionRequestGetDefaultLocales, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextSelectionRequest)), "getDefaultLocales", "()Landroid/os/LocaleList;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextSelectionRequestGetEndIndex, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextSelectionRequest)), "getEndIndex", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextSelectionRequestGetExtras, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextSelectionRequest)), "getExtras", "()Landroid/os/Bundle;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextSelectionRequestGetStartIndex, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextSelectionRequest)), "getStartIndex", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextSelectionRequestGetText, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextSelectionRequest)), "getText", "()Ljava/lang/CharSequence;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextSelectionRequestShouldIncludeTextClassification, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextSelectionRequest)), "shouldIncludeTextClassification", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextSelectionRequestWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextSelectionRequest)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextSelectionRequestToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextSelectionRequest)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/view/textclassifier/ConversationActions")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsConversationActions = env.NewGlobalRef(&c.Object)
+		midConversationActionsCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActions)), "<init>", "(Ljava/util/List;Ljava/lang/String;)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midConversationActionsDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActions)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConversationActionsGetConversationActions, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActions)), "getConversationActions", "()Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConversationActionsGetId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActions)), "getId", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConversationActionsWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActions)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConversationActionsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActions)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/view/textclassifier/ConversationActions$Message")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsConversationActionsMessage = env.NewGlobalRef(&c.Object)
+
+		midConversationActionsMessageDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActionsMessage)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConversationActionsMessageGetAuthor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActionsMessage)), "getAuthor", "()Landroid/app/Person;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConversationActionsMessageGetExtras, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActionsMessage)), "getExtras", "()Landroid/os/Bundle;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConversationActionsMessageGetReferenceTime, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActionsMessage)), "getReferenceTime", "()Ljava/time/ZonedDateTime;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConversationActionsMessageGetText, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActionsMessage)), "getText", "()Ljava/lang/CharSequence;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConversationActionsMessageWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActionsMessage)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConversationActionsMessageToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActionsMessage)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/view/textclassifier/SelectionEvent")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsSelectionEvent = env.NewGlobalRef(&c.Object)
+
+		midSelectionEventDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSelectionEventEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSelectionEventGetDurationSincePreviousEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "getDurationSincePreviousEvent", "()J")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSelectionEventGetDurationSinceSessionStart, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "getDurationSinceSessionStart", "()J")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSelectionEventGetEnd, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "getEnd", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSelectionEventGetEntityType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "getEntityType", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSelectionEventGetEventIndex, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "getEventIndex", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSelectionEventGetEventTime, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "getEventTime", "()J")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSelectionEventGetEventType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "getEventType", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSelectionEventGetInvocationMethod, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "getInvocationMethod", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSelectionEventGetPackageName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "getPackageName", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSelectionEventGetResultId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "getResultId", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSelectionEventGetSessionId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "getSessionId", "()Landroid/view/textclassifier/TextClassificationSessionId;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSelectionEventGetSmartEnd, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "getSmartEnd", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSelectionEventGetSmartStart, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "getSmartStart", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSelectionEventGetStart, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "getStart", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSelectionEventGetWidgetType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "getWidgetType", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSelectionEventGetWidgetVersion, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "getWidgetVersion", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSelectionEventHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSelectionEventToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSelectionEventWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSelectionEventCreateSelectionActionEvent3, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "createSelectionActionEvent", "(III)Landroid/view/textclassifier/SelectionEvent;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSelectionEventCreateSelectionActionEvent4_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "createSelectionActionEvent", "(IIILandroid/view/textclassifier/TextClassification;)Landroid/view/textclassifier/SelectionEvent;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSelectionEventCreateSelectionModifiedEvent2, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "createSelectionModifiedEvent", "(II)Landroid/view/textclassifier/SelectionEvent;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSelectionEventCreateSelectionModifiedEvent3_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "createSelectionModifiedEvent", "(IILandroid/view/textclassifier/TextClassification;)Landroid/view/textclassifier/SelectionEvent;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSelectionEventCreateSelectionModifiedEvent3_2, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "createSelectionModifiedEvent", "(IILandroid/view/textclassifier/TextSelection;)Landroid/view/textclassifier/SelectionEvent;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSelectionEventCreateSelectionStartedEvent, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "createSelectionStartedEvent", "(II)Landroid/view/textclassifier/SelectionEvent;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midSelectionEventIsTerminal, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "isTerminal", "(I)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/view/textclassifier/ConversationActions$Request")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsConversationActionsRequest = env.NewGlobalRef(&c.Object)
+
+		midConversationActionsRequestDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActionsRequest)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConversationActionsRequestGetCallingPackageName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActionsRequest)), "getCallingPackageName", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConversationActionsRequestGetConversation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActionsRequest)), "getConversation", "()Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConversationActionsRequestGetExtras, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActionsRequest)), "getExtras", "()Landroid/os/Bundle;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConversationActionsRequestGetHints, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActionsRequest)), "getHints", "()Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConversationActionsRequestGetMaxSuggestions, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActionsRequest)), "getMaxSuggestions", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConversationActionsRequestGetTypeConfig, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActionsRequest)), "getTypeConfig", "()Landroid/view/textclassifier/TextClassifier$EntityConfig;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConversationActionsRequestWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActionsRequest)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConversationActionsRequestToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActionsRequest)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/view/textclassifier/TextClassificationSessionFactory")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsTextClassificationSessionFactory = env.NewGlobalRef(&c.Object)
+
+		midTextClassificationSessionFactoryCreateTextClassificationSession, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassificationSessionFactory)), "createTextClassificationSession", "(Landroid/view/textclassifier/TextClassificationContext;)Landroid/view/textclassifier/TextClassifier;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextClassificationSessionFactoryToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassificationSessionFactory)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/view/textclassifier/TextClassificationManager")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsTextClassificationManager = env.NewGlobalRef(&c.Object)
+
+		midTextClassificationManagerCreateTextClassificationSession, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassificationManager)), "createTextClassificationSession", "(Landroid/view/textclassifier/TextClassificationContext;)Landroid/view/textclassifier/TextClassifier;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextClassificationManagerGetTextClassifier, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassificationManager)), "getTextClassifier", "()Landroid/view/textclassifier/TextClassifier;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextClassificationManagerSetTextClassificationSessionFactory, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassificationManager)), "setTextClassificationSessionFactory", "(Landroid/view/textclassifier/TextClassificationSessionFactory;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextClassificationManagerSetTextClassifier, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassificationManager)), "setTextClassifier", "(Landroid/view/textclassifier/TextClassifier;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextClassificationManagerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassificationManager)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/view/textclassifier/TextClassifier")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsTextClassifier = env.NewGlobalRef(&c.Object)
+
+		midTextClassifierToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassifier)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/view/textclassifier/TextClassifier$EntityConfig")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsTextClassifierEntityConfig = env.NewGlobalRef(&c.Object)
+
+		midTextClassifierEntityConfigDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassifierEntityConfig)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextClassifierEntityConfigGetHints, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassifierEntityConfig)), "getHints", "()Ljava/util/Collection;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextClassifierEntityConfigShouldIncludeTypesFromTextClassifier, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassifierEntityConfig)), "shouldIncludeTypesFromTextClassifier", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextClassifierEntityConfigWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassifierEntityConfig)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextClassifierEntityConfigToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassifierEntityConfig)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/view/textclassifier/ConversationAction")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsConversationAction = env.NewGlobalRef(&c.Object)
+
+		midConversationActionDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationAction)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConversationActionGetAction, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationAction)), "getAction", "()Landroid/app/RemoteAction;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConversationActionGetConfidenceScore, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationAction)), "getConfidenceScore", "()F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConversationActionGetExtras, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationAction)), "getExtras", "()Landroid/os/Bundle;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConversationActionGetTextReply, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationAction)), "getTextReply", "()Ljava/lang/CharSequence;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConversationActionGetType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationAction)), "getType", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConversationActionWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationAction)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConversationActionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationAction)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/view/textclassifier/ConversationAction$Builder")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsConversationActionBuilder = env.NewGlobalRef(&c.Object)
+
+		midConversationActionBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActionBuilder)), "build", "()Landroid/view/textclassifier/ConversationAction;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConversationActionBuilderSetAction, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActionBuilder)), "setAction", "(Landroid/app/RemoteAction;)Landroid/view/textclassifier/ConversationAction$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConversationActionBuilderSetConfidenceScore, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActionBuilder)), "setConfidenceScore", "(F)Landroid/view/textclassifier/ConversationAction$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConversationActionBuilderSetExtras, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActionBuilder)), "setExtras", "(Landroid/os/Bundle;)Landroid/view/textclassifier/ConversationAction$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConversationActionBuilderSetTextReply, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActionBuilder)), "setTextReply", "(Ljava/lang/CharSequence;)Landroid/view/textclassifier/ConversationAction$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConversationActionBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActionBuilder)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/view/textclassifier/TextLinks")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsTextLinks = env.NewGlobalRef(&c.Object)
+
+		midTextLinksDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinks)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextLinksGetExtras, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinks)), "getExtras", "()Landroid/os/Bundle;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextLinksGetLinks, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinks)), "getLinks", "()Ljava/util/Collection;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextLinksGetText, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinks)), "getText", "()Ljava/lang/CharSequence;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextLinksToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinks)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextLinksWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinks)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/view/textclassifier/TextLinks$Builder")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsTextLinksBuilder = env.NewGlobalRef(&c.Object)
+
+		midTextLinksBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinksBuilder)), "build", "()Landroid/view/textclassifier/TextLinks;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextLinksBuilderClearTextLinks, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinksBuilder)), "clearTextLinks", "()Landroid/view/textclassifier/TextLinks$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextLinksBuilderSetExtras, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinksBuilder)), "setExtras", "(Landroid/os/Bundle;)Landroid/view/textclassifier/TextLinks$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextLinksBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinksBuilder)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/view/textclassifier/TextLinks$Request")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsTextLinksRequest = env.NewGlobalRef(&c.Object)
+
+		midTextLinksRequestDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinksRequest)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextLinksRequestGetCallingPackageName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinksRequest)), "getCallingPackageName", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextLinksRequestGetDefaultLocales, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinksRequest)), "getDefaultLocales", "()Landroid/os/LocaleList;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextLinksRequestGetEntityConfig, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinksRequest)), "getEntityConfig", "()Landroid/view/textclassifier/TextClassifier$EntityConfig;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextLinksRequestGetExtras, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinksRequest)), "getExtras", "()Landroid/os/Bundle;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextLinksRequestGetReferenceTime, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinksRequest)), "getReferenceTime", "()Ljava/time/ZonedDateTime;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextLinksRequestGetText, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinksRequest)), "getText", "()Ljava/lang/CharSequence;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextLinksRequestWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinksRequest)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextLinksRequestToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinksRequest)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/view/textclassifier/TextLinks$TextLink")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsTextLinksTextLink = env.NewGlobalRef(&c.Object)
+
+		midTextLinksTextLinkDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinksTextLink)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextLinksTextLinkGetConfidenceScore, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinksTextLink)), "getConfidenceScore", "(Ljava/lang/String;)F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextLinksTextLinkGetEnd, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinksTextLink)), "getEnd", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextLinksTextLinkGetEntity, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinksTextLink)), "getEntity", "(I)Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextLinksTextLinkGetEntityCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinksTextLink)), "getEntityCount", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextLinksTextLinkGetExtras, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinksTextLink)), "getExtras", "()Landroid/os/Bundle;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextLinksTextLinkGetStart, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinksTextLink)), "getStart", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextLinksTextLinkToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinksTextLink)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextLinksTextLinkWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinksTextLink)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/view/textclassifier/TextLinks$TextLinkSpan")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsTextLinksTextLinkSpan = env.NewGlobalRef(&c.Object)
+
+		midTextLinksTextLinkSpanGetTextLink, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinksTextLinkSpan)), "getTextLink", "()Landroid/view/textclassifier/TextLinks$TextLink;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextLinksTextLinkSpanOnClick, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinksTextLinkSpan)), "onClick", "(Landroid/view/View;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextLinksTextLinkSpanToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextLinksTextLinkSpan)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/view/textclassifier/TextClassificationContext")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsTextClassificationContext = env.NewGlobalRef(&c.Object)
+
+		midTextClassificationContextDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassificationContext)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextClassificationContextGetPackageName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassificationContext)), "getPackageName", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextClassificationContextGetWidgetType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassificationContext)), "getWidgetType", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextClassificationContextGetWidgetVersion, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassificationContext)), "getWidgetVersion", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextClassificationContextToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassificationContext)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextClassificationContextWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassificationContext)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/view/textclassifier/TextClassificationContext$Builder")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsTextClassificationContextBuilder = env.NewGlobalRef(&c.Object)
+
+		midTextClassificationContextBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassificationContextBuilder)), "build", "()Landroid/view/textclassifier/TextClassificationContext;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextClassificationContextBuilderSetWidgetVersion, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassificationContextBuilder)), "setWidgetVersion", "(Ljava/lang/String;)Landroid/view/textclassifier/TextClassificationContext$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextClassificationContextBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassificationContextBuilder)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/view/textclassifier/TextClassificationSessionId")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsTextClassificationSessionId = env.NewGlobalRef(&c.Object)
+
+		midTextClassificationSessionIdDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassificationSessionId)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextClassificationSessionIdEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassificationSessionId)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextClassificationSessionIdGetValue, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassificationSessionId)), "getValue", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextClassificationSessionIdHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassificationSessionId)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextClassificationSessionIdToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassificationSessionId)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midTextClassificationSessionIdWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassificationSessionId)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
 	c, err = env.FindClass("android/view/textclassifier/TextClassification")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -1600,657 +2251,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midTextClassificationRequestToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassificationRequest)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/view/textclassifier/TextClassificationManager")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsTextClassificationManager = env.NewGlobalRef(&c.Object)
-
-		midTextClassificationManagerCreateTextClassificationSession, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassificationManager)), "createTextClassificationSession", "(Landroid/view/textclassifier/TextClassificationContext;)Landroid/view/textclassifier/TextClassifier;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextClassificationManagerGetTextClassifier, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassificationManager)), "getTextClassifier", "()Landroid/view/textclassifier/TextClassifier;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextClassificationManagerSetTextClassificationSessionFactory, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassificationManager)), "setTextClassificationSessionFactory", "(Landroid/view/textclassifier/TextClassificationSessionFactory;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextClassificationManagerSetTextClassifier, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassificationManager)), "setTextClassifier", "(Landroid/view/textclassifier/TextClassifier;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextClassificationManagerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextClassificationManager)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/view/textclassifier/ConversationActions")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsConversationActions = env.NewGlobalRef(&c.Object)
-		midConversationActionsCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActions)), "<init>", "(Ljava/util/List;Ljava/lang/String;)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midConversationActionsDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActions)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConversationActionsGetConversationActions, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActions)), "getConversationActions", "()Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConversationActionsGetId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActions)), "getId", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConversationActionsWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActions)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConversationActionsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActions)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/view/textclassifier/ConversationActions$Message")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsConversationActionsMessage = env.NewGlobalRef(&c.Object)
-
-		midConversationActionsMessageDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActionsMessage)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConversationActionsMessageGetAuthor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActionsMessage)), "getAuthor", "()Landroid/app/Person;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConversationActionsMessageGetExtras, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActionsMessage)), "getExtras", "()Landroid/os/Bundle;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConversationActionsMessageGetReferenceTime, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActionsMessage)), "getReferenceTime", "()Ljava/time/ZonedDateTime;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConversationActionsMessageGetText, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActionsMessage)), "getText", "()Ljava/lang/CharSequence;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConversationActionsMessageWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActionsMessage)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConversationActionsMessageToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActionsMessage)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/view/textclassifier/ConversationActions$Request")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsConversationActionsRequest = env.NewGlobalRef(&c.Object)
-
-		midConversationActionsRequestDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActionsRequest)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConversationActionsRequestGetCallingPackageName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActionsRequest)), "getCallingPackageName", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConversationActionsRequestGetConversation, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActionsRequest)), "getConversation", "()Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConversationActionsRequestGetExtras, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActionsRequest)), "getExtras", "()Landroid/os/Bundle;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConversationActionsRequestGetHints, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActionsRequest)), "getHints", "()Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConversationActionsRequestGetMaxSuggestions, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActionsRequest)), "getMaxSuggestions", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConversationActionsRequestGetTypeConfig, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActionsRequest)), "getTypeConfig", "()Landroid/view/textclassifier/TextClassifier$EntityConfig;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConversationActionsRequestWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActionsRequest)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConversationActionsRequestToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsConversationActionsRequest)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/view/textclassifier/TextSelection")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsTextSelection = env.NewGlobalRef(&c.Object)
-
-		midTextSelectionDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextSelection)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextSelectionGetConfidenceScore, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextSelection)), "getConfidenceScore", "(Ljava/lang/String;)F")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextSelectionGetEntity, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextSelection)), "getEntity", "(I)Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextSelectionGetEntityCount, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextSelection)), "getEntityCount", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextSelectionGetExtras, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextSelection)), "getExtras", "()Landroid/os/Bundle;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextSelectionGetId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextSelection)), "getId", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextSelectionGetSelectionEndIndex, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextSelection)), "getSelectionEndIndex", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextSelectionGetSelectionStartIndex, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextSelection)), "getSelectionStartIndex", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextSelectionGetTextClassification, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextSelection)), "getTextClassification", "()Landroid/view/textclassifier/TextClassification;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextSelectionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextSelection)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextSelectionWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextSelection)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/view/textclassifier/TextSelection$Builder")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsTextSelectionBuilder = env.NewGlobalRef(&c.Object)
-
-		midTextSelectionBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextSelectionBuilder)), "build", "()Landroid/view/textclassifier/TextSelection;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextSelectionBuilderSetEntityType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextSelectionBuilder)), "setEntityType", "(Ljava/lang/String;F)Landroid/view/textclassifier/TextSelection$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextSelectionBuilderSetExtras, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextSelectionBuilder)), "setExtras", "(Landroid/os/Bundle;)Landroid/view/textclassifier/TextSelection$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextSelectionBuilderSetId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextSelectionBuilder)), "setId", "(Ljava/lang/String;)Landroid/view/textclassifier/TextSelection$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextSelectionBuilderSetTextClassification, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextSelectionBuilder)), "setTextClassification", "(Landroid/view/textclassifier/TextClassification;)Landroid/view/textclassifier/TextSelection$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextSelectionBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextSelectionBuilder)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/view/textclassifier/TextSelection$Request")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsTextSelectionRequest = env.NewGlobalRef(&c.Object)
-
-		midTextSelectionRequestDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextSelectionRequest)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextSelectionRequestGetCallingPackageName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextSelectionRequest)), "getCallingPackageName", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextSelectionRequestGetDefaultLocales, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextSelectionRequest)), "getDefaultLocales", "()Landroid/os/LocaleList;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextSelectionRequestGetEndIndex, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextSelectionRequest)), "getEndIndex", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextSelectionRequestGetExtras, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextSelectionRequest)), "getExtras", "()Landroid/os/Bundle;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextSelectionRequestGetStartIndex, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextSelectionRequest)), "getStartIndex", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextSelectionRequestGetText, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextSelectionRequest)), "getText", "()Ljava/lang/CharSequence;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextSelectionRequestShouldIncludeTextClassification, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextSelectionRequest)), "shouldIncludeTextClassification", "()Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextSelectionRequestWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextSelectionRequest)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midTextSelectionRequestToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsTextSelectionRequest)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/view/textclassifier/SelectionEvent")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsSelectionEvent = env.NewGlobalRef(&c.Object)
-
-		midSelectionEventDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSelectionEventEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSelectionEventGetDurationSincePreviousEvent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "getDurationSincePreviousEvent", "()J")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSelectionEventGetDurationSinceSessionStart, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "getDurationSinceSessionStart", "()J")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSelectionEventGetEnd, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "getEnd", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSelectionEventGetEntityType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "getEntityType", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSelectionEventGetEventIndex, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "getEventIndex", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSelectionEventGetEventTime, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "getEventTime", "()J")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSelectionEventGetEventType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "getEventType", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSelectionEventGetInvocationMethod, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "getInvocationMethod", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSelectionEventGetPackageName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "getPackageName", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSelectionEventGetResultId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "getResultId", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSelectionEventGetSessionId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "getSessionId", "()Landroid/view/textclassifier/TextClassificationSessionId;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSelectionEventGetSmartEnd, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "getSmartEnd", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSelectionEventGetSmartStart, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "getSmartStart", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSelectionEventGetStart, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "getStart", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSelectionEventGetWidgetType, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "getWidgetType", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSelectionEventGetWidgetVersion, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "getWidgetVersion", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSelectionEventHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSelectionEventToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSelectionEventWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSelectionEventCreateSelectionActionEvent3, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "createSelectionActionEvent", "(III)Landroid/view/textclassifier/SelectionEvent;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSelectionEventCreateSelectionActionEvent4_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "createSelectionActionEvent", "(IIILandroid/view/textclassifier/TextClassification;)Landroid/view/textclassifier/SelectionEvent;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSelectionEventCreateSelectionModifiedEvent2, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "createSelectionModifiedEvent", "(II)Landroid/view/textclassifier/SelectionEvent;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSelectionEventCreateSelectionModifiedEvent3_1, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "createSelectionModifiedEvent", "(IILandroid/view/textclassifier/TextClassification;)Landroid/view/textclassifier/SelectionEvent;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSelectionEventCreateSelectionModifiedEvent3_2, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "createSelectionModifiedEvent", "(IILandroid/view/textclassifier/TextSelection;)Landroid/view/textclassifier/SelectionEvent;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSelectionEventCreateSelectionStartedEvent, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "createSelectionStartedEvent", "(II)Landroid/view/textclassifier/SelectionEvent;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midSelectionEventIsTerminal, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsSelectionEvent)), "isTerminal", "(I)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

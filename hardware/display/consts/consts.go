@@ -3,27 +3,6 @@
 package consts
 
 const (
-	ConnectionToSinkBuiltIn            int = 1
-	ConnectionToSinkDirect             int = 2
-	ConnectionToSinkTransitive         int = 3
-	ConnectionToSinkUnknown            int = 0
-	Creator                            int = 0
-	HdrConversionForce                 int = 3
-	HdrConversionPassthrough           int = 1
-	HdrConversionSystem                int = 2
-	HdrConversionUnsupported           int = 0
-	MatchContentFramerateAlways        int = 2
-	MatchContentFramerateNever         int = 0
-	MatchContentFramerateSeamlesssOnly int = 1
-	MatchContentFramerateUnknown       int = -1
-	VirtualDisplayFlagAutoMirror       int = 16
-	VirtualDisplayFlagOwnContentOnly   int = 8
-	VirtualDisplayFlagPresentation     int = 2
-	VirtualDisplayFlagPublic           int = 1
-	VirtualDisplayFlagSecure           int = 4
-)
-
-const (
 	DisplayCategoryPresentation string = "android.hardware.display.category.PRESENTATION"
 )
 
@@ -33,4 +12,25 @@ const (
 	EventTypeDisplayRefreshRate int64 = 8
 	EventTypeDisplayRemoved     int64 = 2
 	EventTypeDisplayState       int64 = 16
+)
+
+const (
+	MatchContentFramerateAlways        int = 2
+	MatchContentFramerateNever         int = 0
+	MatchContentFramerateSeamlesssOnly int = 1
+	MatchContentFramerateUnknown       int = -1
+	VirtualDisplayFlagAutoMirror       int = 16
+	VirtualDisplayFlagOwnContentOnly   int = 8
+	VirtualDisplayFlagPresentation     int = 2
+	VirtualDisplayFlagPublic           int = 1
+	VirtualDisplayFlagSecure           int = 4
+	Creator                            int = 0
+	HdrConversionForce                 int = 3
+	HdrConversionPassthrough           int = 1
+	HdrConversionSystem                int = 2
+	HdrConversionUnsupported           int = 0
+	ConnectionToSinkBuiltIn            int = 1
+	ConnectionToSinkDirect             int = 2
+	ConnectionToSinkTransitive         int = 3
+	ConnectionToSinkUnknown            int = 0
 )

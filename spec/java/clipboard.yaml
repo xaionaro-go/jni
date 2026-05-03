@@ -5,71 +5,6 @@
 package: clipboard
 go_import: github.com/AndroidGoLab/jni/content/clipboard
 classes:
-    - java_class: android.content.ClipboardManager
-      go_type: Manager
-      obtain: system_service
-      service_name: clipboard
-      close: true
-      methods:
-        - java_method: addPrimaryClipChangedListener
-          go_name: AddPrimaryClipChangedListener
-          params:
-            - java_type: android.content.ClipboardManager$OnPrimaryClipChangedListener
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: clearPrimaryClip
-          go_name: ClearPrimaryClip
-          returns: void
-          error: true
-        - java_method: getPrimaryClip
-          go_name: GetPrimaryClip
-          returns: android.content.ClipData
-          error: true
-        - java_method: getPrimaryClipDescription
-          go_name: GetPrimaryClipDescription
-          returns: android.content.ClipDescription
-          error: true
-        - java_method: getText
-          go_name: GetText
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: hasPrimaryClip
-          go_name: HasPrimaryClip
-          returns: boolean
-          error: true
-        - java_method: hasText
-          go_name: HasText
-          returns: boolean
-          error: true
-        - java_method: removePrimaryClipChangedListener
-          go_name: RemovePrimaryClipChangedListener
-          params:
-            - java_type: android.content.ClipboardManager$OnPrimaryClipChangedListener
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setPrimaryClip
-          go_name: SetPrimaryClip
-          params:
-            - java_type: android.content.ClipData
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setText
-          go_name: SetText
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.content.ClipboardManager$OnPrimaryClipChangedListener
-      go_type: ManagerOnPrimaryClipChangedListener
-      methods:
-        - java_method: onPrimaryClipChanged
-          go_name: OnPrimaryClipChanged
-          returns: void
-          error: true
     - java_class: android.content.ClipData
       go_type: ClipData
       obtain: constructor
@@ -226,6 +161,71 @@ classes:
         - java_method: toString
           go_name: ToString
           returns: String
+          error: true
+    - java_class: android.content.ClipboardManager
+      go_type: Manager
+      obtain: system_service
+      service_name: clipboard
+      close: true
+      methods:
+        - java_method: addPrimaryClipChangedListener
+          go_name: AddPrimaryClipChangedListener
+          params:
+            - java_type: android.content.ClipboardManager$OnPrimaryClipChangedListener
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: clearPrimaryClip
+          go_name: ClearPrimaryClip
+          returns: void
+          error: true
+        - java_method: getPrimaryClip
+          go_name: GetPrimaryClip
+          returns: android.content.ClipData
+          error: true
+        - java_method: getPrimaryClipDescription
+          go_name: GetPrimaryClipDescription
+          returns: android.content.ClipDescription
+          error: true
+        - java_method: getText
+          go_name: GetText
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: hasPrimaryClip
+          go_name: HasPrimaryClip
+          returns: boolean
+          error: true
+        - java_method: hasText
+          go_name: HasText
+          returns: boolean
+          error: true
+        - java_method: removePrimaryClipChangedListener
+          go_name: RemovePrimaryClipChangedListener
+          params:
+            - java_type: android.content.ClipboardManager$OnPrimaryClipChangedListener
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setPrimaryClip
+          go_name: SetPrimaryClip
+          params:
+            - java_type: android.content.ClipData
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setText
+          go_name: SetText
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.content.ClipboardManager$OnPrimaryClipChangedListener
+      go_type: ManagerOnPrimaryClipChangedListener
+      methods:
+        - java_method: onPrimaryClipChanged
+          go_name: OnPrimaryClipChanged
+          returns: void
           error: true
 constants:
     - go_name: Creator

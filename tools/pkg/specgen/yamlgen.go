@@ -96,7 +96,7 @@ func GenerateFromRefDir(
 	outputDir string,
 	goModule string,
 ) error {
-	return GenerateFromSources(refDir, "", extraClassPath, outputDir, goModule)
+	return GenerateFromSources(refDir, "", extraClassPath, outputDir, goModule, nil)
 }
 
 // GenerateFromSources scans refDir for .class files and (optionally) jarsDir
@@ -104,13 +104,22 @@ func GenerateFromRefDir(
 // (inner classes are grouped with their parent). extraClassPath is appended
 // to the javap -cp argument so referenced types resolve. jarsDir may be ""
 // to preserve the legacy ref-only behavior.
+//
+// jarSkipPrefixes filters classes enumerated from JARs whose dot-separated
+// names start with any of the given prefixes (e.g. "kotlin." to drop the
+// Kotlin runtime). Pass nil to use DefaultJarSkipPrefixes; pass an empty
+// non-nil slice to disable filtering.
 func GenerateFromSources(
 	refDir string,
 	jarsDir string,
 	extraClassPath string,
 	outputDir string,
 	goModule string,
+	jarSkipPrefixes []string,
 ) error {
+	if jarSkipPrefixes == nil {
+		jarSkipPrefixes = DefaultJarSkipPrefixes
+	}
 	// Load service name mappings from android.jar via the svcgen Java tool,
 	// so that classFromJavap can detect system-service classes.
 	if extraClassPath != "" {
@@ -172,7 +181,7 @@ func GenerateFromSources(
 		}
 		jarPaths = jars
 		for _, jar := range jars {
-			names, nerr := EnumerateClassesInJar(jar)
+			names, nerr := EnumerateClassesInJarFiltered(jar, jarSkipPrefixes)
 			if nerr != nil {
 				return fmt.Errorf("enumerate %s: %w", jar, nerr)
 			}
@@ -386,17 +395,24 @@ func classFromJavap(jc *JavapClass, goPkg string) SpecClass {
 		cls.ConstructorParams = convertConstructorParams(best)
 	}
 
-	// Count method names to detect overloads.
-	nameCounts := make(map[string]int)
+	// Count Go-name collisions to detect overloads. We key by the Go name
+	// (post-PascalCase) instead of the raw Java name so that Java methods
+	// differing only in case (e.g. Dimension.Suggested vs Dimension.suggested)
+	// are recognised as colliding. Without this, two such methods would
+	// produce the same Go identifier and the package would fail to build.
+	goNameCounts := make(map[string]int)
 	for _, m := range jc.Methods {
 		if hasUnsupportedParams(m) {
 			continue
 		}
-		nameCounts[m.Name]++
+		goNameCounts[specMethodFromJavap(m).GoName]++
 	}
 
-	// Track per-name occurrence index for disambiguation.
-	nameIndex := make(map[string]int)
+	// Track per-goName occurrence index across all overloads. The suffix is
+	// "<paramCount>" for the first occurrence, then "<paramCount>_<idx>" for
+	// subsequent ones — same scheme as before, but indexed by Go name so
+	// case-only Java collisions still produce distinct Go identifiers.
+	goNameIndex := make(map[string]int)
 
 	for _, m := range jc.Methods {
 		if hasUnsupportedParams(m) {
@@ -405,10 +421,9 @@ func classFromJavap(jc *JavapClass, goPkg string) SpecClass {
 
 		sm := specMethodFromJavap(m)
 
-		// Disambiguate overloaded methods by appending parameter count.
-		if nameCounts[m.Name] > 1 {
-			idx := nameIndex[m.Name]
-			nameIndex[m.Name] = idx + 1
+		if goNameCounts[sm.GoName] > 1 {
+			idx := goNameIndex[sm.GoName]
+			goNameIndex[sm.GoName] = idx + 1
 			suffix := fmt.Sprintf("%d", len(m.Params))
 			if idx > 0 {
 				suffix = fmt.Sprintf("%d_%d", len(m.Params), idx)
@@ -781,11 +796,15 @@ func abstractCallbackFromJavap(jc *JavapClass, goPkg string) *SpecAbstractCallba
 }
 
 // inferConstantDefault returns a placeholder default for a constant.
-// The actual values come from the Android SDK; we use 0/"" as placeholders.
+// The actual values come from the Android SDK; we use type-appropriate
+// zero values as placeholders ("" for String, false for boolean,
+// 0 for everything else).
 func inferConstantDefault(javaType string) string {
 	switch javaType {
 	case "java.lang.String":
 		return `""`
+	case "boolean":
+		return "false"
 	default:
 		return "0"
 	}

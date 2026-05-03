@@ -32,3 +32,22 @@ classes:
               go_name: arg4
           returns: void
           error: true
+abstract_callbacks:
+    - java_class: android.service.restrictions.RestrictionsReceiver
+      go_type: ReceiverCallback
+      methods:
+        - java_method: onReceive
+          params:
+            - android.content.Context
+            - android.content.Intent
+          returns: void
+          go_field: OnReceive
+        - java_method: onRequestPermission
+          params:
+            - android.content.Context
+            - String
+            - String
+            - String
+            - android.os.PersistableBundle
+          returns: void
+          go_field: OnRequestPermission

@@ -5,219 +5,6 @@
 package: ims
 go_import: github.com/AndroidGoLab/jni/telephony/ims
 classes:
-    - java_class: android.telephony.ims.ImsStateCallback
-      go_type: StateCallback
-      methods:
-        - java_method: onAvailable
-          go_name: OnAvailable
-          returns: void
-          error: true
-        - java_method: onError
-          go_name: OnError
-          returns: void
-          error: true
-        - java_method: onUnavailable
-          go_name: OnUnavailable
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.telephony.ims.ImsManager
-      go_type: Manager
-      methods:
-        - java_method: getImsMmTelManager
-          go_name: GetImsMmTelManager
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.telephony.ims.ImsMmTelManager
-          error: true
-        - java_method: getImsRcsManager
-          go_name: GetImsRcsManager
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.telephony.ims.ImsRcsManager
-          error: true
-        - java_method: getProvisioningManager
-          go_name: GetProvisioningManager
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.telephony.ims.ProvisioningManager
-          error: true
-    - java_class: android.telephony.ims.RegistrationManager
-      go_type: RegistrationManager
-      methods:
-        - java_method: registerImsRegistrationCallback
-          go_name: RegisterImsRegistrationCallback
-          params:
-            - java_type: java.util.concurrent.Executor
-              go_name: arg0
-            - java_type: android.telephony.ims.RegistrationManager$RegistrationCallback
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: unregisterImsRegistrationCallback
-          go_name: UnregisterImsRegistrationCallback
-          params:
-            - java_type: android.telephony.ims.RegistrationManager$RegistrationCallback
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.telephony.ims.RegistrationManager$RegistrationCallback
-      go_type: RegistrationManagerRegistrationCallback
-      methods:
-        - java_method: onRegistered
-          go_name: OnRegistered1
-          params:
-            - java_type: android.telephony.ims.ImsRegistrationAttributes
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onRegistered
-          go_name: OnRegistered1_1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onRegistering
-          go_name: OnRegistering1
-          params:
-            - java_type: android.telephony.ims.ImsRegistrationAttributes
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onRegistering
-          go_name: OnRegistering1_1
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onTechnologyChangeFailed
-          go_name: OnTechnologyChangeFailed
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: android.telephony.ims.ImsReasonInfo
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onUnregistered
-          go_name: OnUnregistered
-          params:
-            - java_type: android.telephony.ims.ImsReasonInfo
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.telephony.ims.RcsUceAdapter
-      go_type: RcsUceAdapter
-      methods:
-        - java_method: isUceSettingEnabled
-          go_name: IsUceSettingEnabled
-          returns: boolean
-          error: true
-    - java_class: android.telephony.ims.SipDetails
-      go_type: SipDetails
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getCSeq
-          go_name: GetCSeq
-          returns: int
-          error: true
-        - java_method: getCallId
-          go_name: GetCallId
-          returns: String
-          error: true
-        - java_method: getMethod
-          go_name: GetMethod
-          returns: int
-          error: true
-        - java_method: getReasonHeaderCause
-          go_name: GetReasonHeaderCause
-          returns: int
-          error: true
-        - java_method: getReasonHeaderText
-          go_name: GetReasonHeaderText
-          returns: String
-          error: true
-        - java_method: getResponseCode
-          go_name: GetResponseCode
-          returns: int
-          error: true
-        - java_method: getResponsePhrase
-          go_name: GetResponsePhrase
-          returns: String
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.telephony.ims.ImsRcsManager
-      go_type: RcsManager
-      methods:
-        - java_method: getUceAdapter
-          go_name: GetUceAdapter
-          returns: android.telephony.ims.RcsUceAdapter
-          error: true
-        - java_method: registerImsRegistrationCallback
-          go_name: RegisterImsRegistrationCallback
-          params:
-            - java_type: java.util.concurrent.Executor
-              go_name: arg0
-            - java_type: android.telephony.ims.RegistrationManager$RegistrationCallback
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: registerImsStateCallback
-          go_name: RegisterImsStateCallback
-          params:
-            - java_type: java.util.concurrent.Executor
-              go_name: arg0
-            - java_type: android.telephony.ims.ImsStateCallback
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: unregisterImsRegistrationCallback
-          go_name: UnregisterImsRegistrationCallback
-          params:
-            - java_type: android.telephony.ims.RegistrationManager$RegistrationCallback
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: unregisterImsStateCallback
-          go_name: UnregisterImsStateCallback
-          params:
-            - java_type: android.telephony.ims.ImsStateCallback
-              go_name: arg0
-          returns: void
-          error: true
     - java_class: android.telephony.ims.ImsMmTelManager
       go_type: MmTelManager
       methods:
@@ -307,12 +94,128 @@ classes:
               go_name: arg0
           returns: void
           error: true
-    - java_class: android.telephony.ims.ImsException
-      go_type: Exception
+    - java_class: android.telephony.ims.ImsRcsManager
+      go_type: RcsManager
       methods:
-        - java_method: getCode
-          go_name: GetCode
+        - java_method: getUceAdapter
+          go_name: GetUceAdapter
+          returns: android.telephony.ims.RcsUceAdapter
+          error: true
+        - java_method: registerImsRegistrationCallback
+          go_name: RegisterImsRegistrationCallback
+          params:
+            - java_type: java.util.concurrent.Executor
+              go_name: arg0
+            - java_type: android.telephony.ims.RegistrationManager$RegistrationCallback
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: registerImsStateCallback
+          go_name: RegisterImsStateCallback
+          params:
+            - java_type: java.util.concurrent.Executor
+              go_name: arg0
+            - java_type: android.telephony.ims.ImsStateCallback
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: unregisterImsRegistrationCallback
+          go_name: UnregisterImsRegistrationCallback
+          params:
+            - java_type: android.telephony.ims.RegistrationManager$RegistrationCallback
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: unregisterImsStateCallback
+          go_name: UnregisterImsStateCallback
+          params:
+            - java_type: android.telephony.ims.ImsStateCallback
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.telephony.ims.RcsUceAdapter
+      go_type: RcsUceAdapter
+      methods:
+        - java_method: isUceSettingEnabled
+          go_name: IsUceSettingEnabled
+          returns: boolean
+          error: true
+    - java_class: android.telephony.ims.SipDetails
+      go_type: SipDetails
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
           returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getCSeq
+          go_name: GetCSeq
+          returns: int
+          error: true
+        - java_method: getCallId
+          go_name: GetCallId
+          returns: String
+          error: true
+        - java_method: getMethod
+          go_name: GetMethod
+          returns: int
+          error: true
+        - java_method: getReasonHeaderCause
+          go_name: GetReasonHeaderCause
+          returns: int
+          error: true
+        - java_method: getReasonHeaderText
+          go_name: GetReasonHeaderText
+          returns: String
+          error: true
+        - java_method: getResponseCode
+          go_name: GetResponseCode
+          returns: int
+          error: true
+        - java_method: getResponsePhrase
+          go_name: GetResponsePhrase
+          returns: String
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.telephony.ims.ImsStateCallback
+      go_type: StateCallback
+      methods:
+        - java_method: onAvailable
+          go_name: OnAvailable
+          returns: void
+          error: true
+        - java_method: onError
+          go_name: OnError
+          returns: void
+          error: true
+        - java_method: onUnavailable
+          go_name: OnUnavailable
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
           error: true
     - java_class: android.telephony.ims.ProvisioningManager
       go_type: ProvisioningManager
@@ -416,45 +319,36 @@ classes:
               go_name: arg2
           returns: void
           error: true
-    - java_class: android.telephony.ims.ImsReasonInfo
-      go_type: ReasonInfo
-      obtain: constructor
-      constructor_params:
-        - java_type: int
-          go_name: arg0
-        - java_type: int
-          go_name: arg1
-        - java_type: String
-          go_name: arg2
+    - java_class: android.telephony.ims.ImsManager
+      go_type: Manager
       methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
+        - java_method: getImsMmTelManager
+          go_name: GetImsMmTelManager
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.telephony.ims.ImsMmTelManager
           error: true
+        - java_method: getImsRcsManager
+          go_name: GetImsRcsManager
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.telephony.ims.ImsRcsManager
+          error: true
+        - java_method: getProvisioningManager
+          go_name: GetProvisioningManager
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.telephony.ims.ProvisioningManager
+          error: true
+    - java_class: android.telephony.ims.ImsException
+      go_type: Exception
+      methods:
         - java_method: getCode
           go_name: GetCode
           returns: int
-          error: true
-        - java_method: getExtraCode
-          go_name: GetExtraCode
-          returns: int
-          error: true
-        - java_method: getExtraMessage
-          go_name: GetExtraMessage
-          returns: String
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
           error: true
     - java_class: android.telephony.ims.ImsRegistrationAttributes
       go_type: RegistrationAttributes
@@ -503,7 +397,183 @@ classes:
               go_name: arg1
           returns: void
           error: true
+    - java_class: android.telephony.ims.ImsReasonInfo
+      go_type: ReasonInfo
+      obtain: constructor
+      constructor_params:
+        - java_type: int
+          go_name: arg0
+        - java_type: int
+          go_name: arg1
+        - java_type: String
+          go_name: arg2
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getCode
+          go_name: GetCode
+          returns: int
+          error: true
+        - java_method: getExtraCode
+          go_name: GetExtraCode
+          returns: int
+          error: true
+        - java_method: getExtraMessage
+          go_name: GetExtraMessage
+          returns: String
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.telephony.ims.RegistrationManager
+      go_type: RegistrationManager
+      methods:
+        - java_method: registerImsRegistrationCallback
+          go_name: RegisterImsRegistrationCallback
+          params:
+            - java_type: java.util.concurrent.Executor
+              go_name: arg0
+            - java_type: android.telephony.ims.RegistrationManager$RegistrationCallback
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: unregisterImsRegistrationCallback
+          go_name: UnregisterImsRegistrationCallback
+          params:
+            - java_type: android.telephony.ims.RegistrationManager$RegistrationCallback
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.telephony.ims.RegistrationManager$RegistrationCallback
+      go_type: RegistrationManagerRegistrationCallback
+      methods:
+        - java_method: onRegistered
+          go_name: OnRegistered1
+          params:
+            - java_type: android.telephony.ims.ImsRegistrationAttributes
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onRegistered
+          go_name: OnRegistered1_1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onRegistering
+          go_name: OnRegistering1
+          params:
+            - java_type: android.telephony.ims.ImsRegistrationAttributes
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onRegistering
+          go_name: OnRegistering1_1
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onTechnologyChangeFailed
+          go_name: OnTechnologyChangeFailed
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: android.telephony.ims.ImsReasonInfo
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onUnregistered
+          go_name: OnUnregistered
+          params:
+            - java_type: android.telephony.ims.ImsReasonInfo
+              go_name: arg0
+          returns: void
+          error: true
+abstract_callbacks:
+    - java_class: android.telephony.ims.ImsStateCallback
+      go_type: StateCallbackCallback
+      methods:
+        - java_method: onAvailable
+          params: []
+          returns: void
+          go_field: OnAvailable
+        - java_method: onError
+          params: []
+          returns: void
+          go_field: OnError
+        - java_method: onUnavailable
+          params:
+            - int
+          returns: void
+          go_field: OnUnavailable
+    - java_class: android.telephony.ims.ProvisioningManager$FeatureProvisioningCallback
+      go_type: ProvisioningManagerFeatureProvisioningCallbackCallback
+      methods:
+        - java_method: onFeatureProvisioningChanged
+          params:
+            - int
+            - int
+            - boolean
+          returns: void
+          go_field: OnFeatureProvisioningChanged
+        - java_method: onRcsFeatureProvisioningChanged
+          params:
+            - int
+            - int
+            - boolean
+          returns: void
+          go_field: OnRcsFeatureProvisioningChanged
 constants:
+    - go_name: WifiModeCellularPreferred
+      value: "1"
+      go_type: int
+    - go_name: WifiModeWifiOnly
+      value: "0"
+      go_type: int
+    - go_name: WifiModeWifiPreferred
+      value: "2"
+      go_type: int
+    - go_name: ActionShowCapabilityDiscoveryOptIn
+      value: '"android.telephony.ims.action.SHOW_CAPABILITY_DISCOVERY_OPT_IN"'
+      go_type: string
+    - go_name: CapabilityTypeNone
+      value: "0"
+      go_type: int
+    - go_name: CapabilityTypeOptionsUce
+      value: "1"
+      go_type: int
+    - go_name: CapabilityTypePresenceUce
+      value: "2"
+      go_type: int
+    - go_name: Creator
+      value: "0"
+      go_type: int
+    - go_name: MethodPublish
+      value: "2"
+      go_type: int
+    - go_name: MethodRegister
+      value: "1"
+      go_type: int
+    - go_name: MethodSubscribe
+      value: "3"
+      go_type: int
+    - go_name: MethodUnknown
+      value: "0"
+      go_type: int
     - go_name: ReasonImsServiceDisconnected
       value: "3"
       go_type: int
@@ -531,51 +601,6 @@ constants:
     - go_name: ExtraWfcRegistrationFailureTitle
       value: '"android.telephony.ims.extra.WFC_REGISTRATION_FAILURE_TITLE"'
       go_type: string
-    - go_name: RegistrationStateNotRegistered
-      value: "0"
-      go_type: int
-    - go_name: RegistrationStateRegistered
-      value: "2"
-      go_type: int
-    - go_name: RegistrationStateRegistering
-      value: "1"
-      go_type: int
-    - go_name: Creator
-      value: "0"
-      go_type: int
-    - go_name: MethodPublish
-      value: "2"
-      go_type: int
-    - go_name: MethodRegister
-      value: "1"
-      go_type: int
-    - go_name: MethodSubscribe
-      value: "3"
-      go_type: int
-    - go_name: MethodUnknown
-      value: "0"
-      go_type: int
-    - go_name: ActionShowCapabilityDiscoveryOptIn
-      value: '"android.telephony.ims.action.SHOW_CAPABILITY_DISCOVERY_OPT_IN"'
-      go_type: string
-    - go_name: CapabilityTypeNone
-      value: "0"
-      go_type: int
-    - go_name: CapabilityTypeOptionsUce
-      value: "1"
-      go_type: int
-    - go_name: CapabilityTypePresenceUce
-      value: "2"
-      go_type: int
-    - go_name: WifiModeCellularPreferred
-      value: "1"
-      go_type: int
-    - go_name: WifiModeWifiOnly
-      value: "0"
-      go_type: int
-    - go_name: WifiModeWifiPreferred
-      value: "2"
-      go_type: int
     - go_name: CodeErrorInvalidSubscription
       value: "3"
       go_type: int
@@ -587,6 +612,9 @@ constants:
       go_type: int
     - go_name: CodeErrorUnsupportedOperation
       value: "2"
+      go_type: int
+    - go_name: AttrEpdgOverCellInternet
+      value: "1"
       go_type: int
     - go_name: CodeAccessClassBlocked
       value: "1512"
@@ -1113,6 +1141,12 @@ constants:
     - go_name: ExtraCodeCallRetrySilentRedial
       value: "2"
       go_type: int
-    - go_name: AttrEpdgOverCellInternet
+    - go_name: RegistrationStateNotRegistered
+      value: "0"
+      go_type: int
+    - go_name: RegistrationStateRegistered
+      value: "2"
+      go_type: int
+    - go_name: RegistrationStateRegistering
       value: "1"
       go_type: int

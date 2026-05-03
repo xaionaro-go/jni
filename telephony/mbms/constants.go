@@ -6,18 +6,7 @@ import "github.com/AndroidGoLab/jni/telephony/mbms/consts"
 
 const (
 	Creator                               = consts.Creator
-	BroadcastMethod                       = consts.BroadcastMethod
-	ReasonByUserRequest                   = consts.ReasonByUserRequest
-	ReasonEndOfSession                    = consts.ReasonEndOfSession
-	ReasonFrequencyConflict               = consts.ReasonFrequencyConflict
-	ReasonLeftMbmsBroadcastArea           = consts.ReasonLeftMbmsBroadcastArea
-	ReasonNone                            = consts.ReasonNone
-	ReasonNotConnectedToHomecarrierLte    = consts.ReasonNotConnectedToHomecarrierLte
-	ReasonOutOfMemory                     = consts.ReasonOutOfMemory
-	StateStalled                          = consts.StateStalled
-	StateStarted                          = consts.StateStarted
-	StateStopped                          = consts.StateStopped
-	UnicastMethod                         = consts.UnicastMethod
+	SignalStrengthUnavailable             = consts.SignalStrengthUnavailable
 	ErrorMiddlewareLost                   = consts.ErrorMiddlewareLost
 	ErrorMiddlewareNotBound               = consts.ErrorMiddlewareNotBound
 	ErrorNoUniqueMiddleware               = consts.ErrorNoUniqueMiddleware
@@ -39,7 +28,18 @@ const (
 	ErrorAppPermissionsNotGranted         = consts.ErrorAppPermissionsNotGranted
 	ErrorDuplicateInitialize              = consts.ErrorDuplicateInitialize
 	ErrorUnableToInitialize               = consts.ErrorUnableToInitialize
+	ReasonByUserRequest                   = consts.ReasonByUserRequest
+	ReasonFrequencyConflict               = consts.ReasonFrequencyConflict
+	ReasonLeftMbmsBroadcastArea           = consts.ReasonLeftMbmsBroadcastArea
+	ReasonNone                            = consts.ReasonNone
+	ReasonNotConnectedToHomecarrierLte    = consts.ReasonNotConnectedToHomecarrierLte
+	ReasonOutOfMemory                     = consts.ReasonOutOfMemory
+	StateStalled                          = consts.StateStalled
+	StateStarted                          = consts.StateStarted
+	StateStopped                          = consts.StateStopped
 	ErrorConcurrentServiceLimitReached    = consts.ErrorConcurrentServiceLimitReached
 	ErrorDuplicateStartStream             = consts.ErrorDuplicateStartStream
-	SignalStrengthUnavailable             = consts.SignalStrengthUnavailable
+	BroadcastMethod                       = consts.BroadcastMethod
+	ReasonEndOfSession                    = consts.ReasonEndOfSession
+	UnicastMethod                         = consts.UnicastMethod
 )

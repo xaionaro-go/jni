@@ -125,3 +125,19 @@ classes:
               go_name: arg0
           returns: void
           error: true
+abstract_callbacks:
+    - java_class: android.app.KeyguardManager$KeyguardDismissCallback
+      go_type: ManagerKeyguardDismissCallbackCallback
+      methods:
+        - java_method: onDismissCancelled
+          params: []
+          returns: void
+          go_field: OnDismissCancelled
+        - java_method: onDismissError
+          params: []
+          returns: void
+          go_field: OnDismissError
+        - java_method: onDismissSucceeded
+          params: []
+          returns: void
+          go_field: OnDismissSucceeded

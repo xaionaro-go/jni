@@ -9,12 +9,18 @@ const (
 )
 
 const (
-	AllPages            = consts.AllPages
 	Creator             = consts.Creator
-	ContentTypeDocument = consts.ContentTypeDocument
-	ContentTypePhoto    = consts.ContentTypePhoto
-	ContentTypeUnknown  = consts.ContentTypeUnknown
-	PageCountUnknown    = consts.PageCountUnknown
+	StatusBusy          = consts.StatusBusy
+	StatusIdle          = consts.StatusIdle
+	StatusUnavailable   = consts.StatusUnavailable
+	StateBlocked        = consts.StateBlocked
+	StateCanceled       = consts.StateCanceled
+	StateCompleted      = consts.StateCompleted
+	StateCreated        = consts.StateCreated
+	StateFailed         = consts.StateFailed
+	StateQueued         = consts.StateQueued
+	StateStarted        = consts.StateStarted
+	AllPages            = consts.AllPages
 	ColorModeColor      = consts.ColorModeColor
 	ColorModeMonochrome = consts.ColorModeMonochrome
 	DuplexModeLongEdge  = consts.DuplexModeLongEdge
@@ -116,14 +122,8 @@ const (
 	Roc8k               = consts.Roc8k
 	UnknownLandscape    = consts.UnknownLandscape
 	UnknownPortrait     = consts.UnknownPortrait
-	StateBlocked        = consts.StateBlocked
-	StateCanceled       = consts.StateCanceled
-	StateCompleted      = consts.StateCompleted
-	StateCreated        = consts.StateCreated
-	StateFailed         = consts.StateFailed
-	StateQueued         = consts.StateQueued
-	StateStarted        = consts.StateStarted
-	StatusBusy          = consts.StatusBusy
-	StatusIdle          = consts.StatusIdle
-	StatusUnavailable   = consts.StatusUnavailable
+	ContentTypeDocument = consts.ContentTypeDocument
+	ContentTypePhoto    = consts.ContentTypePhoto
+	ContentTypeUnknown  = consts.ContentTypeUnknown
+	PageCountUnknown    = consts.PageCountUnknown
 )

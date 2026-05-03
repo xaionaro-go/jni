@@ -5,19 +5,13 @@ package appsearch
 import "github.com/AndroidGoLab/jni/app/appsearch/consts"
 
 const (
+	AggregationScoringAvgRankingSignal          = consts.AggregationScoringAvgRankingSignal
+	AggregationScoringMaxRankingSignal          = consts.AggregationScoringMaxRankingSignal
+	AggregationScoringMinRankingSignal          = consts.AggregationScoringMinRankingSignal
+	AggregationScoringOuterResultRankingSignal  = consts.AggregationScoringOuterResultRankingSignal
+	AggregationScoringResultCount               = consts.AggregationScoringResultCount
+	AggregationScoringSumRankingSignal          = consts.AggregationScoringSumRankingSignal
 	Creator                                     = consts.Creator
-	ResultAlreadyExists                         = consts.ResultAlreadyExists
-	ResultDenied                                = consts.ResultDenied
-	ResultInternalError                         = consts.ResultInternalError
-	ResultInvalidArgument                       = consts.ResultInvalidArgument
-	ResultInvalidSchema                         = consts.ResultInvalidSchema
-	ResultIoError                               = consts.ResultIoError
-	ResultNotFound                              = consts.ResultNotFound
-	ResultOk                                    = consts.ResultOk
-	ResultOutOfSpace                            = consts.ResultOutOfSpace
-	ResultRateLimited                           = consts.ResultRateLimited
-	ResultSecurityError                         = consts.ResultSecurityError
-	ResultUnknownError                          = consts.ResultUnknownError
 	ReadAssistantAppSearchData                  = consts.ReadAssistantAppSearchData
 	ReadCalendar                                = consts.ReadCalendar
 	ReadContacts                                = consts.ReadContacts
@@ -40,12 +34,22 @@ const (
 	TokenizerTypePlain                          = consts.TokenizerTypePlain
 	TokenizerTypeRfc822                         = consts.TokenizerTypeRfc822
 	TokenizerTypeVerbatim                       = consts.TokenizerTypeVerbatim
-	AggregationScoringAvgRankingSignal          = consts.AggregationScoringAvgRankingSignal
-	AggregationScoringMaxRankingSignal          = consts.AggregationScoringMaxRankingSignal
-	AggregationScoringMinRankingSignal          = consts.AggregationScoringMinRankingSignal
-	AggregationScoringOuterResultRankingSignal  = consts.AggregationScoringOuterResultRankingSignal
-	AggregationScoringResultCount               = consts.AggregationScoringResultCount
-	AggregationScoringSumRankingSignal          = consts.AggregationScoringSumRankingSignal
+	SuggestionRankingStrategyDocumentCount      = consts.SuggestionRankingStrategyDocumentCount
+	SuggestionRankingStrategyNone               = consts.SuggestionRankingStrategyNone
+	SuggestionRankingStrategyTermFrequency      = consts.SuggestionRankingStrategyTermFrequency
+	ResultAlreadyExists                         = consts.ResultAlreadyExists
+	ResultDenied                                = consts.ResultDenied
+	ResultInternalError                         = consts.ResultInternalError
+	ResultInvalidArgument                       = consts.ResultInvalidArgument
+	ResultInvalidSchema                         = consts.ResultInvalidSchema
+	ResultIoError                               = consts.ResultIoError
+	ResultNotFound                              = consts.ResultNotFound
+	ResultOk                                    = consts.ResultOk
+	ResultOutOfSpace                            = consts.ResultOutOfSpace
+	ResultRateLimited                           = consts.ResultRateLimited
+	ResultSecurityError                         = consts.ResultSecurityError
+	ResultUnknownError                          = consts.ResultUnknownError
+	NonRepeatedCardinality                      = consts.NonRepeatedCardinality
 	EmbeddingSearchMetricTypeCosine             = consts.EmbeddingSearchMetricTypeCosine
 	EmbeddingSearchMetricTypeDefault            = consts.EmbeddingSearchMetricTypeDefault
 	EmbeddingSearchMetricTypeDotProduct         = consts.EmbeddingSearchMetricTypeDotProduct
@@ -67,10 +71,6 @@ const (
 	RankingStrategyUsageLastUsedTimestamp       = consts.RankingStrategyUsageLastUsedTimestamp
 	TermMatchExactOnly                          = consts.TermMatchExactOnly
 	TermMatchPrefix                             = consts.TermMatchPrefix
-	NonRepeatedCardinality                      = consts.NonRepeatedCardinality
-	SuggestionRankingStrategyDocumentCount      = consts.SuggestionRankingStrategyDocumentCount
-	SuggestionRankingStrategyNone               = consts.SuggestionRankingStrategyNone
-	SuggestionRankingStrategyTermFrequency      = consts.SuggestionRankingStrategyTermFrequency
 )
 
 const (

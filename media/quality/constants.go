@@ -6,12 +6,13 @@ import "github.com/AndroidGoLab/jni/media/quality/consts"
 
 const (
 	Creator                                = consts.Creator
-	SourceAudio                            = consts.SourceAudio
-	SourceAudioVideo                       = consts.SourceAudioVideo
-	SourceNone                             = consts.SourceNone
-	SourceVideo                            = consts.SourceVideo
 	AlgorithmNone                          = consts.AlgorithmNone
 	AlgorithmRle                           = consts.AlgorithmRle
+	TypeDouble                             = consts.TypeDouble
+	TypeInt                                = consts.TypeInt
+	TypeLong                               = consts.TypeLong
+	TypeNone                               = consts.TypeNone
+	TypeString                             = consts.TypeString
 	ErrorDuplicate                         = consts.ErrorDuplicate
 	ErrorInvalidArgument                   = consts.ErrorInvalidArgument
 	ErrorNotAllowlisted                    = consts.ErrorNotAllowlisted
@@ -23,11 +24,10 @@ const (
 	AmbientBacklightEventEnabled           = consts.AmbientBacklightEventEnabled
 	AmbientBacklightEventInterrupted       = consts.AmbientBacklightEventInterrupted
 	AmbientBacklightEventMetadataAvailable = consts.AmbientBacklightEventMetadataAvailable
-	TypeDouble                             = consts.TypeDouble
-	TypeInt                                = consts.TypeInt
-	TypeLong                               = consts.TypeLong
-	TypeNone                               = consts.TypeNone
-	TypeString                             = consts.TypeString
+	SourceAudio                            = consts.SourceAudio
+	SourceAudioVideo                       = consts.SourceAudioVideo
+	SourceNone                             = consts.SourceNone
+	SourceVideo                            = consts.SourceVideo
 )
 
 const (

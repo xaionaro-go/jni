@@ -20,12 +20,6 @@ const (
 	PccModeConnectionTypeLegacyOnly                    = consts.PccModeConnectionTypeLegacyOnly
 	PccModeConnectionTypeLegacyOrR2                    = consts.PccModeConnectionTypeLegacyOrR2
 	PccModeConnectionTypeR2Only                        = consts.PccModeConnectionTypeR2Only
-	PairingBootstrappingMethodDisplayPassphrase        = consts.PairingBootstrappingMethodDisplayPassphrase
-	PairingBootstrappingMethodDisplayPincode           = consts.PairingBootstrappingMethodDisplayPincode
-	PairingBootstrappingMethodKeypadPassphrase         = consts.PairingBootstrappingMethodKeypadPassphrase
-	PairingBootstrappingMethodKeypadPincode            = consts.PairingBootstrappingMethodKeypadPincode
-	PairingBootstrappingMethodOpportunistic            = consts.PairingBootstrappingMethodOpportunistic
-	PairingBootstrappingMethodOutOfBand                = consts.PairingBootstrappingMethodOutOfBand
 	Available                                          = consts.Available
 	Connected                                          = consts.Connected
 	Failed                                             = consts.Failed
@@ -86,6 +80,12 @@ const (
 	RequestTypeInvitation                              = consts.RequestTypeInvitation
 	RequestTypeJoin                                    = consts.RequestTypeJoin
 	RequestTypeNegotiation                             = consts.RequestTypeNegotiation
+	PairingBootstrappingMethodDisplayPassphrase        = consts.PairingBootstrappingMethodDisplayPassphrase
+	PairingBootstrappingMethodDisplayPincode           = consts.PairingBootstrappingMethodDisplayPincode
+	PairingBootstrappingMethodKeypadPassphrase         = consts.PairingBootstrappingMethodKeypadPassphrase
+	PairingBootstrappingMethodKeypadPincode            = consts.PairingBootstrappingMethodKeypadPincode
+	PairingBootstrappingMethodOpportunistic            = consts.PairingBootstrappingMethodOpportunistic
+	PairingBootstrappingMethodOutOfBand                = consts.PairingBootstrappingMethodOutOfBand
 )
 
 const (

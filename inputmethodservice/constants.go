@@ -5,6 +5,10 @@ package inputmethodservice
 import "github.com/AndroidGoLab/jni/inputmethodservice/consts"
 
 const (
+	BackDispositionAdjustNothing  = consts.BackDispositionAdjustNothing
+	BackDispositionDefault        = consts.BackDispositionDefault
+	BackDispositionWillDismiss    = consts.BackDispositionWillDismiss
+	BackDispositionWillNotDismiss = consts.BackDispositionWillNotDismiss
 	EdgeBottom                    = consts.EdgeBottom
 	EdgeLeft                      = consts.EdgeLeft
 	EdgeRight                     = consts.EdgeRight
@@ -15,10 +19,6 @@ const (
 	KeycodeDone                   = consts.KeycodeDone
 	KeycodeModeChange             = consts.KeycodeModeChange
 	KeycodeShift                  = consts.KeycodeShift
-	BackDispositionAdjustNothing  = consts.BackDispositionAdjustNothing
-	BackDispositionDefault        = consts.BackDispositionDefault
-	BackDispositionWillDismiss    = consts.BackDispositionWillDismiss
-	BackDispositionWillNotDismiss = consts.BackDispositionWillNotDismiss
 	TouchableInsetsContent        = consts.TouchableInsetsContent
 	TouchableInsetsFrame          = consts.TouchableInsetsFrame
 	TouchableInsetsRegion         = consts.TouchableInsetsRegion

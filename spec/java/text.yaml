@@ -5,1640 +5,9 @@
 package: text
 go_import: github.com/AndroidGoLab/jni/text
 classes:
-    - java_class: android.text.BoringLayout
-      go_type: BoringLayout
-      obtain: constructor
-      constructor_params:
-        - java_type: java.lang.CharSequence
-          go_name: arg0
-        - java_type: android.text.TextPaint
-          go_name: arg1
-        - java_type: int
-          go_name: arg2
-        - java_type: android.text.Layout$Alignment
-          go_name: arg3
-        - java_type: float
-          go_name: arg4
-        - java_type: float
-          go_name: arg5
-        - java_type: android.text.BoringLayout$Metrics
-          go_name: arg6
-        - java_type: boolean
-          go_name: arg7
-      methods:
-        - java_method: computeDrawingBoundingBox
-          go_name: ComputeDrawingBoundingBox
-          returns: android.graphics.RectF
-          error: true
-        - java_method: draw
-          go_name: Draw
-          params:
-            - java_type: android.graphics.Canvas
-              go_name: arg0
-            - java_type: android.graphics.Path
-              go_name: arg1
-            - java_type: android.graphics.Paint
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: ellipsized
-          go_name: Ellipsized
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: getBottomPadding
-          go_name: GetBottomPadding
-          returns: int
-          error: true
-        - java_method: getEllipsisCount
-          go_name: GetEllipsisCount
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getEllipsisStart
-          go_name: GetEllipsisStart
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getEllipsizedWidth
-          go_name: GetEllipsizedWidth
-          returns: int
-          error: true
-        - java_method: getHeight
-          go_name: GetHeight
-          returns: int
-          error: true
-        - java_method: getLineContainsTab
-          go_name: GetLineContainsTab
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getLineCount
-          go_name: GetLineCount
-          returns: int
-          error: true
-        - java_method: getLineDescent
-          go_name: GetLineDescent
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getLineDirections
-          go_name: GetLineDirections
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.text.Layout$Directions
-          error: true
-        - java_method: getLineMax
-          go_name: GetLineMax
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: float
-          error: true
-        - java_method: getLineStart
-          go_name: GetLineStart
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getLineTop
-          go_name: GetLineTop
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getLineWidth
-          go_name: GetLineWidth
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: float
-          error: true
-        - java_method: getParagraphDirection
-          go_name: GetParagraphDirection
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getTopPadding
-          go_name: GetTopPadding
-          returns: int
-          error: true
-        - java_method: isFallbackLineSpacingEnabled
-          go_name: IsFallbackLineSpacingEnabled
-          returns: boolean
-          error: true
-        - java_method: replaceOrMake
-          go_name: ReplaceOrMake9
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-            - java_type: android.text.TextPaint
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: android.text.Layout$Alignment
-              go_name: arg3
-            - java_type: android.text.BoringLayout$Metrics
-              go_name: arg4
-            - java_type: boolean
-              go_name: arg5
-            - java_type: android.text.TextUtils$TruncateAt
-              go_name: arg6
-            - java_type: int
-              go_name: arg7
-            - java_type: boolean
-              go_name: arg8
-          returns: android.text.BoringLayout
-          error: true
-        - java_method: replaceOrMake
-          go_name: ReplaceOrMake8_1
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-            - java_type: android.text.TextPaint
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: android.text.Layout$Alignment
-              go_name: arg3
-            - java_type: float
-              go_name: arg4
-            - java_type: float
-              go_name: arg5
-            - java_type: android.text.BoringLayout$Metrics
-              go_name: arg6
-            - java_type: boolean
-              go_name: arg7
-          returns: android.text.BoringLayout
-          error: true
-        - java_method: replaceOrMake
-          go_name: ReplaceOrMake10_2
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-            - java_type: android.text.TextPaint
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: android.text.Layout$Alignment
-              go_name: arg3
-            - java_type: float
-              go_name: arg4
-            - java_type: float
-              go_name: arg5
-            - java_type: android.text.BoringLayout$Metrics
-              go_name: arg6
-            - java_type: boolean
-              go_name: arg7
-            - java_type: android.text.TextUtils$TruncateAt
-              go_name: arg8
-            - java_type: int
-              go_name: arg9
-          returns: android.text.BoringLayout
-          error: true
-      static_methods:
-        - java_method: isBoring
-          go_name: IsBoring2
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-            - java_type: android.text.TextPaint
-              go_name: arg1
-          returns: android.text.BoringLayout$Metrics
-          error: true
-        - java_method: isBoring
-          go_name: IsBoring3_1
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-            - java_type: android.text.TextPaint
-              go_name: arg1
-            - java_type: android.text.BoringLayout$Metrics
-              go_name: arg2
-          returns: android.text.BoringLayout$Metrics
-          error: true
-        - java_method: isBoring
-          go_name: IsBoring5_2
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-            - java_type: android.text.TextPaint
-              go_name: arg1
-            - java_type: android.text.TextDirectionHeuristic
-              go_name: arg2
-            - java_type: boolean
-              go_name: arg3
-            - java_type: android.text.BoringLayout$Metrics
-              go_name: arg4
-          returns: android.text.BoringLayout$Metrics
-          error: true
-        - java_method: make
-          go_name: Make9
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-            - java_type: android.text.TextPaint
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: android.text.Layout$Alignment
-              go_name: arg3
-            - java_type: android.text.BoringLayout$Metrics
-              go_name: arg4
-            - java_type: boolean
-              go_name: arg5
-            - java_type: android.text.TextUtils$TruncateAt
-              go_name: arg6
-            - java_type: int
-              go_name: arg7
-            - java_type: boolean
-              go_name: arg8
-          returns: android.text.BoringLayout
-          error: true
-        - java_method: make
-          go_name: Make8_1
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-            - java_type: android.text.TextPaint
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: android.text.Layout$Alignment
-              go_name: arg3
-            - java_type: float
-              go_name: arg4
-            - java_type: float
-              go_name: arg5
-            - java_type: android.text.BoringLayout$Metrics
-              go_name: arg6
-            - java_type: boolean
-              go_name: arg7
-          returns: android.text.BoringLayout
-          error: true
-        - java_method: make
-          go_name: Make10_2
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-            - java_type: android.text.TextPaint
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: android.text.Layout$Alignment
-              go_name: arg3
-            - java_type: float
-              go_name: arg4
-            - java_type: float
-              go_name: arg5
-            - java_type: android.text.BoringLayout$Metrics
-              go_name: arg6
-            - java_type: boolean
-              go_name: arg7
-            - java_type: android.text.TextUtils$TruncateAt
-              go_name: arg8
-            - java_type: int
-              go_name: arg9
-          returns: android.text.BoringLayout
-          error: true
-    - java_class: android.text.BoringLayout$Metrics
-      go_type: BoringLayoutMetrics
-      methods:
-        - java_method: getDrawingBoundingBox
-          go_name: GetDrawingBoundingBox
-          returns: android.graphics.RectF
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-    - java_class: android.text.DynamicLayout
-      go_type: DynamicLayout
-      obtain: constructor
-      constructor_params:
-        - java_type: java.lang.CharSequence
-          go_name: arg0
-        - java_type: android.text.TextPaint
-          go_name: arg1
-        - java_type: int
-          go_name: arg2
-        - java_type: android.text.Layout$Alignment
-          go_name: arg3
-        - java_type: float
-          go_name: arg4
-        - java_type: float
-          go_name: arg5
-        - java_type: boolean
-          go_name: arg6
-      methods:
-        - java_method: getBottomPadding
-          go_name: GetBottomPadding
-          returns: int
-          error: true
-        - java_method: getEllipsisCount
-          go_name: GetEllipsisCount
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getEllipsisStart
-          go_name: GetEllipsisStart
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getEllipsizedWidth
-          go_name: GetEllipsizedWidth
-          returns: int
-          error: true
-        - java_method: getLineBreakConfig
-          go_name: GetLineBreakConfig
-          returns: android.graphics.text.LineBreakConfig
-          error: true
-        - java_method: getLineContainsTab
-          go_name: GetLineContainsTab
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getLineCount
-          go_name: GetLineCount
-          returns: int
-          error: true
-        - java_method: getLineDescent
-          go_name: GetLineDescent
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getLineDirections
-          go_name: GetLineDirections
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.text.Layout$Directions
-          error: true
-        - java_method: getLineStart
-          go_name: GetLineStart
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getLineTop
-          go_name: GetLineTop
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getParagraphDirection
-          go_name: GetParagraphDirection
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getTopPadding
-          go_name: GetTopPadding
-          returns: int
-          error: true
-    - java_class: android.text.DynamicLayout$Builder
-      go_type: DynamicLayoutBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.text.DynamicLayout
-          error: true
-        - java_method: setAlignment
-          go_name: SetAlignment
-          params:
-            - java_type: android.text.Layout$Alignment
-              go_name: arg0
-          returns: android.text.DynamicLayout$Builder
-          error: true
-        - java_method: setBreakStrategy
-          go_name: SetBreakStrategy
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.text.DynamicLayout$Builder
-          error: true
-        - java_method: setDisplayText
-          go_name: SetDisplayText
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: android.text.DynamicLayout$Builder
-          error: true
-        - java_method: setEllipsize
-          go_name: SetEllipsize
-          params:
-            - java_type: android.text.TextUtils$TruncateAt
-              go_name: arg0
-          returns: android.text.DynamicLayout$Builder
-          error: true
-        - java_method: setEllipsizedWidth
-          go_name: SetEllipsizedWidth
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.text.DynamicLayout$Builder
-          error: true
-        - java_method: setHyphenationFrequency
-          go_name: SetHyphenationFrequency
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.text.DynamicLayout$Builder
-          error: true
-        - java_method: setIncludePad
-          go_name: SetIncludePad
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.text.DynamicLayout$Builder
-          error: true
-        - java_method: setJustificationMode
-          go_name: SetJustificationMode
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.text.DynamicLayout$Builder
-          error: true
-        - java_method: setLineBreakConfig
-          go_name: SetLineBreakConfig
-          params:
-            - java_type: android.graphics.text.LineBreakConfig
-              go_name: arg0
-          returns: android.text.DynamicLayout$Builder
-          error: true
-        - java_method: setLineSpacing
-          go_name: SetLineSpacing
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-          returns: android.text.DynamicLayout$Builder
-          error: true
-        - java_method: setMinimumFontMetrics
-          go_name: SetMinimumFontMetrics
-          params:
-            - java_type: android.graphics.Paint$FontMetrics
-              go_name: arg0
-          returns: android.text.DynamicLayout$Builder
-          error: true
-        - java_method: setShiftDrawingOffsetForStartOverhang
-          go_name: SetShiftDrawingOffsetForStartOverhang
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.text.DynamicLayout$Builder
-          error: true
-        - java_method: setTextDirection
-          go_name: SetTextDirection
-          params:
-            - java_type: android.text.TextDirectionHeuristic
-              go_name: arg0
-          returns: android.text.DynamicLayout$Builder
-          error: true
-        - java_method: setUseBoundsForWidth
-          go_name: SetUseBoundsForWidth
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.text.DynamicLayout$Builder
-          error: true
-        - java_method: setUseLineSpacingFromFallbacks
-          go_name: SetUseLineSpacingFromFallbacks
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.text.DynamicLayout$Builder
-          error: true
-      static_methods:
-        - java_method: obtain
-          go_name: Obtain
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-            - java_type: android.text.TextPaint
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: android.text.DynamicLayout$Builder
-          error: true
-    - java_class: android.text.TextWatcher
-      go_type: Watcher
-      methods:
-        - java_method: afterTextChanged
-          go_name: AfterTextChanged
-          params:
-            - java_type: android.text.Editable
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: beforeTextChanged
-          go_name: BeforeTextChanged
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: onTextChanged
-          go_name: OnTextChanged
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-          returns: void
-          error: true
-    - java_class: android.text.Html
-      go_type: Html
-      static_methods:
-        - java_method: escapeHtml
-          go_name: EscapeHtml
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: String
-          error: true
-        - java_method: fromHtml
-          go_name: FromHtml1
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.text.Spanned
-          error: true
-        - java_method: fromHtml
-          go_name: FromHtml2_1
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: android.text.Spanned
-          error: true
-        - java_method: toHtml
-          go_name: ToHtml1
-          params:
-            - java_type: android.text.Spanned
-              go_name: arg0
-          returns: String
-          error: true
-        - java_method: toHtml
-          go_name: ToHtml2_1
-          params:
-            - java_type: android.text.Spanned
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: String
-          error: true
-    - java_class: android.text.Html$ImageGetter
-      go_type: HtmlImageGetter
-      methods:
-        - java_method: getDrawable
-          go_name: GetDrawable
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.graphics.drawable.Drawable
-          error: true
-    - java_class: android.text.Html$TagHandler
-      go_type: HtmlTagHandler
-      methods:
-        - java_method: handleTag
-          go_name: HandleTag
-          params:
-            - java_type: boolean
-              go_name: arg0
-            - java_type: String
-              go_name: arg1
-            - java_type: android.text.Editable
-              go_name: arg2
-            - java_type: org.xml.sax.XMLReader
-              go_name: arg3
-          returns: void
-          error: true
-    - java_class: android.text.TextDirectionHeuristic
-      go_type: DirectionHeuristic
-      methods:
-        - java_method: isRtl
-          go_name: IsRtl3
-          params:
-            - java_type: char[]
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: boolean
-          error: true
-        - java_method: isRtl
-          go_name: IsRtl3_1
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: boolean
-          error: true
-    - java_class: android.text.WordSegmentFinder
-      go_type: WordSegmentFinder
-      obtain: constructor
-      constructor_params:
-        - java_type: java.lang.CharSequence
-          go_name: arg0
-        - java_type: android.icu.util.ULocale
-          go_name: arg1
-      methods:
-        - java_method: nextEndBoundary
-          go_name: NextEndBoundary
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: nextStartBoundary
-          go_name: NextStartBoundary
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: previousEndBoundary
-          go_name: PreviousEndBoundary
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: previousStartBoundary
-          go_name: PreviousStartBoundary
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-    - java_class: android.text.NoCopySpan
-      go_type: NoCopySpan
-    - java_class: android.text.NoCopySpan$Concrete
-      go_type: NoCopySpanConcrete
-    - java_class: android.text.StaticLayout
-      go_type: StaticLayout
-      obtain: constructor
-      constructor_params:
-        - java_type: java.lang.CharSequence
-          go_name: arg0
-        - java_type: android.text.TextPaint
-          go_name: arg1
-        - java_type: int
-          go_name: arg2
-        - java_type: android.text.Layout$Alignment
-          go_name: arg3
-        - java_type: float
-          go_name: arg4
-        - java_type: float
-          go_name: arg5
-        - java_type: boolean
-          go_name: arg6
-      methods:
-        - java_method: computeDrawingBoundingBox
-          go_name: ComputeDrawingBoundingBox
-          returns: android.graphics.RectF
-          error: true
-        - java_method: getBottomPadding
-          go_name: GetBottomPadding
-          returns: int
-          error: true
-        - java_method: getEllipsisCount
-          go_name: GetEllipsisCount
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getEllipsisStart
-          go_name: GetEllipsisStart
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getLineContainsTab
-          go_name: GetLineContainsTab
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getLineCount
-          go_name: GetLineCount
-          returns: int
-          error: true
-        - java_method: getLineDescent
-          go_name: GetLineDescent
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getLineDirections
-          go_name: GetLineDirections
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.text.Layout$Directions
-          error: true
-        - java_method: getLineForVertical
-          go_name: GetLineForVertical
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getLineStart
-          go_name: GetLineStart
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getLineTop
-          go_name: GetLineTop
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getParagraphDirection
-          go_name: GetParagraphDirection
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getTopPadding
-          go_name: GetTopPadding
-          returns: int
-          error: true
-    - java_class: android.text.StaticLayout$Builder
-      go_type: StaticLayoutBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.text.StaticLayout
-          error: true
-        - java_method: setAlignment
-          go_name: SetAlignment
-          params:
-            - java_type: android.text.Layout$Alignment
-              go_name: arg0
-          returns: android.text.StaticLayout$Builder
-          error: true
-        - java_method: setBreakStrategy
-          go_name: SetBreakStrategy
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.text.StaticLayout$Builder
-          error: true
-        - java_method: setEllipsize
-          go_name: SetEllipsize
-          params:
-            - java_type: android.text.TextUtils$TruncateAt
-              go_name: arg0
-          returns: android.text.StaticLayout$Builder
-          error: true
-        - java_method: setEllipsizedWidth
-          go_name: SetEllipsizedWidth
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.text.StaticLayout$Builder
-          error: true
-        - java_method: setHyphenationFrequency
-          go_name: SetHyphenationFrequency
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.text.StaticLayout$Builder
-          error: true
-        - java_method: setIncludePad
-          go_name: SetIncludePad
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.text.StaticLayout$Builder
-          error: true
-        - java_method: setIndents
-          go_name: SetIndents
-          params:
-            - java_type: '[I'
-              go_name: arg0
-            - java_type: '[I'
-              go_name: arg1
-          returns: android.text.StaticLayout$Builder
-          error: true
-        - java_method: setJustificationMode
-          go_name: SetJustificationMode
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.text.StaticLayout$Builder
-          error: true
-        - java_method: setLineBreakConfig
-          go_name: SetLineBreakConfig
-          params:
-            - java_type: android.graphics.text.LineBreakConfig
-              go_name: arg0
-          returns: android.text.StaticLayout$Builder
-          error: true
-        - java_method: setLineSpacing
-          go_name: SetLineSpacing
-          params:
-            - java_type: float
-              go_name: arg0
-            - java_type: float
-              go_name: arg1
-          returns: android.text.StaticLayout$Builder
-          error: true
-        - java_method: setMaxLines
-          go_name: SetMaxLines
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.text.StaticLayout$Builder
-          error: true
-        - java_method: setMinimumFontMetrics
-          go_name: SetMinimumFontMetrics
-          params:
-            - java_type: android.graphics.Paint$FontMetrics
-              go_name: arg0
-          returns: android.text.StaticLayout$Builder
-          error: true
-        - java_method: setShiftDrawingOffsetForStartOverhang
-          go_name: SetShiftDrawingOffsetForStartOverhang
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.text.StaticLayout$Builder
-          error: true
-        - java_method: setText
-          go_name: SetText
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: android.text.StaticLayout$Builder
-          error: true
-        - java_method: setTextDirection
-          go_name: SetTextDirection
-          params:
-            - java_type: android.text.TextDirectionHeuristic
-              go_name: arg0
-          returns: android.text.StaticLayout$Builder
-          error: true
-        - java_method: setUseBoundsForWidth
-          go_name: SetUseBoundsForWidth
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.text.StaticLayout$Builder
-          error: true
-        - java_method: setUseLineSpacingFromFallbacks
-          go_name: SetUseLineSpacingFromFallbacks
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.text.StaticLayout$Builder
-          error: true
-      static_methods:
-        - java_method: obtain
-          go_name: Obtain
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: android.text.TextPaint
-              go_name: arg3
-            - java_type: int
-              go_name: arg4
-          returns: android.text.StaticLayout$Builder
-          error: true
-    - java_class: android.text.AutoText
-      go_type: AutoText
-      static_methods:
-        - java_method: get
-          go_name: Get
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: android.view.View
-              go_name: arg3
-          returns: String
-          error: true
-        - java_method: getSize
-          go_name: GetSize
-          params:
-            - java_type: android.view.View
-              go_name: arg0
-          returns: int
-          error: true
-    - java_class: android.text.Editable
-      go_type: Editable
-      methods:
-        - java_method: append
-          go_name: Append1
-          params:
-            - java_type: char
-              go_name: arg0
-          returns: android.text.Editable
-          error: true
-        - java_method: append
-          go_name: Append1_1
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: android.text.Editable
-          error: true
-        - java_method: append
-          go_name: Append3_2
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: android.text.Editable
-          error: true
-        - java_method: clear
-          go_name: Clear
-          returns: void
-          error: true
-        - java_method: clearSpans
-          go_name: ClearSpans
-          returns: void
-          error: true
-        - java_method: delete
-          go_name: Delete
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: android.text.Editable
-          error: true
-        - java_method: getFilters
-          go_name: GetFilters
-          returns: android.text.InputFilter[]
-          error: true
-        - java_method: insert
-          go_name: Insert2
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: java.lang.CharSequence
-              go_name: arg1
-          returns: android.text.Editable
-          error: true
-        - java_method: insert
-          go_name: Insert4_1
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: java.lang.CharSequence
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-          returns: android.text.Editable
-          error: true
-        - java_method: replace
-          go_name: Replace3
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: java.lang.CharSequence
-              go_name: arg2
-          returns: android.text.Editable
-          error: true
-        - java_method: replace
-          go_name: Replace5_1
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: java.lang.CharSequence
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-            - java_type: int
-              go_name: arg4
-          returns: android.text.Editable
-          error: true
-        - java_method: setFilters
-          go_name: SetFilters
-          params:
-            - java_type: android.text.InputFilter[]
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.text.Editable$Factory
-      go_type: EditableFactory
-      methods:
-        - java_method: newEditable
-          go_name: NewEditable
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: android.text.Editable
-          error: true
-      static_methods:
-        - java_method: getInstance
-          go_name: GetInstance
-          returns: android.text.Editable$Factory
-          error: true
-    - java_class: android.text.SpannedString
-      go_type: SpannedString
-      obtain: constructor
-      constructor_params:
-        - java_type: java.lang.CharSequence
-          go_name: arg0
-      methods:
-        - java_method: charAt
-          go_name: CharAt
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: char
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getChars
-          go_name: GetChars
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: char[]
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: getSpanEnd
-          go_name: GetSpanEnd
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getSpanFlags
-          go_name: GetSpanFlags
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getSpanStart
-          go_name: GetSpanStart
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: length
-          go_name: Length
-          returns: int
-          error: true
-        - java_method: nextSpanTransition
-          go_name: NextSpanTransition
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: java.lang.Class
-              go_name: arg2
-          returns: int
-          error: true
-        - java_method: subSequence
-          go_name: SubSequence
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-      static_methods:
-        - java_method: valueOf
-          go_name: ValueOf
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: android.text.SpannedString
-          error: true
-    - java_class: android.text.Spanned
-      go_type: Spanned
-      methods:
-        - java_method: getSpanEnd
-          go_name: GetSpanEnd
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getSpanFlags
-          go_name: GetSpanFlags
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getSpanStart
-          go_name: GetSpanStart
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: nextSpanTransition
-          go_name: NextSpanTransition
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: java.lang.Class
-              go_name: arg2
-          returns: int
-          error: true
-    - java_class: android.text.SegmentFinder
-      go_type: SegmentFinder
-      methods:
-        - java_method: nextEndBoundary
-          go_name: NextEndBoundary
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: nextStartBoundary
-          go_name: NextStartBoundary
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: previousEndBoundary
-          go_name: PreviousEndBoundary
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: previousStartBoundary
-          go_name: PreviousStartBoundary
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-    - java_class: android.text.SegmentFinder$PrescribedSegmentFinder
-      go_type: SegmentFinderPrescribedSegmentFinder
-      methods:
-        - java_method: nextEndBoundary
-          go_name: NextEndBoundary
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: nextStartBoundary
-          go_name: NextStartBoundary
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: previousEndBoundary
-          go_name: PreviousEndBoundary
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: previousStartBoundary
-          go_name: PreviousStartBoundary
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-    - java_class: android.text.BidiFormatter
-      go_type: BidiFormatter
-      methods:
-        - java_method: getStereoReset
-          go_name: GetStereoReset
-          returns: boolean
-          error: true
-        - java_method: isRtl
-          go_name: IsRtl1
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: isRtl
-          go_name: IsRtl1_1
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: isRtlContext
-          go_name: IsRtlContext
-          returns: boolean
-          error: true
-        - java_method: unicodeWrap
-          go_name: UnicodeWrap1
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: unicodeWrap
-          go_name: UnicodeWrap2_1
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-            - java_type: android.text.TextDirectionHeuristic
-              go_name: arg1
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: unicodeWrap
-          go_name: UnicodeWrap3_2
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-            - java_type: android.text.TextDirectionHeuristic
-              go_name: arg1
-            - java_type: boolean
-              go_name: arg2
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: unicodeWrap
-          go_name: UnicodeWrap2_3
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-            - java_type: boolean
-              go_name: arg1
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: unicodeWrap
-          go_name: UnicodeWrap1_4
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: String
-          error: true
-        - java_method: unicodeWrap
-          go_name: UnicodeWrap2_5
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: android.text.TextDirectionHeuristic
-              go_name: arg1
-          returns: String
-          error: true
-        - java_method: unicodeWrap
-          go_name: UnicodeWrap3_6
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: android.text.TextDirectionHeuristic
-              go_name: arg1
-            - java_type: boolean
-              go_name: arg2
-          returns: String
-          error: true
-        - java_method: unicodeWrap
-          go_name: UnicodeWrap2_7
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: boolean
-              go_name: arg1
-          returns: String
-          error: true
-      static_methods:
-        - java_method: getInstance
-          go_name: GetInstance0
-          returns: android.text.BidiFormatter
-          error: true
-        - java_method: getInstance
-          go_name: GetInstance1_1
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.text.BidiFormatter
-          error: true
-        - java_method: getInstance
-          go_name: GetInstance1_2
-          params:
-            - java_type: java.util.Locale
-              go_name: arg0
-          returns: android.text.BidiFormatter
-          error: true
-    - java_class: android.text.BidiFormatter$Builder
-      go_type: BidiFormatterBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.text.BidiFormatter
-          error: true
-        - java_method: setTextDirectionHeuristic
-          go_name: SetTextDirectionHeuristic
-          params:
-            - java_type: android.text.TextDirectionHeuristic
-              go_name: arg0
-          returns: android.text.BidiFormatter$Builder
-          error: true
-        - java_method: stereoReset
-          go_name: StereoReset
-          params:
-            - java_type: boolean
-              go_name: arg0
-          returns: android.text.BidiFormatter$Builder
-          error: true
-    - java_class: android.text.LoginFilter
-      go_type: LoginFilter
-      methods:
-        - java_method: filter
-          go_name: Filter
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: android.text.Spanned
-              go_name: arg3
-            - java_type: int
-              go_name: arg4
-            - java_type: int
-              go_name: arg5
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: isAllowed
-          go_name: IsAllowed
-          params:
-            - java_type: char
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: onInvalidCharacter
-          go_name: OnInvalidCharacter
-          params:
-            - java_type: char
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onStart
-          go_name: OnStart
-          returns: void
-          error: true
-        - java_method: onStop
-          go_name: OnStop
-          returns: void
-          error: true
-    - java_class: android.text.LoginFilter$PasswordFilterGMail
-      go_type: LoginFilterPasswordFilterGMail
-      methods:
-        - java_method: isAllowed
-          go_name: IsAllowed
-          params:
-            - java_type: char
-              go_name: arg0
-          returns: boolean
-          error: true
-    - java_class: android.text.LoginFilter$UsernameFilterGMail
-      go_type: LoginFilterUsernameFilterGMail
-      methods:
-        - java_method: isAllowed
-          go_name: IsAllowed
-          params:
-            - java_type: char
-              go_name: arg0
-          returns: boolean
-          error: true
-    - java_class: android.text.LoginFilter$UsernameFilterGeneric
-      go_type: LoginFilterUsernameFilterGeneric
-      methods:
-        - java_method: isAllowed
-          go_name: IsAllowed
-          params:
-            - java_type: char
-              go_name: arg0
-          returns: boolean
-          error: true
-    - java_class: android.text.TextShaper
-      go_type: Shaper
-      static_methods:
-        - java_method: shapeText
-          go_name: ShapeText
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: android.text.TextDirectionHeuristic
-              go_name: arg3
-            - java_type: android.text.TextPaint
-              go_name: arg4
-            - java_type: android.text.TextShaper$GlyphsConsumer
-              go_name: arg5
-          returns: void
-          error: true
-    - java_class: android.text.TextShaper$GlyphsConsumer
-      go_type: ShaperGlyphsConsumer
-      methods:
-        - java_method: accept
-          go_name: Accept
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: android.graphics.text.PositionedGlyphs
-              go_name: arg2
-            - java_type: android.text.TextPaint
-              go_name: arg3
-          returns: void
-          error: true
     - java_class: android.text.TextDirectionHeuristics
       go_type: DirectionHeuristics
       obtain: constructor
-    - java_class: android.text.AndroidCharacter
-      go_type: AndroidCharacter
-      obtain: constructor
-      static_methods:
-        - java_method: getDirectionalities
-          go_name: GetDirectionalities
-          params:
-            - java_type: char[]
-              go_name: arg0
-            - java_type: '[B'
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: getEastAsianWidth
-          go_name: GetEastAsianWidth
-          params:
-            - java_type: char
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getEastAsianWidths
-          go_name: GetEastAsianWidths
-          params:
-            - java_type: char[]
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: '[B'
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: getMirror
-          go_name: GetMirror
-          params:
-            - java_type: char
-              go_name: arg0
-          returns: char
-          error: true
-        - java_method: mirror
-          go_name: Mirror
-          params:
-            - java_type: char[]
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-          returns: boolean
-          error: true
-    - java_class: android.text.Spannable
-      go_type: Spannable
-      methods:
-        - java_method: removeSpan
-          go_name: RemoveSpan
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setSpan
-          go_name: SetSpan
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-          returns: void
-          error: true
-    - java_class: android.text.Spannable$Factory
-      go_type: SpannableFactory
-      methods:
-        - java_method: newSpannable
-          go_name: NewSpannable
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-          returns: android.text.Spannable
-          error: true
-      static_methods:
-        - java_method: getInstance
-          go_name: GetInstance
-          returns: android.text.Spannable$Factory
-          error: true
     - java_class: android.text.Layout
       go_type: Layout
       methods:
@@ -2250,208 +619,1647 @@ classes:
               go_name: arg1
           returns: boolean
           error: true
-    - java_class: android.text.Selection
-      go_type: Selection
+    - java_class: android.text.BoringLayout
+      go_type: BoringLayout
+      obtain: constructor
+      constructor_params:
+        - java_type: java.lang.CharSequence
+          go_name: arg0
+        - java_type: android.text.TextPaint
+          go_name: arg1
+        - java_type: int
+          go_name: arg2
+        - java_type: android.text.Layout$Alignment
+          go_name: arg3
+        - java_type: float
+          go_name: arg4
+        - java_type: float
+          go_name: arg5
+        - java_type: android.text.BoringLayout$Metrics
+          go_name: arg6
+        - java_type: boolean
+          go_name: arg7
+      methods:
+        - java_method: computeDrawingBoundingBox
+          go_name: ComputeDrawingBoundingBox
+          returns: android.graphics.RectF
+          error: true
+        - java_method: draw
+          go_name: Draw
+          params:
+            - java_type: android.graphics.Canvas
+              go_name: arg0
+            - java_type: android.graphics.Path
+              go_name: arg1
+            - java_type: android.graphics.Paint
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: ellipsized
+          go_name: Ellipsized
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: getBottomPadding
+          go_name: GetBottomPadding
+          returns: int
+          error: true
+        - java_method: getEllipsisCount
+          go_name: GetEllipsisCount
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getEllipsisStart
+          go_name: GetEllipsisStart
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getEllipsizedWidth
+          go_name: GetEllipsizedWidth
+          returns: int
+          error: true
+        - java_method: getHeight
+          go_name: GetHeight
+          returns: int
+          error: true
+        - java_method: getLineContainsTab
+          go_name: GetLineContainsTab
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getLineCount
+          go_name: GetLineCount
+          returns: int
+          error: true
+        - java_method: getLineDescent
+          go_name: GetLineDescent
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getLineDirections
+          go_name: GetLineDirections
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.text.Layout$Directions
+          error: true
+        - java_method: getLineMax
+          go_name: GetLineMax
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: float
+          error: true
+        - java_method: getLineStart
+          go_name: GetLineStart
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getLineTop
+          go_name: GetLineTop
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getLineWidth
+          go_name: GetLineWidth
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: float
+          error: true
+        - java_method: getParagraphDirection
+          go_name: GetParagraphDirection
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getTopPadding
+          go_name: GetTopPadding
+          returns: int
+          error: true
+        - java_method: isFallbackLineSpacingEnabled
+          go_name: IsFallbackLineSpacingEnabled
+          returns: boolean
+          error: true
+        - java_method: replaceOrMake
+          go_name: ReplaceOrMake9
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+            - java_type: android.text.TextPaint
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: android.text.Layout$Alignment
+              go_name: arg3
+            - java_type: android.text.BoringLayout$Metrics
+              go_name: arg4
+            - java_type: boolean
+              go_name: arg5
+            - java_type: android.text.TextUtils$TruncateAt
+              go_name: arg6
+            - java_type: int
+              go_name: arg7
+            - java_type: boolean
+              go_name: arg8
+          returns: android.text.BoringLayout
+          error: true
+        - java_method: replaceOrMake
+          go_name: ReplaceOrMake8_1
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+            - java_type: android.text.TextPaint
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: android.text.Layout$Alignment
+              go_name: arg3
+            - java_type: float
+              go_name: arg4
+            - java_type: float
+              go_name: arg5
+            - java_type: android.text.BoringLayout$Metrics
+              go_name: arg6
+            - java_type: boolean
+              go_name: arg7
+          returns: android.text.BoringLayout
+          error: true
+        - java_method: replaceOrMake
+          go_name: ReplaceOrMake10_2
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+            - java_type: android.text.TextPaint
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: android.text.Layout$Alignment
+              go_name: arg3
+            - java_type: float
+              go_name: arg4
+            - java_type: float
+              go_name: arg5
+            - java_type: android.text.BoringLayout$Metrics
+              go_name: arg6
+            - java_type: boolean
+              go_name: arg7
+            - java_type: android.text.TextUtils$TruncateAt
+              go_name: arg8
+            - java_type: int
+              go_name: arg9
+          returns: android.text.BoringLayout
+          error: true
       static_methods:
-        - java_method: extendDown
-          go_name: ExtendDown
-          params:
-            - java_type: android.text.Spannable
-              go_name: arg0
-            - java_type: android.text.Layout
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: extendLeft
-          go_name: ExtendLeft
-          params:
-            - java_type: android.text.Spannable
-              go_name: arg0
-            - java_type: android.text.Layout
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: extendRight
-          go_name: ExtendRight
-          params:
-            - java_type: android.text.Spannable
-              go_name: arg0
-            - java_type: android.text.Layout
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: extendSelection
-          go_name: ExtendSelection
-          params:
-            - java_type: android.text.Spannable
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: extendToLeftEdge
-          go_name: ExtendToLeftEdge
-          params:
-            - java_type: android.text.Spannable
-              go_name: arg0
-            - java_type: android.text.Layout
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: extendToParagraphEnd
-          go_name: ExtendToParagraphEnd
-          params:
-            - java_type: android.text.Spannable
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: extendToParagraphStart
-          go_name: ExtendToParagraphStart
-          params:
-            - java_type: android.text.Spannable
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: extendToRightEdge
-          go_name: ExtendToRightEdge
-          params:
-            - java_type: android.text.Spannable
-              go_name: arg0
-            - java_type: android.text.Layout
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: extendUp
-          go_name: ExtendUp
-          params:
-            - java_type: android.text.Spannable
-              go_name: arg0
-            - java_type: android.text.Layout
-              go_name: arg1
-          returns: boolean
-          error: true
-        - java_method: getSelectionEnd
-          go_name: GetSelectionEnd
+        - java_method: isBoring
+          go_name: IsBoring2
           params:
             - java_type: java.lang.CharSequence
               go_name: arg0
-          returns: int
+            - java_type: android.text.TextPaint
+              go_name: arg1
+          returns: android.text.BoringLayout$Metrics
           error: true
-        - java_method: getSelectionStart
-          go_name: GetSelectionStart
+        - java_method: isBoring
+          go_name: IsBoring3_1
           params:
             - java_type: java.lang.CharSequence
               go_name: arg0
+            - java_type: android.text.TextPaint
+              go_name: arg1
+            - java_type: android.text.BoringLayout$Metrics
+              go_name: arg2
+          returns: android.text.BoringLayout$Metrics
+          error: true
+        - java_method: isBoring
+          go_name: IsBoring5_2
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+            - java_type: android.text.TextPaint
+              go_name: arg1
+            - java_type: android.text.TextDirectionHeuristic
+              go_name: arg2
+            - java_type: boolean
+              go_name: arg3
+            - java_type: android.text.BoringLayout$Metrics
+              go_name: arg4
+          returns: android.text.BoringLayout$Metrics
+          error: true
+        - java_method: make
+          go_name: Make9
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+            - java_type: android.text.TextPaint
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: android.text.Layout$Alignment
+              go_name: arg3
+            - java_type: android.text.BoringLayout$Metrics
+              go_name: arg4
+            - java_type: boolean
+              go_name: arg5
+            - java_type: android.text.TextUtils$TruncateAt
+              go_name: arg6
+            - java_type: int
+              go_name: arg7
+            - java_type: boolean
+              go_name: arg8
+          returns: android.text.BoringLayout
+          error: true
+        - java_method: make
+          go_name: Make8_1
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+            - java_type: android.text.TextPaint
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: android.text.Layout$Alignment
+              go_name: arg3
+            - java_type: float
+              go_name: arg4
+            - java_type: float
+              go_name: arg5
+            - java_type: android.text.BoringLayout$Metrics
+              go_name: arg6
+            - java_type: boolean
+              go_name: arg7
+          returns: android.text.BoringLayout
+          error: true
+        - java_method: make
+          go_name: Make10_2
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+            - java_type: android.text.TextPaint
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: android.text.Layout$Alignment
+              go_name: arg3
+            - java_type: float
+              go_name: arg4
+            - java_type: float
+              go_name: arg5
+            - java_type: android.text.BoringLayout$Metrics
+              go_name: arg6
+            - java_type: boolean
+              go_name: arg7
+            - java_type: android.text.TextUtils$TruncateAt
+              go_name: arg8
+            - java_type: int
+              go_name: arg9
+          returns: android.text.BoringLayout
+          error: true
+    - java_class: android.text.BoringLayout$Metrics
+      go_type: BoringLayoutMetrics
+      methods:
+        - java_method: getDrawingBoundingBox
+          go_name: GetDrawingBoundingBox
+          returns: android.graphics.RectF
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+    - java_class: android.text.BidiFormatter
+      go_type: BidiFormatter
+      methods:
+        - java_method: getStereoReset
+          go_name: GetStereoReset
+          returns: boolean
+          error: true
+        - java_method: isRtl
+          go_name: IsRtl1
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: isRtl
+          go_name: IsRtl1_1
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: isRtlContext
+          go_name: IsRtlContext
+          returns: boolean
+          error: true
+        - java_method: unicodeWrap
+          go_name: UnicodeWrap1
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: unicodeWrap
+          go_name: UnicodeWrap2_1
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+            - java_type: android.text.TextDirectionHeuristic
+              go_name: arg1
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: unicodeWrap
+          go_name: UnicodeWrap3_2
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+            - java_type: android.text.TextDirectionHeuristic
+              go_name: arg1
+            - java_type: boolean
+              go_name: arg2
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: unicodeWrap
+          go_name: UnicodeWrap2_3
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+            - java_type: boolean
+              go_name: arg1
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: unicodeWrap
+          go_name: UnicodeWrap1_4
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: String
+          error: true
+        - java_method: unicodeWrap
+          go_name: UnicodeWrap2_5
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: android.text.TextDirectionHeuristic
+              go_name: arg1
+          returns: String
+          error: true
+        - java_method: unicodeWrap
+          go_name: UnicodeWrap3_6
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: android.text.TextDirectionHeuristic
+              go_name: arg1
+            - java_type: boolean
+              go_name: arg2
+          returns: String
+          error: true
+        - java_method: unicodeWrap
+          go_name: UnicodeWrap2_7
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: boolean
+              go_name: arg1
+          returns: String
+          error: true
+      static_methods:
+        - java_method: getInstance
+          go_name: GetInstance0
+          returns: android.text.BidiFormatter
+          error: true
+        - java_method: getInstance
+          go_name: GetInstance1_1
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.text.BidiFormatter
+          error: true
+        - java_method: getInstance
+          go_name: GetInstance1_2
+          params:
+            - java_type: java.util.Locale
+              go_name: arg0
+          returns: android.text.BidiFormatter
+          error: true
+    - java_class: android.text.SegmentFinder
+      go_type: SegmentFinder
+      methods:
+        - java_method: nextEndBoundary
+          go_name: NextEndBoundary
+          params:
+            - java_type: int
+              go_name: arg0
           returns: int
           error: true
-        - java_method: moveDown
-          go_name: MoveDown
+        - java_method: nextStartBoundary
+          go_name: NextStartBoundary
           params:
-            - java_type: android.text.Spannable
+            - java_type: int
               go_name: arg0
-            - java_type: android.text.Layout
-              go_name: arg1
-          returns: boolean
+          returns: int
           error: true
-        - java_method: moveLeft
-          go_name: MoveLeft
+        - java_method: previousEndBoundary
+          go_name: PreviousEndBoundary
           params:
-            - java_type: android.text.Spannable
+            - java_type: int
               go_name: arg0
-            - java_type: android.text.Layout
-              go_name: arg1
-          returns: boolean
+          returns: int
           error: true
-        - java_method: moveRight
-          go_name: MoveRight
+        - java_method: previousStartBoundary
+          go_name: PreviousStartBoundary
           params:
-            - java_type: android.text.Spannable
+            - java_type: int
               go_name: arg0
-            - java_type: android.text.Layout
-              go_name: arg1
-          returns: boolean
+          returns: int
           error: true
-        - java_method: moveToLeftEdge
-          go_name: MoveToLeftEdge
+    - java_class: android.text.BidiFormatter$Builder
+      go_type: BidiFormatterBuilder
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.text.BidiFormatter
+          error: true
+        - java_method: setTextDirectionHeuristic
+          go_name: SetTextDirectionHeuristic
           params:
-            - java_type: android.text.Spannable
+            - java_type: android.text.TextDirectionHeuristic
               go_name: arg0
-            - java_type: android.text.Layout
-              go_name: arg1
-          returns: boolean
+          returns: android.text.BidiFormatter$Builder
           error: true
-        - java_method: moveToParagraphEnd
-          go_name: MoveToParagraphEnd
+        - java_method: stereoReset
+          go_name: StereoReset
           params:
-            - java_type: android.text.Spannable
+            - java_type: boolean
               go_name: arg0
-            - java_type: android.text.Layout
-              go_name: arg1
-          returns: boolean
+          returns: android.text.BidiFormatter$Builder
           error: true
-        - java_method: moveToParagraphStart
-          go_name: MoveToParagraphStart
+    - java_class: android.text.SegmentFinder$PrescribedSegmentFinder
+      go_type: SegmentFinderPrescribedSegmentFinder
+      methods:
+        - java_method: nextEndBoundary
+          go_name: NextEndBoundary
           params:
-            - java_type: android.text.Spannable
+            - java_type: int
               go_name: arg0
-            - java_type: android.text.Layout
-              go_name: arg1
-          returns: boolean
+          returns: int
           error: true
-        - java_method: moveToRightEdge
-          go_name: MoveToRightEdge
+        - java_method: nextStartBoundary
+          go_name: NextStartBoundary
           params:
-            - java_type: android.text.Spannable
+            - java_type: int
               go_name: arg0
-            - java_type: android.text.Layout
-              go_name: arg1
-          returns: boolean
+          returns: int
           error: true
-        - java_method: moveUp
-          go_name: MoveUp
+        - java_method: previousEndBoundary
+          go_name: PreviousEndBoundary
           params:
-            - java_type: android.text.Spannable
+            - java_type: int
               go_name: arg0
-            - java_type: android.text.Layout
-              go_name: arg1
-          returns: boolean
+          returns: int
           error: true
-        - java_method: removeSelection
-          go_name: RemoveSelection
+        - java_method: previousStartBoundary
+          go_name: PreviousStartBoundary
           params:
-            - java_type: android.text.Spannable
+            - java_type: int
               go_name: arg0
-          returns: void
+          returns: int
           error: true
-        - java_method: selectAll
-          go_name: SelectAll
+    - java_class: android.text.ParcelableSpan
+      go_type: ParcelableSpan
+      methods:
+        - java_method: getSpanTypeId
+          go_name: GetSpanTypeId
+          returns: int
+          error: true
+    - java_class: android.text.PrecomputedText
+      go_type: PrecomputedText
+      methods:
+        - java_method: charAt
+          go_name: CharAt
           params:
-            - java_type: android.text.Spannable
+            - java_type: int
               go_name: arg0
-          returns: void
+          returns: char
           error: true
-        - java_method: setSelection
-          go_name: SetSelection2
+        - java_method: getBounds
+          go_name: GetBounds
           params:
-            - java_type: android.text.Spannable
+            - java_type: int
               go_name: arg0
             - java_type: int
               go_name: arg1
+            - java_type: android.graphics.Rect
+              go_name: arg2
           returns: void
           error: true
-        - java_method: setSelection
-          go_name: SetSelection3_1
+        - java_method: getFontMetricsInt
+          go_name: GetFontMetricsInt
           params:
-            - java_type: android.text.Spannable
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: android.graphics.Paint$FontMetricsInt
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: getParagraphCount
+          go_name: GetParagraphCount
+          returns: int
+          error: true
+        - java_method: getParagraphEnd
+          go_name: GetParagraphEnd
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getParagraphStart
+          go_name: GetParagraphStart
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getParams
+          go_name: GetParams
+          returns: android.text.PrecomputedText$Params
+          error: true
+        - java_method: getSpanEnd
+          go_name: GetSpanEnd
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getSpanFlags
+          go_name: GetSpanFlags
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getSpanStart
+          go_name: GetSpanStart
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getWidth
+          go_name: GetWidth
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: float
+          error: true
+        - java_method: length
+          go_name: Length
+          returns: int
+          error: true
+        - java_method: nextSpanTransition
+          go_name: NextSpanTransition
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: java.lang.Class
+              go_name: arg2
+          returns: int
+          error: true
+        - java_method: removeSpan
+          go_name: RemoveSpan
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setSpan
+          go_name: SetSpan
+          params:
+            - java_type: java.lang.Object
               go_name: arg0
             - java_type: int
               go_name: arg1
             - java_type: int
               go_name: arg2
+            - java_type: int
+              go_name: arg3
           returns: void
           error: true
-    - java_class: android.text.SpannableString
-      go_type: SpannableString
+        - java_method: subSequence
+          go_name: SubSequence
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: create
+          go_name: Create
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+            - java_type: android.text.PrecomputedText$Params
+              go_name: arg1
+          returns: android.text.PrecomputedText
+          error: true
+    - java_class: android.text.PrecomputedText$Params
+      go_type: PrecomputedTextParams
+      methods:
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getBreakStrategy
+          go_name: GetBreakStrategy
+          returns: int
+          error: true
+        - java_method: getHyphenationFrequency
+          go_name: GetHyphenationFrequency
+          returns: int
+          error: true
+        - java_method: getLineBreakConfig
+          go_name: GetLineBreakConfig
+          returns: android.graphics.text.LineBreakConfig
+          error: true
+        - java_method: getTextDirection
+          go_name: GetTextDirection
+          returns: android.text.TextDirectionHeuristic
+          error: true
+        - java_method: getTextPaint
+          go_name: GetTextPaint
+          returns: android.text.TextPaint
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+    - java_class: android.text.Spanned
+      go_type: Spanned
+      methods:
+        - java_method: getSpanEnd
+          go_name: GetSpanEnd
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getSpanFlags
+          go_name: GetSpanFlags
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getSpanStart
+          go_name: GetSpanStart
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: nextSpanTransition
+          go_name: NextSpanTransition
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: java.lang.Class
+              go_name: arg2
+          returns: int
+          error: true
+    - java_class: android.text.TextPaint
+      go_type: Paint
+      obtain: constructor
+      methods:
+        - java_method: getUnderlineThickness
+          go_name: GetUnderlineThickness
+          returns: float
+          error: true
+        - java_method: set
+          go_name: Set
+          params:
+            - java_type: android.text.TextPaint
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.text.AndroidCharacter
+      go_type: AndroidCharacter
+      obtain: constructor
+      static_methods:
+        - java_method: getDirectionalities
+          go_name: GetDirectionalities
+          params:
+            - java_type: char[]
+              go_name: arg0
+            - java_type: '[B'
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: void
+          error: true
+        - java_method: getEastAsianWidth
+          go_name: GetEastAsianWidth
+          params:
+            - java_type: char
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getEastAsianWidths
+          go_name: GetEastAsianWidths
+          params:
+            - java_type: char[]
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: '[B'
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: getMirror
+          go_name: GetMirror
+          params:
+            - java_type: char
+              go_name: arg0
+          returns: char
+          error: true
+        - java_method: mirror
+          go_name: Mirror
+          params:
+            - java_type: char[]
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: boolean
+          error: true
+    - java_class: android.text.TextShaper
+      go_type: Shaper
+      static_methods:
+        - java_method: shapeText
+          go_name: ShapeText
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: android.text.TextDirectionHeuristic
+              go_name: arg3
+            - java_type: android.text.TextPaint
+              go_name: arg4
+            - java_type: android.text.TextShaper$GlyphsConsumer
+              go_name: arg5
+          returns: void
+          error: true
+    - java_class: android.text.TextShaper$GlyphsConsumer
+      go_type: ShaperGlyphsConsumer
+      methods:
+        - java_method: accept
+          go_name: Accept
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: android.graphics.text.PositionedGlyphs
+              go_name: arg2
+            - java_type: android.text.TextPaint
+              go_name: arg3
+          returns: void
+          error: true
+    - java_class: android.text.InputType
+      go_type: InputType
+    - java_class: android.text.Spannable
+      go_type: Spannable
+      methods:
+        - java_method: removeSpan
+          go_name: RemoveSpan
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setSpan
+          go_name: SetSpan
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+          returns: void
+          error: true
+    - java_class: android.text.Spannable$Factory
+      go_type: SpannableFactory
+      methods:
+        - java_method: newSpannable
+          go_name: NewSpannable
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: android.text.Spannable
+          error: true
+      static_methods:
+        - java_method: getInstance
+          go_name: GetInstance
+          returns: android.text.Spannable$Factory
+          error: true
+    - java_class: android.text.NoCopySpan
+      go_type: NoCopySpan
+    - java_class: android.text.DynamicLayout
+      go_type: DynamicLayout
+      obtain: constructor
+      constructor_params:
+        - java_type: java.lang.CharSequence
+          go_name: arg0
+        - java_type: android.text.TextPaint
+          go_name: arg1
+        - java_type: int
+          go_name: arg2
+        - java_type: android.text.Layout$Alignment
+          go_name: arg3
+        - java_type: float
+          go_name: arg4
+        - java_type: float
+          go_name: arg5
+        - java_type: boolean
+          go_name: arg6
+      methods:
+        - java_method: getBottomPadding
+          go_name: GetBottomPadding
+          returns: int
+          error: true
+        - java_method: getEllipsisCount
+          go_name: GetEllipsisCount
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getEllipsisStart
+          go_name: GetEllipsisStart
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getEllipsizedWidth
+          go_name: GetEllipsizedWidth
+          returns: int
+          error: true
+        - java_method: getLineBreakConfig
+          go_name: GetLineBreakConfig
+          returns: android.graphics.text.LineBreakConfig
+          error: true
+        - java_method: getLineContainsTab
+          go_name: GetLineContainsTab
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getLineCount
+          go_name: GetLineCount
+          returns: int
+          error: true
+        - java_method: getLineDescent
+          go_name: GetLineDescent
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getLineDirections
+          go_name: GetLineDirections
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.text.Layout$Directions
+          error: true
+        - java_method: getLineStart
+          go_name: GetLineStart
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getLineTop
+          go_name: GetLineTop
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getParagraphDirection
+          go_name: GetParagraphDirection
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getTopPadding
+          go_name: GetTopPadding
+          returns: int
+          error: true
+    - java_class: android.text.NoCopySpan$Concrete
+      go_type: NoCopySpanConcrete
+    - java_class: android.text.DynamicLayout$Builder
+      go_type: DynamicLayoutBuilder
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.text.DynamicLayout
+          error: true
+        - java_method: setAlignment
+          go_name: SetAlignment
+          params:
+            - java_type: android.text.Layout$Alignment
+              go_name: arg0
+          returns: android.text.DynamicLayout$Builder
+          error: true
+        - java_method: setBreakStrategy
+          go_name: SetBreakStrategy
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.text.DynamicLayout$Builder
+          error: true
+        - java_method: setDisplayText
+          go_name: SetDisplayText
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: android.text.DynamicLayout$Builder
+          error: true
+        - java_method: setEllipsize
+          go_name: SetEllipsize
+          params:
+            - java_type: android.text.TextUtils$TruncateAt
+              go_name: arg0
+          returns: android.text.DynamicLayout$Builder
+          error: true
+        - java_method: setEllipsizedWidth
+          go_name: SetEllipsizedWidth
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.text.DynamicLayout$Builder
+          error: true
+        - java_method: setHyphenationFrequency
+          go_name: SetHyphenationFrequency
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.text.DynamicLayout$Builder
+          error: true
+        - java_method: setIncludePad
+          go_name: SetIncludePad
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.text.DynamicLayout$Builder
+          error: true
+        - java_method: setJustificationMode
+          go_name: SetJustificationMode
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.text.DynamicLayout$Builder
+          error: true
+        - java_method: setLineBreakConfig
+          go_name: SetLineBreakConfig
+          params:
+            - java_type: android.graphics.text.LineBreakConfig
+              go_name: arg0
+          returns: android.text.DynamicLayout$Builder
+          error: true
+        - java_method: setLineSpacing
+          go_name: SetLineSpacing
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+          returns: android.text.DynamicLayout$Builder
+          error: true
+        - java_method: setMinimumFontMetrics
+          go_name: SetMinimumFontMetrics
+          params:
+            - java_type: android.graphics.Paint$FontMetrics
+              go_name: arg0
+          returns: android.text.DynamicLayout$Builder
+          error: true
+        - java_method: setShiftDrawingOffsetForStartOverhang
+          go_name: SetShiftDrawingOffsetForStartOverhang
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.text.DynamicLayout$Builder
+          error: true
+        - java_method: setTextDirection
+          go_name: SetTextDirection
+          params:
+            - java_type: android.text.TextDirectionHeuristic
+              go_name: arg0
+          returns: android.text.DynamicLayout$Builder
+          error: true
+        - java_method: setUseBoundsForWidth
+          go_name: SetUseBoundsForWidth
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.text.DynamicLayout$Builder
+          error: true
+        - java_method: setUseLineSpacingFromFallbacks
+          go_name: SetUseLineSpacingFromFallbacks
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.text.DynamicLayout$Builder
+          error: true
+      static_methods:
+        - java_method: obtain
+          go_name: Obtain
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+            - java_type: android.text.TextPaint
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: android.text.DynamicLayout$Builder
+          error: true
+    - java_class: android.text.SpanWatcher
+      go_type: SpanWatcher
+      methods:
+        - java_method: onSpanAdded
+          go_name: OnSpanAdded
+          params:
+            - java_type: android.text.Spannable
+              go_name: arg0
+            - java_type: java.lang.Object
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: onSpanChanged
+          go_name: OnSpanChanged
+          params:
+            - java_type: android.text.Spannable
+              go_name: arg0
+            - java_type: java.lang.Object
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+            - java_type: int
+              go_name: arg4
+            - java_type: int
+              go_name: arg5
+          returns: void
+          error: true
+        - java_method: onSpanRemoved
+          go_name: OnSpanRemoved
+          params:
+            - java_type: android.text.Spannable
+              go_name: arg0
+            - java_type: java.lang.Object
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+          returns: void
+          error: true
+    - java_class: android.text.StaticLayout
+      go_type: StaticLayout
+      obtain: constructor
+      constructor_params:
+        - java_type: java.lang.CharSequence
+          go_name: arg0
+        - java_type: android.text.TextPaint
+          go_name: arg1
+        - java_type: int
+          go_name: arg2
+        - java_type: android.text.Layout$Alignment
+          go_name: arg3
+        - java_type: float
+          go_name: arg4
+        - java_type: float
+          go_name: arg5
+        - java_type: boolean
+          go_name: arg6
+      methods:
+        - java_method: computeDrawingBoundingBox
+          go_name: ComputeDrawingBoundingBox
+          returns: android.graphics.RectF
+          error: true
+        - java_method: getBottomPadding
+          go_name: GetBottomPadding
+          returns: int
+          error: true
+        - java_method: getEllipsisCount
+          go_name: GetEllipsisCount
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getEllipsisStart
+          go_name: GetEllipsisStart
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getLineContainsTab
+          go_name: GetLineContainsTab
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getLineCount
+          go_name: GetLineCount
+          returns: int
+          error: true
+        - java_method: getLineDescent
+          go_name: GetLineDescent
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getLineDirections
+          go_name: GetLineDirections
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.text.Layout$Directions
+          error: true
+        - java_method: getLineForVertical
+          go_name: GetLineForVertical
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getLineStart
+          go_name: GetLineStart
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getLineTop
+          go_name: GetLineTop
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getParagraphDirection
+          go_name: GetParagraphDirection
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getTopPadding
+          go_name: GetTopPadding
+          returns: int
+          error: true
+    - java_class: android.text.StaticLayout$Builder
+      go_type: StaticLayoutBuilder
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.text.StaticLayout
+          error: true
+        - java_method: setAlignment
+          go_name: SetAlignment
+          params:
+            - java_type: android.text.Layout$Alignment
+              go_name: arg0
+          returns: android.text.StaticLayout$Builder
+          error: true
+        - java_method: setBreakStrategy
+          go_name: SetBreakStrategy
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.text.StaticLayout$Builder
+          error: true
+        - java_method: setEllipsize
+          go_name: SetEllipsize
+          params:
+            - java_type: android.text.TextUtils$TruncateAt
+              go_name: arg0
+          returns: android.text.StaticLayout$Builder
+          error: true
+        - java_method: setEllipsizedWidth
+          go_name: SetEllipsizedWidth
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.text.StaticLayout$Builder
+          error: true
+        - java_method: setHyphenationFrequency
+          go_name: SetHyphenationFrequency
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.text.StaticLayout$Builder
+          error: true
+        - java_method: setIncludePad
+          go_name: SetIncludePad
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.text.StaticLayout$Builder
+          error: true
+        - java_method: setIndents
+          go_name: SetIndents
+          params:
+            - java_type: '[I'
+              go_name: arg0
+            - java_type: '[I'
+              go_name: arg1
+          returns: android.text.StaticLayout$Builder
+          error: true
+        - java_method: setJustificationMode
+          go_name: SetJustificationMode
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.text.StaticLayout$Builder
+          error: true
+        - java_method: setLineBreakConfig
+          go_name: SetLineBreakConfig
+          params:
+            - java_type: android.graphics.text.LineBreakConfig
+              go_name: arg0
+          returns: android.text.StaticLayout$Builder
+          error: true
+        - java_method: setLineSpacing
+          go_name: SetLineSpacing
+          params:
+            - java_type: float
+              go_name: arg0
+            - java_type: float
+              go_name: arg1
+          returns: android.text.StaticLayout$Builder
+          error: true
+        - java_method: setMaxLines
+          go_name: SetMaxLines
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.text.StaticLayout$Builder
+          error: true
+        - java_method: setMinimumFontMetrics
+          go_name: SetMinimumFontMetrics
+          params:
+            - java_type: android.graphics.Paint$FontMetrics
+              go_name: arg0
+          returns: android.text.StaticLayout$Builder
+          error: true
+        - java_method: setShiftDrawingOffsetForStartOverhang
+          go_name: SetShiftDrawingOffsetForStartOverhang
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.text.StaticLayout$Builder
+          error: true
+        - java_method: setText
+          go_name: SetText
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: android.text.StaticLayout$Builder
+          error: true
+        - java_method: setTextDirection
+          go_name: SetTextDirection
+          params:
+            - java_type: android.text.TextDirectionHeuristic
+              go_name: arg0
+          returns: android.text.StaticLayout$Builder
+          error: true
+        - java_method: setUseBoundsForWidth
+          go_name: SetUseBoundsForWidth
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.text.StaticLayout$Builder
+          error: true
+        - java_method: setUseLineSpacingFromFallbacks
+          go_name: SetUseLineSpacingFromFallbacks
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.text.StaticLayout$Builder
+          error: true
+      static_methods:
+        - java_method: obtain
+          go_name: Obtain
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: android.text.TextPaint
+              go_name: arg3
+            - java_type: int
+              go_name: arg4
+          returns: android.text.StaticLayout$Builder
+          error: true
+    - java_class: android.text.Annotation
+      go_type: Annotation
+      obtain: constructor
+      constructor_params:
+        - java_type: android.os.Parcel
+          go_name: arg0
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getKey
+          go_name: GetKey
+          returns: String
+          error: true
+        - java_method: getSpanTypeId
+          go_name: GetSpanTypeId
+          returns: int
+          error: true
+        - java_method: getValue
+          go_name: GetValue
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.text.Html
+      go_type: Html
+      static_methods:
+        - java_method: escapeHtml
+          go_name: EscapeHtml
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: String
+          error: true
+        - java_method: fromHtml
+          go_name: FromHtml1
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.text.Spanned
+          error: true
+        - java_method: fromHtml
+          go_name: FromHtml2_1
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: android.text.Spanned
+          error: true
+        - java_method: toHtml
+          go_name: ToHtml1
+          params:
+            - java_type: android.text.Spanned
+              go_name: arg0
+          returns: String
+          error: true
+        - java_method: toHtml
+          go_name: ToHtml2_1
+          params:
+            - java_type: android.text.Spanned
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: String
+          error: true
+    - java_class: android.text.Html$ImageGetter
+      go_type: HtmlImageGetter
+      methods:
+        - java_method: getDrawable
+          go_name: GetDrawable
+          params:
+            - java_type: String
+              go_name: arg0
+          returns: android.graphics.drawable.Drawable
+          error: true
+    - java_class: android.text.Html$TagHandler
+      go_type: HtmlTagHandler
+      methods:
+        - java_method: handleTag
+          go_name: HandleTag
+          params:
+            - java_type: boolean
+              go_name: arg0
+            - java_type: String
+              go_name: arg1
+            - java_type: android.text.Editable
+              go_name: arg2
+            - java_type: org.xml.sax.XMLReader
+              go_name: arg3
+          returns: void
+          error: true
+    - java_class: android.text.TextDirectionHeuristic
+      go_type: DirectionHeuristic
+      methods:
+        - java_method: isRtl
+          go_name: IsRtl3
+          params:
+            - java_type: char[]
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: boolean
+          error: true
+        - java_method: isRtl
+          go_name: IsRtl3_1
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: boolean
+          error: true
+    - java_class: android.text.LoginFilter
+      go_type: LoginFilter
+      methods:
+        - java_method: filter
+          go_name: Filter
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: android.text.Spanned
+              go_name: arg3
+            - java_type: int
+              go_name: arg4
+            - java_type: int
+              go_name: arg5
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: isAllowed
+          go_name: IsAllowed
+          params:
+            - java_type: char
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: onInvalidCharacter
+          go_name: OnInvalidCharacter
+          params:
+            - java_type: char
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onStart
+          go_name: OnStart
+          returns: void
+          error: true
+        - java_method: onStop
+          go_name: OnStop
+          returns: void
+          error: true
+    - java_class: android.text.LoginFilter$PasswordFilterGMail
+      go_type: LoginFilterPasswordFilterGMail
+      methods:
+        - java_method: isAllowed
+          go_name: IsAllowed
+          params:
+            - java_type: char
+              go_name: arg0
+          returns: boolean
+          error: true
+    - java_class: android.text.LoginFilter$UsernameFilterGMail
+      go_type: LoginFilterUsernameFilterGMail
+      methods:
+        - java_method: isAllowed
+          go_name: IsAllowed
+          params:
+            - java_type: char
+              go_name: arg0
+          returns: boolean
+          error: true
+    - java_class: android.text.LoginFilter$UsernameFilterGeneric
+      go_type: LoginFilterUsernameFilterGeneric
+      methods:
+        - java_method: isAllowed
+          go_name: IsAllowed
+          params:
+            - java_type: char
+              go_name: arg0
+          returns: boolean
+          error: true
+    - java_class: android.text.TextWatcher
+      go_type: Watcher
+      methods:
+        - java_method: afterTextChanged
+          go_name: AfterTextChanged
+          params:
+            - java_type: android.text.Editable
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: beforeTextChanged
+          go_name: BeforeTextChanged
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: onTextChanged
+          go_name: OnTextChanged
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+          returns: void
+          error: true
+    - java_class: android.text.SpannedString
+      go_type: SpannedString
       obtain: constructor
       constructor_params:
         - java_type: java.lang.CharSequence
@@ -2524,26 +2332,6 @@ classes:
               go_name: arg2
           returns: int
           error: true
-        - java_method: removeSpan
-          go_name: RemoveSpan
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setSpan
-          go_name: SetSpan
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-          returns: void
-          error: true
         - java_method: subSequence
           go_name: SubSequence
           params:
@@ -2563,7 +2351,30 @@ classes:
           params:
             - java_type: java.lang.CharSequence
               go_name: arg0
-          returns: android.text.SpannableString
+          returns: android.text.SpannedString
+          error: true
+    - java_class: android.text.AutoText
+      go_type: AutoText
+      static_methods:
+        - java_method: get
+          go_name: Get
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: android.view.View
+              go_name: arg3
+          returns: String
+          error: true
+        - java_method: getSize
+          go_name: GetSize
+          params:
+            - java_type: android.view.View
+              go_name: arg0
+          returns: int
           error: true
     - java_class: android.text.TextUtils
       go_type: Utils
@@ -3015,6 +2826,43 @@ classes:
           go_name: Next0_1
           returns: java.lang.Object
           error: true
+    - java_class: android.text.GraphemeClusterSegmentFinder
+      go_type: GraphemeClusterSegmentFinder
+      obtain: constructor
+      constructor_params:
+        - java_type: java.lang.CharSequence
+          go_name: arg0
+        - java_type: android.text.TextPaint
+          go_name: arg1
+      methods:
+        - java_method: nextEndBoundary
+          go_name: NextEndBoundary
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: nextStartBoundary
+          go_name: NextStartBoundary
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: previousEndBoundary
+          go_name: PreviousEndBoundary
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: previousStartBoundary
+          go_name: PreviousStartBoundary
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
     - java_class: android.text.TextUtils$StringSplitter
       go_type: UtilsStringSplitter
       methods:
@@ -3024,6 +2872,121 @@ classes:
             - java_type: String
               go_name: arg0
           returns: void
+          error: true
+    - java_class: android.text.SpannableString
+      go_type: SpannableString
+      obtain: constructor
+      constructor_params:
+        - java_type: java.lang.CharSequence
+          go_name: arg0
+      methods:
+        - java_method: charAt
+          go_name: CharAt
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: char
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getChars
+          go_name: GetChars
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: char[]
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: getSpanEnd
+          go_name: GetSpanEnd
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getSpanFlags
+          go_name: GetSpanFlags
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getSpanStart
+          go_name: GetSpanStart
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: length
+          go_name: Length
+          returns: int
+          error: true
+        - java_method: nextSpanTransition
+          go_name: NextSpanTransition
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: java.lang.Class
+              go_name: arg2
+          returns: int
+          error: true
+        - java_method: removeSpan
+          go_name: RemoveSpan
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setSpan
+          go_name: SetSpan
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+          returns: void
+          error: true
+        - java_method: subSequence
+          go_name: SubSequence
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+      static_methods:
+        - java_method: valueOf
+          go_name: ValueOf
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: android.text.SpannableString
           error: true
     - java_class: android.text.TextUtils$TruncateAt
       go_type: UtilsTruncateAt
@@ -3039,20 +3002,406 @@ classes:
               go_name: arg0
           returns: android.text.TextUtils$TruncateAt
           error: true
-    - java_class: android.text.TextPaint
-      go_type: Paint
-      obtain: constructor
+    - java_class: android.text.Editable
+      go_type: Editable
       methods:
-        - java_method: getUnderlineThickness
-          go_name: GetUnderlineThickness
-          returns: float
-          error: true
-        - java_method: set
-          go_name: Set
+        - java_method: append
+          go_name: Append1
           params:
-            - java_type: android.text.TextPaint
+            - java_type: char
+              go_name: arg0
+          returns: android.text.Editable
+          error: true
+        - java_method: append
+          go_name: Append1_1
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: android.text.Editable
+          error: true
+        - java_method: append
+          go_name: Append3_2
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: android.text.Editable
+          error: true
+        - java_method: clear
+          go_name: Clear
+          returns: void
+          error: true
+        - java_method: clearSpans
+          go_name: ClearSpans
+          returns: void
+          error: true
+        - java_method: delete
+          go_name: Delete
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: android.text.Editable
+          error: true
+        - java_method: getFilters
+          go_name: GetFilters
+          returns: android.text.InputFilter[]
+          error: true
+        - java_method: insert
+          go_name: Insert2
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: java.lang.CharSequence
+              go_name: arg1
+          returns: android.text.Editable
+          error: true
+        - java_method: insert
+          go_name: Insert4_1
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: java.lang.CharSequence
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+          returns: android.text.Editable
+          error: true
+        - java_method: replace
+          go_name: Replace3
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: java.lang.CharSequence
+              go_name: arg2
+          returns: android.text.Editable
+          error: true
+        - java_method: replace
+          go_name: Replace5_1
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: java.lang.CharSequence
+              go_name: arg2
+            - java_type: int
+              go_name: arg3
+            - java_type: int
+              go_name: arg4
+          returns: android.text.Editable
+          error: true
+        - java_method: setFilters
+          go_name: SetFilters
+          params:
+            - java_type: android.text.InputFilter[]
               go_name: arg0
           returns: void
+          error: true
+    - java_class: android.text.Editable$Factory
+      go_type: EditableFactory
+      methods:
+        - java_method: newEditable
+          go_name: NewEditable
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: android.text.Editable
+          error: true
+      static_methods:
+        - java_method: getInstance
+          go_name: GetInstance
+          returns: android.text.Editable$Factory
+          error: true
+    - java_class: android.text.Selection
+      go_type: Selection
+      static_methods:
+        - java_method: extendDown
+          go_name: ExtendDown
+          params:
+            - java_type: android.text.Spannable
+              go_name: arg0
+            - java_type: android.text.Layout
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: extendLeft
+          go_name: ExtendLeft
+          params:
+            - java_type: android.text.Spannable
+              go_name: arg0
+            - java_type: android.text.Layout
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: extendRight
+          go_name: ExtendRight
+          params:
+            - java_type: android.text.Spannable
+              go_name: arg0
+            - java_type: android.text.Layout
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: extendSelection
+          go_name: ExtendSelection
+          params:
+            - java_type: android.text.Spannable
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: extendToLeftEdge
+          go_name: ExtendToLeftEdge
+          params:
+            - java_type: android.text.Spannable
+              go_name: arg0
+            - java_type: android.text.Layout
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: extendToParagraphEnd
+          go_name: ExtendToParagraphEnd
+          params:
+            - java_type: android.text.Spannable
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: extendToParagraphStart
+          go_name: ExtendToParagraphStart
+          params:
+            - java_type: android.text.Spannable
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: extendToRightEdge
+          go_name: ExtendToRightEdge
+          params:
+            - java_type: android.text.Spannable
+              go_name: arg0
+            - java_type: android.text.Layout
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: extendUp
+          go_name: ExtendUp
+          params:
+            - java_type: android.text.Spannable
+              go_name: arg0
+            - java_type: android.text.Layout
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: getSelectionEnd
+          go_name: GetSelectionEnd
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: getSelectionStart
+          go_name: GetSelectionStart
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: moveDown
+          go_name: MoveDown
+          params:
+            - java_type: android.text.Spannable
+              go_name: arg0
+            - java_type: android.text.Layout
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: moveLeft
+          go_name: MoveLeft
+          params:
+            - java_type: android.text.Spannable
+              go_name: arg0
+            - java_type: android.text.Layout
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: moveRight
+          go_name: MoveRight
+          params:
+            - java_type: android.text.Spannable
+              go_name: arg0
+            - java_type: android.text.Layout
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: moveToLeftEdge
+          go_name: MoveToLeftEdge
+          params:
+            - java_type: android.text.Spannable
+              go_name: arg0
+            - java_type: android.text.Layout
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: moveToParagraphEnd
+          go_name: MoveToParagraphEnd
+          params:
+            - java_type: android.text.Spannable
+              go_name: arg0
+            - java_type: android.text.Layout
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: moveToParagraphStart
+          go_name: MoveToParagraphStart
+          params:
+            - java_type: android.text.Spannable
+              go_name: arg0
+            - java_type: android.text.Layout
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: moveToRightEdge
+          go_name: MoveToRightEdge
+          params:
+            - java_type: android.text.Spannable
+              go_name: arg0
+            - java_type: android.text.Layout
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: moveUp
+          go_name: MoveUp
+          params:
+            - java_type: android.text.Spannable
+              go_name: arg0
+            - java_type: android.text.Layout
+              go_name: arg1
+          returns: boolean
+          error: true
+        - java_method: removeSelection
+          go_name: RemoveSelection
+          params:
+            - java_type: android.text.Spannable
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: selectAll
+          go_name: SelectAll
+          params:
+            - java_type: android.text.Spannable
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setSelection
+          go_name: SetSelection2
+          params:
+            - java_type: android.text.Spannable
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: setSelection
+          go_name: SetSelection3_1
+          params:
+            - java_type: android.text.Spannable
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+          returns: void
+          error: true
+    - java_class: android.text.ClipboardManager
+      go_type: ClipboardManager
+      methods:
+        - java_method: getText
+          go_name: GetText
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: hasText
+          go_name: HasText
+          returns: boolean
+          error: true
+        - java_method: setText
+          go_name: SetText
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.text.InputFilter
+      go_type: InputFilter
+      methods:
+        - java_method: filter
+          go_name: Filter
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: android.text.Spanned
+              go_name: arg3
+            - java_type: int
+              go_name: arg4
+            - java_type: int
+              go_name: arg5
+          returns: java.lang.CharSequence
+          error: true
+    - java_class: android.text.InputFilter$AllCaps
+      go_type: InputFilterAllCaps
+      methods:
+        - java_method: filter
+          go_name: Filter
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: android.text.Spanned
+              go_name: arg3
+            - java_type: int
+              go_name: arg4
+            - java_type: int
+              go_name: arg5
+          returns: java.lang.CharSequence
+          error: true
+    - java_class: android.text.InputFilter$LengthFilter
+      go_type: InputFilterLengthFilter
+      methods:
+        - java_method: filter
+          go_name: Filter
+          params:
+            - java_type: java.lang.CharSequence
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+            - java_type: int
+              go_name: arg2
+            - java_type: android.text.Spanned
+              go_name: arg3
+            - java_type: int
+              go_name: arg4
+            - java_type: int
+              go_name: arg5
+          returns: java.lang.CharSequence
+          error: true
+        - java_method: getMax
+          go_name: GetMax
+          returns: int
           error: true
     - java_class: android.text.AlteredCharSequence
       go_type: AlteredCharSequence
@@ -3124,23 +3473,49 @@ classes:
               go_name: arg3
           returns: void
           error: true
-    - java_class: android.text.ClipboardManager
-      go_type: ClipboardManager
+    - java_class: android.text.WordSegmentFinder
+      go_type: WordSegmentFinder
+      obtain: constructor
+      constructor_params:
+        - java_type: java.lang.CharSequence
+          go_name: arg0
+        - java_type: android.icu.util.ULocale
+          go_name: arg1
       methods:
-        - java_method: getText
-          go_name: GetText
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: hasText
-          go_name: HasText
-          returns: boolean
-          error: true
-        - java_method: setText
-          go_name: SetText
+        - java_method: nextEndBoundary
+          go_name: NextEndBoundary
           params:
-            - java_type: java.lang.CharSequence
+            - java_type: int
               go_name: arg0
-          returns: void
+          returns: int
+          error: true
+        - java_method: nextStartBoundary
+          go_name: NextStartBoundary
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: previousEndBoundary
+          go_name: PreviousEndBoundary
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: previousStartBoundary
+          go_name: PreviousStartBoundary
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: int
+          error: true
+    - java_class: android.text.EmojiConsistency
+      go_type: EmojiConsistency
+      static_methods:
+        - java_method: getEmojiConsistencySet
+          go_name: GetEmojiConsistencySet
+          returns: java.util.Set<int[]>
           error: true
     - java_class: android.text.SpannableStringBuilder
       go_type: SpannableStringBuilder
@@ -3494,333 +3869,6 @@ classes:
               go_name: arg0
           returns: android.text.SpannableStringBuilder
           error: true
-    - java_class: android.text.PrecomputedText
-      go_type: PrecomputedText
-      methods:
-        - java_method: charAt
-          go_name: CharAt
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: char
-          error: true
-        - java_method: getBounds
-          go_name: GetBounds
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: android.graphics.Rect
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: getFontMetricsInt
-          go_name: GetFontMetricsInt
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: android.graphics.Paint$FontMetricsInt
-              go_name: arg2
-          returns: void
-          error: true
-        - java_method: getParagraphCount
-          go_name: GetParagraphCount
-          returns: int
-          error: true
-        - java_method: getParagraphEnd
-          go_name: GetParagraphEnd
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getParagraphStart
-          go_name: GetParagraphStart
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getParams
-          go_name: GetParams
-          returns: android.text.PrecomputedText$Params
-          error: true
-        - java_method: getSpanEnd
-          go_name: GetSpanEnd
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getSpanFlags
-          go_name: GetSpanFlags
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getSpanStart
-          go_name: GetSpanStart
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: getWidth
-          go_name: GetWidth
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: float
-          error: true
-        - java_method: length
-          go_name: Length
-          returns: int
-          error: true
-        - java_method: nextSpanTransition
-          go_name: NextSpanTransition
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: java.lang.Class
-              go_name: arg2
-          returns: int
-          error: true
-        - java_method: removeSpan
-          go_name: RemoveSpan
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setSpan
-          go_name: SetSpan
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: subSequence
-          go_name: SubSequence
-          params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-      static_methods:
-        - java_method: create
-          go_name: Create
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-            - java_type: android.text.PrecomputedText$Params
-              go_name: arg1
-          returns: android.text.PrecomputedText
-          error: true
-    - java_class: android.text.PrecomputedText$Params
-      go_type: PrecomputedTextParams
-      methods:
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getBreakStrategy
-          go_name: GetBreakStrategy
-          returns: int
-          error: true
-        - java_method: getHyphenationFrequency
-          go_name: GetHyphenationFrequency
-          returns: int
-          error: true
-        - java_method: getLineBreakConfig
-          go_name: GetLineBreakConfig
-          returns: android.graphics.text.LineBreakConfig
-          error: true
-        - java_method: getTextDirection
-          go_name: GetTextDirection
-          returns: android.text.TextDirectionHeuristic
-          error: true
-        - java_method: getTextPaint
-          go_name: GetTextPaint
-          returns: android.text.TextPaint
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-    - java_class: android.text.GraphemeClusterSegmentFinder
-      go_type: GraphemeClusterSegmentFinder
-      obtain: constructor
-      constructor_params:
-        - java_type: java.lang.CharSequence
-          go_name: arg0
-        - java_type: android.text.TextPaint
-          go_name: arg1
-      methods:
-        - java_method: nextEndBoundary
-          go_name: NextEndBoundary
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: nextStartBoundary
-          go_name: NextStartBoundary
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: previousEndBoundary
-          go_name: PreviousEndBoundary
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: previousStartBoundary
-          go_name: PreviousStartBoundary
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: int
-          error: true
-    - java_class: android.text.InputFilter
-      go_type: InputFilter
-      methods:
-        - java_method: filter
-          go_name: Filter
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: android.text.Spanned
-              go_name: arg3
-            - java_type: int
-              go_name: arg4
-            - java_type: int
-              go_name: arg5
-          returns: java.lang.CharSequence
-          error: true
-    - java_class: android.text.InputFilter$AllCaps
-      go_type: InputFilterAllCaps
-      methods:
-        - java_method: filter
-          go_name: Filter
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: android.text.Spanned
-              go_name: arg3
-            - java_type: int
-              go_name: arg4
-            - java_type: int
-              go_name: arg5
-          returns: java.lang.CharSequence
-          error: true
-    - java_class: android.text.InputFilter$LengthFilter
-      go_type: InputFilterLengthFilter
-      methods:
-        - java_method: filter
-          go_name: Filter
-          params:
-            - java_type: java.lang.CharSequence
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: android.text.Spanned
-              go_name: arg3
-            - java_type: int
-              go_name: arg4
-            - java_type: int
-              go_name: arg5
-          returns: java.lang.CharSequence
-          error: true
-        - java_method: getMax
-          go_name: GetMax
-          returns: int
-          error: true
-    - java_class: android.text.SpanWatcher
-      go_type: SpanWatcher
-      methods:
-        - java_method: onSpanAdded
-          go_name: OnSpanAdded
-          params:
-            - java_type: android.text.Spannable
-              go_name: arg0
-            - java_type: java.lang.Object
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-          returns: void
-          error: true
-        - java_method: onSpanChanged
-          go_name: OnSpanChanged
-          params:
-            - java_type: android.text.Spannable
-              go_name: arg0
-            - java_type: java.lang.Object
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-            - java_type: int
-              go_name: arg4
-            - java_type: int
-              go_name: arg5
-          returns: void
-          error: true
-        - java_method: onSpanRemoved
-          go_name: OnSpanRemoved
-          params:
-            - java_type: android.text.Spannable
-              go_name: arg0
-            - java_type: java.lang.Object
-              go_name: arg1
-            - java_type: int
-              go_name: arg2
-            - java_type: int
-              go_name: arg3
-          returns: void
-          error: true
     - java_class: android.text.Highlights
       go_type: Highlights
       methods:
@@ -3869,139 +3917,409 @@ classes:
           go_name: Build
           returns: android.text.Highlights
           error: true
-    - java_class: android.text.EmojiConsistency
-      go_type: EmojiConsistency
-      static_methods:
-        - java_method: getEmojiConsistencySet
-          go_name: GetEmojiConsistencySet
-          returns: java.util.Set<int[]>
-          error: true
-    - java_class: android.text.ParcelableSpan
-      go_type: ParcelableSpan
+abstract_callbacks:
+    - java_class: android.text.Layout
+      go_type: LayoutCallback
       methods:
-        - java_method: getSpanTypeId
-          go_name: GetSpanTypeId
-          returns: int
-          error: true
-    - java_class: android.text.InputType
-      go_type: InputType
-    - java_class: android.text.Annotation
-      go_type: Annotation
-      obtain: constructor
-      constructor_params:
-        - java_type: android.os.Parcel
-          go_name: arg0
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getKey
-          go_name: GetKey
-          returns: String
-          error: true
-        - java_method: getSpanTypeId
-          go_name: GetSpanTypeId
-          returns: int
-          error: true
-        - java_method: getValue
-          go_name: GetValue
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
+        - java_method: computeDrawingBoundingBox
+          params: []
+          returns: android.graphics.RectF
+          go_field: ComputeDrawingBoundingBox
+        - java_method: draw
           params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
+            - android.graphics.Canvas
           returns: void
-          error: true
+          go_field: Draw
+        - java_method: draw
+          params:
+            - android.graphics.Canvas
+            - android.graphics.Path
+            - android.graphics.Paint
+            - int
+          returns: void
+          go_field: Draw
+        - java_method: drawBackground
+          params:
+            - android.graphics.Canvas
+          returns: void
+          go_field: DrawBackground
+        - java_method: drawText
+          params:
+            - android.graphics.Canvas
+          returns: void
+          go_field: DrawText
+        - java_method: fillCharacterBounds
+          params:
+            - int
+            - int
+            - float[]
+            - int
+          returns: void
+          go_field: FillCharacterBounds
+        - java_method: getAlignment
+          params: []
+          returns: android.text.Layout$Alignment
+          go_field: GetAlignment
+        - java_method: getBottomPadding
+          params: []
+          returns: int
+          go_field: GetBottomPadding
+        - java_method: getBreakStrategy
+          params: []
+          returns: int
+          go_field: GetBreakStrategy
+        - java_method: getCursorPath
+          params:
+            - int
+            - android.graphics.Path
+            - java.lang.CharSequence
+          returns: void
+          go_field: GetCursorPath
+        - java_method: getEllipsisCount
+          params:
+            - int
+          returns: int
+          go_field: GetEllipsisCount
+        - java_method: getEllipsisStart
+          params:
+            - int
+          returns: int
+          go_field: GetEllipsisStart
+        - java_method: getEllipsize
+          params: []
+          returns: android.text.TextUtils$TruncateAt
+          go_field: GetEllipsize
+        - java_method: getEllipsizedWidth
+          params: []
+          returns: int
+          go_field: GetEllipsizedWidth
+        - java_method: getHeight
+          params: []
+          returns: int
+          go_field: GetHeight
+        - java_method: getHyphenationFrequency
+          params: []
+          returns: int
+          go_field: GetHyphenationFrequency
+        - java_method: getJustificationMode
+          params: []
+          returns: int
+          go_field: GetJustificationMode
+        - java_method: getLeftIndents
+          params: []
+          returns: '[I'
+          go_field: GetLeftIndents
+        - java_method: getLineAscent
+          params:
+            - int
+          returns: int
+          go_field: GetLineAscent
+        - java_method: getLineBaseline
+          params:
+            - int
+          returns: int
+          go_field: GetLineBaseline
+        - java_method: getLineBottom
+          params:
+            - int
+          returns: int
+          go_field: GetLineBottom
+        - java_method: getLineBottom
+          params:
+            - int
+            - boolean
+          returns: int
+          go_field: GetLineBottom
+        - java_method: getLineBounds
+          params:
+            - int
+            - android.graphics.Rect
+          returns: int
+          go_field: GetLineBounds
+        - java_method: getLineBreakConfig
+          params: []
+          returns: android.graphics.text.LineBreakConfig
+          go_field: GetLineBreakConfig
+        - java_method: getLineContainsTab
+          params:
+            - int
+          returns: boolean
+          go_field: GetLineContainsTab
+        - java_method: getLineCount
+          params: []
+          returns: int
+          go_field: GetLineCount
+        - java_method: getLineDescent
+          params:
+            - int
+          returns: int
+          go_field: GetLineDescent
+        - java_method: getLineDirections
+          params:
+            - int
+          returns: android.text.Layout$Directions
+          go_field: GetLineDirections
+        - java_method: getLineEnd
+          params:
+            - int
+          returns: int
+          go_field: GetLineEnd
+        - java_method: getLineForOffset
+          params:
+            - int
+          returns: int
+          go_field: GetLineForOffset
+        - java_method: getLineForVertical
+          params:
+            - int
+          returns: int
+          go_field: GetLineForVertical
+        - java_method: getLineLeft
+          params:
+            - int
+          returns: float
+          go_field: GetLineLeft
+        - java_method: getLineLetterSpacingUnitCount
+          params:
+            - int
+            - boolean
+          returns: int
+          go_field: GetLineLetterSpacingUnitCount
+        - java_method: getLineMax
+          params:
+            - int
+          returns: float
+          go_field: GetLineMax
+        - java_method: getLineRight
+          params:
+            - int
+          returns: float
+          go_field: GetLineRight
+        - java_method: getLineSpacingAmount
+          params: []
+          returns: float
+          go_field: GetLineSpacingAmount
+        - java_method: getLineSpacingMultiplier
+          params: []
+          returns: float
+          go_field: GetLineSpacingMultiplier
+        - java_method: getLineStart
+          params:
+            - int
+          returns: int
+          go_field: GetLineStart
+        - java_method: getLineTop
+          params:
+            - int
+          returns: int
+          go_field: GetLineTop
+        - java_method: getLineVisibleEnd
+          params:
+            - int
+          returns: int
+          go_field: GetLineVisibleEnd
+        - java_method: getLineWidth
+          params:
+            - int
+          returns: float
+          go_field: GetLineWidth
+        - java_method: getMaxLines
+          params: []
+          returns: int
+          go_field: GetMaxLines
+        - java_method: getMinimumFontMetrics
+          params: []
+          returns: android.graphics.Paint$FontMetrics
+          go_field: GetMinimumFontMetrics
+        - java_method: getOffsetForHorizontal
+          params:
+            - int
+            - float
+          returns: int
+          go_field: GetOffsetForHorizontal
+        - java_method: getOffsetToLeftOf
+          params:
+            - int
+          returns: int
+          go_field: GetOffsetToLeftOf
+        - java_method: getOffsetToRightOf
+          params:
+            - int
+          returns: int
+          go_field: GetOffsetToRightOf
+        - java_method: getPaint
+          params: []
+          returns: android.text.TextPaint
+          go_field: GetPaint
+        - java_method: getParagraphAlignment
+          params:
+            - int
+          returns: android.text.Layout$Alignment
+          go_field: GetParagraphAlignment
+        - java_method: getParagraphDirection
+          params:
+            - int
+          returns: int
+          go_field: GetParagraphDirection
+        - java_method: getParagraphLeft
+          params:
+            - int
+          returns: int
+          go_field: GetParagraphLeft
+        - java_method: getParagraphRight
+          params:
+            - int
+          returns: int
+          go_field: GetParagraphRight
+        - java_method: getPrimaryHorizontal
+          params:
+            - int
+          returns: float
+          go_field: GetPrimaryHorizontal
+        - java_method: getRangeForRect
+          params:
+            - android.graphics.RectF
+            - android.text.SegmentFinder
+            - android.text.Layout$TextInclusionStrategy
+          returns: '[I'
+          go_field: GetRangeForRect
+        - java_method: getRightIndents
+          params: []
+          returns: '[I'
+          go_field: GetRightIndents
+        - java_method: getSecondaryHorizontal
+          params:
+            - int
+          returns: float
+          go_field: GetSecondaryHorizontal
+        - java_method: getSelectionPath
+          params:
+            - int
+            - int
+            - android.graphics.Path
+          returns: void
+          go_field: GetSelectionPath
+        - java_method: getShiftDrawingOffsetForStartOverhang
+          params: []
+          returns: boolean
+          go_field: GetShiftDrawingOffsetForStartOverhang
+        - java_method: getSpacingAdd
+          params: []
+          returns: float
+          go_field: GetSpacingAdd
+        - java_method: getSpacingMultiplier
+          params: []
+          returns: float
+          go_field: GetSpacingMultiplier
+        - java_method: getText
+          params: []
+          returns: java.lang.CharSequence
+          go_field: GetText
+        - java_method: getTextDirectionHeuristic
+          params: []
+          returns: android.text.TextDirectionHeuristic
+          go_field: GetTextDirectionHeuristic
+        - java_method: getTopPadding
+          params: []
+          returns: int
+          go_field: GetTopPadding
+        - java_method: getUseBoundsForWidth
+          params: []
+          returns: boolean
+          go_field: GetUseBoundsForWidth
+        - java_method: getWidth
+          params: []
+          returns: int
+          go_field: GetWidth
+        - java_method: increaseWidthTo
+          params:
+            - int
+          returns: void
+          go_field: IncreaseWidthTo
+        - java_method: isFallbackLineSpacingEnabled
+          params: []
+          returns: boolean
+          go_field: IsFallbackLineSpacingEnabled
+        - java_method: isFontPaddingIncluded
+          params: []
+          returns: boolean
+          go_field: IsFontPaddingIncluded
+        - java_method: isRtlCharAt
+          params:
+            - int
+          returns: boolean
+          go_field: IsRtlCharAt
+    - java_class: android.text.SegmentFinder
+      go_type: SegmentFinderCallback
+      methods:
+        - java_method: nextEndBoundary
+          params:
+            - int
+          returns: int
+          go_field: NextEndBoundary
+        - java_method: nextStartBoundary
+          params:
+            - int
+          returns: int
+          go_field: NextStartBoundary
+        - java_method: previousEndBoundary
+          params:
+            - int
+          returns: int
+          go_field: PreviousEndBoundary
+        - java_method: previousStartBoundary
+          params:
+            - int
+          returns: int
+          go_field: PreviousStartBoundary
+    - java_class: android.text.LoginFilter
+      go_type: LoginFilterCallback
+      methods:
+        - java_method: filter
+          params:
+            - java.lang.CharSequence
+            - int
+            - int
+            - android.text.Spanned
+            - int
+            - int
+          returns: java.lang.CharSequence
+          go_field: Filter
+        - java_method: isAllowed
+          params:
+            - char
+          returns: boolean
+          go_field: IsAllowed
+        - java_method: onInvalidCharacter
+          params:
+            - char
+          returns: void
+          go_field: OnInvalidCharacter
+        - java_method: onStart
+          params: []
+          returns: void
+          go_field: OnStart
+        - java_method: onStop
+          params: []
+          returns: void
+          go_field: OnStop
+    - java_class: android.text.ClipboardManager
+      go_type: ClipboardManagerCallback
+      methods:
+        - java_method: getText
+          params: []
+          returns: java.lang.CharSequence
+          go_field: GetText
+        - java_method: hasText
+          params: []
+          returns: boolean
+          go_field: HasText
+        - java_method: setText
+          params:
+            - java.lang.CharSequence
+          returns: void
+          go_field: SetText
 constants:
-    - go_name: FromHtmlModeCompact
-      value: "63"
-      go_type: int
-    - go_name: FromHtmlModeLegacy
-      value: "0"
-      go_type: int
-    - go_name: FromHtmlOptionUseCssColors
-      value: "256"
-      go_type: int
-    - go_name: FromHtmlSeparatorLineBreakBlockquote
-      value: "32"
-      go_type: int
-    - go_name: FromHtmlSeparatorLineBreakDiv
-      value: "16"
-      go_type: int
-    - go_name: FromHtmlSeparatorLineBreakHeading
-      value: "2"
-      go_type: int
-    - go_name: FromHtmlSeparatorLineBreakList
-      value: "8"
-      go_type: int
-    - go_name: FromHtmlSeparatorLineBreakListItem
-      value: "4"
-      go_type: int
-    - go_name: FromHtmlSeparatorLineBreakParagraph
-      value: "1"
-      go_type: int
-    - go_name: ToHtmlParagraphLinesConsecutive
-      value: "0"
-      go_type: int
-    - go_name: ToHtmlParagraphLinesIndividual
-      value: "1"
-      go_type: int
-    - go_name: SpanComposing
-      value: "256"
-      go_type: int
-    - go_name: SpanExclusiveExclusive
-      value: "33"
-      go_type: int
-    - go_name: SpanExclusiveInclusive
-      value: "34"
-      go_type: int
-    - go_name: SpanInclusiveExclusive
-      value: "17"
-      go_type: int
-    - go_name: SpanInclusiveInclusive
-      value: "18"
-      go_type: int
-    - go_name: SpanIntermediate
-      value: "512"
-      go_type: int
-    - go_name: SpanMarkMark
-      value: "17"
-      go_type: int
-    - go_name: SpanMarkPoint
-      value: "18"
-      go_type: int
-    - go_name: SpanParagraph
-      value: "51"
-      go_type: int
-    - go_name: SpanPointMark
-      value: "33"
-      go_type: int
-    - go_name: SpanPointMarkMask
-      value: "51"
-      go_type: int
-    - go_name: SpanPointPoint
-      value: "34"
-      go_type: int
-    - go_name: SpanPriority
-      value: "16711680"
-      go_type: int
-    - go_name: SpanPriorityShift
-      value: "16"
-      go_type: int
-    - go_name: SpanUser
-      value: "-16777216"
-      go_type: int
-    - go_name: SpanUserShift
-      value: "24"
-      go_type: int
-    - go_name: Done
-      value: "-1"
-      go_type: int
     - go_name: AnyrtlLtr
       value: "0"
       go_type: int
@@ -4019,24 +4337,6 @@ constants:
       go_type: int
     - go_name: Rtl
       value: "0"
-      go_type: int
-    - go_name: EastAsianWidthAmbiguous
-      value: "1"
-      go_type: int
-    - go_name: EastAsianWidthFullWidth
-      value: "3"
-      go_type: int
-    - go_name: EastAsianWidthHalfWidth
-      value: "2"
-      go_type: int
-    - go_name: EastAsianWidthNarrow
-      value: "4"
-      go_type: int
-    - go_name: EastAsianWidthNeutral
-      value: "0"
-      go_type: int
-    - go_name: EastAsianWidthWide
-      value: "5"
       go_type: int
     - go_name: BreakStrategyBalanced
       value: "2"
@@ -4101,44 +4401,74 @@ constants:
     - go_name: AlignOpposite
       value: "0"
       go_type: int
-    - go_name: SelectionEnd
-      value: "0"
+    - go_name: Done
+      value: "-1"
       go_type: int
-    - go_name: SelectionStart
-      value: "0"
+    - go_name: SpanComposing
+      value: "256"
       go_type: int
-    - go_name: CapModeCharacters
-      value: "4096"
+    - go_name: SpanExclusiveExclusive
+      value: "33"
       go_type: int
-    - go_name: CapModeSentences
-      value: "16384"
+    - go_name: SpanExclusiveInclusive
+      value: "34"
       go_type: int
-    - go_name: CapModeWords
-      value: "8192"
+    - go_name: SpanInclusiveExclusive
+      value: "17"
       go_type: int
-    - go_name: CharSequenceCreator
-      value: "0"
+    - go_name: SpanInclusiveInclusive
+      value: "18"
       go_type: int
-    - go_name: SafeStringFlagFirstLine
-      value: "4"
+    - go_name: SpanIntermediate
+      value: "512"
       go_type: int
-    - go_name: SafeStringFlagSingleLine
-      value: "2"
+    - go_name: SpanMarkMark
+      value: "17"
       go_type: int
-    - go_name: SafeStringFlagTrim
+    - go_name: SpanMarkPoint
+      value: "18"
+      go_type: int
+    - go_name: SpanParagraph
+      value: "51"
+      go_type: int
+    - go_name: SpanPointMark
+      value: "33"
+      go_type: int
+    - go_name: SpanPointMarkMask
+      value: "51"
+      go_type: int
+    - go_name: SpanPointPoint
+      value: "34"
+      go_type: int
+    - go_name: SpanPriority
+      value: "16711680"
+      go_type: int
+    - go_name: SpanPriorityShift
+      value: "16"
+      go_type: int
+    - go_name: SpanUser
+      value: "-16777216"
+      go_type: int
+    - go_name: SpanUserShift
+      value: "24"
+      go_type: int
+    - go_name: EastAsianWidthAmbiguous
       value: "1"
       go_type: int
-    - go_name: End
+    - go_name: EastAsianWidthFullWidth
+      value: "3"
+      go_type: int
+    - go_name: EastAsianWidthHalfWidth
+      value: "2"
+      go_type: int
+    - go_name: EastAsianWidthNarrow
+      value: "4"
+      go_type: int
+    - go_name: EastAsianWidthNeutral
       value: "0"
       go_type: int
-    - go_name: Marquee
-      value: "0"
-      go_type: int
-    - go_name: Middle
-      value: "0"
-      go_type: int
-    - go_name: Start
-      value: "0"
+    - go_name: EastAsianWidthWide
+      value: "5"
       go_type: int
     - go_name: TypeClassDatetime
       value: "4"
@@ -4256,4 +4586,76 @@ constants:
       go_type: int
     - go_name: TypeTextVariationWebPassword
       value: "224"
+      go_type: int
+    - go_name: FromHtmlModeCompact
+      value: "63"
+      go_type: int
+    - go_name: FromHtmlModeLegacy
+      value: "0"
+      go_type: int
+    - go_name: FromHtmlOptionUseCssColors
+      value: "256"
+      go_type: int
+    - go_name: FromHtmlSeparatorLineBreakBlockquote
+      value: "32"
+      go_type: int
+    - go_name: FromHtmlSeparatorLineBreakDiv
+      value: "16"
+      go_type: int
+    - go_name: FromHtmlSeparatorLineBreakHeading
+      value: "2"
+      go_type: int
+    - go_name: FromHtmlSeparatorLineBreakList
+      value: "8"
+      go_type: int
+    - go_name: FromHtmlSeparatorLineBreakListItem
+      value: "4"
+      go_type: int
+    - go_name: FromHtmlSeparatorLineBreakParagraph
+      value: "1"
+      go_type: int
+    - go_name: ToHtmlParagraphLinesConsecutive
+      value: "0"
+      go_type: int
+    - go_name: ToHtmlParagraphLinesIndividual
+      value: "1"
+      go_type: int
+    - go_name: CapModeCharacters
+      value: "4096"
+      go_type: int
+    - go_name: CapModeSentences
+      value: "16384"
+      go_type: int
+    - go_name: CapModeWords
+      value: "8192"
+      go_type: int
+    - go_name: CharSequenceCreator
+      value: "0"
+      go_type: int
+    - go_name: SafeStringFlagFirstLine
+      value: "4"
+      go_type: int
+    - go_name: SafeStringFlagSingleLine
+      value: "2"
+      go_type: int
+    - go_name: SafeStringFlagTrim
+      value: "1"
+      go_type: int
+    - go_name: End
+      value: "0"
+      go_type: int
+    - go_name: Marquee
+      value: "0"
+      go_type: int
+    - go_name: Middle
+      value: "0"
+      go_type: int
+    - go_name: Start
+      value: "0"
+      go_type: int
+    - go_name: SelectionEnd
+      value: "0"
+      go_type: int
+    - go_name: SelectionStart
+      value: "0"
       go_type: int

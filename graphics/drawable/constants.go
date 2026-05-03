@@ -5,9 +5,6 @@ package drawable
 import "github.com/AndroidGoLab/jni/graphics/drawable/consts"
 
 const (
-	InsetUndefined        = consts.InsetUndefined
-	PaddingModeNest       = consts.PaddingModeNest
-	PaddingModeStack      = consts.PaddingModeStack
 	Creator               = consts.Creator
 	TypeAdaptiveBitmap    = consts.TypeAdaptiveBitmap
 	TypeBitmap            = consts.TypeBitmap
@@ -15,8 +12,8 @@ const (
 	TypeResource          = consts.TypeResource
 	TypeUri               = consts.TypeUri
 	TypeUriAdaptiveBitmap = consts.TypeUriAdaptiveBitmap
-	Horizontal            = consts.Horizontal
-	Vertical              = consts.Vertical
+	RepeatInfinite        = consts.RepeatInfinite
+	RadiusAuto            = consts.RadiusAuto
 	Line                  = consts.Line
 	LinearGradient        = consts.LinearGradient
 	Oval                  = consts.Oval
@@ -32,6 +29,9 @@ const (
 	TlBr                  = consts.TlBr
 	TopBottom             = consts.TopBottom
 	TrBl                  = consts.TrBl
-	RadiusAuto            = consts.RadiusAuto
-	RepeatInfinite        = consts.RepeatInfinite
+	InsetUndefined        = consts.InsetUndefined
+	PaddingModeNest       = consts.PaddingModeNest
+	PaddingModeStack      = consts.PaddingModeStack
+	Horizontal            = consts.Horizontal
+	Vertical              = consts.Vertical
 )

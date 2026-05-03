@@ -23,39 +23,6 @@ classes:
           go_name: GetCodecs
           returns: android.net.rtp.AudioCodec[]
           error: true
-    - java_class: android.net.rtp.AudioGroup
-      go_type: AudioGroup
-      obtain: constructor
-      constructor_params:
-        - java_type: android.content.Context
-          go_name: arg0
-      methods:
-        - java_method: clear
-          go_name: Clear
-          returns: void
-          error: true
-        - java_method: getMode
-          go_name: GetMode
-          returns: int
-          error: true
-        - java_method: getStreams
-          go_name: GetStreams
-          returns: android.net.rtp.AudioStream[]
-          error: true
-        - java_method: sendDtmf
-          go_name: SendDtmf
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: setMode
-          go_name: SetMode
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
     - java_class: android.net.rtp.AudioStream
       go_type: AudioStream
       obtain: constructor
@@ -95,6 +62,39 @@ classes:
           error: true
         - java_method: setDtmfType
           go_name: SetDtmfType
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.net.rtp.AudioGroup
+      go_type: AudioGroup
+      obtain: constructor
+      constructor_params:
+        - java_type: android.content.Context
+          go_name: arg0
+      methods:
+        - java_method: clear
+          go_name: Clear
+          returns: void
+          error: true
+        - java_method: getMode
+          go_name: GetMode
+          returns: int
+          error: true
+        - java_method: getStreams
+          go_name: GetStreams
+          returns: android.net.rtp.AudioStream[]
+          error: true
+        - java_method: sendDtmf
+          go_name: SendDtmf
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: setMode
+          go_name: SetMode
           params:
             - java_type: int
               go_name: arg0

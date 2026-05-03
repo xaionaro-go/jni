@@ -5,6 +5,18 @@
 package: hotspot2
 go_import: github.com/AndroidGoLab/jni/net/wifi/hotspot2
 classes:
+    - java_class: android.net.wifi.hotspot2.ConfigParser
+      go_type: ConfigParser
+      static_methods:
+        - java_method: parsePasspointConfig
+          go_name: ParsePasspointConfig
+          params:
+            - java_type: String
+              go_name: arg0
+            - java_type: '[B'
+              go_name: arg1
+          returns: android.net.wifi.hotspot2.PasspointConfiguration
+          error: true
     - java_class: android.net.wifi.hotspot2.PasspointConfiguration
       go_type: PasspointConfiguration
       obtain: constructor
@@ -88,18 +100,6 @@ classes:
             - java_type: int
               go_name: arg1
           returns: void
-          error: true
-    - java_class: android.net.wifi.hotspot2.ConfigParser
-      go_type: ConfigParser
-      static_methods:
-        - java_method: parsePasspointConfig
-          go_name: ParsePasspointConfig
-          params:
-            - java_type: String
-              go_name: arg0
-            - java_type: '[B'
-              go_name: arg1
-          returns: android.net.wifi.hotspot2.PasspointConfiguration
           error: true
 constants:
     - go_name: Creator

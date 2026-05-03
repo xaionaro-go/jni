@@ -278,6 +278,31 @@ classes:
           go_name: GetSignature
           returns: java.security.Signature
           error: true
+abstract_callbacks:
+    - java_class: android.hardware.biometrics.BiometricPrompt$AuthenticationCallback
+      go_type: PromptAuthenticationCallbackCallback
+      methods:
+        - java_method: onAuthenticationError
+          params:
+            - int
+            - java.lang.CharSequence
+          returns: void
+          go_field: OnAuthenticationError
+        - java_method: onAuthenticationFailed
+          params: []
+          returns: void
+          go_field: OnAuthenticationFailed
+        - java_method: onAuthenticationHelp
+          params:
+            - int
+            - java.lang.CharSequence
+          returns: void
+          go_field: OnAuthenticationHelp
+        - java_method: onAuthenticationSucceeded
+          params:
+            - android.hardware.biometrics.BiometricPrompt$AuthenticationResult
+          returns: void
+          go_field: OnAuthenticationSucceeded
 constants:
     - go_name: BiometricErrorHwUnavailable
       value: "1"

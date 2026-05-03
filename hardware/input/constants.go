@@ -5,10 +5,10 @@ package input
 import "github.com/AndroidGoLab/jni/hardware/input/consts"
 
 const (
-	ActionQueryKeyboardLayouts = consts.ActionQueryKeyboardLayouts
-	MetaDataKeyboardLayouts    = consts.MetaDataKeyboardLayouts
+	Creator = consts.Creator
 )
 
 const (
-	Creator = consts.Creator
+	ActionQueryKeyboardLayouts = consts.ActionQueryKeyboardLayouts
+	MetaDataKeyboardLayouts    = consts.MetaDataKeyboardLayouts
 )

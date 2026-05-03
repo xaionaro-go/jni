@@ -5,32 +5,6 @@
 package: hpke
 go_import: github.com/AndroidGoLab/jni/crypto/hpke
 classes:
-    - java_class: android.crypto.hpke.XdhKeySpec
-      go_type: XdhKeySpec
-      obtain: constructor
-      constructor_params:
-        - java_type: '[B'
-          go_name: arg0
-      methods:
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getFormat
-          go_name: GetFormat
-          returns: String
-          error: true
-        - java_method: getKey
-          go_name: GetKey
-          returns: '[B'
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
     - java_class: android.crypto.hpke.HpkeSpi
       go_type: Spi
       methods:
@@ -113,4 +87,30 @@ classes:
         - java_method: getEncapsulated
           go_name: GetEncapsulated
           returns: '[B'
+          error: true
+    - java_class: android.crypto.hpke.XdhKeySpec
+      go_type: XdhKeySpec
+      obtain: constructor
+      constructor_params:
+        - java_type: '[B'
+          go_name: arg0
+      methods:
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getFormat
+          go_name: GetFormat
+          returns: String
+          error: true
+        - java_method: getKey
+          go_name: GetKey
+          returns: '[B'
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
           error: true

@@ -95,6 +95,92 @@ func TestEnumerateClassesInJar_SkipsMetaInfAndModuleInfo(t *testing.T) {
 	}
 }
 
+// TestEnumerateClassesInJarFiltered_DropsSkippedPrefixes verifies that
+// classes whose dot-separated names start with any provided skipPrefix
+// are omitted while siblings outside the skip list are kept. Cycle 7
+// regression — the cycle 6 JAR walker pulled the entire Kotlin runtime
+// transitively from Material AARs, producing thousands of unwanted Go
+// packages.
+func TestEnumerateClassesInJarFiltered_DropsSkippedPrefixes(t *testing.T) {
+	jar := writeTestJar(t, map[string][]byte{
+		"kotlin/Unit.class":                                 []byte("k1"),
+		"kotlin/jvm/internal/Intrinsics.class":              []byte("k2"),
+		"kotlinx/coroutines/Job.class":                      []byte("kx"),
+		"org/jetbrains/annotations/NotNull.class":           []byte("ja"),
+		"org/intellij/lang/annotations/Pattern.class":       []byte("ia"),
+		"androidx/recyclerview/widget/RecyclerView.class":   []byte("rv"),
+		"com/google/android/material/button/MaterialButton.class": []byte("mb"),
+	})
+
+	got, err := EnumerateClassesInJarFiltered(jar, []string{
+		"kotlin.", "kotlinx.", "org.jetbrains.", "org.intellij.",
+	})
+	if err != nil {
+		t.Fatalf("EnumerateClassesInJarFiltered: %v", err)
+	}
+	sort.Strings(got)
+
+	want := []string{
+		"androidx.recyclerview.widget.RecyclerView",
+		"com.google.android.material.button.MaterialButton",
+	}
+	if len(got) != len(want) {
+		t.Fatalf("got %v (%d), want %v (%d)", got, len(got), want, len(want))
+	}
+	for i := range want {
+		if got[i] != want[i] {
+			t.Errorf("entry[%d] = %q, want %q", i, got[i], want[i])
+		}
+	}
+
+	// Dual-sided: explicitly assert the dropped names are NOT present.
+	for _, name := range got {
+		switch {
+		case strings.HasPrefix(name, "kotlin."),
+			strings.HasPrefix(name, "kotlinx."),
+			strings.HasPrefix(name, "org.jetbrains."),
+			strings.HasPrefix(name, "org.intellij."):
+			t.Errorf("filtered class leaked: %q", name)
+		}
+	}
+}
+
+// TestEnumerateClassesInJarFiltered_NilSkipKeepsAll verifies that passing
+// nil (or empty) skip prefixes preserves the unfiltered behavior.
+func TestEnumerateClassesInJarFiltered_NilSkipKeepsAll(t *testing.T) {
+	jar := writeTestJar(t, map[string][]byte{
+		"kotlin/Unit.class":                                []byte("k1"),
+		"androidx/recyclerview/widget/RecyclerView.class":  []byte("rv"),
+	})
+
+	got, err := EnumerateClassesInJarFiltered(jar, nil)
+	if err != nil {
+		t.Fatalf("EnumerateClassesInJarFiltered(nil): %v", err)
+	}
+	if len(got) != 2 {
+		t.Errorf("expected 2 classes (no filter), got %d: %v", len(got), got)
+	}
+}
+
+// TestDefaultJarSkipPrefixes_CoversKnownRuntime asserts the default skip
+// list catches the transitive runtime packages we've observed leaking
+// into Material/AndroidX AAR closures.
+func TestDefaultJarSkipPrefixes_CoversKnownRuntime(t *testing.T) {
+	required := []string{"kotlin.", "kotlinx.", "org.intellij.", "org.jetbrains."}
+	for _, want := range required {
+		found := false
+		for _, p := range DefaultJarSkipPrefixes {
+			if p == want {
+				found = true
+				break
+			}
+		}
+		if !found {
+			t.Errorf("DefaultJarSkipPrefixes is missing %q (got %v)", want, DefaultJarSkipPrefixes)
+		}
+	}
+}
+
 func TestFindClassesJars_WalksTree(t *testing.T) {
 	root := t.TempDir()
 	mustMkdir := func(p string) {

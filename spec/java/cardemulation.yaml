@@ -5,6 +5,53 @@
 package: cardemulation
 go_import: github.com/AndroidGoLab/jni/nfc/cardemulation
 classes:
+    - java_class: android.nfc.cardemulation.OffHostApduService
+      go_type: OffHostApduService
+      methods:
+        - java_method: onBind
+          go_name: OnBind
+          params:
+            - java_type: android.content.Intent
+              go_name: arg0
+          returns: android.os.IBinder
+          error: true
+    - java_class: android.nfc.cardemulation.HostApduService
+      go_type: HostApduService
+      methods:
+        - java_method: notifyUnhandled
+          go_name: NotifyUnhandled
+          returns: void
+          error: true
+        - java_method: onBind
+          go_name: OnBind
+          params:
+            - java_type: android.content.Intent
+              go_name: arg0
+          returns: android.os.IBinder
+          error: true
+        - java_method: onDeactivated
+          go_name: OnDeactivated
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: processCommandApdu
+          go_name: ProcessCommandApdu
+          params:
+            - java_type: '[B'
+              go_name: arg0
+            - java_type: android.os.Bundle
+              go_name: arg1
+          returns: '[B'
+          error: true
+        - java_method: sendResponseApdu
+          go_name: SendResponseApdu
+          params:
+            - java_type: '[B'
+              go_name: arg0
+          returns: void
+          error: true
     - java_class: android.nfc.cardemulation.HostNfcFService
       go_type: HostNfcFService
       methods:
@@ -95,43 +142,6 @@ classes:
             - java_type: android.content.ComponentName
               go_name: arg0
           returns: boolean
-          error: true
-    - java_class: android.nfc.cardemulation.HostApduService
-      go_type: HostApduService
-      methods:
-        - java_method: notifyUnhandled
-          go_name: NotifyUnhandled
-          returns: void
-          error: true
-        - java_method: onBind
-          go_name: OnBind
-          params:
-            - java_type: android.content.Intent
-              go_name: arg0
-          returns: android.os.IBinder
-          error: true
-        - java_method: onDeactivated
-          go_name: OnDeactivated
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: processCommandApdu
-          go_name: ProcessCommandApdu
-          params:
-            - java_type: '[B'
-              go_name: arg0
-            - java_type: android.os.Bundle
-              go_name: arg1
-          returns: '[B'
-          error: true
-        - java_method: sendResponseApdu
-          go_name: SendResponseApdu
-          params:
-            - java_type: '[B'
-              go_name: arg0
-          returns: void
           error: true
     - java_class: android.nfc.cardemulation.CardEmulation
       go_type: CardEmulation
@@ -309,16 +319,6 @@ classes:
           error: true
     - java_class: android.nfc.cardemulation.CardEmulation$NfcEventCallback
       go_type: CardEmulationNfcEventCallback
-    - java_class: android.nfc.cardemulation.OffHostApduService
-      go_type: OffHostApduService
-      methods:
-        - java_method: onBind
-          go_name: OnBind
-          params:
-            - java_type: android.content.Intent
-              go_name: arg0
-          returns: android.os.IBinder
-          error: true
     - java_class: android.nfc.cardemulation.PollingFrame
       go_type: PollingFrame
       methods:
@@ -359,18 +359,79 @@ classes:
               go_name: arg1
           returns: void
           error: true
+abstract_callbacks:
+    - java_class: android.nfc.cardemulation.OffHostApduService
+      go_type: OffHostApduServiceCallback
+      methods:
+        - java_method: onBind
+          params:
+            - android.content.Intent
+          returns: android.os.IBinder
+          go_field: OnBind
+    - java_class: android.nfc.cardemulation.HostApduService
+      go_type: HostApduServiceCallback
+      methods:
+        - java_method: notifyUnhandled
+          params: []
+          returns: void
+          go_field: NotifyUnhandled
+        - java_method: onBind
+          params:
+            - android.content.Intent
+          returns: android.os.IBinder
+          go_field: OnBind
+        - java_method: onDeactivated
+          params:
+            - int
+          returns: void
+          go_field: OnDeactivated
+        - java_method: processCommandApdu
+          params:
+            - '[B'
+            - android.os.Bundle
+          returns: '[B'
+          go_field: ProcessCommandApdu
+        - java_method: sendResponseApdu
+          params:
+            - '[B'
+          returns: void
+          go_field: SendResponseApdu
+    - java_class: android.nfc.cardemulation.HostNfcFService
+      go_type: HostNfcFServiceCallback
+      methods:
+        - java_method: onBind
+          params:
+            - android.content.Intent
+          returns: android.os.IBinder
+          go_field: OnBind
+        - java_method: onDeactivated
+          params:
+            - int
+          returns: void
+          go_field: OnDeactivated
+        - java_method: processNfcFPacket
+          params:
+            - '[B'
+            - android.os.Bundle
+          returns: '[B'
+          go_field: ProcessNfcFPacket
+        - java_method: sendResponsePacket
+          params:
+            - '[B'
+          returns: void
+          go_field: SendResponsePacket
 constants:
-    - go_name: DeactivationLinkLoss
-      value: "0"
-      go_type: int
     - go_name: ServiceInterface
-      value: '"android.nfc.cardemulation.action.HOST_NFCF_SERVICE"'
+      value: '"android.nfc.cardemulation.action.OFF_HOST_APDU_SERVICE"'
       go_type: string
     - go_name: ServiceMetaData
-      value: '"android.nfc.cardemulation.host_nfcf_service"'
+      value: '"android.nfc.cardemulation.off_host_apdu_service"'
       go_type: string
     - go_name: DeactivationDeselected
       value: "1"
+      go_type: int
+    - go_name: DeactivationLinkLoss
+      value: "0"
       go_type: int
     - go_name: ActionChangeDefault
       value: '"android.nfc.cardemulation.action.ACTION_CHANGE_DEFAULT"'

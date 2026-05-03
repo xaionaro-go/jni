@@ -5,8 +5,131 @@
 package: ranging
 go_import: github.com/AndroidGoLab/jni/ranging
 classes:
-    - java_class: android.ranging.RangingDevice
-      go_type: Device
+    - java_class: android.ranging.RangingCapabilities
+      go_type: Capabilities
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getCsCapabilities
+          go_name: GetCsCapabilities
+          returns: android.ranging.ble.cs.BleCsRangingCapabilities
+          error: true
+        - java_method: getRttRangingCapabilities
+          go_name: GetRttRangingCapabilities
+          returns: android.ranging.wifi.rtt.RttRangingCapabilities
+          error: true
+        - java_method: getUwbCapabilities
+          go_name: GetUwbCapabilities
+          returns: android.ranging.uwb.UwbRangingCapabilities
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.ranging.RangingSession
+      go_type: Session
+      methods:
+        - java_method: addDeviceToRangingSession
+          go_name: AddDeviceToRangingSession
+          params:
+            - java_type: android.ranging.RangingConfig
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: close
+          go_name: Close
+          returns: void
+          error: true
+        - java_method: reconfigureRangingInterval
+          go_name: ReconfigureRangingInterval
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: removeDeviceFromRangingSession
+          go_name: RemoveDeviceFromRangingSession
+          params:
+            - java_type: android.ranging.RangingDevice
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: start
+          go_name: Start
+          params:
+            - java_type: android.ranging.RangingPreference
+              go_name: arg0
+          returns: android.os.CancellationSignal
+          error: true
+        - java_method: stop
+          go_name: Stop
+          returns: void
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+    - java_class: android.ranging.RangingSession$Callback
+      go_type: SessionCallback
+      methods:
+        - java_method: onClosed
+          go_name: OnClosed
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onOpenFailed
+          go_name: OnOpenFailed
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onOpened
+          go_name: OnOpened
+          returns: void
+          error: true
+        - java_method: onResults
+          go_name: OnResults
+          params:
+            - java_type: android.ranging.RangingDevice
+              go_name: arg0
+            - java_type: android.ranging.RangingData
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onStarted
+          go_name: OnStarted
+          params:
+            - java_type: android.ranging.RangingDevice
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onStopped
+          go_name: OnStopped
+          params:
+            - java_type: android.ranging.RangingDevice
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.ranging.DataNotificationConfig
+      go_type: DataNotificationConfig
       methods:
         - java_method: describeContents
           go_name: DescribeContents
@@ -19,9 +142,17 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
-        - java_method: getUuid
-          go_name: GetUuid
-          returns: java.util.UUID
+        - java_method: getNotificationConfigType
+          go_name: GetNotificationConfigType
+          returns: int
+          error: true
+        - java_method: getProximityFarCm
+          go_name: GetProximityFarCm
+          returns: int
+          error: true
+        - java_method: getProximityNearCm
+          go_name: GetProximityNearCm
+          returns: int
           error: true
         - java_method: hashCode
           go_name: HashCode
@@ -40,19 +171,126 @@ classes:
               go_name: arg1
           returns: void
           error: true
-    - java_class: android.ranging.RangingDevice$Builder
-      go_type: DeviceBuilder
+    - java_class: android.ranging.DataNotificationConfig$Builder
+      go_type: DataNotificationConfigBuilder
       methods:
         - java_method: build
           go_name: Build
-          returns: android.ranging.RangingDevice
+          returns: android.ranging.DataNotificationConfig
           error: true
-        - java_method: setUuid
-          go_name: SetUuid
+        - java_method: setNotificationConfigType
+          go_name: SetNotificationConfigType
           params:
-            - java_type: java.util.UUID
+            - java_type: int
               go_name: arg0
-          returns: android.ranging.RangingDevice$Builder
+          returns: android.ranging.DataNotificationConfig$Builder
+          error: true
+        - java_method: setProximityFarCm
+          go_name: SetProximityFarCm
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.ranging.DataNotificationConfig$Builder
+          error: true
+        - java_method: setProximityNearCm
+          go_name: SetProximityNearCm
+          params:
+            - java_type: int
+              go_name: arg0
+          returns: android.ranging.DataNotificationConfig$Builder
+          error: true
+    - java_class: android.ranging.RangingData
+      go_type: Data
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getAzimuth
+          go_name: GetAzimuth
+          returns: android.ranging.RangingMeasurement
+          error: true
+        - java_method: getDistance
+          go_name: GetDistance
+          returns: android.ranging.RangingMeasurement
+          error: true
+        - java_method: getElevation
+          go_name: GetElevation
+          returns: android.ranging.RangingMeasurement
+          error: true
+        - java_method: getRangingTechnology
+          go_name: GetRangingTechnology
+          returns: int
+          error: true
+        - java_method: getRssi
+          go_name: GetRssi
+          returns: int
+          error: true
+        - java_method: getTimestampMillis
+          go_name: GetTimestampMillis
+          returns: long
+          error: true
+        - java_method: hasRssi
+          go_name: HasRssi
+          returns: boolean
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.ranging.RangingConfig
+      go_type: Config
+      methods:
+        - java_method: getRangingSessionType
+          go_name: GetRangingSessionType
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+    - java_class: android.ranging.RangingManager
+      go_type: Manager
+      methods:
+        - java_method: createRangingSession
+          go_name: CreateRangingSession
+          params:
+            - java_type: java.util.concurrent.Executor
+              go_name: arg0
+            - java_type: android.ranging.RangingSession$Callback
+              go_name: arg1
+          returns: android.ranging.RangingSession
+          error: true
+        - java_method: registerCapabilitiesCallback
+          go_name: RegisterCapabilitiesCallback
+          params:
+            - java_type: java.util.concurrent.Executor
+              go_name: arg0
+            - java_type: android.ranging.RangingManager$RangingCapabilitiesCallback
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: unregisterCapabilitiesCallback
+          go_name: UnregisterCapabilitiesCallback
+          params:
+            - java_type: android.ranging.RangingManager$RangingCapabilitiesCallback
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.ranging.RangingManager$RangingCapabilitiesCallback
+      go_type: ManagerRangingCapabilitiesCallback
+      methods:
+        - java_method: onRangingCapabilities
+          go_name: OnRangingCapabilities
+          params:
+            - java_type: android.ranging.RangingCapabilities
+              go_name: arg0
+          returns: void
           error: true
     - java_class: android.ranging.SessionConfig
       go_type: SessionConfig
@@ -182,6 +420,83 @@ classes:
               go_name: arg0
           returns: android.ranging.RangingPreference$Builder
           error: true
+    - java_class: android.ranging.RangingMeasurement
+      go_type: Measurement
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: getConfidence
+          go_name: GetConfidence
+          returns: int
+          error: true
+        - java_method: getMeasurement
+          go_name: GetMeasurement
+          returns: double
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.ranging.RangingDevice
+      go_type: Device
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getUuid
+          go_name: GetUuid
+          returns: java.util.UUID
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.ranging.RangingDevice$Builder
+      go_type: DeviceBuilder
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.ranging.RangingDevice
+          error: true
+        - java_method: setUuid
+          go_name: SetUuid
+          params:
+            - java_type: java.util.UUID
+              go_name: arg0
+          returns: android.ranging.RangingDevice$Builder
+          error: true
     - java_class: android.ranging.SensorFusionParams
       go_type: SensorFusionParams
       methods:
@@ -231,329 +546,35 @@ classes:
               go_name: arg0
           returns: android.ranging.SensorFusionParams$Builder
           error: true
-    - java_class: android.ranging.RangingSession
-      go_type: Session
-      methods:
-        - java_method: addDeviceToRangingSession
-          go_name: AddDeviceToRangingSession
-          params:
-            - java_type: android.ranging.RangingConfig
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: close
-          go_name: Close
-          returns: void
-          error: true
-        - java_method: reconfigureRangingInterval
-          go_name: ReconfigureRangingInterval
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: removeDeviceFromRangingSession
-          go_name: RemoveDeviceFromRangingSession
-          params:
-            - java_type: android.ranging.RangingDevice
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: start
-          go_name: Start
-          params:
-            - java_type: android.ranging.RangingPreference
-              go_name: arg0
-          returns: android.os.CancellationSignal
-          error: true
-        - java_method: stop
-          go_name: Stop
-          returns: void
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-    - java_class: android.ranging.RangingSession$Callback
-      go_type: SessionCallback
-      methods:
-        - java_method: onClosed
-          go_name: OnClosed
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onOpenFailed
-          go_name: OnOpenFailed
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: void
-          error: true
-        - java_method: onOpened
-          go_name: OnOpened
-          returns: void
-          error: true
-        - java_method: onResults
-          go_name: OnResults
-          params:
-            - java_type: android.ranging.RangingDevice
-              go_name: arg0
-            - java_type: android.ranging.RangingData
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onStarted
-          go_name: OnStarted
-          params:
-            - java_type: android.ranging.RangingDevice
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: onStopped
-          go_name: OnStopped
-          params:
-            - java_type: android.ranging.RangingDevice
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.ranging.RangingCapabilities
-      go_type: Capabilities
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getCsCapabilities
-          go_name: GetCsCapabilities
-          returns: android.ranging.ble.cs.BleCsRangingCapabilities
-          error: true
-        - java_method: getRttRangingCapabilities
-          go_name: GetRttRangingCapabilities
-          returns: android.ranging.wifi.rtt.RttRangingCapabilities
-          error: true
-        - java_method: getUwbCapabilities
-          go_name: GetUwbCapabilities
-          returns: android.ranging.uwb.UwbRangingCapabilities
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
+abstract_callbacks:
     - java_class: android.ranging.RangingConfig
-      go_type: Config
+      go_type: ConfigCallback
       methods:
         - java_method: getRangingSessionType
-          go_name: GetRangingSessionType
+          params: []
           returns: int
-          error: true
+          go_field: GetRangingSessionType
         - java_method: toString
-          go_name: ToString
+          params: []
           returns: String
-          error: true
-    - java_class: android.ranging.RangingMeasurement
-      go_type: Measurement
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getConfidence
-          go_name: GetConfidence
-          returns: int
-          error: true
-        - java_method: getMeasurement
-          go_name: GetMeasurement
-          returns: double
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.ranging.RangingData
-      go_type: Data
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: getAzimuth
-          go_name: GetAzimuth
-          returns: android.ranging.RangingMeasurement
-          error: true
-        - java_method: getDistance
-          go_name: GetDistance
-          returns: android.ranging.RangingMeasurement
-          error: true
-        - java_method: getElevation
-          go_name: GetElevation
-          returns: android.ranging.RangingMeasurement
-          error: true
-        - java_method: getRangingTechnology
-          go_name: GetRangingTechnology
-          returns: int
-          error: true
-        - java_method: getRssi
-          go_name: GetRssi
-          returns: int
-          error: true
-        - java_method: getTimestampMillis
-          go_name: GetTimestampMillis
-          returns: long
-          error: true
-        - java_method: hasRssi
-          go_name: HasRssi
-          returns: boolean
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.ranging.RangingManager
-      go_type: Manager
-      methods:
-        - java_method: createRangingSession
-          go_name: CreateRangingSession
-          params:
-            - java_type: java.util.concurrent.Executor
-              go_name: arg0
-            - java_type: android.ranging.RangingSession$Callback
-              go_name: arg1
-          returns: android.ranging.RangingSession
-          error: true
-        - java_method: registerCapabilitiesCallback
-          go_name: RegisterCapabilitiesCallback
-          params:
-            - java_type: java.util.concurrent.Executor
-              go_name: arg0
-            - java_type: android.ranging.RangingManager$RangingCapabilitiesCallback
-              go_name: arg1
-          returns: void
-          error: true
-        - java_method: unregisterCapabilitiesCallback
-          go_name: UnregisterCapabilitiesCallback
-          params:
-            - java_type: android.ranging.RangingManager$RangingCapabilitiesCallback
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.ranging.RangingManager$RangingCapabilitiesCallback
-      go_type: ManagerRangingCapabilitiesCallback
-      methods:
-        - java_method: onRangingCapabilities
-          go_name: OnRangingCapabilities
-          params:
-            - java_type: android.ranging.RangingCapabilities
-              go_name: arg0
-          returns: void
-          error: true
-    - java_class: android.ranging.DataNotificationConfig
-      go_type: DataNotificationConfig
-      methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getNotificationConfigType
-          go_name: GetNotificationConfigType
-          returns: int
-          error: true
-        - java_method: getProximityFarCm
-          go_name: GetProximityFarCm
-          returns: int
-          error: true
-        - java_method: getProximityNearCm
-          go_name: GetProximityNearCm
-          returns: int
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
-          returns: void
-          error: true
-    - java_class: android.ranging.DataNotificationConfig$Builder
-      go_type: DataNotificationConfigBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.ranging.DataNotificationConfig
-          error: true
-        - java_method: setNotificationConfigType
-          go_name: SetNotificationConfigType
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.ranging.DataNotificationConfig$Builder
-          error: true
-        - java_method: setProximityFarCm
-          go_name: SetProximityFarCm
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.ranging.DataNotificationConfig$Builder
-          error: true
-        - java_method: setProximityNearCm
-          go_name: SetProximityNearCm
-          params:
-            - java_type: int
-              go_name: arg0
-          returns: android.ranging.DataNotificationConfig$Builder
-          error: true
+          go_field: ToString
 constants:
     - go_name: Creator
       value: "0"
       go_type: int
-    - go_name: DeviceRoleInitiator
+    - go_name: DisabledRegulatory
+      value: "2"
+      go_type: int
+    - go_name: DisabledUser
       value: "1"
       go_type: int
-    - go_name: DeviceRoleResponder
+    - go_name: DisabledUserRestrictions
+      value: "4"
+      go_type: int
+    - go_name: Enabled
+      value: "3"
+      go_type: int
+    - go_name: NotSupported
       value: "0"
       go_type: int
     - go_name: ReasonLocalRequest
@@ -574,35 +595,23 @@ constants:
     - go_name: ReasonUnsupported
       value: "3"
       go_type: int
-    - go_name: DisabledRegulatory
-      value: "2"
+    - go_name: NotificationConfigDisable
+      value: "0"
       go_type: int
-    - go_name: DisabledUser
+    - go_name: NotificationConfigEnable
       value: "1"
       go_type: int
-    - go_name: DisabledUserRestrictions
-      value: "4"
-      go_type: int
-    - go_name: Enabled
+    - go_name: NotificationConfigProximityEdge
       value: "3"
       go_type: int
-    - go_name: NotSupported
-      value: "0"
+    - go_name: NotificationConfigProximityLevel
+      value: "2"
       go_type: int
     - go_name: RangingSessionOob
       value: "1"
       go_type: int
     - go_name: RangingSessionRaw
       value: "0"
-      go_type: int
-    - go_name: ConfidenceHigh
-      value: "2"
-      go_type: int
-    - go_name: ConfidenceLow
-      value: "0"
-      go_type: int
-    - go_name: ConfidenceMedium
-      value: "1"
       go_type: int
     - go_name: BleCs
       value: "1"
@@ -616,15 +625,18 @@ constants:
     - go_name: WifiNanRtt
       value: "2"
       go_type: int
-    - go_name: NotificationConfigDisable
-      value: "0"
-      go_type: int
-    - go_name: NotificationConfigEnable
+    - go_name: DeviceRoleInitiator
       value: "1"
       go_type: int
-    - go_name: NotificationConfigProximityEdge
-      value: "3"
+    - go_name: DeviceRoleResponder
+      value: "0"
       go_type: int
-    - go_name: NotificationConfigProximityLevel
+    - go_name: ConfidenceHigh
       value: "2"
+      go_type: int
+    - go_name: ConfidenceLow
+      value: "0"
+      go_type: int
+    - go_name: ConfidenceMedium
+      value: "1"
       go_type: int

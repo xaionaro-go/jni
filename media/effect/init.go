@@ -28,12 +28,6 @@ var (
 	midFactoryToString          jni.MethodID
 	midFactoryIsEffectSupported jni.MethodID
 
-	clsContext                           *jni.GlobalRef
-	midContextGetFactory                 jni.MethodID
-	midContextRelease                    jni.MethodID
-	midContextToString                   jni.MethodID
-	midContextCreateWithCurrentGlContext jni.MethodID
-
 	clsEffect                  *jni.GlobalRef
 	midEffectApply             jni.MethodID
 	midEffectGetName           jni.MethodID
@@ -45,6 +39,12 @@ var (
 	clsUpdateListener                *jni.GlobalRef
 	midUpdateListenerOnEffectUpdated jni.MethodID
 	midUpdateListenerToString        jni.MethodID
+
+	clsContext                           *jni.GlobalRef
+	midContextGetFactory                 jni.MethodID
+	midContextRelease                    jni.MethodID
+	midContextToString                   jni.MethodID
+	midContextCreateWithCurrentGlContext jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -88,44 +88,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midFactoryIsEffectSupported, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsFactory)), "isEffectSupported", "(Ljava/lang/String;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/media/effect/EffectContext")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsContext = env.NewGlobalRef(&c.Object)
-
-		midContextGetFactory, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContext)), "getFactory", "()Landroid/media/effect/EffectFactory;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midContextRelease, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContext)), "release", "()V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midContextToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContext)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midContextCreateWithCurrentGlContext, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsContext)), "createWithCurrentGlContext", "()Landroid/media/effect/EffectContext;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -202,6 +164,44 @@ func doInit(env *jni.Env) error {
 		}
 
 		midUpdateListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsUpdateListener)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/media/effect/EffectContext")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsContext = env.NewGlobalRef(&c.Object)
+
+		midContextGetFactory, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContext)), "getFactory", "()Landroid/media/effect/EffectFactory;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midContextRelease, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContext)), "release", "()V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midContextToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsContext)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midContextCreateWithCurrentGlContext, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsContext)), "createWithCurrentGlContext", "()Landroid/media/effect/EffectContext;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

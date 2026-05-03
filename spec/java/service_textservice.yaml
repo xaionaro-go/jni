@@ -75,6 +75,65 @@ classes:
               go_name: arg2
           returns: android.view.textservice.SuggestionsInfo[]
           error: true
+abstract_callbacks:
+    - java_class: android.service.textservice.SpellCheckerService
+      go_type: SpellCheckerServiceCallback
+      methods:
+        - java_method: createSession
+          params: []
+          returns: android.service.textservice.SpellCheckerService$Session
+          go_field: CreateSession
+        - java_method: onBind
+          params:
+            - android.content.Intent
+          returns: android.os.IBinder
+          go_field: OnBind
+    - java_class: android.service.textservice.SpellCheckerService$Session
+      go_type: SpellCheckerServiceSessionCallback
+      methods:
+        - java_method: getBundle
+          params: []
+          returns: android.os.Bundle
+          go_field: GetBundle
+        - java_method: getLocale
+          params: []
+          returns: String
+          go_field: GetLocale
+        - java_method: getSupportedAttributes
+          params: []
+          returns: int
+          go_field: GetSupportedAttributes
+        - java_method: onCancel
+          params: []
+          returns: void
+          go_field: OnCancel
+        - java_method: onClose
+          params: []
+          returns: void
+          go_field: OnClose
+        - java_method: onCreate
+          params: []
+          returns: void
+          go_field: OnCreate
+        - java_method: onGetSentenceSuggestionsMultiple
+          params:
+            - android.view.textservice.TextInfo[]
+            - int
+          returns: android.view.textservice.SentenceSuggestionsInfo[]
+          go_field: OnGetSentenceSuggestionsMultiple
+        - java_method: onGetSuggestions
+          params:
+            - android.view.textservice.TextInfo
+            - int
+          returns: android.view.textservice.SuggestionsInfo
+          go_field: OnGetSuggestions
+        - java_method: onGetSuggestionsMultiple
+          params:
+            - android.view.textservice.TextInfo[]
+            - int
+            - boolean
+          returns: android.view.textservice.SuggestionsInfo[]
+          go_field: OnGetSuggestionsMultiple
 constants:
     - go_name: ServiceInterface
       value: '"android.service.textservice.SpellCheckerService"'

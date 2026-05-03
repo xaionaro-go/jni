@@ -5,54 +5,6 @@
 package: topics
 go_import: github.com/AndroidGoLab/jni/adservices/topics
 classes:
-    - java_class: android.adservices.topics.EncryptedTopic
-      go_type: EncryptedTopic
-      obtain: constructor
-      constructor_params:
-        - java_type: '[B'
-          go_name: arg0
-        - java_type: String
-          go_name: arg1
-        - java_type: '[B'
-          go_name: arg2
-      methods:
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getEncapsulatedKey
-          go_name: GetEncapsulatedKey
-          returns: '[B'
-          error: true
-        - java_method: getEncryptedTopic
-          go_name: GetEncryptedTopic
-          returns: '[B'
-          error: true
-        - java_method: getKeyIdentifier
-          go_name: GetKeyIdentifier
-          returns: String
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-    - java_class: android.adservices.topics.TopicsManager
-      go_type: Manager
-      static_methods:
-        - java_method: get
-          go_name: Get
-          params:
-            - java_type: android.content.Context
-              go_name: arg0
-          returns: android.adservices.topics.TopicsManager
-          error: true
     - java_class: android.adservices.topics.Topic
       go_type: Topic
       obtain: constructor
@@ -91,8 +43,26 @@ classes:
           go_name: ToString
           returns: String
           error: true
-    - java_class: android.adservices.topics.GetTopicsResponse
-      go_type: GetTopicsResponse
+    - java_class: android.adservices.topics.TopicsManager
+      go_type: Manager
+      static_methods:
+        - java_method: get
+          go_name: Get
+          params:
+            - java_type: android.content.Context
+              go_name: arg0
+          returns: android.adservices.topics.TopicsManager
+          error: true
+    - java_class: android.adservices.topics.EncryptedTopic
+      go_type: EncryptedTopic
+      obtain: constructor
+      constructor_params:
+        - java_type: '[B'
+          go_name: arg0
+        - java_type: String
+          go_name: arg1
+        - java_type: '[B'
+          go_name: arg2
       methods:
         - java_method: equals
           go_name: Equals
@@ -101,24 +71,25 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
-        - java_method: getEncryptedTopics
-          go_name: GetEncryptedTopics
-          returns: java.util.List<android.adservices.topics.EncryptedTopic>
+        - java_method: getEncapsulatedKey
+          go_name: GetEncapsulatedKey
+          returns: '[B'
           error: true
-        - java_method: getTopics
-          go_name: GetTopics
-          returns: java.util.List<android.adservices.topics.Topic>
+        - java_method: getEncryptedTopic
+          go_name: GetEncryptedTopic
+          returns: '[B'
+          error: true
+        - java_method: getKeyIdentifier
+          go_name: GetKeyIdentifier
+          returns: String
           error: true
         - java_method: hashCode
           go_name: HashCode
           returns: int
           error: true
-    - java_class: android.adservices.topics.GetTopicsResponse$Builder
-      go_type: GetTopicsResponseBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.adservices.topics.GetTopicsResponse
+        - java_method: toString
+          go_name: ToString
+          returns: String
           error: true
     - java_class: android.adservices.topics.GetTopicsRequest
       go_type: GetTopicsRequest
@@ -151,4 +122,33 @@ classes:
             - java_type: boolean
               go_name: arg0
           returns: android.adservices.topics.GetTopicsRequest$Builder
+          error: true
+    - java_class: android.adservices.topics.GetTopicsResponse
+      go_type: GetTopicsResponse
+      methods:
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getEncryptedTopics
+          go_name: GetEncryptedTopics
+          returns: java.util.List<android.adservices.topics.EncryptedTopic>
+          error: true
+        - java_method: getTopics
+          go_name: GetTopics
+          returns: java.util.List<android.adservices.topics.Topic>
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+    - java_class: android.adservices.topics.GetTopicsResponse$Builder
+      go_type: GetTopicsResponseBuilder
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.adservices.topics.GetTopicsResponse
           error: true

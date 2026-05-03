@@ -3,6 +3,52 @@
 package consts
 
 const (
+	BeginArray                int = 0
+	BeginObject               int = 0
+	Boolean                   int = 0
+	EndArray                  int = 0
+	EndDocument               int = 0
+	EndObject                 int = 0
+	Name                      int = 0
+	Null                      int = 0
+	Number                    int = 0
+	String                    int = 0
+	Iso88591                  int = 0
+	UsAscii                   int = 0
+	Utf16                     int = 0
+	Utf8                      int = 0
+	Inherit                   int = 2
+	Locale                    int = 3
+	Ltr                       int = 0
+	Rtl                       int = 1
+	Assert                    int = 7
+	Debug                     int = 3
+	Error                     int = 6
+	Info                      int = 4
+	Verbose                   int = 2
+	Warn                      int = 5
+	Epsilon                   int = 5120
+	LowestValue               int = -1025
+	MaxExponent               int = 15
+	MaxValue                  int = 31743
+	MinExponent               int = -14
+	MinNormal                 int = 1024
+	MinValue                  int = 1
+	NegativeInfinity          int = -1024
+	NegativeZero              int = -32768
+	Nan                       int = 32256
+	PositiveInfinity          int = 31744
+	PositiveZero              int = 0
+	SizeConst                 int = 16
+	Creator                   int = 0
+	Nothing                   int = 0
+	WildCard                  int = 0
+	Crlf                      int = 4
+	Default                   int = 0
+	NoClose                   int = 16
+	NoPadding                 int = 1
+	NoWrap                    int = 2
+	UrlSafe                   int = 8
 	ComplexMantissaMask       int = 16777215
 	ComplexMantissaShift      int = 8
 	ComplexRadix0p23          int = 3
@@ -43,65 +89,13 @@ const (
 	TypeNull                  int = 0
 	TypeReference             int = 1
 	TypeString                int = 3
-	BeginArray                int = 0
-	BeginObject               int = 0
-	Boolean                   int = 0
-	EndArray                  int = 0
-	EndDocument               int = 0
-	EndObject                 int = 0
-	Name                      int = 0
-	Null                      int = 0
-	Number                    int = 0
-	String                    int = 0
-	Crlf                      int = 4
-	Default                   int = 0
-	NoClose                   int = 16
-	NoPadding                 int = 1
-	NoWrap                    int = 2
-	UrlSafe                   int = 8
-	Epsilon                   int = 5120
-	LowestValue               int = -1025
-	MaxExponent               int = 15
-	MaxValue                  int = 31743
-	MinExponent               int = -14
-	MinNormal                 int = 1024
-	MinValue                  int = 1
-	NegativeInfinity          int = -1024
-	NegativeZero              int = -32768
-	Nan                       int = 32256
-	PositiveInfinity          int = 31744
-	PositiveZero              int = 0
-	SizeConst                 int = 16
-	Nothing                   int = 0
-	WildCard                  int = 0
-	Creator                   int = 0
 	DomainName                int = 0
 	EmailAddress              int = 0
 	IpAddress                 int = 0
 	Phone                     int = 0
 	TopLevelDomain            int = 0
 	WebUrl                    int = 0
-	Iso88591                  int = 0
-	UsAscii                   int = 0
-	Utf16                     int = 0
-	Utf8                      int = 0
 	Zero                      int = 0
-	Assert                    int = 7
-	Debug                     int = 3
-	Error                     int = 6
-	Info                      int = 4
-	Verbose                   int = 2
-	Warn                      int = 5
-	Inherit                   int = 2
-	Locale                    int = 3
-	Ltr                       int = 0
-	Rtl                       int = 1
-)
-
-const (
-	GoodIriChar                string = "a-zA-Z0-9\u00a0-\ud7ff豈-﷏ﷰ-\uffef"
-	TopLevelDomainStr          string = "((aero|arpa|asia|a[cdefgilmnoqrstuwxz])|(biz|b[abdefghijmnorstvwyz])|(cat|com|coop|c[acdfghiklmnoruvxyz])|d[ejkmoz]|(edu|e[cegrstu])|f[ijkmor]|(gov|g[abdefghilmnpqrstuwy])|h[kmnrtu]|(info|int|i[delmnoqrst])|(jobs|j[emop])|k[eghimnprwyz]|l[abcikrstuvy]|(mil|mobi|museum|m[acdeghklmnopqrstuvwxyz])|(name|net|n[acefgilopruz])|(org|om)|(pro|p[aefghklmnrstwy])|qa|r[eosuw]|s[abcdeghijklmnortuvyz]|(tel|travel|t[cdfghjklmnoprtvwz])|u[agksyz]|v[aceginu]|w[fs]|(δοκιμή|испытание|рф|срб|טעסט|آزمایشی|إختبار|الاردن|الجزائر|السعودية|المغرب|امارات|بھارت|تونس|سورية|فلسطين|قطر|مصر|परीक्षा|भारत|ভারত|ਭਾਰਤ|ભારત|இந்தியா|இலங்கை|சிங்கப்பூர்|பரிட்சை|భారత్|ලංකා|ไทย|テスト|中国|中國|台湾|台灣|新加坡|测试|測試|香港|테스트|한국|xn\\\\-\\\\-0zwm56d|xn\\\\-\\\\-11b5bs3a9aj6g|xn\\\\-\\\\-3e0b707e|xn\\\\-\\\\-45brj9c|xn\\\\-\\\\-80akhbyknj4f|xn\\\\-\\\\-90a3ac|xn\\\\-\\\\-9t4b11yi5a|xn\\\\-\\\\-clchc0ea0b2g2a9gcd|xn\\\\-\\\\-deba0ad|xn\\\\-\\\\-fiqs8s|xn\\\\-\\\\-fiqz9s|xn\\\\-\\\\-fpcrj9c3d|xn\\\\-\\\\-fzc2c9e2c|xn\\\\-\\\\-g6w251d|xn\\\\-\\\\-gecrj9c|xn\\\\-\\\\-h2brj9c|xn\\\\-\\\\-hgbk6aj7f53bba|xn\\\\-\\\\-hlcj6aya9esc7a|xn\\\\-\\\\-j6w193g|xn\\\\-\\\\-jxalpdlp|xn\\\\-\\\\-kgbechtv|xn\\\\-\\\\-kprw13d|xn\\\\-\\\\-kpry57d|xn\\\\-\\\\-lgbbat1ad8j|xn\\\\-\\\\-mgbaam7a8h|xn\\\\-\\\\-mgbayh7gpa|xn\\\\-\\\\-mgbbh1a71e|xn\\\\-\\\\-mgbc0a9azcg|xn\\\\-\\\\-mgberp4a5d4ar|xn\\\\-\\\\-o3cw4h|xn\\\\-\\\\-ogbpf8fl|xn\\\\-\\\\-p1ai|xn\\\\-\\\\-pgbs0dh|xn\\\\-\\\\-s9brj9c|xn\\\\-\\\\-wgbh1c|xn\\\\-\\\\-wgbl6a|xn\\\\-\\\\-xkc2al3hye2a|xn\\\\-\\\\-xkc2dl3a5ee0h|xn\\\\-\\\\-yfro4i67o|xn\\\\-\\\\-ygbi2ammx|xn\\\\-\\\\-zckzah|xxx)|y[et]|z[amw])"
-	TopLevelDomainStrForWebUrl string = "(?:(?:aero|arpa|asia|a[cdefgilmnoqrstuwxz])|(?:biz|b[abdefghijmnorstvwyz])|(?:cat|com|coop|c[acdfghiklmnoruvxyz])|d[ejkmoz]|(?:edu|e[cegrstu])|f[ijkmor]|(?:gov|g[abdefghilmnpqrstuwy])|h[kmnrtu]|(?:info|int|i[delmnoqrst])|(?:jobs|j[emop])|k[eghimnprwyz]|l[abcikrstuvy]|(?:mil|mobi|museum|m[acdeghklmnopqrstuvwxyz])|(?:name|net|n[acefgilopruz])|(?:org|om)|(?:pro|p[aefghklmnrstwy])|qa|r[eosuw]|s[abcdeghijklmnortuvyz]|(?:tel|travel|t[cdfghjklmnoprtvwz])|u[agksyz]|v[aceginu]|w[fs]|(?:δοκιμή|испытание|рф|срб|טעסט|آزمایشی|إختبار|الاردن|الجزائر|السعودية|المغرب|امارات|بھارت|تونس|سورية|فلسطين|قطر|مصر|परीक्षा|भारत|ভারত|ਭਾਰਤ|ભારત|இந்தியா|இலங்கை|சிங்கப்பூர்|பரிட்சை|భారత్|ලංකා|ไทย|テスト|中国|中國|台湾|台灣|新加坡|测试|測試|香港|테스트|한국|xn\\\\-\\\\-0zwm56d|xn\\\\-\\\\-11b5bs3a9aj6g|xn\\\\-\\\\-3e0b707e|xn\\\\-\\\\-45brj9c|xn\\\\-\\\\-80akhbyknj4f|xn\\\\-\\\\-90a3ac|xn\\\\-\\\\-9t4b11yi5a|xn\\\\-\\\\-clchc0ea0b2g2a9gcd|xn\\\\-\\\\-deba0ad|xn\\\\-\\\\-fiqs8s|xn\\\\-\\\\-fiqz9s|xn\\\\-\\\\-fpcrj9c3d|xn\\\\-\\\\-fzc2c9e2c|xn\\\\-\\\\-g6w251d|xn\\\\-\\\\-gecrj9c|xn\\\\-\\\\-h2brj9c|xn\\\\-\\\\-hgbk6aj7f53bba|xn\\\\-\\\\-hlcj6aya9esc7a|xn\\\\-\\\\-j6w193g|xn\\\\-\\\\-jxalpdlp|xn\\\\-\\\\-kgbechtv|xn\\\\-\\\\-kprw13d|xn\\\\-\\\\-kpry57d|xn\\\\-\\\\-lgbbat1ad8j|xn\\\\-\\\\-mgbaam7a8h|xn\\\\-\\\\-mgbayh7gpa|xn\\\\-\\\\-mgbbh1a71e|xn\\\\-\\\\-mgbc0a9azcg|xn\\\\-\\\\-mgberp4a5d4ar|xn\\\\-\\\\-o3cw4h|xn\\\\-\\\\-ogbpf8fl|xn\\\\-\\\\-p1ai|xn\\\\-\\\\-pgbs0dh|xn\\\\-\\\\-s9brj9c|xn\\\\-\\\\-wgbh1c|xn\\\\-\\\\-wgbl6a|xn\\\\-\\\\-xkc2al3hye2a|xn\\\\-\\\\-xkc2dl3a5ee0h|xn\\\\-\\\\-yfro4i67o|xn\\\\-\\\\-ygbi2ammx|xn\\\\-\\\\-zckzah|xxx)|y[et]|z[amw]))"
 )
 
 const (
@@ -109,4 +103,10 @@ const (
 	Logv    bool = false
 	Profile bool = false
 	Release bool = true
+)
+
+const (
+	GoodIriChar                string = "a-zA-Z0-9\u00a0-\ud7ff豈-﷏ﷰ-\uffef"
+	TopLevelDomainStr          string = "((aero|arpa|asia|a[cdefgilmnoqrstuwxz])|(biz|b[abdefghijmnorstvwyz])|(cat|com|coop|c[acdfghiklmnoruvxyz])|d[ejkmoz]|(edu|e[cegrstu])|f[ijkmor]|(gov|g[abdefghilmnpqrstuwy])|h[kmnrtu]|(info|int|i[delmnoqrst])|(jobs|j[emop])|k[eghimnprwyz]|l[abcikrstuvy]|(mil|mobi|museum|m[acdeghklmnopqrstuvwxyz])|(name|net|n[acefgilopruz])|(org|om)|(pro|p[aefghklmnrstwy])|qa|r[eosuw]|s[abcdeghijklmnortuvyz]|(tel|travel|t[cdfghjklmnoprtvwz])|u[agksyz]|v[aceginu]|w[fs]|(δοκιμή|испытание|рф|срб|טעסט|آزمایشی|إختبار|الاردن|الجزائر|السعودية|المغرب|امارات|بھارت|تونس|سورية|فلسطين|قطر|مصر|परीक्षा|भारत|ভারত|ਭਾਰਤ|ભારત|இந்தியா|இலங்கை|சிங்கப்பூர்|பரிட்சை|భారత్|ලංකා|ไทย|テスト|中国|中國|台湾|台灣|新加坡|测试|測試|香港|테스트|한국|xn\\\\-\\\\-0zwm56d|xn\\\\-\\\\-11b5bs3a9aj6g|xn\\\\-\\\\-3e0b707e|xn\\\\-\\\\-45brj9c|xn\\\\-\\\\-80akhbyknj4f|xn\\\\-\\\\-90a3ac|xn\\\\-\\\\-9t4b11yi5a|xn\\\\-\\\\-clchc0ea0b2g2a9gcd|xn\\\\-\\\\-deba0ad|xn\\\\-\\\\-fiqs8s|xn\\\\-\\\\-fiqz9s|xn\\\\-\\\\-fpcrj9c3d|xn\\\\-\\\\-fzc2c9e2c|xn\\\\-\\\\-g6w251d|xn\\\\-\\\\-gecrj9c|xn\\\\-\\\\-h2brj9c|xn\\\\-\\\\-hgbk6aj7f53bba|xn\\\\-\\\\-hlcj6aya9esc7a|xn\\\\-\\\\-j6w193g|xn\\\\-\\\\-jxalpdlp|xn\\\\-\\\\-kgbechtv|xn\\\\-\\\\-kprw13d|xn\\\\-\\\\-kpry57d|xn\\\\-\\\\-lgbbat1ad8j|xn\\\\-\\\\-mgbaam7a8h|xn\\\\-\\\\-mgbayh7gpa|xn\\\\-\\\\-mgbbh1a71e|xn\\\\-\\\\-mgbc0a9azcg|xn\\\\-\\\\-mgberp4a5d4ar|xn\\\\-\\\\-o3cw4h|xn\\\\-\\\\-ogbpf8fl|xn\\\\-\\\\-p1ai|xn\\\\-\\\\-pgbs0dh|xn\\\\-\\\\-s9brj9c|xn\\\\-\\\\-wgbh1c|xn\\\\-\\\\-wgbl6a|xn\\\\-\\\\-xkc2al3hye2a|xn\\\\-\\\\-xkc2dl3a5ee0h|xn\\\\-\\\\-yfro4i67o|xn\\\\-\\\\-ygbi2ammx|xn\\\\-\\\\-zckzah|xxx)|y[et]|z[amw])"
+	TopLevelDomainStrForWebUrl string = "(?:(?:aero|arpa|asia|a[cdefgilmnoqrstuwxz])|(?:biz|b[abdefghijmnorstvwyz])|(?:cat|com|coop|c[acdfghiklmnoruvxyz])|d[ejkmoz]|(?:edu|e[cegrstu])|f[ijkmor]|(?:gov|g[abdefghilmnpqrstuwy])|h[kmnrtu]|(?:info|int|i[delmnoqrst])|(?:jobs|j[emop])|k[eghimnprwyz]|l[abcikrstuvy]|(?:mil|mobi|museum|m[acdeghklmnopqrstuvwxyz])|(?:name|net|n[acefgilopruz])|(?:org|om)|(?:pro|p[aefghklmnrstwy])|qa|r[eosuw]|s[abcdeghijklmnortuvyz]|(?:tel|travel|t[cdfghjklmnoprtvwz])|u[agksyz]|v[aceginu]|w[fs]|(?:δοκιμή|испытание|рф|срб|טעסט|آزمایشی|إختبار|الاردن|الجزائر|السعودية|المغرب|امارات|بھارت|تونس|سورية|فلسطين|قطر|مصر|परीक्षा|भारत|ভারত|ਭਾਰਤ|ભારત|இந்தியா|இலங்கை|சிங்கப்பூர்|பரிட்சை|భారత్|ලංකා|ไทย|テスト|中国|中國|台湾|台灣|新加坡|测试|測試|香港|테스트|한국|xn\\\\-\\\\-0zwm56d|xn\\\\-\\\\-11b5bs3a9aj6g|xn\\\\-\\\\-3e0b707e|xn\\\\-\\\\-45brj9c|xn\\\\-\\\\-80akhbyknj4f|xn\\\\-\\\\-90a3ac|xn\\\\-\\\\-9t4b11yi5a|xn\\\\-\\\\-clchc0ea0b2g2a9gcd|xn\\\\-\\\\-deba0ad|xn\\\\-\\\\-fiqs8s|xn\\\\-\\\\-fiqz9s|xn\\\\-\\\\-fpcrj9c3d|xn\\\\-\\\\-fzc2c9e2c|xn\\\\-\\\\-g6w251d|xn\\\\-\\\\-gecrj9c|xn\\\\-\\\\-h2brj9c|xn\\\\-\\\\-hgbk6aj7f53bba|xn\\\\-\\\\-hlcj6aya9esc7a|xn\\\\-\\\\-j6w193g|xn\\\\-\\\\-jxalpdlp|xn\\\\-\\\\-kgbechtv|xn\\\\-\\\\-kprw13d|xn\\\\-\\\\-kpry57d|xn\\\\-\\\\-lgbbat1ad8j|xn\\\\-\\\\-mgbaam7a8h|xn\\\\-\\\\-mgbayh7gpa|xn\\\\-\\\\-mgbbh1a71e|xn\\\\-\\\\-mgbc0a9azcg|xn\\\\-\\\\-mgberp4a5d4ar|xn\\\\-\\\\-o3cw4h|xn\\\\-\\\\-ogbpf8fl|xn\\\\-\\\\-p1ai|xn\\\\-\\\\-pgbs0dh|xn\\\\-\\\\-s9brj9c|xn\\\\-\\\\-wgbh1c|xn\\\\-\\\\-wgbl6a|xn\\\\-\\\\-xkc2al3hye2a|xn\\\\-\\\\-xkc2dl3a5ee0h|xn\\\\-\\\\-yfro4i67o|xn\\\\-\\\\-ygbi2ammx|xn\\\\-\\\\-zckzah|xxx)|y[et]|z[amw]))"
 )

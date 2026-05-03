@@ -23,43 +23,11 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsInspectionCompanion              *jni.GlobalRef
-	midInspectionCompanionMapProperties jni.MethodID
-	midInspectionCompanionToString      jni.MethodID
-
-	clsInspectionCompanionUninitializedPropertyMapException         *jni.GlobalRef
-	midInspectionCompanionUninitializedPropertyMapExceptionToString jni.MethodID
-
 	clsIntFlagMapping         *jni.GlobalRef
 	midIntFlagMappingCtor     jni.MethodID
 	midIntFlagMappingAdd      jni.MethodID
 	midIntFlagMappingGet      jni.MethodID
 	midIntFlagMappingToString jni.MethodID
-
-	clsPropertyMapper              *jni.GlobalRef
-	midPropertyMapperMapBoolean    jni.MethodID
-	midPropertyMapperMapByte       jni.MethodID
-	midPropertyMapperMapChar       jni.MethodID
-	midPropertyMapperMapColor      jni.MethodID
-	midPropertyMapperMapDouble     jni.MethodID
-	midPropertyMapperMapFloat      jni.MethodID
-	midPropertyMapperMapGravity    jni.MethodID
-	midPropertyMapperMapInt        jni.MethodID
-	midPropertyMapperMapLong       jni.MethodID
-	midPropertyMapperMapObject     jni.MethodID
-	midPropertyMapperMapResourceId jni.MethodID
-	midPropertyMapperMapShort      jni.MethodID
-	midPropertyMapperToString      jni.MethodID
-
-	clsPropertyMapperPropertyConflictException         *jni.GlobalRef
-	midPropertyMapperPropertyConflictExceptionToString jni.MethodID
-
-	clsInspectionCompanionProvider         *jni.GlobalRef
-	midInspectionCompanionProviderToString jni.MethodID
-
-	clsWindowInspector                     *jni.GlobalRef
-	midWindowInspectorToString             jni.MethodID
-	midWindowInspectorGetGlobalWindowViews jni.MethodID
 
 	clsStaticInspectionCompanionProvider         *jni.GlobalRef
 	midStaticInspectionCompanionProviderCtor     jni.MethodID
@@ -86,6 +54,38 @@ var (
 
 	clsPropertyReaderPropertyTypeMismatchException         *jni.GlobalRef
 	midPropertyReaderPropertyTypeMismatchExceptionToString jni.MethodID
+
+	clsWindowInspector                     *jni.GlobalRef
+	midWindowInspectorToString             jni.MethodID
+	midWindowInspectorGetGlobalWindowViews jni.MethodID
+
+	clsInspectionCompanion              *jni.GlobalRef
+	midInspectionCompanionMapProperties jni.MethodID
+	midInspectionCompanionToString      jni.MethodID
+
+	clsInspectionCompanionUninitializedPropertyMapException         *jni.GlobalRef
+	midInspectionCompanionUninitializedPropertyMapExceptionToString jni.MethodID
+
+	clsInspectionCompanionProvider         *jni.GlobalRef
+	midInspectionCompanionProviderToString jni.MethodID
+
+	clsPropertyMapper              *jni.GlobalRef
+	midPropertyMapperMapBoolean    jni.MethodID
+	midPropertyMapperMapByte       jni.MethodID
+	midPropertyMapperMapChar       jni.MethodID
+	midPropertyMapperMapColor      jni.MethodID
+	midPropertyMapperMapDouble     jni.MethodID
+	midPropertyMapperMapFloat      jni.MethodID
+	midPropertyMapperMapGravity    jni.MethodID
+	midPropertyMapperMapInt        jni.MethodID
+	midPropertyMapperMapLong       jni.MethodID
+	midPropertyMapperMapObject     jni.MethodID
+	midPropertyMapperMapResourceId jni.MethodID
+	midPropertyMapperMapShort      jni.MethodID
+	midPropertyMapperToString      jni.MethodID
+
+	clsPropertyMapperPropertyConflictException         *jni.GlobalRef
+	midPropertyMapperPropertyConflictExceptionToString jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -105,47 +105,6 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
-
-	c, err = env.FindClass("android/view/inspector/InspectionCompanion")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsInspectionCompanion = env.NewGlobalRef(&c.Object)
-
-		midInspectionCompanionMapProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInspectionCompanion)), "mapProperties", "(Landroid/view/inspector/PropertyMapper;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midInspectionCompanionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInspectionCompanion)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/view/inspector/InspectionCompanion$UninitializedPropertyMapException")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsInspectionCompanionUninitializedPropertyMapException = env.NewGlobalRef(&c.Object)
-
-		midInspectionCompanionUninitializedPropertyMapExceptionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInspectionCompanionUninitializedPropertyMapException)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
 
 	c, err = env.FindClass("android/view/inspector/IntFlagMapping")
 	if err != nil {
@@ -174,165 +133,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midIntFlagMappingToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsIntFlagMapping)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/view/inspector/PropertyMapper")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsPropertyMapper = env.NewGlobalRef(&c.Object)
-
-		midPropertyMapperMapBoolean, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertyMapper)), "mapBoolean", "(Ljava/lang/String;I)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPropertyMapperMapByte, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertyMapper)), "mapByte", "(Ljava/lang/String;I)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPropertyMapperMapChar, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertyMapper)), "mapChar", "(Ljava/lang/String;I)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPropertyMapperMapColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertyMapper)), "mapColor", "(Ljava/lang/String;I)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPropertyMapperMapDouble, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertyMapper)), "mapDouble", "(Ljava/lang/String;I)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPropertyMapperMapFloat, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertyMapper)), "mapFloat", "(Ljava/lang/String;I)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPropertyMapperMapGravity, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertyMapper)), "mapGravity", "(Ljava/lang/String;I)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPropertyMapperMapInt, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertyMapper)), "mapInt", "(Ljava/lang/String;I)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPropertyMapperMapLong, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertyMapper)), "mapLong", "(Ljava/lang/String;I)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPropertyMapperMapObject, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertyMapper)), "mapObject", "(Ljava/lang/String;I)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPropertyMapperMapResourceId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertyMapper)), "mapResourceId", "(Ljava/lang/String;I)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPropertyMapperMapShort, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertyMapper)), "mapShort", "(Ljava/lang/String;I)I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPropertyMapperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertyMapper)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/view/inspector/PropertyMapper$PropertyConflictException")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsPropertyMapperPropertyConflictException = env.NewGlobalRef(&c.Object)
-
-		midPropertyMapperPropertyConflictExceptionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertyMapperPropertyConflictException)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/view/inspector/InspectionCompanionProvider")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsInspectionCompanionProvider = env.NewGlobalRef(&c.Object)
-
-		midInspectionCompanionProviderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInspectionCompanionProvider)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/view/inspector/WindowInspector")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsWindowInspector = env.NewGlobalRef(&c.Object)
-
-		midWindowInspectorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowInspector)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midWindowInspectorGetGlobalWindowViews, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsWindowInspector)), "getGlobalWindowViews", "()Ljava/util/List;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -500,6 +300,206 @@ func doInit(env *jni.Env) error {
 		clsPropertyReaderPropertyTypeMismatchException = env.NewGlobalRef(&c.Object)
 
 		midPropertyReaderPropertyTypeMismatchExceptionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertyReaderPropertyTypeMismatchException)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/view/inspector/WindowInspector")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsWindowInspector = env.NewGlobalRef(&c.Object)
+
+		midWindowInspectorToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsWindowInspector)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midWindowInspectorGetGlobalWindowViews, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsWindowInspector)), "getGlobalWindowViews", "()Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/view/inspector/InspectionCompanion")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsInspectionCompanion = env.NewGlobalRef(&c.Object)
+
+		midInspectionCompanionMapProperties, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInspectionCompanion)), "mapProperties", "(Landroid/view/inspector/PropertyMapper;)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midInspectionCompanionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInspectionCompanion)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/view/inspector/InspectionCompanion$UninitializedPropertyMapException")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsInspectionCompanionUninitializedPropertyMapException = env.NewGlobalRef(&c.Object)
+
+		midInspectionCompanionUninitializedPropertyMapExceptionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInspectionCompanionUninitializedPropertyMapException)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/view/inspector/InspectionCompanionProvider")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsInspectionCompanionProvider = env.NewGlobalRef(&c.Object)
+
+		midInspectionCompanionProviderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsInspectionCompanionProvider)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/view/inspector/PropertyMapper")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsPropertyMapper = env.NewGlobalRef(&c.Object)
+
+		midPropertyMapperMapBoolean, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertyMapper)), "mapBoolean", "(Ljava/lang/String;I)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPropertyMapperMapByte, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertyMapper)), "mapByte", "(Ljava/lang/String;I)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPropertyMapperMapChar, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertyMapper)), "mapChar", "(Ljava/lang/String;I)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPropertyMapperMapColor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertyMapper)), "mapColor", "(Ljava/lang/String;I)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPropertyMapperMapDouble, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertyMapper)), "mapDouble", "(Ljava/lang/String;I)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPropertyMapperMapFloat, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertyMapper)), "mapFloat", "(Ljava/lang/String;I)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPropertyMapperMapGravity, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertyMapper)), "mapGravity", "(Ljava/lang/String;I)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPropertyMapperMapInt, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertyMapper)), "mapInt", "(Ljava/lang/String;I)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPropertyMapperMapLong, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertyMapper)), "mapLong", "(Ljava/lang/String;I)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPropertyMapperMapObject, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertyMapper)), "mapObject", "(Ljava/lang/String;I)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPropertyMapperMapResourceId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertyMapper)), "mapResourceId", "(Ljava/lang/String;I)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPropertyMapperMapShort, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertyMapper)), "mapShort", "(Ljava/lang/String;I)I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPropertyMapperToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertyMapper)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/view/inspector/PropertyMapper$PropertyConflictException")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsPropertyMapperPropertyConflictException = env.NewGlobalRef(&c.Object)
+
+		midPropertyMapperPropertyConflictExceptionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPropertyMapperPropertyConflictException)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

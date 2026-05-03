@@ -4,6 +4,9 @@ package consts
 
 const (
 	Creator                       int = 0
+	FormatDegrees                 int = 0
+	FormatMinutes                 int = 1
+	FormatSeconds                 int = 2
 	StatusParityPassed            int = 1
 	StatusParityRebuilt           int = 2
 	StatusUnknown                 int = 0
@@ -27,27 +30,15 @@ const (
 	StatusLocationDisabled        int = 2
 	StatusNotSupported            int = 0
 	StatusReady                   int = 1
-	Available                     int = 2
-	OutOfService                  int = 0
-	TemporarilyUnavailable        int = 1
-	AccuracyCoarse                int = 2
-	AccuracyFine                  int = 1
-	AccuracyHigh                  int = 3
-	AccuracyLow                   int = 1
-	AccuracyMedium                int = 2
-	NoRequirement                 int = 0
-	PowerHigh                     int = 3
-	PowerLow                      int = 1
-	PowerMedium                   int = 2
-	PassiveInterval               int = 2147483647
-	FormatDegrees                 int = 0
-	FormatMinutes                 int = 1
-	FormatSeconds                 int = 2
-	StatusNotAllowed              int = 3
 	GpsEventFirstFix              int = 3
 	GpsEventSatelliteStatus       int = 4
 	GpsEventStarted               int = 1
 	GpsEventStopped               int = 2
+	PassiveInterval               int = 2147483647
+	StatusNotAllowed              int = 3
+	Available                     int = 2
+	OutOfService                  int = 0
+	TemporarilyUnavailable        int = 1
 	ConstellationBeidou           int = 5
 	ConstellationGalileo          int = 6
 	ConstellationGlonass          int = 3
@@ -83,15 +74,28 @@ const (
 	StateTowDecoded               int = 8
 	StateTowKnown                 int = 16384
 	StateUnknown                  int = 0
-	CapabilitySupported           int = 1
-	CapabilityUnknown             int = 0
-	CapabilityUnsupported         int = 2
 	QualityBalancedPowerAccuracy  int = 102
 	QualityHighAccuracy           int = 100
 	QualityLowPower               int = 104
+	CapabilitySupported           int = 1
+	CapabilityUnknown             int = 0
+	CapabilityUnsupported         int = 2
+	AccuracyCoarse                int = 2
+	AccuracyFine                  int = 1
+	AccuracyHigh                  int = 3
+	AccuracyLow                   int = 1
+	AccuracyMedium                int = 2
+	NoRequirement                 int = 0
+	PowerHigh                     int = 3
+	PowerLow                      int = 1
+	PowerMedium                   int = 2
 )
 
 const (
+	ActionInjectedSettingChanged  string = "android.location.InjectedSettingChanged"
+	ActionServiceIntent           string = "android.location.SettingInjectorService"
+	AttributesName                string = "injected-location-setting"
+	MetaDataName                  string = "android.location.SettingInjectorService"
 	ActionGnssCapabilitiesChanged string = "android.location.action.GNSS_CAPABILITIES_CHANGED"
 	ExtraGnssCapabilities         string = "android.location.extra.GNSS_CAPABILITIES"
 	ExtraLocationEnabled          string = "android.location.extra.LOCATION_ENABLED"
@@ -109,8 +113,4 @@ const (
 	NetworkProvider               string = "network"
 	PassiveProvider               string = "passive"
 	ProvidersChangedAction        string = "android.location.PROVIDERS_CHANGED"
-	ActionInjectedSettingChanged  string = "android.location.InjectedSettingChanged"
-	ActionServiceIntent           string = "android.location.SettingInjectorService"
-	AttributesName                string = "injected-location-setting"
-	MetaDataName                  string = "android.location.SettingInjectorService"
 )

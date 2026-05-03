@@ -5,6 +5,10 @@ package database
 import "github.com/AndroidGoLab/jni/database/consts"
 
 const (
+	Both                = consts.Both
+	Left                = consts.Left
+	Right               = consts.Right
+	Creator             = consts.Creator
 	StatementAbort      = consts.StatementAbort
 	StatementAttach     = consts.StatementAttach
 	StatementBegin      = consts.StatementBegin
@@ -15,8 +19,4 @@ const (
 	StatementSelect     = consts.StatementSelect
 	StatementUnprepared = consts.StatementUnprepared
 	StatementUpdate     = consts.StatementUpdate
-	Creator             = consts.Creator
-	Both                = consts.Both
-	Left                = consts.Left
-	Right               = consts.Right
 )

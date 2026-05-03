@@ -23,6 +23,15 @@ var (
 	initOnce sync.Once
 	initErr  error
 
+	clsVirtualViewFillInfo                 *jni.GlobalRef
+	midVirtualViewFillInfoGetAutofillHints jni.MethodID
+	midVirtualViewFillInfoToString         jni.MethodID
+
+	clsVirtualViewFillInfoBuilder                 *jni.GlobalRef
+	midVirtualViewFillInfoBuilderBuild            jni.MethodID
+	midVirtualViewFillInfoBuilderSetAutofillHints jni.MethodID
+	midVirtualViewFillInfoBuilderToString         jni.MethodID
+
 	clsManager                                          *jni.GlobalRef
 	midManagerCancel                                    jni.MethodID
 	midManagerCommit                                    jni.MethodID
@@ -60,15 +69,6 @@ var (
 	midManagerAutofillCallbackOnAutofillEvent2   jni.MethodID
 	midManagerAutofillCallbackOnAutofillEvent3_1 jni.MethodID
 	midManagerAutofillCallbackToString           jni.MethodID
-
-	clsVirtualViewFillInfo                 *jni.GlobalRef
-	midVirtualViewFillInfoGetAutofillHints jni.MethodID
-	midVirtualViewFillInfoToString         jni.MethodID
-
-	clsVirtualViewFillInfoBuilder                 *jni.GlobalRef
-	midVirtualViewFillInfoBuilderBuild            jni.MethodID
-	midVirtualViewFillInfoBuilderSetAutofillHints jni.MethodID
-	midVirtualViewFillInfoBuilderToString         jni.MethodID
 
 	clsId                     *jni.GlobalRef
 	midIdDescribeContents     jni.MethodID
@@ -120,6 +120,61 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
+
+	c, err = env.FindClass("android/view/autofill/VirtualViewFillInfo")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsVirtualViewFillInfo = env.NewGlobalRef(&c.Object)
+
+		midVirtualViewFillInfoGetAutofillHints, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVirtualViewFillInfo)), "getAutofillHints", "()[Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midVirtualViewFillInfoToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVirtualViewFillInfo)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/view/autofill/VirtualViewFillInfo$Builder")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsVirtualViewFillInfoBuilder = env.NewGlobalRef(&c.Object)
+
+		midVirtualViewFillInfoBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVirtualViewFillInfoBuilder)), "build", "()Landroid/view/autofill/VirtualViewFillInfo;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midVirtualViewFillInfoBuilderSetAutofillHints, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVirtualViewFillInfoBuilder)), "setAutofillHints", "([Ljava/lang/String;)Landroid/view/autofill/VirtualViewFillInfo$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midVirtualViewFillInfoBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVirtualViewFillInfoBuilder)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
 
 	c, err = env.FindClass("android/view/autofill/AutofillManager")
 	if err != nil {
@@ -371,61 +426,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midManagerAutofillCallbackToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsManagerAutofillCallback)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/view/autofill/VirtualViewFillInfo")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsVirtualViewFillInfo = env.NewGlobalRef(&c.Object)
-
-		midVirtualViewFillInfoGetAutofillHints, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVirtualViewFillInfo)), "getAutofillHints", "()[Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVirtualViewFillInfoToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVirtualViewFillInfo)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/view/autofill/VirtualViewFillInfo$Builder")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsVirtualViewFillInfoBuilder = env.NewGlobalRef(&c.Object)
-
-		midVirtualViewFillInfoBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVirtualViewFillInfoBuilder)), "build", "()Landroid/view/autofill/VirtualViewFillInfo;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVirtualViewFillInfoBuilderSetAutofillHints, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVirtualViewFillInfoBuilder)), "setAutofillHints", "([Ljava/lang/String;)Landroid/view/autofill/VirtualViewFillInfo$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midVirtualViewFillInfoBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsVirtualViewFillInfoBuilder)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

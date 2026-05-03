@@ -5,13 +5,13 @@
 package: units
 go_import: github.com/AndroidGoLab/jni/health/connect/datatypes/units
 classes:
-    - java_class: android.health.connect.datatypes.units.Length
-      go_type: Length
+    - java_class: android.health.connect.datatypes.units.Energy
+      go_type: Energy
       methods:
         - java_method: compareTo
           go_name: CompareTo1
           params:
-            - java_type: android.health.connect.datatypes.units.Length
+            - java_type: android.health.connect.datatypes.units.Energy
               go_name: arg0
           returns: int
           error: true
@@ -22,8 +22,8 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
-        - java_method: getInMeters
-          go_name: GetInMeters
+        - java_method: getInCalories
+          go_name: GetInCalories
           returns: double
           error: true
         - java_method: hashCode
@@ -42,232 +42,12 @@ classes:
           returns: int
           error: true
       static_methods:
-        - java_method: fromMeters
-          go_name: FromMeters
+        - java_method: fromCalories
+          go_name: FromCalories
           params:
             - java_type: double
               go_name: arg0
-          returns: android.health.connect.datatypes.units.Length
-          error: true
-    - java_class: android.health.connect.datatypes.units.Power
-      go_type: Power
-      methods:
-        - java_method: compareTo
-          go_name: CompareTo1
-          params:
-            - java_type: android.health.connect.datatypes.units.Power
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getInWatts
-          go_name: GetInWatts
-          returns: double
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: compareTo
-          go_name: CompareTo1_1
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: int
-          error: true
-      static_methods:
-        - java_method: fromWatts
-          go_name: FromWatts
-          params:
-            - java_type: double
-              go_name: arg0
-          returns: android.health.connect.datatypes.units.Power
-          error: true
-    - java_class: android.health.connect.datatypes.units.BloodGlucose
-      go_type: BloodGlucose
-      methods:
-        - java_method: compareTo
-          go_name: CompareTo1
-          params:
-            - java_type: android.health.connect.datatypes.units.BloodGlucose
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getInMillimolesPerLiter
-          go_name: GetInMillimolesPerLiter
-          returns: double
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: compareTo
-          go_name: CompareTo1_1
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: int
-          error: true
-      static_methods:
-        - java_method: fromMillimolesPerLiter
-          go_name: FromMillimolesPerLiter
-          params:
-            - java_type: double
-              go_name: arg0
-          returns: android.health.connect.datatypes.units.BloodGlucose
-          error: true
-    - java_class: android.health.connect.datatypes.units.Volume
-      go_type: Volume
-      methods:
-        - java_method: compareTo
-          go_name: CompareTo1
-          params:
-            - java_type: android.health.connect.datatypes.units.Volume
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getInLiters
-          go_name: GetInLiters
-          returns: double
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: compareTo
-          go_name: CompareTo1_1
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: int
-          error: true
-      static_methods:
-        - java_method: fromLiters
-          go_name: FromLiters
-          params:
-            - java_type: double
-              go_name: arg0
-          returns: android.health.connect.datatypes.units.Volume
-          error: true
-    - java_class: android.health.connect.datatypes.units.Temperature
-      go_type: Temperature
-      methods:
-        - java_method: compareTo
-          go_name: CompareTo1
-          params:
-            - java_type: android.health.connect.datatypes.units.Temperature
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getInCelsius
-          go_name: GetInCelsius
-          returns: double
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: compareTo
-          go_name: CompareTo1_1
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: int
-          error: true
-      static_methods:
-        - java_method: fromCelsius
-          go_name: FromCelsius
-          params:
-            - java_type: double
-              go_name: arg0
-          returns: android.health.connect.datatypes.units.Temperature
-          error: true
-    - java_class: android.health.connect.datatypes.units.Pressure
-      go_type: Pressure
-      methods:
-        - java_method: compareTo
-          go_name: CompareTo1
-          params:
-            - java_type: android.health.connect.datatypes.units.Pressure
-              go_name: arg0
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getInMillimetersOfMercury
-          go_name: GetInMillimetersOfMercury
-          returns: double
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: compareTo
-          go_name: CompareTo1_1
-          params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: int
-          error: true
-      static_methods:
-        - java_method: fromMillimetersOfMercury
-          go_name: FromMillimetersOfMercury
-          params:
-            - java_type: double
-              go_name: arg0
-          returns: android.health.connect.datatypes.units.Pressure
+          returns: android.health.connect.datatypes.units.Energy
           error: true
     - java_class: android.health.connect.datatypes.units.Velocity
       go_type: Velocity
@@ -357,13 +137,13 @@ classes:
               go_name: arg0
           returns: android.health.connect.datatypes.units.TemperatureDelta
           error: true
-    - java_class: android.health.connect.datatypes.units.Mass
-      go_type: Mass
+    - java_class: android.health.connect.datatypes.units.Pressure
+      go_type: Pressure
       methods:
         - java_method: compareTo
           go_name: CompareTo1
           params:
-            - java_type: android.health.connect.datatypes.units.Mass
+            - java_type: android.health.connect.datatypes.units.Pressure
               go_name: arg0
           returns: int
           error: true
@@ -374,8 +154,8 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
-        - java_method: getInGrams
-          go_name: GetInGrams
+        - java_method: getInMillimetersOfMercury
+          go_name: GetInMillimetersOfMercury
           returns: double
           error: true
         - java_method: hashCode
@@ -394,20 +174,20 @@ classes:
           returns: int
           error: true
       static_methods:
-        - java_method: fromGrams
-          go_name: FromGrams
+        - java_method: fromMillimetersOfMercury
+          go_name: FromMillimetersOfMercury
           params:
             - java_type: double
               go_name: arg0
-          returns: android.health.connect.datatypes.units.Mass
+          returns: android.health.connect.datatypes.units.Pressure
           error: true
-    - java_class: android.health.connect.datatypes.units.Energy
-      go_type: Energy
+    - java_class: android.health.connect.datatypes.units.Temperature
+      go_type: Temperature
       methods:
         - java_method: compareTo
           go_name: CompareTo1
           params:
-            - java_type: android.health.connect.datatypes.units.Energy
+            - java_type: android.health.connect.datatypes.units.Temperature
               go_name: arg0
           returns: int
           error: true
@@ -418,8 +198,8 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
-        - java_method: getInCalories
-          go_name: GetInCalories
+        - java_method: getInCelsius
+          go_name: GetInCelsius
           returns: double
           error: true
         - java_method: hashCode
@@ -438,12 +218,144 @@ classes:
           returns: int
           error: true
       static_methods:
-        - java_method: fromCalories
-          go_name: FromCalories
+        - java_method: fromCelsius
+          go_name: FromCelsius
           params:
             - java_type: double
               go_name: arg0
-          returns: android.health.connect.datatypes.units.Energy
+          returns: android.health.connect.datatypes.units.Temperature
+          error: true
+    - java_class: android.health.connect.datatypes.units.Power
+      go_type: Power
+      methods:
+        - java_method: compareTo
+          go_name: CompareTo1
+          params:
+            - java_type: android.health.connect.datatypes.units.Power
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getInWatts
+          go_name: GetInWatts
+          returns: double
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: compareTo
+          go_name: CompareTo1_1
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: int
+          error: true
+      static_methods:
+        - java_method: fromWatts
+          go_name: FromWatts
+          params:
+            - java_type: double
+              go_name: arg0
+          returns: android.health.connect.datatypes.units.Power
+          error: true
+    - java_class: android.health.connect.datatypes.units.BloodGlucose
+      go_type: BloodGlucose
+      methods:
+        - java_method: compareTo
+          go_name: CompareTo1
+          params:
+            - java_type: android.health.connect.datatypes.units.BloodGlucose
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getInMillimolesPerLiter
+          go_name: GetInMillimolesPerLiter
+          returns: double
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: compareTo
+          go_name: CompareTo1_1
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: int
+          error: true
+      static_methods:
+        - java_method: fromMillimolesPerLiter
+          go_name: FromMillimolesPerLiter
+          params:
+            - java_type: double
+              go_name: arg0
+          returns: android.health.connect.datatypes.units.BloodGlucose
+          error: true
+    - java_class: android.health.connect.datatypes.units.Length
+      go_type: Length
+      methods:
+        - java_method: compareTo
+          go_name: CompareTo1
+          params:
+            - java_type: android.health.connect.datatypes.units.Length
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getInMeters
+          go_name: GetInMeters
+          returns: double
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: compareTo
+          go_name: CompareTo1_1
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: int
+          error: true
+      static_methods:
+        - java_method: fromMeters
+          go_name: FromMeters
+          params:
+            - java_type: double
+              go_name: arg0
+          returns: android.health.connect.datatypes.units.Length
           error: true
     - java_class: android.health.connect.datatypes.units.Percentage
       go_type: Percentage
@@ -488,4 +400,92 @@ classes:
             - java_type: double
               go_name: arg0
           returns: android.health.connect.datatypes.units.Percentage
+          error: true
+    - java_class: android.health.connect.datatypes.units.Volume
+      go_type: Volume
+      methods:
+        - java_method: compareTo
+          go_name: CompareTo1
+          params:
+            - java_type: android.health.connect.datatypes.units.Volume
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getInLiters
+          go_name: GetInLiters
+          returns: double
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: compareTo
+          go_name: CompareTo1_1
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: int
+          error: true
+      static_methods:
+        - java_method: fromLiters
+          go_name: FromLiters
+          params:
+            - java_type: double
+              go_name: arg0
+          returns: android.health.connect.datatypes.units.Volume
+          error: true
+    - java_class: android.health.connect.datatypes.units.Mass
+      go_type: Mass
+      methods:
+        - java_method: compareTo
+          go_name: CompareTo1
+          params:
+            - java_type: android.health.connect.datatypes.units.Mass
+              go_name: arg0
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getInGrams
+          go_name: GetInGrams
+          returns: double
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: compareTo
+          go_name: CompareTo1_1
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: int
+          error: true
+      static_methods:
+        - java_method: fromGrams
+          go_name: FromGrams
+          params:
+            - java_type: double
+              go_name: arg0
+          returns: android.health.connect.datatypes.units.Mass
           error: true

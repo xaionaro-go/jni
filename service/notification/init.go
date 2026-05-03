@@ -23,24 +23,70 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsZenDeviceEffects                             *jni.GlobalRef
-	midZenDeviceEffectsDescribeContents             jni.MethodID
-	midZenDeviceEffectsEquals                       jni.MethodID
-	midZenDeviceEffectsHashCode                     jni.MethodID
-	midZenDeviceEffectsShouldDimWallpaper           jni.MethodID
-	midZenDeviceEffectsShouldDisplayGrayscale       jni.MethodID
-	midZenDeviceEffectsShouldSuppressAmbientDisplay jni.MethodID
-	midZenDeviceEffectsShouldUseNightMode           jni.MethodID
-	midZenDeviceEffectsToString                     jni.MethodID
-	midZenDeviceEffectsWriteToParcel                jni.MethodID
+	clsZenPolicy                                 *jni.GlobalRef
+	midZenPolicyDescribeContents                 jni.MethodID
+	midZenPolicyEquals                           jni.MethodID
+	midZenPolicyGetPriorityCallSenders           jni.MethodID
+	midZenPolicyGetPriorityCategoryAlarms        jni.MethodID
+	midZenPolicyGetPriorityCategoryCalls         jni.MethodID
+	midZenPolicyGetPriorityCategoryConversations jni.MethodID
+	midZenPolicyGetPriorityCategoryEvents        jni.MethodID
+	midZenPolicyGetPriorityCategoryMedia         jni.MethodID
+	midZenPolicyGetPriorityCategoryMessages      jni.MethodID
+	midZenPolicyGetPriorityCategoryReminders     jni.MethodID
+	midZenPolicyGetPriorityCategoryRepeatCallers jni.MethodID
+	midZenPolicyGetPriorityCategorySystem        jni.MethodID
+	midZenPolicyGetPriorityChannelsAllowed       jni.MethodID
+	midZenPolicyGetPriorityConversationSenders   jni.MethodID
+	midZenPolicyGetPriorityMessageSenders        jni.MethodID
+	midZenPolicyGetVisualEffectAmbient           jni.MethodID
+	midZenPolicyGetVisualEffectBadge             jni.MethodID
+	midZenPolicyGetVisualEffectFullScreenIntent  jni.MethodID
+	midZenPolicyGetVisualEffectLights            jni.MethodID
+	midZenPolicyGetVisualEffectNotificationList  jni.MethodID
+	midZenPolicyGetVisualEffectPeek              jni.MethodID
+	midZenPolicyGetVisualEffectStatusBar         jni.MethodID
+	midZenPolicyHashCode                         jni.MethodID
+	midZenPolicyToString                         jni.MethodID
+	midZenPolicyWriteToParcel                    jni.MethodID
 
-	clsZenDeviceEffectsBuilder                                *jni.GlobalRef
-	midZenDeviceEffectsBuilderBuild                           jni.MethodID
-	midZenDeviceEffectsBuilderSetShouldDimWallpaper           jni.MethodID
-	midZenDeviceEffectsBuilderSetShouldDisplayGrayscale       jni.MethodID
-	midZenDeviceEffectsBuilderSetShouldSuppressAmbientDisplay jni.MethodID
-	midZenDeviceEffectsBuilderSetShouldUseNightMode           jni.MethodID
-	midZenDeviceEffectsBuilderToString                        jni.MethodID
+	clsZenPolicyBuilder                       *jni.GlobalRef
+	midZenPolicyBuilderAllowAlarms            jni.MethodID
+	midZenPolicyBuilderAllowAllSounds         jni.MethodID
+	midZenPolicyBuilderAllowCalls             jni.MethodID
+	midZenPolicyBuilderAllowConversations     jni.MethodID
+	midZenPolicyBuilderAllowEvents            jni.MethodID
+	midZenPolicyBuilderAllowMedia             jni.MethodID
+	midZenPolicyBuilderAllowMessages          jni.MethodID
+	midZenPolicyBuilderAllowPriorityChannels  jni.MethodID
+	midZenPolicyBuilderAllowReminders         jni.MethodID
+	midZenPolicyBuilderAllowRepeatCallers     jni.MethodID
+	midZenPolicyBuilderAllowSystem            jni.MethodID
+	midZenPolicyBuilderBuild                  jni.MethodID
+	midZenPolicyBuilderDisallowAllSounds      jni.MethodID
+	midZenPolicyBuilderHideAllVisualEffects   jni.MethodID
+	midZenPolicyBuilderShowAllVisualEffects   jni.MethodID
+	midZenPolicyBuilderShowBadges             jni.MethodID
+	midZenPolicyBuilderShowFullScreenIntent   jni.MethodID
+	midZenPolicyBuilderShowInAmbientDisplay   jni.MethodID
+	midZenPolicyBuilderShowInNotificationList jni.MethodID
+	midZenPolicyBuilderShowLights             jni.MethodID
+	midZenPolicyBuilderShowPeeking            jni.MethodID
+	midZenPolicyBuilderShowStatusBarIcons     jni.MethodID
+	midZenPolicyBuilderToString               jni.MethodID
+
+	clsCondition                  *jni.GlobalRef
+	midConditionCtor              jni.MethodID
+	midConditionCopy              jni.MethodID
+	midConditionDescribeContents  jni.MethodID
+	midConditionEquals            jni.MethodID
+	midConditionHashCode          jni.MethodID
+	midConditionToString          jni.MethodID
+	midConditionWriteToParcel     jni.MethodID
+	midConditionIsValidId         jni.MethodID
+	midConditionNewId             jni.MethodID
+	midConditionRelevanceToString jni.MethodID
+	midConditionStateToString     jni.MethodID
 
 	clsListenerService                                                *jni.GlobalRef
 	midListenerServiceCancelAllNotifications                          jni.MethodID
@@ -113,6 +159,25 @@ var (
 	midListenerServiceRankingMapWriteToParcel    jni.MethodID
 	midListenerServiceRankingMapToString         jni.MethodID
 
+	clsZenDeviceEffects                             *jni.GlobalRef
+	midZenDeviceEffectsDescribeContents             jni.MethodID
+	midZenDeviceEffectsEquals                       jni.MethodID
+	midZenDeviceEffectsHashCode                     jni.MethodID
+	midZenDeviceEffectsShouldDimWallpaper           jni.MethodID
+	midZenDeviceEffectsShouldDisplayGrayscale       jni.MethodID
+	midZenDeviceEffectsShouldSuppressAmbientDisplay jni.MethodID
+	midZenDeviceEffectsShouldUseNightMode           jni.MethodID
+	midZenDeviceEffectsToString                     jni.MethodID
+	midZenDeviceEffectsWriteToParcel                jni.MethodID
+
+	clsZenDeviceEffectsBuilder                                *jni.GlobalRef
+	midZenDeviceEffectsBuilderBuild                           jni.MethodID
+	midZenDeviceEffectsBuilderSetShouldDimWallpaper           jni.MethodID
+	midZenDeviceEffectsBuilderSetShouldDisplayGrayscale       jni.MethodID
+	midZenDeviceEffectsBuilderSetShouldSuppressAmbientDisplay jni.MethodID
+	midZenDeviceEffectsBuilderSetShouldUseNightMode           jni.MethodID
+	midZenDeviceEffectsBuilderToString                        jni.MethodID
+
 	clsConditionProviderService                    *jni.GlobalRef
 	midConditionProviderServiceNotifyCondition     jni.MethodID
 	midConditionProviderServiceNotifyConditions    jni.MethodID
@@ -124,71 +189,6 @@ var (
 	midConditionProviderServiceRequestUnbind       jni.MethodID
 	midConditionProviderServiceToString            jni.MethodID
 	midConditionProviderServiceRequestRebind       jni.MethodID
-
-	clsCondition                  *jni.GlobalRef
-	midConditionCtor              jni.MethodID
-	midConditionCopy              jni.MethodID
-	midConditionDescribeContents  jni.MethodID
-	midConditionEquals            jni.MethodID
-	midConditionHashCode          jni.MethodID
-	midConditionToString          jni.MethodID
-	midConditionWriteToParcel     jni.MethodID
-	midConditionIsValidId         jni.MethodID
-	midConditionNewId             jni.MethodID
-	midConditionRelevanceToString jni.MethodID
-	midConditionStateToString     jni.MethodID
-
-	clsZenPolicy                                 *jni.GlobalRef
-	midZenPolicyDescribeContents                 jni.MethodID
-	midZenPolicyEquals                           jni.MethodID
-	midZenPolicyGetPriorityCallSenders           jni.MethodID
-	midZenPolicyGetPriorityCategoryAlarms        jni.MethodID
-	midZenPolicyGetPriorityCategoryCalls         jni.MethodID
-	midZenPolicyGetPriorityCategoryConversations jni.MethodID
-	midZenPolicyGetPriorityCategoryEvents        jni.MethodID
-	midZenPolicyGetPriorityCategoryMedia         jni.MethodID
-	midZenPolicyGetPriorityCategoryMessages      jni.MethodID
-	midZenPolicyGetPriorityCategoryReminders     jni.MethodID
-	midZenPolicyGetPriorityCategoryRepeatCallers jni.MethodID
-	midZenPolicyGetPriorityCategorySystem        jni.MethodID
-	midZenPolicyGetPriorityChannelsAllowed       jni.MethodID
-	midZenPolicyGetPriorityConversationSenders   jni.MethodID
-	midZenPolicyGetPriorityMessageSenders        jni.MethodID
-	midZenPolicyGetVisualEffectAmbient           jni.MethodID
-	midZenPolicyGetVisualEffectBadge             jni.MethodID
-	midZenPolicyGetVisualEffectFullScreenIntent  jni.MethodID
-	midZenPolicyGetVisualEffectLights            jni.MethodID
-	midZenPolicyGetVisualEffectNotificationList  jni.MethodID
-	midZenPolicyGetVisualEffectPeek              jni.MethodID
-	midZenPolicyGetVisualEffectStatusBar         jni.MethodID
-	midZenPolicyHashCode                         jni.MethodID
-	midZenPolicyToString                         jni.MethodID
-	midZenPolicyWriteToParcel                    jni.MethodID
-
-	clsZenPolicyBuilder                       *jni.GlobalRef
-	midZenPolicyBuilderAllowAlarms            jni.MethodID
-	midZenPolicyBuilderAllowAllSounds         jni.MethodID
-	midZenPolicyBuilderAllowCalls             jni.MethodID
-	midZenPolicyBuilderAllowConversations     jni.MethodID
-	midZenPolicyBuilderAllowEvents            jni.MethodID
-	midZenPolicyBuilderAllowMedia             jni.MethodID
-	midZenPolicyBuilderAllowMessages          jni.MethodID
-	midZenPolicyBuilderAllowPriorityChannels  jni.MethodID
-	midZenPolicyBuilderAllowReminders         jni.MethodID
-	midZenPolicyBuilderAllowRepeatCallers     jni.MethodID
-	midZenPolicyBuilderAllowSystem            jni.MethodID
-	midZenPolicyBuilderBuild                  jni.MethodID
-	midZenPolicyBuilderDisallowAllSounds      jni.MethodID
-	midZenPolicyBuilderHideAllVisualEffects   jni.MethodID
-	midZenPolicyBuilderShowAllVisualEffects   jni.MethodID
-	midZenPolicyBuilderShowBadges             jni.MethodID
-	midZenPolicyBuilderShowFullScreenIntent   jni.MethodID
-	midZenPolicyBuilderShowInAmbientDisplay   jni.MethodID
-	midZenPolicyBuilderShowInNotificationList jni.MethodID
-	midZenPolicyBuilderShowLights             jni.MethodID
-	midZenPolicyBuilderShowPeeking            jni.MethodID
-	midZenPolicyBuilderShowStatusBarIcons     jni.MethodID
-	midZenPolicyBuilderToString               jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -209,71 +209,183 @@ func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
 
-	c, err = env.FindClass("android/service/notification/ZenDeviceEffects")
+	c, err = env.FindClass("android/service/notification/ZenPolicy")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsZenDeviceEffects = env.NewGlobalRef(&c.Object)
+		clsZenPolicy = env.NewGlobalRef(&c.Object)
 
-		midZenDeviceEffectsDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenDeviceEffects)), "describeContents", "()I")
+		midZenPolicyDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicy)), "describeContents", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midZenDeviceEffectsEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenDeviceEffects)), "equals", "(Ljava/lang/Object;)Z")
+		midZenPolicyEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicy)), "equals", "(Ljava/lang/Object;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midZenDeviceEffectsHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenDeviceEffects)), "hashCode", "()I")
+		midZenPolicyGetPriorityCallSenders, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicy)), "getPriorityCallSenders", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midZenDeviceEffectsShouldDimWallpaper, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenDeviceEffects)), "shouldDimWallpaper", "()Z")
+		midZenPolicyGetPriorityCategoryAlarms, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicy)), "getPriorityCategoryAlarms", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midZenDeviceEffectsShouldDisplayGrayscale, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenDeviceEffects)), "shouldDisplayGrayscale", "()Z")
+		midZenPolicyGetPriorityCategoryCalls, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicy)), "getPriorityCategoryCalls", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midZenDeviceEffectsShouldSuppressAmbientDisplay, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenDeviceEffects)), "shouldSuppressAmbientDisplay", "()Z")
+		midZenPolicyGetPriorityCategoryConversations, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicy)), "getPriorityCategoryConversations", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midZenDeviceEffectsShouldUseNightMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenDeviceEffects)), "shouldUseNightMode", "()Z")
+		midZenPolicyGetPriorityCategoryEvents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicy)), "getPriorityCategoryEvents", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midZenDeviceEffectsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenDeviceEffects)), "toString", "()Ljava/lang/String;")
+		midZenPolicyGetPriorityCategoryMedia, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicy)), "getPriorityCategoryMedia", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midZenDeviceEffectsWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenDeviceEffects)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midZenPolicyGetPriorityCategoryMessages, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicy)), "getPriorityCategoryMessages", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midZenPolicyGetPriorityCategoryReminders, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicy)), "getPriorityCategoryReminders", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midZenPolicyGetPriorityCategoryRepeatCallers, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicy)), "getPriorityCategoryRepeatCallers", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midZenPolicyGetPriorityCategorySystem, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicy)), "getPriorityCategorySystem", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midZenPolicyGetPriorityChannelsAllowed, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicy)), "getPriorityChannelsAllowed", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midZenPolicyGetPriorityConversationSenders, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicy)), "getPriorityConversationSenders", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midZenPolicyGetPriorityMessageSenders, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicy)), "getPriorityMessageSenders", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midZenPolicyGetVisualEffectAmbient, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicy)), "getVisualEffectAmbient", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midZenPolicyGetVisualEffectBadge, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicy)), "getVisualEffectBadge", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midZenPolicyGetVisualEffectFullScreenIntent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicy)), "getVisualEffectFullScreenIntent", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midZenPolicyGetVisualEffectLights, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicy)), "getVisualEffectLights", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midZenPolicyGetVisualEffectNotificationList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicy)), "getVisualEffectNotificationList", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midZenPolicyGetVisualEffectPeek, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicy)), "getVisualEffectPeek", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midZenPolicyGetVisualEffectStatusBar, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicy)), "getVisualEffectStatusBar", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midZenPolicyHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicy)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midZenPolicyToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicy)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midZenPolicyWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicy)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -282,50 +394,253 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/service/notification/ZenDeviceEffects$Builder")
+	c, err = env.FindClass("android/service/notification/ZenPolicy$Builder")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsZenDeviceEffectsBuilder = env.NewGlobalRef(&c.Object)
+		clsZenPolicyBuilder = env.NewGlobalRef(&c.Object)
 
-		midZenDeviceEffectsBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenDeviceEffectsBuilder)), "build", "()Landroid/service/notification/ZenDeviceEffects;")
+		midZenPolicyBuilderAllowAlarms, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicyBuilder)), "allowAlarms", "(Z)Landroid/service/notification/ZenPolicy$Builder;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midZenDeviceEffectsBuilderSetShouldDimWallpaper, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenDeviceEffectsBuilder)), "setShouldDimWallpaper", "(Z)Landroid/service/notification/ZenDeviceEffects$Builder;")
+		midZenPolicyBuilderAllowAllSounds, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicyBuilder)), "allowAllSounds", "()Landroid/service/notification/ZenPolicy$Builder;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midZenDeviceEffectsBuilderSetShouldDisplayGrayscale, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenDeviceEffectsBuilder)), "setShouldDisplayGrayscale", "(Z)Landroid/service/notification/ZenDeviceEffects$Builder;")
+		midZenPolicyBuilderAllowCalls, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicyBuilder)), "allowCalls", "(I)Landroid/service/notification/ZenPolicy$Builder;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midZenDeviceEffectsBuilderSetShouldSuppressAmbientDisplay, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenDeviceEffectsBuilder)), "setShouldSuppressAmbientDisplay", "(Z)Landroid/service/notification/ZenDeviceEffects$Builder;")
+		midZenPolicyBuilderAllowConversations, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicyBuilder)), "allowConversations", "(I)Landroid/service/notification/ZenPolicy$Builder;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midZenDeviceEffectsBuilderSetShouldUseNightMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenDeviceEffectsBuilder)), "setShouldUseNightMode", "(Z)Landroid/service/notification/ZenDeviceEffects$Builder;")
+		midZenPolicyBuilderAllowEvents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicyBuilder)), "allowEvents", "(Z)Landroid/service/notification/ZenPolicy$Builder;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midZenDeviceEffectsBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenDeviceEffectsBuilder)), "toString", "()Ljava/lang/String;")
+		midZenPolicyBuilderAllowMedia, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicyBuilder)), "allowMedia", "(Z)Landroid/service/notification/ZenPolicy$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midZenPolicyBuilderAllowMessages, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicyBuilder)), "allowMessages", "(I)Landroid/service/notification/ZenPolicy$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midZenPolicyBuilderAllowPriorityChannels, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicyBuilder)), "allowPriorityChannels", "(Z)Landroid/service/notification/ZenPolicy$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midZenPolicyBuilderAllowReminders, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicyBuilder)), "allowReminders", "(Z)Landroid/service/notification/ZenPolicy$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midZenPolicyBuilderAllowRepeatCallers, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicyBuilder)), "allowRepeatCallers", "(Z)Landroid/service/notification/ZenPolicy$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midZenPolicyBuilderAllowSystem, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicyBuilder)), "allowSystem", "(Z)Landroid/service/notification/ZenPolicy$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midZenPolicyBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicyBuilder)), "build", "()Landroid/service/notification/ZenPolicy;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midZenPolicyBuilderDisallowAllSounds, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicyBuilder)), "disallowAllSounds", "()Landroid/service/notification/ZenPolicy$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midZenPolicyBuilderHideAllVisualEffects, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicyBuilder)), "hideAllVisualEffects", "()Landroid/service/notification/ZenPolicy$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midZenPolicyBuilderShowAllVisualEffects, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicyBuilder)), "showAllVisualEffects", "()Landroid/service/notification/ZenPolicy$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midZenPolicyBuilderShowBadges, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicyBuilder)), "showBadges", "(Z)Landroid/service/notification/ZenPolicy$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midZenPolicyBuilderShowFullScreenIntent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicyBuilder)), "showFullScreenIntent", "(Z)Landroid/service/notification/ZenPolicy$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midZenPolicyBuilderShowInAmbientDisplay, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicyBuilder)), "showInAmbientDisplay", "(Z)Landroid/service/notification/ZenPolicy$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midZenPolicyBuilderShowInNotificationList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicyBuilder)), "showInNotificationList", "(Z)Landroid/service/notification/ZenPolicy$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midZenPolicyBuilderShowLights, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicyBuilder)), "showLights", "(Z)Landroid/service/notification/ZenPolicy$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midZenPolicyBuilderShowPeeking, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicyBuilder)), "showPeeking", "(Z)Landroid/service/notification/ZenPolicy$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midZenPolicyBuilderShowStatusBarIcons, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicyBuilder)), "showStatusBarIcons", "(Z)Landroid/service/notification/ZenPolicy$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midZenPolicyBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicyBuilder)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/service/notification/Condition")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsCondition = env.NewGlobalRef(&c.Object)
+		midConditionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCondition)), "<init>", "(Landroid/net/Uri;Ljava/lang/String;I)V")
+		if err != nil {
+			env.ExceptionClear()
+		}
+
+		midConditionCopy, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCondition)), "copy", "()Landroid/service/notification/Condition;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConditionDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCondition)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConditionEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCondition)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConditionHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCondition)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConditionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCondition)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConditionWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCondition)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConditionIsValidId, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCondition)), "isValidId", "(Landroid/net/Uri;Ljava/lang/String;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConditionNewId, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCondition)), "newId", "(Landroid/content/Context;)Landroid/net/Uri$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConditionRelevanceToString, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCondition)), "relevanceToString", "(I)Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midConditionStateToString, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCondition)), "stateToString", "(I)Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -819,6 +1134,131 @@ func doInit(env *jni.Env) error {
 
 	}
 
+	c, err = env.FindClass("android/service/notification/ZenDeviceEffects")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsZenDeviceEffects = env.NewGlobalRef(&c.Object)
+
+		midZenDeviceEffectsDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenDeviceEffects)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midZenDeviceEffectsEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenDeviceEffects)), "equals", "(Ljava/lang/Object;)Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midZenDeviceEffectsHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenDeviceEffects)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midZenDeviceEffectsShouldDimWallpaper, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenDeviceEffects)), "shouldDimWallpaper", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midZenDeviceEffectsShouldDisplayGrayscale, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenDeviceEffects)), "shouldDisplayGrayscale", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midZenDeviceEffectsShouldSuppressAmbientDisplay, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenDeviceEffects)), "shouldSuppressAmbientDisplay", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midZenDeviceEffectsShouldUseNightMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenDeviceEffects)), "shouldUseNightMode", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midZenDeviceEffectsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenDeviceEffects)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midZenDeviceEffectsWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenDeviceEffects)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/service/notification/ZenDeviceEffects$Builder")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsZenDeviceEffectsBuilder = env.NewGlobalRef(&c.Object)
+
+		midZenDeviceEffectsBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenDeviceEffectsBuilder)), "build", "()Landroid/service/notification/ZenDeviceEffects;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midZenDeviceEffectsBuilderSetShouldDimWallpaper, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenDeviceEffectsBuilder)), "setShouldDimWallpaper", "(Z)Landroid/service/notification/ZenDeviceEffects$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midZenDeviceEffectsBuilderSetShouldDisplayGrayscale, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenDeviceEffectsBuilder)), "setShouldDisplayGrayscale", "(Z)Landroid/service/notification/ZenDeviceEffects$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midZenDeviceEffectsBuilderSetShouldSuppressAmbientDisplay, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenDeviceEffectsBuilder)), "setShouldSuppressAmbientDisplay", "(Z)Landroid/service/notification/ZenDeviceEffects$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midZenDeviceEffectsBuilderSetShouldUseNightMode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenDeviceEffectsBuilder)), "setShouldUseNightMode", "(Z)Landroid/service/notification/ZenDeviceEffects$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midZenDeviceEffectsBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenDeviceEffectsBuilder)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
 	c, err = env.FindClass("android/service/notification/ConditionProviderService")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
@@ -891,446 +1331,6 @@ func doInit(env *jni.Env) error {
 		}
 
 		midConditionProviderServiceRequestRebind, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsConditionProviderService)), "requestRebind", "(Landroid/content/ComponentName;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/service/notification/Condition")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsCondition = env.NewGlobalRef(&c.Object)
-		midConditionCtor, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCondition)), "<init>", "(Landroid/net/Uri;Ljava/lang/String;I)V")
-		if err != nil {
-			env.ExceptionClear()
-		}
-
-		midConditionCopy, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCondition)), "copy", "()Landroid/service/notification/Condition;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConditionDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCondition)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConditionEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCondition)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConditionHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCondition)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConditionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCondition)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConditionWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsCondition)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConditionIsValidId, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCondition)), "isValidId", "(Landroid/net/Uri;Ljava/lang/String;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConditionNewId, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCondition)), "newId", "(Landroid/content/Context;)Landroid/net/Uri$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConditionRelevanceToString, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCondition)), "relevanceToString", "(I)Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midConditionStateToString, err = env.GetStaticMethodID((*jni.Class)(unsafe.Pointer(clsCondition)), "stateToString", "(I)Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/service/notification/ZenPolicy")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsZenPolicy = env.NewGlobalRef(&c.Object)
-
-		midZenPolicyDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicy)), "describeContents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midZenPolicyEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicy)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midZenPolicyGetPriorityCallSenders, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicy)), "getPriorityCallSenders", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midZenPolicyGetPriorityCategoryAlarms, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicy)), "getPriorityCategoryAlarms", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midZenPolicyGetPriorityCategoryCalls, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicy)), "getPriorityCategoryCalls", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midZenPolicyGetPriorityCategoryConversations, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicy)), "getPriorityCategoryConversations", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midZenPolicyGetPriorityCategoryEvents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicy)), "getPriorityCategoryEvents", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midZenPolicyGetPriorityCategoryMedia, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicy)), "getPriorityCategoryMedia", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midZenPolicyGetPriorityCategoryMessages, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicy)), "getPriorityCategoryMessages", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midZenPolicyGetPriorityCategoryReminders, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicy)), "getPriorityCategoryReminders", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midZenPolicyGetPriorityCategoryRepeatCallers, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicy)), "getPriorityCategoryRepeatCallers", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midZenPolicyGetPriorityCategorySystem, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicy)), "getPriorityCategorySystem", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midZenPolicyGetPriorityChannelsAllowed, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicy)), "getPriorityChannelsAllowed", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midZenPolicyGetPriorityConversationSenders, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicy)), "getPriorityConversationSenders", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midZenPolicyGetPriorityMessageSenders, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicy)), "getPriorityMessageSenders", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midZenPolicyGetVisualEffectAmbient, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicy)), "getVisualEffectAmbient", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midZenPolicyGetVisualEffectBadge, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicy)), "getVisualEffectBadge", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midZenPolicyGetVisualEffectFullScreenIntent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicy)), "getVisualEffectFullScreenIntent", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midZenPolicyGetVisualEffectLights, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicy)), "getVisualEffectLights", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midZenPolicyGetVisualEffectNotificationList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicy)), "getVisualEffectNotificationList", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midZenPolicyGetVisualEffectPeek, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicy)), "getVisualEffectPeek", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midZenPolicyGetVisualEffectStatusBar, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicy)), "getVisualEffectStatusBar", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midZenPolicyHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicy)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midZenPolicyToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicy)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midZenPolicyWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicy)), "writeToParcel", "(Landroid/os/Parcel;I)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/service/notification/ZenPolicy$Builder")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsZenPolicyBuilder = env.NewGlobalRef(&c.Object)
-
-		midZenPolicyBuilderAllowAlarms, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicyBuilder)), "allowAlarms", "(Z)Landroid/service/notification/ZenPolicy$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midZenPolicyBuilderAllowAllSounds, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicyBuilder)), "allowAllSounds", "()Landroid/service/notification/ZenPolicy$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midZenPolicyBuilderAllowCalls, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicyBuilder)), "allowCalls", "(I)Landroid/service/notification/ZenPolicy$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midZenPolicyBuilderAllowConversations, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicyBuilder)), "allowConversations", "(I)Landroid/service/notification/ZenPolicy$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midZenPolicyBuilderAllowEvents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicyBuilder)), "allowEvents", "(Z)Landroid/service/notification/ZenPolicy$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midZenPolicyBuilderAllowMedia, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicyBuilder)), "allowMedia", "(Z)Landroid/service/notification/ZenPolicy$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midZenPolicyBuilderAllowMessages, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicyBuilder)), "allowMessages", "(I)Landroid/service/notification/ZenPolicy$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midZenPolicyBuilderAllowPriorityChannels, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicyBuilder)), "allowPriorityChannels", "(Z)Landroid/service/notification/ZenPolicy$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midZenPolicyBuilderAllowReminders, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicyBuilder)), "allowReminders", "(Z)Landroid/service/notification/ZenPolicy$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midZenPolicyBuilderAllowRepeatCallers, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicyBuilder)), "allowRepeatCallers", "(Z)Landroid/service/notification/ZenPolicy$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midZenPolicyBuilderAllowSystem, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicyBuilder)), "allowSystem", "(Z)Landroid/service/notification/ZenPolicy$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midZenPolicyBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicyBuilder)), "build", "()Landroid/service/notification/ZenPolicy;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midZenPolicyBuilderDisallowAllSounds, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicyBuilder)), "disallowAllSounds", "()Landroid/service/notification/ZenPolicy$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midZenPolicyBuilderHideAllVisualEffects, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicyBuilder)), "hideAllVisualEffects", "()Landroid/service/notification/ZenPolicy$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midZenPolicyBuilderShowAllVisualEffects, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicyBuilder)), "showAllVisualEffects", "()Landroid/service/notification/ZenPolicy$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midZenPolicyBuilderShowBadges, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicyBuilder)), "showBadges", "(Z)Landroid/service/notification/ZenPolicy$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midZenPolicyBuilderShowFullScreenIntent, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicyBuilder)), "showFullScreenIntent", "(Z)Landroid/service/notification/ZenPolicy$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midZenPolicyBuilderShowInAmbientDisplay, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicyBuilder)), "showInAmbientDisplay", "(Z)Landroid/service/notification/ZenPolicy$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midZenPolicyBuilderShowInNotificationList, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicyBuilder)), "showInNotificationList", "(Z)Landroid/service/notification/ZenPolicy$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midZenPolicyBuilderShowLights, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicyBuilder)), "showLights", "(Z)Landroid/service/notification/ZenPolicy$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midZenPolicyBuilderShowPeeking, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicyBuilder)), "showPeeking", "(Z)Landroid/service/notification/ZenPolicy$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midZenPolicyBuilderShowStatusBarIcons, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicyBuilder)), "showStatusBarIcons", "(Z)Landroid/service/notification/ZenPolicy$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midZenPolicyBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsZenPolicyBuilder)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

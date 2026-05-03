@@ -5,121 +5,29 @@
 package: wifi_rtt
 go_import: github.com/AndroidGoLab/jni/net/wifi/rtt
 classes:
-    - java_class: android.net.wifi.rtt.CivicLocationKeys
-      go_type: CivicLocationKeys
-    - java_class: android.net.wifi.rtt.ResponderLocation
-      go_type: ResponderLocation
+    - java_class: android.net.wifi.rtt.WifiRttManager
+      go_type: WifiRttManager
+      obtain: system_service
+      service_name: wifirtt
+      close: true
       methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
+        - java_method: getRttCharacteristics
+          go_name: GetRttCharacteristics
+          returns: android.os.Bundle
           error: true
-        - java_method: equals
-          go_name: Equals
+        - java_method: isAvailable
+          go_name: IsAvailable
+          returns: boolean
+          error: true
+        - java_method: startRanging
+          go_name: StartRanging
           params:
-            - java_type: java.lang.Object
+            - java_type: android.net.wifi.rtt.RangingRequest
               go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getAltitude
-          go_name: GetAltitude
-          returns: double
-          error: true
-        - java_method: getAltitudeType
-          go_name: GetAltitudeType
-          returns: int
-          error: true
-        - java_method: getAltitudeUncertainty
-          go_name: GetAltitudeUncertainty
-          returns: double
-          error: true
-        - java_method: getColocatedBssids
-          go_name: GetColocatedBssids
-          returns: java.util.List<android.net.MacAddress>
-          error: true
-        - java_method: getDatum
-          go_name: GetDatum
-          returns: int
-          error: true
-        - java_method: getExpectedToMove
-          go_name: GetExpectedToMove
-          returns: int
-          error: true
-        - java_method: getFloorNumber
-          go_name: GetFloorNumber
-          returns: double
-          error: true
-        - java_method: getHeightAboveFloorMeters
-          go_name: GetHeightAboveFloorMeters
-          returns: double
-          error: true
-        - java_method: getHeightAboveFloorUncertaintyMeters
-          go_name: GetHeightAboveFloorUncertaintyMeters
-          returns: double
-          error: true
-        - java_method: getLatitude
-          go_name: GetLatitude
-          returns: double
-          error: true
-        - java_method: getLatitudeUncertainty
-          go_name: GetLatitudeUncertainty
-          returns: double
-          error: true
-        - java_method: getLciVersion
-          go_name: GetLciVersion
-          returns: int
-          error: true
-        - java_method: getLongitude
-          go_name: GetLongitude
-          returns: double
-          error: true
-        - java_method: getLongitudeUncertainty
-          go_name: GetLongitudeUncertainty
-          returns: double
-          error: true
-        - java_method: getMapImageMimeType
-          go_name: GetMapImageMimeType
-          returns: String
-          error: true
-        - java_method: getMapImageUri
-          go_name: GetMapImageUri
-          returns: android.net.Uri
-          error: true
-        - java_method: getRegisteredLocationAgreementIndication
-          go_name: GetRegisteredLocationAgreementIndication
-          returns: boolean
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: isLciSubelementValid
-          go_name: IsLciSubelementValid
-          returns: boolean
-          error: true
-        - java_method: isZaxisSubelementValid
-          go_name: IsZaxisSubelementValid
-          returns: boolean
-          error: true
-        - java_method: toCivicLocationAddress
-          go_name: ToCivicLocationAddress
-          returns: android.location.Address
-          error: true
-        - java_method: toCivicLocationSparseArray
-          go_name: ToCivicLocationSparseArray
-          returns: android.util.SparseArray<java.lang.String>
-          error: true
-        - java_method: toLocation
-          go_name: ToLocation
-          returns: android.location.Location
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
+            - java_type: java.util.concurrent.Executor
               go_name: arg1
+            - java_type: android.net.wifi.rtt.RangingResultCallback
+              go_name: arg2
           returns: void
           error: true
     - java_class: android.net.wifi.rtt.RangingResult
@@ -468,8 +376,8 @@ classes:
               go_name: arg0
           returns: android.net.wifi.rtt.RangingResult$Builder
           error: true
-    - java_class: android.net.wifi.rtt.SecureRangingConfig
-      go_type: SecureRangingConfig
+    - java_class: android.net.wifi.rtt.ResponderLocation
+      go_type: ResponderLocation
       methods:
         - java_method: describeContents
           go_name: DescribeContents
@@ -482,21 +390,144 @@ classes:
               go_name: arg0
           returns: boolean
           error: true
-        - java_method: getPasnConfig
-          go_name: GetPasnConfig
-          returns: android.net.wifi.rtt.PasnConfig
+        - java_method: getAltitude
+          go_name: GetAltitude
+          returns: double
+          error: true
+        - java_method: getAltitudeType
+          go_name: GetAltitudeType
+          returns: int
+          error: true
+        - java_method: getAltitudeUncertainty
+          go_name: GetAltitudeUncertainty
+          returns: double
+          error: true
+        - java_method: getColocatedBssids
+          go_name: GetColocatedBssids
+          returns: java.util.List<android.net.MacAddress>
+          error: true
+        - java_method: getDatum
+          go_name: GetDatum
+          returns: int
+          error: true
+        - java_method: getExpectedToMove
+          go_name: GetExpectedToMove
+          returns: int
+          error: true
+        - java_method: getFloorNumber
+          go_name: GetFloorNumber
+          returns: double
+          error: true
+        - java_method: getHeightAboveFloorMeters
+          go_name: GetHeightAboveFloorMeters
+          returns: double
+          error: true
+        - java_method: getHeightAboveFloorUncertaintyMeters
+          go_name: GetHeightAboveFloorUncertaintyMeters
+          returns: double
+          error: true
+        - java_method: getLatitude
+          go_name: GetLatitude
+          returns: double
+          error: true
+        - java_method: getLatitudeUncertainty
+          go_name: GetLatitudeUncertainty
+          returns: double
+          error: true
+        - java_method: getLciVersion
+          go_name: GetLciVersion
+          returns: int
+          error: true
+        - java_method: getLongitude
+          go_name: GetLongitude
+          returns: double
+          error: true
+        - java_method: getLongitudeUncertainty
+          go_name: GetLongitudeUncertainty
+          returns: double
+          error: true
+        - java_method: getMapImageMimeType
+          go_name: GetMapImageMimeType
+          returns: String
+          error: true
+        - java_method: getMapImageUri
+          go_name: GetMapImageUri
+          returns: android.net.Uri
+          error: true
+        - java_method: getRegisteredLocationAgreementIndication
+          go_name: GetRegisteredLocationAgreementIndication
+          returns: boolean
           error: true
         - java_method: hashCode
           go_name: HashCode
           returns: int
           error: true
-        - java_method: isRangingFrameProtectionEnabled
-          go_name: IsRangingFrameProtectionEnabled
+        - java_method: isLciSubelementValid
+          go_name: IsLciSubelementValid
           returns: boolean
           error: true
-        - java_method: isSecureHeLtfEnabled
-          go_name: IsSecureHeLtfEnabled
+        - java_method: isZaxisSubelementValid
+          go_name: IsZaxisSubelementValid
           returns: boolean
+          error: true
+        - java_method: toCivicLocationAddress
+          go_name: ToCivicLocationAddress
+          returns: android.location.Address
+          error: true
+        - java_method: toCivicLocationSparseArray
+          go_name: ToCivicLocationSparseArray
+          returns: android.util.SparseArray<java.lang.String>
+          error: true
+        - java_method: toLocation
+          go_name: ToLocation
+          returns: android.location.Location
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.net.wifi.rtt.PasnConfig
+      go_type: PasnConfig
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getBaseAkms
+          go_name: GetBaseAkms
+          returns: int
+          error: true
+        - java_method: getCiphers
+          go_name: GetCiphers
+          returns: int
+          error: true
+        - java_method: getPasnComebackCookie
+          go_name: GetPasnComebackCookie
+          returns: '[B'
+          error: true
+        - java_method: getPassword
+          go_name: GetPassword
+          returns: String
+          error: true
+        - java_method: getWifiSsid
+          go_name: GetWifiSsid
+          returns: android.net.wifi.WifiSsid
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
           error: true
         - java_method: toString
           go_name: ToString
@@ -511,51 +542,33 @@ classes:
               go_name: arg1
           returns: void
           error: true
-    - java_class: android.net.wifi.rtt.SecureRangingConfig$Builder
-      go_type: SecureRangingConfigBuilder
+    - java_class: android.net.wifi.rtt.PasnConfig$Builder
+      go_type: PasnConfigBuilder
       methods:
         - java_method: build
           go_name: Build
-          returns: android.net.wifi.rtt.SecureRangingConfig
+          returns: android.net.wifi.rtt.PasnConfig
           error: true
-        - java_method: setRangingFrameProtectionEnabled
-          go_name: SetRangingFrameProtectionEnabled
+        - java_method: setPasnComebackCookie
+          go_name: SetPasnComebackCookie
           params:
-            - java_type: boolean
+            - java_type: '[B'
               go_name: arg0
-          returns: android.net.wifi.rtt.SecureRangingConfig$Builder
+          returns: android.net.wifi.rtt.PasnConfig$Builder
           error: true
-        - java_method: setSecureHeLtfEnabled
-          go_name: SetSecureHeLtfEnabled
+        - java_method: setPassword
+          go_name: SetPassword
           params:
-            - java_type: boolean
+            - java_type: String
               go_name: arg0
-          returns: android.net.wifi.rtt.SecureRangingConfig$Builder
+          returns: android.net.wifi.rtt.PasnConfig$Builder
           error: true
-    - java_class: android.net.wifi.rtt.WifiRttManager
-      go_type: WifiRttManager
-      obtain: system_service
-      service_name: wifirtt
-      close: true
-      methods:
-        - java_method: getRttCharacteristics
-          go_name: GetRttCharacteristics
-          returns: android.os.Bundle
-          error: true
-        - java_method: isAvailable
-          go_name: IsAvailable
-          returns: boolean
-          error: true
-        - java_method: startRanging
-          go_name: StartRanging
+        - java_method: setWifiSsid
+          go_name: SetWifiSsid
           params:
-            - java_type: android.net.wifi.rtt.RangingRequest
+            - java_type: android.net.wifi.WifiSsid
               go_name: arg0
-            - java_type: java.util.concurrent.Executor
-              go_name: arg1
-            - java_type: android.net.wifi.rtt.RangingResultCallback
-              go_name: arg2
-          returns: void
+          returns: android.net.wifi.rtt.PasnConfig$Builder
           error: true
     - java_class: android.net.wifi.rtt.RangingRequest
       go_type: RangingRequest
@@ -669,6 +682,8 @@ classes:
               go_name: arg0
           returns: android.net.wifi.rtt.RangingRequest$Builder
           error: true
+    - java_class: android.net.wifi.rtt.CivicLocationKeys
+      go_type: CivicLocationKeys
     - java_class: android.net.wifi.rtt.RangingResultCallback
       go_type: RangingResultCallback
       methods:
@@ -678,6 +693,70 @@ classes:
             - java_type: int
               go_name: arg0
           returns: void
+          error: true
+    - java_class: android.net.wifi.rtt.SecureRangingConfig
+      go_type: SecureRangingConfig
+      methods:
+        - java_method: describeContents
+          go_name: DescribeContents
+          returns: int
+          error: true
+        - java_method: equals
+          go_name: Equals
+          params:
+            - java_type: java.lang.Object
+              go_name: arg0
+          returns: boolean
+          error: true
+        - java_method: getPasnConfig
+          go_name: GetPasnConfig
+          returns: android.net.wifi.rtt.PasnConfig
+          error: true
+        - java_method: hashCode
+          go_name: HashCode
+          returns: int
+          error: true
+        - java_method: isRangingFrameProtectionEnabled
+          go_name: IsRangingFrameProtectionEnabled
+          returns: boolean
+          error: true
+        - java_method: isSecureHeLtfEnabled
+          go_name: IsSecureHeLtfEnabled
+          returns: boolean
+          error: true
+        - java_method: toString
+          go_name: ToString
+          returns: String
+          error: true
+        - java_method: writeToParcel
+          go_name: WriteToParcel
+          params:
+            - java_type: android.os.Parcel
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+    - java_class: android.net.wifi.rtt.SecureRangingConfig$Builder
+      go_type: SecureRangingConfigBuilder
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.net.wifi.rtt.SecureRangingConfig
+          error: true
+        - java_method: setRangingFrameProtectionEnabled
+          go_name: SetRangingFrameProtectionEnabled
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.net.wifi.rtt.SecureRangingConfig$Builder
+          error: true
+        - java_method: setSecureHeLtfEnabled
+          go_name: SetSecureHeLtfEnabled
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: android.net.wifi.rtt.SecureRangingConfig$Builder
           error: true
     - java_class: android.net.wifi.rtt.ResponderConfig
       go_type: ResponderConfig
@@ -835,86 +914,145 @@ classes:
               go_name: arg0
           returns: android.net.wifi.rtt.ResponderConfig$Builder
           error: true
-    - java_class: android.net.wifi.rtt.PasnConfig
-      go_type: PasnConfig
+abstract_callbacks:
+    - java_class: android.net.wifi.rtt.RangingResultCallback
+      go_type: RangingResultCallbackCallback
       methods:
-        - java_method: describeContents
-          go_name: DescribeContents
-          returns: int
-          error: true
-        - java_method: equals
-          go_name: Equals
+        - java_method: onRangingFailure
           params:
-            - java_type: java.lang.Object
-              go_name: arg0
-          returns: boolean
-          error: true
-        - java_method: getBaseAkms
-          go_name: GetBaseAkms
-          returns: int
-          error: true
-        - java_method: getCiphers
-          go_name: GetCiphers
-          returns: int
-          error: true
-        - java_method: getPasnComebackCookie
-          go_name: GetPasnComebackCookie
-          returns: '[B'
-          error: true
-        - java_method: getPassword
-          go_name: GetPassword
-          returns: String
-          error: true
-        - java_method: getWifiSsid
-          go_name: GetWifiSsid
-          returns: android.net.wifi.WifiSsid
-          error: true
-        - java_method: hashCode
-          go_name: HashCode
-          returns: int
-          error: true
-        - java_method: toString
-          go_name: ToString
-          returns: String
-          error: true
-        - java_method: writeToParcel
-          go_name: WriteToParcel
-          params:
-            - java_type: android.os.Parcel
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
+            - int
           returns: void
-          error: true
-    - java_class: android.net.wifi.rtt.PasnConfig$Builder
-      go_type: PasnConfigBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.net.wifi.rtt.PasnConfig
-          error: true
-        - java_method: setPasnComebackCookie
-          go_name: SetPasnComebackCookie
-          params:
-            - java_type: '[B'
-              go_name: arg0
-          returns: android.net.wifi.rtt.PasnConfig$Builder
-          error: true
-        - java_method: setPassword
-          go_name: SetPassword
-          params:
-            - java_type: String
-              go_name: arg0
-          returns: android.net.wifi.rtt.PasnConfig$Builder
-          error: true
-        - java_method: setWifiSsid
-          go_name: SetWifiSsid
-          params:
-            - java_type: android.net.wifi.WifiSsid
-              go_name: arg0
-          returns: android.net.wifi.rtt.PasnConfig$Builder
-          error: true
+          go_field: OnRangingFailure
 constants:
+    - go_name: ActionWifiRttStateChanged
+      value: '"android.net.wifi.rtt.action.WIFI_RTT_STATE_CHANGED"'
+      go_type: string
+    - go_name: CharacteristicsKeyBooleanLci
+      value: '"key_lci"'
+      go_type: string
+    - go_name: CharacteristicsKeyBooleanLcr
+      value: '"key_lcr"'
+      go_type: string
+    - go_name: CharacteristicsKeyBooleanNtbInitiator
+      value: '"key_ntb_initiator"'
+      go_type: string
+    - go_name: CharacteristicsKeyBooleanOneSidedRtt
+      value: '"key_one_sided_rtt"'
+      go_type: string
+    - go_name: CharacteristicsKeyBooleanRangingFrameProtectionSupported
+      value: '"key_rnm_mfp_supported"'
+      go_type: string
+    - go_name: CharacteristicsKeyBooleanSecureHeLtfSupported
+      value: '"key_secure_he_ltf_supported"'
+      go_type: string
+    - go_name: CharacteristicsKeyBooleanStaResponder
+      value: '"key_sta_responder"'
+      go_type: string
+    - go_name: CharacteristicsKeyIntMaxSupportedSecureHeLtfProtoVersion
+      value: '"key_max_supported_secure_he_ltf_proto_ver"'
+      go_type: string
+    - go_name: Creator
+      value: "0"
+      go_type: int
+    - go_name: StatusFail
+      value: "1"
+      go_type: int
+    - go_name: StatusResponderDoesNotSupportIeee80211mc
+      value: "2"
+      go_type: int
+    - go_name: StatusSuccess
+      value: "0"
+      go_type: int
+    - go_name: Unspecified
+      value: "-1"
+      go_type: int
+    - go_name: AltitudeFloors
+      value: "2"
+      go_type: int
+    - go_name: AltitudeMeters
+      value: "1"
+      go_type: int
+    - go_name: AltitudeUndefined
+      value: "0"
+      go_type: int
+    - go_name: DatumNad83Mllw
+      value: "3"
+      go_type: int
+    - go_name: DatumNad83Nav88
+      value: "2"
+      go_type: int
+    - go_name: DatumUndefined
+      value: "0"
+      go_type: int
+    - go_name: DatumWgs84
+      value: "1"
+      go_type: int
+    - go_name: LciVersion1
+      value: "1"
+      go_type: int
+    - go_name: LocationFixed
+      value: "0"
+      go_type: int
+    - go_name: LocationMovementUnknown
+      value: "2"
+      go_type: int
+    - go_name: LocationReserved
+      value: "3"
+      go_type: int
+    - go_name: LocationVariable
+      value: "1"
+      go_type: int
+    - go_name: AkmFilsEapSha256
+      value: "64"
+      go_type: int
+    - go_name: AkmFilsEapSha384
+      value: "128"
+      go_type: int
+    - go_name: AkmFtEapSha256
+      value: "4"
+      go_type: int
+    - go_name: AkmFtEapSha384
+      value: "16"
+      go_type: int
+    - go_name: AkmFtPskSha256
+      value: "8"
+      go_type: int
+    - go_name: AkmFtPskSha384
+      value: "32"
+      go_type: int
+    - go_name: AkmNone
+      value: "0"
+      go_type: int
+    - go_name: AkmPasn
+      value: "1"
+      go_type: int
+    - go_name: AkmSae
+      value: "2"
+      go_type: int
+    - go_name: CipherCcmp128
+      value: "1"
+      go_type: int
+    - go_name: CipherCcmp256
+      value: "2"
+      go_type: int
+    - go_name: CipherGcmp128
+      value: "4"
+      go_type: int
+    - go_name: CipherGcmp256
+      value: "8"
+      go_type: int
+    - go_name: CipherNone
+      value: "0"
+      go_type: int
+    - go_name: SecurityModeOpen
+      value: "0"
+      go_type: int
+    - go_name: SecurityModeOpportunistic
+      value: "1"
+      go_type: int
+    - go_name: SecurityModeSecureAuth
+      value: "2"
+      go_type: int
     - go_name: AdditionalCode
       value: "32"
       go_type: int
@@ -1011,93 +1149,6 @@ constants:
     - go_name: TypeOfPlace
       value: "29"
       go_type: int
-    - go_name: AltitudeFloors
-      value: "2"
-      go_type: int
-    - go_name: AltitudeMeters
-      value: "1"
-      go_type: int
-    - go_name: AltitudeUndefined
-      value: "0"
-      go_type: int
-    - go_name: Creator
-      value: "0"
-      go_type: int
-    - go_name: DatumNad83Mllw
-      value: "3"
-      go_type: int
-    - go_name: DatumNad83Nav88
-      value: "2"
-      go_type: int
-    - go_name: DatumUndefined
-      value: "0"
-      go_type: int
-    - go_name: DatumWgs84
-      value: "1"
-      go_type: int
-    - go_name: LciVersion1
-      value: "1"
-      go_type: int
-    - go_name: LocationFixed
-      value: "0"
-      go_type: int
-    - go_name: LocationMovementUnknown
-      value: "2"
-      go_type: int
-    - go_name: LocationReserved
-      value: "3"
-      go_type: int
-    - go_name: LocationVariable
-      value: "1"
-      go_type: int
-    - go_name: StatusFail
-      value: "1"
-      go_type: int
-    - go_name: StatusResponderDoesNotSupportIeee80211mc
-      value: "2"
-      go_type: int
-    - go_name: StatusSuccess
-      value: "0"
-      go_type: int
-    - go_name: Unspecified
-      value: "-1"
-      go_type: int
-    - go_name: ActionWifiRttStateChanged
-      value: '"android.net.wifi.rtt.action.WIFI_RTT_STATE_CHANGED"'
-      go_type: string
-    - go_name: CharacteristicsKeyBooleanLci
-      value: '"key_lci"'
-      go_type: string
-    - go_name: CharacteristicsKeyBooleanLcr
-      value: '"key_lcr"'
-      go_type: string
-    - go_name: CharacteristicsKeyBooleanNtbInitiator
-      value: '"key_ntb_initiator"'
-      go_type: string
-    - go_name: CharacteristicsKeyBooleanOneSidedRtt
-      value: '"key_one_sided_rtt"'
-      go_type: string
-    - go_name: CharacteristicsKeyBooleanRangingFrameProtectionSupported
-      value: '"key_rnm_mfp_supported"'
-      go_type: string
-    - go_name: CharacteristicsKeyBooleanSecureHeLtfSupported
-      value: '"key_secure_he_ltf_supported"'
-      go_type: string
-    - go_name: CharacteristicsKeyBooleanStaResponder
-      value: '"key_sta_responder"'
-      go_type: string
-    - go_name: CharacteristicsKeyIntMaxSupportedSecureHeLtfProtoVersion
-      value: '"key_max_supported_secure_he_ltf_proto_ver"'
-      go_type: string
-    - go_name: SecurityModeOpen
-      value: "0"
-      go_type: int
-    - go_name: SecurityModeOpportunistic
-      value: "1"
-      go_type: int
-    - go_name: SecurityModeSecureAuth
-      value: "2"
-      go_type: int
     - go_name: StatusCodeFail
       value: "1"
       go_type: int
@@ -1109,46 +1160,4 @@ constants:
       go_type: int
     - go_name: ResponderSta
       value: "1"
-      go_type: int
-    - go_name: AkmFilsEapSha256
-      value: "64"
-      go_type: int
-    - go_name: AkmFilsEapSha384
-      value: "128"
-      go_type: int
-    - go_name: AkmFtEapSha256
-      value: "4"
-      go_type: int
-    - go_name: AkmFtEapSha384
-      value: "16"
-      go_type: int
-    - go_name: AkmFtPskSha256
-      value: "8"
-      go_type: int
-    - go_name: AkmFtPskSha384
-      value: "32"
-      go_type: int
-    - go_name: AkmNone
-      value: "0"
-      go_type: int
-    - go_name: AkmPasn
-      value: "1"
-      go_type: int
-    - go_name: AkmSae
-      value: "2"
-      go_type: int
-    - go_name: CipherCcmp128
-      value: "1"
-      go_type: int
-    - go_name: CipherCcmp256
-      value: "2"
-      go_type: int
-    - go_name: CipherGcmp128
-      value: "4"
-      go_type: int
-    - go_name: CipherGcmp256
-      value: "8"
-      go_type: int
-    - go_name: CipherNone
-      value: "0"
       go_type: int

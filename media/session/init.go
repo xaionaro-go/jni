@@ -23,39 +23,6 @@ var (
 	initOnce sync.Once
 	initErr  error
 
-	clsMediaSessionManager                                            *jni.GlobalRef
-	midMediaSessionManagerAddOnActiveSessionsChangedListener          jni.MethodID
-	midMediaSessionManagerAddOnMediaKeyEventSessionChangedListener    jni.MethodID
-	midMediaSessionManagerAddOnSession2TokensChangedListener          jni.MethodID
-	midMediaSessionManagerGetActiveSessions                           jni.MethodID
-	midMediaSessionManagerGetMediaKeyEventSession                     jni.MethodID
-	midMediaSessionManagerGetMediaKeyEventSessionPackageName          jni.MethodID
-	midMediaSessionManagerGetSession2Tokens                           jni.MethodID
-	midMediaSessionManagerIsTrustedForMediaControl                    jni.MethodID
-	midMediaSessionManagerNotifySession2Created                       jni.MethodID
-	midMediaSessionManagerRemoveOnActiveSessionsChangedListener       jni.MethodID
-	midMediaSessionManagerRemoveOnMediaKeyEventSessionChangedListener jni.MethodID
-	midMediaSessionManagerRemoveOnSession2TokensChangedListener       jni.MethodID
-	midMediaSessionManagerToString                                    jni.MethodID
-
-	clsMediaSessionManagerOnActiveSessionsChangedListener         *jni.GlobalRef
-	midMediaSessionManagerOnActiveSessionsChangedListenerToString jni.MethodID
-
-	clsMediaSessionManagerOnMediaKeyEventSessionChangedListener                              *jni.GlobalRef
-	midMediaSessionManagerOnMediaKeyEventSessionChangedListenerOnMediaKeyEventSessionChanged jni.MethodID
-	midMediaSessionManagerOnMediaKeyEventSessionChangedListenerToString                      jni.MethodID
-
-	clsMediaSessionManagerOnSession2TokensChangedListener         *jni.GlobalRef
-	midMediaSessionManagerOnSession2TokensChangedListenerToString jni.MethodID
-
-	clsMediaSessionManagerRemoteUserInfo               *jni.GlobalRef
-	midMediaSessionManagerRemoteUserInfoEquals         jni.MethodID
-	midMediaSessionManagerRemoteUserInfoGetPackageName jni.MethodID
-	midMediaSessionManagerRemoteUserInfoGetPid         jni.MethodID
-	midMediaSessionManagerRemoteUserInfoGetUid         jni.MethodID
-	midMediaSessionManagerRemoteUserInfoHashCode       jni.MethodID
-	midMediaSessionManagerRemoteUserInfoToString       jni.MethodID
-
 	clsMediaSession                                *jni.GlobalRef
 	midMediaSessionCtor                            jni.MethodID
 	midMediaSessionGetController                   jni.MethodID
@@ -118,43 +85,38 @@ var (
 	midMediaSessionTokenWriteToParcel    jni.MethodID
 	midMediaSessionTokenToString         jni.MethodID
 
-	clsPlaybackState                          *jni.GlobalRef
-	midPlaybackStateDescribeContents          jni.MethodID
-	midPlaybackStateGetActions                jni.MethodID
-	midPlaybackStateGetActiveQueueItemId      jni.MethodID
-	midPlaybackStateGetBufferedPosition       jni.MethodID
-	midPlaybackStateGetCustomActions          jni.MethodID
-	midPlaybackStateGetErrorMessage           jni.MethodID
-	midPlaybackStateGetExtras                 jni.MethodID
-	midPlaybackStateGetLastPositionUpdateTime jni.MethodID
-	midPlaybackStateGetPlaybackSpeed          jni.MethodID
-	midPlaybackStateGetPosition               jni.MethodID
-	midPlaybackStateGetState                  jni.MethodID
-	midPlaybackStateIsActive                  jni.MethodID
-	midPlaybackStateToString                  jni.MethodID
-	midPlaybackStateWriteToParcel             jni.MethodID
+	clsMediaSessionManager                                            *jni.GlobalRef
+	midMediaSessionManagerAddOnActiveSessionsChangedListener          jni.MethodID
+	midMediaSessionManagerAddOnMediaKeyEventSessionChangedListener    jni.MethodID
+	midMediaSessionManagerAddOnSession2TokensChangedListener          jni.MethodID
+	midMediaSessionManagerGetActiveSessions                           jni.MethodID
+	midMediaSessionManagerGetMediaKeyEventSession                     jni.MethodID
+	midMediaSessionManagerGetMediaKeyEventSessionPackageName          jni.MethodID
+	midMediaSessionManagerGetSession2Tokens                           jni.MethodID
+	midMediaSessionManagerIsTrustedForMediaControl                    jni.MethodID
+	midMediaSessionManagerNotifySession2Created                       jni.MethodID
+	midMediaSessionManagerRemoveOnActiveSessionsChangedListener       jni.MethodID
+	midMediaSessionManagerRemoveOnMediaKeyEventSessionChangedListener jni.MethodID
+	midMediaSessionManagerRemoveOnSession2TokensChangedListener       jni.MethodID
+	midMediaSessionManagerToString                                    jni.MethodID
 
-	clsPlaybackStateBuilder                     *jni.GlobalRef
-	midPlaybackStateBuilderAddCustomAction1     jni.MethodID
-	midPlaybackStateBuilderAddCustomAction3_1   jni.MethodID
-	midPlaybackStateBuilderBuild                jni.MethodID
-	midPlaybackStateBuilderSetActions           jni.MethodID
-	midPlaybackStateBuilderSetActiveQueueItemId jni.MethodID
-	midPlaybackStateBuilderSetBufferedPosition  jni.MethodID
-	midPlaybackStateBuilderSetErrorMessage      jni.MethodID
-	midPlaybackStateBuilderSetExtras            jni.MethodID
-	midPlaybackStateBuilderSetState3            jni.MethodID
-	midPlaybackStateBuilderSetState4_1          jni.MethodID
-	midPlaybackStateBuilderToString             jni.MethodID
+	clsMediaSessionManagerOnActiveSessionsChangedListener         *jni.GlobalRef
+	midMediaSessionManagerOnActiveSessionsChangedListenerToString jni.MethodID
 
-	clsPlaybackStateCustomAction                 *jni.GlobalRef
-	midPlaybackStateCustomActionDescribeContents jni.MethodID
-	midPlaybackStateCustomActionGetAction        jni.MethodID
-	midPlaybackStateCustomActionGetExtras        jni.MethodID
-	midPlaybackStateCustomActionGetIcon          jni.MethodID
-	midPlaybackStateCustomActionGetName          jni.MethodID
-	midPlaybackStateCustomActionToString         jni.MethodID
-	midPlaybackStateCustomActionWriteToParcel    jni.MethodID
+	clsMediaSessionManagerOnMediaKeyEventSessionChangedListener                              *jni.GlobalRef
+	midMediaSessionManagerOnMediaKeyEventSessionChangedListenerOnMediaKeyEventSessionChanged jni.MethodID
+	midMediaSessionManagerOnMediaKeyEventSessionChangedListenerToString                      jni.MethodID
+
+	clsMediaSessionManagerOnSession2TokensChangedListener         *jni.GlobalRef
+	midMediaSessionManagerOnSession2TokensChangedListenerToString jni.MethodID
+
+	clsMediaSessionManagerRemoteUserInfo               *jni.GlobalRef
+	midMediaSessionManagerRemoteUserInfoEquals         jni.MethodID
+	midMediaSessionManagerRemoteUserInfoGetPackageName jni.MethodID
+	midMediaSessionManagerRemoteUserInfoGetPid         jni.MethodID
+	midMediaSessionManagerRemoteUserInfoGetUid         jni.MethodID
+	midMediaSessionManagerRemoteUserInfoHashCode       jni.MethodID
+	midMediaSessionManagerRemoteUserInfoToString       jni.MethodID
 
 	clsMediaController                         *jni.GlobalRef
 	midMediaControllerCtor                     jni.MethodID
@@ -223,6 +185,44 @@ var (
 	midMediaControllerTransportControlsSkipToQueueItem     jni.MethodID
 	midMediaControllerTransportControlsStop                jni.MethodID
 	midMediaControllerTransportControlsToString            jni.MethodID
+
+	clsPlaybackState                          *jni.GlobalRef
+	midPlaybackStateDescribeContents          jni.MethodID
+	midPlaybackStateGetActions                jni.MethodID
+	midPlaybackStateGetActiveQueueItemId      jni.MethodID
+	midPlaybackStateGetBufferedPosition       jni.MethodID
+	midPlaybackStateGetCustomActions          jni.MethodID
+	midPlaybackStateGetErrorMessage           jni.MethodID
+	midPlaybackStateGetExtras                 jni.MethodID
+	midPlaybackStateGetLastPositionUpdateTime jni.MethodID
+	midPlaybackStateGetPlaybackSpeed          jni.MethodID
+	midPlaybackStateGetPosition               jni.MethodID
+	midPlaybackStateGetState                  jni.MethodID
+	midPlaybackStateIsActive                  jni.MethodID
+	midPlaybackStateToString                  jni.MethodID
+	midPlaybackStateWriteToParcel             jni.MethodID
+
+	clsPlaybackStateBuilder                     *jni.GlobalRef
+	midPlaybackStateBuilderAddCustomAction1     jni.MethodID
+	midPlaybackStateBuilderAddCustomAction3_1   jni.MethodID
+	midPlaybackStateBuilderBuild                jni.MethodID
+	midPlaybackStateBuilderSetActions           jni.MethodID
+	midPlaybackStateBuilderSetActiveQueueItemId jni.MethodID
+	midPlaybackStateBuilderSetBufferedPosition  jni.MethodID
+	midPlaybackStateBuilderSetErrorMessage      jni.MethodID
+	midPlaybackStateBuilderSetExtras            jni.MethodID
+	midPlaybackStateBuilderSetState3            jni.MethodID
+	midPlaybackStateBuilderSetState4_1          jni.MethodID
+	midPlaybackStateBuilderToString             jni.MethodID
+
+	clsPlaybackStateCustomAction                 *jni.GlobalRef
+	midPlaybackStateCustomActionDescribeContents jni.MethodID
+	midPlaybackStateCustomActionGetAction        jni.MethodID
+	midPlaybackStateCustomActionGetExtras        jni.MethodID
+	midPlaybackStateCustomActionGetIcon          jni.MethodID
+	midPlaybackStateCustomActionGetName          jni.MethodID
+	midPlaybackStateCustomActionToString         jni.MethodID
+	midPlaybackStateCustomActionWriteToParcel    jni.MethodID
 )
 
 func ensureInit(env *jni.Env) error {
@@ -242,217 +242,6 @@ func Init(env *jni.Env) error {
 func doInit(env *jni.Env) error {
 	var c *jni.Class
 	var err error
-
-	c, err = env.FindClass("android/media/session/MediaSessionManager")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsMediaSessionManager = env.NewGlobalRef(&c.Object)
-
-		midMediaSessionManagerAddOnActiveSessionsChangedListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaSessionManager)), "addOnActiveSessionsChangedListener", "(Landroid/media/session/MediaSessionManager$OnActiveSessionsChangedListener;Landroid/content/ComponentName;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMediaSessionManagerAddOnMediaKeyEventSessionChangedListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaSessionManager)), "addOnMediaKeyEventSessionChangedListener", "(Ljava/util/concurrent/Executor;Landroid/media/session/MediaSessionManager$OnMediaKeyEventSessionChangedListener;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMediaSessionManagerAddOnSession2TokensChangedListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaSessionManager)), "addOnSession2TokensChangedListener", "(Landroid/media/session/MediaSessionManager$OnSession2TokensChangedListener;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMediaSessionManagerGetActiveSessions, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaSessionManager)), "getActiveSessions", "(Landroid/content/ComponentName;)Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMediaSessionManagerGetMediaKeyEventSession, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaSessionManager)), "getMediaKeyEventSession", "()Landroid/media/session/MediaSession$Token;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMediaSessionManagerGetMediaKeyEventSessionPackageName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaSessionManager)), "getMediaKeyEventSessionPackageName", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMediaSessionManagerGetSession2Tokens, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaSessionManager)), "getSession2Tokens", "()Ljava/util/List;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMediaSessionManagerIsTrustedForMediaControl, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaSessionManager)), "isTrustedForMediaControl", "(Landroid/media/session/MediaSessionManager$RemoteUserInfo;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMediaSessionManagerNotifySession2Created, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaSessionManager)), "notifySession2Created", "(Landroid/media/Session2Token;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMediaSessionManagerRemoveOnActiveSessionsChangedListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaSessionManager)), "removeOnActiveSessionsChangedListener", "(Landroid/media/session/MediaSessionManager$OnActiveSessionsChangedListener;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMediaSessionManagerRemoveOnMediaKeyEventSessionChangedListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaSessionManager)), "removeOnMediaKeyEventSessionChangedListener", "(Landroid/media/session/MediaSessionManager$OnMediaKeyEventSessionChangedListener;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMediaSessionManagerRemoveOnSession2TokensChangedListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaSessionManager)), "removeOnSession2TokensChangedListener", "(Landroid/media/session/MediaSessionManager$OnSession2TokensChangedListener;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMediaSessionManagerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaSessionManager)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/media/session/MediaSessionManager$OnActiveSessionsChangedListener")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsMediaSessionManagerOnActiveSessionsChangedListener = env.NewGlobalRef(&c.Object)
-
-		midMediaSessionManagerOnActiveSessionsChangedListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaSessionManagerOnActiveSessionsChangedListener)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/media/session/MediaSessionManager$OnMediaKeyEventSessionChangedListener")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsMediaSessionManagerOnMediaKeyEventSessionChangedListener = env.NewGlobalRef(&c.Object)
-
-		midMediaSessionManagerOnMediaKeyEventSessionChangedListenerOnMediaKeyEventSessionChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaSessionManagerOnMediaKeyEventSessionChangedListener)), "onMediaKeyEventSessionChanged", "(Ljava/lang/String;Landroid/media/session/MediaSession$Token;)V")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMediaSessionManagerOnMediaKeyEventSessionChangedListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaSessionManagerOnMediaKeyEventSessionChangedListener)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/media/session/MediaSessionManager$OnSession2TokensChangedListener")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsMediaSessionManagerOnSession2TokensChangedListener = env.NewGlobalRef(&c.Object)
-
-		midMediaSessionManagerOnSession2TokensChangedListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaSessionManagerOnSession2TokensChangedListener)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
-
-	c, err = env.FindClass("android/media/session/MediaSessionManager$RemoteUserInfo")
-	if err != nil {
-		// Class may not exist on this device's API level; skip and
-		// report at invocation time instead of failing the entire init.
-		env.ExceptionClear()
-	} else {
-		clsMediaSessionManagerRemoteUserInfo = env.NewGlobalRef(&c.Object)
-
-		midMediaSessionManagerRemoteUserInfoEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaSessionManagerRemoteUserInfo)), "equals", "(Ljava/lang/Object;)Z")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMediaSessionManagerRemoteUserInfoGetPackageName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaSessionManagerRemoteUserInfo)), "getPackageName", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMediaSessionManagerRemoteUserInfoGetPid, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaSessionManagerRemoteUserInfo)), "getPid", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMediaSessionManagerRemoteUserInfoGetUid, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaSessionManagerRemoteUserInfo)), "getUid", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMediaSessionManagerRemoteUserInfoHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaSessionManagerRemoteUserInfo)), "hashCode", "()I")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midMediaSessionManagerRemoteUserInfoToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaSessionManagerRemoteUserInfo)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-	}
 
 	c, err = env.FindClass("android/media/session/MediaSession")
 	if err != nil {
@@ -869,106 +658,99 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/media/session/PlaybackState")
+	c, err = env.FindClass("android/media/session/MediaSessionManager")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsPlaybackState = env.NewGlobalRef(&c.Object)
+		clsMediaSessionManager = env.NewGlobalRef(&c.Object)
 
-		midPlaybackStateDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackState)), "describeContents", "()I")
+		midMediaSessionManagerAddOnActiveSessionsChangedListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaSessionManager)), "addOnActiveSessionsChangedListener", "(Landroid/media/session/MediaSessionManager$OnActiveSessionsChangedListener;Landroid/content/ComponentName;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midPlaybackStateGetActions, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackState)), "getActions", "()J")
+		midMediaSessionManagerAddOnMediaKeyEventSessionChangedListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaSessionManager)), "addOnMediaKeyEventSessionChangedListener", "(Ljava/util/concurrent/Executor;Landroid/media/session/MediaSessionManager$OnMediaKeyEventSessionChangedListener;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midPlaybackStateGetActiveQueueItemId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackState)), "getActiveQueueItemId", "()J")
+		midMediaSessionManagerAddOnSession2TokensChangedListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaSessionManager)), "addOnSession2TokensChangedListener", "(Landroid/media/session/MediaSessionManager$OnSession2TokensChangedListener;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midPlaybackStateGetBufferedPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackState)), "getBufferedPosition", "()J")
+		midMediaSessionManagerGetActiveSessions, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaSessionManager)), "getActiveSessions", "(Landroid/content/ComponentName;)Ljava/util/List;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midPlaybackStateGetCustomActions, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackState)), "getCustomActions", "()Ljava/util/List;")
+		midMediaSessionManagerGetMediaKeyEventSession, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaSessionManager)), "getMediaKeyEventSession", "()Landroid/media/session/MediaSession$Token;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midPlaybackStateGetErrorMessage, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackState)), "getErrorMessage", "()Ljava/lang/CharSequence;")
+		midMediaSessionManagerGetMediaKeyEventSessionPackageName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaSessionManager)), "getMediaKeyEventSessionPackageName", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midPlaybackStateGetExtras, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackState)), "getExtras", "()Landroid/os/Bundle;")
+		midMediaSessionManagerGetSession2Tokens, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaSessionManager)), "getSession2Tokens", "()Ljava/util/List;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midPlaybackStateGetLastPositionUpdateTime, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackState)), "getLastPositionUpdateTime", "()J")
+		midMediaSessionManagerIsTrustedForMediaControl, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaSessionManager)), "isTrustedForMediaControl", "(Landroid/media/session/MediaSessionManager$RemoteUserInfo;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midPlaybackStateGetPlaybackSpeed, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackState)), "getPlaybackSpeed", "()F")
+		midMediaSessionManagerNotifySession2Created, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaSessionManager)), "notifySession2Created", "(Landroid/media/Session2Token;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midPlaybackStateGetPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackState)), "getPosition", "()J")
+		midMediaSessionManagerRemoveOnActiveSessionsChangedListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaSessionManager)), "removeOnActiveSessionsChangedListener", "(Landroid/media/session/MediaSessionManager$OnActiveSessionsChangedListener;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midPlaybackStateGetState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackState)), "getState", "()I")
+		midMediaSessionManagerRemoveOnMediaKeyEventSessionChangedListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaSessionManager)), "removeOnMediaKeyEventSessionChangedListener", "(Landroid/media/session/MediaSessionManager$OnMediaKeyEventSessionChangedListener;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midPlaybackStateIsActive, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackState)), "isActive", "()Z")
+		midMediaSessionManagerRemoveOnSession2TokensChangedListener, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaSessionManager)), "removeOnSession2TokensChangedListener", "(Landroid/media/session/MediaSessionManager$OnSession2TokensChangedListener;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midPlaybackStateToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackState)), "toString", "()Ljava/lang/String;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPlaybackStateWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackState)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midMediaSessionManagerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaSessionManager)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -977,85 +759,15 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/media/session/PlaybackState$Builder")
+	c, err = env.FindClass("android/media/session/MediaSessionManager$OnActiveSessionsChangedListener")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsPlaybackStateBuilder = env.NewGlobalRef(&c.Object)
+		clsMediaSessionManagerOnActiveSessionsChangedListener = env.NewGlobalRef(&c.Object)
 
-		midPlaybackStateBuilderAddCustomAction1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackStateBuilder)), "addCustomAction", "(Landroid/media/session/PlaybackState$CustomAction;)Landroid/media/session/PlaybackState$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPlaybackStateBuilderAddCustomAction3_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackStateBuilder)), "addCustomAction", "(Ljava/lang/String;Ljava/lang/String;I)Landroid/media/session/PlaybackState$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPlaybackStateBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackStateBuilder)), "build", "()Landroid/media/session/PlaybackState;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPlaybackStateBuilderSetActions, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackStateBuilder)), "setActions", "(J)Landroid/media/session/PlaybackState$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPlaybackStateBuilderSetActiveQueueItemId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackStateBuilder)), "setActiveQueueItemId", "(J)Landroid/media/session/PlaybackState$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPlaybackStateBuilderSetBufferedPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackStateBuilder)), "setBufferedPosition", "(J)Landroid/media/session/PlaybackState$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPlaybackStateBuilderSetErrorMessage, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackStateBuilder)), "setErrorMessage", "(Ljava/lang/CharSequence;)Landroid/media/session/PlaybackState$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPlaybackStateBuilderSetExtras, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackStateBuilder)), "setExtras", "(Landroid/os/Bundle;)Landroid/media/session/PlaybackState$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPlaybackStateBuilderSetState3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackStateBuilder)), "setState", "(IJF)Landroid/media/session/PlaybackState$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPlaybackStateBuilderSetState4_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackStateBuilder)), "setState", "(IJFJ)Landroid/media/session/PlaybackState$Builder;")
-		if err != nil {
-			// Method may not exist on this device's API level; skip and
-			// report at invocation time instead of failing the entire init.
-			env.ExceptionClear()
-		}
-
-		midPlaybackStateBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackStateBuilder)), "toString", "()Ljava/lang/String;")
+		midMediaSessionManagerOnActiveSessionsChangedListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaSessionManagerOnActiveSessionsChangedListener)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1064,57 +776,91 @@ func doInit(env *jni.Env) error {
 
 	}
 
-	c, err = env.FindClass("android/media/session/PlaybackState$CustomAction")
+	c, err = env.FindClass("android/media/session/MediaSessionManager$OnMediaKeyEventSessionChangedListener")
 	if err != nil {
 		// Class may not exist on this device's API level; skip and
 		// report at invocation time instead of failing the entire init.
 		env.ExceptionClear()
 	} else {
-		clsPlaybackStateCustomAction = env.NewGlobalRef(&c.Object)
+		clsMediaSessionManagerOnMediaKeyEventSessionChangedListener = env.NewGlobalRef(&c.Object)
 
-		midPlaybackStateCustomActionDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackStateCustomAction)), "describeContents", "()I")
+		midMediaSessionManagerOnMediaKeyEventSessionChangedListenerOnMediaKeyEventSessionChanged, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaSessionManagerOnMediaKeyEventSessionChangedListener)), "onMediaKeyEventSessionChanged", "(Ljava/lang/String;Landroid/media/session/MediaSession$Token;)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midPlaybackStateCustomActionGetAction, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackStateCustomAction)), "getAction", "()Ljava/lang/String;")
+		midMediaSessionManagerOnMediaKeyEventSessionChangedListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaSessionManagerOnMediaKeyEventSessionChangedListener)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midPlaybackStateCustomActionGetExtras, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackStateCustomAction)), "getExtras", "()Landroid/os/Bundle;")
+	}
+
+	c, err = env.FindClass("android/media/session/MediaSessionManager$OnSession2TokensChangedListener")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsMediaSessionManagerOnSession2TokensChangedListener = env.NewGlobalRef(&c.Object)
+
+		midMediaSessionManagerOnSession2TokensChangedListenerToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaSessionManagerOnSession2TokensChangedListener)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midPlaybackStateCustomActionGetIcon, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackStateCustomAction)), "getIcon", "()I")
+	}
+
+	c, err = env.FindClass("android/media/session/MediaSessionManager$RemoteUserInfo")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsMediaSessionManagerRemoteUserInfo = env.NewGlobalRef(&c.Object)
+
+		midMediaSessionManagerRemoteUserInfoEquals, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaSessionManagerRemoteUserInfo)), "equals", "(Ljava/lang/Object;)Z")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midPlaybackStateCustomActionGetName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackStateCustomAction)), "getName", "()Ljava/lang/CharSequence;")
+		midMediaSessionManagerRemoteUserInfoGetPackageName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaSessionManagerRemoteUserInfo)), "getPackageName", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midPlaybackStateCustomActionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackStateCustomAction)), "toString", "()Ljava/lang/String;")
+		midMediaSessionManagerRemoteUserInfoGetPid, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaSessionManagerRemoteUserInfo)), "getPid", "()I")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
 			env.ExceptionClear()
 		}
 
-		midPlaybackStateCustomActionWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackStateCustomAction)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		midMediaSessionManagerRemoteUserInfoGetUid, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaSessionManagerRemoteUserInfo)), "getUid", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMediaSessionManagerRemoteUserInfoHashCode, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaSessionManagerRemoteUserInfo)), "hashCode", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midMediaSessionManagerRemoteUserInfoToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaSessionManagerRemoteUserInfo)), "toString", "()Ljava/lang/String;")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.
@@ -1572,6 +1318,260 @@ func doInit(env *jni.Env) error {
 		}
 
 		midMediaControllerTransportControlsToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsMediaControllerTransportControls)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/media/session/PlaybackState")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsPlaybackState = env.NewGlobalRef(&c.Object)
+
+		midPlaybackStateDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackState)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPlaybackStateGetActions, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackState)), "getActions", "()J")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPlaybackStateGetActiveQueueItemId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackState)), "getActiveQueueItemId", "()J")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPlaybackStateGetBufferedPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackState)), "getBufferedPosition", "()J")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPlaybackStateGetCustomActions, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackState)), "getCustomActions", "()Ljava/util/List;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPlaybackStateGetErrorMessage, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackState)), "getErrorMessage", "()Ljava/lang/CharSequence;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPlaybackStateGetExtras, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackState)), "getExtras", "()Landroid/os/Bundle;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPlaybackStateGetLastPositionUpdateTime, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackState)), "getLastPositionUpdateTime", "()J")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPlaybackStateGetPlaybackSpeed, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackState)), "getPlaybackSpeed", "()F")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPlaybackStateGetPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackState)), "getPosition", "()J")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPlaybackStateGetState, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackState)), "getState", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPlaybackStateIsActive, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackState)), "isActive", "()Z")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPlaybackStateToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackState)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPlaybackStateWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackState)), "writeToParcel", "(Landroid/os/Parcel;I)V")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/media/session/PlaybackState$Builder")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsPlaybackStateBuilder = env.NewGlobalRef(&c.Object)
+
+		midPlaybackStateBuilderAddCustomAction1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackStateBuilder)), "addCustomAction", "(Landroid/media/session/PlaybackState$CustomAction;)Landroid/media/session/PlaybackState$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPlaybackStateBuilderAddCustomAction3_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackStateBuilder)), "addCustomAction", "(Ljava/lang/String;Ljava/lang/String;I)Landroid/media/session/PlaybackState$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPlaybackStateBuilderBuild, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackStateBuilder)), "build", "()Landroid/media/session/PlaybackState;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPlaybackStateBuilderSetActions, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackStateBuilder)), "setActions", "(J)Landroid/media/session/PlaybackState$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPlaybackStateBuilderSetActiveQueueItemId, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackStateBuilder)), "setActiveQueueItemId", "(J)Landroid/media/session/PlaybackState$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPlaybackStateBuilderSetBufferedPosition, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackStateBuilder)), "setBufferedPosition", "(J)Landroid/media/session/PlaybackState$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPlaybackStateBuilderSetErrorMessage, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackStateBuilder)), "setErrorMessage", "(Ljava/lang/CharSequence;)Landroid/media/session/PlaybackState$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPlaybackStateBuilderSetExtras, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackStateBuilder)), "setExtras", "(Landroid/os/Bundle;)Landroid/media/session/PlaybackState$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPlaybackStateBuilderSetState3, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackStateBuilder)), "setState", "(IJF)Landroid/media/session/PlaybackState$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPlaybackStateBuilderSetState4_1, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackStateBuilder)), "setState", "(IJFJ)Landroid/media/session/PlaybackState$Builder;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPlaybackStateBuilderToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackStateBuilder)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+	}
+
+	c, err = env.FindClass("android/media/session/PlaybackState$CustomAction")
+	if err != nil {
+		// Class may not exist on this device's API level; skip and
+		// report at invocation time instead of failing the entire init.
+		env.ExceptionClear()
+	} else {
+		clsPlaybackStateCustomAction = env.NewGlobalRef(&c.Object)
+
+		midPlaybackStateCustomActionDescribeContents, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackStateCustomAction)), "describeContents", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPlaybackStateCustomActionGetAction, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackStateCustomAction)), "getAction", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPlaybackStateCustomActionGetExtras, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackStateCustomAction)), "getExtras", "()Landroid/os/Bundle;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPlaybackStateCustomActionGetIcon, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackStateCustomAction)), "getIcon", "()I")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPlaybackStateCustomActionGetName, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackStateCustomAction)), "getName", "()Ljava/lang/CharSequence;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPlaybackStateCustomActionToString, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackStateCustomAction)), "toString", "()Ljava/lang/String;")
+		if err != nil {
+			// Method may not exist on this device's API level; skip and
+			// report at invocation time instead of failing the entire init.
+			env.ExceptionClear()
+		}
+
+		midPlaybackStateCustomActionWriteToParcel, err = env.GetMethodID((*jni.Class)(unsafe.Pointer(clsPlaybackStateCustomAction)), "writeToParcel", "(Landroid/os/Parcel;I)V")
 		if err != nil {
 			// Method may not exist on this device's API level; skip and
 			// report at invocation time instead of failing the entire init.

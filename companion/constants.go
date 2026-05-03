@@ -6,13 +6,6 @@ import "github.com/AndroidGoLab/jni/companion/consts"
 
 const (
 	Creator                     = consts.Creator
-	EventBleAppeared            = consts.EventBleAppeared
-	EventBleDisappeared         = consts.EventBleDisappeared
-	EventBtConnected            = consts.EventBtConnected
-	EventBtDisconnected         = consts.EventBtDisconnected
-	EventSelfManagedAppeared    = consts.EventSelfManagedAppeared
-	EventSelfManagedDisappeared = consts.EventSelfManagedDisappeared
-	NoAssociation               = consts.NoAssociation
 	FlagCallMetadata            = consts.FlagCallMetadata
 	ResultCanceled              = consts.ResultCanceled
 	ResultDiscoveryTimeout      = consts.ResultDiscoveryTimeout
@@ -20,9 +13,17 @@ const (
 	ResultOk                    = consts.ResultOk
 	ResultSecurityError         = consts.ResultSecurityError
 	ResultUserRejected          = consts.ResultUserRejected
+	EventBleAppeared            = consts.EventBleAppeared
+	EventBleDisappeared         = consts.EventBleDisappeared
+	EventBtConnected            = consts.EventBtConnected
+	EventBtDisconnected         = consts.EventBtDisconnected
+	EventSelfManagedAppeared    = consts.EventSelfManagedAppeared
+	EventSelfManagedDisappeared = consts.EventSelfManagedDisappeared
+	NoAssociation               = consts.NoAssociation
 )
 
 const (
+	ServiceInterface                   = consts.ServiceInterface
 	DeviceProfileAppStreaming          = consts.DeviceProfileAppStreaming
 	DeviceProfileAutomotiveProjection  = consts.DeviceProfileAutomotiveProjection
 	DeviceProfileComputer              = consts.DeviceProfileComputer
@@ -31,5 +32,4 @@ const (
 	DeviceProfileWatch                 = consts.DeviceProfileWatch
 	ExtraAssociation                   = consts.ExtraAssociation
 	ExtraDevice                        = consts.ExtraDevice
-	ServiceInterface                   = consts.ServiceInterface
 )

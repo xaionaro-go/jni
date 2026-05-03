@@ -4,13 +4,6 @@ package consts
 
 const (
 	Creator                     int = 0
-	EventBleAppeared            int = 0
-	EventBleDisappeared         int = 1
-	EventBtConnected            int = 2
-	EventBtDisconnected         int = 3
-	EventSelfManagedAppeared    int = 4
-	EventSelfManagedDisappeared int = 5
-	NoAssociation               int = -1
 	FlagCallMetadata            int = 1
 	ResultCanceled              int = 0
 	ResultDiscoveryTimeout      int = 2
@@ -18,9 +11,17 @@ const (
 	ResultOk                    int = -1
 	ResultSecurityError         int = 4
 	ResultUserRejected          int = 1
+	EventBleAppeared            int = 0
+	EventBleDisappeared         int = 1
+	EventBtConnected            int = 2
+	EventBtDisconnected         int = 3
+	EventSelfManagedAppeared    int = 4
+	EventSelfManagedDisappeared int = 5
+	NoAssociation               int = -1
 )
 
 const (
+	ServiceInterface                   string = "android.companion.CompanionDeviceService"
 	DeviceProfileAppStreaming          string = "android.app.role.COMPANION_DEVICE_APP_STREAMING"
 	DeviceProfileAutomotiveProjection  string = "android.app.role.SYSTEM_AUTOMOTIVE_PROJECTION"
 	DeviceProfileComputer              string = "android.app.role.COMPANION_DEVICE_COMPUTER"
@@ -29,5 +30,4 @@ const (
 	DeviceProfileWatch                 string = "android.app.role.COMPANION_DEVICE_WATCH"
 	ExtraAssociation                   string = "android.companion.extra.ASSOCIATION"
 	ExtraDevice                        string = "android.companion.extra.DEVICE"
-	ServiceInterface                   string = "android.companion.CompanionDeviceService"
 )

@@ -16,9 +16,6 @@ const (
 	TypeBoth                int = 3
 	TypeIdentity            int = 0
 	TypeMatrix              int = 2
-	OrderNormal             int = 0
-	OrderRandom             int = 2
-	OrderReverse            int = 1
 	Absolute                int = 0
 	Infinite                int = -1
 	RelativeToParent        int = 2
@@ -29,4 +26,7 @@ const (
 	ZorderBottom            int = -1
 	ZorderNormal            int = 0
 	ZorderTop               int = 1
+	OrderNormal             int = 0
+	OrderRandom             int = 2
+	OrderReverse            int = 1
 )

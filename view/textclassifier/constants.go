@@ -5,19 +5,11 @@ package textclassifier
 import "github.com/AndroidGoLab/jni/view/textclassifier/consts"
 
 const (
-	Creator                     = consts.Creator
-	NoOp                        = consts.NoOp
-	ApplyStrategyIgnore         = consts.ApplyStrategyIgnore
-	ApplyStrategyReplace        = consts.ApplyStrategyReplace
-	StatusDifferentText         = consts.StatusDifferentText
-	StatusLinksApplied          = consts.StatusLinksApplied
-	StatusNoLinksApplied        = consts.StatusNoLinksApplied
-	StatusNoLinksFound          = consts.StatusNoLinksFound
-	StatusUnsupportedCharacter  = consts.StatusUnsupportedCharacter
 	CategoryConversationActions = consts.CategoryConversationActions
 	CategoryLanguageDetection   = consts.CategoryLanguageDetection
 	CategoryLinkify             = consts.CategoryLinkify
 	CategorySelection           = consts.CategorySelection
+	Creator                     = consts.Creator
 	TypeActionsGenerated        = consts.TypeActionsGenerated
 	TypeActionsShown            = consts.TypeActionsShown
 	TypeAutoSelection           = consts.TypeAutoSelection
@@ -60,9 +52,19 @@ const (
 	InvocationLink              = consts.InvocationLink
 	InvocationManual            = consts.InvocationManual
 	InvocationUnknown           = consts.InvocationUnknown
+	NoOp                        = consts.NoOp
+	ApplyStrategyIgnore         = consts.ApplyStrategyIgnore
+	ApplyStrategyReplace        = consts.ApplyStrategyReplace
+	StatusDifferentText         = consts.StatusDifferentText
+	StatusLinksApplied          = consts.StatusLinksApplied
+	StatusNoLinksApplied        = consts.StatusNoLinksApplied
+	StatusNoLinksFound          = consts.StatusNoLinksFound
+	StatusUnsupportedCharacter  = consts.StatusUnsupportedCharacter
 )
 
 const (
+	HintForInApp                         = consts.HintForInApp
+	HintForNotification                  = consts.HintForNotification
 	ExtraFromTextClassifier              = consts.ExtraFromTextClassifier
 	ExtraTextOriginPackage               = consts.ExtraTextOriginPackage
 	HintTextIsEditable                   = consts.HintTextIsEditable
@@ -98,6 +100,4 @@ const (
 	TypeTrackFlight                      = consts.TypeTrackFlight
 	TypeViewCalendar                     = consts.TypeViewCalendar
 	TypeViewMap                          = consts.TypeViewMap
-	HintForInApp                         = consts.HintForInApp
-	HintForNotification                  = consts.HintForNotification
 )

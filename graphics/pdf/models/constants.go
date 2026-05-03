@@ -6,9 +6,6 @@ import "github.com/AndroidGoLab/jni/graphics/pdf/models/consts"
 
 const (
 	Creator               = consts.Creator
-	EditTypeClick         = consts.EditTypeClick
-	EditTypeSetIndices    = consts.EditTypeSetIndices
-	EditTypeSetText       = consts.EditTypeSetText
 	WidgetTypeCheckbox    = consts.WidgetTypeCheckbox
 	WidgetTypeCombobox    = consts.WidgetTypeCombobox
 	WidgetTypeListbox     = consts.WidgetTypeListbox
@@ -17,4 +14,7 @@ const (
 	WidgetTypeSignature   = consts.WidgetTypeSignature
 	WidgetTypeTextfield   = consts.WidgetTypeTextfield
 	WidgetTypeUnknown     = consts.WidgetTypeUnknown
+	EditTypeClick         = consts.EditTypeClick
+	EditTypeSetIndices    = consts.EditTypeSetIndices
+	EditTypeSetText       = consts.EditTypeSetText
 )

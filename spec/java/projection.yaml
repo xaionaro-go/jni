@@ -5,6 +5,43 @@
 package: projection
 go_import: github.com/AndroidGoLab/jni/media/projection
 classes:
+    - java_class: android.media.projection.MediaProjection
+      go_type: MediaProjection
+      methods:
+        - java_method: stop
+          go_name: Stop
+          returns: void
+          error: true
+        - java_method: unregisterCallback
+          go_name: UnregisterCallback
+          params:
+            - java_type: android.media.projection.MediaProjection$Callback
+              go_name: arg0
+          returns: void
+          error: true
+    - java_class: android.media.projection.MediaProjection$Callback
+      go_type: MediaProjectionCallback
+      methods:
+        - java_method: onCapturedContentResize
+          go_name: OnCapturedContentResize
+          params:
+            - java_type: int
+              go_name: arg0
+            - java_type: int
+              go_name: arg1
+          returns: void
+          error: true
+        - java_method: onCapturedContentVisibilityChanged
+          go_name: OnCapturedContentVisibilityChanged
+          params:
+            - java_type: boolean
+              go_name: arg0
+          returns: void
+          error: true
+        - java_method: onStop
+          go_name: OnStop
+          returns: void
+          error: true
     - java_class: android.media.projection.MediaProjectionConfig
       go_type: MediaProjectionConfig
       methods:
@@ -130,43 +167,40 @@ classes:
               go_name: arg1
           returns: android.media.projection.MediaProjection
           error: true
-    - java_class: android.media.projection.MediaProjection
-      go_type: MediaProjection
-      methods:
-        - java_method: stop
-          go_name: Stop
-          returns: void
-          error: true
-        - java_method: unregisterCallback
-          go_name: UnregisterCallback
-          params:
-            - java_type: android.media.projection.MediaProjection$Callback
-              go_name: arg0
-          returns: void
-          error: true
+abstract_callbacks:
     - java_class: android.media.projection.MediaProjection$Callback
-      go_type: MediaProjectionCallback
+      go_type: MediaProjectionCallbackCallback
       methods:
         - java_method: onCapturedContentResize
-          go_name: OnCapturedContentResize
           params:
-            - java_type: int
-              go_name: arg0
-            - java_type: int
-              go_name: arg1
+            - int
+            - int
           returns: void
-          error: true
+          go_field: OnCapturedContentResize
         - java_method: onCapturedContentVisibilityChanged
-          go_name: OnCapturedContentVisibilityChanged
           params:
-            - java_type: boolean
-              go_name: arg0
+            - boolean
           returns: void
-          error: true
+          go_field: OnCapturedContentVisibilityChanged
         - java_method: onStop
-          go_name: OnStop
+          params: []
           returns: void
-          error: true
+          go_field: OnStop
+    - java_class: android.hardware.display.VirtualDisplay$Callback
+      go_type: VirtualDisplayCallbackCallback
+      methods:
+        - java_method: onPaused
+          params: []
+          returns: void
+          go_field: OnPaused
+        - java_method: onResumed
+          params: []
+          returns: void
+          go_field: OnResumed
+        - java_method: onStopped
+          params: []
+          returns: void
+          go_field: OnStopped
 constants:
     - go_name: Creator
       value: "0"

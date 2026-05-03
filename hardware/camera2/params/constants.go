@@ -5,10 +5,30 @@ package params
 import "github.com/AndroidGoLab/jni/hardware/camera2/params/consts"
 
 const (
+	Count                            = consts.Count
+	Usecase10bitOutput               = consts.Usecase10bitOutput
+	UsecaseLowLatencySnapshot        = consts.UsecaseLowLatencySnapshot
+	UsecasePreview                   = consts.UsecasePreview
+	UsecaseRaw                       = consts.UsecaseRaw
+	UsecaseRecord                    = consts.UsecaseRecord
+	UsecaseSnapshot                  = consts.UsecaseSnapshot
+	UsecaseVideoSnapshot             = consts.UsecaseVideoSnapshot
+	UsecaseZsl                       = consts.UsecaseZsl
+	IdUnsupported                    = consts.IdUnsupported
+	ScoreMax                         = consts.ScoreMax
+	ScoreMin                         = consts.ScoreMin
+	Unspecified                      = consts.Unspecified
 	MeteringWeightDontCare           = consts.MeteringWeightDontCare
 	MeteringWeightMax                = consts.MeteringWeightMax
 	MeteringWeightMin                = consts.MeteringWeightMin
-	Unspecified                      = consts.Unspecified
+	Blue                             = consts.Blue
+	GreenEven                        = consts.GreenEven
+	GreenOdd                         = consts.GreenOdd
+	Red                              = consts.Red
+	ChannelBlue                      = consts.ChannelBlue
+	ChannelGreen                     = consts.ChannelGreen
+	ChannelRed                       = consts.ChannelRed
+	PointSize                        = consts.PointSize
 	Creator                          = consts.Creator
 	MirrorModeAuto                   = consts.MirrorModeAuto
 	MirrorModeH                      = consts.MirrorModeH
@@ -22,29 +42,11 @@ const (
 	TimestampBaseSensor              = consts.TimestampBaseSensor
 	SessionHighSpeed                 = consts.SessionHighSpeed
 	SessionRegular                   = consts.SessionRegular
-	IdUnsupported                    = consts.IdUnsupported
-	ScoreMax                         = consts.ScoreMax
-	ScoreMin                         = consts.ScoreMin
-	ChannelBlue                      = consts.ChannelBlue
-	ChannelGreen                     = consts.ChannelGreen
-	ChannelRed                       = consts.ChannelRed
-	PointSize                        = consts.PointSize
-	Blue                             = consts.Blue
-	Count                            = consts.Count
-	GreenEven                        = consts.GreenEven
-	GreenOdd                         = consts.GreenOdd
-	Red                              = consts.Red
-	Usecase10bitOutput               = consts.Usecase10bitOutput
-	UsecaseLowLatencySnapshot        = consts.UsecaseLowLatencySnapshot
-	UsecasePreview                   = consts.UsecasePreview
-	UsecaseRaw                       = consts.UsecaseRaw
-	UsecaseRecord                    = consts.UsecaseRecord
-	UsecaseSnapshot                  = consts.UsecaseSnapshot
-	UsecaseVideoSnapshot             = consts.UsecaseVideoSnapshot
-	UsecaseZsl                       = consts.UsecaseZsl
 )
 
 const (
+	Folded                 = consts.Folded
+	Normal                 = consts.Normal
 	DolbyVision10bHdrOem   = consts.DolbyVision10bHdrOem
 	DolbyVision10bHdrOemPo = consts.DolbyVision10bHdrOemPo
 	DolbyVision10bHdrRef   = consts.DolbyVision10bHdrRef
@@ -58,12 +60,10 @@ const (
 	Hlg10                  = consts.Hlg10
 	PublicMax              = consts.PublicMax
 	Standard               = consts.Standard
-	Folded                 = consts.Folded
-	Normal                 = consts.Normal
 )
 
 const (
+	MinimumGainFactor = consts.MinimumGainFactor
 	LevelBlack        = consts.LevelBlack
 	LevelWhite        = consts.LevelWhite
-	MinimumGainFactor = consts.MinimumGainFactor
 )

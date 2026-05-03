@@ -5,6 +5,27 @@
 package: autofill
 go_import: github.com/AndroidGoLab/jni/view/autofill
 classes:
+    - java_class: android.view.autofill.VirtualViewFillInfo
+      go_type: VirtualViewFillInfo
+      methods:
+        - java_method: getAutofillHints
+          go_name: GetAutofillHints
+          returns: java.lang.String[]
+          error: true
+    - java_class: android.view.autofill.VirtualViewFillInfo$Builder
+      go_type: VirtualViewFillInfoBuilder
+      methods:
+        - java_method: build
+          go_name: Build
+          returns: android.view.autofill.VirtualViewFillInfo
+          error: true
+        - java_method: setAutofillHints
+          go_name: SetAutofillHints
+          params:
+            - java_type: java.lang.String...
+              go_name: arg0
+          returns: android.view.autofill.VirtualViewFillInfo$Builder
+          error: true
     - java_class: android.view.autofill.AutofillManager
       go_type: Manager
       methods:
@@ -226,27 +247,6 @@ classes:
               go_name: arg2
           returns: void
           error: true
-    - java_class: android.view.autofill.VirtualViewFillInfo
-      go_type: VirtualViewFillInfo
-      methods:
-        - java_method: getAutofillHints
-          go_name: GetAutofillHints
-          returns: java.lang.String[]
-          error: true
-    - java_class: android.view.autofill.VirtualViewFillInfo$Builder
-      go_type: VirtualViewFillInfoBuilder
-      methods:
-        - java_method: build
-          go_name: Build
-          returns: android.view.autofill.VirtualViewFillInfo
-          error: true
-        - java_method: setAutofillHints
-          go_name: SetAutofillHints
-          params:
-            - java_type: java.lang.String...
-              go_name: arg0
-          returns: android.view.autofill.VirtualViewFillInfo$Builder
-          error: true
     - java_class: android.view.autofill.AutofillId
       go_type: Id
       methods:
@@ -400,6 +400,23 @@ classes:
               go_name: arg0
           returns: android.view.autofill.AutofillValue
           error: true
+abstract_callbacks:
+    - java_class: android.view.autofill.AutofillManager$AutofillCallback
+      go_type: ManagerAutofillCallbackCallback
+      methods:
+        - java_method: onAutofillEvent
+          params:
+            - android.view.View
+            - int
+          returns: void
+          go_field: OnAutofillEvent
+        - java_method: onAutofillEvent
+          params:
+            - android.view.View
+            - int
+            - int
+          returns: void
+          go_field: OnAutofillEvent
 constants:
     - go_name: ExtraAssistStructure
       value: '"android.view.autofill.extra.ASSIST_STRUCTURE"'
