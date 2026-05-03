@@ -66,6 +66,11 @@ DEXED_AAR_CLASSPATH = $(shell echo $(AAR_CLASSPATH) | tr ' ' '\n' | grep -v -E '
 # be repeated.
 JAR_INCLUDES = -I $(PLATFORM)/android.jar $(addprefix -I ,$(AAR_CLASSPATH))
 
+# AAR packages whose R.java aapt2 must also emit so each AAR's <clinit>
+# (which references its own R$style/R$id constants) can resolve at runtime.
+# Extracted from each AAR's AndroidManifest.xml at recipe time.
+EXTRA_PACKAGES = $(shell find $(AAR_CACHE) -name '*.aar' 2>/dev/null | while read aar; do unzip -p "$$aar" AndroidManifest.xml 2>/dev/null | grep -oP 'package="\K[^"]+'; done | sort -u | tr '\n' ':' | sed 's/:$$//')
+
 # aapt2 link consumes every AAR's compiled flats plus the example's flats,
 # emits R.java for the example's package, and writes base.apk with merged
 # resources. Manifest merging is intentionally minimal: aapt2 link --manifest
@@ -76,6 +81,7 @@ $(BUILD)/base-resources.apk $(GEN_DIR)/.stamp: $(BUILD)/AndroidManifest.xml $(BU
 	@mkdir -p $(GEN_DIR)
 	$(AAPT2) link --manifest $(BUILD)/AndroidManifest.xml \
 		--auto-add-overlay \
+		--extra-packages $(EXTRA_PACKAGES) \
 		$(JAR_INCLUDES) \
 		--min-sdk-version $(MIN_SDK) \
 		--target-sdk-version $(TARGET_SDK) \
@@ -92,7 +98,7 @@ $(BUILD)/classes.dex: $(GEN_DIR)/.stamp $(HANDLER_JAVA) $(DISPATCH_JAVA) $(EXAMP
 	@mkdir -p $(BUILD)/java
 	@CP="$(PLATFORM)/android.jar"; for j in $(AAR_CLASSPATH); do CP="$$CP:$$j"; done; \
 		javac --release 17 -classpath "$$CP" \
-			-d $(BUILD)/java $(HANDLER_JAVA) $(DISPATCH_JAVA) $(EXAMPLE_EXTRA_JAVA) \
+			-d $(BUILD)/java '$(HANDLER_JAVA)' '$(DISPATCH_JAVA)' $(foreach src,$(EXAMPLE_EXTRA_JAVA),'$(src)') \
 			$$(find $(GEN_DIR) -name '*.java')
 	@D8_LIBS=""; for j in $(DEXED_AAR_CLASSPATH); do D8_LIBS="$$D8_LIBS --classpath $$j"; done; \
 		$(D8) --min-api $(MIN_SDK) --lib $(PLATFORM)/android.jar $$D8_LIBS \

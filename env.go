@@ -1029,16 +1029,25 @@ func (e *Env) FatalError(msg string) {
 // reference management, and error checking automatically. Use Env methods
 // directly only as a last resort for functionality not yet covered by a
 // typed wrapper.
+//
+// When the platform-default FindClass fails (which happens for
+// APK-loaded classes from native threads where the JVM falls back to the
+// bootstrap class loader), this retries via the proxy class loader
+// installed by SetProxyClassLoader so AAR-bundled classes (Material 3,
+// RecyclerView, …) resolve uniformly from any thread.
 func (e *Env) FindClass(name string) (*Class, error) {
 	cName := append([]byte(name), 0)
 	_ret := capi.FindClass(e.ptr, (*capi.Cchar)(unsafe.Pointer(&cName[0])))
+	if _ret != 0 {
+		return &Class{Object{ref: capi.Object(_ret)}}, nil
+	}
+	if cls := findClassByLoaderFallback(e, name); cls != 0 {
+		return &Class{Object{ref: capi.Object(cls)}}, nil
+	}
 	if err := jnierr.CheckException(e.ptr); err != nil {
 		return nil, err
 	}
-	if _ret == 0 {
-		return nil, nil
-	}
-	return &Class{Object{ref: capi.Object(_ret)}}, nil
+	return nil, nil
 }
 
 // FromReflectedField wraps the JNI FromReflectedField function.
